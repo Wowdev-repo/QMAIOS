@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="DINNextLTPro-Regular.ttf">
+            <string>DINNextLTPro-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LoadingView" customModule="QatarMuseums" customModuleProvider="target">
+            <connections>
+                <outlet property="activityIndicator" destination="Qeb-KV-Ggt" id="wev-VN-pWI"/>
+                <outlet property="loadingView" destination="iN0-l3-epB" id="cD0-5c-RWH"/>
+                <outlet property="noDataLabel" destination="Ksa-ig-96y" id="YZa-kd-fZt"/>
+                <outlet property="noDataView" destination="mlG-Yt-lZL" id="5YA-Ed-MvK"/>
+                <outlet property="noNetworkText" destination="thu-2I-uU8" id="3iD-7q-6nT"/>
+                <outlet property="oopsLabel" destination="jFi-ki-btt" id="tnp-RG-jah"/>
+                <outlet property="tryAgainButton" destination="ba0-s4-LzE" id="Li4-GF-mT3"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mlG-Yt-lZL">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Oops!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jFi-ki-btt">
+                            <rect key="frame" x="164.5" y="275.5" width="46" height="21"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ksa-ig-96y">
+                            <rect key="frame" x="187.5" y="333.5" width="0.0" height="0.0"/>
+                            <fontDescription key="fontDescription" name="DINNextLTPro-Regular" family="DIN Next LT Pro" pointSize="18"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" editable="NO" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="thu-2I-uU8">
+                            <rect key="frame" x="25" y="316.5" width="325" height="33"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                        </textView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ba0-s4-LzE">
+                            <rect key="frame" x="108.5" y="369.5" width="158" height="48"/>
+                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="158" id="Udk-5f-Ogs"/>
+                                <constraint firstAttribute="height" constant="48" id="z0i-wr-rNY"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
+                            <state key="normal" title="Try again">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <connections>
+                                <action selector="didTapTryAgain:" destination="-1" eventType="touchUpInside" id="we1-KP-egW"/>
+                                <action selector="tryAgainButtonTouchDown:" destination="-1" eventType="touchDown" id="Ou8-ee-ZI5"/>
+                            </connections>
+                        </button>
+                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="Qeb-KV-Ggt">
+                            <rect key="frame" x="162" y="308.5" width="50" height="50"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="50" id="hn5-y9-ToK"/>
+                                <constraint firstAttribute="width" constant="50" id="jgj-DT-xZe"/>
+                            </constraints>
+                        </activityIndicatorView>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="thu-2I-uU8" secondAttribute="trailing" constant="25" id="2hb-vC-S6V"/>
+                        <constraint firstItem="thu-2I-uU8" firstAttribute="centerX" secondItem="mlG-Yt-lZL" secondAttribute="centerX" id="3pO-fs-Y86"/>
+                        <constraint firstItem="jFi-ki-btt" firstAttribute="centerX" secondItem="Ksa-ig-96y" secondAttribute="centerX" id="68M-Je-FsW"/>
+                        <constraint firstItem="thu-2I-uU8" firstAttribute="top" secondItem="jFi-ki-btt" secondAttribute="bottom" constant="20" id="HMu-Jm-KfJ"/>
+                        <constraint firstItem="Qeb-KV-Ggt" firstAttribute="centerX" secondItem="mlG-Yt-lZL" secondAttribute="centerX" id="Jx4-Sf-Ivo"/>
+                        <constraint firstItem="ba0-s4-LzE" firstAttribute="top" secondItem="thu-2I-uU8" secondAttribute="bottom" constant="20" id="Kzu-B9-66J"/>
+                        <constraint firstItem="Ksa-ig-96y" firstAttribute="centerY" secondItem="mlG-Yt-lZL" secondAttribute="centerY" id="MAg-jJ-cei"/>
+                        <constraint firstItem="Qeb-KV-Ggt" firstAttribute="centerY" secondItem="mlG-Yt-lZL" secondAttribute="centerY" id="Rq5-jF-yoC"/>
+                        <constraint firstItem="thu-2I-uU8" firstAttribute="centerY" secondItem="mlG-Yt-lZL" secondAttribute="centerY" id="XgR-2n-sXK"/>
+                        <constraint firstItem="thu-2I-uU8" firstAttribute="leading" secondItem="mlG-Yt-lZL" secondAttribute="leading" constant="25" id="aEN-pQ-zVo"/>
+                        <constraint firstItem="ba0-s4-LzE" firstAttribute="centerX" secondItem="Ksa-ig-96y" secondAttribute="centerX" id="rAe-EF-fDj"/>
+                        <constraint firstItem="Ksa-ig-96y" firstAttribute="centerX" secondItem="mlG-Yt-lZL" secondAttribute="centerX" id="yuf-B3-gUj"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="mlG-Yt-lZL" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="FUA-TL-DJu"/>
+                <constraint firstItem="mlG-Yt-lZL" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="K9I-A8-MmR"/>
+                <constraint firstAttribute="trailing" secondItem="mlG-Yt-lZL" secondAttribute="trailing" id="tch-Mb-fyX"/>
+                <constraint firstAttribute="bottom" secondItem="mlG-Yt-lZL" secondAttribute="bottom" id="utC-Kh-1AB"/>
+            </constraints>
+            <point key="canvasLocation" x="157.5" y="17.5"/>
+        </view>
+    </objects>
+</document>

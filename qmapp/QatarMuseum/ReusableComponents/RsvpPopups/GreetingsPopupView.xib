@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="DINNextLTPro-Bold.otf">
+            <string>DINNextLTPro-Bold</string>
+        </array>
+        <array key="DINNextLTPro-Regular.ttf">
+            <string>DINNextLTPro-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="GreetingsPopupPage" customModule="QatarMuseums" customModuleProvider="target">
+            <connections>
+                <outlet property="acceptLaterButton" destination="JpZ-tv-JRx" id="24H-1K-ntg"/>
+                <outlet property="acceptNowButton" destination="RkH-9x-FJK" id="UtI-eS-3Pd"/>
+                <outlet property="closeButton" destination="Lj9-ac-Kdz" id="tcL-ke-yfu"/>
+                <outlet property="descriptionLabel" destination="6hp-0t-BKX" id="n5d-pd-Ozo"/>
+                <outlet property="greetingsPopup" destination="iN0-l3-epB" id="BLb-tP-lnT"/>
+                <outlet property="greetingsPopupHeight" destination="8yB-zQ-Ps2" id="CuT-LR-1G2"/>
+                <outlet property="greetingsPopupInnerView" destination="iKo-SS-FRg" id="B0I-j9-RJU"/>
+                <outlet property="titleLabel" destination="HxL-o0-pNE" id="1ZO-rC-u2b"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" userLabel="Greetings Popup">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iKo-SS-FRg" userLabel="Greetings Popup Inner View">
+                    <rect key="frame" x="41.5" y="188.5" width="292.5" height="290"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="GREETINGS!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HxL-o0-pNE">
+                            <rect key="frame" x="89" y="27" width="114" height="21"/>
+                            <fontDescription key="fontDescription" name="DINNextLTPro-Bold" family="DIN Next LT Pro" pointSize="21"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xgI-Vh-v7R">
+                            <rect key="frame" x="125" y="56" width="42" height="3"/>
+                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="3" id="1cA-IJ-p6K"/>
+                                <constraint firstAttribute="width" constant="42" id="bT1-Lg-f7n"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="You have been invited for the launch event of National Museum of Qatar" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="6hp-0t-BKX">
+                            <rect key="frame" x="8" y="60" width="277" height="88"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <fontDescription key="fontDescription" name="DINNextLTPro-Regular" family="DIN Next LT Pro" pointSize="20"/>
+                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                        </textView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RkH-9x-FJK">
+                            <rect key="frame" x="39" y="162" width="214.5" height="44"/>
+                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="44" id="dwu-0X-1Ge"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="DINNextLTPro-Bold" family="DIN Next LT Pro" pointSize="19"/>
+                            <state key="normal" title="Accept Now">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                    <integer key="value" value="22"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="acceptNowButtonTouchDown:" destination="-1" eventType="touchDown" id="9ou-9u-3jr"/>
+                                <action selector="didTapacceptNowButton:" destination="-1" eventType="touchUpInside" id="cKE-Qq-agl"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JpZ-tv-JRx">
+                            <rect key="frame" x="39" y="216" width="214.5" height="44"/>
+                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="44" id="qcW-hc-ICB"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="DINNextLTPro-Bold" family="DIN Next LT Pro" pointSize="19"/>
+                            <state key="normal" title="Accept Later">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                    <integer key="value" value="22"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="acceptLaterButtonTouchDown:" destination="-1" eventType="touchDown" id="4hA-X0-uxW"/>
+                                <action selector="didTapacceptLaterButton:" destination="-1" eventType="touchUpInside" id="3CN-Fy-Pcd"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="RkH-9x-FJK" firstAttribute="top" secondItem="6hp-0t-BKX" secondAttribute="bottom" constant="14" id="3IB-EN-5BY"/>
+                        <constraint firstItem="HxL-o0-pNE" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="iKo-SS-FRg" secondAttribute="leading" constant="12" id="8Ah-V5-qDC"/>
+                        <constraint firstAttribute="height" constant="290" id="8yB-zQ-Ps2"/>
+                        <constraint firstItem="RkH-9x-FJK" firstAttribute="centerX" secondItem="xgI-Vh-v7R" secondAttribute="centerX" id="AfQ-J8-ad0"/>
+                        <constraint firstItem="RkH-9x-FJK" firstAttribute="trailing" secondItem="JpZ-tv-JRx" secondAttribute="trailing" id="NpI-tJ-U7w"/>
+                        <constraint firstItem="xgI-Vh-v7R" firstAttribute="centerX" secondItem="HxL-o0-pNE" secondAttribute="centerX" id="RBc-in-4sZ"/>
+                        <constraint firstAttribute="trailing" secondItem="6hp-0t-BKX" secondAttribute="trailing" constant="7.5" id="SHq-J3-7nd"/>
+                        <constraint firstItem="RkH-9x-FJK" firstAttribute="leading" secondItem="JpZ-tv-JRx" secondAttribute="leading" id="TF1-aX-8M6"/>
+                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="HxL-o0-pNE" secondAttribute="trailing" constant="12" id="VGA-fR-ziE"/>
+                        <constraint firstItem="xgI-Vh-v7R" firstAttribute="top" secondItem="HxL-o0-pNE" secondAttribute="bottom" constant="8" id="Vun-hg-9ht"/>
+                        <constraint firstItem="6hp-0t-BKX" firstAttribute="leading" secondItem="iKo-SS-FRg" secondAttribute="leading" constant="8" id="cK6-tX-lVW"/>
+                        <constraint firstItem="JpZ-tv-JRx" firstAttribute="top" secondItem="RkH-9x-FJK" secondAttribute="bottom" constant="10" id="pN9-xV-ZIk"/>
+                        <constraint firstAttribute="bottom" secondItem="JpZ-tv-JRx" secondAttribute="bottom" constant="30" id="pz4-Li-yTG"/>
+                        <constraint firstItem="HxL-o0-pNE" firstAttribute="top" secondItem="iKo-SS-FRg" secondAttribute="top" constant="27" id="sfq-RV-Fu1"/>
+                        <constraint firstItem="6hp-0t-BKX" firstAttribute="top" secondItem="xgI-Vh-v7R" secondAttribute="bottom" constant="1" id="uFT-zF-W0a"/>
+                        <constraint firstItem="RkH-9x-FJK" firstAttribute="leading" secondItem="iKo-SS-FRg" secondAttribute="leading" constant="39" id="uTR-Fe-Rm9"/>
+                        <constraint firstItem="HxL-o0-pNE" firstAttribute="centerX" secondItem="iKo-SS-FRg" secondAttribute="centerX" id="x56-GL-KdW"/>
+                    </constraints>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lj9-ac-Kdz">
+                    <rect key="frame" x="309" y="164" width="50" height="50"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="DxB-fS-Wfz"/>
+                        <constraint firstAttribute="width" constant="50" id="W24-ty-8Wr"/>
+                    </constraints>
+                    <inset key="contentEdgeInsets" minX="6" minY="6" maxX="6" maxY="6"/>
+                    <state key="normal" image="popup_closeX1"/>
+                    <connections>
+                        <action selector="didTapClose:" destination="-1" eventType="touchUpInside" id="CyO-WL-u3Z"/>
+                        <action selector="popupCloseTouchDown:" destination="-1" eventType="touchDown" id="8fw-ex-DFH"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="iKo-SS-FRg" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="0.78" id="1iH-9A-RDk"/>
+                <constraint firstItem="iKo-SS-FRg" firstAttribute="top" secondItem="Lj9-ac-Kdz" secondAttribute="bottom" constant="-25.5" id="8kR-oL-CzO"/>
+                <constraint firstItem="iKo-SS-FRg" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Kab-2A-gtr"/>
+                <constraint firstItem="iKo-SS-FRg" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="Oe6-OI-fmc"/>
+                <constraint firstItem="Lj9-ac-Kdz" firstAttribute="trailing" secondItem="iKo-SS-FRg" secondAttribute="trailing" constant="25" id="PlC-sO-558"/>
+                <constraint firstItem="iKo-SS-FRg" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="fVC-v4-JOx"/>
+                <constraint firstItem="iKo-SS-FRg" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="qhl-dp-Nh1"/>
+            </constraints>
+            <point key="canvasLocation" x="32.799999999999997" y="130.88455772113943"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="popup_closeX1" width="93" height="93"/>
+    </resources>
+</document>
