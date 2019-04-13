@@ -6,6 +6,7 @@
 //  Copyright © 2018 Wakralab. All rights reserved.
 //
 
+import Firebase
 import UIKit
 
 class CulturePassCardViewController: UIViewController {
@@ -25,6 +26,7 @@ class CulturePassCardViewController: UIViewController {
         setUI ()
         barcodeView.isHidden = true
         membershipLabel.isHidden = true
+        self.recordScreenView()
     }
     func setUI() {
         tapToFlipButton.setTitle(NSLocalizedString("TAP_TO_FLIP", comment: "TAP_TO_FLIP"), for: .normal)
@@ -87,6 +89,10 @@ class CulturePassCardViewController: UIViewController {
         view.window!.layer.add(transition, forKey: kCATransition)
         
         self.present(cardBackView, animated: true, completion: nil)
+    }
+    func recordScreenView() {
+        let screenClass = String(describing: type(of: self))
+        Analytics.setScreenName(CULTUREPASS_CARD_VC, screenClass: screenClass)
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

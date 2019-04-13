@@ -32,7 +32,6 @@ class WebViewController: UIViewController,UIWebViewDelegate,LoadingViewProtocol 
         if  (networkReachability?.isReachable)! {
             let requestObj = URLRequest(url: webViewUrl!)
             self.webView.loadRequest(requestObj)
-            //self.webView.loadHTMLString(content!, baseURL: baseUrlString)
         } else {
             self.showNoNetwork()
         }

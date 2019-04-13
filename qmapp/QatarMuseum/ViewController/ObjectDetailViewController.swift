@@ -8,6 +8,7 @@
 import AVFoundation
 import AVKit
 import Crashlytics
+import Firebase
 import UIKit
 
 class ObjectDetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate {
@@ -31,6 +32,7 @@ class ObjectDetailViewController: UIViewController, UITableViewDelegate, UITable
         super.viewDidLoad()
         objectTableView.register(UITableViewCell.self, forCellReuseIdentifier: "imageCell")
         setupUIContents()
+        self.recordScreenView()
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -249,7 +251,10 @@ class ObjectDetailViewController: UIViewController, UITableViewDelegate, UITable
         dismiss(animated: false, completion: nil)
         
     }
-    
+    func recordScreenView() {
+        let screenClass = String(describing: type(of: self))
+        Analytics.setScreenName(OBJECTDETAIL_VC, screenClass: screenClass)
+    }
     @objc func closeButtonTouchDownAction(sender: UIButton!) {
         sender.transform = CGAffineTransform(scaleX: 0.7, y: 0.7)
     }

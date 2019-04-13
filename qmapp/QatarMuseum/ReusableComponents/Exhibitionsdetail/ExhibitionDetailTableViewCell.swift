@@ -20,7 +20,7 @@ class ExhibitionDetailTableViewCell: UITableViewCell {
     @IBOutlet weak var exhibitionTimingTitle: UILabel!
     @IBOutlet weak var locationsTitle: UILabel!
     @IBOutlet weak var contactTitle: UILabel!
-    @IBOutlet weak var contactDescriptionLabel: UILabel!
+    @IBOutlet weak var contactDescriptionLabel: UnderlinedLabel!
     @IBOutlet weak var centerImageView: UIImageView!
     @IBOutlet weak var locationButton: UIButton!
     @IBOutlet weak var centerImgHeight: NSLayoutConstraint!
@@ -29,6 +29,7 @@ class ExhibitionDetailTableViewCell: UITableViewCell {
     var favBtnTapAction : (()->())?
     var shareBtnTapAction : (()->())?
     var locationButtonAction: (() -> ())?
+    var loadEmailComposer : (()->())?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -47,6 +48,7 @@ class ExhibitionDetailTableViewCell: UITableViewCell {
 //        contactTitle.textAlignment = .center
 //        contactDescriptionLabel.textAlignment = .center
         
+        
         titleLabel.font = UIFont.settingsUpdateLabelFont
         descriptionLabel.font = UIFont.englishTitleFont
         detailSecondLabel.font = UIFont.englishTitleFont
@@ -59,6 +61,10 @@ class ExhibitionDetailTableViewCell: UITableViewCell {
         contactTitle.font = UIFont.closeButtonFont
         contactDescriptionLabel.font = UIFont.sideMenuLabelFont
         favoriteBtnViewHeight.constant = 0
+        
+        let emailTap = UITapGestureRecognizer(target: self, action: #selector(emailTapFunction))
+        contactDescriptionLabel.isUserInteractionEnabled = true
+        contactDescriptionLabel.addGestureRecognizer(emailTap)
     }
     
     func setHomeExhibitionDetail(exhibition: Exhibition) {
@@ -79,6 +85,7 @@ class ExhibitionDetailTableViewCell: UITableViewCell {
         let mapRedirectionMessage = NSLocalizedString("MAP_REDIRECTION_MESSAGE",
                                                       comment: "MAP_REDIRECTION_MESSAGE in the Dining detail")
         locationButton.setTitle(mapRedirectionMessage, for: .normal)
+        contactDescriptionLabel.text = "nmoq@qm.org.qa"
     }
     
     func setMuseumExhibitionDetail() {
@@ -123,6 +130,11 @@ class ExhibitionDetailTableViewCell: UITableViewCell {
     @IBAction func didTapLocation(_ sender: UIButton) {
         self.locationButton.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
         locationButtonAction?()
+    }
+    @objc func emailTapFunction(sender:UITapGestureRecognizer) {
+        
+        print("email label tapped ...")
+        self.loadEmailComposer?()
     }
     
 }

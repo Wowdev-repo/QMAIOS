@@ -9,6 +9,7 @@
 import AVKit
 import AVFoundation
 import Crashlytics
+import Firebase
 import UIKit
 import YouTubePlayer
 
@@ -31,6 +32,7 @@ class EducationViewController: UIViewController,AVPlayerViewControllerDelegate,H
         super.viewDidLoad()
         setupUI()
         loadVideo()
+        self.recordScreenView()
     }
     
     func setupUI() {
@@ -129,6 +131,10 @@ class EducationViewController: UIViewController,AVPlayerViewControllerDelegate,H
     }
     @IBAction func playPauseButtonTouchDown(_ sender: UIButton) {
         self.playButton.transform = CGAffineTransform(scaleX: 0.7, y: 0.7)
+    }
+    func recordScreenView() {
+        let screenClass = String(describing: type(of: self))
+        Analytics.setScreenName(EDUCATION_VC, screenClass: screenClass)
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

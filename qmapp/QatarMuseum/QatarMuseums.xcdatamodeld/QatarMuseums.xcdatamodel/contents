@@ -429,6 +429,7 @@
         <attribute name="nmoqEvent" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="register" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="registered" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="seatsRemaining" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="sort_id" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="nmoqTourDetailImgBannerRelation" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="NMoqTourDetailImagesEntity" syncable="YES"/>
@@ -522,6 +523,8 @@
     <entity name="RegisteredEventListEntity" representedClassName="RegisteredEventListEntity" syncable="YES" codeGenerationType="class">
         <attribute name="eventId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="regId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="seats" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="seatsRemaining" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="TourGuideEntity" representedClassName="TourGuideEntity" syncable="YES" codeGenerationType="class">
@@ -549,6 +552,7 @@
     <elements>
         <element name="AboutDescriptionEntity" positionX="-27" positionY="135" width="128" height="90"/>
         <element name="AboutDescriptionEntityAr" positionX="-18" positionY="144" width="128" height="90"/>
+        <element name="AboutDownloadLinkEntity" positionX="-9" positionY="135" width="128" height="75"/>
         <element name="AboutEntity" positionX="-36" positionY="135" width="128" height="240"/>
         <element name="AboutEntityArabic" positionX="-27" positionY="144" width="128" height="270"/>
         <element name="AboutMultimediaFileEntity" positionX="-9" positionY="135" width="128" height="75"/>
@@ -573,7 +577,6 @@
         <element name="EdStartDateEntityAr" positionX="27" positionY="171" width="128" height="75"/>
         <element name="EducationEventEntity" positionX="-36" positionY="108" width="128" height="255"/>
         <element name="EducationEventEntityAr" positionX="-27" positionY="144" width="128" height="255"/>
-        <element name="AboutDownloadLinkEntity" positionX="-9" positionY="135" width="128" height="75"/>
         <element name="EventAgeGroupEntity" positionX="-27" positionY="135" width="128" height="75"/>
         <element name="EventAgeGroupEntityAr" positionX="-18" positionY="144" width="128" height="75"/>
         <element name="EventDateEntity" positionX="-27" positionY="144" width="128" height="75"/>
@@ -600,7 +603,7 @@
         <element name="HomeBannerImageEntity" positionX="-9" positionY="135" width="128" height="75"/>
         <element name="HomeEntity" positionX="-63" positionY="-18" width="128" height="30"/>
         <element name="HomeEntityArabic" positionX="-54" positionY="63" width="128" height="120"/>
-        <element name="NmoqTourDetailEntity" positionX="-9" positionY="135" width="128" height="240"/>
+        <element name="NmoqTourDetailEntity" positionX="-9" positionY="135" width="128" height="255"/>
         <element name="NMoqTourDetailImagesEntity" positionX="9" positionY="153" width="128" height="75"/>
         <element name="NMoqTourImagesEntity" positionX="9" positionY="153" width="128" height="75"/>
         <element name="NMoQTourListEntity" positionX="0" positionY="144" width="128" height="270"/>
@@ -613,7 +616,7 @@
         <element name="PublicArtsEntityArabic" positionX="-54" positionY="117" width="128" height="180"/>
         <element name="PublicArtsImagesEntity" positionX="-18" positionY="144" width="128" height="75"/>
         <element name="PublicArtsImagesEntityAr" positionX="-9" positionY="153" width="128" height="75"/>
-        <element name="RegisteredEventListEntity" positionX="-9" positionY="135" width="128" height="90"/>
+        <element name="RegisteredEventListEntity" positionX="-9" positionY="135" width="128" height="120"/>
         <element name="TourGuideEntity" positionX="-9" positionY="135" width="128" height="120"/>
         <element name="TourGuideEntityAr" positionX="0" positionY="144" width="128" height="120"/>
         <element name="TourGuideMultimediaEntity" positionX="9" positionY="153" width="128" height="75"/>

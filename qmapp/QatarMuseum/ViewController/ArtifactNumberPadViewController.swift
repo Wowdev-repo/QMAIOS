@@ -7,6 +7,7 @@
 //
 import Alamofire
 import Crashlytics
+import Firebase
 import UIKit
 
 class ArtifactNumberPadViewController: UIViewController, HeaderViewProtocol, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -28,6 +29,7 @@ class ArtifactNumberPadViewController: UIViewController, HeaderViewProtocol, UIC
         super.viewDidLoad()        
         setupUI()
         registerNib()
+        self.recordScreenView()
     }
     
     override func didReceiveMemoryWarning() {
@@ -216,6 +218,10 @@ class ArtifactNumberPadViewController: UIViewController, HeaderViewProtocol, UIC
             }
         }
     }
+    }
+    func recordScreenView() {
+        let screenClass = String(describing: type(of: self))
+        Analytics.setScreenName(ARTIFACT_NUMBER_VC, screenClass: screenClass)
     }
 }
 

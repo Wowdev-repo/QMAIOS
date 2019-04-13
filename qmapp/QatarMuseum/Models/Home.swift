@@ -21,7 +21,7 @@ struct Home: ResponseObjectSerializable, ResponseCollectionSerializable {
             self.name = representation["name"] as? String
             self.image = representation["image"] as? String
             self.isTourguideAvailable = representation["tourguide_available"] as? String
-            self.sortId = representation["SORT ID"] as? String
+            self.sortId = representation["SORt_ID"] as? String
         }
     }
     

@@ -21,6 +21,7 @@ struct NMoQTourDetail: ResponseObjectSerializable, ResponseCollectionSerializabl
     var body: String? = nil
     var registered: String? = nil
     var nid: String? = nil
+    var seatsRemaining: String? = nil
     
     public init?(response: HTTPURLResponse, representation: AnyObject) {
         if let representation = representation as? [String: Any] {
@@ -36,12 +37,12 @@ struct NMoQTourDetail: ResponseObjectSerializable, ResponseCollectionSerializabl
             self.sortId = representation["sort_id"] as? String
             self.body = representation["Body"] as? String
             self.registered = representation["registered"] as? String
-            self.nid = representation["nid"] as? String
-
+            self.nid = representation["node_id"] as? String
+            self.seatsRemaining = representation["Seats_remaining"] as? String
         }
     }
     
-        init (title:String?, imageBanner: [String]?, date: String?, nmoqEvent: String?, register: String?, contactEmail: String?, contactPhone: String?, mobileLatitude: String?, longitude: String?, sortId: String?, body: String?, registered: String?, nid: String?) {
+        init (title:String?, imageBanner: [String]?, date: String?, nmoqEvent: String?, register: String?, contactEmail: String?, contactPhone: String?, mobileLatitude: String?, longitude: String?, sortId: String?, body: String?, registered: String?, nid: String?, seatsRemaining: String?) {
             self.title = title
             self.imageBanner = imageBanner
             self.date = date
@@ -55,6 +56,7 @@ struct NMoQTourDetail: ResponseObjectSerializable, ResponseCollectionSerializabl
             self.body = body
             self.registered = registered
             self.nid = nid
+            self.seatsRemaining = seatsRemaining
 
         }
 }

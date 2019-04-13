@@ -18,24 +18,24 @@
     </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="objectPopupId" rowHeight="200" id="gnz-kD-q07" customClass="ObjectPopupTableViewCell" customModule="QatarMuseums" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="345" height="200"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="objectPopupId" rowHeight="230" id="gnz-kD-q07" customClass="ObjectPopupTableViewCell" customModule="QatarMuseums" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="345" height="230"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gnz-kD-q07" id="hAt-YD-fYg">
-                <rect key="frame" x="0.0" y="0.0" width="345" height="199.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="345" height="229.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Px-ui-lf0">
-                        <rect key="frame" x="0.0" y="-0.5" width="345" height="200"/>
+                        <rect key="frame" x="0.0" y="-0.5" width="345" height="230"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Albarello" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yl5-mB-uaq">
-                                <rect key="frame" x="20" y="8" width="310" height="23"/>
+                                <rect key="frame" x="20" y="27" width="310" height="23"/>
                                 <fontDescription key="fontDescription" name="DINNextLTPro-Bold" family="DIN Next LT Pro" pointSize="23"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mMZ-D1-NNh">
-                                <rect key="frame" x="10" y="41" width="70" height="100"/>
+                                <rect key="frame" x="10" y="56" width="70" height="100"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="default_imageX2" translatesAutoresizingMaskIntoConstraints="NO" id="xRI-LK-efb">
                                         <rect key="frame" x="0.0" y="0.0" width="65" height="100"/>
@@ -52,7 +52,7 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Production:" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h3J-Mc-SvW">
-                                <rect key="frame" x="80" y="44" width="125" height="26"/>
+                                <rect key="frame" x="80" y="59" width="125" height="26"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="125" id="kj2-yt-xk3"/>
                                 </constraints>
@@ -60,38 +60,38 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Syria (Damascus)" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Iuc-Fs-MhJ">
-                                <rect key="frame" x="210" y="49" width="125" height="16"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Syria (Damascus)" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Iuc-Fs-MhJ">
+                                <rect key="frame" x="210" y="64" width="125" height="16"/>
                                 <fontDescription key="fontDescription" name="DINNextLTPro-Regular" family="DIN Next LT Pro" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" verticalCompressionResistancePriority="755" text="Production dates:" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rpx-sd-T7S">
-                                <rect key="frame" x="80" y="78" width="125" height="26"/>
+                                <rect key="frame" x="80" y="93" width="125" height="26"/>
                                 <fontDescription key="fontDescription" name="DINNextLTPro-Bold" family="DIN Next LT Pro" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="753" text="1400 - 1425 CE" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rDb-f4-Nvp">
-                                <rect key="frame" x="210" y="83" width="125" height="16"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="753" text="1400 - 1425 CE" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rDb-f4-Nvp">
+                                <rect key="frame" x="210" y="98" width="125" height="16"/>
                                 <fontDescription key="fontDescription" name="DINNextLTPro-Regular" family="DIN Next LT Pro" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Period/Style:" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8uJ-x8-l0t">
-                                <rect key="frame" x="80" y="112" width="125" height="26"/>
+                                <rect key="frame" x="80" y="127" width="125" height="26"/>
                                 <fontDescription key="fontDescription" name="DINNextLTPro-Bold" family="DIN Next LT Pro" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Mamluk Mamluk Mamluk Mamluk Mamluk Mamluk Mamluk Mamluk Mamluk " lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0mn-mk-5hw">
-                                <rect key="frame" x="210" y="112" width="125" height="32"/>
+                                <rect key="frame" x="210" y="127" width="125" height="32"/>
                                 <fontDescription key="fontDescription" name="DINNextLTPro-Regular" family="DIN Next LT Pro" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="View Details" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KqM-qd-xSA">
-                                <rect key="frame" x="248" y="149" width="86" height="22"/>
+                                <rect key="frame" x="248" y="164" width="86" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="22" id="YVN-Xq-BJw"/>
                                     <constraint firstAttribute="width" constant="86" id="xSX-Ia-Mnb"/>
@@ -101,7 +101,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ein-Zh-72o">
-                                <rect key="frame" x="248" y="171" width="86" height="1"/>
+                                <rect key="frame" x="248" y="186" width="86" height="1"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="lhn-7Y-fvB"/>
@@ -114,7 +114,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="KqM-qd-xSA" secondAttribute="trailing" constant="11" id="0pu-gd-Azl"/>
-                            <constraint firstAttribute="bottom" secondItem="KqM-qd-xSA" secondAttribute="bottom" constant="29" id="2Ra-Eq-wna"/>
+                            <constraint firstAttribute="bottom" secondItem="KqM-qd-xSA" secondAttribute="bottom" constant="44" id="2Ra-Eq-wna"/>
                             <constraint firstItem="Iuc-Fs-MhJ" firstAttribute="leading" secondItem="0mn-mk-5hw" secondAttribute="leading" id="4kT-Q0-fee"/>
                             <constraint firstItem="h3J-Mc-SvW" firstAttribute="centerY" secondItem="Iuc-Fs-MhJ" secondAttribute="centerY" id="644-wn-qiE"/>
                             <constraint firstItem="Iuc-Fs-MhJ" firstAttribute="trailing" secondItem="0mn-mk-5hw" secondAttribute="trailing" id="Dak-KL-ehi"/>
@@ -126,9 +126,8 @@
                             <constraint firstItem="ein-Zh-72o" firstAttribute="trailing" secondItem="KqM-qd-xSA" secondAttribute="trailing" id="LtW-OZ-Ypp"/>
                             <constraint firstItem="mMZ-D1-NNh" firstAttribute="bottom" secondItem="8uJ-x8-l0t" secondAttribute="bottom" constant="3" id="Mso-OU-wgv"/>
                             <constraint firstItem="mMZ-D1-NNh" firstAttribute="top" secondItem="h3J-Mc-SvW" secondAttribute="top" constant="-3" id="NHg-NL-BSo"/>
-                            <constraint firstItem="Yl5-mB-uaq" firstAttribute="top" secondItem="9Px-ui-lf0" secondAttribute="top" constant="8" id="Oce-Zh-sY1"/>
                             <constraint firstAttribute="trailing" secondItem="Iuc-Fs-MhJ" secondAttribute="trailing" constant="10" id="Q9g-TS-GIo"/>
-                            <constraint firstItem="mMZ-D1-NNh" firstAttribute="top" secondItem="Yl5-mB-uaq" secondAttribute="bottom" constant="10" id="QPe-Gg-tMo"/>
+                            <constraint firstItem="mMZ-D1-NNh" firstAttribute="top" secondItem="Yl5-mB-uaq" secondAttribute="bottom" constant="6" id="QPe-Gg-tMo"/>
                             <constraint firstItem="8uJ-x8-l0t" firstAttribute="top" secondItem="Rpx-sd-T7S" secondAttribute="bottom" constant="8" id="WBx-4K-rZn"/>
                             <constraint firstItem="h3J-Mc-SvW" firstAttribute="leading" secondItem="mMZ-D1-NNh" secondAttribute="trailing" id="Z8c-3w-gto"/>
                             <constraint firstItem="KqM-qd-xSA" firstAttribute="top" secondItem="0mn-mk-5hw" secondAttribute="bottom" constant="5" id="a6r-aq-vhe"/>

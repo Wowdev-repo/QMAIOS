@@ -57,7 +57,7 @@ struct Exhibition: ResponseObjectSerializable, ResponseCollectionSerializable {
         self.shortDescription = shortDescription
         self.longDescription = longDescription
         self.museumId = museumId
-        self.status = museumId
+        self.status = status
         self.displayDate = displayDate
     }
 }

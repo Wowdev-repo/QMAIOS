@@ -23,9 +23,9 @@ class MapDetailView: UIViewController,ObjectImageViewProtocol {
     let fullView: CGFloat = 20
     var partialView: CGFloat {
         if (UIScreen.main.bounds.height >= 812) {
-            return UIScreen.main.bounds.height - 220
+            return UIScreen.main.bounds.height - 240
         }
-        return UIScreen.main.bounds.height - 200
+        return UIScreen.main.bounds.height - 220
     }
     var mapdetailDelegate : MapDetailProtocol?
     let closeButton = UIButton()
@@ -154,7 +154,7 @@ extension MapDetailView: UITableViewDelegate, UITableViewDataSource {
             } else {
 //                selectedCell?.avPlayer = nil
 //                selectedCell?.timer?.invalidate()
-                return 200
+                return 220
             }
             
         }else if (indexPath.row == 1) {

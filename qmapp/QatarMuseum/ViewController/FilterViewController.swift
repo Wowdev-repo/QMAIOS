@@ -7,6 +7,7 @@
 //
 
 import Crashlytics
+import Firebase
 import UIKit
 
 class FilterViewController: UIViewController,HeaderViewProtocol,UIPickerViewDelegate,UIPickerViewDataSource,UITextFieldDelegate {
@@ -49,6 +50,7 @@ class FilterViewController: UIViewController,HeaderViewProtocol,UIPickerViewDele
         super.viewDidLoad()
        
         setupUI()
+        self.recordScreenView()
     }
     
     func setupUI() {
@@ -394,5 +396,9 @@ class FilterViewController: UIViewController,HeaderViewProtocol,UIPickerViewDele
         institutionText.resignFirstResponder()
         ageGroupText.resignFirstResponder()
         programmeTypeText.resignFirstResponder()
+    }
+    func recordScreenView() {
+        let screenClass = String(describing: type(of: self))
+        Analytics.setScreenName(FILTER_VC, screenClass: screenClass)
     }
 }

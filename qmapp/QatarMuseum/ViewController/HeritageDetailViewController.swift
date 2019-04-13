@@ -9,13 +9,18 @@
 import Alamofire
 import CoreData
 import Firebase
+import MessageUI
 import UIKit
+
 enum PageName{
     case heritageDetail
     case publicArtsDetail
-    case museumAbout
+    case exhibitionDetail
+    case SideMenuPark
+    case NMoQPark
+    case DiningDetail
 }
-class HeritageDetailViewController: UIViewController,UITableViewDelegate,UITableViewDataSource, comingSoonPopUpProtocol,LoadingViewProtocol, iCarouselDelegate,iCarouselDataSource {
+class HeritageDetailViewController: UIViewController,UITableViewDelegate,UITableViewDataSource, comingSoonPopUpProtocol,LoadingViewProtocol, iCarouselDelegate,iCarouselDataSource,MFMailComposeViewControllerDelegate {
     @IBOutlet weak var heritageDetailTableView: UITableView!
     @IBOutlet weak var loadingView: LoadingView!
     
@@ -25,8 +30,11 @@ class HeritageDetailViewController: UIViewController,UITableViewDelegate,UITable
     var pageNameString : PageName?
     var heritageDetailtArray: [Heritage] = []
     var publicArtsDetailtArray: [PublicArtsDetail] = []
-    //var aboutDetailtArray: [MuseumAbout] = []
-    var aboutDetailtArray : [Museum] = []
+    var exhibition: [Exhibition] = []
+    var parksListArray: [ParksList]! = []
+    var nmoqParkDetailArray: [NMoQParkDetail]! = []
+    var diningDetailtArray: [Dining] = []
+    var diningDetailId : String? = nil
     var heritageDetailId : String? = nil
     var publicArtsDetailId : String? = nil
     let networkReachability = NetworkReachabilityManager()
@@ -34,11 +42,15 @@ class HeritageDetailViewController: UIViewController,UITableViewDelegate,UITable
     var museumId : String? = nil
     var carousel = iCarousel()
     var transparentView = UIView()
+    var fromHome : Bool = false
+    var exhibitionId : String!
+    var parkDetailId: String? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setupUIContents()
+        registerCells()
         if ((pageNameString == PageName.heritageDetail) && (heritageDetailId != nil)) {
             if  (networkReachability?.isReachable)! {
                 getHeritageDetailsFromServer()
@@ -51,15 +63,31 @@ class HeritageDetailViewController: UIViewController,UITableViewDelegate,UITable
             } else {
                 self.fetchPublicArtsDetailsFromCoredata()
             }
-            
-        } else if (pageNameString == PageName.museumAbout) {
+        } else if (pageNameString == PageName.exhibitionDetail) {
+            if (fromHome == true) {
+                if  (networkReachability?.isReachable)! {
+                    getExhibitionDetail()
+                } else {
+                    self.fetchExhibitionDetailsFromCoredata()
+                }
+            }
+        } else if (pageNameString == PageName.SideMenuPark) {
+            NotificationCenter.default.addObserver(self, selector: #selector(HeritageDetailViewController.receiveParksNotificationEn(notification:)), name: NSNotification.Name(parksNotificationEn), object: nil)
+            NotificationCenter.default.addObserver(self, selector: #selector(HeritageDetailViewController.receiveParksNotificationAr(notification:)), name: NSNotification.Name(parksNotificationAr), object: nil)
+            self.fetchParksFromCoredata()
+        } else if (pageNameString == PageName.NMoQPark) {
             if  (networkReachability?.isReachable)! {
-                getAboutDetailsFromServer()
-            
-                //saveOrUpdateAboutCoredata()
+                getNMoQParkDetailFromServer()
             } else {
-                self.fetchAboutDetailsFromCoredata()
-                
+                //self.fetchNMoQParkDetailFromCoredata()
+                self.showNoNetwork()
+                addCloseButton()
+            }
+        } else if (pageNameString == PageName.DiningDetail) {
+            if  (networkReachability?.isReachable)! {
+                getDiningDetailsFromServer()
+            } else {
+                self.fetchDiningDetailsFromCoredata()
             }
         }
         recordScreenView()
@@ -71,7 +99,13 @@ class HeritageDetailViewController: UIViewController,UITableViewDelegate,UITable
         loadingView.loadingViewDelegate = self
         setTopBarImage()
     }
-    
+    func registerCells() {
+        self.heritageDetailTableView.register(UINib(nibName: "HeritageDetailView", bundle: nil), forCellReuseIdentifier: "heritageDetailCellId")
+        self.heritageDetailTableView.register(UINib(nibName: "ExhibitionDetailView", bundle: nil), forCellReuseIdentifier: "exhibitionDetailCellId")
+        self.heritageDetailTableView.register(UINib(nibName: "ParkTableCellXib", bundle: nil), forCellReuseIdentifier: "parkCellId")
+        self.heritageDetailTableView.register(UINib(nibName: "CollectionDetailView", bundle: nil), forCellReuseIdentifier: "collectionCellId")
+        self.heritageDetailTableView.register(UINib(nibName: "DiningDetailCellView", bundle: nil), forCellReuseIdentifier: "diningDetailCellId")
+    }
     func setTopBarImage() {
         heritageDetailTableView.estimatedRowHeight = 50
         heritageDetailTableView.contentInset = UIEdgeInsetsMake(300, 0, 0, 0)
@@ -104,25 +138,87 @@ class HeritageDetailViewController: UIViewController,UITableViewDelegate,UITable
             else {
                 imageView.image = nil
             }
-        } else if (pageNameString == PageName.museumAbout){
-
-            if (aboutDetailtArray.count > 0)  {
-                if(aboutDetailtArray[0].multimediaFile != nil) {
-                if ((aboutDetailtArray[0].multimediaFile?.count)! > 0) {
-                let url = aboutDetailtArray[0].multimediaFile
-                if( url![0] != nil) {
-                    imageView.kf.setImage(with: URL(string: url![0]))
+        } else if (pageNameString == PageName.exhibitionDetail){
+            if (fromHome == true) {
+                if exhibition.count > 0 {
+                    
+                    if let imageUrl = exhibition[0].detailImage {
+                        if(imageUrl != "") {
+                            imageView.kf.setImage(with: URL(string: imageUrl))
+                        }else {
+                            imageView.image = UIImage(named: "default_imageX2")
+                        }
+                        
+                    }
+                    else {
+                        imageView.image = UIImage(named: "default_imageX2")
+                    }
+                }
+                else {
+                    imageView.image = nil
+                }
+                
+            } else {
+                if exhibition.count > 0 {
+                    
+                    if let imageUrl = exhibition[0].detailImage {
+                        if(imageUrl != "") {
+                            imageView.kf.setImage(with: URL(string: imageUrl))
+                        }else {
+                            imageView.image = UIImage(named: "default_imageX2")
+                        }
+                        
+                    }
+                    else {
+                        imageView.image = UIImage(named: "default_imageX2")
+                    }
+                } else {
+                    imageView.image = nil
+                }
+            }
+        } else if (pageNameString == PageName.SideMenuPark){
+            if parksListArray.count != 0 {
+                if let imageUrl = parksListArray[0].image{
+                    imageView.kf.setImage(with: URL(string: imageUrl))
                 }
                 else {
                     imageView.image = UIImage(named: "default_imageX2")
-                }
-                }
                 }
             }
             else {
                 imageView.image = nil
             }
- 
+        } else if (pageNameString == PageName.NMoQPark){
+            if nmoqParkDetailArray.count != 0 {
+                if ( (self.nmoqParkDetailArray[0].images?.count)! > 0) {
+                    if let imageUrl = nmoqParkDetailArray[0].images?[0]{
+                        imageView.kf.setImage(with: URL(string: imageUrl))
+                    }
+                    else {
+                        imageView.image = UIImage(named: "default_imageX2")
+                    }
+                }
+                
+            }
+            else {
+                imageView.image = nil
+            }
+        } else if (pageNameString == PageName.DiningDetail){
+            if diningDetailtArray.count != 0 {
+                if let imageUrl = diningDetailtArray[0].image{
+                    imageView.kf.setImage(with: URL(string: imageUrl))
+                } else if ( (self.diningDetailtArray[0].images?.count)! > 0) {
+                    if let imageUrl = diningDetailtArray[0].images?[0]{
+                        imageView.kf.setImage(with: URL(string: imageUrl))
+                    }
+                    else {
+                        imageView.image = UIImage(named: "default_imageX2")
+                    }
+                }
+            }
+            else {
+                imageView.image = nil
+            }
         }
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
@@ -138,7 +234,9 @@ class HeritageDetailViewController: UIViewController,UITableViewDelegate,UITable
         blurView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         blurView.alpha = 0
         imageView.addSubview(blurView)
-        
+        addCloseButton()
+    }
+    func addCloseButton() {
         if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
             closeButton.frame = CGRect(x: 10, y: 30, width: 40, height: 40)
         } else {
@@ -151,12 +249,11 @@ class HeritageDetailViewController: UIViewController,UITableViewDelegate,UITable
         closeButton.addTarget(self, action: #selector(closeTouchDownAction), for: .touchDown)
         
         closeButton.layer.shadowColor = UIColor.black.cgColor
-        closeButton.layer.shadowOffset = CGSize(width: 4, height: 4)
-        closeButton.layer.shadowRadius = 3
-        closeButton.layer.shadowOpacity = 2.0
+        closeButton.layer.shadowOffset = CGSize(width: 5, height: 5)
+        closeButton.layer.shadowRadius = 5
+        closeButton.layer.shadowOpacity = 1.0
         view.addSubview(closeButton)
     }
-    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
@@ -166,14 +263,16 @@ class HeritageDetailViewController: UIViewController,UITableViewDelegate,UITable
             return heritageDetailtArray.count
         } else if (pageNameString == PageName.publicArtsDetail){
             return publicArtsDetailtArray.count
-        } else if (pageNameString == PageName.museumAbout){
-            if(aboutDetailtArray.count > 0) {
-                return aboutDetailtArray.count
-               // return 1
-            } else {
-                return 0
+        } else if (pageNameString == PageName.exhibitionDetail){
+            if (fromHome == true) {
+                return exhibition.count
             }
-            
+        } else if (pageNameString == PageName.SideMenuPark) {
+            return parksListArray.count
+        } else if (pageNameString == PageName.NMoQPark) {
+            return nmoqParkDetailArray.count
+        } else if (pageNameString == PageName.DiningDetail) {
+            return diningDetailtArray.count
         }
         return 1
     }
@@ -183,35 +282,111 @@ class HeritageDetailViewController: UIViewController,UITableViewDelegate,UITable
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let heritageCell = tableView.dequeueReusableCell(withIdentifier: "heritageDetailCellId", for: indexPath) as! HeritageDetailCell
-        if (pageNameString == PageName.heritageDetail) {
-            heritageCell.setHeritageDetailData(heritageDetail: heritageDetailtArray[indexPath.row])
-            heritageCell.midTitleDescriptionLabel.textAlignment = .center
-        } else if(pageNameString == PageName.publicArtsDetail){
-            heritageCell.setPublicArtsDetailValues(publicArsDetail: publicArtsDetailtArray[indexPath.row])
-        } else {
-            heritageCell.setMuseumAboutCellData(aboutData: aboutDetailtArray[indexPath.row])
-           // heritageCell.setMuseumAboutCellData(aboutData: aboutDetailtArray[0])
-        }
-        if (isHeritageImgArrayAvailable() || isPublicArtImgArrayAvailable()) {
-            heritageCell.pageControl.isHidden = false
-        } else {
-            heritageCell.pageControl.isHidden = true
-        }
-        heritageCell.favBtnTapAction = {
-            () in
-            self.setFavouritesAction(cellObj: heritageCell)
-        }
-        heritageCell.shareBtnTapAction = {
-            () in
-            self.setShareAction(cellObj: heritageCell)
-        }
-        heritageCell.locationButtonTapAction = {
-            () in
-            self.loadLocationInMap(currentRow: indexPath.row)
-        }
         loadingView.stopLoading()
         loadingView.isHidden = true
+        let heritageCell = tableView.dequeueReusableCell(withIdentifier: "heritageDetailCellId", for: indexPath) as! HeritageDetailCell
+        if ((pageNameString == PageName.heritageDetail) || (pageNameString == PageName.publicArtsDetail)) {
+            if (pageNameString == PageName.heritageDetail) {
+                heritageCell.setHeritageDetailData(heritageDetail: heritageDetailtArray[indexPath.row])
+                heritageCell.midTitleDescriptionLabel.textAlignment = .center
+            } else if(pageNameString == PageName.publicArtsDetail){
+                heritageCell.setPublicArtsDetailValues(publicArsDetail: publicArtsDetailtArray[indexPath.row])
+            }
+            if (isHeritageImgArrayAvailable() || isPublicArtImgArrayAvailable()) {
+                heritageCell.pageControl.isHidden = false
+            } else {
+                heritageCell.pageControl.isHidden = true
+            }
+            heritageCell.favBtnTapAction = {
+                () in
+                self.setFavouritesAction(cellObj: heritageCell)
+            }
+            heritageCell.shareBtnTapAction = {
+                () in
+                self.setShareAction(cellObj: heritageCell)
+            }
+            heritageCell.locationButtonTapAction = {
+                () in
+                self.loadLocationInMap(currentRow: indexPath.row)
+            }
+            
+        } else if(pageNameString == PageName.exhibitionDetail){
+            let cell = tableView.dequeueReusableCell(withIdentifier: "exhibitionDetailCellId", for: indexPath) as! ExhibitionDetailTableViewCell
+            cell.descriptionLabel.textAlignment = .center
+            if (fromHome == true) {
+                cell.setHomeExhibitionDetail(exhibition: exhibition[indexPath.row])
+            } else {
+                cell.setMuseumExhibitionDetail()
+            }
+            cell.favBtnTapAction = {
+                () in
+                self.setFavouritesAction(cellObj: cell)
+            }
+            cell.shareBtnTapAction = {
+                () in
+                self.setShareAction(cellObj: cell)
+            }
+            cell.locationButtonAction = {
+                () in
+                self.loadLocationInMap(currentRow: indexPath.row)
+            }
+            cell.loadEmailComposer = {
+                self.openEmail(email:"nmoq@qm.org.qa")
+            }
+            return cell
+        } else if(pageNameString == PageName.SideMenuPark){
+            let parkCell = tableView.dequeueReusableCell(withIdentifier: "parkCellId", for: indexPath) as! ParkTableViewCell
+            if (indexPath.row != 0) {
+                parkCell.titleLineView.isHidden = true
+                parkCell.imageViewHeight.constant = 200
+                
+            }
+            else {
+                parkCell.titleLineView.isHidden = false
+                parkCell.imageViewHeight.constant = 0
+            }
+            parkCell.favouriteButtonAction = {
+                ()in
+                self.setFavouritesAction(cellObj: parkCell)
+            }
+            parkCell.shareButtonAction = {
+                () in
+            }
+            parkCell.locationButtonTapAction = {
+                () in
+                self.loadLocationInMap(currentRow: indexPath.row)
+            }
+            parkCell.setParksCellValues(parksList: parksListArray[indexPath.row], currentRow: indexPath.row)
+            return parkCell
+        } else if(pageNameString == PageName.NMoQPark){
+            let parkCell = tableView.dequeueReusableCell(withIdentifier: "parkCellId", for: indexPath) as! ParkTableViewCell
+            parkCell.titleLineView.isHidden = false
+            parkCell.imageViewHeight.constant = 0
+            parkCell.setNmoqParkDetailValues(parkDetails: nmoqParkDetailArray[indexPath.row])
+            return parkCell
+        } else if(pageNameString == PageName.DiningDetail){
+            let diningCell = tableView.dequeueReusableCell(withIdentifier: "diningDetailCellId", for: indexPath) as! DiningDetailTableViewCell
+            diningCell.titleLineView.isHidden = true
+            diningCell.setDiningDetailValues(diningDetail: diningDetailtArray[indexPath.row])
+            if (isImgArrayAvailable()) {
+                diningCell.pageControl.isHidden = false
+            } else {
+                diningCell.pageControl.isHidden = true
+            }
+            diningCell.locationButtonAction = {
+                ()in
+                self.loadLocationInMap(currentRow: indexPath.row)
+            }
+            diningCell.favBtnTapAction = {
+                () in
+                self.setFavouritesAction(cellObj: diningCell)
+            }
+            diningCell.shareBtnTapAction = {
+                () in
+                self.setShareAction(cellObj: diningCell)
+            }
+            return diningCell
+        }
         return heritageCell
     }
     
@@ -228,16 +403,29 @@ class HeritageDetailViewController: UIViewController,UITableViewDelegate,UITable
     func setShareAction(cellObj :HeritageDetailCell) {
         
     }
+    func setFavouritesAction(cellObj :ExhibitionDetailTableViewCell) {
+    }
     
+    func setShareAction(cellObj :ExhibitionDetailTableViewCell) {
+        
+    }
+    func setFavouritesAction(cellObj :ParkTableViewCell) {
+        if (cellObj.favouriteButton.tag == 0) {
+            cellObj.favouriteButton.tag = 1
+            cellObj.favouriteButton.setImage(UIImage(named: "heart_fillX1"), for: .normal)
+            
+        }
+        else {
+            cellObj.favouriteButton.tag = 0
+            cellObj.favouriteButton.setImage(UIImage(named: "heart_emptyX1"), for: .normal)
+        }
+    }
     func loadLocationInMap(currentRow: Int) {
         var latitudeString  = String()
         var longitudeString = String()
         var latitude : Double?
         var longitude : Double?
-        if ((pageNameString == PageName.museumAbout) && (aboutDetailtArray[0].mobileLatitude != nil) && (aboutDetailtArray[0].mobileLongtitude != nil)) {
-            latitudeString = (aboutDetailtArray[0].mobileLatitude)!
-            longitudeString = (aboutDetailtArray[0].mobileLongtitude)!
-        } else if ((pageNameString == PageName.heritageDetail) && (heritageDetailtArray[currentRow].latitude != nil) && (heritageDetailtArray[currentRow].longitude != nil)) {
+            if ((pageNameString == PageName.heritageDetail) && (heritageDetailtArray[currentRow].latitude != nil) && (heritageDetailtArray[currentRow].longitude != nil)) {
             latitudeString = heritageDetailtArray[currentRow].latitude!
             longitudeString = heritageDetailtArray[currentRow].longitude!
         }
@@ -246,9 +434,17 @@ class HeritageDetailViewController: UIViewController,UITableViewDelegate,UITable
             latitudeString = publicArtsDetailtArray[currentRow].latitude!
             longitudeString = publicArtsDetailtArray[currentRow].longitude!
         }
-        
+            else if (( pageNameString == PageName.exhibitionDetail) && ( self.fromHome == true) && (exhibition[currentRow].latitude != nil) && (exhibition[currentRow].longitude != nil)) {
+                latitudeString = exhibition[currentRow].latitude!
+                longitudeString = exhibition[currentRow].longitude!
+            } else if ( pageNameString == PageName.SideMenuPark) {
+               // showLocationErrorPopup()
+            } else if (( pageNameString == PageName.DiningDetail) && (diningDetailtArray[currentRow].latitude != nil) && (diningDetailtArray[currentRow].longitude != nil)) {
+                latitudeString = diningDetailtArray[currentRow].latitude!
+                longitudeString = diningDetailtArray[currentRow].longitude!
+        }
         if latitudeString != nil && longitudeString != nil && latitudeString != "" && longitudeString != ""{
-            if ((pageNameString == PageName.museumAbout) || (pageNameString == PageName.publicArtsDetail)) {
+            if ((pageNameString == PageName.publicArtsDetail) || (pageNameString == PageName.DiningDetail))  {
                 if let lat : Double = Double(latitudeString) {
                     latitude = lat
                 }
@@ -266,9 +462,11 @@ class HeritageDetailViewController: UIViewController,UITableViewDelegate,UITable
                 } else {
                     UIApplication.shared.openURL(URL(string:"comgooglemaps://?center=\(latitude!),\(longitude!)&zoom=14&views=traffic&q=\(latitude!),\(longitude!)")!)
                 }
-            } else {
+            } else if ((latitude != nil) && (longitude != nil)) {
                 let locationUrl = URL(string: "https://maps.google.com/?q=\(latitude!),\(longitude!)")!
                 UIApplication.shared.openURL(locationUrl)
+            } else {
+                showLocationErrorPopup()
             }
         } else {
             showLocationErrorPopup()
@@ -327,6 +525,8 @@ class HeritageDetailViewController: UIViewController,UITableViewDelegate,UITable
             return (self.heritageDetailtArray[0].images?.count)!
         } else if (isPublicArtImgArrayAvailable()) {
             return (self.publicArtsDetailtArray[0].images?.count)!
+        } else if(isImgArrayAvailable()) {
+            return (self.diningDetailtArray[0].images?.count)!
         }
         return 0
     }
@@ -340,11 +540,13 @@ class HeritageDetailViewController: UIViewController,UITableViewDelegate,UITable
             carouselImg = self.heritageDetailtArray[0].images
         } else if (pageNameString == PageName.publicArtsDetail) {
             carouselImg = self.publicArtsDetailtArray[0].images
+        } else if (pageNameString == PageName.DiningDetail) {
+            carouselImg = self.diningDetailtArray[0].images
         }
         if (carouselImg != nil) {
-            let imageUrl = carouselImg![index]
+            let imageUrl = carouselImg?[index]
             if(imageUrl != nil){
-                itemView.kf.setImage(with: URL(string: imageUrl))
+                itemView.kf.setImage(with: URL(string: imageUrl!))
             }
         }
         return itemView
@@ -387,7 +589,7 @@ class HeritageDetailViewController: UIViewController,UITableViewDelegate,UITable
     
     @objc func imgButtonPressed() {
         if((imageView.image != nil) && (imageView.image != UIImage(named: "default_imageX2"))) {
-            if (isHeritageImgArrayAvailable() || isPublicArtImgArrayAvailable()) {
+            if (isHeritageImgArrayAvailable() || isPublicArtImgArrayAvailable() || isImgArrayAvailable()) {
                 setiCarouselView()
             }
         }
@@ -496,7 +698,6 @@ class HeritageDetailViewController: UIViewController,UITableViewDelegate,UITable
     }
     
     func heritageCoreDataInBackgroundThread(managedContext: NSManagedObjectContext) {
-        if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
             let fetchData = checkAddedToCoredata(entityName: "HeritageEntity", idKey: "listid" , idValue: heritageDetailtArray[0].id, managedContext: managedContext) as! [HeritageEntity]
            if (fetchData.count > 0) {
                 let heritageDetailDict = heritageDetailtArray[0]
@@ -512,7 +713,11 @@ class HeritageDetailViewController: UIViewController,UITableViewDelegate,UITable
                 heritagedbDict.detaillongdescription =  heritageDetailDict.longdescription
                 heritagedbDict.detaillatitude =  heritageDetailDict.latitude
                 heritagedbDict.detaillongitude = heritageDetailDict.longitude
-            
+                if (LocalizationLanguage.currentAppleLanguage() == ENG_LANGUAGE) {
+                    heritagedbDict.lang =  "1"
+                } else {
+                    heritagedbDict.lang =  "0"
+                }
             
             if((heritageDetailDict.images?.count)! > 0) {
                 for i in 0 ... (heritageDetailDict.images?.count)!-1 {
@@ -544,57 +749,9 @@ class HeritageDetailViewController: UIViewController,UITableViewDelegate,UITable
             heritageListDict = heritageDetailtArray[0]
             self.saveToCoreData(heritageDetailDict: heritageListDict!, managedObjContext: managedContext)
             }
-        }
-        else {
-            let fetchData = checkAddedToCoredata(entityName: "HeritageEntityArabic", idKey:"listid" , idValue: heritageDetailtArray[0].id, managedContext: managedContext) as! [HeritageEntityArabic]
-            if (fetchData.count > 0) {
-                let heritageDetailDict = heritageDetailtArray[0]
-                
-                //update
-                
-                let heritagedbDict = fetchData[0]
-                heritagedbDict.listnamearabic = heritageDetailDict.name
-                heritagedbDict.listimagearabic = heritageDetailDict.image
-                heritagedbDict.listsortidarabic =  heritageDetailDict.sortid
-                heritagedbDict.detaillocationarabic = heritageDetailDict.location
-                heritagedbDict.detailshortdescarabic = heritageDetailDict.shortdescription
-                heritagedbDict.detaillongdescriptionarabic =  heritageDetailDict.longdescription
-                heritagedbDict.detaillatitudearabic =  heritageDetailDict.latitude
-                heritagedbDict.detaillongitudearabic = heritageDetailDict.longitude
-                
-                if((heritageDetailDict.images?.count)! > 0) {
-                    for i in 0 ... (heritageDetailDict.images?.count)!-1 {
-                        var heritageImagesEntity: HeritageImagesEntityAr!
-                        let heritageImage: HeritageImagesEntityAr = NSEntityDescription.insertNewObject(forEntityName: "HeritageImagesEntityAr", into: managedContext) as! HeritageImagesEntityAr
-                        heritageImage.images = heritageDetailDict.images![i]
-                        
-                        heritageImagesEntity = heritageImage
-                        heritagedbDict.addToImagesRelation(heritageImagesEntity)
-                        do {
-                            try managedContext.save()
-                        } catch let error as NSError {
-                            print("Could not save. \(error), \(error.userInfo)")
-                        }
-                    }
-                }
-                
-                do{
-                    try managedContext.save()
-                }
-                catch{
-                    print(error)
-                }
-            }
-            else {
-                let heritageListDict : Heritage?
-                heritageListDict = heritageDetailtArray[0]
-                self.saveToCoreData(heritageDetailDict: heritageListDict!, managedObjContext: managedContext)
-            }
-        }
     }
     
     func saveToCoreData(heritageDetailDict: Heritage, managedObjContext: NSManagedObjectContext) {
-        if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
             let heritageInfo: HeritageEntity = NSEntityDescription.insertNewObject(forEntityName: "HeritageEntity", into: managedObjContext) as! HeritageEntity
             heritageInfo.listid = heritageDetailDict.id
             heritageInfo.listname = heritageDetailDict.name
@@ -605,6 +762,11 @@ class HeritageDetailViewController: UIViewController,UITableViewDelegate,UITable
             heritageInfo.detaillongdescription =  heritageDetailDict.longdescription
             heritageInfo.detaillatitude =  heritageDetailDict.latitude
             heritageInfo.detaillongitude = heritageDetailDict.longitude
+            if (LocalizationLanguage.currentAppleLanguage() == ENG_LANGUAGE) {
+                heritageInfo.lang =  "1"
+            } else {
+                heritageInfo.lang =  "0"
+            }
             if(heritageDetailDict.sortid != nil) {
                 heritageInfo.listsortid = heritageDetailDict.sortid
             }
@@ -624,59 +786,17 @@ class HeritageDetailViewController: UIViewController,UITableViewDelegate,UITable
                     } catch let error as NSError {
                         print("Could not save. \(error), \(error.userInfo)")
                     }
-                    
                 }
             }
-        }
-        else {
-            let heritageInfo: HeritageEntityArabic = NSEntityDescription.insertNewObject(forEntityName: "HeritageEntityArabic", into: managedObjContext) as! HeritageEntityArabic
-            heritageInfo.listid = heritageDetailDict.id
-            heritageInfo.listnamearabic = heritageDetailDict.name
-            
-            heritageInfo.listimagearabic = heritageDetailDict.image
-            heritageInfo.detaillocationarabic = heritageDetailDict.location
-            heritageInfo.detailshortdescarabic = heritageDetailDict.shortdescription
-            heritageInfo.detaillongdescriptionarabic =  heritageDetailDict.longdescription
-            heritageInfo.detaillatitudearabic =  heritageDetailDict.latitude
-            heritageInfo.detaillongitudearabic = heritageDetailDict.longitude
-            if(heritageDetailDict.sortid != nil) {
-                heritageInfo.listsortidarabic = heritageDetailDict.sortid
-            }
-            
-            
-            if((heritageDetailDict.images?.count)! > 0) {
-                for i in 0 ... (heritageDetailDict.images?.count)!-1 {
-                    var heritageImagesEntity: HeritageImagesEntityAr!
-                    let heritageImage: HeritageImagesEntityAr = NSEntityDescription.insertNewObject(forEntityName: "HeritageImagesEntityAr", into: managedObjContext) as! HeritageImagesEntityAr
-                    heritageImage.images = heritageDetailDict.images![i]
-                    
-                    heritageImagesEntity = heritageImage
-                    heritageInfo.addToImagesRelation(heritageImagesEntity)
-                    do {
-                        try managedObjContext.save()
-                        
-                        
-                    } catch let error as NSError {
-                        print("Could not save. \(error), \(error.userInfo)")
-                    }
-                    
-                }
-            }
-
-        }
         do {
             try managedObjContext.save()
-            
-            
         } catch let error as NSError {
             print("Could not save. \(error), \(error.userInfo)")
         }
     }
-    
     func fetchHeritageDetailsFromCoredata() {
         let managedContext = getContext()
         do {
-            if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
                 var heritageArray = [HeritageEntity]()
                 let heritageFetchRequest =  NSFetchRequest<NSFetchRequestResult>(entityName: "HeritageEntity")
                 if(heritageDetailId != nil) {
@@ -685,8 +805,6 @@ class HeritageDetailViewController: UIViewController,UITableViewDelegate,UITable
                     
                     if (heritageArray.count > 0) {
                         let heritageDict = heritageArray[0]
-                        
-                        
                         if((heritageDict.detailshortdescription != nil) && (heritageDict.detaillongdescription != nil) ) {
                             var imagesArray : [String] = []
                             let heritageImagesArray = (heritageDict.imagesRelation?.allObjects) as! [HeritageImagesEntity]
@@ -696,59 +814,31 @@ class HeritageDetailViewController: UIViewController,UITableViewDelegate,UITable
                                 }
                             }
                             self.heritageDetailtArray.insert(Heritage(id: heritageDict.listid, name: heritageDict.listname, location: heritageDict.detaillocation, latitude: heritageDict.detaillatitude, longitude: heritageDict.detaillongitude, image: heritageDict.listimage, shortdescription: heritageDict.detailshortdescription, longdescription: heritageDict.detaillongdescription, images: imagesArray, sortid: heritageDict.listsortid), at: 0)
-                            
-                          
                             if(heritageDetailtArray.count == 0){
-                                self.showNoNetwork()
-                            }
-                            self.setTopBarImage()
-                            heritageDetailTableView.reloadData()
-                        }else{
-                            self.showNoNetwork()
-                        }
-                    }else{
-                        self.showNoNetwork()
-                    }
-                }
-
-            }
-            else {
-                var heritageArray = [HeritageEntityArabic]()
-                let heritageFetchRequest =  NSFetchRequest<NSFetchRequestResult>(entityName: "HeritageEntityArabic")
-                if(heritageDetailId != nil) {
-                    heritageFetchRequest.predicate = NSPredicate.init(format: "listid == \(heritageDetailId!)")
-                    heritageArray = (try managedContext.fetch(heritageFetchRequest) as? [HeritageEntityArabic])!
-                    
-                    if (heritageArray.count > 0) {
-                        let heritageDict = heritageArray[0]
-                       
-                        if( (heritageDict.detailshortdescarabic != nil) && (heritageDict.detaillongdescriptionarabic != nil)) {
-                            var imagesArray : [String] = []
-                            let heritageImagesArray = (heritageDict.imagesRelation?.allObjects) as! [HeritageImagesEntityAr]
-                            if(heritageImagesArray.count > 0) {
-                                for i in 0 ... heritageImagesArray.count-1 {
-                                    imagesArray.append(heritageImagesArray[i].images!)
+                                if(self.networkReachability?.isReachable == false) {
+                                    self.showNoNetwork()
+                                } else {
+                                    self.loadingView.showNoDataView()
                                 }
                             }
-                            self.heritageDetailtArray.insert(Heritage(id: heritageDict.listid, name: heritageDict.listnamearabic, location: heritageDict.detaillocationarabic, latitude: heritageDict.detaillatitudearabic, longitude: heritageDict.detaillongitudearabic, image: heritageDict.listimagearabic, shortdescription: heritageDict.detailshortdescarabic, longdescription: heritageDict.detaillongdescriptionarabic,images: imagesArray, sortid: heritageDict.listsortidarabic), at: 0)
-                            
-                            
-                            if(heritageDetailtArray.count == 0){
-                                self.showNoNetwork()
-                            }
                             self.setTopBarImage()
                             heritageDetailTableView.reloadData()
-                            
                         }else{
+                            if(self.networkReachability?.isReachable == false) {
+                                self.showNoNetwork()
+                            } else {
+                                self.loadingView.showNoDataView()
+                            }
+                        }
+                    }else{
+                        if(self.networkReachability?.isReachable == false) {
                             self.showNoNetwork()
+                        } else {
+                            self.loadingView.showNoDataView()
                         }
                     }
-                    else{
-                        self.showNoNetwork()
-                    }
                 }
-
-            }
+           
         } catch let error as NSError {
             print("Could not fetch. \(error), \(error.userInfo)")
         }
@@ -800,7 +890,6 @@ class HeritageDetailViewController: UIViewController,UITableViewDelegate,UITable
                         } catch let error as NSError {
                             print("Could not save. \(error), \(error.userInfo)")
                         }
-                        
                     }
                 }
             }
@@ -845,7 +934,6 @@ class HeritageDetailViewController: UIViewController,UITableViewDelegate,UITable
                         } catch let error as NSError {
                             print("Could not save. \(error), \(error.userInfo)")
                         }
-                        
                     }
                 }
                 do{
@@ -888,10 +976,8 @@ class HeritageDetailViewController: UIViewController,UITableViewDelegate,UITable
                     } catch let error as NSError {
                         print("Could not save. \(error), \(error.userInfo)")
                     }
-                    
                 }
             }
-            
         }
         else {
             let publicArtsInfo: PublicArtsEntityArabic = NSEntityDescription.insertNewObject(forEntityName: "PublicArtsEntityArabic", into: managedObjContext) as! PublicArtsEntityArabic
@@ -912,19 +998,14 @@ class HeritageDetailViewController: UIViewController,UITableViewDelegate,UITable
                     publicArtsInfo.addToPublicImagesRelation(publicArtsImagesEntity)
                     do {
                         try managedObjContext.save()
-                        
-                        
                     } catch let error as NSError {
                         print("Could not save. \(error), \(error.userInfo)")
                     }
-                    
                 }
             }
         }
         do {
             try managedObjContext.save()
-            
-            
         } catch let error as NSError {
             print("Could not save. \(error), \(error.userInfo)")
         }
@@ -954,16 +1035,28 @@ class HeritageDetailViewController: UIViewController,UITableViewDelegate,UITable
                             self.publicArtsDetailtArray.insert(PublicArtsDetail(id:publicArtsDict.id , name:publicArtsDict.name, description: publicArtsDict.detaildescription, shortdescription: publicArtsDict.shortdescription, image: publicArtsDict.image, images: imagesArray,longitude: publicArtsDict.longitude, latitude: publicArtsDict.latitude), at: 0)
                             
                             if(publicArtsDetailtArray.count == 0){
-                                self.showNoNetwork()
+                                if(self.networkReachability?.isReachable == false) {
+                                    self.showNoNetwork()
+                                } else {
+                                    self.loadingView.showNoDataView()
+                                }
                             }
                             self.setTopBarImage()
                             heritageDetailTableView.reloadData()
                         }else {
-                            self.showNoNetwork()
+                            if(self.networkReachability?.isReachable == false) {
+                                self.showNoNetwork()
+                            } else {
+                                self.loadingView.showNoDataView()
+                            }
                         }
                     }
                     else{
-                        self.showNoNetwork()
+                        if(self.networkReachability?.isReachable == false) {
+                            self.showNoNetwork()
+                        } else {
+                            self.loadingView.showNoDataView()
+                        }
                     }
                 }
 
@@ -989,39 +1082,48 @@ class HeritageDetailViewController: UIViewController,UITableViewDelegate,UITable
                             
                             
                             if(publicArtsDetailtArray.count == 0){
-                                self.showNoNetwork()
+                                if(self.networkReachability?.isReachable == false) {
+                                    self.showNoNetwork()
+                                } else {
+                                    self.loadingView.showNoDataView()
+                                }
                             }
                             self.setTopBarImage()
                             heritageDetailTableView.reloadData()
                         }
                         else{
-                            self.showNoNetwork()
+                            if(self.networkReachability?.isReachable == false) {
+                                self.showNoNetwork()
+                            } else {
+                                self.loadingView.showNoDataView()
+                            }
                         }
                     }
                     else{
-                        self.showNoNetwork()
+                        if(self.networkReachability?.isReachable == false) {
+                            self.showNoNetwork()
+                        } else {
+                            self.loadingView.showNoDataView()
+                        }
                     }
                 }
-
             }
         } catch let error as NSError {
             print("Could not fetch. \(error), \(error.userInfo)")
         }
     }
-    //MARK:MUSEUMABOUT
-    /*
-    
-    func getAboutDetailsFromServer() {
-        _ = Alamofire.request(QatarMuseumRouter.MuseumAbout(["mid": museumId ?? "0"])).responseObject { (response: DataResponse<MuseumAboutDetails>) -> Void in
+    //MARK: ExhibitionDetail Webservice call
+    func getExhibitionDetail() {
+        _ = Alamofire.request(QatarMuseumRouter.ExhibitionDetail(["nid": exhibitionId!])).responseObject { (response: DataResponse<Exhibitions>) -> Void in
             switch response.result {
             case .success(let data):
-                self.aboutDetailtArray = data.museumAbout!
+                self.exhibition = data.exhibitions!
                 self.setTopBarImage()
-                self.saveOrUpdateAboutCoredata()
+                self.saveOrUpdateExhibitionsCoredata()
                 self.heritageDetailTableView.reloadData()
                 self.loadingView.stopLoading()
                 self.loadingView.isHidden = true
-                if (self.aboutDetailtArray.count == 0) {
+                if (self.exhibition.count == 0) {
                     self.loadingView.stopLoading()
                     self.loadingView.noDataView.isHidden = false
                     self.loadingView.isHidden = false
@@ -1039,119 +1141,41 @@ class HeritageDetailViewController: UIViewController,UITableViewDelegate,UITable
             }
         }
     }
- */
-    
-    func getAboutDetailsFromServer()
-    {
-        _ = Alamofire.request(QatarMuseumRouter.LandingPageMuseums(["nid": museumId ?? 0])).responseObject { (response: DataResponse<Museums>) -> Void in
-            switch response.result {
-            case .success(let data):
-                self.aboutDetailtArray = data.museum!
-                self.setTopBarImage()
-                self.saveOrUpdateAboutCoredata()
-                self.heritageDetailTableView.reloadData()
-                self.loadingView.stopLoading()
-                self.loadingView.isHidden = true
-                if (self.aboutDetailtArray.count == 0) {
-                    self.loadingView.stopLoading()
-                    self.loadingView.noDataView.isHidden = false
-                    self.loadingView.isHidden = false
-                    self.loadingView.showNoDataView()
-                }
-            case .failure( _):
-                var errorMessage: String
-                errorMessage = String(format: NSLocalizedString("NO_RESULT_MESSAGE",
-                                                                comment: "Setting the content of the alert"))
-                self.loadingView.stopLoading()
-                self.loadingView.noDataView.isHidden = false
-                self.loadingView.isHidden = false
-                self.loadingView.showNoDataView()
-                self.loadingView.noDataLabel.text = errorMessage
-            }
-        }
-    }
-    
-    //MARK: About CoreData
-    func saveOrUpdateAboutCoredata() {
-        if (aboutDetailtArray.count > 0) {
+    //MARK: Coredata Method
+    func saveOrUpdateExhibitionsCoredata() {
+        if (exhibition.count > 0) {
             let appDelegate =  UIApplication.shared.delegate as? AppDelegate
             if #available(iOS 10.0, *) {
                 let container = appDelegate!.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
-                    self.aboutCoreDataInBackgroundThread(managedContext: managedContext)
+                    self.exhibitionCoreDataInBackgroundThread(managedContext: managedContext)
                 }
             } else {
                 let managedContext = appDelegate!.managedObjectContext
                 managedContext.perform {
-                    self.aboutCoreDataInBackgroundThread(managedContext : managedContext)
+                    self.exhibitionCoreDataInBackgroundThread(managedContext : managedContext)
                 }
             }
         }
     }
-    
-    func aboutCoreDataInBackgroundThread(managedContext: NSManagedObjectContext) {
+    func exhibitionCoreDataInBackgroundThread(managedContext: NSManagedObjectContext) {
         if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
-            let fetchData = checkAddedToCoredata(entityName: "AboutEntity", idKey: "id" , idValue: aboutDetailtArray[0].id, managedContext: managedContext) as! [AboutEntity]
-           
+            let fetchData = checkAddedToCoredata(entityName: "ExhibitionsEntity", idKey: "id" , idValue: exhibition[0].id, managedContext: managedContext) as! [ExhibitionsEntity]
             if (fetchData.count > 0) {
-                let aboutDetailDict = aboutDetailtArray[0]
+                let exhibitionDetailDict = exhibition[0]
                 
                 //update
-                let aboutdbDict = fetchData[0]
-
-                aboutdbDict.name = aboutDetailDict.name
-                aboutdbDict.id = aboutDetailDict.id
-                aboutdbDict.tourguideAvailable = aboutDetailDict.tourguideAvailable
-                aboutdbDict.contactNumber = aboutDetailDict.contactNumber
-                aboutdbDict.contactEmail = aboutDetailDict.contactEmail
-                aboutdbDict.mobileLongtitude = aboutDetailDict.mobileLongtitude
-                aboutdbDict.subtitle = aboutDetailDict.subtitle
-                aboutdbDict.openingTime = aboutDetailDict.openingTime
-
-                aboutdbDict.mobileLatitude = aboutDetailDict.mobileLatitude
-                aboutdbDict.tourGuideAvailability = aboutDetailDict.tourGuideAvailability
-                
-                
-                if((aboutDetailDict.mobileDescription?.count)! > 0) {
-                    for i in 0 ... (aboutDetailDict.mobileDescription?.count)!-1 {
-                        var aboutDescEntity: AboutDescriptionEntity!
-                        let aboutDesc: AboutDescriptionEntity = NSEntityDescription.insertNewObject(forEntityName: "AboutDescriptionEntity", into: managedContext) as! AboutDescriptionEntity
-                        aboutDesc.mobileDesc = aboutDetailDict.mobileDescription![i].replacingOccurrences(of: "<[^>]+>|&nbsp;|&|#039;", with: "", options: .regularExpression, range: nil)
-                        
-                        aboutDescEntity = aboutDesc
-                        aboutdbDict.addToMobileDescRelation(aboutDescEntity)
-
-                        do {
-                            try managedContext.save()
-                            
-                            
-                        } catch let error as NSError {
-                            print("Could not save. \(error), \(error.userInfo)")
-                        }
-                        
-                    }
-                }
-                
-                //MultimediaFile
-                if(aboutDetailDict.multimediaFile != nil){
-                    if((aboutDetailDict.multimediaFile?.count)! > 0) {
-                        for i in 0 ... (aboutDetailDict.multimediaFile?.count)!-1 {
-                            var aboutImage: AboutMultimediaFileEntity!
-                            let aboutImgaeArray: AboutMultimediaFileEntity = NSEntityDescription.insertNewObject(forEntityName: "AboutMultimediaFileEntity", into: managedContext) as! AboutMultimediaFileEntity
-                            aboutImgaeArray.image = aboutDetailDict.multimediaFile![i]
-                            
-                            aboutImage = aboutImgaeArray
-                            aboutdbDict.addToMultimediaRelation(aboutImage)
-                            do {
-                                try managedContext.save()
-                                
-                            } catch let error as NSError {
-                                print("Could not save. \(error), \(error.userInfo)")
-                            }
-                            
-                        }
-                    }
-                }
+                let exhibitiondbDict = fetchData[0]
+                exhibitiondbDict.detailName = exhibitionDetailDict.name
+                exhibitiondbDict.detailImage = exhibitionDetailDict.detailImage
+                exhibitiondbDict.detailStartDate =  exhibitionDetailDict.startDate
+                exhibitiondbDict.detailEndDate = exhibitionDetailDict.endDate
+                exhibitiondbDict.detailShortDesc = exhibitionDetailDict.shortDescription
+                exhibitiondbDict.detailLongDesc =  exhibitionDetailDict.longDescription
+                exhibitiondbDict.detailLocation =  exhibitionDetailDict.location
+                exhibitiondbDict.detailLatitude = exhibitionDetailDict.latitude
+                exhibitiondbDict.detailLongitude = exhibitionDetailDict.longitude
+                exhibitiondbDict.status = exhibitionDetailDict.status
                 
                 do{
                     try managedContext.save()
@@ -1161,202 +1185,72 @@ class HeritageDetailViewController: UIViewController,UITableViewDelegate,UITable
                 }
             }
             else {
-                let aboutDetailDict : Museum?
-                aboutDetailDict = aboutDetailtArray[0]
-                self.saveToCoreData(aboutDetailDict: aboutDetailDict!, managedObjContext: managedContext)
+                let exhibitionListDict : Exhibition?
+                exhibitionListDict = exhibition[0]
+                self.saveExhibitionToCoreData(exhibitionDetailDict: exhibitionListDict!, managedObjContext: managedContext)
             }
         }
         else {
-            let fetchData = checkAddedToCoredata(entityName: "AboutEntityArabic", idKey:"id" , idValue: aboutDetailtArray[0].id, managedContext: managedContext) as! [AboutEntityArabic]
+            let fetchData = checkAddedToCoredata(entityName: "ExhibitionsEntityArabic", idKey:"id" , idValue: exhibition[0].id, managedContext: managedContext) as! [ExhibitionsEntityArabic]
             if (fetchData.count > 0) {
-                let aboutDetailDict = aboutDetailtArray[0]
+                let exhibitionDetailDict = exhibition[0]
                 
                 //update
                 
-                let aboutdbDict = fetchData[0]
-                aboutdbDict.nameAr = aboutDetailDict.name
-                aboutdbDict.id = aboutDetailDict.id
-                aboutdbDict.tourguideAvailableAr = aboutDetailDict.tourguideAvailable
-                aboutdbDict.contactNumberAr = aboutDetailDict.contactNumber
-                aboutdbDict.contactEmailAr = aboutDetailDict.contactEmail
-                aboutdbDict.mobileLongtitudeAr = aboutDetailDict.mobileLongtitude
-                aboutdbDict.subtitleAr = aboutDetailDict.subtitle
-                aboutdbDict.openingTimeAr = aboutDetailDict.openingTime
-
-                aboutdbDict.mobileLatitudear = aboutDetailDict.mobileLatitude
-                aboutdbDict.tourGuideAvlblyAr = aboutDetailDict.tourGuideAvailability
+                let exhibitiondbDict = fetchData[0]
+                exhibitiondbDict.detailNameAr = exhibitionDetailDict.name
+                exhibitiondbDict.detailImgeAr = exhibitionDetailDict.detailImage
+                exhibitiondbDict.detailStartDateAr =  exhibitionDetailDict.startDate
+                exhibitiondbDict.detailendDateAr = exhibitionDetailDict.endDate
+                exhibitiondbDict.detailShortDescAr = exhibitionDetailDict.shortDescription
+                exhibitiondbDict.detailLongDescAr =  exhibitionDetailDict.longDescription
+                exhibitiondbDict.detailLocationAr =  exhibitionDetailDict.location
+                exhibitiondbDict.detailLatituedeAr = exhibitionDetailDict.latitude
+                exhibitiondbDict.detailLongitudeAr = exhibitionDetailDict.longitude
+                exhibitiondbDict.status = exhibitionDetailDict.status
                 
-                
-                if((aboutDetailDict.mobileDescription?.count)! > 0) {
-                    for i in 0 ... (aboutDetailDict.mobileDescription?.count)!-1 {
-                        var aboutDescEntity: AboutDescriptionEntityAr!
-                        let aboutDesc: AboutDescriptionEntityAr = NSEntityDescription.insertNewObject(forEntityName: "AboutDescriptionEntityAr", into: managedContext) as! AboutDescriptionEntityAr
-                        aboutDesc.mobileDesc = aboutDetailDict.mobileDescription![i].replacingOccurrences(of: "<[^>]+>|&nbsp;|&|#039;", with: "", options: .regularExpression, range: nil)
-                        
-                        aboutDescEntity = aboutDesc
-                        aboutdbDict.addToMobileDescRelation(aboutDescEntity)
-                        
-                        do {
-                            try managedContext.save()
-                            
-                            
-                        } catch let error as NSError {
-                            print("Could not save. \(error), \(error.userInfo)")
-                        }
-                        
-                    }
-                }
-                
-                //MultimediaFile
-                if(aboutDetailDict.multimediaFile != nil){
-                    if((aboutDetailDict.multimediaFile?.count)! > 0) {
-                        for i in 0 ... (aboutDetailDict.multimediaFile?.count)!-1 {
-                            var aboutImage: AboutMultimediaFileEntityAr!
-                            let aboutImgaeArray: AboutMultimediaFileEntityAr = NSEntityDescription.insertNewObject(forEntityName: "AboutMultimediaFileEntityAr", into: managedContext) as! AboutMultimediaFileEntityAr
-                            aboutImgaeArray.image = aboutDetailDict.multimediaFile![i]
-                            
-                            aboutImage = aboutImgaeArray
-                            aboutdbDict.addToMultimediaRelation(aboutImage)
-                            do {
-                                try managedContext.save()
-                                
-                            } catch let error as NSError {
-                                print("Could not save. \(error), \(error.userInfo)")
-                            }
-                            
-                        }
-                    }
-                }
                 do{
                     try managedContext.save()
                 }
                 catch{
                     print(error)
                 }
-            }
-            else {
-                let aboutDetailDict : Museum?
-                aboutDetailDict = aboutDetailtArray[0]
-                self.saveToCoreData(aboutDetailDict: aboutDetailDict!, managedObjContext: managedContext)
+            } else {
+                let exhibitionListDict : Exhibition?
+                exhibitionListDict = exhibition[0]
+                self.saveExhibitionToCoreData(exhibitionDetailDict: exhibitionListDict!, managedObjContext: managedContext)
             }
         }
     }
-    
-    func saveToCoreData(aboutDetailDict: Museum, managedObjContext: NSManagedObjectContext) {
+    func saveExhibitionToCoreData(exhibitionDetailDict: Exhibition, managedObjContext: NSManagedObjectContext) {
         if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
-            let aboutdbDict: AboutEntity = NSEntityDescription.insertNewObject(forEntityName: "AboutEntity", into: managedObjContext) as! AboutEntity
-
-            aboutdbDict.name = aboutDetailDict.name
-            aboutdbDict.id = aboutDetailDict.id
-            aboutdbDict.tourguideAvailable = aboutDetailDict.tourguideAvailable
-            aboutdbDict.contactNumber = aboutDetailDict.contactNumber
-            aboutdbDict.contactEmail = aboutDetailDict.contactEmail
-            aboutdbDict.mobileLongtitude = aboutDetailDict.mobileLongtitude
-            aboutdbDict.subtitle = aboutDetailDict.subtitle
-            aboutdbDict.openingTime = aboutDetailDict.openingTime
-
-            aboutdbDict.mobileLatitude = aboutDetailDict.mobileLatitude
-            aboutdbDict.tourGuideAvailability = aboutDetailDict.tourGuideAvailability
-            
-            if((aboutDetailDict.mobileDescription?.count)! > 0) {
-                for i in 0 ... (aboutDetailDict.mobileDescription?.count)!-1 {
-                    var aboutDescEntity: AboutDescriptionEntity!
-                    let aboutDesc: AboutDescriptionEntity = NSEntityDescription.insertNewObject(forEntityName: "AboutDescriptionEntity", into: managedObjContext) as! AboutDescriptionEntity
-                    aboutDesc.mobileDesc = aboutDetailDict.mobileDescription![i].replacingOccurrences(of: "<[^>]+>|&nbsp;|&|#039;", with: "", options: .regularExpression, range: nil)
-                    
-                    aboutDescEntity = aboutDesc
-                    aboutdbDict.addToMobileDescRelation(aboutDescEntity)
-                    
-                    do {
-                        try managedObjContext.save()
-                        
-                        
-                    } catch let error as NSError {
-                        print("Could not save. \(error), \(error.userInfo)")
-                    }
-                    
-                }
-            }
-            
-            //MultimediaFile
-            if(aboutDetailDict.multimediaFile != nil){
-                if((aboutDetailDict.multimediaFile?.count)! > 0) {
-                    for i in 0 ... (aboutDetailDict.multimediaFile?.count)!-1 {
-                        var aboutImage: AboutMultimediaFileEntity!
-                        let aboutImgaeArray: AboutMultimediaFileEntity = NSEntityDescription.insertNewObject(forEntityName: "AboutMultimediaFileEntity", into: managedObjContext) as! AboutMultimediaFileEntity
-                        aboutImgaeArray.image = aboutDetailDict.multimediaFile![i]
-                        
-                        aboutImage = aboutImgaeArray
-                        aboutdbDict.addToMultimediaRelation(aboutImage)
-                        do {
-                            try managedObjContext.save()
-                            
-                        } catch let error as NSError {
-                            print("Could not save. \(error), \(error.userInfo)")
-                        }
-                        
-                    }
-                }
-            }
+            let exhibitionInfo: ExhibitionsEntity = NSEntityDescription.insertNewObject(forEntityName: "ExhibitionsEntity", into: managedObjContext) as! ExhibitionsEntity
+            exhibitionInfo.id = exhibitionDetailDict.id
+            exhibitionInfo.detailName = exhibitionDetailDict.name
+            exhibitionInfo.detailImage = exhibitionDetailDict.detailImage
+            exhibitionInfo.detailStartDate = exhibitionDetailDict.startDate
+            exhibitionInfo.detailEndDate = exhibitionDetailDict.endDate
+            exhibitionInfo.detailShortDesc =  exhibitionDetailDict.shortDescription
+            exhibitionInfo.detailLongDesc =  exhibitionDetailDict.longDescription
+            exhibitionInfo.detailLocation = exhibitionDetailDict.location
+            exhibitionInfo.detailLatitude =  exhibitionDetailDict.latitude
+            exhibitionInfo.detailLongitude = exhibitionDetailDict.longitude
+            exhibitionInfo.status = exhibitionDetailDict.status
             
         }
         else {
-            let aboutdbDict: AboutEntityArabic = NSEntityDescription.insertNewObject(forEntityName: "AboutEntityArabic", into: managedObjContext) as! AboutEntityArabic
-            
-
-            aboutdbDict.nameAr = aboutDetailDict.name
-            aboutdbDict.id = aboutDetailDict.id
-            aboutdbDict.tourguideAvailableAr = aboutDetailDict.tourguideAvailable
-            aboutdbDict.contactNumberAr = aboutDetailDict.contactNumber
-            aboutdbDict.contactEmailAr = aboutDetailDict.contactEmail
-            aboutdbDict.mobileLongtitudeAr = aboutDetailDict.mobileLongtitude
-            aboutdbDict.subtitleAr = aboutDetailDict.subtitle
-            aboutdbDict.openingTimeAr = aboutDetailDict.openingTime
-
-            aboutdbDict.mobileLatitudear = aboutDetailDict.mobileLatitude
-            aboutdbDict.tourGuideAvlblyAr = aboutDetailDict.tourGuideAvailability
-            
-            if((aboutDetailDict.mobileDescription?.count)! > 0) {
-                for i in 0 ... (aboutDetailDict.mobileDescription?.count)!-1 {
-                    var aboutDescEntity: AboutDescriptionEntityAr!
-                    let aboutDesc: AboutDescriptionEntityAr = NSEntityDescription.insertNewObject(forEntityName: "AboutDescriptionEntityAr", into: managedObjContext) as! AboutDescriptionEntityAr
-                    aboutDesc.mobileDesc = aboutDetailDict.mobileDescription![i].replacingOccurrences(of: "<[^>]+>|&nbsp;|&|#039;", with: "", options: .regularExpression, range: nil)
-                    
-                    aboutDescEntity = aboutDesc
-                    aboutdbDict.addToMobileDescRelation(aboutDescEntity)
-                    
-                    do {
-                        try managedObjContext.save()
-                        
-                        
-                    } catch let error as NSError {
-                        print("Could not save. \(error), \(error.userInfo)")
-                    }
-                    
-                }
-            }
-            
-            //MultimediaFile
-            if(aboutDetailDict.multimediaFile != nil){
-                if((aboutDetailDict.multimediaFile?.count)! > 0) {
-                    for i in 0 ... (aboutDetailDict.multimediaFile?.count)!-1 {
-                        var aboutImage: AboutMultimediaFileEntityAr!
-                        let aboutImgaeArray: AboutMultimediaFileEntityAr = NSEntityDescription.insertNewObject(forEntityName: "AboutMultimediaFileEntityAr", into: managedObjContext) as! AboutMultimediaFileEntityAr
-                        aboutImgaeArray.image = aboutDetailDict.multimediaFile![i]
-                        
-                        aboutImage = aboutImgaeArray
-                        aboutdbDict.addToMultimediaRelation(aboutImage)
-                        do {
-                            try managedObjContext.save()
-                            
-                        } catch let error as NSError {
-                            print("Could not save. \(error), \(error.userInfo)")
-                        }
-                        
-                    }
-                }
-            }
-            
+            let exhibitionInfo: ExhibitionsEntityArabic = NSEntityDescription.insertNewObject(forEntityName: "ExhibitionsEntityArabic", into: managedObjContext) as! ExhibitionsEntityArabic
+            exhibitionInfo.id = exhibitionDetailDict.id
+            exhibitionInfo.detailNameAr = exhibitionDetailDict.name
+            exhibitionInfo.detailImgeAr = exhibitionDetailDict.detailImage
+            exhibitionInfo.detailStartDateAr = exhibitionDetailDict.startDate
+            exhibitionInfo.detailendDateAr = exhibitionDetailDict.endDate
+            exhibitionInfo.detailShortDescAr =  exhibitionDetailDict.shortDescription
+            exhibitionInfo.detailLongDescAr =  exhibitionDetailDict.longDescription
+            exhibitionInfo.detailLocationAr = exhibitionDetailDict.location
+            exhibitionInfo.detailLatituedeAr =  exhibitionDetailDict.latitude
+            exhibitionInfo.detailLongitudeAr = exhibitionDetailDict.longitude
+            exhibitionInfo.status = exhibitionDetailDict.status
         }
         do {
             try managedObjContext.save()
@@ -1366,98 +1260,909 @@ class HeritageDetailViewController: UIViewController,UITableViewDelegate,UITable
             print("Could not save. \(error), \(error.userInfo)")
         }
     }
-    
-    func fetchAboutDetailsFromCoredata() {
+    func fetchExhibitionDetailsFromCoredata() {
         let managedContext = getContext()
         do {
             if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
-                var aboutArray = [AboutEntity]()
-                let fetchRequest =  NSFetchRequest<NSFetchRequestResult>(entityName: "AboutEntity")
-                
-                if(museumId != nil) {
-                    //fetchRequest.predicate = NSPredicate.init(format: "id == \(museumId!)")
-                    fetchRequest.predicate = NSPredicate(format: "id == %@", museumId!)
-                    aboutArray = (try managedContext.fetch(fetchRequest) as? [AboutEntity])!
+                var exhibitionArray = [ExhibitionsEntity]()
+                let exhibitionFetchRequest =  NSFetchRequest<NSFetchRequestResult>(entityName: "ExhibitionsEntity")
+                if(self.exhibitionId != nil) {
+                    exhibitionFetchRequest.predicate = NSPredicate.init(format: "id == \(self.exhibitionId!)")
+                }
+                exhibitionArray = (try managedContext.fetch(exhibitionFetchRequest) as? [ExhibitionsEntity])!
+                let exhibitionDict = exhibitionArray[0]
+                if ((exhibitionArray.count > 0) && (exhibitionDict.detailLongDesc != nil) && (exhibitionDict.detailShortDesc != nil) ){
                     
-                    if (aboutArray.count > 0 ){
-                        let aboutDict = aboutArray[0]
-  
-                        var descriptionArray : [String] = []
-                        let aboutInfoArray = (aboutDict.mobileDescRelation?.allObjects) as! [AboutDescriptionEntity]
-                        if(aboutInfoArray.count > 0) {
-                            for i in 0 ... aboutInfoArray.count-1 {
-                                descriptionArray.append(aboutInfoArray[i].mobileDesc!)
-                            }
-                        }
-                        
-                        var multimediaArray : [String] = []
-                        let mutimediaInfoArray = (aboutDict.multimediaRelation?.allObjects) as! [AboutMultimediaFileEntity]
-                        if(mutimediaInfoArray.count > 0) {
-                            for i in 0 ... mutimediaInfoArray.count-1 {
-                                multimediaArray.append(mutimediaInfoArray[i].image!)
-                            }
-                        }
-                        
-                        
-                        self.aboutDetailtArray.insert(Museum(name: aboutDict.name, id: aboutDict.id, tourguideAvailable: aboutDict.tourguideAvailable, contactNumber: aboutDict.contactNumber, contactEmail: aboutDict.contactEmail, mobileLongtitude: aboutDict.mobileLongtitude, subtitle: aboutDict.subtitle, openingTime: aboutDict.openingTime, mobileDescription: descriptionArray, multimediaFile: multimediaArray, mobileLatitude: aboutDict.mobileLatitude, tourGuideAvailability: aboutDict.tourGuideAvailability,multimediaVideo: nil,downloadable:nil),at: 0)
-                       
-                        
-                        if(aboutDetailtArray.count == 0){
+                    self.exhibition.insert(Exhibition(id: exhibitionDict.id, name: exhibitionDict.detailName, image: nil,detailImage:exhibitionDict.detailImage, startDate: exhibitionDict.detailStartDate, endDate: exhibitionDict.detailEndDate, location: exhibitionDict.detailLocation, latitude: exhibitionDict.detailLatitude, longitude: exhibitionDict.detailLongitude, shortDescription: exhibitionDict.detailShortDesc, longDescription: exhibitionDict.detailLongDesc,museumId:nil,status: exhibitionDict.status, displayDate: exhibitionDict.dispalyDate), at: 0)
+                    
+                    if(self.exhibition.count == 0){
+                        if(self.networkReachability?.isReachable == false) {
                             self.showNoNetwork()
+                        } else {
+                            self.loadingView.showNoDataView()
                         }
-                        self.setTopBarImage()
-                        heritageDetailTableView.reloadData()
                     }
-                    else{
+                    self.self.setTopBarImage()
+                    self.heritageDetailTableView.reloadData()
+                }
+                else{
+                    if(self.networkReachability?.isReachable == false) {
                         self.showNoNetwork()
+                    } else {
+                        self.loadingView.showNoDataView()
                     }
                 }
-
             }
             else {
-                var aboutArray = [AboutEntityArabic]()
-                let fetchRequest =  NSFetchRequest<NSFetchRequestResult>(entityName: "AboutEntityArabic")
-                if(museumId != nil) {
-                    fetchRequest.predicate = NSPredicate.init(format: "id == \(museumId!)")
-                    aboutArray = (try managedContext.fetch(fetchRequest) as? [AboutEntityArabic])!
+                var exhibitionArray = [ExhibitionsEntityArabic]()
+                let exhibitionFetchRequest =  NSFetchRequest<NSFetchRequestResult>(entityName: "ExhibitionsEntityArabic")
+                if(self.exhibitionId != nil) {
+                    exhibitionFetchRequest.predicate = NSPredicate.init(format: "id == \(self.exhibitionId!)")
+                }
+                exhibitionArray = (try managedContext.fetch(exhibitionFetchRequest) as? [ExhibitionsEntityArabic])!
+                let exhibitionDict = exhibitionArray[0]
+                if ((exhibitionArray.count > 0) && (exhibitionDict.detailLongDescAr != nil) && (exhibitionDict.detailShortDescAr != nil)) {
                     
-                    if (aboutArray.count > 0) {
-                        let aboutDict = aboutArray[0]
-                        var descriptionArray : [String] = []
-                        let aboutInfoArray = (aboutDict.mobileDescRelation?.allObjects) as! [AboutDescriptionEntityAr]
-                        if(aboutInfoArray.count > 0) {
-                            for i in 0 ... aboutInfoArray.count-1 {
-                                descriptionArray.append(aboutInfoArray[i].mobileDesc!)
-                            }
-                        }
-                        
-                        
-                        
-                        var multimediaArray : [String] = []
-                        let mutimediaInfoArray = (aboutDict.multimediaRelation?.allObjects) as! [AboutMultimediaFileEntity]
-                        if(mutimediaInfoArray.count > 0) {
-                            for i in 0 ... mutimediaInfoArray.count-1 {
-                                multimediaArray.append(mutimediaInfoArray[i].image!)
-                            }
-                        }
-                        self.aboutDetailtArray.insert(Museum(name: aboutDict.nameAr, id: aboutDict.id, tourguideAvailable: aboutDict.tourguideAvailableAr, contactNumber: aboutDict.contactNumberAr, contactEmail: aboutDict.contactEmailAr, mobileLongtitude: aboutDict.mobileLongtitudeAr, subtitle: aboutDict.subtitleAr, openingTime: aboutDict.openingTimeAr, mobileDescription: descriptionArray, multimediaFile: multimediaArray, mobileLatitude: aboutDict.mobileLatitudear, tourGuideAvailability: aboutDict.tourGuideAvlblyAr,multimediaVideo: nil,downloadable:nil),at: 0)
-                        if(aboutDetailtArray.count == 0){
+                    self.exhibition.insert(Exhibition(id: exhibitionDict.id, name: exhibitionDict.detailNameAr, image: nil,detailImage:exhibitionDict.detailImgeAr, startDate: exhibitionDict.detailStartDateAr, endDate: exhibitionDict.detailendDateAr, location: exhibitionDict.detailLocationAr, latitude: exhibitionDict.detailLatituedeAr, longitude: exhibitionDict.detailLongitudeAr, shortDescription: exhibitionDict.detailShortDescAr, longDescription: exhibitionDict.detailLongDescAr,museumId:nil,status: exhibitionDict.status, displayDate: exhibitionDict.displayDateAr), at: 0)
+                    
+                    
+                    if(self.exhibition.count == 0){
+                        if(self.networkReachability?.isReachable == false) {
                             self.showNoNetwork()
+                        } else {
+                            self.loadingView.showNoDataView()
                         }
-                        self.setTopBarImage()
-                        heritageDetailTableView.reloadData()
                     }
-                    else{
+                    self.setTopBarImage()
+                    self.heritageDetailTableView.reloadData()
+                }
+                else{
+                    if(self.networkReachability?.isReachable == false) {
                         self.showNoNetwork()
+                    } else {
+                        self.loadingView.showNoDataView()
                     }
                 }
- 
             }
         } catch let error as NSError {
             print("Could not fetch. \(error), \(error.userInfo)")
         }
     }
+    //MARK: Parks WebServiceCall
+    func getParksDataFromServer()
+    {
+        _ = Alamofire.request(QatarMuseumRouter.ParksList(LocalizationLanguage.currentAppleLanguage())).responseObject { (response: DataResponse<ParksLists>) -> Void in
+            switch response.result {
+            case .success(let data):
+                if (self.parksListArray.count == 0) {
+                    self.parksListArray = data.parkList
+                    self.heritageDetailTableView.reloadData()
+                    if(self.parksListArray.count == 0) {
+                        self.addCloseButton()
+                        var errorMessage: String
+                        errorMessage = String(format: NSLocalizedString("NO_RESULT_MESSAGE",
+                                                                        comment: "Setting the content of the alert"))
+                        self.loadingView.stopLoading()
+                        self.loadingView.noDataView.isHidden = false
+                        self.loadingView.isHidden = false
+                        self.loadingView.showNoDataView()
+                        self.loadingView.noDataLabel.text = errorMessage
+                    }
+                }
+                if (self.parksListArray.count > 0)  {
+                    self.saveOrUpdateParksCoredata(parksListArray: data.parkList)
+                    //if let imageUrl = self.parksListArray[0].image{
+                        self.setTopBarImage()
+//                    } else {
+//                        self.imageView.image = UIImage(named: "default_imageX2")
+//                    }
+                    
+                }
+                // }
+                
+            case .failure( _):
+                print("error")
+                if(self.parksListArray.count == 0) {
+                    self.addCloseButton()
+                    var errorMessage: String
+                    errorMessage = String(format: NSLocalizedString("NO_RESULT_MESSAGE",
+                                                                    comment: "Setting the content of the alert"))
+                    self.loadingView.stopLoading()
+                    self.loadingView.noDataView.isHidden = false
+                    self.loadingView.isHidden = false
+                    self.loadingView.showNoDataView()
+                    self.loadingView.noDataLabel.text = errorMessage
+                }
+                
+            }
+        }
+    }
+    //MARK: Coredata Method
+    func saveOrUpdateParksCoredata(parksListArray:[ParksList]? ) {
+        if (parksListArray!.count > 0) {
+            let appDelegate =  UIApplication.shared.delegate as? AppDelegate
+            if #available(iOS 10.0, *) {
+                let container = appDelegate!.persistentContainer
+                container.performBackgroundTask() {(managedContext) in
+                    self.parksCoreDataInBackgroundThread(managedContext: managedContext, parksListArray: parksListArray)
+                }
+            } else {
+                let managedContext = appDelegate!.managedObjectContext
+                managedContext.perform {
+                    self.parksCoreDataInBackgroundThread(managedContext : managedContext, parksListArray: parksListArray)
+                }
+            }
+        }
+    }
+    func parksCoreDataInBackgroundThread(managedContext: NSManagedObjectContext,parksListArray:[ParksList]?) {
+        if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
+            let fetchData = checkAddedToCoredata(entityName: "ParksEntity", idKey: nil, idValue: nil, managedContext: managedContext) as! [ParksEntity]
+            if (fetchData.count > 0) {
+                let isDeleted = self.deleteExistingEvent(managedContext: managedContext, entityName: "ParksEntity")
+                if(isDeleted == true) {
+                    for i in 0 ... parksListArray!.count-1 {
+                        let parksDict : ParksList?
+                        parksDict = parksListArray![i]
+                        self.saveParksToCoreData(parksDict: parksDict!, managedObjContext: managedContext)
+                        
+                    }
+                }
+            }
+            else {
+                for i in 0 ... parksListArray!.count-1 {
+                    let parksDict : ParksList?
+                    parksDict = parksListArray![i]
+                    self.saveParksToCoreData(parksDict: parksDict!, managedObjContext: managedContext)
+                    
+                }
+            }
+        }
+        else {
+            let fetchData = checkAddedToCoredata(entityName: "ParksEntityArabic", idKey: nil, idValue: nil, managedContext: managedContext) as! [ParksEntityArabic]
+            if (fetchData.count > 0) {
+                let isDeleted = self.deleteExistingEvent(managedContext: managedContext, entityName: "ParksEntityArabic")
+                if(isDeleted == true) {
+                    for i in 0 ... parksListArray!.count-1 {
+                        let parksDict : ParksList?
+                        parksDict = parksListArray![i]
+                        self.saveParksToCoreData(parksDict: parksDict!, managedObjContext: managedContext)
+                        
+                    }
+                }
+            }
+            else {
+                for i in 0 ... parksListArray!.count-1 {
+                    let parksDict : ParksList?
+                    parksDict = parksListArray![i]
+                    self.saveParksToCoreData(parksDict: parksDict!, managedObjContext: managedContext)
+                    
+                }
+            }
+        }
+    }
+    func saveParksToCoreData(parksDict: ParksList, managedObjContext: NSManagedObjectContext) {
+        if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
+            let parksInfo: ParksEntity = NSEntityDescription.insertNewObject(forEntityName: "ParksEntity", into: managedObjContext) as! ParksEntity
+            parksInfo.title = parksDict.title
+            parksInfo.parksDescription = parksDict.description
+            parksInfo.image = parksDict.image
+            if(parksDict.sortId != nil) {
+                parksInfo.sortId = parksDict.sortId
+            }
+        }
+        else {
+            let parksInfo: ParksEntityArabic = NSEntityDescription.insertNewObject(forEntityName: "ParksEntityArabic", into: managedObjContext) as! ParksEntityArabic
+            parksInfo.titleArabic = parksDict.title
+            parksInfo.descriptionArabic = parksDict.description
+            parksInfo.imageArabic = parksDict.image
+            if(parksDict.sortId != nil) {
+                parksInfo.sortIdArabic = parksDict.sortId
+            }
+        }
+        do {
+            try managedObjContext.save()
+            
+            
+        } catch let error as NSError {
+            print("Could not save. \(error), \(error.userInfo)")
+        }
+    }
+    func fetchParksFromCoredata() {
+        let managedContext = getContext()
+        do {
+            if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
+                var parksArray = [ParksEntity]()
+                let parksFetchRequest =  NSFetchRequest<NSFetchRequestResult>(entityName: "ParksEntity")
+                parksArray = (try managedContext.fetch(parksFetchRequest) as? [ParksEntity])!
+                
+                if (parksArray.count > 0) {
+                    if  (networkReachability?.isReachable)! {
+                        DispatchQueue.global(qos: .background).async {
+                            self.getParksDataFromServer()
+                        }
+                    }
+                    for i in 0 ... parksArray.count-1 {
+                        self.parksListArray.insert(ParksList(title: parksArray[i].title, description: parksArray[i].parksDescription, sortId: parksArray[i].sortId, image: parksArray[i].image), at: i)
+                        
+                    }
+                    if(parksListArray.count == 0){
+                        if(self.networkReachability?.isReachable == false) {
+                            self.showNoNetwork()
+                        } else {
+                            self.loadingView.showNoDataView()
+                        }
+                    }
+                    //if let imageUrl = parksListArray[0].image {
+                    self.setTopBarImage()
+//                    } else {
+//                        imageView.image = UIImage(named: "default_imageX2")
+//                    }
+                    
+                    heritageDetailTableView.reloadData()
+                }
+                else{
+                    if(self.networkReachability?.isReachable == false) {
+                        self.showNoNetwork()
+                        self.addCloseButton()
+                    } else {
+                        //self.loadingView.showNoDataView()
+                        self.getParksDataFromServer()//coreDataMigratio  solution
+                        self.addCloseButton()
+                    }
+                }
+            }
+            else {
+                var parksArray = [ParksEntityArabic]()
+                let parksFetchRequest =  NSFetchRequest<NSFetchRequestResult>(entityName: "ParksEntityArabic")
+                parksArray = (try managedContext.fetch(parksFetchRequest) as? [ParksEntityArabic])!
+                if (parksArray.count > 0) {
+                    if  (networkReachability?.isReachable)! {
+                        DispatchQueue.global(qos: .background).async {
+                            self.getParksDataFromServer()
+                        }
+                    }
+                    for i in 0 ... parksArray.count-1 {
+                        self.parksListArray.insert(ParksList(title: parksArray[i].titleArabic, description: parksArray[i].descriptionArabic, sortId: parksArray[i].sortIdArabic, image: parksArray[i].imageArabic), at: i)
+                    }
+                    if(parksArray.count == 0){
+                        if(self.networkReachability?.isReachable == false) {
+                            self.showNoNetwork()
+                        } else {
+                            self.loadingView.showNoDataView()
+                        }
+                    }
+                   // if let imageUrl = parksListArray[0].image {
+                        self.setTopBarImage()
+//                    }else {
+//                        imageView.image = UIImage(named: "default_imageX2")
+//                    }
+                    heritageDetailTableView.reloadData()
+                }
+                else{
+                    if(self.networkReachability?.isReachable == false) {
+                        self.showNoNetwork()
+                        self.addCloseButton()
+                    } else {
+                        //self.loadingView.showNoDataView()
+                        self.getParksDataFromServer()//coreDataMigratio  solution
+                        self.addCloseButton()
+                    }
+                }
+            }
+        } catch let error as NSError {
+            print("Could not fetch. \(error), \(error.userInfo)")
+            if(self.networkReachability?.isReachable == false) {
+                self.showNoNetwork()
+                self.addCloseButton()
+            }
+        }
+    }
+    //MARK : NMoQPark
+    func getNMoQParkDetailFromServer() {
+        if (parkDetailId != nil) {
+            _ = Alamofire.request(QatarMuseumRouter.GetNMoQPlaygroundDetail(LocalizationLanguage.currentAppleLanguage(), ["nid": parkDetailId!])).responseObject { (response: DataResponse<NMoQParksDetail>) -> Void in
+                switch response.result {
+                case .success(let data):
+                    self.nmoqParkDetailArray = data.nmoqParksDetail
+                    // self.saveOrUpdateNmoqParkDetailCoredata(nmoqParkList: data.nmoqParksDetail)
+                    self.heritageDetailTableView.reloadData()
+//                    if(self.nmoqParkDetailArray.count > 0) {
+//                        if ( (self.nmoqParkDetailArray[0].images?.count)! > 0) {
+//                            if let imageUrl = self.nmoqParkDetailArray[0].images?[0] {
+                    self.setTopBarImage()
+//                            } else {
+//                                self.imageView.image = UIImage(named: "default_imageX2")
+//                            }
+//
+//                        }
+//                    }
+                    
+                    self.loadingView.stopLoading()
+                    self.loadingView.isHidden = true
+                    if (self.nmoqParkDetailArray.count == 0) {
+                        self.loadingView.stopLoading()
+                        self.loadingView.noDataView.isHidden = false
+                        self.loadingView.isHidden = false
+                        self.loadingView.showNoDataView()
+                    }
+                    
+                case .failure( _):
+                    self.addCloseButton()
+                    var errorMessage: String
+                    errorMessage = String(format: NSLocalizedString("NO_RESULT_MESSAGE",
+                                                                    comment: "Setting the content of the alert"))
+                    self.loadingView.stopLoading()
+                    self.loadingView.noDataView.isHidden = false
+                    self.loadingView.isHidden = false
+                    self.loadingView.showNoDataView()
+                    self.loadingView.noDataLabel.text = errorMessage
+                }
+            }
+        }
+        
+    }
+    //MARK: NMoq Playground Parks Detail Coredata Method
+    func saveOrUpdateNmoqParkDetailCoredata(nmoqParkList: [NMoQParkDetail]?) {
+        if ((nmoqParkList?.count)! > 0) {
+            let appDelegate =  UIApplication.shared.delegate as? AppDelegate
+            if #available(iOS 10.0, *) {
+                let container = appDelegate!.persistentContainer
+                container.performBackgroundTask() {(managedContext) in
+                    self.nmoqParkDetailCoreDataInBackgroundThread(nmoqParkList: nmoqParkList, managedContext: managedContext)
+                }
+            } else {
+                let managedContext = appDelegate!.managedObjectContext
+                managedContext.perform {
+                    self.nmoqParkDetailCoreDataInBackgroundThread(nmoqParkList: nmoqParkList, managedContext : managedContext)
+                }
+            }
+        }
+    }
+    func nmoqParkDetailCoreDataInBackgroundThread(nmoqParkList: [NMoQParkDetail]?, managedContext: NSManagedObjectContext) {
+        if (LocalizationLanguage.currentAppleLanguage() == ENG_LANGUAGE) {
+            let fetchData = checkAddedToCoredata(entityName: "NMoQParkDetailEntity", idKey: "nid", idValue: nil, managedContext: managedContext) as! [NMoQParkDetailEntity]
+            if (fetchData.count > 0) {
+                for i in 0 ... (nmoqParkList?.count)!-1 {
+                    let nmoqParkListDict = nmoqParkList![i]
+                    let fetchResult = checkAddedToCoredata(entityName: "NMoQParkDetailEntity", idKey: "nid", idValue: nmoqParkListDict.nid, managedContext: managedContext)
+                    //update
+                    if(fetchResult.count != 0) {
+                        let nmoqParkListdbDict = fetchResult[0] as! NMoQParkDetailEntity
+                        nmoqParkListdbDict.title = nmoqParkListDict.title
+                        nmoqParkListdbDict.nid =  nmoqParkListDict.nid
+                        nmoqParkListdbDict.sortId =  nmoqParkListDict.sortId
+                        nmoqParkListdbDict.parkDesc =  nmoqParkListDict.parkDesc
+                        
+                        if(nmoqParkListDict.images != nil){
+                            if((nmoqParkListDict.images?.count)! > 0) {
+                                for i in 0 ... (nmoqParkListDict.images?.count)!-1 {
+                                    var parkListImage: NMoQParkDetailImgEntity!
+                                    let parkListImageArray: NMoQParkDetailImgEntity = NSEntityDescription.insertNewObject(forEntityName: "NMoQParkDetailImgEntity", into: managedContext) as! NMoQParkDetailImgEntity
+                                    parkListImageArray.images = nmoqParkListDict.images![i]
+                                    
+                                    parkListImage = parkListImageArray
+                                    nmoqParkListdbDict.addToParkDetailImgRelation(parkListImage)
+                                    do {
+                                        try managedContext.save()
+                                    } catch let error as NSError {
+                                        print("Could not save. \(error), \(error.userInfo)")
+                                    }
+                                }
+                            }
+                        }
+                        
+                        do{
+                            try managedContext.save()
+                        }
+                        catch{
+                            print(error)
+                        }
+                    } else {
+                        //save
+                        self.saveNMoQParkDetailToCoreData(nmoqParkListDict: nmoqParkListDict, managedObjContext: managedContext)
+                    }
+                }
+                NotificationCenter.default.post(name: NSNotification.Name(nmoqParkDetailNotificationEn), object: self)
+            } else {
+                for i in 0 ... (nmoqParkList?.count)!-1 {
+                    let nmoqParkListDict : NMoQParkDetail?
+                    nmoqParkListDict = nmoqParkList?[i]
+                    self.saveNMoQParkDetailToCoreData(nmoqParkListDict: nmoqParkListDict!, managedObjContext: managedContext)
+                }
+                NotificationCenter.default.post(name: NSNotification.Name(nmoqParkDetailNotificationEn), object: self)
+            }
+        } else {
+            let fetchData = checkAddedToCoredata(entityName: "NMoQParkDetailEntityAr", idKey: "nid", idValue: nil, managedContext: managedContext) as! [NMoQParkDetailEntityAr]
+            if (fetchData.count > 0) {
+                for i in 0 ... (nmoqParkList?.count)!-1 {
+                    let nmoqParkListDict = nmoqParkList![i]
+                    let fetchResult = checkAddedToCoredata(entityName: "NMoQParkDetailEntityAr", idKey: "nid", idValue: nmoqParkListDict.nid, managedContext: managedContext)
+                    //update
+                    if(fetchResult.count != 0) {
+                        let nmoqParkListdbDict = fetchResult[0] as! NMoQParkDetailEntityAr
+                        nmoqParkListdbDict.title = nmoqParkListDict.title
+                        nmoqParkListdbDict.nid =  nmoqParkListDict.nid
+                        nmoqParkListdbDict.sortId =  nmoqParkListDict.sortId
+                        nmoqParkListdbDict.parkDesc =  nmoqParkListDict.parkDesc
+                        
+                        if(nmoqParkListDict.images != nil){
+                            if((nmoqParkListDict.images?.count)! > 0) {
+                                for i in 0 ... (nmoqParkListDict.images?.count)!-1 {
+                                    var parkListImage: NMoQParkDetailImgEntityAr!
+                                    let parkListImageArray: NMoQParkDetailImgEntityAr = NSEntityDescription.insertNewObject(forEntityName: "NMoQParkDetailImgEntityAr", into: managedContext) as! NMoQParkDetailImgEntityAr
+                                    parkListImageArray.images = nmoqParkListDict.images![i]
+                                    
+                                    parkListImage = parkListImageArray
+                                    nmoqParkListdbDict.addToParkDetailImgRelationAr(parkListImage)
+                                    do {
+                                        try managedContext.save()
+                                    } catch let error as NSError {
+                                        print("Could not save. \(error), \(error.userInfo)")
+                                    }
+                                }
+                            }
+                        }
+                        do{
+                            try managedContext.save()
+                        }
+                        catch{
+                            print(error)
+                        }
+                    } else {
+                        //save
+                        self.saveNMoQParkDetailToCoreData(nmoqParkListDict: nmoqParkListDict, managedObjContext: managedContext)
+                    }
+                }
+                NotificationCenter.default.post(name: NSNotification.Name(nmoqParkDetailNotificationAr), object: self)
+            } else {
+                for i in 0 ... (nmoqParkList?.count)!-1 {
+                    let nmoqParkListDict : NMoQParkDetail?
+                    nmoqParkListDict = nmoqParkList![i]
+                    self.saveNMoQParkDetailToCoreData(nmoqParkListDict: nmoqParkListDict!, managedObjContext: managedContext)
+                }
+                NotificationCenter.default.post(name: NSNotification.Name(nmoqParkDetailNotificationAr), object: self)
+            }
+        }
+    }
+    func saveNMoQParkDetailToCoreData(nmoqParkListDict: NMoQParkDetail, managedObjContext: NSManagedObjectContext) {
+        if (LocalizationLanguage.currentAppleLanguage() == ENG_LANGUAGE) {
+            let nmoqParkListdbDict: NMoQParkDetailEntity = NSEntityDescription.insertNewObject(forEntityName: "NMoQParkDetailEntity", into: managedObjContext) as! NMoQParkDetailEntity
+            nmoqParkListdbDict.title = nmoqParkListDict.title
+            nmoqParkListdbDict.nid =  nmoqParkListDict.nid
+            nmoqParkListdbDict.sortId =  nmoqParkListDict.sortId
+            nmoqParkListdbDict.parkDesc =  nmoqParkListDict.parkDesc
+            
+            if(nmoqParkListDict.images != nil){
+                if((nmoqParkListDict.images?.count)! > 0) {
+                    for i in 0 ... (nmoqParkListDict.images?.count)!-1 {
+                        var parkListImage: NMoQParkDetailImgEntity!
+                        let parkListImageArray: NMoQParkDetailImgEntity = NSEntityDescription.insertNewObject(forEntityName: "NMoQParkDetailImgEntity", into: managedObjContext) as! NMoQParkDetailImgEntity
+                        parkListImageArray.images = nmoqParkListDict.images![i]
+                        
+                        parkListImage = parkListImageArray
+                        nmoqParkListdbDict.addToParkDetailImgRelation(parkListImage)
+                        do {
+                            try managedObjContext.save()
+                        } catch let error as NSError {
+                            print("Could not save. \(error), \(error.userInfo)")
+                        }
+                    }
+                }
+            }
+        } else {
+            let nmoqParkListdbDict: NMoQParkDetailEntityAr = NSEntityDescription.insertNewObject(forEntityName: "NMoQParkDetailEntityAr", into: managedObjContext) as! NMoQParkDetailEntityAr
+            nmoqParkListdbDict.title = nmoqParkListDict.title
+            nmoqParkListdbDict.nid =  nmoqParkListDict.nid
+            nmoqParkListdbDict.sortId =  nmoqParkListDict.sortId
+            nmoqParkListdbDict.parkDesc =  nmoqParkListDict.parkDesc
+            
+            if(nmoqParkListDict.images != nil){
+                if((nmoqParkListDict.images?.count)! > 0) {
+                    for i in 0 ... (nmoqParkListDict.images?.count)!-1 {
+                        var parkListImage: NMoQParkDetailImgEntityAr!
+                        let parkListImageArray: NMoQParkDetailImgEntityAr = NSEntityDescription.insertNewObject(forEntityName: "NMoQParkDetailImgEntityAr", into: managedObjContext) as! NMoQParkDetailImgEntityAr
+                        parkListImageArray.images = nmoqParkListDict.images![i]
+                        
+                        parkListImage = parkListImageArray
+                        nmoqParkListdbDict.addToParkDetailImgRelationAr(parkListImage)
+                        do {
+                            try managedObjContext.save()
+                        } catch let error as NSError {
+                            print("Could not save. \(error), \(error.userInfo)")
+                        }
+                    }
+                }
+            }
+        }
+        do {
+            try managedObjContext.save()
+        } catch let error as NSError {
+            print("Could not save. \(error), \(error.userInfo)")
+        }
+    }
     
+    func fetchNMoQParkDetailFromCoredata() {
+        let managedContext = getContext()
+        do {
+            if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
+                var parkListArray = [NMoQParkDetailEntity]()
+                parkListArray = checkAddedToCoredata(entityName: "NMoQParkDetailEntity", idKey: "nid", idValue: parkDetailId, managedContext: managedContext) as! [NMoQParkDetailEntity]
+                if (parkListArray.count > 0) {
+                    for i in 0 ... parkListArray.count-1 {
+                        let parkListDict = parkListArray[i]
+                        var imagesArray : [String] = []
+                        let imagesInfoArray = (parkListDict.parkDetailImgRelation?.allObjects) as! [NMoQParkDetailImgEntity]
+                        if(imagesInfoArray.count > 0) {
+                            for i in 0 ... imagesInfoArray.count-1 {
+                                imagesArray.append(imagesInfoArray[i].images!)
+                            }
+                        }
+                        self.nmoqParkDetailArray.insert(NMoQParkDetail(title: parkListDict.title, sortId: parkListDict.sortId, nid: parkListDict.nid, images: imagesArray, parkDesc: parkListDict.parkDesc), at: i)
+                    }
+                    if(nmoqParkDetailArray.count == 0){
+                        if(self.networkReachability?.isReachable == false) {
+                            self.showNoNetwork()
+                        } else {
+                            self.loadingView.showNoDataView()
+                        }
+                    } else {
+                        if self.nmoqParkDetailArray.first(where: {$0.sortId != "" && $0.sortId != nil} ) != nil {
+                            self.nmoqParkDetailArray = self.nmoqParkDetailArray.sorted(by: { Int16($0.sortId!)! < Int16($1.sortId!)! })
+                        }
+                       // if ( (self.nmoqParkDetailArray[0].images?.count)! > 0) {
+                           // if let imageUrl = self.nmoqParkDetailArray[0].images?[0] {
+                        self.setTopBarImage()
+//                            } else {
+//                                self.imageView.image = UIImage(named: "default_imageX2")
+//                            }
+                            
+                        //}
+                    }
+                    heritageDetailTableView.reloadData()
+                } else{
+                    if(self.networkReachability?.isReachable == false) {
+                        self.showNoNetwork()
+                    } else {
+                        self.loadingView.showNoDataView()
+                    }
+                }
+            } else {
+                var parkListArray = [NMoQParkDetailEntityAr]()
+                parkListArray = checkAddedToCoredata(entityName: "NMoQParkDetailEntityAr", idKey: "nid", idValue: parkDetailId, managedContext: managedContext) as! [NMoQParkDetailEntityAr]
+                if (parkListArray.count > 0) {
+                    for i in 0 ... parkListArray.count-1 {
+                        let parkListDict = parkListArray[i]
+                        var imagesArray : [String] = []
+                        let imagesInfoArray = (parkListDict.parkDetailImgRelationAr?.allObjects) as! [NMoQParkDetailImgEntityAr]
+                        if(imagesInfoArray.count > 0) {
+                            for i in 0 ... imagesInfoArray.count-1 {
+                                imagesArray.append(imagesInfoArray[i].images!)
+                            }
+                        }
+                        self.nmoqParkDetailArray.insert(NMoQParkDetail(title: parkListDict.title, sortId: parkListDict.sortId, nid: parkListDict.nid, images: imagesArray, parkDesc: parkListDict.parkDesc), at: i)
+                    }
+                    if(nmoqParkDetailArray.count == 0){
+                        if(self.networkReachability?.isReachable == false) {
+                            self.showNoNetwork()
+                        } else {
+                            self.loadingView.showNoDataView()
+                        }
+                    } else {
+                        if self.nmoqParkDetailArray.first(where: {$0.sortId != "" && $0.sortId != nil} ) != nil {
+                            self.nmoqParkDetailArray = self.nmoqParkDetailArray.sorted(by: { Int16($0.sortId!)! < Int16($1.sortId!)! })
+                        }
+                    }
+                    heritageDetailTableView.reloadData()
+                } else{
+                    if(self.networkReachability?.isReachable == false) {
+                        self.showNoNetwork()
+                    } else {
+                        self.loadingView.showNoDataView()
+                    }
+                }
+            }
+        } catch let error as NSError {
+            print("Could not fetch. \(error), \(error.userInfo)")
+            if(self.networkReachability?.isReachable == false) {
+                self.showNoNetwork()
+                self.addCloseButton()
+            }
+        }
+    }
+    //MARK: Dining WebServiceCall
+    func getDiningDetailsFromServer() {
+        _ = Alamofire.request(QatarMuseumRouter.GetDiningDetail(["nid": diningDetailId!])).responseObject { (response: DataResponse<Dinings>) -> Void in
+            switch response.result {
+            case .success(let data):
+                self.diningDetailtArray = data.dinings!
+                self.setTopBarImage()
+                self.saveOrUpdateDiningDetailCoredata()
+                self.heritageDetailTableView.reloadData()
+                self.loadingView.stopLoading()
+                self.loadingView.isHidden = true
+                if (self.diningDetailtArray.count == 0) {
+                    self.loadingView.stopLoading()
+                    self.loadingView.noDataView.isHidden = false
+                    self.loadingView.isHidden = false
+                    self.loadingView.showNoDataView()
+                }
+            case .failure( _):
+                var errorMessage: String
+                errorMessage = String(format: NSLocalizedString("NO_RESULT_MESSAGE",
+                                                                comment: "Setting the content of the alert"))
+                self.loadingView.stopLoading()
+                self.loadingView.noDataView.isHidden = false
+                self.loadingView.isHidden = false
+                self.loadingView.showNoDataView()
+                self.loadingView.noDataLabel.text = errorMessage
+            }
+        }
+    }
+    //MARK: Dining Coredata Method
+    func saveOrUpdateDiningDetailCoredata() {
+        if (diningDetailtArray.count > 0) {
+            let appDelegate =  UIApplication.shared.delegate as? AppDelegate
+            if #available(iOS 10.0, *) {
+                let container = appDelegate!.persistentContainer
+                container.performBackgroundTask() {(managedContext) in
+                    self.diningCoreDataInBackgroundThread(managedContext: managedContext)
+                }
+            } else {
+                let managedContext = appDelegate!.managedObjectContext
+                managedContext.perform {
+                    self.diningCoreDataInBackgroundThread(managedContext : managedContext)
+                }
+            }
+        }
+    }
+    func diningCoreDataInBackgroundThread(managedContext: NSManagedObjectContext) {
+        if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
+            let fetchData = checkAddedToCoredata(entityName: "DiningEntity", idKey: "id", idValue: diningDetailtArray[0].id, managedContext: managedContext) as! [DiningEntity]
+            if (fetchData.count > 0) {
+                let diningDetailDict = diningDetailtArray[0]
+                
+                //update
+                let diningdbDict = fetchData[0] as! DiningEntity
+                diningdbDict.name = diningDetailDict.name
+                diningdbDict.image = diningDetailDict.image
+                diningdbDict.diningdescription = diningDetailDict.description
+                diningdbDict.closetime = diningDetailDict.closetime
+                diningdbDict.openingtime =  diningDetailDict.openingtime
+                diningdbDict.sortid =  diningDetailDict.sortid
+                diningdbDict.location =  diningDetailDict.location
+                if((diningDetailDict.images?.count)! > 0) {
+                    for i in 0 ... (diningDetailDict.images?.count)!-1 {
+                        var diningImagesEntity: DiningImagesEntity!
+                        let diningImage: DiningImagesEntity = NSEntityDescription.insertNewObject(forEntityName: "DiningImagesEntity", into: managedContext) as! DiningImagesEntity
+                        diningImage.images = diningDetailDict.images![i]
+                        
+                        diningImagesEntity = diningImage
+                        diningdbDict.addToImagesRelation(diningImagesEntity)
+                        do {
+                            try managedContext.save()
+                        } catch let error as NSError {
+                            print("Could not save. \(error), \(error.userInfo)")
+                        }
+                        
+                    }
+                }
+                do{
+                    try managedContext.save()
+                }
+                catch{
+                    print(error)
+                }
+            } else {
+                let diningListDict : Dining?
+                diningListDict = diningDetailtArray[0]
+                self.saveDiningDetailToCoreData(diningDetailDict: diningListDict!, managedObjContext: managedContext)
+            }
+        } else {
+            let fetchData = checkAddedToCoredata(entityName: "DiningEntityArabic", idKey: "id", idValue: diningDetailtArray[0].id, managedContext: managedContext) as! [DiningEntityArabic]
+            if (fetchData.count > 0) {
+                let diningDetailDict = diningDetailtArray[0]
+                
+                //update
+                let diningdbDict = fetchData[0]
+                diningdbDict.namearabic = diningDetailDict.name
+                diningdbDict.imagearabic = diningDetailDict.image
+                diningdbDict.sortidarabic =  diningDetailDict.sortid
+                diningdbDict.descriptionarabic = diningDetailDict.description
+                diningdbDict.closetimearabic = diningDetailDict.closetime
+                diningdbDict.openingtimearabic =  diningDetailDict.openingtime
+                diningdbDict.locationarabic =  diningDetailDict.location
+                if((diningDetailDict.images?.count)! > 0) {
+                    for i in 0 ... (diningDetailDict.images?.count)!-1 {
+                        var diningImagesEntity: DiningImagesEntityAr!
+                        let diningImage: DiningImagesEntityAr = NSEntityDescription.insertNewObject(forEntityName: "DiningImagesEntityAr", into: managedContext) as! DiningImagesEntityAr
+                        diningImage.images = diningDetailDict.images![i]
+                        
+                        diningImagesEntity = diningImage
+                        diningdbDict.addToImagesRelation(diningImagesEntity)
+                        do {
+                            try managedContext.save()
+                        } catch let error as NSError {
+                            print("Could not save. \(error), \(error.userInfo)")
+                        }
+                        
+                    }
+                }
+                do{
+                    try managedContext.save()
+                }
+                catch{
+                    print(error)
+                }
+            } else {
+                let diningListDict : Dining?
+                diningListDict = diningDetailtArray[0]
+                self.saveDiningDetailToCoreData(diningDetailDict: diningListDict!, managedObjContext: managedContext)
+            }
+        }
+    }
+    func saveDiningDetailToCoreData(diningDetailDict: Dining, managedObjContext: NSManagedObjectContext) {
+        if ((LocalizationLanguage.currentAppleLanguage()) == "en") {
+            let diningInfo: DiningEntity = NSEntityDescription.insertNewObject(forEntityName: "DiningEntity", into: managedObjContext) as! DiningEntity
+            diningInfo.id = diningDetailDict.id
+            diningInfo.name = diningDetailDict.name
+            diningInfo.image = diningDetailDict.image
+            diningInfo.diningdescription = diningDetailDict.description
+            diningInfo.closetime = diningDetailDict.closetime
+            diningInfo.openingtime =  diningDetailDict.openingtime
+            diningInfo.location =  diningDetailDict.location
+            if((diningDetailDict.images?.count)! > 0) {
+                for i in 0 ... (diningDetailDict.images?.count)!-1 {
+                    var diningImagesEntity: DiningImagesEntity!
+                    let diningImage: DiningImagesEntity = NSEntityDescription.insertNewObject(forEntityName: "DiningImagesEntity", into: managedObjContext) as! DiningImagesEntity
+                    diningImage.images = diningDetailDict.images![i]
+                    
+                    diningImagesEntity = diningImage
+                    diningInfo.addToImagesRelation(diningImagesEntity)
+                    do {
+                        try managedObjContext.save()
+                    } catch let error as NSError {
+                        print("Could not save. \(error), \(error.userInfo)")
+                    }
+                    
+                }
+            }
+            if(diningDetailDict.sortid != nil) {
+                diningInfo.sortid = diningDetailDict.sortid
+            }
+        } else {
+            let diningInfo: DiningEntityArabic = NSEntityDescription.insertNewObject(forEntityName: "DiningEntityArabic", into: managedObjContext) as! DiningEntityArabic
+            diningInfo.locationarabic = diningDetailDict.id
+            diningInfo.namearabic = diningDetailDict.name
+            
+            diningInfo.imagearabic = diningDetailDict.image
+            diningInfo.descriptionarabic = diningDetailDict.description
+            diningInfo.closetimearabic = diningDetailDict.closetime
+            diningInfo.openingtimearabic =  diningDetailDict.openingtime
+            diningInfo.locationarabic =  diningDetailDict.location
+            if((diningDetailDict.images?.count)! > 0) {
+                for i in 0 ... (diningDetailDict.images?.count)!-1 {
+                    var diningImagesEntity: DiningImagesEntityAr!
+                    let diningImage: DiningImagesEntityAr = NSEntityDescription.insertNewObject(forEntityName: "DiningImagesEntityAr", into: managedObjContext) as! DiningImagesEntityAr
+                    diningImage.images = diningDetailDict.images![i]
+                    
+                    diningImagesEntity = diningImage
+                    diningInfo.addToImagesRelation(diningImagesEntity)
+                    do {
+                        try managedObjContext.save()
+                    } catch let error as NSError {
+                        print("Could not save. \(error), \(error.userInfo)")
+                    }
+                }
+            }
+            if(diningDetailDict.sortid != nil) {
+                diningInfo.sortidarabic = diningDetailDict.sortid
+            }
+        }
+        do {
+            try managedObjContext.save()
+            
+        } catch let error as NSError {
+            print("Could not save. \(error), \(error.userInfo)")
+        }
+    }
+    func fetchDiningDetailsFromCoredata() {
+        let managedContext = getContext()
+        do {
+            if ((LocalizationLanguage.currentAppleLanguage()) == "en") {
+                var diningArray = [DiningEntity]()
+                let diningFetchRequest =  NSFetchRequest<NSFetchRequestResult>(entityName: "DiningEntity")
+                if(diningDetailId != nil) {
+                    diningFetchRequest.predicate = NSPredicate.init(format: "id == \(diningDetailId!)")
+                }
+                diningArray = (try managedContext.fetch(diningFetchRequest) as? [DiningEntity])!
+                let diningDict = diningArray[0]
+                if ((diningArray.count > 0) && (diningDict.diningdescription != nil)) {
+                    var imagesArray : [String] = []
+                    let diningImagesArray = (diningDict.imagesRelation?.allObjects) as! [DiningImagesEntity]
+                    if(diningImagesArray.count > 0) {
+                        for i in 0 ... diningImagesArray.count-1 {
+                            imagesArray.append(diningImagesArray[i].images!)
+                        }
+                    }
+                    self.diningDetailtArray.insert(Dining(id: diningDict.id, name: diningDict.name, location: diningDict.location, description: diningDict.diningdescription, image: diningDict.image, openingtime: diningDict.openingtime, closetime: diningDict.closetime, sortid: diningDict.sortid, museumId: nil, images: imagesArray), at: 0)
+                    if(diningDetailtArray.count == 0){
+                        if(self.networkReachability?.isReachable == false) {
+                            self.showNoNetwork()
+                        } else {
+                            self.loadingView.showNoDataView()
+                        }
+                    }
+                    self.setTopBarImage()
+                    heritageDetailTableView.reloadData()
+                } else {
+                    if(self.networkReachability?.isReachable == false) {
+                        self.showNoNetwork()
+                    } else {
+                        self.loadingView.showNoDataView()
+                    }
+                }
+            }
+            else {
+                var diningArray = [DiningEntityArabic]()
+                let diningFetchRequest =  NSFetchRequest<NSFetchRequestResult>(entityName: "DiningEntityArabic")
+                if(diningDetailId != nil) {
+                    diningFetchRequest.predicate = NSPredicate.init(format: "id == \(diningDetailId!)")
+                }
+                diningArray = (try managedContext.fetch(diningFetchRequest) as? [DiningEntityArabic])!
+                let diningDict = diningArray[0]
+                if ((diningArray.count > 0) && (diningDict.descriptionarabic != nil)) {var imagesArray : [String] = []
+                    let diningImagesArray = (diningDict.imagesRelation?.allObjects) as! [DiningImagesEntityAr]
+                    if(diningImagesArray.count > 0) {
+                        for i in 0 ... diningImagesArray.count-1 {
+                            imagesArray.append(diningImagesArray[i].images!)
+                        }
+                    }
+                    self.diningDetailtArray.insert(Dining(id: diningDict.id, name: diningDict.namearabic, location: diningDict.locationarabic, description: diningDict.descriptionarabic, image: diningDict.imagearabic, openingtime: diningDict.openingtimearabic, closetime: diningDict.closetimearabic, sortid: diningDict.sortidarabic, museumId:nil, images: imagesArray), at: 0)
+                    
+                    if(diningDetailtArray.count == 0){
+                        if(self.networkReachability?.isReachable == false) {
+                            self.showNoNetwork()
+                        } else {
+                            self.loadingView.showNoDataView()
+                        }
+                    }
+                    self.setTopBarImage()
+                    heritageDetailTableView.reloadData()
+                } else {
+                    if(self.networkReachability?.isReachable == false) {
+                        self.showNoNetwork()
+                    } else {
+                        self.loadingView.showNoDataView()
+                    }
+                }
+            }
+        } catch let error as NSError {
+            print("Could not fetch. \(error), \(error.userInfo)")
+        }
+    }
+    func setFavouritesAction(cellObj :DiningDetailTableViewCell) {
+        if (cellObj.favoriteButton.tag == 0) {
+            cellObj.favoriteButton.tag = 1
+            cellObj.favoriteButton.setImage(UIImage(named: "heart_fillX1"), for: .normal)
+        } else {
+            cellObj.favoriteButton.tag = 0
+            cellObj.favoriteButton.setImage(UIImage(named: "heart_emptyX1"), for: .normal)
+        }
+    }
+    
+    func setShareAction(cellObj :DiningDetailTableViewCell) {
+        
+    }
+    func isImgArrayAvailable() -> Bool {
+        if(self.diningDetailtArray.count != 0) {
+            if(self.diningDetailtArray[0].images != nil) {
+                if((self.diningDetailtArray[0].images?.count)! > 0) {
+                    return true
+                }
+            }
+        }
+        return false
+    }
     func checkAddedToCoredata(entityName: String?,idKey:String?, idValue: String?, managedContext: NSManagedObjectContext) -> [NSManagedObject] {
         var fetchResults : [NSManagedObject] = []
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: entityName!)
@@ -1467,7 +2172,18 @@ class HeritageDetailViewController: UIViewController,UITableViewDelegate,UITable
         fetchResults = try! managedContext.fetch(fetchRequest)
         return fetchResults
     }
-    
+    func deleteExistingEvent(managedContext:NSManagedObjectContext,entityName : String?) ->Bool? {
+        
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entityName!)
+        let deleteRequest = NSBatchDeleteRequest( fetchRequest: fetchRequest)
+        do{
+            try managedContext.execute(deleteRequest)
+            return true
+        }catch let error as NSError {
+            return false
+        }
+        
+    }
     func showNodata() {
         var errorMessage: String
         errorMessage = String(format: NSLocalizedString("NO_RESULT_MESSAGE",
@@ -1478,23 +2194,23 @@ class HeritageDetailViewController: UIViewController,UITableViewDelegate,UITable
         self.loadingView.showNoDataView()
         self.loadingView.noDataLabel.text = errorMessage
     }
-    func recordScreenView() {
-        title = self.nibName
-        guard let screenName = title else {
-            return
-        }
-        let screenClass = classForCoder.description()
-        Analytics.setScreenName(screenName, screenClass: screenClass)
-    }
+   
     //MARK: LoadingView Delegate
     func tryAgainButtonPressed() {
         if  (networkReachability?.isReachable)! {
+            let appDelegate =  UIApplication.shared.delegate as? AppDelegate
             if ((pageNameString == PageName.heritageDetail) && (heritageDetailId != nil)) {
                 self.getHeritageDetailsFromServer()
             } else if ((pageNameString == PageName.publicArtsDetail) && (publicArtsDetailId != nil)) {
                 self.getPublicArtsDetailsFromServer()
-            } else if (pageNameString == PageName.museumAbout) {
-                self.getAboutDetailsFromServer()
+            } else if (pageNameString == PageName.exhibitionDetail) {
+                self.getExhibitionDetail()
+            } else if (pageNameString == PageName.SideMenuPark) {
+                appDelegate?.getParksDataFromServer(lang: LocalizationLanguage.currentAppleLanguage())
+            } else if (pageNameString == PageName.NMoQPark) {
+                getNMoQParkDetailFromServer()
+            } else if (pageNameString == PageName.DiningDetail) {
+                self.getDiningDetailsFromServer()
             }
         }
     }
@@ -1504,8 +2220,71 @@ class HeritageDetailViewController: UIViewController,UITableViewDelegate,UITable
         self.loadingView.isHidden = false
         self.loadingView.showNoNetworkView()
     }
+    func recordScreenView() {
+        let screenClass = String(describing: type(of: self))
+        if (pageNameString == PageName.publicArtsDetail) {
+            Analytics.setScreenName(PUBLICARTS_DETAIL, screenClass: screenClass)
+        } else if (pageNameString == PageName.exhibitionDetail) {
+            Analytics.setScreenName(EXHIBITION_DETAIL, screenClass: screenClass)
+        } else if (pageNameString == PageName.SideMenuPark) {
+            Analytics.setScreenName(PARKS_VC, screenClass: screenClass)
+        } else if (pageNameString == PageName.NMoQPark) {
+            Analytics.setScreenName(NMOQ_PARKS_DETAIL, screenClass: screenClass)
+        }else if (pageNameString == PageName.DiningDetail) {
+            Analytics.setScreenName(DINING_DETAIL, screenClass: screenClass)
+        }else {
+            Analytics.setScreenName(HERITAGE_DETAIL, screenClass: screenClass)
+        }
+    }
+    @objc func receiveParksNotificationEn(notification: NSNotification) {
+        if ((LocalizationLanguage.currentAppleLanguage() == ENG_LANGUAGE ) && (parksListArray.count == 0)){
+            self.fetchParksFromCoredata()
+        } else if ((LocalizationLanguage.currentAppleLanguage() == AR_LANGUAGE ) && (parksListArray.count == 0)){
+            self.fetchParksFromCoredata()
+        }
+    }
+    @objc func receiveParksNotificationAr(notification: NSNotification) {
+        if ((LocalizationLanguage.currentAppleLanguage() == AR_LANGUAGE ) && (parksListArray.count == 0)){
+            self.fetchParksFromCoredata()
+        }
+    }
+    // MARK: MFMailComposeViewControllerDelegate Method
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        controller.dismiss(animated: true, completion: nil)
+    }
+    func openEmail(email : String) {
+        let mailComposeViewController = configuredMailComposeViewController(emailId:email)
+        if MFMailComposeViewController.canSendMail() {
+            self.present(mailComposeViewController, animated: true, completion: nil)
+        } else {
+            self.showSendMailErrorAlert()
+        }
+    }
+    func configuredMailComposeViewController(emailId:String) -> MFMailComposeViewController {
+        let mailComposerVC = MFMailComposeViewController()
+        mailComposerVC.mailComposeDelegate = self // Extremely important to set the --mailComposeDelegate-- property, NOT the --delegate-- property
+        
+        mailComposerVC.setToRecipients([emailId])
+        mailComposerVC.setSubject("NMOQ Event:")
+        mailComposerVC.setMessageBody("Greetings, Thanks for contacting NMOQ event support team", isHTML: false)
+        
+        return mailComposerVC
+    }
+    
+    func showSendMailErrorAlert() {
+        
+        let sendMailErrorAlert = UIAlertController(title: "Could Not Send Email", message: "Your device could not send e-mail.  Please check e-mail configuration and try again.", preferredStyle: UIAlertControllerStyle.alert)
+        
+        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default)
+        {
+            (result : UIAlertAction) -> Void in
+            print("You pressed OK")
+        }
+        sendMailErrorAlert.addAction(okAction)
+        self.present(sendMailErrorAlert, animated: true, completion: nil)
+        
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 }

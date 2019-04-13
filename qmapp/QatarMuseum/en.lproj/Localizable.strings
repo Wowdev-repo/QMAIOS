@@ -21,8 +21,8 @@
 "MIA_TOUR_GUIDES_TITLE" = "MIA TOUR GUIDES";
 "NOTIFICATIONS_TITLE" = "NOTIFICATIONS";
 "EDUCATION_TITLE" = "EDUCATION";
-"NOW_OPEN_TITLE" = "NOW OPEN";
-"CLOSED_TITLE" = "CLOSED";
+"NOW_OPEN_TITLE" = "Now Open";
+"CLOSED_TITLE" = "Closed";
 "EXHIBITIONS_LABEL" = "Exhibitions";
 "EVENTS_LABEL" = "Events";
 "EDUCATION_LABEL" = "Education";
@@ -65,7 +65,7 @@
 "CHANGE_LANGUAGE_TITLE" = "Change Language?";
 "CONTINUE_TITLE" = "Continue";
 "MUSEUM_TITLE" = "Museum of Islamic Art";
-"NO_RESULT_MESSAGE" = "Coming Soon";
+"NO_RESULT_MESSAGE" = "No results found";
 "CHECK_INTERNET" = "Check your internet connections";
 "LOCATION_TITLE" = "LOCATION";
 "TO" = "to";
@@ -221,16 +221,31 @@
 "FLOOR" = "Floor";
 "GALLERY" = "Gallery";
 "TOUR_TITLE" = "TOURS";
-"ABOUT_EVENT" = "About Event";
 "TOURS" = "Tours";
-"TRAVEL_ARRANGEMENTS" = "Travel Arrangements";
-"PANEL_DISCUSSION" = "Special Events";
+"TRAVEL_ARRANGEMENTS" = "Travel";
+"PANEL_DISCUSSION" = "Activities";
 "EVENT_DATE" = "EVENT DATE";
 "DOWNLOAD_TEXT" = "Download Brochure for More Information";
 "NMoQ_TOUR_DESC" = "This tour has been desgined for introducing you to the exquisite art & culture of Qatar. \n\nThe tour for the day has been divided into two part, one for the morning and other for the evening. Please find the information below and register so that we can make required arrangements for you.";
 "DATE" = "DATE";
 "VENUE" = "VENUE";
-"OFFER_CODE" = "OFFER CODE";
+"SPECIAL_OFFER" = "SPECIAL OFFER";
 "CLAIM_OFFER" = "Claim Offer";
+"NUMB_OF_RESERVATIONS" = "You have booked ";
+"SPACES" = " spaces";
+"SPACE" = " space";
+"TOUR_SEAT_AVAILABILITY_STRING1" = "Hurry up only ";
+"TOUR_SEAT_AVAILABILITY_STRING2" = " spaces available.";
+"TOUR_SEAT_AVAILABILITY_STRING3" = " space available.";
+"NO_SEAT_AVAILABLE" = "Fully booked";
+"BOOK_TOUR_STRING" = "Book Tour";
+"CANCEL_BOOKING_STRING" = "Cancel Booking";
+"UNREGISTER_CONFIRMATION_MESSAGE" = "Are you sure you want to cancel this tour?";
+"REGISTER_GREETING_MESSAGE" = "Thank you for booking this tour. You will receive an email with further information.\n\nAny questions, please contact \nbooking@qm.org.qa \n or \n+974 4452 5555";
 
-
+"EXPERIENCE_TITLE" = "Experience";
+"HIGHLIGHTS_TOUR" = "Highlights Tour";
+"FACILITIES" = "Facilities";
+"PANEL_AND_TALKS" = "QATAR CREATES: EVENTS FOR THE OPENING OF NMoQ";
+"PARKS_HEADER_LABEL" = "Park";
+"NMOQ_TOUR_HEADER" = "NMoQ TOUR GUIDE";

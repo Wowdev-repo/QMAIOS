@@ -9,6 +9,7 @@
 import AVFoundation
 import AVKit
 import Crashlytics
+import Firebase
 import UIKit
 
 class PreviewContentViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate {
@@ -31,6 +32,7 @@ class PreviewContentViewController: UIViewController, UITableViewDelegate, UITab
         super.viewDidLoad()
         objectTableView.register(UITableViewCell.self, forCellReuseIdentifier: "imageCell")
         setPreviewData()
+        self.recordScreenView()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -183,5 +185,9 @@ class PreviewContentViewController: UIViewController, UITableViewDelegate, UITab
             selectedCell?.closeAudio()
             firstLoad = true
         }
+    }
+    func recordScreenView() {
+        let screenClass = String(describing: type(of: self))
+        Analytics.setScreenName(PREVIEW_CONTENT_VC, screenClass: screenClass)
     }
 }

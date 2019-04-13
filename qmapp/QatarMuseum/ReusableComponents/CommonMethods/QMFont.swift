@@ -132,7 +132,7 @@ extension UIFont {
         if ((LocalizationLanguage.currentAppleLanguage()) == "en") {
             return UIFont.init(name: "DINNextLTPro-Bold", size: 13)!
         } else{
-            return UIFont.init(name: "DINNextLTArabic-Bold", size:14)!
+            return UIFont.init(name: "DINNextLTArabic-Bold", size:13)!
         }
     }
     static var clearButtonFont: UIFont {

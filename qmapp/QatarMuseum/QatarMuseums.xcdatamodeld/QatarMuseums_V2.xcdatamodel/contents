@@ -1,0 +1,884 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14460.32" systemVersion="18D42" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="AboutDescriptionEntity" representedClassName="AboutDescriptionEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="id" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="mobileDesc" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="mobileDescRelation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="AboutEntity" syncable="YES"/>
+    </entity>
+    <entity name="AboutDescriptionEntityAr" representedClassName="AboutDescriptionEntityAr" syncable="YES" codeGenerationType="class">
+        <attribute name="id" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="mobileDesc" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="mobileDescRelation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="AboutEntityArabic" syncable="YES"/>
+    </entity>
+    <entity name="AboutDownloadLinkEntity" representedClassName="AboutDownloadLinkEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="downloadLink" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="downloadLinkRelation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="AboutEntity" syncable="YES"/>
+    </entity>
+    <entity name="AboutEntity" representedClassName="AboutEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="contactEmail" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="contactNumber" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="mobileLatitude" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="mobileLongtitude" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="openingTime" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="subtitle" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tourGuideAvailability" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tourguideAvailable" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="downloadLinkRelation" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="AboutDownloadLinkEntity" syncable="YES"/>
+        <relationship name="mobileDescRelation" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="AboutDescriptionEntity" syncable="YES"/>
+        <relationship name="multimediaRelation" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="AboutMultimediaFileEntity" syncable="YES"/>
+    </entity>
+    <entity name="AboutEntityArabic" representedClassName="AboutEntityArabic" syncable="YES" codeGenerationType="class">
+        <attribute name="contactEmailAr" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="contactNumberAr" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="image" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="mobileLatitudear" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="mobileLongtitudeAr" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="nameAr" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="openingTimeAr" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="subtitleAr" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="subTitleDescAr" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="titleDescAr" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tourguideAvailableAr" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tourGuideAvlblyAr" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="mobileDescRelation" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="AboutDescriptionEntityAr" syncable="YES"/>
+        <relationship name="multimediaRelation" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="AboutMultimediaFileEntityAr" syncable="YES"/>
+    </entity>
+    <entity name="AboutMultimediaFileEntity" representedClassName="AboutMultimediaFileEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="image" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="multimediaRelation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="AboutEntity" syncable="YES"/>
+    </entity>
+    <entity name="AboutMultimediaFileEntityAr" representedClassName="AboutMultimediaFileEntityAr" syncable="YES" codeGenerationType="class">
+        <attribute name="image" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="multimediaRelation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="AboutEntityArabic" syncable="YES"/>
+    </entity>
+    <entity name="CollectionDetailsEntity" representedClassName="CollectionDetailsEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="body" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="categoryCollection" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="image" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="nid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="CollectionDetailsEntityAr" representedClassName="CollectionDetailsEntityAr" syncable="YES" codeGenerationType="class">
+        <attribute name="bodyAr" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="categoryCollection" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="imageAr" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="nid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="titleAr" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="CollectionsEntity" representedClassName="CollectionsEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="listImage" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="listName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="museumId" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="CollectionsEntityArabic" representedClassName="CollectionsEntityArabic" syncable="YES" codeGenerationType="class">
+        <attribute name="listImageAr" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="listName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="museumId" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="DiningEntity" representedClassName="DiningEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="closetime" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="diningdescription" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="image" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="location" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="museumId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="openingtime" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sortid" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="imagesRelation" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="DiningImagesEntity" syncable="YES"/>
+    </entity>
+    <entity name="DiningEntityArabic" representedClassName="DiningEntityArabic" syncable="YES" codeGenerationType="class">
+        <attribute name="closetimearabic" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="descriptionarabic" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="imagearabic" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="locationarabic" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="museumId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="namearabic" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="openingtimearabic" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sortidarabic" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="imagesRelation" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="DiningImagesEntityAr" syncable="YES"/>
+    </entity>
+    <entity name="DiningImagesEntity" representedClassName="DiningImagesEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="images" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="imagesRelation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="DiningEntity" syncable="YES"/>
+    </entity>
+    <entity name="DiningImagesEntityAr" representedClassName="DiningImagesEntityAr" syncable="YES" codeGenerationType="class">
+        <attribute name="images" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="imagesRelation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="DiningEntityArabic" syncable="YES"/>
+    </entity>
+    <entity name="EdAgeGroupEntity" representedClassName="EdAgeGroupEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="ageGroup" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="ageGroupRelation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="EducationEventEntity" syncable="YES"/>
+    </entity>
+    <entity name="EdAgeGroupEntityAr" representedClassName="EdAgeGroupEntityAr" syncable="YES" codeGenerationType="class">
+        <attribute name="ageGroup" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="ageGroupRelation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="EducationEventEntityAr" syncable="YES"/>
+    </entity>
+    <entity name="EdEndDateEntity" representedClassName="EdEndDateEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="endDate" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="endDateRelation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="EducationEventEntity" syncable="YES"/>
+    </entity>
+    <entity name="EdEndDateEntityAr" representedClassName="EdEndDateEntityAr" syncable="YES" codeGenerationType="class">
+        <attribute name="endDate" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="endDateRelation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="EducationEventEntityAr" syncable="YES"/>
+    </entity>
+    <entity name="EdEventDateEntity" representedClassName="EdEventDateEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="fieldRepeatDate" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="fieldRepeatDates" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="EducationEventEntity" syncable="YES"/>
+    </entity>
+    <entity name="EdEventDateEntityAr" representedClassName="EdEventDateEntityAr" syncable="YES" codeGenerationType="class">
+        <attribute name="fieldRepeatDate" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="fieldRepeatDates" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="EducationEventEntityAr" syncable="YES"/>
+    </entity>
+    <entity name="EdEventTopicsEntity" representedClassName="EdEventTopicsEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="associatedTopic" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="assTopicRelation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="EducationEventEntity" syncable="YES"/>
+    </entity>
+    <entity name="EdEventTopicsEntityAr" representedClassName="EdEventTopicsEntityAr" syncable="YES" codeGenerationType="class">
+        <attribute name="associatedTopic" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="assTopicRelation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="EducationEventEntityAr" syncable="YES"/>
+    </entity>
+    <entity name="EdStartDateEntity" representedClassName="EdStartDateEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="startDate" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="startDateRelation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="EducationEventEntity" syncable="YES"/>
+    </entity>
+    <entity name="EdStartDateEntityAr" representedClassName="EdStartDateEntityAr" syncable="YES" codeGenerationType="class">
+        <attribute name="startDate" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="startDateRelation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="EducationEventEntityAr" syncable="YES"/>
+    </entity>
+    <entity name="EducationEventEntity" representedClassName="EducationEventEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="dateId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fieldRepeatDate" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="introductionText" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="itemId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="mainDesc" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="museumDepartMent" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="pgmType" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="register" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="ageGroupRelation" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="EdAgeGroupEntity" syncable="YES"/>
+        <relationship name="assTopicRelation" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="EdEventTopicsEntity" syncable="YES"/>
+        <relationship name="endDateRelation" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="EdEndDateEntity" syncable="YES"/>
+        <relationship name="fieldRepeatDates" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="EdEventDateEntity" syncable="YES"/>
+        <relationship name="startDateRelation" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="EdStartDateEntity" syncable="YES"/>
+    </entity>
+    <entity name="EducationEventEntityAr" representedClassName="EducationEventEntityAr" syncable="YES" codeGenerationType="class">
+        <attribute name="dateId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fieldRepeatDate" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="introductionText" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="itemId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="mainDesc" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="museumDepartMent" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="pgmTypeAr" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="registerAr" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="titleAr" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="ageGroupRelation" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="EdAgeGroupEntityAr" syncable="YES"/>
+        <relationship name="assTopicRelation" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="EdEventTopicsEntityAr" syncable="YES"/>
+        <relationship name="endDateRelation" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="EdEndDateEntityAr" syncable="YES"/>
+        <relationship name="fieldRepeatDates" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="EdEventDateEntityAr" syncable="YES"/>
+        <relationship name="startDateRelation" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="EdStartDateEntityAr" syncable="YES"/>
+    </entity>
+    <entity name="EventAgeGroupEntity" representedClassName="EventAgeGroupEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="ageGroup" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="ageGroupRelation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="EventEntity" syncable="YES"/>
+    </entity>
+    <entity name="EventAgeGroupEntityAr" representedClassName="EventAgeGroupEntityAr" syncable="YES" codeGenerationType="class">
+        <attribute name="ageGroup" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="ageGroupRelation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="EventEntityArabic" syncable="YES"/>
+    </entity>
+    <entity name="EventDateEntity" representedClassName="EventDateEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="fieldRepeatDate" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="fieldRepeatDates" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="EventEntity" syncable="YES"/>
+    </entity>
+    <entity name="EventDateEntityAr" representedClassName="EventDateEntityAr" syncable="YES" codeGenerationType="class">
+        <attribute name="fieldRepeatDate" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="fieldRepeatDates" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="EventEntityArabic" syncable="YES"/>
+    </entity>
+    <entity name="EventEndDateEntity" representedClassName="EventEndDateEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="endDate" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="endDateRelation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="EventEntity" syncable="YES"/>
+    </entity>
+    <entity name="EventEndDateEntityAr" representedClassName="EventEndDateEntityAr" syncable="YES" codeGenerationType="class">
+        <attribute name="endDate" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="endDateRelation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="EventEntityArabic" syncable="YES"/>
+    </entity>
+    <entity name="EventEntity" representedClassName="EventEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="dateId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fieldRepeatDate" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="introductionText" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="itemId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="mainDesc" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="museumDepartMent" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="pgmType" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="register" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="ageGroupRelation" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="EventAgeGroupEntity" syncable="YES"/>
+        <relationship name="assTopicRelation" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="EventTopicsEntity" syncable="YES"/>
+        <relationship name="endDateRelation" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="EventEndDateEntity" syncable="YES"/>
+        <relationship name="fieldRepeatDates" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="EventDateEntity" syncable="YES"/>
+        <relationship name="startDateRelation" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="EventStartDateEntity" syncable="YES"/>
+    </entity>
+    <entity name="EventEntityArabic" representedClassName="EventEntityArabic" syncable="YES" codeGenerationType="class">
+        <attribute name="dateId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fieldRepeatDate" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="introductionText" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="itemId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="mainDesc" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="museumDepartMent" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="pgmTypeAr" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="registerAr" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="titleAr" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="ageGroupRelation" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="EventAgeGroupEntityAr" syncable="YES"/>
+        <relationship name="assTopicRelation" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="EventTopicsEntityAr" syncable="YES"/>
+        <relationship name="endDateRelation" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="EventEndDateEntityAr" syncable="YES"/>
+        <relationship name="fieldRepeatDates" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="EventDateEntityAr" syncable="YES"/>
+        <relationship name="startDateRelation" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="EventStartDateEntityAr" syncable="YES"/>
+    </entity>
+    <entity name="EventStartDateEntity" representedClassName="EventStartDateEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="startDate" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="startDateRelation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="EventEntity" syncable="YES"/>
+    </entity>
+    <entity name="EventStartDateEntityAr" representedClassName="EventStartDateEntityAr" syncable="YES" codeGenerationType="class">
+        <attribute name="startDate" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="startDateRelation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="EventEntityArabic" syncable="YES"/>
+    </entity>
+    <entity name="EventTopicsEntity" representedClassName="EventTopicsEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="associatedTopic" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="assTopicRelation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="EventEntity" syncable="YES"/>
+    </entity>
+    <entity name="EventTopicsEntityAr" representedClassName="EventTopicsEntityAr" syncable="YES" codeGenerationType="class">
+        <attribute name="associatedTopic" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="assTopicRelation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="EventEntityArabic" syncable="YES"/>
+    </entity>
+    <entity name="ExhibitionsEntity" representedClassName="ExhibitionsEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="detailEndDate" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="detailImage" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="detailLatitude" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="detailLocation" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="detailLongDesc" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="detailLongitude" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="detailName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="detailShortDesc" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="detailStartDate" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="dispalyDate" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="endDate" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="image" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="isHomeExhibition" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="location" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="museumId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="startDate" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="status" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="ExhibitionsEntityArabic" representedClassName="ExhibitionsEntityArabic" syncable="YES" codeGenerationType="class">
+        <attribute name="detailendDateAr" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="detailImgeAr" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="detailLatituedeAr" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="detailLocationAr" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="detailLongDescAr" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="detailLongitudeAr" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="detailNameAr" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="detailShortDescAr" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="detailStartDateAr" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="displayDateAr" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="endDateArabic" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="imageArabic" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="isHomeExhibition" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="locationArabic" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="museumId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="nameArabic" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="startDateArabic" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="status" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="FacilitiesDetailEntity" representedClassName="FacilitiesDetailEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="category" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="facilitiesDes" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="latitude" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="locationTitle" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="longtitude" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="nid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="subtitle" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="timing" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="titleTiming" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="facilitiesDetailRelation" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="FacilitiesDetailImgEntity" syncable="YES"/>
+    </entity>
+    <entity name="FacilitiesDetailEntityAr" representedClassName="FacilitiesDetailEntityAr" syncable="YES" codeGenerationType="class">
+        <attribute name="category" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="facilitiesDes" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="latitude" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="locationTitle" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="longtitude" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="nid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="subtitle" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="timing" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="titleTiming" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="facilitiesDetailRelationAr" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="FacilitiesDetailImgEntityAr" syncable="YES"/>
+    </entity>
+    <entity name="FacilitiesDetailImgEntity" representedClassName="FacilitiesDetailImgEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="images" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="facilitiesDetailRelation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="FacilitiesDetailEntity" syncable="YES"/>
+    </entity>
+    <entity name="FacilitiesDetailImgEntityAr" representedClassName="FacilitiesDetailImgEntityAr" syncable="YES" codeGenerationType="class">
+        <attribute name="images" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="facilitiesDetailRelationAr" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="FacilitiesDetailEntityAr" syncable="YES"/>
+    </entity>
+    <entity name="FacilitiesEntity" representedClassName="FacilitiesEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="nid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sortId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="facilitiesImgRelation" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="FacilitiesImgEntity" syncable="YES"/>
+    </entity>
+    <entity name="FacilitiesEntityAr" representedClassName="FacilitiesEntityAr" syncable="YES" codeGenerationType="class">
+        <attribute name="nid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sortId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="facilitiesImgRelationAr" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="FacilitiesImgEntityAr" syncable="YES"/>
+    </entity>
+    <entity name="FacilitiesImgEntity" representedClassName="FacilitiesImgEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="images" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="facilitiesImgRelation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="FacilitiesEntity" syncable="YES"/>
+    </entity>
+    <entity name="FacilitiesImgEntityAr" representedClassName="FacilitiesImgEntityAr" syncable="YES" codeGenerationType="class">
+        <attribute name="images" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="facilitiesImgRelation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="FacilitiesEntityAr" syncable="YES"/>
+    </entity>
+    <entity name="FloorMapImagesEntity" representedClassName="FloorMapImagesEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="image" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="imagesRelation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="FloorMapTourGuideEntity" syncable="YES"/>
+    </entity>
+    <entity name="FloorMapImagesEntityAr" representedClassName="FloorMapImagesEntityAr" syncable="YES" codeGenerationType="class">
+        <attribute name="image" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="imagesRelation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="FloorMapTourGuideEntityAr" syncable="YES"/>
+    </entity>
+    <entity name="FloorMapTourGuideEntity" representedClassName="FloorMapTourGuideEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="accessionNumber" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="artifactImg" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
+        <attribute name="artifactNumber" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="artifactPosition" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="artistOrCreatorOrAuthor" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="audioDescriptif" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="audioFile" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="curatorialDescription" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="diam" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="dimensions" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="floorLevel" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="galleyNumber" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="image" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="mainTitle" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="nid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="objectEngSummary" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="objectHistory" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="periodOrStyle" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="production" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="productionDates" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="techniqueAndMaterials" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="thumbImage" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tourGuideId" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="imagesRelation" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="FloorMapImagesEntity" syncable="YES"/>
+    </entity>
+    <entity name="FloorMapTourGuideEntityAr" representedClassName="FloorMapTourGuideEntityAr" syncable="YES" codeGenerationType="class">
+        <attribute name="accessionNumber" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="artifactImg" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="artifactNumber" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="artifactPosition" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="artistOrCreatorOrAuthor" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="audioDescriptif" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="audioFile" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="curatorialDescription" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="diam" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="dimensions" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="floorLevel" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="galleyNumber" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="image" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="mainTitle" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="nid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="objectEngSummary" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="objectHistory" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="periodOrStyle" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="production" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="productionDates" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="techniqueAndMaterials" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="thumbImage" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tourGuideId" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="imagesRelation" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="FloorMapImagesEntityAr" syncable="YES"/>
+    </entity>
+    <entity name="HeritageEntity" representedClassName="HeritageEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="detaillatitude" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="detaillocation" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="detaillongdescription" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="detaillongitude" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="detailshortdescription" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="listid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="listimage" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="listname" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="listsortid" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="imagesRelation" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="HeritageImagesEntity" syncable="YES"/>
+    </entity>
+    <entity name="HeritageEntityArabic" representedClassName="HeritageEntityArabic" syncable="YES" codeGenerationType="class">
+        <attribute name="detaillatitudearabic" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="detaillocationarabic" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="detaillongdescriptionarabic" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="detaillongitudearabic" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="detailshortdescarabic" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="listid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="listimagearabic" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="listnamearabic" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="listsortidarabic" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="imagesRelation" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="HeritageImagesEntityAr" syncable="YES"/>
+    </entity>
+    <entity name="HeritageImagesEntity" representedClassName="HeritageImagesEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="images" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="imagesRelation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="HeritageEntity" syncable="YES"/>
+    </entity>
+    <entity name="HeritageImagesEntityAr" representedClassName="HeritageImagesEntityAr" syncable="YES" codeGenerationType="class">
+        <attribute name="images" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="imagesRelation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="HeritageEntityArabic" syncable="YES"/>
+    </entity>
+    <entity name="HomeBannerEntity" representedClassName="HomeBannerEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="bannerLink" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="bannerTitle" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="claimOffer" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="contactNumber" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fullContentID" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="introductionText" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="promotionalCode" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="bannerImageRelations" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="HomeBannerImageEntity" syncable="YES"/>
+    </entity>
+    <entity name="HomeBannerEntityAr" representedClassName="HomeBannerEntityAr" syncable="YES" codeGenerationType="class">
+        <attribute name="bannerLink" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="bannerTitle" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="claimOffer" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="contactNumber" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fullContentID" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="introductionText" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="promotionalCode" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="bannerImageRelationsAr" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="HomeBannerImageEntityAr" syncable="YES"/>
+    </entity>
+    <entity name="HomeBannerImageEntity" representedClassName="HomeBannerImageEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="image" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="bannerImageRelations" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="HomeBannerEntity" syncable="YES"/>
+    </entity>
+    <entity name="HomeBannerImageEntityAr" representedClassName="HomeBannerImageEntityAr" syncable="YES" codeGenerationType="class">
+        <attribute name="image" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="bannerImageRelationsAr" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="HomeBannerEntityAr" syncable="YES"/>
+    </entity>
+    <entity name="HomeEntity" representedClassName="HomeEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="image" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sortid" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="tourguideavailable" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="HomeEntityArabic" representedClassName="HomeEntityArabic" syncable="YES" codeGenerationType="class">
+        <attribute name="arabicimage" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="arabicname" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="arabicsortid" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="arabictourguideavailable" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="id" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="NMoQActivitiesEntity" representedClassName="NMoQActivitiesEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="contactEmail" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="contactPhone" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="date" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="dayDescription" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="descriptioForModerator" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="eventDate" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="longitude" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="mobileLatitude" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="moderatorName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="nid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sortId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="subtitle" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="activityImgRelation" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="NMoqActivityImgEntity" syncable="YES"/>
+    </entity>
+    <entity name="NMoQActivitiesEntityAr" representedClassName="NMoQActivitiesEntityAr" syncable="YES" codeGenerationType="class">
+        <attribute name="contactEmail" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="contactPhone" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="date" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="dayDescription" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="descriptioForModerator" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="eventDate" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="longitude" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="mobileLatitude" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="moderatorName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="nid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sortId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="subtitle" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="activityImgRelationAr" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="NMoqActivityImgEntityAr" syncable="YES"/>
+    </entity>
+    <entity name="NMoqActivityImgEntity" representedClassName="NMoqActivityImgEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="images" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="activityImgRelation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="NMoQActivitiesEntity" syncable="YES"/>
+    </entity>
+    <entity name="NMoqActivityImgEntityAr" representedClassName="NMoqActivityImgEntityAr" syncable="YES" codeGenerationType="class">
+        <attribute name="images" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="activityImgRelationAr" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="NMoQActivitiesEntityAr" syncable="YES"/>
+    </entity>
+    <entity name="NMoQParkDetailEntity" representedClassName="NMoQParkDetailEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="nid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="parkDesc" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sortId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="parkDetailImgRelation" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="NMoQParkDetailImgEntity" syncable="YES"/>
+    </entity>
+    <entity name="NMoQParkDetailEntityAr" representedClassName="NMoQParkDetailEntityAr" syncable="YES" codeGenerationType="class">
+        <attribute name="nid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="parkDesc" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sortId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="parkDetailImgRelationAr" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="NMoQParkDetailImgEntityAr" syncable="YES"/>
+    </entity>
+    <entity name="NMoQParkDetailImgEntity" representedClassName="NMoQParkDetailImgEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="images" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="parkDetailImgRelation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="NMoQParkDetailEntity" syncable="YES"/>
+    </entity>
+    <entity name="NMoQParkDetailImgEntityAr" representedClassName="NMoQParkDetailImgEntityAr" syncable="YES" codeGenerationType="class">
+        <attribute name="images" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="parkDetailImgRelationAr" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="NMoQParkDetailEntityAr" syncable="YES"/>
+    </entity>
+    <entity name="NMoQParkImgEntity" representedClassName="NMoQParkImgEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="images" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="parkImgRelation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="NMoQParksEntity" syncable="YES"/>
+    </entity>
+    <entity name="NMoQParkImgEntityAr" representedClassName="NMoQParkImgEntityAr" syncable="YES" codeGenerationType="class">
+        <attribute name="images" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="parkImgRelationAr" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="NMoQParksEntityAr" syncable="YES"/>
+    </entity>
+    <entity name="NMoQParkListEntity" representedClassName="NMoQParkListEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="hoursDesc" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="hoursTitle" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="latitude" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="locationTitle" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="longitude" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="mainDescription" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="nid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="parkDescription" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="parkTitle" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="NMoQParkListEntityAr" representedClassName="NMoQParkListEntityAr" syncable="YES" codeGenerationType="class">
+        <attribute name="hoursDesc" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="hoursTitle" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="latitude" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="locationTitle" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="longitude" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="mainDescription" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="nid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="parkDescription" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="parkTitle" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="NMoQParksEntity" representedClassName="NMoQParksEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="nid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sortId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="parkImgRelation" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="NMoQParkImgEntity" syncable="YES"/>
+    </entity>
+    <entity name="NMoQParksEntityAr" representedClassName="NMoQParksEntityAr" syncable="YES" codeGenerationType="class">
+        <attribute name="nid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sortId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="parkImgRelationAr" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="NMoQParkImgEntityAr" syncable="YES"/>
+    </entity>
+    <entity name="NmoqTourDetailEntity" representedClassName="NmoqTourDetailEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="body" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="contactEmail" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="contactPhone" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="date" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="longitude" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="mobileLatitude" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="nid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="nmoqEvent" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="register" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="registered" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="seatsRemaining" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sort_id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="nmoqTourDetailImgBannerRelation" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="NMoqTourDetailImagesEntity" syncable="YES"/>
+    </entity>
+    <entity name="NmoqTourDetailEntityAr" representedClassName="NmoqTourDetailEntityAr" syncable="YES" codeGenerationType="class">
+        <attribute name="body" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="contactEmail" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="contactPhone" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="date" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="longitude" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="mobileLatitude" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="nid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="nmoqEvent" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="register" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="registered" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="seatsRemaining" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sort_id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="nmoqTourDetailImgBannerRelationAr" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="NMoqTourDetailImagesEntityAr" syncable="YES"/>
+    </entity>
+    <entity name="NMoqTourDetailImagesEntity" representedClassName="NMoqTourDetailImagesEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="imgBanner" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="nmoqTourDetailImgBannerRelation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="NmoqTourDetailEntity" syncable="YES"/>
+    </entity>
+    <entity name="NMoqTourDetailImagesEntityAr" representedClassName="NMoqTourDetailImagesEntityAr" syncable="YES" codeGenerationType="class">
+        <attribute name="imgBanner" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="nmoqTourDetailImgBannerRelationAr" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="NmoqTourDetailEntityAr" syncable="YES"/>
+    </entity>
+    <entity name="NMoqTourImagesEntity" representedClassName="NMoqTourImagesEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="image" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="tourImagesRelation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="NMoQTourListEntity" syncable="YES"/>
+    </entity>
+    <entity name="NMoqTourImagesEntityAr" representedClassName="NMoqTourImagesEntityAr" syncable="YES" codeGenerationType="class">
+        <attribute name="image" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="tourImagesRelationAr" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="NMoQTourListEntityAr" syncable="YES"/>
+    </entity>
+    <entity name="NMoQTourListEntity" representedClassName="NMoQTourListEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="contactEmail" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="contactPhone" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="dateString" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="dayDescription" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="descriptioForModerator" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="eventDate" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="isTourGuide" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="longitude" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="mobileLatitude" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="moderatorName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="nid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sortId" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="subtitle" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="tourImagesRelation" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="NMoqTourImagesEntity" syncable="YES"/>
+    </entity>
+    <entity name="NMoQTourListEntityAr" representedClassName="NMoQTourListEntityAr" syncable="YES" codeGenerationType="class">
+        <attribute name="contactEmail" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="contactPhone" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="dateString" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="dayDescription" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="descriptioForModerator" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="eventDate" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="isTourGuide" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="longitude" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="mobileLatitude" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="moderatorName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="nid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sortId" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="subtitle" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="tourImagesRelationAr" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="NMoqTourImagesEntityAr" syncable="YES"/>
+    </entity>
+    <entity name="NMoQTravelListEntity" representedClassName="NMoQTravelListEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="bannerLink" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="bannerTitle" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="claimOffer" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="contactNumber" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fullContentID" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="introductionText" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="promotionalCode" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="NMoQTravelListEntityAr" representedClassName="NMoQTravelListEntityAr" syncable="YES" codeGenerationType="class">
+        <attribute name="bannerLink" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="bannerTitle" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="claimOffer" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="contactNumber" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fullContentID" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="introductionText" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="promotionalCode" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="NotificationsEntity" representedClassName="NotificationsEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="sortId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="NotificationsEntityArabic" representedClassName="NotificationsEntityArabic" syncable="YES" codeGenerationType="class">
+        <attribute name="sortIdArabic" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="titleArabic" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="ParksEntity" representedClassName="ParksEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="image" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="parksDescription" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sortId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="ParksEntityArabic" representedClassName="ParksEntityArabic" syncable="YES" codeGenerationType="class">
+        <attribute name="descriptionArabic" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="imageArabic" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sortIdArabic" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="titleArabic" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="PublicArtsEntity" representedClassName="PublicArtsEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="detaildescription" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="image" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="latitude" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="longitude" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="shortdescription" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sortcoefficient" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="publicImagesRelation" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="PublicArtsImagesEntity" syncable="YES"/>
+    </entity>
+    <entity name="PublicArtsEntityArabic" representedClassName="PublicArtsEntityArabic" syncable="YES" codeGenerationType="class">
+        <attribute name="descriptionarabic" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="imagearabic" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="latitudearabic" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="longitudearabic" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="namearabic" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="shortdescriptionarabic" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sortcoefficientarabic" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="publicImagesRelation" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="PublicArtsImagesEntityAr" syncable="YES"/>
+    </entity>
+    <entity name="PublicArtsImagesEntity" representedClassName="PublicArtsImagesEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="images" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="publicImagesRelation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="PublicArtsEntity" syncable="YES"/>
+    </entity>
+    <entity name="PublicArtsImagesEntityAr" representedClassName="PublicArtsImagesEntityAr" syncable="YES" codeGenerationType="class">
+        <attribute name="images" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="publicImagesRelation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="PublicArtsEntityArabic" syncable="YES"/>
+    </entity>
+    <entity name="RegisteredEventListEntity" representedClassName="RegisteredEventListEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="eventId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="regId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="seats" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="seatsRemaining" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="TourGuideEntity" representedClassName="TourGuideEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="museumsEntity" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="nid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tourGuideDescription" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="tourGuideMultimediaRelation" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TourGuideMultimediaEntity" syncable="YES"/>
+    </entity>
+    <entity name="TourGuideEntityAr" representedClassName="TourGuideEntityAr" syncable="YES" codeGenerationType="class">
+        <attribute name="museumsEntity" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="nid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tourGuideDescription" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="tourGuideMultimediaRelation" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TourGuideMultimediaEntityAr" syncable="YES"/>
+    </entity>
+    <entity name="TourGuideMultimediaEntity" representedClassName="TourGuideMultimediaEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="multimediaFile" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="tourGuideMultimediaRelation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TourGuideEntity" syncable="YES"/>
+    </entity>
+    <entity name="TourGuideMultimediaEntityAr" representedClassName="TourGuideMultimediaEntityAr" syncable="YES" codeGenerationType="class">
+        <attribute name="multimediaFile" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="tourGuideMultimediaRelation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TourGuideEntityAr" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="AboutDescriptionEntity" positionX="-27" positionY="135" width="128" height="90"/>
+        <element name="AboutDescriptionEntityAr" positionX="-18" positionY="144" width="128" height="90"/>
+        <element name="AboutDownloadLinkEntity" positionX="-9" positionY="135" width="128" height="75"/>
+        <element name="AboutEntity" positionX="-36" positionY="135" width="128" height="240"/>
+        <element name="AboutEntityArabic" positionX="-27" positionY="144" width="128" height="270"/>
+        <element name="AboutMultimediaFileEntity" positionX="-9" positionY="135" width="128" height="75"/>
+        <element name="AboutMultimediaFileEntityAr" positionX="0" positionY="144" width="128" height="75"/>
+        <element name="CollectionDetailsEntity" positionX="-36" positionY="135" width="128" height="120"/>
+        <element name="CollectionDetailsEntityAr" positionX="-27" positionY="144" width="128" height="120"/>
+        <element name="CollectionsEntity" positionX="-36" positionY="126" width="128" height="90"/>
+        <element name="CollectionsEntityArabic" positionX="-18" positionY="162" width="128" height="90"/>
+        <element name="DiningEntity" positionX="-54" positionY="90" width="128" height="195"/>
+        <element name="DiningEntityArabic" positionX="-45" positionY="108" width="128" height="195"/>
+        <element name="DiningImagesEntity" positionX="-9" positionY="135" width="128" height="75"/>
+        <element name="DiningImagesEntityAr" positionX="0" positionY="144" width="128" height="75"/>
+        <element name="EdAgeGroupEntity" positionX="-9" positionY="153" width="128" height="75"/>
+        <element name="EdAgeGroupEntityAr" positionX="0" positionY="162" width="128" height="75"/>
+        <element name="EdEndDateEntity" positionX="-9" positionY="135" width="128" height="75"/>
+        <element name="EdEndDateEntityAr" positionX="0" positionY="144" width="128" height="75"/>
+        <element name="EdEventDateEntity" positionX="-18" positionY="153" width="128" height="75"/>
+        <element name="EdEventDateEntityAr" positionX="-9" positionY="162" width="128" height="75"/>
+        <element name="EdEventTopicsEntity" positionX="36" positionY="189" width="128" height="75"/>
+        <element name="EdEventTopicsEntityAr" positionX="-9" positionY="135" width="128" height="75"/>
+        <element name="EdStartDateEntity" positionX="18" positionY="162" width="128" height="75"/>
+        <element name="EdStartDateEntityAr" positionX="27" positionY="171" width="128" height="75"/>
+        <element name="EducationEventEntity" positionX="-36" positionY="108" width="128" height="255"/>
+        <element name="EducationEventEntityAr" positionX="-27" positionY="144" width="128" height="255"/>
+        <element name="EventAgeGroupEntity" positionX="-27" positionY="135" width="128" height="75"/>
+        <element name="EventAgeGroupEntityAr" positionX="-18" positionY="144" width="128" height="75"/>
+        <element name="EventDateEntity" positionX="-27" positionY="144" width="128" height="75"/>
+        <element name="EventDateEntityAr" positionX="0" positionY="171" width="128" height="75"/>
+        <element name="EventEndDateEntity" positionX="36" positionY="180" width="128" height="75"/>
+        <element name="EventEndDateEntityAr" positionX="45" positionY="189" width="128" height="75"/>
+        <element name="EventEntity" positionX="-18" positionY="153" width="128" height="255"/>
+        <element name="EventEntityArabic" positionX="-9" positionY="162" width="128" height="255"/>
+        <element name="EventStartDateEntity" positionX="0" positionY="144" width="128" height="75"/>
+        <element name="EventStartDateEntityAr" positionX="9" positionY="153" width="128" height="75"/>
+        <element name="EventTopicsEntity" positionX="9" positionY="171" width="128" height="75"/>
+        <element name="EventTopicsEntityAr" positionX="18" positionY="180" width="128" height="75"/>
+        <element name="ExhibitionsEntity" positionX="-54" positionY="108" width="128" height="330"/>
+        <element name="ExhibitionsEntityArabic" positionX="-45" positionY="126" width="128" height="330"/>
+        <element name="FacilitiesDetailEntity" positionX="27" positionY="171" width="128" height="210"/>
+        <element name="FacilitiesDetailEntityAr" positionX="0" positionY="144" width="128" height="210"/>
+        <element name="FacilitiesDetailImgEntity" positionX="-9" positionY="135" width="128" height="75"/>
+        <element name="FacilitiesDetailImgEntityAr" positionX="9" positionY="153" width="128" height="75"/>
+        <element name="FacilitiesEntity" positionX="-9" positionY="252" width="128" height="103"/>
+        <element name="FacilitiesEntityAr" positionX="0" positionY="261" width="128" height="105"/>
+        <element name="FacilitiesImgEntity" positionX="9" positionY="270" width="128" height="75"/>
+        <element name="FacilitiesImgEntityAr" positionX="18" positionY="279" width="128" height="75"/>
+        <element name="FloorMapImagesEntity" positionX="0" positionY="144" width="128" height="75"/>
+        <element name="FloorMapImagesEntityAr" positionX="18" positionY="162" width="128" height="75"/>
+        <element name="FloorMapTourGuideEntity" positionX="-9" positionY="135" width="128" height="420"/>
+        <element name="FloorMapTourGuideEntityAr" positionX="-9" positionY="135" width="128" height="420"/>
+        <element name="HeritageEntity" positionX="-63" positionY="27" width="128" height="195"/>
+        <element name="HeritageEntityArabic" positionX="-54" positionY="63" width="128" height="195"/>
+        <element name="HeritageImagesEntity" positionX="-27" positionY="135" width="128" height="75"/>
+        <element name="HeritageImagesEntityAr" positionX="-27" positionY="135" width="128" height="75"/>
+        <element name="HomeBannerEntity" positionX="-9" positionY="135" width="128" height="195"/>
+        <element name="HomeBannerEntityAr" positionX="-9" positionY="135" width="128" height="195"/>
+        <element name="HomeBannerImageEntity" positionX="-9" positionY="135" width="128" height="75"/>
+        <element name="HomeBannerImageEntityAr" positionX="0" positionY="144" width="128" height="75"/>
+        <element name="HomeEntity" positionX="-63" positionY="-18" width="128" height="120"/>
+        <element name="HomeEntityArabic" positionX="-54" positionY="63" width="128" height="120"/>
+        <element name="NMoQActivitiesEntity" positionX="9" positionY="153" width="128" height="255"/>
+        <element name="NMoQActivitiesEntityAr" positionX="18" positionY="162" width="128" height="255"/>
+        <element name="NMoqActivityImgEntity" positionX="27" positionY="171" width="128" height="75"/>
+        <element name="NMoqActivityImgEntityAr" positionX="36" positionY="180" width="128" height="75"/>
+        <element name="NMoQParkDetailEntity" positionX="9" positionY="153" width="128" height="120"/>
+        <element name="NMoQParkDetailEntityAr" positionX="18" positionY="162" width="128" height="120"/>
+        <element name="NMoQParkDetailImgEntity" positionX="-9" positionY="135" width="128" height="75"/>
+        <element name="NMoQParkDetailImgEntityAr" positionX="0" positionY="144" width="128" height="75"/>
+        <element name="NMoQParkImgEntity" positionX="9" positionY="153" width="128" height="75"/>
+        <element name="NMoQParkImgEntityAr" positionX="18" positionY="162" width="128" height="75"/>
+        <element name="NMoQParkListEntity" positionX="-9" positionY="135" width="128" height="195"/>
+        <element name="NMoQParkListEntityAr" positionX="0" positionY="144" width="128" height="195"/>
+        <element name="NMoQParksEntity" positionX="-9" positionY="135" width="128" height="105"/>
+        <element name="NMoQParksEntityAr" positionX="0" positionY="144" width="128" height="105"/>
+        <element name="NmoqTourDetailEntity" positionX="-9" positionY="135" width="128" height="255"/>
+        <element name="NmoqTourDetailEntityAr" positionX="-9" positionY="135" width="128" height="255"/>
+        <element name="NMoqTourDetailImagesEntity" positionX="9" positionY="153" width="128" height="75"/>
+        <element name="NMoqTourDetailImagesEntityAr" positionX="0" positionY="144" width="128" height="75"/>
+        <element name="NMoqTourImagesEntity" positionX="9" positionY="153" width="128" height="75"/>
+        <element name="NMoqTourImagesEntityAr" positionX="0" positionY="144" width="128" height="75"/>
+        <element name="NMoQTourListEntity" positionX="0" positionY="144" width="128" height="270"/>
+        <element name="NMoQTourListEntityAr" positionX="-9" positionY="135" width="128" height="270"/>
+        <element name="NMoQTravelListEntity" positionX="-9" positionY="135" width="128" height="180"/>
+        <element name="NMoQTravelListEntityAr" positionX="-9" positionY="135" width="128" height="180"/>
+        <element name="NotificationsEntity" positionX="-9" positionY="135" width="128" height="75"/>
+        <element name="NotificationsEntityArabic" positionX="0" positionY="144" width="128" height="75"/>
+        <element name="ParksEntity" positionX="-54" positionY="108" width="128" height="105"/>
+        <element name="ParksEntityArabic" positionX="-45" positionY="117" width="128" height="105"/>
+        <element name="PublicArtsEntity" positionX="-54" positionY="108" width="128" height="180"/>
+        <element name="PublicArtsEntityArabic" positionX="-54" positionY="117" width="128" height="180"/>
+        <element name="PublicArtsImagesEntity" positionX="-18" positionY="144" width="128" height="75"/>
+        <element name="PublicArtsImagesEntityAr" positionX="-9" positionY="153" width="128" height="75"/>
+        <element name="RegisteredEventListEntity" positionX="-9" positionY="135" width="128" height="120"/>
+        <element name="TourGuideEntity" positionX="-9" positionY="135" width="128" height="120"/>
+        <element name="TourGuideEntityAr" positionX="0" positionY="144" width="128" height="120"/>
+        <element name="TourGuideMultimediaEntity" positionX="9" positionY="153" width="128" height="75"/>
+        <element name="TourGuideMultimediaEntityAr" positionX="18" positionY="162" width="128" height="75"/>
+    </elements>
+</model>

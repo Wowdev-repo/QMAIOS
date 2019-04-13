@@ -10,6 +10,7 @@ import Alamofire
 import CoreData
 import Crashlytics
 import EventKit
+import Firebase
 import UIKit
 
 
@@ -29,7 +30,6 @@ class EventViewController: UIViewController,UICollectionViewDelegate,UICollectio
     @IBOutlet weak var calendarRightConstraint: NSLayoutConstraint!
     @IBOutlet weak var previousConstraint: NSLayoutConstraint!
     @IBOutlet weak var nextConstraint: NSLayoutConstraint!
-    
     @IBOutlet weak var loadingView: LoadingView!
     var effect:UIVisualEffect!
     var eventPopup : EventPopupView = EventPopupView()
@@ -62,7 +62,7 @@ class EventViewController: UIViewController,UICollectionViewDelegate,UICollectio
         institutionType = anyString
         ageGroupType = anyString
         programmeType = anyString
-        
+        self.recordScreenView()
         
     }
 
@@ -163,7 +163,6 @@ class EventViewController: UIViewController,UICollectionViewDelegate,UICollectio
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     //MARK: CollectionView delegate
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -257,42 +256,22 @@ class EventViewController: UIViewController,UICollectionViewDelegate,UICollectio
         if (isLoadEventPage == true) {
             let title = educationEventArray[currentRow].title?.replacingOccurrences(of: "<[^>]+>|&nbsp;", with: "", options: .regularExpression, range: nil).uppercased()
             eventPopup.eventTitle.text = title?.replacingOccurrences(of: "&#039;", with: "'", options: .regularExpression, range: nil)
-           // eventPopup.eventDescription.text = educationEventArray[currentRow].longDesc
             var mainDesc = String()
-            if let maindescr = educationEventArray[currentRow].mainDescription {
-                //if ((maindescr.count) > 0) {
-                   // for i in 0 ... (maindescr.count ) - 1 {
-//                        mainDesc = mainDesc + educationEventArray[currentRow].mainDescription![i].replacingOccurrences(of: "<[^>]+>|&nbsp;|&|#", with: "", options: .regularExpression, range: nil)
-//                         eventPopup.eventDescription.text = mainDesc
+            if educationEventArray[currentRow].mainDescription != nil {
                 mainDesc = educationEventArray[currentRow].mainDescription!.replacingOccurrences(of: "<[^>]+>|&nbsp;|&|#", with: "", options: .regularExpression, range: nil)
                 mainDesc =  mainDesc.replacingOccurrences(of: "&#039;", with: "'", options: .regularExpression, range: nil)
                 eventPopup.eventDescription.text = mainDesc
-                   // }
-                    
-                //}
             }
-            //let buttonTitle = NSLocalizedString("POPUP_ADD_BUTTON_TITLE", comment: "POPUP_ADD_BUTTON_TITLE  in the popup view")
-           // eventPopup.addToCalendarButton.setTitle(buttonTitle, for: .normal)
         }
         else {
             let title = educationEventArray[currentRow].title?.replacingOccurrences(of: "<[^>]+>|&nbsp;", with: "", options: .regularExpression, range: nil).uppercased()
             eventPopup.eventTitle.text = title?.replacingOccurrences(of: "&#039;", with: "'", options: .regularExpression, range: nil)
-            
-            //eventPopup.eventDescription.text = educationEventArray[currentRow].longDesc
             var mainDesc = String()
-            if let maindescr = educationEventArray[currentRow].mainDescription {
-//                if ((maindescr.count) > 0) {
-//                    for i in 0 ... (maindescr.count ) - 1 {
-//                        mainDesc = mainDesc + educationEventArray[currentRow].mainDescription![i].replacingOccurrences(of: "<[^>]+>|&nbsp;|&|#", with: "", options: .regularExpression, range: nil)
-//                        eventPopup.eventDescription.text = mainDesc
-//                    }
-//
-//                }
+            if educationEventArray[currentRow].mainDescription != nil {
                 mainDesc = educationEventArray[currentRow].mainDescription!.replacingOccurrences(of: "<[^>]+>|&nbsp;|&|#", with: "", options: .regularExpression, range: nil)
                 mainDesc = mainDesc.replacingOccurrences(of: "&#039;", with: "'", options: .regularExpression, range: nil)
                 eventPopup.eventDescription.text = mainDesc
             }
-            
         }
         self.view.addSubview(eventPopup)
      
@@ -301,18 +280,10 @@ class EventViewController: UIViewController,UICollectionViewDelegate,UICollectio
   
     //MARK: Event popup delegate
     func eventCloseButtonPressed() {
-        
         self.eventPopup.removeFromSuperview()
-        
-       
     }
     func addToCalendarButtonPressed() {
         if (eventPopup.tag == 0) {
-            //        var date = NSDate()
-            //        if(selectedEvent?.date != nil) {
-            //            let timeint = (selectedEvent?.date! as? NSString)?.doubleValue
-            //            date = NSDate(timeIntervalSince1970: timeint!)
-            //        }
             if(needToRegister == "true") {
                 self.eventPopup.removeFromSuperview()
                 popupView  = ComingSoonPopUp(frame: self.view.frame)
@@ -322,7 +293,7 @@ class EventViewController: UIViewController,UICollectionViewDelegate,UICollectio
             }
             else {
                 self.eventPopup.removeFromSuperview()
-                var calendar = Calendar.current
+                let calendar = Calendar.current
                 var startDt = Date()
                 var endDt = Date()
                 if((selectedEvent?.startDate?.count)! > 0) {
@@ -362,14 +333,6 @@ class EventViewController: UIViewController,UICollectionViewDelegate,UICollectio
                 self.addEventToCalendar(title:  (selectedEvent?.title)!, description: selectedEvent?.mainDescription, startDate: startDt, endDate: endDt)
                 
             }
-            //        if (isLoadEventPage == true) {
-            //            self.addEventToCalendar(title: (selectedEvent?.title)!, description: selectedEvent?.longDesc, startDate: date as Date, endDate: date as Date)
-            //            self.eventPopup.removeFromSuperview()
-            //        }
-            //        else {
-            //
-            //
-            //        }
         }
         else {
             self.eventPopup.removeFromSuperview()
@@ -392,19 +355,15 @@ class EventViewController: UIViewController,UICollectionViewDelegate,UICollectio
                 if (granted) && (error == nil) {
                     DispatchQueue.main.async {
                     let event = EKEvent.init(eventStore: self.store)
-                    var eventTitle = title.replacingOccurrences(of: "<[^>]+>|&nbsp;|&|#", with: "", options: .regularExpression, range: nil)
+                        let eventTitle = title.replacingOccurrences(of: "<[^>]+>|&nbsp;|&|#", with: "", options: .regularExpression, range: nil)
                     event.title = eventTitle.replacingOccurrences(of: "&#039;", with: "'", options: .regularExpression, range: nil)
                     event.calendar = self.store.defaultCalendarForNewEvents
                     event.startDate = startDate
                     event.endDate = endDate
                     let notes = description?.replacingOccurrences(of: "<[^>]+>|&nbsp;|&|#", with: "", options: .regularExpression, range: nil)
                     event.notes = notes?.replacingOccurrences(of: "&#039;", with: "'", options: .regularExpression, range: nil)
-                        
-                    // let alarm = EKAlarm.init(absoluteDate: Date.init(timeInterval: -3600, since: event.startDate))
-                    // event.addAlarm(alarm)
                     
                     do {
-                        // try eventStore.save(event, span: .thisEvent)
                         try self.store.save(event, span: .thisEvent)
                         self.view.hideAllToasts()
                         let eventAddedMessage =  NSLocalizedString("EVENT_ADDED_MESSAGE", comment: "EVENT_ADDED_MESSAGE")
@@ -433,7 +392,7 @@ class EventViewController: UIViewController,UICollectionViewDelegate,UICollectio
                 self.view.hideAllToasts()
                 let eventAddedMessage =  NSLocalizedString("EVENT_ADDED_MESSAGE", comment: "EVENT_ADDED_MESSAGE")
                 self.view.makeToast(eventAddedMessage)
-            } catch let e as NSError {
+            } catch _ as NSError {
                 return
             }
         case EKAuthorizationStatus.denied, EKAuthorizationStatus.restricted:
@@ -501,11 +460,6 @@ class EventViewController: UIViewController,UICollectionViewDelegate,UICollectio
                 }
             }
         }
-        
-        //selected date got is less than one date. so add 1 to date for actual selected date
-      //  let dayComponenet = NSDateComponents()
-      //  dayComponenet.day = 1
-       // selectedDateForEvent = Calendar.current.date(byAdding: .day, value: 1, to: date)!
     }
     func calendarCurrentMonthDidChange(_ calendar: FSCalendar) {
         
@@ -557,9 +511,6 @@ class EventViewController: UIViewController,UICollectionViewDelegate,UICollectio
                 switch response.result {
                 case .success(let data):
                     self.educationEventArray = data.educationEvent!
-                    
-//                    self.educationEventArray = self.educationEventArray.sorted { $0.startDate![0].replacingOccurrences(of: "<[^>]+>|&nbsp;|&|#039;", with: "", options: .regularExpression, range: nil) < $1.startDate![0].replacingOccurrences(of: "<[^>]+>|&nbsp;|&|#039;", with: "", options: .regularExpression, range: nil) }
-
                     if (self.isLoadEventPage == true) {
                         self.saveOrUpdateEventCoredata()
                     }
@@ -628,7 +579,6 @@ class EventViewController: UIViewController,UICollectionViewDelegate,UICollectio
     }
     func getUniqueDate() -> String? {
         let calendar = Calendar.current
-        //calendar.timeZone = TimeZone(identifier: "UTC")!
         let startDt = calendar.date(bySettingHour: 0, minute: 0, second: 0, of: selectedDateForEvent)!
         let timestamp = startDt.timeIntervalSince1970
         let dateString = String(timestamp)
@@ -640,19 +590,6 @@ class EventViewController: UIViewController,UICollectionViewDelegate,UICollectio
         
         return nil
     }
-//    func findItem(educationArray: [EducationEvent],fixedStartTime : String) -> Int? {
-//        var newEventPosition : Int? = 0
-//        for i in 0...educationArray.count-1 {
-//            if(educationEventArray[i].startTime != nil) {
-//                let apiTime = (educationEventArray[i].startTime! as NSString).integerValue
-//                let fixedTime = (fixedStartTime as NSString).integerValue
-//                if(fixedTime > apiTime) {
-//                    newEventPosition = i+1
-//                }
-//            }
-//        }
-//        return newEventPosition
-//    }
     
     //MARK: Coredata Method
     func saveOrUpdateEducationEventCoredata() {
@@ -742,19 +679,11 @@ class EventViewController: UIViewController,UICollectionViewDelegate,UICollectio
         
     func saveToCoreData(educationEventDict: EducationEvent,dateId: String?, managedObjContext: NSManagedObjectContext) {
         if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
-            //for i in 0...educationArray.count-1 {
                 let edducationInfo: EducationEventEntity = NSEntityDescription.insertNewObject(forEntityName: "EducationEventEntity", into: managedObjContext) as! EducationEventEntity
-            
-//            if((educationEventDict.fieldRepeatDate?.count)! > 0) {
-//                let fieldRepeatId = educationEventDict.fieldRepeatDate![0]
-//                edducationInfo.fieldRepeatDate =  fieldRepeatId
-//            }
-              //  let educationEventDict = educationArray[i]
                 edducationInfo.dateId = dateId
                 edducationInfo.itemId = educationEventDict.itemId
                 edducationInfo.introductionText = educationEventDict.introductionText
                 edducationInfo.register = educationEventDict.register
-                //edducationInfo.field =  educationEventDict.shortDesc
                 edducationInfo.title = educationEventDict.title
                 edducationInfo.pgmType = educationEventDict.programType
             edducationInfo.mainDesc = educationEventDict.mainDescription
@@ -1011,11 +940,19 @@ class EventViewController: UIViewController,UICollectionViewDelegate,UICollectio
                         self.educationEventArray.insert(EducationEvent(itemId: educationArray[i].itemId, introductionText: educationArray[i].introductionText, register: educationArray[i].register, fieldRepeatDate: dateArray, title: educationArray[i].title, programType: educationArray[i].pgmType, mainDescription: educationArray[i].mainDesc, ageGroup: ageGrpArray, associatedTopics: topicsArray, museumDepartMent: educationArray[i].museumDepartMent, startDate: startDateArray, endDate: endDateArray), at: i)
                     }
                     if(self.educationEventArray.count == 0){
-                        self.showNoNetwork()
+                        if(self.networkReachability?.isReachable == false) {
+                            self.showNoNetwork()
+                        } else {
+                            self.loadingView.showNoDataView()
+                        }
                     }
                         self.eventCollectionView.reloadData()
                 } else{
-                    self.showNoNetwork()
+                    if(self.networkReachability?.isReachable == false) {
+                        self.showNoNetwork()
+                    } else {
+                        self.loadingView.showNoDataView()
+                    }
                 }
             } else {
                 var educationArray = [EducationEventEntityAr]()
@@ -1055,12 +992,20 @@ class EventViewController: UIViewController,UICollectionViewDelegate,UICollectio
                         
                     }
                     if(educationEventArray.count == 0){
-                        self.showNoNetwork()
+                        if(self.networkReachability?.isReachable == false) {
+                            self.showNoNetwork()
+                        } else {
+                            self.loadingView.showNoDataView()
+                        }
                     }
                     eventCollectionView.reloadData()
                 }
                 else{
-                    self.showNoNetwork()
+                    if(self.networkReachability?.isReachable == false) {
+                        self.showNoNetwork()
+                    } else {
+                        self.loadingView.showNoDataView()
+                    }
                 }
             }
         } catch let error as NSError {
@@ -1128,7 +1073,7 @@ class EventViewController: UIViewController,UICollectionViewDelegate,UICollectio
         do{
             try managedContext.execute(deleteRequest)
             return true
-        }catch let error as NSError {
+        }catch _ as NSError {
             //handle error here
             return false
         }
@@ -1136,16 +1081,7 @@ class EventViewController: UIViewController,UICollectionViewDelegate,UICollectio
     }
     func saveEventToCoreData(educationEventDict: EducationEvent,dateId: String?, managedObjContext: NSManagedObjectContext) {
         if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
-            
-          //  for i in 0...educationArray.count-1 {
                 let edducationInfo: EventEntity = NSEntityDescription.insertNewObject(forEntityName: "EventEntity", into: managedObjContext) as! EventEntity
-                //let educationEventDict = educationArray[i]
-//            if((educationEventDict.fieldRepeatDate?.count)! > 0) {
-//                let fieldRepeatId = educationEventDict.fieldRepeatDate![0]
-//                edducationInfo.fieldRepeatDate =  fieldRepeatId
-//            }
-            
-            
                 edducationInfo.dateId = dateId
                 edducationInfo.itemId = educationEventDict.itemId
                 edducationInfo.introductionText = educationEventDict.introductionText
@@ -1407,12 +1343,20 @@ class EventViewController: UIViewController,UICollectionViewDelegate,UICollectio
                         self.educationEventArray.insert(EducationEvent(itemId: educationArray[i].itemId, introductionText: educationArray[i].introductionText, register: educationArray[i].register, fieldRepeatDate: dateArray, title: educationArray[i].title, programType: educationArray[i].pgmType, mainDescription: educationArray[i].mainDesc, ageGroup: ageGrpArray, associatedTopics: topicsArray, museumDepartMent: educationArray[i].museumDepartMent, startDate: startDateArray, endDate: endDateArray), at: i)
                     }
                     if(educationEventArray.count == 0){
-                        self.showNoNetwork()
+                        if(self.networkReachability?.isReachable == false) {
+                            self.showNoNetwork()
+                        } else {
+                            self.loadingView.showNoDataView()
+                        }
                     }
                     eventCollectionView.reloadData()
                 }
                 else{
-                    self.showNoNetwork()
+                    if(self.networkReachability?.isReachable == false) {
+                        self.showNoNetwork()
+                    } else {
+                        self.loadingView.showNoDataView()
+                    }
                 }
             }
             else {
@@ -1449,23 +1393,27 @@ class EventViewController: UIViewController,UICollectionViewDelegate,UICollectio
                             endDateArray.append(endDateInfoArray[i].endDate!)
                         }
                         
-//                        self.educationEventArray.insert(EducationEvent(itemId: educationArray[i].itemId, introductionText: educationArray[i].introductionText, register: educationArray[i].registerAr, fieldRepeatDate: dateArray, title: educationArray[i].titleAr
-//                            , programType: educationArray[i].pgmTypeAr,mainDescription:educationArray[i].mainDesc), at: i)
                         self.educationEventArray.insert(EducationEvent(itemId: educationArray[i].itemId, introductionText: educationArray[i].introductionText, register: educationArray[i].registerAr, fieldRepeatDate: dateArray, title: educationArray[i].titleAr, programType: educationArray[i].pgmTypeAr, mainDescription: educationArray[i].mainDesc, ageGroup: ageGrpArray, associatedTopics: topicsArray, museumDepartMent: educationArray[i].museumDepartMent, startDate: startDateArray, endDate: endDateArray), at: i)
                         
                        
                     }
                     if(educationEventArray.count == 0){
-                        self.showNoNetwork()
+                        if(self.networkReachability?.isReachable == false) {
+                            self.showNoNetwork()
+                        } else {
+                            self.loadingView.showNoDataView()
+                        }
                     }
                     eventCollectionView.reloadData()
                 }
                 else{
-                    self.showNoNetwork()
+                    if(self.networkReachability?.isReachable == false) {
+                        self.showNoNetwork()
+                    } else {
+                        self.loadingView.showNoDataView()
+                    }
                 }
             }
-        } catch let error as NSError {
-            print("Could not fetch. \(error), \(error.userInfo)")
         }
     }
     
@@ -1491,12 +1439,8 @@ class EventViewController: UIViewController,UICollectionViewDelegate,UICollectio
     }
     //MARK: Event Popup Delegate
     func loadPermissionPopup() {
-        //eventPopup.eventTitle.isScrollEnabled = false
-        
         eventPopup  = EventPopupView(frame: self.view.frame)
-        //eventPopup.eventPopupHeight.constant = 300
         eventPopup.eventPopupDelegate = self
-        
         eventPopup.eventTitle.text = NSLocalizedString("PERMISSION_TITLE", comment: "PERMISSION_TITLE  in the popup view")
         eventPopup.eventDescription.text = NSLocalizedString("CALENDAR_PERMISSION", comment: "CALENDAR_PERMISSION  in the popup view")
         eventPopup.addToCalendarButton.setTitle(NSLocalizedString("SIDEMENU_SETTINGS_LABEL", comment: "SIDEMENU_SETTINGS_LABEL  in the popup view"), for: .normal)
@@ -1515,5 +1459,9 @@ class EventViewController: UIViewController,UICollectionViewDelegate,UICollectio
         self.loadingView.noDataView.isHidden = false
         self.loadingView.isHidden = false
         self.loadingView.showNoNetworkView()
+    }
+    func recordScreenView() {
+        let screenClass = String(describing: type(of: self))
+        Analytics.setScreenName(EVENT_VC, screenClass: screenClass)
     }
 }

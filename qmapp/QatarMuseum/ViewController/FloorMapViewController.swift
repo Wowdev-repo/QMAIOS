@@ -11,6 +11,7 @@ import AVFoundation
 import AVKit
 import Crashlytics
 import CoreData
+import Firebase
 import GoogleMaps
 import Kingfisher
 import UIKit
@@ -220,7 +221,7 @@ class FloorMapViewController: UIViewController, GMSMapViewDelegate, HeaderViewPr
         viewForMap.delegate = self
         loadMap()
         initialSetUp()
-        
+        self.recordScreenView()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -2081,6 +2082,10 @@ class FloorMapViewController: UIViewController, GMSMapViewDelegate, HeaderViewPr
             }
         }
         
+    }
+    func recordScreenView() {
+        let screenClass = String(describing: type(of: self))
+        Analytics.setScreenName(FLOORMAP_VC, screenClass: screenClass)
     }
 }
 extension AVPlayer {

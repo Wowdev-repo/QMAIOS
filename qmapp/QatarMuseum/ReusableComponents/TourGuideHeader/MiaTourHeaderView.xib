@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="DINNextLTPro-Bold.otf">
+            <string>DINNextLTPro-Bold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="wxK-8j-fed" customClass="MiaCollectionReusableView" customModule="QatarMuseums" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="130"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="wxK-8j-fed" id="jws-N1-9e0">
+                <rect key="frame" x="0.0" y="0.0" width="414" height="129.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZLu-iy-cb4">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="130"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sbc-5n-Z9N">
+                                <rect key="frame" x="12" y="16" width="390" height="0.0"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="87z-uQ-KWN">
+                                <rect key="frame" x="12" y="28" width="390" height="0.0"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3xb-8M-qtD">
+                                <rect key="frame" x="60" y="40" width="294" height="46"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="46" id="VMv-Gi-SbG"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="DINNextLTPro-Bold" family="DIN Next LT Pro" pointSize="20"/>
+                                <state key="normal" title="Explore">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="23"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="didTapExplore:" destination="wxK-8j-fed" eventType="touchUpInside" id="i09-Wi-n0j"/>
+                                    <action selector="exploreButtonTouchDown:" destination="wxK-8j-fed" eventType="touchUpInside" id="SIq-aw-ZLa"/>
+                                </connections>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="explore_icon" translatesAutoresizingMaskIntoConstraints="NO" id="hIJ-uc-NgQ">
+                                <rect key="frame" x="144" y="48.5" width="22" height="23"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="22" id="RzQ-KK-lNo"/>
+                                    <constraint firstAttribute="height" constant="23" id="SN6-dv-5iB"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BxK-eg-l1r">
+                                <rect key="frame" x="207" y="98" width="0.0" height="0.0"/>
+                                <fontDescription key="fontDescription" name="DINNextLTPro-Bold" family="DIN Next LT Pro" pointSize="26"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pXq-KB-CRY">
+                                <rect key="frame" x="24" y="110" width="378" height="0.0"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="3xb-8M-qtD" firstAttribute="top" secondItem="87z-uQ-KWN" secondAttribute="bottom" constant="12" id="1Fc-9e-Y7j"/>
+                            <constraint firstItem="hIJ-uc-NgQ" firstAttribute="centerX" secondItem="3xb-8M-qtD" secondAttribute="centerX" constant="-52" id="6iV-2f-TEr"/>
+                            <constraint firstAttribute="trailing" secondItem="3xb-8M-qtD" secondAttribute="trailing" constant="60" id="8Nv-xQ-lL7"/>
+                            <constraint firstItem="87z-uQ-KWN" firstAttribute="top" secondItem="sbc-5n-Z9N" secondAttribute="bottom" constant="12" id="Kbb-9b-Jgj"/>
+                            <constraint firstItem="87z-uQ-KWN" firstAttribute="leading" secondItem="ZLu-iy-cb4" secondAttribute="leading" constant="12" id="P67-BM-MCQ"/>
+                            <constraint firstItem="hIJ-uc-NgQ" firstAttribute="centerY" secondItem="3xb-8M-qtD" secondAttribute="centerY" constant="-3" id="U8H-UV-vpK"/>
+                            <constraint firstItem="BxK-eg-l1r" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="ZLu-iy-cb4" secondAttribute="leading" constant="6" id="WTn-dZ-vVS"/>
+                            <constraint firstAttribute="trailing" secondItem="sbc-5n-Z9N" secondAttribute="trailing" constant="12" id="WZh-KY-Xbx"/>
+                            <constraint firstItem="sbc-5n-Z9N" firstAttribute="top" secondItem="ZLu-iy-cb4" secondAttribute="top" constant="16" id="Yun-X2-zhl"/>
+                            <constraint firstItem="pXq-KB-CRY" firstAttribute="leading" secondItem="ZLu-iy-cb4" secondAttribute="leading" constant="24" id="Zgw-tL-oo5"/>
+                            <constraint firstItem="3xb-8M-qtD" firstAttribute="leading" secondItem="ZLu-iy-cb4" secondAttribute="leading" constant="60" id="cfR-nZ-nFV"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="BxK-eg-l1r" secondAttribute="trailing" constant="6" id="diM-PR-peH"/>
+                            <constraint firstItem="BxK-eg-l1r" firstAttribute="centerX" secondItem="ZLu-iy-cb4" secondAttribute="centerX" id="eby-db-poz"/>
+                            <constraint firstAttribute="bottom" secondItem="pXq-KB-CRY" secondAttribute="bottom" constant="20" id="gvJ-qG-6D4"/>
+                            <constraint firstItem="BxK-eg-l1r" firstAttribute="top" secondItem="3xb-8M-qtD" secondAttribute="bottom" constant="12" id="l0W-mZ-aX1"/>
+                            <constraint firstItem="pXq-KB-CRY" firstAttribute="top" secondItem="BxK-eg-l1r" secondAttribute="bottom" constant="12" id="mR9-hh-JfP"/>
+                            <constraint firstAttribute="trailing" secondItem="87z-uQ-KWN" secondAttribute="trailing" constant="12" id="qmp-jn-gEo"/>
+                            <constraint firstAttribute="trailing" secondItem="pXq-KB-CRY" secondAttribute="trailing" constant="12" id="wU2-XG-Ara"/>
+                            <constraint firstItem="sbc-5n-Z9N" firstAttribute="leading" secondItem="ZLu-iy-cb4" secondAttribute="leading" constant="12" id="y7w-oi-PMp"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="ZLu-iy-cb4" firstAttribute="top" secondItem="jws-N1-9e0" secondAttribute="top" id="BBR-5b-TOs"/>
+                    <constraint firstAttribute="bottom" secondItem="ZLu-iy-cb4" secondAttribute="bottom" id="FkA-Rr-EDD"/>
+                    <constraint firstItem="ZLu-iy-cb4" firstAttribute="leading" secondItem="jws-N1-9e0" secondAttribute="leading" id="aq3-iS-EQh"/>
+                    <constraint firstAttribute="trailing" secondItem="ZLu-iy-cb4" secondAttribute="trailing" id="cwa-q1-P6N"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="audioCircleImage" destination="hIJ-uc-NgQ" id="qie-2O-nBJ"/>
+                <outlet property="exploreButton" destination="3xb-8M-qtD" id="beB-k1-Ade"/>
+                <outlet property="exploreButtonBottom" destination="l0W-mZ-aX1" id="qvJ-yB-ZEh"/>
+                <outlet property="exploreButtonHeight" destination="VMv-Gi-SbG" id="kid-wY-LoT"/>
+                <outlet property="miaTitle" destination="sbc-5n-Z9N" id="5Zl-wB-fAd"/>
+                <outlet property="miaTourGuideText" destination="87z-uQ-KWN" id="dam-Av-kpC"/>
+                <outlet property="selfGuidedText" destination="pXq-KB-CRY" id="OXX-M5-QBl"/>
+                <outlet property="selfGuidedTitle" destination="BxK-eg-l1r" id="xna-Wi-qlz"/>
+                <outlet property="tourGuideTextBottomConstraint" destination="1Fc-9e-Y7j" id="87K-48-T6m"/>
+                <outlet property="tourGuideTextTop" destination="Kbb-9b-Jgj" id="umE-CO-f0l"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="explore_icon" width="180" height="186"/>
+    </resources>
+</document>

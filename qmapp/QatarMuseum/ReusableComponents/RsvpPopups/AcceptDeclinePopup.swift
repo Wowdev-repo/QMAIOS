@@ -61,7 +61,7 @@ class AcceptDeclinePopup: UIView {
     }
     func showUnregisterYesOrNoMessage() {
         titleLabel.isHidden = true
-        descriptionLabel.text = NSLocalizedString(UNREGISTER_CONFIRMATION_MESSAGE, comment: "UNREGISTERmesage in accept decline popup")
+        descriptionLabel.text = NSLocalizedString("UNREGISTER_CONFIRMATION_MESSAGE", comment: "UNREGISTER mesage in accept decline popup")
         titleLineLabel.isHidden = true
         yesButton.setTitle(YES, for: .normal)
         noButton.setTitle(NO, for: .normal)

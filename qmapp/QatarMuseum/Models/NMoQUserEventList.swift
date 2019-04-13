@@ -11,22 +11,23 @@ struct NMoQUserEventList: ResponseObjectSerializable, ResponseCollectionSerializ
     var title: String? = nil
     var eventID: String? = nil
     var regID: String? = nil
-    
-    
+    var seats: String? = nil
     
     public init?(response: HTTPURLResponse, representation: AnyObject) {
         if let representation = representation as? [String: Any] {
             self.title = representation["Title"] as? String
             self.eventID = representation["event_ID"] as? String
             self.regID = representation["reg_id"] as? String
+            self.seats = representation["Seats"] as? String
             
         }
     }
     
-    init (title:String?, eventID: String?, regID: String?) {
+    init (title:String?, eventID: String?, regID: String?, seats: String?) {
         self.title = title
         self.eventID = eventID
         self.regID = regID
+        self.seats = seats
     }
 }
 
