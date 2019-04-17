@@ -387,6 +387,21 @@ class HomeViewController: UIViewController,UICollectionViewDelegate,UICollection
         topbarView.updateNotificationBadgeCount()
     }
     
+    //MARK:- IBActions
+    
+    @IBAction func buyTicketBtnAction(_ sender: Any) {
+        
+        var storyBoard = UIStoryboard()
+        
+        UserDefaults.standard.set(AppConstants.QMTLibConstants.QMTLTicketCounterContainerViewController, forKey: AppConstants.QMTLibConstants.initialViewControllerKey)
+        let bundle = Bundle(identifier: AppConstants.QMTLibConstants.bundleId)
+        storyBoard = UIStoryboard(name: AppConstants.QMTLibConstants.QMTStoryboardForEN_Id, bundle: bundle)
+        let controller = storyBoard.instantiateViewController(withIdentifier: AppConstants.QMTLibConstants.QMTLTabViewController)
+        //self.navigationController?.pushViewController(controller, animated: true)
+        self.present(controller, animated: true, completion: nil)
+        
+    }
+    
     //MARK: Service call
     func getHomeList() {
         _ = Alamofire.request(QatarMuseumRouter.HomeList(LocalizationLanguage.currentAppleLanguage())).responseObject { (response: DataResponse<HomeList>) -> Void in
@@ -547,20 +562,30 @@ class HomeViewController: UIViewController,UICollectionViewDelegate,UICollection
     }
     
     func culturePassButtonPressed() {
-        let transition = CATransition()
-        transition.duration = 0.25
-        transition.type = kCATransitionFade
-        transition.timingFunction = CAMediaTimingFunction(name:kCAMediaTimingFunctionEaseInEaseOut)
-        view.window!.layer.add(transition, forKey: kCATransition)
+        var storyBoard = UIStoryboard()
+        UserDefaults.standard.set(AppConstants.QMTLibConstants.QMTLUserProfileTableViewController, forKey: AppConstants.QMTLibConstants.initialViewControllerKey)
+        let bundle = Bundle(identifier: AppConstants.QMTLibConstants.bundleId)
+        storyBoard = UIStoryboard(name: AppConstants.QMTLibConstants.QMTStoryboardForEN_Id, bundle: bundle)
+        let controller = storyBoard.instantiateViewController(withIdentifier: AppConstants.QMTLibConstants.QMTLTabViewController)
+        //self.navigationController?.pushViewController(controller, animated: true)
+        self.present(controller, animated: true, completion: nil)
         
-        if (UserDefaults.standard.value(forKey: "accessToken") as? String != nil) {
-            let profileView =  self.storyboard?.instantiateViewController(withIdentifier: "profileViewId") as! ProfileViewController
-            self.present(profileView, animated: false, completion: nil)
-        } else {
-            let culturePassView =  self.storyboard?.instantiateViewController(withIdentifier: "culturePassViewId") as! CulturePassViewController
-            culturePassView.fromHome = true
-            self.present(culturePassView, animated: false, completion: nil)
-        }
+        /*
+         let transition = CATransition()
+         transition.duration = 0.25
+         transition.type = kCATransitionFade
+         transition.timingFunction = CAMediaTimingFunction(name:kCAMediaTimingFunctionEaseInEaseOut)
+         view.window!.layer.add(transition, forKey: kCATransition)
+         
+         if (UserDefaults.standard.value(forKey: "accessToken") as? String != nil) {
+         let profileView =  self.storyboard?.instantiateViewController(withIdentifier: "profileViewId") as! ProfileViewController
+         self.present(profileView, animated: false, completion: nil)
+         } else {
+         let culturePassView =  self.storyboard?.instantiateViewController(withIdentifier: "culturePassViewId") as! CulturePassViewController
+         culturePassView.fromHome = true
+         self.present(culturePassView, animated: false, completion: nil)
+         }
+         */
     }
     
     func giftShopButtonPressed() {
