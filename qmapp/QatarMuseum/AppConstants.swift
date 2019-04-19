@@ -10,7 +10,6 @@ import Foundation
 
 struct AppConstants {
     
-    //MARK:- Cell Id -
     struct QMTLibConstants {
         static let bundleId = "com.iprotecs.QatarMuseumTicketingLib"
         static let QMTStoryboardForEN_Id = "QatarMuseumTicketingStoryboard"
