@@ -233,3 +233,9 @@
 "OFFER_CODE" = "OFFER CODE";
 "CLAIM_OFFER" = "Claim Offer";
 
+"SIGN IN" = "تسجيل الدخول";
+"Login using your credentials" = "تسجيل الدخول باستخدام بيانات الاعتماد الخاصة بك";
+"Email" = "البريد الإلكتروني";
+"Password" = "كلمه السر";
+"Forgot Password?" = "هل نسيت كلمة المرور؟";
+"Sign Up" = "سجل";

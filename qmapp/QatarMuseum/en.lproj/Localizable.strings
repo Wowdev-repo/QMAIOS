@@ -233,4 +233,160 @@
 "OFFER_CODE" = "OFFER CODE";
 "CLAIM_OFFER" = "Claim Offer";
 
+"SIGN IN" = "SIGN IN";
+"Login using your credentials" = "Login using your credentials";
+"Email" = "Email";
+"Password" = "Password";
+"Forgot Password?" = "Forgot Password?";
+"Sign Up" = "Sign Up";
+"Login" = "Login";
+
+"UPGRADE CULTURE PASS TYPE" = "UPGRADE CULTURE PASS TYPE";
+"CHOOSE MEMBERSHIP TYPE" = "CHOOSE MEMBERSHIP TYPE";
+"CP Family" = "CP Family";
+"QR" = "QR";
+"CP Member Basic" = "CP Member Basic";
+"CP Member Plus" = "CP Member Plus";
+"Read Benefits" = "Read Benefits";
+"Subscribed" = "Subscribed";
+"Expires On" = "Expires On";
+
+"Benefits" = "Benefits";
+"CP Tours including Marchitecture" = "CP Tours including Marchitecture";
+"1 Free per year" = "1 Free per year";
+"CP exclusive Workshops" = "CP exclusive Workshops";
+"1 Free per year" = "1 Free per year";
+"Community Classes with partners" = "Community Classes with partners";
+"No" = "No";
+"QM F&B" = "QM F&B";
+"10%" = "10%";
+"QM Gift shops" = "QM Gift shops";
+"No" = "No";
+"Hospitality Partner Program" = "Hospitality Partner Program";
+"No" = "No";
+"External party events at QM" = "External party events at QM";
+"No" = "No";
+"Health & Leisure Discounts" = "Health & Leisure Discounts";
+"No" = "No";
+"Cass Art" = "Cass Art";
+"No" = "No";
+"Call Center" = "Call Center";
+"Yes" = "Yes";
+"Newsletter" = "Newsletter";
+"Yes" = "Yes";
+"Skip the line at venues" = "Skip the line at venues";
+"Yes" = "Yes";
+
+"5 + 1 guest inclusive free subsequent discounted" = "5 + 1 guest inclusive free subsequent discounted";
+"5 + 1 guest inclusive free subsequent discounted" = "5 + 1 guest inclusive free subsequent discounted";
+"15% discount" = "15% discount";
+"10 % IDAM - 15% Cafe’s Discount" = "10 % IDAM - 15% Cafe’s Discount";
+"15% discount" = "15% discount";
+"Preferred rate" = "Preferred rate";
+"5% discount" = "5% discount";
+"10% discount" = "10% discount";
+"10% discount" = "10% discount";
+"Yes" = "Yes";
+
+"5 + 1 guest inclusive free subsequent discounted" = "5 + 1 guest inclusive free subsequent discounted";
+"5 + 1 guest inclusive free subsequent discounted" = "5 + 1 guest inclusive free subsequent discounted";
+"15% discount" = "15% discount";
+"10 % IDAM - 15% Cafe’s Discount" = "10 % IDAM - 15% Cafe’s Discount";
+"15% discount" = "15% discount";
+"Preferred rate" = "Preferred rate";
+"5% discount" = "5% discount";
+"10% discount" = "10% discount";
+
+"REGISTER & BECOME A MEMBER" = "REGISTER & BECOME A MEMBER";
+"Your Account Details" = "Your Account Details";
+"Email*" = "Email*";
+"Set Password" = "Set Password";
+"Password*" = "Password*";
+"Confirm Password" = "Confirm Password";
+"Confirm Password*" = "Confirm Password*";
+"About you" = "About you";
+"Title*" = "Title*";
+"Title" = "Title";
+"First Name*" = "First Name*";
+"First Name" = "First Name";
+"Last Name*" = "Last Name*";
+"Last Name" = "Last Name";
+"Country of Residence*" = "Country of Residence*";
+"Country of Residence" = "Country of Residence";
+"Nationality*" = "Nationality*";
+"Nationality" = "Nationality";
+"Code*" = "Code*";
+"Code" = "Code";
+"Mobile*" = "Mobile*";
+"Mobile" = "Mobile";
+"Subscribe to Newsletter" = "Subscribe to Newsletter";
+"Accept Terms & Condition" = "Accept Terms & Condition";
+"Save" = "Save";
+
+"Membership Renewal" = "Membership Renewal";
+"Expires On" = "Expires On";
+"My Visits" = "My Visits";
+"My Profile" = "My Profile";
+"Log Out" = "Log Out";
+
+"EDIT YOUR PROFILE DETAILS" = "EDIT YOUR PROFILE DETAILS";
+"Your Membership Plan" = "Your Membership Plan";
+"Valid up to" = "Valid up to";
+"Send password reset link to email" = "Send password reset link to email";
+
+"MY VISITS" = "MY VISITS";
+"Your tickets so far" = "Your tickets so far";
+"Completed" = "Completed";
+"Upcoming" = "Upcoming";
+"Today" = "Today";
+
+"CART" = "CART";
+"Clear cart" = "Clear cart";
+"Expires in" = "Expires in";
+"Months" = "Months";
+"Complete Order" = "Complete Order";
+
+"MEMBERSHIP PURCHASED SUCCESSFULLY" = "MEMBERSHIP PURCHASED SUCCESSFULLY";
+"Please check your email for further details" = "Please check your email for further details";
+"Transaction ID" = "Transaction ID";
+"Payment Method" = "Payment Method";
+"Credit" = "Credit";
+"Membership ID" = "Membership ID";
+"OK" = "OK";
+
+"Fire Station" = "Fire Station";
+"MIA - Museum of Islamic Arts" = "MIA - Museum of Islamic Arts";
+"MATHAF" = "MATHAF";
+"webshop" = "webshop";
+"National Museum of Qatar" = "National Museum of Qatar";
+
+"WHEN WOULD YOU LIKE TO VISIT THE MUSEUM ?" = "WHEN WOULD YOU LIKE TO VISIT THE MUSEUM ?";
+"Booking not opened for this museum" = "Booking not opened for this museum";
+"Next" = "Next";
+
+"SELECT YOUR TICKETS" = "SELECT YOUR TICKETS";
+"Each visitor requires a valid ticket" = "Each visitor requires a valid ticket";
+"QR Adult" = "QR Adult";
+"Adult" = "Adult";
+"Child 0-16 years" = "Child 0-16 years";
+"Student" = "Student";
+"QR Res Child 0-16 years" = "QR Res Child 0-16 years";
+"QR Res Student" = "QR Res Student";
+"Adult" = "Adult";
+"Museum pass" = "Museum pass";
+"CP Member Plus" = "CP Member Plus";
+"CP Member Family" = "CP Member Family";
+"Family" = "Family";
+"QR Family" = "QR Family";
+"Total" = "Total";
+
+"Complete Order" = "Complete Order";
+
+"TICKET PURCHASED SUCCESSFULLY" = "TICKET PURCHASED SUCCESSFULLY";
+"Please bring this along to the visit" = "Please bring this along to the visit";
+
+"Print" = "Print";
+"My Visits" = "My Visits";
+
+
 
