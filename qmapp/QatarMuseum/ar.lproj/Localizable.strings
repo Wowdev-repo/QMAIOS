@@ -372,8 +372,87 @@
 "Valid through Life time" = "صالحة خلال فترة الحياة";
 "Complete Order" = "اكمل الطلب";
 
+"PAYMENT SUCCESSFUL" = "الدفع بنجاح";
 "TICKET PURCHASED SUCCESSFULLY" = "التذاكر التي تم شراؤها بنجاح";
 "Please bring this along to the visit" = "يرجى إحضار هذه الزيارة";
 
+"TICKET" = "تذكرة";
+"Ticket ID" = "معرف التذكرة";
 "Print" = "طباعة";
 "My Visits" = "زياراتي";
+
+
+"No tickets available to show" = "لا توجد تذاكر متاحة للعرض";
+"Ticket history not available" = "سجل التذاكر غير متوفر";
+"User registration failed" = "فشل تسجيل المستخدم";
+"Your profile updated successfully" = "تم تحديث ملفك الشخصي بنجاح";
+"Email id already exist" = "معرف البريد الإلكتروني موجود بالفعل";
+"Password reset link has been sent to your mail" = "تم إرسال رابط إعادة تعيين كلمة المرور إلى بريدك";
+"Please enter email id" = "الرجاء إدخال معرف البريد الإلكتروني";
+"Please enter valid email id" = "الرجاء إدخال معرف بريد إلكتروني صالح";
+"Please enter title" = "الرجاء إدخال العنوان";
+"Please enter first name" = "الرجاء إدخال الاسم الأول";
+"Please enter last name" = "الرجاء إدخال الاسم الأخير";
+"Please enter country of residence" = "الرجاء إدخال بلد الإقامة";
+"Please enter nationality" = "الرجاء إدخال الجنسية";
+"Please enter phone code" = "الرجاء إدخال رمز الهاتف";
+"Please enter mobile number" = "الرجاء إدخال رقم الجوال";
+"Please enter valid mobile number" = "الرجاء إدخال رقم جوال صحيح";
+"Please enter new password" = "الرجاء إدخال كلمة مرور جديدة";
+"Please enter valid email id" = "الرجاء إدخال معرف بريد إلكتروني صالح";
+"Failed to find your Profile Kindly try with Correct email" = "فشل في العثور على ملف التعريف الخاص بك ، يرجى محاولة مع البريد الإلكتروني الصحيح";
+
+"Please enter name" = "من فضلك ادخل الاسم";
+"Please enter email id" = "الرجاء إدخال معرف البريد الإلكتروني";
+"Please enter valid email id" = "الرجاء إدخال معرف بريد إلكتروني صالح";
+"Please enter phone number" = "الرجاء إدخال رقم الهاتف";
+"Please enter valid phone number" = "الرجاء إدخال رقم هاتف صحيح";
+"Please enter nationality" = "الرجاء إدخال الجنسية";
+"Please accept terms and conditions" = "يرجى قبول الشروط والأحكام";
+"Username or password is wrong" = "اسم المستخدم أو كلمة السر غير صحيحة";
+"Please enter Email Id" = "الرجاء إدخال معرف البريد الإلكتروني";
+"Please enter Valid Email Id" = "الرجاء إدخال معرف البريد الإلكتروني صالح";
+"Please enter password" = "الرجاء إدخال كلمة المرور";
+"Password reset link has been sent to your mail" = "تم إرسال رابط إعادة تعيين كلمة المرور إلى بريدك";
+"Failed to find your Profile Kindly try with Correct email" = "فشل في العثور على ملف التعريف الخاص بك ، يرجى محاولة مع البريد الإلكتروني الصحيح";
+"Please enter new password" = "الرجاء إدخال كلمة مرور جديدة";
+"Please enter valid email id" = "الرجاء إدخال معرف بريد إلكتروني صالح";
+"User registration failed" = "فشل تسجيل المستخدم";
+"Email id already exist" = "معرف البريد الإلكتروني موجود بالفعل";
+"Please enter email id" = "الرجاء إدخال معرف البريد الإلكتروني";
+"Please enter valid email id" = "الرجاء إدخال معرف بريد إلكتروني صالح";
+"Please enter new password" = "الرجاء إدخال كلمة مرور جديدة";
+"Password should have atlease 1 character, 1 number, 1 special character and minimum 6 characters" = "يجب أن تحتوي كلمة المرور على حرف atlease واحد ورقم واحد وشخصية خاصة و 6 أحرف على الأقل";
+"Please re enter password" = "يرجى إعادة إدخال كلمة المرور";
+"Re entered password is not matching with new password" = "إعادة إدخال كلمة المرور لا تتطابق مع كلمة المرور الجديدة";
+"Please enter title" = "الرجاء إدخال العنوان";
+"Please enter first name" = "الرجاء إدخال الاسم الأول";
+"Please enter last name" = "الرجاء إدخال الاسم الأخير";
+"Please enter country of residence" = "الرجاء إدخال بلد الإقامة";
+"Please enter nationality" = "الرجاء إدخال الجنسية";
+"Please enter phone code" = "الرجاء إدخال رمز الهاتف";
+"Please enter mobile number" = "الرجاء إدخال رقم الجوال";
+"Please enter valid mobile number" = "الرجاء إدخال رقم جوال صحيح";
+"Please accept terms and conditions" = "يرجى قبول الشروط والأحكام";
+"Cannot lock the ticket, Please try again" = "لا يمكن قفل التذكرة ، يرجى المحاولة مرة أخرى";
+"Please pick tickets" = "يرجى اختيار التذاكر";
+"Ticket not locked please try again" = "التذكرة غير مقفلة ، يرجى المحاولة مرة أخرى";
+
+"Do you want to change your subscription plan from existing" = "هل تريد تغيير خطة اشتراكك من القائمة";
+"to new" = "الجديد إلى";
+"new" = "الجديد";
+"Continue" = "استمر";
+"Cancel" = "إلغاء";
+"Log out" = "الخروج";
+"Are you sure you want to log out?" = "هل أنت متأكد أنك تريد تسجيل الخروج؟";
+"Ok" = "حسنا";
+"Cancel" = "إلغاء";
+"Continue to checkout the selected membership plan" = "متابعة للتحقق من خطة العضوية المحددة";
+"Please subscribe to any of the membership plan" = "يرجى الاشتراك في أي من خطة العضوية";
+
+"Checkout without signing in." = "الخروج دون تسجيل الدخول.";
+"Name" = "اسم";
+"Phone" = "هاتف";
+"Already a Member ?" = "عضوا فعلا ؟";
+"Sign Up" = "سجل";
+"Your email" = "بريدك الالكتروني";
