@@ -239,3 +239,141 @@
 "Password" = "كلمه السر";
 "Forgot Password?" = "هل نسيت كلمة المرور؟";
 "Sign Up" = "سجل";
+"Login" = "تسجيل الدخول";
+"CONTINUE AS GUEST?" = "تابع على النحو التالي؟";
+"Check without signing in." = "تحقق دون تسجيل الدخول.";
+"Already a Member ?" = "عضوا فعلا ؟";
+"TERMS & CONDITIONS" = "البنود و الظروف";
+
+
+"Forgot Password ?" = "هل نسيت كلمة المرور ؟";
+"Reset your password here" = "أعد ضبط كلمة مرورك هنا";
+
+"UPGRADE CULTURE PASS TYPE" = "رفع مستوى الثقافة نوع التمرير";
+"CHOOSE MEMBERSHIP TYPE" = "اختيار نوع العضوية";
+"CP Family" = "عائلة CP";
+"QR" = "QR";
+"CP Member Basic" = "عضو CP الأساسي";
+"CP Member Plus" = "عضو CP زائد";
+"Read Benefits" = "قراءة الفوائد";
+"Subscribed" = "المشترك";
+"Expires On" = "تنتهي صلاحيته في";
+
+"Benefits" = "فوائد";
+"CP Tours including Marchitecture" = "CP جولات بما في ذلك Marchitecture";
+"1 Free per year" = "1 مجانا في السنة";
+"CP exclusive Workshops" = "حلقات عمل حصرية CP";
+"1 Free per year" = "1 مجانا في السنة";
+"Community Classes with partners" = "فصول المجتمع مع الشركاء";
+"No" = "لا";
+"QM F&B" = "QM F&B";
+"10%" = "10%";
+"QM Gift shops" = "محلات هدايا QM";
+"Hospitality Partner Program" = "برنامج شركاء الضيافة";
+"External party events at QM" = "أحداث خارجية في QM";
+"Health & Leisure Discounts" = "خصومات للصحة والترفيه";
+"Cass Art" = "كاس الفن";
+"Call Center" = "مركز الاتصال";
+"Yes" = "نعم فعلا";
+"Newsletter" = "النشرة الإخبارية";
+"Skip the line at venues" = "تخطي الخط في الأماكن";
+
+"5 + 1 guest inclusive free subsequent discounted" = "5 + 1 ضيف شاملة مجانا لاحقة مخفضة";
+"15% discount" = "خصم 15 ٪";
+"10 % IDAM - 15% Cafe’s Discount" = "10 ٪ IDAM - خصم 15 ٪ مقهى";
+"15% discount" = "خصم 15 ٪";
+"Preferred rate" = "السعر المفضل";
+"5% discount" = "خصم 5 ٪";
+"10% discount" = "خصم 10 ٪";
+
+"REGISTER & BECOME A MEMBER" = "سجل وتصبح عضوا";
+"Your Account Details" = "تفاصيل حسابك";
+"Email*" = "البريد الإلكتروني*";
+"Set Password" = "ضبط كلمة السر";
+"Password*" = "كلمه السر*";
+"Confirm Password" = "تأكيد كلمة المرور";
+"Confirm Password*" = "تأكيد كلمة المرور*";
+"About you" = "حولك";
+"Title*" = "عنوان*";
+"Title" = "عنوان";
+"First Name*" = "الاسم الاول*";
+"First Name" = "الاسم الاول";
+"Last Name*" = "الكنية*";
+"Last Name" = "الكنية";
+"Country of Residence*" = "بلد الإقامة*";
+"Country of Residence" = "بلد الإقامة";
+"Nationality*" = "الجنسية *";
+"Nationality" = "جنسية";
+"Code*" = "الشفرة*";
+"Code" = "الشفرة";
+"Mobile*" = "التليفون المحمول*";
+"Mobile" = "التليفون المحمول";
+"Subscribe to Newsletter" = "اشترك في النشرة الإخبارية";
+"Accept Terms & Condition" = "قبول الشروط والأحكام";
+"Save" = "حفظ";
+
+"Membership Renewal" = "تجديد العضوية";
+"Expires On" = "تنتهي صلاحيته في";
+"My Visits" = "زياراتي";
+"My Profile" = "ملفي";
+"Log Out" = "الخروج";
+
+"EDIT YOUR PROFILE DETAILS" = "تحرير تفاصيل ملفك الشخصي";
+"Your Membership Plan" = "خطة عضويتك";
+"Valid up to" = "صالحة تصل إلى";
+"Send password reset link to email" = "إرسال رابط إعادة تعيين كلمة المرور إلى البريد الإلكتروني";
+
+"MY VISITS" = "زياراتي";
+"Your tickets so far" = "التذاكر الخاصة بك حتى الآن";
+"Completed" = "منجز";
+"Upcoming" = "القادمة";
+"Today" = "اليوم";
+
+"CART" = "عربة التسوق";
+"Clear cart" = "عربة واضحة";
+"Expires in" = "ينتهي في";
+"Months" = "الشهور";
+"Month" = "شهر";
+"Complete Order" = "اكمل الطلب";
+
+"MEMBERSHIP PURCHASED SUCCESSFULLY" = "شراء العضوية بنجاح";
+"Please check your email for further details" = "يرجى التحقق من بريدك الالكتروني لمزيد من التفاصيل";
+"Transaction ID" = "معرف المعاملة";
+"Payment Method" = "طريقة الدفع او السداد";
+"Credit" = "ائتمان";
+"Membership ID" = "معرف العضوية";
+"OK" = "حسنا";
+
+"Fire Station" = "محطة الاطفاء";
+"MIA - Museum of Islamic Arts" = "متحف الفن الإسلامي";
+"MATHAF" = "متحف";
+"webshop" = "webshop";
+"National Museum of Qatar" = "متحف قطر الوطني";
+
+"WHEN WOULD YOU LIKE TO VISIT THE MUSEUM ?" = "متى تريد زيارة المتحف؟";
+"Booking not opened for this museum" = "الحجز لم يفتح لهذا المتحف";
+"Next" = "التالى";
+
+"SELECT YOUR TICKETS" = "اختر التذاكر الخاصة بك";
+"Each visitor requires a valid ticket" = "كل زائر يتطلب تذكرة صالحة";
+"QR Adult" = "الكبار ريال قطري";
+"Adult" = "بالغ";
+"Child 0-16 years" = "الطفل 0-16 سنة";
+"Student" = "طالب علم";
+"QR Res Child 0-16 years" = "الدقة الطفل 0-16 سنوات";
+"QR Res Student" = "طالب الدقة الدقة";
+"Museum pass" = "تمرير المتحف";
+"CP Member Plus" = "عضو CP زائد";
+"CP Member Family" = "عائلة عضو CP";
+"Family" = "عائلة";
+"QR Family" = "عائلة QR";
+"Total" = "مجموع";
+
+"Valid through Life time" = "صالحة خلال فترة الحياة";
+"Complete Order" = "اكمل الطلب";
+
+"TICKET PURCHASED SUCCESSFULLY" = "التذاكر التي تم شراؤها بنجاح";
+"Please bring this along to the visit" = "يرجى إحضار هذه الزيارة";
+
+"Print" = "طباعة";
+"My Visits" = "زياراتي";

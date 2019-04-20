@@ -240,6 +240,13 @@
 "Forgot Password?" = "Forgot Password?";
 "Sign Up" = "Sign Up";
 "Login" = "Login";
+"CONTINUE AS GUEST?" = "CONTINUE AS GUEST?";
+"Check without signing in." = "Check without signing in.";
+"Already a Member ?" = "Already a Member ?";
+"TERMS & CONDITIONS" = "TERMS & CONDITIONS";
+
+"Forgot Password ?" = "Forgot Password ?";
+"Reset your password here" = "Reset your password here";
 
 "UPGRADE CULTURE PASS TYPE" = "UPGRADE CULTURE PASS TYPE";
 "CHOOSE MEMBERSHIP TYPE" = "CHOOSE MEMBERSHIP TYPE";
@@ -344,6 +351,7 @@
 "Clear cart" = "Clear cart";
 "Expires in" = "Expires in";
 "Months" = "Months";
+"Month" = "Month";
 "Complete Order" = "Complete Order";
 
 "MEMBERSHIP PURCHASED SUCCESSFULLY" = "MEMBERSHIP PURCHASED SUCCESSFULLY";
@@ -380,6 +388,7 @@
 "QR Family" = "QR Family";
 "Total" = "Total";
 
+"Valid through Life time" = "Valid through Life time";
 "Complete Order" = "Complete Order";
 
 "TICKET PURCHASED SUCCESSFULLY" = "TICKET PURCHASED SUCCESSFULLY";
