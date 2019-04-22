@@ -27,6 +27,8 @@ class HomeViewController: UIViewController,UICollectionViewDelegate,UICollection
     @IBOutlet weak var culturePassLabel: UILabel!
     @IBOutlet weak var diningLabel: UILabel!
     
+    @IBOutlet weak var buyYourTicketsLabel: UILabel!
+    
     
     var homeDataFullArray : NSArray!
     var effect:UIVisualEffect!
@@ -195,6 +197,9 @@ class HomeViewController: UIViewController,UICollectionViewDelegate,UICollection
         loadingView.isHidden = false
         loadingView.loadingViewDelegate = self
         loadingView.showLoading()
+        
+        buyYourTicketsLabel.text = NSLocalizedString(buyYourTicketsLabel.text!, comment: "")
+        
         moreLabel.text = NSLocalizedString("MORE",comment: "MORE in Home Page")
         culturePassLabel.text = NSLocalizedString("CULTUREPASS_TITLE",comment: "CULTUREPASS_TITLE in Home Page")
         giftShopLabel.text = NSLocalizedString("GIFT_SHOP",comment: "GIFT_SHOP in Home Page")
