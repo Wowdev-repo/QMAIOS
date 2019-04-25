@@ -259,59 +259,38 @@
 "Expires On" = "Expires On";
 
 "Benefits" = "Benefits";
-"CP Tours including Marchitecture" = "CP Tours including Marchitecture";
-"1 Free per year" = "1 Free per year";
-"CP exclusive Workshops" = "CP exclusive Workshops";
-"1 Free per year" = "1 Free per year";
-"Community Classes with partners" = "Community Classes with partners";
-"No" = "No";
+"FREE UNLIMITED MUSEUM ADMISSION" = "FREE UNLIMITED MUSEUM ADMISSION";
+"CP TOURS INCLUDING MARCHITECTURE" = "CP TOURS INCLUDING MARCHITECTURE";
+"CP EXCLUSIVE WORKSHOPS" = "CP EXCLUSIVE WORKSHOPS";
 "QM F&B" = "QM F&B";
-"10%" = "10%";
-"QM Gift shops" = "QM Gift shops";
-"No" = "No";
-"Hospitality Partner Program" = "Hospitality Partner Program";
-"No" = "No";
-"External party events at QM" = "External party events at QM";
-"No" = "No";
-"Health & Leisure Discounts" = "Health & Leisure Discounts";
-"No" = "No";
-"Cass Art" = "Cass Art";
-"No" = "No";
-"Call Center" = "Call Center";
-"Yes" = "Yes";
+"QM GIFT SHOPS" = "QM GIFT SHOPS";
+"INQ-ONLINE SHOP" = "INQ-ONLINE SHOP";
+"CASS ART QATAR" = "CASS ART QATAR";
+"COMMUNITY CLASSES WITH PARTNERS" = "COMMUNITY CLASSES WITH PARTNERS";
+"HEALTH & LEISURE DISCOUNTS" = "HEALTH & LEISURE DISCOUNTS";
+"EXTERNAL PARTY EVENTS AT QM" = "EXTERNAL PARTY EVENTS AT QM";
 "Newsletter" = "Newsletter";
-"Yes" = "Yes";
-"Skip the line at venues" = "Skip the line at venues";
-"Yes" = "Yes";
+"SKIP THE LINE AT VENUES" = "SKIP THE LINE AT VENUES";
 
-"5 + 1 guest inclusive free subsequent discounted" = "5 + 1 guest inclusive free subsequent discounted";
-"5 + 1 guest inclusive free subsequent discounted" = "5 + 1 guest inclusive free subsequent discounted";
-"15% discount" = "15% discount";
-"10 % IDAM - 15% Cafe’s Discount" = "10 % IDAM - 15% Cafe’s Discount";
-"15% discount" = "15% discount";
-"Preferred rate" = "Preferred rate";
-"5% discount" = "5% discount";
-"10% discount" = "10% discount";
-"10% discount" = "10% discount";
+"No" = "No";
+"1 FREE PER YEAR" = "1 FREE PER YEAR";
+"10% IDAM (LUNCH ONLY), 15% CAFÉS & KIOSKS" = "10% IDAM (LUNCH ONLY), 15% CAFÉS & KIOSKS";
+"10% DISCOUNT" = "10% DISCOUNT";
 "Yes" = "Yes";
+"Unlimited tours Including Marchitecture" = "Unlimited tours Including Marchitecture";
+"Unlimited workshops" = "Unlimited workshops";
+"15% DISCOUNT" = "15% DISCOUNT";
+"5% DISCOUNT" = "5% DISCOUNT";
 
-"5 + 1 guest inclusive free subsequent discounted" = "5 + 1 guest inclusive free subsequent discounted";
-"5 + 1 guest inclusive free subsequent discounted" = "5 + 1 guest inclusive free subsequent discounted";
-"15% discount" = "15% discount";
-"10 % IDAM - 15% Cafe’s Discount" = "10 % IDAM - 15% Cafe’s Discount";
-"15% discount" = "15% discount";
-"Preferred rate" = "Preferred rate";
-"5% discount" = "5% discount";
-"10% discount" = "10% discount";
 
 "REGISTER & BECOME A MEMBER" = "REGISTER & BECOME A MEMBER";
-"Your Account Details" = "Your Account Details";
+"Your Account Details*" = "Your Account Details*";
 "Email*" = "Email*";
-"Set Password" = "Set Password";
+"Set Password*" = "Set Password*";
 "Password*" = "Password*";
 "Confirm Password" = "Confirm Password";
 "Confirm Password*" = "Confirm Password*";
-"About you" = "About you";
+"About you*" = "About you*";
 "Title*" = "Title*";
 "Title" = "Title";
 "First Name*" = "First Name*";
@@ -337,7 +316,7 @@
 "Log Out" = "Log Out";
 
 "EDIT YOUR PROFILE DETAILS" = "EDIT YOUR PROFILE DETAILS";
-"Your Membership Plan" = "Your Membership Plan";
+"Your Membership Plan*" = "Your Membership Plan*";
 "Valid up to" = "Valid up to";
 "Send password reset link to email" = "Send password reset link to email";
 
@@ -388,7 +367,8 @@
 "QR Family" = "QR Family";
 "Total" = "Total";
 
-"Valid through Life time" = "Valid through Life time";
+"Valid for" = "Valid for";
+"Valid for Life time" = "Valid for Life time";
 "Complete Order" = "Complete Order";
 
 "PAYMENT SUCCESSFUL" = "PAYMENT SUCCESSFUL";
@@ -470,10 +450,11 @@
 
 "Checkout without signing in." = "Checkout without signing in.";
 "Name" = "Name";
+"Name*" = "Name*";
 "Phone" = "Phone";
 "Already a Member ?" = "Already a Member ?";
 "Sign Up" = "Sign Up";
-"Your email" = "Your email";
+"Your email*" = "Your email*";
 
 "FLIP" = "FLIP";
 "E-CARD" = "E-CARD";

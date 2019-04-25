@@ -260,40 +260,37 @@
 "Expires On" = "تنتهي صلاحيته في";
 
 "Benefits" = "فوائد";
-"CP Tours including Marchitecture" = "CP جولات بما في ذلك Marchitecture";
-"1 Free per year" = "1 مجانا في السنة";
-"CP exclusive Workshops" = "حلقات عمل حصرية CP";
-"1 Free per year" = "1 مجانا في السنة";
-"Community Classes with partners" = "فصول المجتمع مع الشركاء";
-"No" = "لا";
+"FREE UNLIMITED MUSEUM ADMISSION" = "دخول متحف غير محدود مجانا";
+"CP TOURS INCLUDING MARCHITECTURE" = "جولات CP بما في ذلك مارس";
+"CP EXCLUSIVE WORKSHOPS" = "CP ورش العمل الحصرية";
 "QM F&B" = "QM F&B";
-"10%" = "10%";
-"QM Gift shops" = "محلات هدايا QM";
-"Hospitality Partner Program" = "برنامج شركاء الضيافة";
-"External party events at QM" = "أحداث خارجية في QM";
-"Health & Leisure Discounts" = "خصومات للصحة والترفيه";
-"Cass Art" = "كاس الفن";
-"Call Center" = "مركز الاتصال";
-"Yes" = "نعم فعلا";
+"QM GIFT SHOPS" = "محلات هدايا QM";
+"INQ-ONLINE SHOP" = "INQ - المحلات التجارية على الإنترنت";
+"CASS ART QATAR" = "كاس الفن قطر";
+"COMMUNITY CLASSES WITH PARTNERS" = "فئات المجتمع مع الشركاء";
+"HEALTH & LEISURE DISCOUNTS" = "خصومات الصحة والتراث";
+"EXTERNAL PARTY EVENTS AT QM" = "أحداث الحزب الخارجي في إدارة الجودة";
 "Newsletter" = "النشرة الإخبارية";
-"Skip the line at venues" = "تخطي الخط في الأماكن";
+"SKIP THE LINE AT VENUES" = "تخطي الخط في أماكن";
 
-"5 + 1 guest inclusive free subsequent discounted" = "5 + 1 ضيف شاملة مجانا لاحقة مخفضة";
-"15% discount" = "خصم 15 ٪";
-"10 % IDAM - 15% Cafe’s Discount" = "10 ٪ IDAM - خصم 15 ٪ مقهى";
-"15% discount" = "خصم 15 ٪";
-"Preferred rate" = "السعر المفضل";
-"5% discount" = "خصم 5 ٪";
-"10% discount" = "خصم 10 ٪";
+"No" = "لا";
+"1 FREE PER YEAR" = "1 مجانا في السنة";
+"10% IDAM (LUNCH ONLY), 15% CAFÉS & KIOSKS" = "10 ٪ IDAM (غداء فقط) ، 15 ٪ المقاهي وأكشاك";
+"10% DISCOUNT" = "10 ٪ خصم";
+"Yes" = "نعم فعلا";
+"Unlimited tours Including Marchitecture" = "جولات غير محدودة بما في ذلك مارشاريت";
+"Unlimited workshops" = "حلقات عمل غير محدودة";
+"15% DISCOUNT" = "15 ٪ خصم";
+"5% DISCOUNT" = "5 ٪ خصم";
 
 "REGISTER & BECOME A MEMBER" = "سجل وتصبح عضوا";
-"Your Account Details" = "تفاصيل حسابك";
+"Your Account Details*" = "تفاصيل حسابك*";
 "Email*" = "البريد الإلكتروني*";
-"Set Password" = "ضبط كلمة السر";
+"Set Password*" = "ضبط كلمة السر*";
 "Password*" = "كلمه السر*";
 "Confirm Password" = "تأكيد كلمة المرور";
 "Confirm Password*" = "تأكيد كلمة المرور*";
-"About you" = "حولك";
+"About you*" = "حولك*";
 "Title*" = "عنوان*";
 "Title" = "عنوان";
 "First Name*" = "الاسم الاول*";
@@ -319,7 +316,7 @@
 "Log Out" = "الخروج";
 
 "EDIT YOUR PROFILE DETAILS" = "تحرير تفاصيل ملفك الشخصي";
-"Your Membership Plan" = "خطة عضويتك";
+"Your Membership Plan*" = "خطة عضويتك *";
 "Valid up to" = "صالحة تصل إلى";
 "Send password reset link to email" = "إرسال رابط إعادة تعيين كلمة المرور إلى البريد الإلكتروني";
 
@@ -369,7 +366,8 @@
 "QR Family" = "عائلة QR";
 "Total" = "مجموع";
 
-"Valid through Life time" = "صالحة خلال فترة الحياة";
+"Valid for" = "صالحة ل";
+"Valid for Life time" = "صالحة لمدى الحياة";
 "Complete Order" = "اكمل الطلب";
 
 "PAYMENT SUCCESSFUL" = "الدفع بنجاح";
@@ -452,10 +450,11 @@
 
 "Checkout without signing in." = "الخروج دون تسجيل الدخول.";
 "Name" = "اسم";
+"Name*" = "اسم*";
 "Phone" = "هاتف";
 "Already a Member ?" = "عضوا فعلا ؟";
 "Sign Up" = "سجل";
-"Your email" = "بريدك الالكتروني";
+"Your email*" = "بريدك الالكتروني*";
 
 "FLIP" = "يواجه";
 "E-CARD" = "بطاقة E";
