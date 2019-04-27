@@ -13,8 +13,9 @@ import GooglePlaces
 import Kingfisher
 import UIKit
 import UserNotifications
+import Fabric
+import Crashlytics
 var tokenValue : String? = nil
-
 var languageKey = 1
 
 @UIApplicationMain
@@ -32,10 +33,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             self.apiCalls()
         }
         
-        
         AppLocalizer.DoTheMagic()
         FirebaseApp.configure()
-        
+        Fabric.with([Crashlytics.self])
         registerForPushNotifications()
         
         // Register with APNs

@@ -17,9 +17,23 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0.7</string>
+	<string>1.2.0</string>
 	<key>CFBundleVersion</key>
-	<string>18</string>
+	<string>19</string>
+	<key>Fabric</key>
+	<dict>
+		<key>APIKey</key>
+		<string>9cd312bb9e147923055e5e6fbb3965b2692c48b7</string>
+		<key>Kits</key>
+		<array>
+			<dict>
+				<key>KitInfo</key>
+				<dict/>
+				<key>KitName</key>
+				<string>Crashlytics</string>
+			</dict>
+		</array>
+	</dict>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>googlechromes</string>

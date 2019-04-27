@@ -248,3 +248,264 @@
 "PANEL_AND_TALKS" = "قطر تبدع: فعاليات افتتاح متحف قطر الوطني";
 "PARKS_HEADER_LABEL" = "Park";
 "NMOQ_TOUR_HEADER" = "الدليل السياحي متحف قطر الوطني";
+
+// Ticketing Library Module Changes Started From Here
+
+"SIGN IN" = "تسجيل الدخول";
+"Login using your credentials" = "تسجيل الدخول باستخدام بيانات الاعتماد الخاصة بك";
+"Email" = "البريد الإلكتروني";
+"Password" = "كلمه السر";
+"Forgot Password?" = "هل نسيت كلمة المرور؟";
+"Sign Up" = "سجل";
+"Login" = "تسجيل الدخول";
+"CONTINUE AS GUEST?" = "تابع على النحو التالي؟";
+"Check without signing in." = "تحقق دون تسجيل الدخول.";
+"Already a Member ?" = "عضوا فعلا ؟";
+"TERMS & CONDITIONS" = "البنود و الظروف";
+
+
+"Forgot Password ?" = "هل نسيت كلمة المرور ؟";
+"Reset your password here" = "أعد ضبط كلمة مرورك هنا";
+
+"UPGRADE CULTURE PASS TYPE" = "رفع مستوى الثقافة نوع التمرير";
+"CHOOSE MEMBERSHIP TYPE" = "اختيار نوع العضوية";
+"CP Family" = "عائلة CP";
+"QR" = "QR";
+"CP Member Basic" = "عضو CP الأساسي";
+"CP Member Plus" = "عضو CP زائد";
+"Read Benefits" = "قراءة الفوائد";
+"Subscribed" = "المشترك";
+"Expires On" = "تنتهي صلاحيته في";
+
+"Benefits" = "فوائد";
+"FREE UNLIMITED MUSEUM ADMISSION" = "دخول متحف غير محدود مجانا";
+"CP TOURS INCLUDING MARCHITECTURE" = "جولات CP بما في ذلك مارس";
+"CP EXCLUSIVE WORKSHOPS" = "CP ورش العمل الحصرية";
+"QM F&B" = "QM F&B";
+"QM GIFT SHOPS" = "محلات هدايا QM";
+"INQ-ONLINE SHOP" = "INQ - المحلات التجارية على الإنترنت";
+"CASS ART QATAR" = "كاس الفن قطر";
+"COMMUNITY CLASSES WITH PARTNERS" = "فئات المجتمع مع الشركاء";
+"HEALTH & LEISURE DISCOUNTS" = "خصومات الصحة والتراث";
+"EXTERNAL PARTY EVENTS AT QM" = "أحداث الحزب الخارجي في إدارة الجودة";
+"Newsletter" = "النشرة الإخبارية";
+"SKIP THE LINE AT VENUES" = "تخطي الخط في أماكن";
+
+"No" = "لا";
+"1 FREE PER YEAR" = "1 مجانا في السنة";
+"10% IDAM (LUNCH ONLY), 15% CAFÉS & KIOSKS" = "10 ٪ IDAM (غداء فقط) ، 15 ٪ المقاهي وأكشاك";
+"10% DISCOUNT" = "10 ٪ خصم";
+"Yes" = "نعم فعلا";
+"Unlimited tours Including Marchitecture" = "جولات غير محدودة بما في ذلك مارشاريت";
+"Unlimited workshops" = "حلقات عمل غير محدودة";
+"15% DISCOUNT" = "15 ٪ خصم";
+"5% DISCOUNT" = "5 ٪ خصم";
+
+"REGISTER & BECOME A MEMBER" = "سجل وتصبح عضوا";
+"Your Account Details*" = "تفاصيل حسابك*";
+"Email*" = "البريد الإلكتروني*";
+"Set Password*" = "ضبط كلمة السر*";
+"Password*" = "كلمه السر*";
+"Confirm Password" = "تأكيد كلمة المرور";
+"Confirm Password*" = "تأكيد كلمة المرور*";
+"About you*" = "حولك*";
+"About you" = "حولك";
+"Title*" = "عنوان*";
+"Title" = "عنوان";
+"First Name*" = "الاسم الاول*";
+"First Name" = "الاسم الاول";
+"Last Name*" = "الكنية*";
+"Last Name" = "الكنية";
+"Country of Residence*" = "بلد الإقامة*";
+"Country of Residence" = "بلد الإقامة";
+"Nationality*" = "الجنسية *";
+"Nationality" = "جنسية";
+"Code*" = "الشفرة*";
+"Code" = "الشفرة";
+"Mobile*" = "التليفون المحمول*";
+"Mobile" = "التليفون المحمول";
+"Subscribe to Newsletter" = "اشترك في النشرة الإخبارية";
+"Accept Terms & Condition" = "قبول الشروط والأحكام";
+"Save" = "حفظ";
+
+"Membership Renewal" = "تجديد العضوية";
+"Expires On" = "تنتهي صلاحيته في";
+"My Visits" = "زياراتي";
+"My Profile" = "ملفي";
+"Log Out" = "الخروج";
+
+"EDIT YOUR PROFILE DETAILS" = "تحرير تفاصيل ملفك الشخصي";
+"Your Membership Plan*" = "خطة عضويتك *";
+"Valid up to" = "صالحة تصل إلى";
+"Send password reset link to email" = "إرسال رابط إعادة تعيين كلمة المرور إلى البريد الإلكتروني";
+
+"MY VISITS" = "زياراتي";
+"Your tickets so far" = "التذاكر الخاصة بك حتى الآن";
+"Completed" = "منجز";
+"Upcoming" = "القادمة";
+"Today" = "اليوم";
+
+"CART" = "عربة التسوق";
+"Clear cart" = "عربة واضحة";
+"Expires in" = "ينتهي في";
+"Months" = "الشهور";
+"Month" = "شهر";
+"Complete Order" = "اكمل الطلب";
+
+"MEMBERSHIP PURCHASED SUCCESSFULLY" = "شراء العضوية بنجاح";
+"Please check your email for further details" = "يرجى التحقق من بريدك الالكتروني لمزيد من التفاصيل";
+"Transaction ID" = "معرف المعاملة";
+"Payment Method" = "طريقة الدفع او السداد";
+"Credit" = "ائتمان";
+"Membership ID" = "معرف العضوية";
+"OK" = "حسنا";
+
+"Fire Station" = "محطة الاطفاء";
+"MIA - Museum of Islamic Arts" = "متحف الفن الإسلامي";
+"MATHAF" = "متحف";
+"webshop" = "webshop";
+"National Museum of Qatar" = "متحف قطر الوطني";
+
+"WHEN WOULD YOU LIKE TO VISIT THE MUSEUM ?" = "متى تريد زيارة المتحف؟";
+"Booking not opened for this museum" = "الحجز لم يفتح لهذا المتحف";
+"Next" = "التالى";
+
+"SELECT YOUR TICKETS" = "اختر التذاكر الخاصة بك";
+"Each visitor requires a valid ticket" = "كل زائر يتطلب تذكرة صالحة";
+"QR Adult" = "الكبار ريال قطري";
+"Adult" = "بالغ";
+"Child 0-16 years" = "الطفل 0-16 سنة";
+"Student" = "طالب علم";
+"QR Res Child 0-16 years" = "الدقة الطفل 0-16 سنوات";
+"QR Res Student" = "طالب الدقة الدقة";
+"Museum pass" = "تمرير المتحف";
+"CP Member Plus" = "عضو CP زائد";
+"CP Member Family" = "عائلة عضو CP";
+"Family" = "عائلة";
+"QR Family" = "عائلة QR";
+"Total" = "مجموع";
+
+"Valid for" = "صالحة ل";
+"Valid for Life time" = "صالحة لمدى الحياة";
+"Complete Order" = "اكمل الطلب";
+
+"PAYMENT SUCCESSFUL" = "الدفع بنجاح";
+"TICKET PURCHASED SUCCESSFULLY" = "التذاكر التي تم شراؤها بنجاح";
+"Please bring this along to the visit" = "يرجى إحضار هذه التذكرة أثناء زيارتك";
+
+"TICKET" = "تذكرة";
+"Ticket ID" = "معرف التذكرة";
+"Print" = "طباعة";
+"My Visits" = "زياراتي";
+
+
+"No tickets available to show" = "لا توجد تذاكر متاحة للعرض";
+"Ticket history not available" = "سجل التذاكر غير متوفر";
+"User registration failed" = "فشل تسجيل المستخدم";
+"Your profile updated successfully" = "تم تحديث ملفك الشخصي بنجاح";
+"Email id already exist" = "معرف البريد الإلكتروني موجود بالفعل";
+"Password reset link has been sent to your mail" = "تم إرسال رابط إعادة تعيين كلمة المرور إلى بريدك";
+"Please enter email id" = "الرجاء إدخال معرف البريد الإلكتروني";
+"Please enter valid email id" = "الرجاء إدخال معرف بريد إلكتروني صالح";
+"Please enter title" = "الرجاء إدخال العنوان";
+"Please enter first name" = "الرجاء إدخال الاسم الأول";
+"Please enter last name" = "الرجاء إدخال الاسم الأخير";
+"Please enter country of residence" = "الرجاء إدخال بلد الإقامة";
+"Please enter nationality" = "الرجاء إدخال الجنسية";
+"Please enter phone code" = "الرجاء إدخال رمز الهاتف";
+"Please enter mobile number" = "الرجاء إدخال رقم الجوال";
+"Please enter valid mobile number" = "الرجاء إدخال رقم جوال صحيح";
+"Please enter new password" = "الرجاء إدخال كلمة مرور جديدة";
+"Please enter valid email id" = "الرجاء إدخال معرف بريد إلكتروني صالح";
+"Failed to find your Profile Kindly try with Correct email" = "فشل في العثور على ملف التعريف الخاص بك ، يرجى محاولة مع البريد الإلكتروني الصحيح";
+
+"Please enter name" = "من فضلك ادخل الاسم";
+"Please enter email id" = "الرجاء إدخال معرف البريد الإلكتروني";
+"Please enter valid email id" = "الرجاء إدخال معرف بريد إلكتروني صالح";
+"Please enter phone number" = "الرجاء إدخال رقم الهاتف";
+"Please enter valid phone number" = "الرجاء إدخال رقم هاتف صحيح";
+"Please enter nationality" = "الرجاء إدخال الجنسية";
+"Please accept terms and conditions" = "يرجى قبول الشروط والأحكام";
+"Username or password is wrong" = "اسم المستخدم أو كلمة السر غير صحيحة";
+"Please enter Email Id" = "الرجاء إدخال معرف البريد الإلكتروني";
+"Please enter Valid Email Id" = "الرجاء إدخال معرف البريد الإلكتروني صالح";
+"Please enter password" = "الرجاء إدخال كلمة المرور";
+"Password reset link has been sent to your mail" = "تم إرسال رابط إعادة تعيين كلمة المرور إلى بريدك";
+"Failed to find your Profile Kindly try with Correct email" = "فشل في العثور على ملف التعريف الخاص بك ، يرجى محاولة مع البريد الإلكتروني الصحيح";
+"Please enter new password" = "الرجاء إدخال كلمة مرور جديدة";
+"Please enter valid email id" = "الرجاء إدخال معرف بريد إلكتروني صالح";
+"User registration failed" = "فشل تسجيل المستخدم";
+"Email id already exist" = "معرف البريد الإلكتروني موجود بالفعل";
+"Please enter email id" = "الرجاء إدخال معرف البريد الإلكتروني";
+"Please enter valid email id" = "الرجاء إدخال معرف بريد إلكتروني صالح";
+"Please enter new password" = "الرجاء إدخال كلمة مرور جديدة";
+"Password should have atlease 1 character, 1 number, 1 special character and minimum 6 characters" = "يجب أن تحتوي كلمة المرور على حرف atlease واحد ورقم واحد وشخصية خاصة و 6 أحرف على الأقل";
+"Please re enter password" = "يرجى إعادة إدخال كلمة المرور";
+"Re entered password is not matching with new password" = "إعادة إدخال كلمة المرور لا تتطابق مع كلمة المرور الجديدة";
+"Please enter title" = "الرجاء إدخال العنوان";
+"Please enter first name" = "الرجاء إدخال الاسم الأول";
+"Please enter last name" = "الرجاء إدخال الاسم الأخير";
+"Please enter country of residence" = "الرجاء إدخال بلد الإقامة";
+"Please enter nationality" = "الرجاء إدخال الجنسية";
+"Please enter phone code" = "الرجاء إدخال رمز الهاتف";
+"Please enter mobile number" = "الرجاء إدخال رقم الجوال";
+"Please enter valid mobile number" = "الرجاء إدخال رقم جوال صحيح";
+"Please accept terms and conditions" = "يرجى قبول الشروط والأحكام";
+"Cannot lock the ticket, Please try again" = "لا يمكن قفل التذكرة ، يرجى المحاولة مرة أخرى";
+"Please pick tickets" = "يرجى اختيار التذاكر";
+"Ticket not locked please try again" = "التذكرة غير مقفلة ، يرجى المحاولة مرة أخرى";
+
+"Do you want to change your subscription plan from existing" = "هل تريد تغيير خطة اشتراكك من القائمة";
+"to new" = "الجديد إلى";
+"new" = "الجديد";
+"Continue" = "استمر";
+"Cancel" = "إلغاء";
+"Log out" = "الخروج";
+"Are you sure you want to log out?" = "هل أنت متأكد أنك تريد تسجيل الخروج؟";
+"Ok" = "حسنا";
+"Cancel" = "إلغاء";
+"Continue to checkout the selected membership plan" = "متابعة للتحقق من خطة العضوية المحددة";
+"Please subscribe to any of the membership plan" = "يرجى الاشتراك في أي من خطة العضوية";
+
+"Checkout without signing in." = "الخروج دون تسجيل الدخول.";
+"Name" = "اسم";
+"Name*" = "اسم*";
+"Phone" = "هاتف";
+"Already a Member ?" = "عضوا فعلا ؟";
+"Sign Up" = "سجل";
+"Your email*" = "بريدك الالكتروني*";
+
+"FLIP" = "يواجه";
+"E-CARD" = "بطاقة E";
+
+"Ticket PDF not generated" = "لم يتم إنشاء تذكرة PDF";
+
+"Buy your Tickets" = "اشترِ تذاكرك / تذكرتك";
+
+"If you need to buy this ticket then Please upgrade your membership" = "إذا كنت بحاجة لشراء هذه التذكرة ، يرجى تحديث عضويتك";
+
+"You already a member of this plan" = "أنت بالفعل عضو في هذه الخطة";
+
+"SELECT TICKETS" = "اختر التذاكر";
+"You will need a ticket to enter the museum.Tickets are valid for three consecutive days starting with the first day of entry." = "ستحتاج إلى تذكرة لدخول المتحف.التذاكر صالحة  اليوم الأول للدخول. لمدة ثلاثة أيام متتالية تبدأ من";
+
+"GUEST CHECKOUT" = "ضيف المحاسبة";
+"Continue without logging in" = "تابع دون تسجيل الدخول";
+"Existing Culture Pass Member?" = "عضو ممر الثقافة الحالي؟";
+
+"LOG IN" = "تسجيل الدخول";
+"Log in to your Culture Pass account" = "تسجيل الدخول إلى حساب الثقافة باس الخاص بك";
+
+"PAYMENT SUCCESSFUL" = "الدفع بنجاح";
+"YOUR TICKET" = "تذكرتك";
+"Show this ticket at the Museum for entry" = "اعرض هذه التذكرة في المتحف للدخول";
+"My Tickets" = "تذاكري";
+"MY TICKETS" = "تذاكري";
+
+"Culture Pass Membership" = "عضوية ممر الثقافة";
+
+"Buy Tickets" = "اشتري تذاكر";
+
+"You are not authorized to select CP Membership tickets, please log in or register to become a member." = "غير مصرح لك بتحديد تذاكر عضوية CP ، يرجى تسجيل الدخول أو التسجيل لتصبح عضوًا.";
+"You are not authorized member, please upgrade your membership." = "أنت لست عضوًا مفوضًا ، يرجى ترقية عضويتك.";
+"You are not authorized user." = "أنت غير مخول للمستخدم.";

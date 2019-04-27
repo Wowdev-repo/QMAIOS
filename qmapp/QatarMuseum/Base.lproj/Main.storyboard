@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ru4-0J-FCz">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ru4-0J-FCz">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment version="2048" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -65,6 +65,40 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="701-fU-nrG">
+                                <rect key="frame" x="0.0" y="85" width="414" height="94"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BuyYourTicket" translatesAutoresizingMaskIntoConstraints="NO" id="Y4y-l0-fAe">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="94"/>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Buy Tickets" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zgf-0x-LyF">
+                                        <rect key="frame" x="163.66666666666666" y="72" width="86.666666666666657" height="17"/>
+                                        <fontDescription key="fontDescription" name="DINNextLTPro-Bold" family="DIN Next LT Pro" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8cg-DG-0tO">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="94"/>
+                                        <connections>
+                                            <action selector="buyTicketBtnAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="WIH-0b-7ap"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="Y4y-l0-fAe" firstAttribute="leading" secondItem="701-fU-nrG" secondAttribute="leading" id="1mQ-yO-TlW"/>
+                                    <constraint firstAttribute="bottom" secondItem="Y4y-l0-fAe" secondAttribute="bottom" id="50x-jv-Gyb"/>
+                                    <constraint firstAttribute="bottom" secondItem="zgf-0x-LyF" secondAttribute="bottom" constant="5" id="5qI-np-H5J"/>
+                                    <constraint firstAttribute="height" constant="94" id="6lW-uX-256"/>
+                                    <constraint firstItem="8cg-DG-0tO" firstAttribute="leading" secondItem="701-fU-nrG" secondAttribute="leading" id="BLq-eX-rWh"/>
+                                    <constraint firstAttribute="trailing" secondItem="8cg-DG-0tO" secondAttribute="trailing" id="EgG-qz-Vqz"/>
+                                    <constraint firstItem="Y4y-l0-fAe" firstAttribute="top" secondItem="701-fU-nrG" secondAttribute="top" id="Jn9-0Z-HyG"/>
+                                    <constraint firstAttribute="bottom" secondItem="8cg-DG-0tO" secondAttribute="bottom" id="c8z-Fu-VWv"/>
+                                    <constraint firstItem="zgf-0x-LyF" firstAttribute="centerX" secondItem="701-fU-nrG" secondAttribute="centerX" id="htx-Wq-a92"/>
+                                    <constraint firstAttribute="trailing" secondItem="Y4y-l0-fAe" secondAttribute="trailing" id="kf4-3m-d7a"/>
+                                    <constraint firstItem="8cg-DG-0tO" firstAttribute="top" secondItem="701-fU-nrG" secondAttribute="top" id="xnO-b9-Udd"/>
+                                </constraints>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NkB-Zv-8hj" customClass="TopBarView" customModule="QatarMuseums" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="20" width="414" height="65"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -238,7 +272,7 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="IMq-AN-rKM">
-                                <rect key="frame" x="0.0" y="85" width="414" height="554"/>
+                                <rect key="frame" x="0.0" y="179" width="414" height="460"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <outlet property="dataSource" destination="BYZ-38-t0r" id="mfd-d0-COY"/>
@@ -272,9 +306,9 @@
                             </visualEffectView>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="IMq-AN-rKM" firstAttribute="top" secondItem="NkB-Zv-8hj" secondAttribute="bottom" id="19d-pS-8ip"/>
                             <constraint firstItem="uSs-hx-cNf" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="1bW-22-FfF"/>
                             <constraint firstItem="uSs-hx-cNf" firstAttribute="top" secondItem="pKf-IS-7eH" secondAttribute="bottom" id="2US-WC-1zg"/>
+                            <constraint firstItem="IMq-AN-rKM" firstAttribute="top" secondItem="701-fU-nrG" secondAttribute="bottom" id="7zL-87-5O9"/>
                             <constraint firstItem="NdW-we-G9U" firstAttribute="top" secondItem="NkB-Zv-8hj" secondAttribute="bottom" id="AQb-6w-nz9"/>
                             <constraint firstAttribute="trailing" secondItem="IMq-AN-rKM" secondAttribute="trailing" id="ECR-39-XSN"/>
                             <constraint firstItem="E8z-Zp-uwl" firstAttribute="top" secondItem="uSs-hx-cNf" secondAttribute="bottom" constant="-34" id="GI7-28-yiw"/>
@@ -284,15 +318,19 @@
                             <constraint firstItem="NdW-we-G9U" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="PDC-qi-Izp"/>
                             <constraint firstItem="qGw-V5-okh" firstAttribute="top" secondItem="NdW-we-G9U" secondAttribute="bottom" id="ayr-bP-yvL"/>
                             <constraint firstAttribute="trailing" secondItem="uSs-hx-cNf" secondAttribute="trailing" id="cL4-oG-74C"/>
+                            <constraint firstAttribute="trailing" secondItem="701-fU-nrG" secondAttribute="trailing" id="cZn-0k-jfg"/>
                             <constraint firstItem="NkB-Zv-8hj" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="ePo-4u-Xab"/>
                             <constraint firstItem="NkB-Zv-8hj" firstAttribute="top" secondItem="pKf-IS-7eH" secondAttribute="bottom" id="jMm-tB-pZY"/>
                             <constraint firstItem="qGw-V5-okh" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="mPg-mv-kJP"/>
                             <constraint firstAttribute="trailing" secondItem="NdW-we-G9U" secondAttribute="trailing" id="pyi-pk-xAv"/>
                             <constraint firstItem="qGw-V5-okh" firstAttribute="top" secondItem="IMq-AN-rKM" secondAttribute="bottom" id="w1q-mV-PnS"/>
+                            <constraint firstItem="701-fU-nrG" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="ytG-h7-glk"/>
+                            <constraint firstItem="701-fU-nrG" firstAttribute="top" secondItem="NkB-Zv-8hj" secondAttribute="bottom" id="zDW-q5-SUI"/>
                             <constraint firstAttribute="bottom" secondItem="qGw-V5-okh" secondAttribute="bottom" id="ziZ-yA-dS1"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="buyYourTicketsLabel" destination="zgf-0x-LyF" id="G3R-Om-EJH"/>
                         <outlet property="culturePassButton" destination="GA6-kJ-Aew" id="2sQ-Wn-nUN"/>
                         <outlet property="culturePassLabel" destination="7ZM-f1-ri1" id="XWY-Qa-e1A"/>
                         <outlet property="diningLabel" destination="gJN-vr-oTl" id="UNX-ia-nuh"/>
@@ -309,7 +347,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-94" y="90"/>
+            <point key="canvasLocation" x="-94.20289855072464" y="89.673913043478265"/>
         </scene>
         <!--Web View Controller-->
         <scene sceneID="Afi-ZU-hgx">
@@ -4807,28 +4845,29 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Audio CircleX1" width="279" height="279"/>
-        <image name="MIA_AboutX1" width="243" height="279"/>
-        <image name="closeX1" width="279" height="279"/>
-        <image name="close_greyX1" width="279" height="279"/>
-        <image name="culture_passX1" width="351" height="279"/>
+        <image name="Audio CircleX1" width="93" height="93"/>
+        <image name="BuyYourTicket" width="533.66668701171875" height="133.66667175292969"/>
+        <image name="MIA_AboutX1" width="81" height="93"/>
+        <image name="closeX1" width="93" height="93"/>
+        <image name="close_greyX1" width="93" height="93"/>
+        <image name="culture_passX1" width="117" height="93"/>
         <image name="culturepass_back" width="414" height="736"/>
         <image name="culturepass_card" width="414" height="736"/>
-        <image name="down_arrowX2" width="279" height="162"/>
-        <image name="gift_shopX1" width="306" height="279"/>
-        <image name="heart_emptyX1" width="303" height="279"/>
-        <image name="moreX1" width="303" height="279"/>
+        <image name="down_arrowX2" width="139.5" height="81"/>
+        <image name="gift_shopX1" width="102" height="93"/>
+        <image name="heart_emptyX1" width="101" height="93"/>
+        <image name="moreX1" width="101" height="93"/>
         <image name="nextImg" width="2000" height="2000"/>
-        <image name="notificationX1" width="243" height="279"/>
-        <image name="number_padX1" width="204" height="279"/>
-        <image name="play_blackX1" width="279" height="279"/>
+        <image name="notificationX1" width="81" height="93"/>
+        <image name="number_padX1" width="68" height="93"/>
+        <image name="play_blackX1" width="93" height="93"/>
         <image name="play_button" width="93" height="93"/>
         <image name="previousImg" width="2000" height="2000"/>
-        <image name="profile_editX1" width="258" height="279"/>
+        <image name="profile_editX1" width="86" height="93"/>
         <image name="profile_pic_round" width="112" height="112"/>
-        <image name="restaurantX1" width="360" height="279"/>
-        <image name="shareX1" width="246" height="279"/>
-        <image name="unselected" width="120" height="120"/>
-        <image name="up_arrowX2" width="279" height="162"/>
+        <image name="restaurantX1" width="120" height="93"/>
+        <image name="shareX1" width="82" height="93"/>
+        <image name="unselected" width="40" height="40"/>
+        <image name="up_arrowX2" width="93" height="54"/>
     </resources>
 </document>

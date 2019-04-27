@@ -29,6 +29,8 @@ class HomeViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     @IBOutlet weak var culturePassLabel: UILabel!
     @IBOutlet weak var diningLabel: UILabel!
     
+    // Ticketing Action Perform On Home View
+    @IBOutlet weak var buyYourTicketsLabel: UILabel!
     
     var homeDataFullArray : NSArray!
     var effect:UIVisualEffect!
@@ -80,7 +82,8 @@ class HomeViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         culturePassLabel.text = NSLocalizedString("CULTUREPASS_TITLE",comment: "CULTUREPASS_TITLE in Home Page")
         giftShopLabel.text = NSLocalizedString("GIFT_SHOP",comment: "GIFT_SHOP in Home Page")
         diningLabel.text = NSLocalizedString("DINING_LABEL",comment: "DINING_LABEL in Home Page")
-        
+        // Ticketing Localisation For Buy Your Ticket
+        buyYourTicketsLabel.text = NSLocalizedString(buyYourTicketsLabel.text!, comment: "")
         moreLabel.font = UIFont.exhibitionDateLabelFont
         culturePassLabel.font = UIFont.exhibitionDateLabelFont
         giftShopLabel.font = UIFont.exhibitionDateLabelFont
@@ -503,20 +506,32 @@ class HomeViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     }
     
     func culturePassButtonPressed() {
-        let transition = CATransition()
-        transition.duration = 0.25
-        transition.type = kCATransitionFade
-        transition.timingFunction = CAMediaTimingFunction(name:kCAMediaTimingFunctionEaseInEaseOut)
-        view.window!.layer.add(transition, forKey: kCATransition)
         
-        if (UserDefaults.standard.value(forKey: "accessToken") as? String != nil) {
-            let profileView =  self.storyboard?.instantiateViewController(withIdentifier: "profileViewId") as! ProfileViewController
-            self.present(profileView, animated: false, completion: nil)
-        } else {
-            let culturePassView =  self.storyboard?.instantiateViewController(withIdentifier: "culturePassViewId") as! CulturePassViewController
-            culturePassView.fromHome = true
-            self.present(culturePassView, animated: false, completion: nil)
-        }
+        // New Ticketing Functionalty Implementation
+        var storyBoard = UIStoryboard()
+        UserDefaults.standard.set(AppConstants.QMTLibConstants.QMTLUserProfileTableViewController, forKey: AppConstants.QMTLibConstants.initialViewControllerKey)
+        let bundle = Bundle(identifier: AppConstants.QMTLibConstants.bundleId)
+        storyBoard = UIStoryboard(name: AppConstants.QMTLibConstants.QMTStoryboardForEN_Id, bundle: bundle)
+        let controller = storyBoard.instantiateViewController(withIdentifier: AppConstants.QMTLibConstants.QMTLTabViewController)
+        //self.navigationController?.pushViewController(controller, animated: true)
+        self.present(controller, animated: true, completion: nil)
+        
+        
+        // Old Ticketing Mechanism Implementation
+//        let transition = CATransition()
+//        transition.duration = 0.25
+//        transition.type = kCATransitionFade
+//        transition.timingFunction = CAMediaTimingFunction(name:kCAMediaTimingFunctionEaseInEaseOut)
+//        view.window!.layer.add(transition, forKey: kCATransition)
+//
+//        if (UserDefaults.standard.value(forKey: "accessToken") as? String != nil) {
+//            let profileView =  self.storyboard?.instantiateViewController(withIdentifier: "profileViewId") as! ProfileViewController
+//            self.present(profileView, animated: false, completion: nil)
+//        } else {
+//            let culturePassView =  self.storyboard?.instantiateViewController(withIdentifier: "culturePassViewId") as! CulturePassViewController
+//            culturePassView.fromHome = true
+//            self.present(culturePassView, animated: false, completion: nil)
+//        }
     }
     
     func giftShopButtonPressed() {
@@ -620,6 +635,22 @@ class HomeViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     @IBAction func giftShopButtonTouchDown(_ sender: UIButton) {
         self.giftShopButton.transform = CGAffineTransform(scaleX: 0.7, y: 0.7)
     }
+    
+    // Ticketing Main Action Perform from Library File
+    
+    @IBAction func buyTicketBtnAction(_ sender: Any) {
+        
+        var storyBoard = UIStoryboard()
+        
+        UserDefaults.standard.set(AppConstants.QMTLibConstants.QMTLTicketCounterContainerViewController, forKey: AppConstants.QMTLibConstants.initialViewControllerKey)
+        let bundle = Bundle(identifier: AppConstants.QMTLibConstants.bundleId)
+        storyBoard = UIStoryboard(name: AppConstants.QMTLibConstants.QMTStoryboardForEN_Id, bundle: bundle)
+        let controller = storyBoard.instantiateViewController(withIdentifier: AppConstants.QMTLibConstants.QMTLTabViewController)
+        //self.navigationController?.pushViewController(controller, animated: true)
+        self.present(controller, animated: true, completion: nil)
+        
+    }
+    
     
     func topbarMenuPressed() {
         self.topbarView.menuButton.contentEdgeInsets = UIEdgeInsets(top: 14, left: 20, bottom: 14, right: 18)

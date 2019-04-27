@@ -121,7 +121,7 @@ class EventViewController: UIViewController,UICollectionViewDelegate,UICollectio
             previousButton.setImage(UIImage(named: "previousImg"), for: .normal)
             nextButton.setImage(UIImage(named: "nextImg"), for: .normal)
             calendarView.locale = NSLocale.init(localeIdentifier: "en") as Locale
-            calendarView.identifier = NSCalendar.Identifier.gregorian.rawValue
+            //calendarView.identifier = NSCalendar.Identifier.gregorian.rawValue
             calendarView.appearance.titleFont = UIFont.init(name: "DINNextLTPro-Bold", size: 19)
             
             calendarView.appearance.titleWeekendColor = UIColor.profilePink
