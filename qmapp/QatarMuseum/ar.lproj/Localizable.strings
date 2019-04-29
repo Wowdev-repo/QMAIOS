@@ -308,8 +308,7 @@
 "Password*" = "كلمه السر*";
 "Confirm Password" = "تأكيد كلمة السر";
 "Confirm Password*" = "تأكيد كلمة السر*";
-"About you*" = "بياناتك*";
-"About you" = "بياناتك";
+"About You" = "بياناتك";
 "Title*" = "اللقب*";
 "Title" = "اللقب";
 "First Name*" = "الاسم*";
@@ -327,7 +326,7 @@
 "Subscribe to Newsletter" = "اشترك في النشرة الإخبارية";
 "Accept Terms & Condition" = "قبول الشروط والأحكام";
 "Save" = "حفظ";
-
+"MY TICKETS" = "تذاكري";
 "Membership Renewal" = "عضوية بطاقتك الى الثقافة";
 "Expires On" = "تنتهي صلاحيته في";
 "My Visits" = "تذاكري";
@@ -353,8 +352,8 @@
 
 "MEMBERSHIP PURCHASED SUCCESSFULLY" = "تم تسجيل العضوية بنجاح";
 "Please check your email for further details" = "يرجى التحقق من بريدك الالكتروني لمزيد من التفاصيل";
-"Transaction ID" = "معرف المعاملة";
-"Payment Method" = "طريقة الدفع او السداد";
+"Transaction ID" = "رقم المعاملة";
+"Payment Method" = "طريقة الدفع";
 "Credit" = "ائتمان";
 "Membership ID" = "معرف العضوية";
 "OK" = "حسنا";
@@ -484,7 +483,7 @@
 "You already a member of this plan" = "أنت بالفعل عضو في هذه الخطة";
 
 "SELECT TICKETS" = "اختر التذاكر";
-"You will need a ticket to enter the museum.Tickets are valid for three consecutive days starting with the first day of entry." = "ستحتاج إلى تذكرة لدخول المتحف.التذاكر صالحة لمدة ثلاثة أيام متتالية تبدأ من اليوم الأول للدخول.";
+"You will need a ticket to enter the museum. Tickets are valid for three consecutive days starting with the first day of entry." = "ستحتاج إلى تذكرة لدخول المتحف.التذاكر صالحة لمدة ثلاثة أيام متتالية تبدأ من اليوم الأول للدخول.";
 
 "GUEST CHECKOUT" = "اكمال العملية كزائر";
 "Continue without logging in" = "إكمال العملية بدون تسجيل";
@@ -496,8 +495,6 @@
 "YOUR TICKET" = "تذكرتك";
 "Show this ticket at the Museum for entry" = "يرجى إبراز هذه التذكرة عند الدخول للمتحف";
 "My Tickets" = "تذاكري";
-
-"Culture Pass Membership" = "عضوية ممر الثقافة";
 
 "Buy Tickets" = "اشتري تذاكر";
 "Valid for 1 year" = "صالحة لمدة عام";

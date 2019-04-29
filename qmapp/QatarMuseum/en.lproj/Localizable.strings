@@ -309,8 +309,7 @@
 "Password*" = "Password*";
 "Confirm Password" = "Confirm Password";
 "Confirm Password*" = "Confirm Password*";
-"About you*" = "About you*";
-"About you" = "About you";
+"About You" = "About You";
 "Title*" = "Title*";
 "Title" = "Title";
 "First Name*" = "First Name*";
@@ -462,7 +461,6 @@
 "new" = "new";
 "Continue" = "Continue";
 "Cancel" = "Cancel";
-"Log out" = "Log out";
 "Are you sure you want to log out?" = "Are you sure you want to log out?";
 "Ok" = "Ok";
 "Cancel" = "Cancel";
@@ -489,7 +487,7 @@
 "You already a member of this plan" = "You already a member of this plan";
 
 "SELECT TICKETS" = "SELECT TICKETS";
-"You will need a ticket to enter the museum.Tickets are valid for three consecutive days starting with the first day of entry." = "You will need a ticket to enter the museum.Tickets are valid for three consecutive days starting with the first day of entry.";
+"You will need a ticket to enter the museum. Tickets are valid for three consecutive days starting with the first day of entry." = "You will need a ticket to enter the museum. Tickets are valid for three consecutive days starting with the first day of entry.";
 
 "GUEST CHECKOUT" = "GUEST CHECKOUT";
 "Continue without logging in" = "Continue without logging in";
@@ -503,8 +501,6 @@
 "Show this ticket at the Museum for entry" = "Show this ticket at the Museum for entry";
 "My Tickets" = "My Tickets";
 "MY TICKETS" = "MY TICKETS";
-
-"Culture Pass Membership" = "Culture Pass Membership";
 
 "Buy Tickets" = "Buy Tickets";
 
