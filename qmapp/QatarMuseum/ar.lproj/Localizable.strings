@@ -254,7 +254,7 @@
 "SIGN IN" = "تسجيل الدخول";
 "Login using your credentials" = "تسجيل الدخول باستخدام بيانات الاعتماد الخاصة بك";
 "Email" = "البريد الإلكتروني";
-"Password" = "كلمه السر";
+"Password" = "كلمة السر";
 "Forgot Password?" = "هل نسيت كلمة المرور؟";
 "Sign Up" = "سجل";
 "Login" = "تسجيل الدخول";
@@ -306,31 +306,31 @@
 "Email*" = "البريد الإلكتروني*";
 "Set Password*" = "ضبط كلمة السر*";
 "Password*" = "كلمه السر*";
-"Confirm Password" = "تأكيد كلمة المرور";
-"Confirm Password*" = "تأكيد كلمة المرور*";
-"About you*" = "حولك*";
-"About you" = "حولك";
-"Title*" = "عنوان*";
-"Title" = "عنوان";
-"First Name*" = "الاسم الاول*";
-"First Name" = "الاسم الاول";
-"Last Name*" = "الكنية*";
-"Last Name" = "الكنية";
+"Confirm Password" = "تأكيد كلمة السر";
+"Confirm Password*" = "تأكيد كلمة السر*";
+"About you*" = "بياناتك*";
+"About you" = "بياناتك";
+"Title*" = "اللقب*";
+"Title" = "اللقب";
+"First Name*" = "الاسم*";
+"First Name" = "الاسم";
+"Last Name*" = "اسم العائلة*";
+"Last Name" = "اسم العائلة";
 "Country of Residence*" = "بلد الإقامة*";
 "Country of Residence" = "بلد الإقامة";
 "Nationality*" = "الجنسية *";
-"Nationality" = "جنسية";
+"Nationality" = "الجنسية";
 "Code*" = "الشفرة*";
 "Code" = "الشفرة";
-"Mobile*" = "التليفون المحمول*";
-"Mobile" = "التليفون المحمول";
+"Mobile*" = "رقم الجوال*";
+"Mobile" = "رقم الجوال";
 "Subscribe to Newsletter" = "اشترك في النشرة الإخبارية";
 "Accept Terms & Condition" = "قبول الشروط والأحكام";
 "Save" = "حفظ";
 
-"Membership Renewal" = "تجديد العضوية";
+"Membership Renewal" = "عضوية بطاقتك الى الثقافة";
 "Expires On" = "تنتهي صلاحيته في";
-"My Visits" = "زياراتي";
+"My Visits" = "تذاكري";
 "My Profile" = "ملفي";
 "Log Out" = "الخروج";
 
@@ -339,7 +339,6 @@
 "Valid up to" = "صالحة تصل إلى";
 "Send password reset link to email" = "إرسال رابط إعادة تعيين كلمة المرور إلى البريد الإلكتروني";
 
-"MY VISITS" = "زياراتي";
 "Your tickets so far" = "التذاكر الخاصة بك حتى الآن";
 "Completed" = "منجز";
 "Upcoming" = "القادمة";
@@ -352,7 +351,7 @@
 "Month" = "شهر";
 "Complete Order" = "اكمل الطلب";
 
-"MEMBERSHIP PURCHASED SUCCESSFULLY" = "شراء العضوية بنجاح";
+"MEMBERSHIP PURCHASED SUCCESSFULLY" = "تم تسجيل العضوية بنجاح";
 "Please check your email for further details" = "يرجى التحقق من بريدك الالكتروني لمزيد من التفاصيل";
 "Transaction ID" = "معرف المعاملة";
 "Payment Method" = "طريقة الدفع او السداد";
@@ -389,15 +388,13 @@
 "Valid for Life time" = "صالحة لمدى الحياة";
 "Complete Order" = "اكمل الطلب";
 
-"PAYMENT SUCCESSFUL" = "الدفع بنجاح";
+"PAYMENT SUCCESSFUL" = "تم  الدفع بنجاح";
 "TICKET PURCHASED SUCCESSFULLY" = "التذاكر التي تم شراؤها بنجاح";
 "Please bring this along to the visit" = "يرجى إحضار هذه التذكرة أثناء زيارتك";
 
-"TICKET" = "تذكرة";
+"YOUR TICKET" = "تذكرتك";
 "Ticket ID" = "معرف التذكرة";
 "Print" = "طباعة";
-"My Visits" = "زياراتي";
-
 
 "No tickets available to show" = "لا توجد تذاكر متاحة للعرض";
 "Ticket history not available" = "سجل التذاكر غير متوفر";
@@ -460,7 +457,7 @@
 "new" = "الجديد";
 "Continue" = "استمر";
 "Cancel" = "إلغاء";
-"Log out" = "الخروج";
+"Log Out" = "تسجيل الخروج";
 "Are you sure you want to log out?" = "هل أنت متأكد أنك تريد تسجيل الخروج؟";
 "Ok" = "حسنا";
 "Cancel" = "إلغاء";
@@ -487,24 +484,23 @@
 "You already a member of this plan" = "أنت بالفعل عضو في هذه الخطة";
 
 "SELECT TICKETS" = "اختر التذاكر";
-"You will need a ticket to enter the museum.Tickets are valid for three consecutive days starting with the first day of entry." = "ستحتاج إلى تذكرة لدخول المتحف.التذاكر صالحة  اليوم الأول للدخول. لمدة ثلاثة أيام متتالية تبدأ من";
+"You will need a ticket to enter the museum.Tickets are valid for three consecutive days starting with the first day of entry." = "ستحتاج إلى تذكرة لدخول المتحف.التذاكر صالحة لمدة ثلاثة أيام متتالية تبدأ من اليوم الأول للدخول.";
 
-"GUEST CHECKOUT" = "ضيف المحاسبة";
-"Continue without logging in" = "تابع دون تسجيل الدخول";
-"Existing Culture Pass Member?" = "عضو ممر الثقافة الحالي؟";
+"GUEST CHECKOUT" = "اكمال العملية كزائر";
+"Continue without logging in" = "إكمال العملية بدون تسجيل";
+"Existing Culture Pass Member?" = "عضو سابق؟";
 
 "LOG IN" = "تسجيل الدخول";
-"Log in to your Culture Pass account" = "تسجيل الدخول إلى حساب الثقافة باس الخاص بك";
+"Log in to your Culture Pass account" = "تسجيل الدخول لحساب بطاقتك الى الثقافة";
 
-"PAYMENT SUCCESSFUL" = "الدفع بنجاح";
 "YOUR TICKET" = "تذكرتك";
-"Show this ticket at the Museum for entry" = "اعرض هذه التذكرة في المتحف للدخول";
+"Show this ticket at the Museum for entry" = "يرجى إبراز هذه التذكرة عند الدخول للمتحف";
 "My Tickets" = "تذاكري";
-"MY TICKETS" = "تذاكري";
 
 "Culture Pass Membership" = "عضوية ممر الثقافة";
 
 "Buy Tickets" = "اشتري تذاكر";
+"Valid for 1 year" = "صالحة لمدة عام";
 
 "You are not authorized to select CP Membership tickets, please log in or register to become a member." = "غير مصرح لك بتحديد تذاكر عضوية CP ، يرجى تسجيل الدخول أو التسجيل لتصبح عضوًا.";
 "You are not authorized member, please upgrade your membership." = "أنت لست عضوًا مفوضًا ، يرجى ترقية عضويتك.";
