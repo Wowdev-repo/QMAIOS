@@ -370,17 +370,33 @@
 
 "SELECT YOUR TICKETS" = "اختر التذاكر الخاصة بك";
 "Each visitor requires a valid ticket" = "كل زائر يتطلب تذكرة صالحة";
-"QR Adult" = "الكبار ريال قطري";
+
+//"QR Adult" = "الكبار ريال قطري";
+//"Adult" = "بالغ";
+//"Child 0-16 years" = "الطفل 0-16 سنة";
+//"Student" = "طالب علم";
+//"QR Res Child 0-16 years" = "الدقة الطفل 0-16 سنوات";
+//"QR Res Student" = "طالب الدقة الدقة";
+//"Museum pass" = "تمرير المتحف";
+//"CP Member Plus" = "عضو CP زائد";
+//"CP Member Family" = "عائلة عضو CP";
+//"Family" = "عائلة";
+//"QR Family" = "عائلة QR";
+
+"Adult (Resident of Qatar)" = "بالغ (مقيم في قطر)";
 "Adult" = "بالغ";
 "Child 0-16 years" = "الطفل 0-16 سنة";
+"Child 0-16" = "الطفل 0-16 ";
 "Student" = "طالب علم";
-"QR Res Child 0-16 years" = "الدقة الطفل 0-16 سنوات";
-"QR Res Student" = "طالب الدقة الدقة";
+"Student (Resident of Qatar)" = "طالب (مقيم في قطر)";
+"Child 0 - 16 years (Resident of Qatar)" = "الطفل من 0 إلى 16 سنة (مقيم في قطر)";
+"Free Entry" = "دخول مجاني";
 "Museum pass" = "تمرير المتحف";
-"CP Member Plus" = "عضو CP زائد";
-"CP Member Family" = "عائلة عضو CP";
+"Culture Pass Plus card holder" = "حامل بطاقة الثقافة باس بلس";
+"Culture Pass Family card holder" = "حامل بطاقة العائلة الثقافية";
 "Family" = "عائلة";
-"QR Family" = "عائلة QR";
+"Family (Resident of Qatar)" = "عائلة (مقيم في قطر)";
+
 "Total" = "مجموع";
 
 "Valid for" = "صالحة ل";

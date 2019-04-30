@@ -372,18 +372,36 @@
 
 "SELECT YOUR TICKETS" = "SELECT YOUR TICKETS";
 "Each visitor requires a valid ticket" = "Each visitor requires a valid ticket";
-"QR Adult" = "QR Adult";
+
+//"QR Adult" = "QR Adult";
+//"Adult" = "Adult";
+//"Child 0-16 years" = "Child 0-16 years";
+//"Student" = "Student";
+//"QR Res Child 0-16 years" = "QR Res Child 0-16 years";
+//"QR Res Student" = "QR Res Student";
+//"Adult" = "Adult";
+//"Museum pass" = "Museum pass";
+//"CP Member Plus" = "CP Member Plus";
+//"CP Member Family" = "CP Member Family";
+//"Family" = "Family";
+//"QR Family" = "QR Family";
+
+
+"Adult (Resident of Qatar)" = "Adult (Resident of Qatar)";
 "Adult" = "Adult";
 "Child 0-16 years" = "Child 0-16 years";
+"Child 0-16" = "Child 0-16";
 "Student" = "Student";
-"QR Res Child 0-16 years" = "QR Res Child 0-16 years";
-"QR Res Student" = "QR Res Student";
-"Adult" = "Adult";
+"Student (Resident of Qatar)" = "Student (Resident of Qatar)";
+"Child 0 - 16 years (Resident of Qatar)" = "Child 0 - 16 years (Resident of Qatar)";
+"Free Entry" = "Free Entry";
 "Museum pass" = "Museum pass";
-"CP Member Plus" = "CP Member Plus";
-"CP Member Family" = "CP Member Family";
+"Culture Pass Plus card holder" = "Culture Pass Plus card holder";
+"Culture Pass Family card holder" = "Culture Pass Family card holder";
 "Family" = "Family";
-"QR Family" = "QR Family";
+"Family (Resident of Qatar)" = "Family (Resident of Qatar)";
+
+
 "Total" = "Total";
 
 "Valid for" = "Valid for";
