@@ -309,8 +309,7 @@
 "Password*" = "Password*";
 "Confirm Password" = "Confirm Password";
 "Confirm Password*" = "Confirm Password*";
-"About you*" = "About you*";
-"About you" = "About you";
+"About You" = "About You";
 "Title*" = "Title*";
 "Title" = "Title";
 "First Name*" = "First Name*";
@@ -373,18 +372,36 @@
 
 "SELECT YOUR TICKETS" = "SELECT YOUR TICKETS";
 "Each visitor requires a valid ticket" = "Each visitor requires a valid ticket";
-"QR Adult" = "QR Adult";
+
+//"QR Adult" = "QR Adult";
+//"Adult" = "Adult";
+//"Child 0-16 years" = "Child 0-16 years";
+//"Student" = "Student";
+//"QR Res Child 0-16 years" = "QR Res Child 0-16 years";
+//"QR Res Student" = "QR Res Student";
+//"Adult" = "Adult";
+//"Museum pass" = "Museum pass";
+//"CP Member Plus" = "CP Member Plus";
+//"CP Member Family" = "CP Member Family";
+//"Family" = "Family";
+//"QR Family" = "QR Family";
+
+
+"Adult (Resident of Qatar)" = "Adult (Resident of Qatar)";
 "Adult" = "Adult";
 "Child 0-16 years" = "Child 0-16 years";
+"Child 0-16" = "Child 0-16";
 "Student" = "Student";
-"QR Res Child 0-16 years" = "QR Res Child 0-16 years";
-"QR Res Student" = "QR Res Student";
-"Adult" = "Adult";
-"Museum pass" = "Museum pass";
-"CP Member Plus" = "CP Member Plus";
-"CP Member Family" = "CP Member Family";
+"Student (Resident of Qatar)" = "Student (Resident of Qatar)";
+"Child 0 - 16 years (Resident of Qatar)" = "Child 0 - 16 years (Resident of Qatar)";
+"Free Entry" = "Free Entry";
+"Museum Pass" = "Museum Pass";
+"Culture Pass Plus card holder" = "Culture Pass Plus card holder";
+"Culture Pass Family card holder" = "Culture Pass Family card holder";
 "Family" = "Family";
-"QR Family" = "QR Family";
+"Family (Resident of Qatar)" = "Family (Resident of Qatar)";
+
+
 "Total" = "Total";
 
 "Valid for" = "Valid for";
@@ -462,7 +479,6 @@
 "new" = "new";
 "Continue" = "Continue";
 "Cancel" = "Cancel";
-"Log out" = "Log out";
 "Are you sure you want to log out?" = "Are you sure you want to log out?";
 "Ok" = "Ok";
 "Cancel" = "Cancel";
@@ -489,7 +505,7 @@
 "You already a member of this plan" = "You already a member of this plan";
 
 "SELECT TICKETS" = "SELECT TICKETS";
-"You will need a ticket to enter the museum.Tickets are valid for three consecutive days starting with the first day of entry." = "You will need a ticket to enter the museum.Tickets are valid for three consecutive days starting with the first day of entry.";
+"You will need a ticket to enter the museum. Tickets are valid for three consecutive days starting with the first day of entry." = "You will need a ticket to enter the museum. Tickets are valid for three consecutive days starting with the first day of entry.";
 
 "GUEST CHECKOUT" = "GUEST CHECKOUT";
 "Continue without logging in" = "Continue without logging in";
@@ -504,11 +520,10 @@
 "My Tickets" = "My Tickets";
 "MY TICKETS" = "MY TICKETS";
 
-"Culture Pass Membership" = "Culture Pass Membership";
-
 "Buy Tickets" = "Buy Tickets";
 
 "You are not authorized to select CP Membership tickets, please log in or register to become a member." = "You are not authorized to select CP Membership tickets, please log in or register to become a member.";
 "You are not authorized member, please upgrade your membership." = "You are not authorized member, please upgrade your membership.";
 "You are not authorized user." = "You are not authorized user.";
 
+"Free" = "Free";
