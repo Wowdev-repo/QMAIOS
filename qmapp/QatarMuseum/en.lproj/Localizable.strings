@@ -269,7 +269,10 @@
 
 "UPGRADE CULTURE PASS TYPE" = "UPGRADE CULTURE PASS TYPE";
 "CHOOSE MEMBERSHIP TYPE" = "CHOOSE MEMBERSHIP TYPE";
-"CP Family" = "CP Family";
+"CP Family" = "Culture Pass Family";
+"CP Basic" = "Culture Pass Basic";
+"CP Plus" = "Culture Pass Plus";
+
 "QR" = "QR";
 "CP Member Basic" = "CP Member Basic";
 "CP Member Plus" = "CP Member Plus";
@@ -519,11 +522,21 @@
 "Show this ticket at the Museum for entry" = "Show this ticket at the Museum for entry";
 "My Tickets" = "My Tickets";
 "MY TICKETS" = "MY TICKETS";
-
 "Buy Tickets" = "Buy Tickets";
-
 "You are not authorized to select CP Membership tickets, please log in or register to become a member." = "You are not authorized to select CP Membership tickets, please log in or register to become a member.";
 "You are not authorized member, please upgrade your membership." = "You are not authorized member, please upgrade your membership.";
 "You are not authorized user." = "You are not authorized user.";
-
 "Free" = "Free";
+"MUSEUM OF ISLAMIC ART (MIA)"="MUSEUM OF ISLAMIC ART (MIA)";
+"NATIONAL MUSEUM OF QATAR" = "NATIONAL MUSEUM OF QATAR";
+"MATHAF: ARAB MUSEUM OF MODERN ART"="MATHAF: ARAB MUSEUM OF MODERN ART";
+
+// Ticket Description
+
+"Please present your valid student card on entry"="Please present your valid student card on entry";
+"Grants the holder access to all QM museums"="Grants the holder access to all QM museums";
+"Please present your valid Culture Pass card on entry"="Please present your valid Culture Pass card on entry";
+"Please present your valid QID or Qatari drivers license on entry"="Please present your valid QID or Qatari drivers license on entry";
+"Family ticket includes 2 adults and up tp 4 children"="Family ticket includes 2 adults and up tp 4 children";
+"Family ticket includes 2 adults and up to 4 children"="Family ticket includes 2 adults and up to 4 children";
+"No description available"="No description available";
