@@ -251,8 +251,6 @@
 
 // Ticketing Library Module Changes Started From Here
 
-// Ticketing Library Module Changes Started From Here
-
 "SIGN IN" = "تسجيل الدخول";
 "Login using your credentials" = "تسجيل الدخول باستخدام بيانات المستخدم الخاصة بك";
 "Email" = "البريد الإلكتروني";
@@ -265,7 +263,7 @@
 "Already a Member ?" = "عضوا مسبق ؟";
 "TERMS & CONDITIONS" = "الشروط و الاحكام";
 "Forgot Password ?" = "هل نسيت كلمة المرور ؟";
-"Reset your password here" = "أعاده ضبط كلمة مرورك";
+"Reset your password here" = "أعاده ضبط كلمة مرورك هنا";
 "UPGRADE CULTURE PASS TYPE" = "تحديث نوع بطاقتك الى الثقافه";
 "CHOOSE MEMBERSHIP TYPE" = "اختر نوع العضويه";
 "CP Family" = " بطاقتك إلى الثقافة العائليه";
@@ -288,7 +286,7 @@
 "CASS ART QATAR" = "كاس ارت قطر";
 "COMMUNITY CLASSES WITH PARTNERS" = "فئات المجتمع مع الشركاء";
 "HEALTH & LEISURE DISCOUNTS" = "خصومات الصحة والتراث";
-"EXTERNAL PARTY EVENTS AT QM" = "الأحداث الخارجية في متاحف قطر";
+"EXTERNAL PARTY EVENTS AT QM" = "الفعاليات الخارجية في متاحف قطر";
 "Newsletter" = "النشرة الإخبارية";
 "SKIP THE LINE AT VENUES" = "تخطي سطر في أماكن";
 "No" = "لا";
@@ -303,10 +301,10 @@
 "REGISTER & BECOME A MEMBER" = "يرجى التسجيل لتصبح عضوآ";
 "Your Account Details*" = "تفاصيل حسابك*";
 "Email*" = "البريد الإلكتروني*";
-"Set Password*" = "ضبط كلمة السر*";
-"Password*" = "كلمه السر*";
-"Confirm Password" = "تأكيد كلمة السر";
-"Confirm Password*" = "تأكيد كلمة السر*";
+"Set Password*" = "ضبط كلمة المرور*";
+"Password*" = "كلمه المرور*";
+"Confirm Password" = "تأكيد كلمة المرور";
+"Confirm Password*" = "تأكيد كلمة االمرور*";
 "About You" = "بياناتك";
 "Title*" = "اللقب*";
 "Title" = "اللقب";
@@ -329,9 +327,9 @@
 "Membership Renewal" = "تجديد عضوية بطاقتك الى الثقافة";
 "Expires On" = "تنتهي صلاحيته في";
 "My Visits" = "تذاكري";
-"My Profile" = "ملفي الشخصي";
+"My Profile" = "الملف الشخصي";
 "Log Out" = "تسجيل الخروج";
-"EDIT YOUR PROFILE DETAILS" = "تحرير تفاصيل ملفك الشخصي";
+"EDIT YOUR PROFILE DETAILS" = "تعديل تفاصيل ملفك الشخصي";
 "Your Membership Plan*" = "خطة العضويه الخاصه بك *";
 "Valid up to" = "صالحة إلى";
 "Send password reset link to email" = "إرسال رابط إعادة تعيين كلمة المرور إلى البريد الإلكتروني";
@@ -340,7 +338,7 @@
 "Upcoming" = "القادمة";
 "Today" = "اليوم";
 "CART" = "سله التسوق";
-"Clear cart" = "تفريغ السله";
+"Clear cart" = "تفريغ محتويات السله";
 "Expires in" = "ينتهي في";
 "Months" = "الشهور";
 "Month" = "شهر";
@@ -357,7 +355,7 @@
 "MATHAF" = "متحف";
 "webshop" = "المتجر الالكتروني";
 "National Museum of Qatar" = "متحف قطر الوطني";
-"WHEN WOULD YOU LIKE TO VISIT THE MUSEUM ?" = "متى تريد زيارة المتحف؟";
+"WHEN WOULD YOU LIKE TO VISIT THE MUSEUM ?" = "متى ترغب في زيارة المتحف؟";
 "Booking not opened for this museum" = "الحجز لم يفتح لهذا المتحف";
 "Next" = "التالي";
 "SELECT YOUR TICKETS" = "اختر التذاكر الخاصة بك";
@@ -371,7 +369,7 @@
 "Child 0 - 16 years (Resident of Qatar)" = "الاطفال من 0 إلى 16 سنة (مقيم في قطر)";
 "Free Entry" = "دخول مجاني";
 "Museum Pass" = "دخول المتاحف";
-"Culture Pass Plus card holder" = "حامل بطاقتك الى الثقافه المميزه";
+"Culture Pass Plus card holder" = "حامل بطاقته باس بلس";
 "Culture Pass Family card holder" = "حامل بطاقة العائلة الثقافية";
 "Family" = "عائلة";
 "Family (Resident of Qatar)" = "عائلة (مقيم في قطر)";
@@ -473,7 +471,7 @@
 "YOUR TICKET" = "تذكرتك";
 "Show this ticket at the Museum for entry" = "يرجى إبراز هذه التذكرة عند الدخول للمتحف";
 "My Tickets" = "تذاكري";
-"Buy Tickets" = "شراء تذاكر";
+"Buy Tickets" = "شراء التذاكر";
 "Valid for 1 year" = "صالحة لمدة عام";
 "You are not authorized to select CP Membership tickets, please log in or register to become a member." = "غير مصرح لك بتحديد تذاكر عضوية CP ، يرجى تسجيل الدخول أو التسجيل لتصبح عضوًا.";
 "You are not authorized member, please upgrade your membership." = "أنت لست عضوًا مخول ، يرجى ترقية عضويتك.";
