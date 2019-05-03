@@ -313,7 +313,6 @@
 "Confirm Password" = "Confirm Password";
 "Confirm Password*" = "Confirm Password*";
 "About You" = "About You";
-"Title*" = "Title*";
 "Title" = "Title";
 "First Name*" = "First Name*";
 "First Name" = "First Name";
@@ -321,9 +320,7 @@
 "Last Name" = "Last Name";
 "Country of Residence*" = "Country of Residence*";
 "Country of Residence" = "Country of Residence";
-"Nationality*" = "Nationality*";
 "Nationality" = "Nationality";
-"Code*" = "Code*";
 "Code" = "Code";
 "Mobile*" = "Mobile*";
 "Mobile" = "Mobile";

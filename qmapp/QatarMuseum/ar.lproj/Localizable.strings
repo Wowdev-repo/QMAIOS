@@ -306,7 +306,6 @@
 "Confirm Password" = "تأكيد كلمة المرور";
 "Confirm Password*" = "تأكيد كلمة االمرور*";
 "About You" = "بياناتك";
-"Title*" = "اللقب*";
 "Title" = "اللقب";
 "First Name*" = "الاسم*";
 "First Name" = "الاسم";
@@ -314,9 +313,7 @@
 "Last Name" = "اسم العائلة";
 "Country of Residence*" = "بلد الإقامة*";
 "Country of Residence" = "بلد الإقامة";
-"Nationality*" = "الجنسية *";
 "Nationality" = "الجنسية";
-"Code*" = "*الرمز";
 "Code" = "الرمز";
 "Mobile*" = "رقم الجوال*";
 "Mobile" = "رقم الجوال";
