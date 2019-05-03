@@ -481,7 +481,6 @@
 "Cancel" = "Cancel";
 "Are you sure you want to log out?" = "Are you sure you want to log out?";
 "Ok" = "Ok";
-"Cancel" = "Cancel";
 "Continue to checkout the selected membership plan" = "Continue to checkout the selected membership plan";
 "Please subscribe to any of the membership plan" = "Please subscribe to any of the membership plan";
 
@@ -537,3 +536,5 @@
 "Family ticket includes 2 adults and up tp 4 children"="Family ticket includes 2 adults and up tp 4 children";
 "Family ticket includes 2 adults and up to 4 children"="Family ticket includes 2 adults and up to 4 children";
 "No description available"="No description available";
+
+"PLEASE SELECT A MUSEUM"="PLEASE SELECT A MUSEUM";

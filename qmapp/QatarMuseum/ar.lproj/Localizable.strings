@@ -442,7 +442,6 @@
 "Log Out" = "تسجيل الخروج";
 "Are you sure you want to log out?" = "هل أنت متأكد أنك تريد تسجيل الخروج؟";
 "Ok" = "موافق";
-"Cancel" = "إلغاء";
 "Continue to checkout the selected membership plan" = "متابعة للتحقق من نوع العضوية المحددة";
 "Please subscribe to any of the membership plan" = "يرجى الاشتراك في أي نوع من العضوية";
 "Checkout without signing in." = "الخروج دون تسجيل الدخول.";
@@ -487,3 +486,4 @@
 "Family ticket includes 2 adults and up tp 4 children"="بطاقه عائليه تشمل شخصين كبار و اربعه اطفال";
 "Family ticket includes 2 adults and up to 4 children"="بطاقه عائليه تشمل شخصين كبار و اربعه اطفال";
 "No description available"="التفاصيل غير متوفرة";
+"PLEASE SELECT A MUSEUM"="يرجى اختيار متحف";
