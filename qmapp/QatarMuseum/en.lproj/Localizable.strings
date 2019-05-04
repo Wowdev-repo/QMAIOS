@@ -273,7 +273,7 @@
 "CP Basic" = "Culture Pass Basic";
 "CP Plus" = "Culture Pass Plus";
 
-"QR" = "QR";
+"QR" = "QAR";
 "CP Member Basic" = "CP Member Basic";
 "CP Member Plus" = "CP Member Plus";
 "Read Benefits" = "Read Benefits";
@@ -318,9 +318,13 @@
 "First Name" = "First Name";
 "Last Name*" = "Last Name*";
 "Last Name" = "Last Name";
+"Country"="Country";
+"Select Country*"="Select Country*";
+"Select Country"="Select Country";
+"Nationality"="Nationality";
+"Select Nationality"="Select Nationality";
 "Country of Residence*" = "Country of Residence*";
 "Country of Residence" = "Country of Residence";
-"Nationality" = "Nationality";
 "Code" = "Code";
 "Mobile*" = "Mobile*";
 "Mobile" = "Mobile";
@@ -536,5 +540,9 @@
 "Family ticket includes 2 adults and up tp 4 children"="Family ticket includes 2 adults and up tp 4 children";
 "Family ticket includes 2 adults and up to 4 children"="Family ticket includes 2 adults and up to 4 children";
 "No description available"="No description available";
-
 "PLEASE SELECT A MUSEUM"="PLEASE SELECT A MUSEUM";
+"VisitTicket" = "Ticket";
+"Share" = "Share";
+"1" ="1";
+"2"="2";
+"3"="3";
