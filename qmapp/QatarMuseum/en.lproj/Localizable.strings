@@ -333,6 +333,7 @@
 "Save" = "Save";
 
 "Membership Renewal" = "Membership Renewal";
+"Culture Pass Membership" = "Culture Pass Membership";
 "Expires On" = "Expires On";
 "My Visits" = "My Visits";
 "My Profile" = "My Profile";
@@ -443,14 +444,12 @@
 "Failed to find your Profile Kindly try with Correct email" = "Failed to find your Profile Kindly try with Correct email";
 
 "Please enter name" = "Please enter name";
-"Please enter email id" = "Please enter email id";
 "Please enter valid email id" = "Please enter valid email id";
 "Please enter phone number" = "Please enter phone number";
 "Please enter valid phone number" = "Please enter valid phone number";
 "Please enter nationality" = "Please enter nationality";
 "Please accept terms and conditions" = "Please accept terms and conditions";
 "Username or password is wrong" = "Username or password is wrong";
-"Please enter Email Id" = "Please enter Email Id";
 "Please enter Valid Email Id" = "Please enter Valid Email Id";
 "Please enter password" = "Please enter password";
 "Password reset link has been sent to your mail" = "Password reset link has been sent to your mail";
@@ -459,7 +458,6 @@
 "Please enter valid email id" = "Please enter valid email id";
 "User registration failed" = "User registration failed";
 "Email id already exist" = "Email id already exist";
-"Please enter email id" = "Please enter email id";
 "Please enter valid email id" = "Please enter valid email id";
 "Please enter new password" = "Please enter new password";
 "Password should have atlease 1 character, 1 number, 1 special character and minimum 6 characters" = "Password should have atlease 1 character, 1 number, 1 special character and minimum 6 characters";
@@ -532,14 +530,14 @@
 "MATHAF: ARAB MUSEUM OF MODERN ART"="MATHAF: ARAB MUSEUM OF MODERN ART";
 
 // Ticket Description
-
-"Please present your valid student card on entry"="Please present your valid student card on entry";
-"Grants the holder access to all QM museums"="Grants the holder access to all QM museums";
-"Please present your valid Culture Pass card on entry"="Please present your valid Culture Pass card on entry";
-"Please present your valid QID or Qatari drivers license on entry"="Please present your valid QID or Qatari drivers license on entry";
-"Family ticket includes 2 adults and up tp 4 children"="Family ticket includes 2 adults and up tp 4 children";
-"Family ticket includes 2 adults and up to 4 children"="Family ticket includes 2 adults and up to 4 children";
+"Please present your valid student card on entry."="Please present your valid student card on entry.";
+"Family ticket includes 2 adults and up to 4 children."="Family ticket includes 2 adults and up to 4 children.";
+"Family ticket includes 2 adults and up tp 4 children."="Family ticket includes 2 adults and up tp 4 children.";
+"Please present your valid Culture Pass card on entry."="Please present your valid Culture Pass card on entry.";
+"Please present your valid QID or Qatari drivers license on entry."="Please present your valid QID or Qatari drivers license on entry.";
+"Grants the holder access to all QM museums."="Grants the holder access to all QM museums.";
 "No description available"="No description available";
+
 "PLEASE SELECT A MUSEUM"="PLEASE SELECT A MUSEUM";
 "VisitTicket" = "Ticket";
 "Share" = "Share";

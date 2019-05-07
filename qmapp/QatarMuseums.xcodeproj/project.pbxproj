@@ -45,7 +45,6 @@
 		B806B7BF2124534200F9F338 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B806B7BE2124534200F9F338 /* CoreText.framework */; };
 		B806B7C12124534800F9F338 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B806B7C02124534800F9F338 /* CoreTelephony.framework */; };
 		B806B7C32124534E00F9F338 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B806B7C22124534E00F9F338 /* CoreLocation.framework */; };
-		B806B7C52124535600F9F338 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B806B7C42124535600F9F338 /* CoreImage.framework */; };
 		B806B7C72124535F00F9F338 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B806B7C62124535F00F9F338 /* CoreGraphics.framework */; };
 		B806B7C92124536600F9F338 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B806B7C82124536600F9F338 /* CoreData.framework */; };
 		B806B7CB2124536F00F9F338 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B806B7CA2124536E00F9F338 /* Accelerate.framework */; };
@@ -213,8 +212,9 @@
 		B8F6B041225CAE84000EF764 /* ExhibitionDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F6B040225CAE84000EF764 /* ExhibitionDetailView.xib */; };
 		B8FC190120DE854400D00E6B /* MuseumBottomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8FC190020DE854400D00E6B /* MuseumBottomCell.swift */; };
 		B8FEC77C2112E57100648F66 /* Dining.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8FEC77B2112E57100648F66 /* Dining.swift */; };
-		C6329CFB227E515B00E1BC49 /* QatarMuseumTicketingLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6329CFA227E515B00E1BC49 /* QatarMuseumTicketingLib.framework */; };
-		C6329CFC227E515B00E1BC49 /* QatarMuseumTicketingLib.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C6329CFA227E515B00E1BC49 /* QatarMuseumTicketingLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C660618122805A5F00DDA16D /* countries.json in Resources */ = {isa = PBXBuildFile; fileRef = C660618022805A5F00DDA16D /* countries.json */; };
+		C66061A42280804B00DDA16D /* QatarMuseumTicketingLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C66061A32280804A00DDA16D /* QatarMuseumTicketingLib.framework */; };
+		C66061A52280804B00DDA16D /* QatarMuseumTicketingLib.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C66061A32280804A00DDA16D /* QatarMuseumTicketingLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C6E8A76B2274A22900744088 /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E8A76A2274A22900744088 /* AppConstants.swift */; };
 		DA51D58A8DA63CE54CFF0485 /* Pods_QatarMuseums.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94F5559C89E84E914A76D7A7 /* Pods_QatarMuseums.framework */; };
 /* End PBXBuildFile section */
@@ -243,7 +243,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				C6329CFC227E515B00E1BC49 /* QatarMuseumTicketingLib.framework in Embed Frameworks */,
+				C66061A52280804B00DDA16D /* QatarMuseumTicketingLib.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -495,7 +495,8 @@
 		B8F6B040225CAE84000EF764 /* ExhibitionDetailView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExhibitionDetailView.xib; sourceTree = "<group>"; };
 		B8FC190020DE854400D00E6B /* MuseumBottomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuseumBottomCell.swift; sourceTree = "<group>"; };
 		B8FEC77B2112E57100648F66 /* Dining.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dining.swift; sourceTree = "<group>"; };
-		C6329CFA227E515B00E1BC49 /* QatarMuseumTicketingLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QatarMuseumTicketingLib.framework; sourceTree = "<group>"; };
+		C660618022805A5F00DDA16D /* countries.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = countries.json; sourceTree = "<group>"; };
+		C66061A32280804A00DDA16D /* QatarMuseumTicketingLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QatarMuseumTicketingLib.framework; sourceTree = "<group>"; };
 		C6E8A76A2274A22900744088 /* AppConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
 		FF0C898808E8CD16BED3F913 /* Pods-QatarMuseums.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QatarMuseums.release.xcconfig"; path = "Pods/Target Support Files/Pods-QatarMuseums/Pods-QatarMuseums.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -509,13 +510,12 @@
 				B806B7CB2124536F00F9F338 /* Accelerate.framework in Frameworks */,
 				B806B7C92124536600F9F338 /* CoreData.framework in Frameworks */,
 				B806B7C72124535F00F9F338 /* CoreGraphics.framework in Frameworks */,
-				B806B7C52124535600F9F338 /* CoreImage.framework in Frameworks */,
 				B806B7C32124534E00F9F338 /* CoreLocation.framework in Frameworks */,
+				C66061A42280804B00DDA16D /* QatarMuseumTicketingLib.framework in Frameworks */,
 				B806B7C12124534800F9F338 /* CoreTelephony.framework in Frameworks */,
 				B806B7BF2124534200F9F338 /* CoreText.framework in Frameworks */,
 				B806B7BD2124533B00F9F338 /* GLKit.framework in Frameworks */,
 				B806B7BB2124533300F9F338 /* ImageIO.framework in Frameworks */,
-				C6329CFB227E515B00E1BC49 /* QatarMuseumTicketingLib.framework in Frameworks */,
 				B806B7B92124532D00F9F338 /* libc++.tbd in Frameworks */,
 				B806B7B72124532300F9F338 /* libz.tbd in Frameworks */,
 				B806B7B52124531B00F9F338 /* OpenGLES.framework in Frameworks */,
@@ -695,7 +695,7 @@
 		B80DC04C20C792E400E28034 = {
 			isa = PBXGroup;
 			children = (
-				C6329CFA227E515B00E1BC49 /* QatarMuseumTicketingLib.framework */,
+				C66061A32280804A00DDA16D /* QatarMuseumTicketingLib.framework */,
 				49273F602185A74800D3057A /* QatarMuseums.entitlements */,
 				B8EAA3582158D4520060D168 /* GoogleService-Info.plist */,
 				B80DC05720C792E400E28034 /* QatarMuseum */,
@@ -744,6 +744,7 @@
 				B806B7CC21247FB400F9F338 /* MapStyle.json */,
 				B8D827EC216239DC0092262A /* DetailPageStoryboard.storyboard */,
 				B807FCCE218EA8FD003CC51E /* CountryListArabic.json */,
+				C660618022805A5F00DDA16D /* countries.json */,
 			);
 			path = QatarMuseum;
 			sourceTree = "<group>";
@@ -1406,6 +1407,7 @@
 				B8AFA2F220E78E09008838A6 /* DINNextLTPro-Regular.ttf in Resources */,
 				B8B54D6C20FF514E00B21348 /* CollectionDetailView.xib in Resources */,
 				B8D827ED216239DC0092262A /* DetailPageStoryboard.storyboard in Resources */,
+				C660618122805A5F00DDA16D /* countries.json in Resources */,
 				B80B76AC218AD6AC00190967 /* AcceptDeclinePopup.xib in Resources */,
 				B8CA08E42146D38400783642 /* ObjectPopupView.xib in Resources */,
 				B87F62E9225DD01B00ADCB1F /* DiningDetailCellView.xib in Resources */,

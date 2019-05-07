@@ -326,6 +326,7 @@
 "Save" = "حفظ";
 "MY TICKETS" = "تذاكري";
 "Membership Renewal" = "تجديد عضوية بطاقتك الى الثقافة";
+"Culture Pass Membership" = "عضويه بطاقته الثقافه";
 "Expires On" = "تنتهي صلاحيته في";
 "My Visits" = "تذاكري";
 "My Profile" = "الملف الشخصي";
@@ -390,7 +391,7 @@
 "Your profile updated successfully" = "تم تحديث ملفك الشخصي بنجاح";
 "Email id already exist" = "البريد الإلكتروني موجود بالفعل";
 "Password reset link has been sent to your mail" = "تم إرسال رابط إعادة ضبط كلمة المرور إلى بريدك";
-"Please enter email id" = "الرجاء إدخال معرف البريد الإلكتروني";
+"Please enter email id" = "الرجاء إدخال البريد الإلكتروني";
 "Please enter valid email id" = "الرجاء إدخال معرف بريد إلكتروني صالح";
 "Please enter title" = "الرجاء إدخال العنوان";
 "Please enter first name" = "الرجاء إدخال الاسم الأول";
@@ -404,14 +405,12 @@
 "Please enter valid email id" = "يرجى إدخال بريد إلكتروني صحيح";
 "Failed to find your Profile Kindly try with Correct email" = "فشل في العثور على الملف الخاص بك ، يرجى ادخال بريد الإلكتروني صحيح";
 "Please enter name" = "يرجى إدخال الاسم";
-"Please enter email id" = "يرجى إدخال البريد الإلكتروني";
 "Please enter valid email id" = "يرجى إدخال بريد إلكتروني صحيح";
 "Please enter phone number" = "يرجى إدخال رقم الهاتف";
 "Please enter valid phone number" = "يرجى إدخال رقم هاتف صحيح";
 "Please enter nationality" = "يرجى إدخال الجنسية";
 "Please accept terms and conditions" = "يرجى قبول الشروط والأحكام";
 "Username or password is wrong" = "اسم المستخدم أو كلمة المرور غير صحيحة";
-"Please enter Email Id" = "الرجاء إدخال البريد الإلكتروني";
 "Please enter Valid Email Id" = "يرجى إدخال بريد إلكتروني صحيح";
 "Please enter password" = "يرجى إدخال كلمة المرور";
 "Password reset link has been sent to your mail" = "تم إرسال رابط إعادة ضبط كلمة المرور إلى بريدك الإلكتروني";
@@ -420,7 +419,6 @@
 "Please enter valid email id" = "الرجاء إدخال بريد إلكتروني صحيح";
 "User registration failed" = "فشل تسجيل المستخدم";
 "Email id already exist" = "البريد الإلكتروني موجود بالفعل";
-"Please enter email id" = "الرجاء إدخال البريد الإلكتروني";
 "Please enter valid email id" = "الرجاء إدخال بريد إلكتروني صحيح";
 "Please enter new password" = "الرجاء إدخال كلمة مرور جديدة";
 "Password should have atlease 1 character, 1 number, 1 special character and minimum 6 characters" = "يجب أن تحتوي كلمة المرور على حرف واحد على الأقل ، ورقم واحد ، و رمز خاص واحد ، و 6 أحرف على الأقل";
@@ -482,14 +480,14 @@
 "MATHAF: ARAB MUSEUM OF MODERN ART"="متحف : المتحف العربي للفن الحديث";
 
 // Ticket Description
-
-"Please present your valid student card on entry"="يُرجى اظهار بطاقة طالب جامعية سارية عند الدخول";
-"Grants the holder access to all QM museums"="يمنح حامل البطاقه زياره جميع متاحف قطر";
-"Please present your valid Culture Pass card on entry"="يُرجى اظهار بطاقة الثقافة سارية عند الدخول";
-"Please present your valid QID or Qatari drivers license on entry"="يرجى اظهار رخصة قيادة سارية أو البطاقه القطريةالشخصيه سارية المفعول عند الدخول";
-"Family ticket includes 2 adults and up tp 4 children"="بطاقه عائليه تشمل شخصين كبار و اربعه اطفال";
-"Family ticket includes 2 adults and up to 4 children"="بطاقه عائليه تشمل شخصين كبار و اربعه اطفال";
+"Please present your valid student card on entry."="يُرجى اظهار بطاقة طالب جامعية سارية عند الدخول.";
+"Family ticket includes 2 adults and up to 4 children."="بطاقه عائليه تشمل شخصين كبار و اربعه اطفال.";
+"Family ticket includes 2 adults and up tp 4 children."="بطاقه عائليه تشمل شخصين كبار و اربعه اطفال.";
+"Please present your valid Culture Pass card on entry."="يُرجى اظهار بطاقة الثقافة سارية عند الدخول.";
+"Please present your valid QID or Qatari drivers license on entry."="يرجى اظهار رخصة قيادة سارية أو البطاقه القطريةالشخصيه سارية المفعول عند الدخول.";
+"Grants the holder access to all QM museums."="يمنح حامل البطاقه زياره جميع متاحف قطر.";
 "No description available"="التفاصيل غير متوفرة";
+
 "PLEASE SELECT A MUSEUM"="يرجى اختيار المتحف";
 "VisitTicket" = "التذكرة";
 "Share" = "مشاركة";
