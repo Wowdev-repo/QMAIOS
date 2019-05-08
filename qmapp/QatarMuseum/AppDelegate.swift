@@ -15,6 +15,9 @@ import UIKit
 import UserNotifications
 import Fabric
 import Crashlytics
+import IQKeyboardManagerSwift
+
+
 var tokenValue : String? = nil
 var languageKey = 1
 
@@ -34,6 +37,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         }
         
         AppLocalizer.DoTheMagic()
+        IQKeyboardManager.shared.enable = true
         FirebaseApp.configure()
         Fabric.with([Crashlytics.self])
         registerForPushNotifications()

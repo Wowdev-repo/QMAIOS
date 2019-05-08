@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "FSCalendar.h"
 //! Project version number for QatarMuseumTicketingLib.
 FOUNDATION_EXPORT double QatarMuseumTicketingLibVersionNumber;
 
