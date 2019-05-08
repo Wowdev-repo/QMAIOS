@@ -65,6 +65,7 @@ PODS:
   - QRCode (2.0)
   - SwiftyJSON (5.0.0)
   - Toast-Swift (4.0.1)
+  - TTTAttributedLabel (2.0.0)
   - YouTubePlayer (0.4.0)
 
 DEPENDENCIES:
@@ -82,6 +83,7 @@ DEPENDENCIES:
   - QRCode
   - SwiftyJSON
   - Toast-Swift (~> 4.0.0)
+  - TTTAttributedLabel
   - YouTubePlayer
 
 SPEC REPOS:
@@ -107,6 +109,7 @@ SPEC REPOS:
     - QRCode
     - SwiftyJSON
     - Toast-Swift
+    - TTTAttributedLabel
     - YouTubePlayer
 
 SPEC CHECKSUMS:
@@ -131,8 +134,9 @@ SPEC CHECKSUMS:
   QRCode: f98a1886c8f37523704a7512a4c0cd45b34c18a4
   SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
   Toast-Swift: e42a638589a2f95036b4bb7626cfbdde7daf0393
+  TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
   YouTubePlayer: 028451f6772f372d4759866db99824c676ac1473
 
-PODFILE CHECKSUM: 90ae8808f6f91d25a86f926185d80b4626f9bf8b
+PODFILE CHECKSUM: ed873111b0f531c3b9ac9d77bd3c2a0abc41b20b
 
 COCOAPODS: 1.5.3

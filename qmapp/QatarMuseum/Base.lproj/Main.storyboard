@@ -1563,7 +1563,7 @@
                                 <rect key="frame" x="0.0" y="85" width="414" height="651"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TU4-wX-Kh5">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="472"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="474"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="KNOWLEDGE IN ACTION" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OjR-xm-nbv">
                                                 <rect key="frame" x="105.00000000000001" y="25" width="204.33333333333337" height="20"/>
@@ -1616,14 +1616,14 @@
                                                     <action selector="playPauseButtonTouchDown:" destination="tBI-Sz-bX0" eventType="touchDown" id="SyC-F6-GMu"/>
                                                 </connections>
                                             </button>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="All of our education parameters privide interactive " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SHx-NL-C4b">
-                                                <rect key="frame" x="21" y="355" width="372.33333333333331" height="17"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="All of our education parameters privide interactive " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SHx-NL-C4b" customClass="TTTAttributedLabel">
+                                                <rect key="frame" x="22" y="355" width="370" height="19"/>
                                                 <fontDescription key="fontDescription" name="DINNextLTPro-Regular" family="DIN Next LT Pro" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5DT-BC-Fnr">
-                                                <rect key="frame" x="25" y="402" width="364" height="50"/>
+                                                <rect key="frame" x="25" y="404" width="364" height="50"/>
                                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="IQe-k4-Y99"/>
