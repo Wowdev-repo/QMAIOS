@@ -134,6 +134,7 @@ class EventViewController: UIViewController,UICollectionViewDelegate,UICollectio
             headerView.headerBackButton.setImage(UIImage(named: "back_mirrorX1"), for: .normal)
             //For RTL
             calendarView?.locale = Locale(identifier: "ar")
+            calendarView?.firstWeekday = 7
             self.calendarView.transform = CGAffineTransform(scaleX: -1, y: 1)
             calendarView.setCurrentPage(Date(), animated: false)
             UserDefaults.standard.set(true, forKey: "Arabic")
@@ -147,9 +148,18 @@ class EventViewController: UIViewController,UICollectionViewDelegate,UICollectio
         }
     }
     //For RTL
+//    func minimumDate(for calendar: FSCalendar) -> Date {
+//        return self.formatter.date(from: "2016-07-08")!
+//    }
+    
     func minimumDate(for calendar: FSCalendar) -> Date {
-        return self.formatter.date(from: "2016-07-08")!
+        return self.formatter.date(from: "2000-07-08")!
     }
+    
+    func maximumDate(for calendar: FSCalendar) -> Date {
+        return self.formatter.date(from: "2020-07-08")!
+    }
+
     fileprivate let formatter: DateFormatter = {
         let formatter = DateFormatter()
         if ((LocalizationLanguage.currentAppleLanguage()) == AR_LANGUAGE) {
