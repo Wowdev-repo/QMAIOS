@@ -715,7 +715,7 @@ class PreviewContainerViewController: UIViewController,UIPageViewControllerDeleg
                 if(data.tourGuideFloorMap?.count != 0) {
                     self.tourGuideArray.removeAll()
                     self.tourGuideArray = data.tourGuideFloorMap
-                    self.saveOrUpdateTourGuideCoredata()// please update the actual received data
+                    self.saveOrUpdateTourGuideCoredata()
                 }
             case .failure(let error):
                 print(error)

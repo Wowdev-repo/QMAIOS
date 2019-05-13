@@ -230,6 +230,8 @@ enum QatarMuseumRouter: URLRequestConvertible {
     public var request: URLRequest {
         let URL = NSURL(string: Config.baseURL + lang() + Config.mobileApiURL)!
         var mutableURLRequest = URLRequest(url: URL.appendingPathComponent(path)!)
+        mutableURLRequest.cachePolicy = .reloadIgnoringCacheData
+
         mutableURLRequest.httpMethod = method.rawValue
         if let accessToken = UserDefaults.standard.value(forKey: "accessToken")
             as? String {

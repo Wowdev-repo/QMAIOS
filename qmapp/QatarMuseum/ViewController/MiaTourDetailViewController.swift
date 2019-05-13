@@ -52,7 +52,7 @@ class MiaTourDetailViewController: UIViewController, HeaderViewProtocol, comingS
         headerView.headerTitle.text = NSLocalizedString("MIA_TOUR_GUIDES_TITLE", comment: "MIA_TOUR_GUIDES_TITLE in the Mia tour guide page")
         
         if (museumId == "66") {
-            headerView.headerTitle.text = NSLocalizedString("NMoQ TOUR GUIDES", comment: "NMoQ in the Mia tour guide page")
+            headerView.headerTitle.text = NSLocalizedString("NMOQ_TOUR_HEADER", comment: "NMoQ in the Mia tour guide page")
         }
 
        // slideshowView.imagesContentMode = .scaleAspectFill
