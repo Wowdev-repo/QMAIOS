@@ -705,11 +705,17 @@ class PreviewContainerViewController: UIViewController,UIPageViewControllerDeleg
     
     func getTourGuideDataFromServerInBackgound() {
         let queue = DispatchQueue(label: "", qos: .background, attributes: .concurrent)
+        
+        //remove cache before request
+        URLCache.shared = URLCache(memoryCapacity: 0, diskCapacity: 0, diskPath: nil)
+
         _ = Alamofire.request(QatarMuseumRouter.CollectionByTourGuide(LocalizationLanguage.currentAppleLanguage(),["tour_guide_id": tourGuideId!])).responseObject(queue: queue) { (response: DataResponse<TourGuideFloorMaps>) -> Void in
             switch response.result {
             case .success(let data):
                 if(data.tourGuideFloorMap?.count != 0) {
-                    self.saveOrUpdateTourGuideCoredata()
+                    self.tourGuideArray.removeAll()
+                    self.tourGuideArray = data.tourGuideFloorMap
+                    self.saveOrUpdateTourGuideCoredata()// please update the actual received data
                 }
             case .failure(let error):
                 print(error)

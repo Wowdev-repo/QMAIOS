@@ -135,6 +135,7 @@ class EventViewController: UIViewController,UICollectionViewDelegate,UICollectio
             //For RTL
             calendarView?.locale = Locale(identifier: "ar")
             calendarView?.firstWeekday = 7
+            calendarView.calendarHeaderView.collectionViewLayout.collectionView?.semanticContentAttribute = .forceLeftToRight
             self.calendarView.transform = CGAffineTransform(scaleX: -1, y: 1)
             calendarView.setCurrentPage(Date(), animated: false)
             UserDefaults.standard.set(true, forKey: "Arabic")
@@ -148,16 +149,8 @@ class EventViewController: UIViewController,UICollectionViewDelegate,UICollectio
         }
     }
     //For RTL
-//    func minimumDate(for calendar: FSCalendar) -> Date {
-//        return self.formatter.date(from: "2016-07-08")!
-//    }
-    
     func minimumDate(for calendar: FSCalendar) -> Date {
-        return self.formatter.date(from: "2000-07-08")!
-    }
-    
-    func maximumDate(for calendar: FSCalendar) -> Date {
-        return self.formatter.date(from: "2020-07-08")!
+        return self.formatter.date(from: "2016-07-08")!
     }
 
     fileprivate let formatter: DateFormatter = {
@@ -168,6 +161,43 @@ class EventViewController: UIViewController,UICollectionViewDelegate,UICollectio
         formatter.dateFormat = "yyyy-MM-dd"
         return formatter
     }()
+    
+//    func showArabicSubTitle(date: Date!) -> String!
+//    {
+//
+//        let dateFormater = DateFormatter()
+//        dateFormater.dateFormat = "dd"
+//
+//        var calendarDate = dateFormater.string(from: date as Date)
+//
+//        let characters = Array(calendarDate.characters)
+//
+//        let substituteArabic = ["0":"٠", "1":"١", "2":"٢", "3":"٣", "4":"٤", "5":"٥", "6":"٦", "7":"٧", "8":"٨", "9":"٩"]
+//        var arabicDate =  ""
+//
+//        for i in characters {
+//            if let subs = substituteArabic[String(i)] {
+//                arabicDate += subs
+//            } else {
+//                arabicDate += String(i)
+//            }
+//        }
+//
+//        return arabicDate
+//    }
+//
+//    //MARK: - FSCalendarDelegate
+//
+//    func calendar(_ calendar: FSCalendar, titleFor date: Date) -> String? {
+//        return (LocalizationLanguage.currentAppleLanguage() == "ar") ? self.showArabicSubTitle(date: date) : nil
+//    }
+    
+    
+    
+    
+    
+    
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }

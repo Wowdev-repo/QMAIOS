@@ -50,6 +50,10 @@ class MiaTourDetailViewController: UIViewController, HeaderViewProtocol, comingS
         startTourButton.setTitle(NSLocalizedString("START_TOUR", comment: "START_TOUR in science tour page"), for: .normal)
         headerView.headerViewDelegate = self
         headerView.headerTitle.text = NSLocalizedString("MIA_TOUR_GUIDES_TITLE", comment: "MIA_TOUR_GUIDES_TITLE in the Mia tour guide page")
+        
+        if (museumId == "66") {
+            headerView.headerTitle.text = NSLocalizedString("NMoQ TOUR GUIDES", comment: "NMoQ in the Mia tour guide page")
+        }
 
        // slideshowView.imagesContentMode = .scaleAspectFill
         self.slideshowView.addImage(UIImage(named: "sliderPlaceholder"))
