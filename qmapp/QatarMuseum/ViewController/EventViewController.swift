@@ -162,35 +162,35 @@ class EventViewController: UIViewController,UICollectionViewDelegate,UICollectio
         return formatter
     }()
     
-//    func showArabicSubTitle(date: Date!) -> String!
-//    {
-//
-//        let dateFormater = DateFormatter()
-//        dateFormater.dateFormat = "dd"
-//
-//        var calendarDate = dateFormater.string(from: date as Date)
-//
-//        let characters = Array(calendarDate.characters)
-//
-//        let substituteArabic = ["0":"٠", "1":"١", "2":"٢", "3":"٣", "4":"٤", "5":"٥", "6":"٦", "7":"٧", "8":"٨", "9":"٩"]
-//        var arabicDate =  ""
-//
-//        for i in characters {
-//            if let subs = substituteArabic[String(i)] {
-//                arabicDate += subs
-//            } else {
-//                arabicDate += String(i)
-//            }
-//        }
-//
-//        return arabicDate
-//    }
-//
-//    //MARK: - FSCalendarDelegate
-//
-//    func calendar(_ calendar: FSCalendar, titleFor date: Date) -> String? {
-//        return (LocalizationLanguage.currentAppleLanguage() == "ar") ? self.showArabicSubTitle(date: date) : nil
-//    }
+    func showArabicSubTitle(date: Date!) -> String!
+    {
+
+        let dateFormater = DateFormatter()
+        dateFormater.dateFormat = "dd"
+
+        var calendarDate = dateFormater.string(from: date as Date)
+
+        let characters = Array(calendarDate.characters)
+
+        let substituteArabic = ["0":"٠", "1":"١", "2":"٢", "3":"٣", "4":"٤", "5":"٥", "6":"٦", "7":"٧", "8":"٨", "9":"٩"]
+        var arabicDate =  ""
+
+        for i in characters {
+            if let subs = substituteArabic[String(i)] {
+                arabicDate += subs
+            } else {
+                arabicDate += String(i)
+            }
+        }
+
+        return arabicDate
+    }
+
+    //MARK: - FSCalendarDelegate
+
+    func calendar(_ calendar: FSCalendar, titleFor date: Date) -> String? {
+        return (LocalizationLanguage.currentAppleLanguage() == "ar") ? self.showArabicSubTitle(date: date) : nil
+    }
     
     
     
