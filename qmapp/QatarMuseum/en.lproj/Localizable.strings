@@ -27,6 +27,7 @@
 "EVENTS_LABEL" = "Events";
 "EDUCATION_LABEL" = "Education";
 "TOURGUIDE_LABEL" = "Tour Guide";
+"NMoQ_TOURGUIDE_LABEL" = "Audio Guide";
 "HERITAGESITES_LABEL" = "Heritage Sites";
 "PUBLIC_ARTS_LABEL" = "Public Arts";
 "PARKS_LABEL" = "Parks";
@@ -147,6 +148,11 @@
 "SELF_GUIDED_TOUR_TITLE" = "Self Guided Tours";
 "SELF_GUIDED_TEXT1" = "You may also try our self guided tours.";
 "SELF_GUIDED_TEXT2" = "Immerse yourself into the journeys curated specially for you by our experts.";
+
+"NMoQ_SELF_GUIDED_TOUR_TITLE" = "Self Guided Tours";
+"NMoQ_SELF_GUIDED_TEXT1" = "";
+"NMoQ_SELF_GUIDED_TEXT2" = "Try our audio tour. Immerse yourself into the journey curated specially for you.";
+
 "MIA_TOUR_GUIDE_DESC1" = "Welcome to Qatar Museum Premises. Explore the architecture and the objects on display.";
 "MIA_TOUR_GUIDE_DESC2" = "Scan the QR codes available on the galleries for more information.";
 "SCIENCE_TOUR_TEXT" = "In this tour, you will see and learn about the achievements and contributions of Muslim scientists through history. The eight objects have an obvious scientific purpose or show how science has influenced artistic methods.";

@@ -50,7 +50,7 @@ class MiaCollectionReusableView: UITableViewCell {
         exploreButtonBottom.constant = 5
         miaTitle.text = NSLocalizedString("NMOQ_TOUR_HEADER", comment: "NMOQ_TOUR_HEADER in TourGuide page")
         selfGuidedTitle.text = NSLocalizedString("SELF_GUIDED_TOUR_TITLE", comment: "SELF_GUIDED_TOUR_TITLE in TourGuide page")
-        selfGuidedText.text = NSLocalizedString("SELF_GUIDED_TEXT1", comment: "SELF_GUIDED_TEXT1 in TourGuide page") + "\n" + NSLocalizedString("SELF_GUIDED_TEXT2", comment: "SELF_GUIDED_TEXT2 in TourGuide page")
+        selfGuidedText.text = NSLocalizedString("NMoQ_SELF_GUIDED_TEXT1", comment: "SELF_GUIDED_TEXT1 in TourGuide page") + "\n" + NSLocalizedString("NMoQ_SELF_GUIDED_TEXT2", comment: "SELF_GUIDED_TEXT2 in TourGuide page")
     }
     func setTourHeader() {
         exploreButton.isHidden = true

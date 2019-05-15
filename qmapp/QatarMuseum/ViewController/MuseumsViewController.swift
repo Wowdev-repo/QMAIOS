@@ -64,6 +64,7 @@ class MuseumsViewController: UIViewController,KASlideShowDelegate,TopBarProtocol
        // let highlightTourName = NSLocalizedString("HIGHLIGHTS_TOUR", comment: "HIGHLIGHTS_TOUR  in the Museum page")
         let facilitiesName = NSLocalizedString("FACILITIES", comment: "FACILITIES  in the Museum page")
         let eventsName = NSLocalizedString("EVENTS_LABEL", comment: "EVENTS_LABEL  in the Museum page")
+        let nmoqTourGuideName = NSLocalizedString("NMoQ_TOURGUIDE_LABEL", comment: "NMoQ_TOURGUIDE_LABEL in the Museum page")
         
         museumsTopbar.topbarDelegate = self
         museumsTopbar.menuButton.isHidden = true
@@ -101,7 +102,7 @@ class MuseumsViewController: UIViewController,KASlideShowDelegate,TopBarProtocol
                 collectionViewNames = [aboutName,tourGuideName,exhibitionsName,collectionsName,diningName]
             }else if ((museumId == "66") || (museumId == "638")) {
                 collectionViewImages = ["about-launchX1","facilitiesX1","exhibition_blackX1","Audio CircleX1","park_blackX1"]
-                collectionViewNames = [aboutName,facilitiesName,exhibitionsName,tourGuideName,parkName]
+                collectionViewNames = [aboutName,facilitiesName,exhibitionsName,nmoqTourGuideName,parkName]
                 previousButton.isHidden = true
                 nextButton.isHidden = true
             } else {
@@ -379,8 +380,23 @@ class MuseumsViewController: UIViewController,KASlideShowDelegate,TopBarProtocol
                 transition.timingFunction = CAMediaTimingFunction(name:kCAMediaTimingFunctionEaseInEaseOut)
                 view.window!.layer.add(transition, forKey: kCATransition)
                 self.present(heritageDtlView, animated: false, completion: nil)
+            } else if ((selectedItem == "Audio Guide") || (selectedItem == "الدليل الصوتي")){
+                if((museumId == "66") || (museumId == "638")) {
+                    let tourGuideView =  self.storyboard?.instantiateViewController(withIdentifier: "exhibitionViewId") as! CommonListViewController
+                    tourGuideView.exhibitionsPageNameString = ExhbitionPageName.miaTourGuideList
+                    tourGuideView.museumId = museumId!
+                    let transition = CATransition()
+                    transition.duration = 0.3
+                    transition.type = kCATransitionPush
+                    transition.subtype = kCATransitionFromRight
+                    view.window!.layer.add(transition, forKey: kCATransition)
+                    self.present(tourGuideView, animated: false, completion: nil)
+                } else {
+                    self.loadComingSoonPopup()
+                }
+                
             } else if ((selectedItem == "Tour Guide") || (selectedItem == "الدليل السياحي")){
-                if((museumId == "63") || (museumId == "96") || (museumId == "66") || (museumId == "638")) {
+                if((museumId == "63") || (museumId == "96")) {
                     let tourGuideView =  self.storyboard?.instantiateViewController(withIdentifier: "exhibitionViewId") as! CommonListViewController
                     tourGuideView.exhibitionsPageNameString = ExhbitionPageName.miaTourGuideList
                     tourGuideView.museumId = museumId!

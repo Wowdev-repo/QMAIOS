@@ -26,7 +26,8 @@
 "EXHIBITIONS_LABEL" = "المعارض";
 "EVENTS_LABEL" = "الفعاليات";
 "EDUCATION_LABEL" = "التعليم";
-"TOURGUIDE_LABEL" = "الدليل الصوتي";
+"TOURGUIDE_LABEL" = "الدليل السياحي";
+"NMoQ_TOURGUIDE_LABEL" = "الدليل الصوتي";
 "HERITAGESITES_LABEL" = "المواقع التراثية";
 "PUBLIC_ARTS_LABEL" = "الفنون العامة";
 "PARKS_LABEL" = "الحدائق";
@@ -146,6 +147,12 @@
 "SELF_GUIDED_TOUR_TITLE" = "تجول كما يحلو لك";
 "SELF_GUIDED_TEXT1" = "ربما تريد أن تجرب جولاتنا كما يحلو لك";
 "SELF_GUIDED_TEXT2" = "اغمر نفسك في تفاصيل القطعة التي اختيرت خصيصا لك من قبل خبرائنا.";
+
+"NMoQ_SELF_GUIDED_TOUR_TITLE" = "تجول كما يحلو لك";
+"NMoQ_SELF_GUIDED_TEXT1" = "";
+"NMoQ_SELF_GUIDED_TEXT2" = "استخدم الدليل الصوتي، واستمتع بالرحلة التي أعددناها لك خصيصًا.";
+
+
 "MIA_TOUR_GUIDE_DESC1" = "أهلا بك في متاحف قطر. يرجى اختيار المتحف لإستكشاف القطع المعروضة";
 "MIA_TOUR_GUIDE_DESC2" = "امسح رموز QR المتاحة في صالات العرض لمزيد من المعلومات.";
 "SCIENCE_TOUR_TEXT" = "سيتسنى لك خلال هذه الجولة، رؤية واستكشاف إنجازات ومساهمات العلماء المسلمين عبر التاريخ. للقطع الثمانية غرض علمي واضح أو أنها تظهر كيفية تأثير العلوم على الأساليب والأشكال الفنية.";
@@ -247,7 +254,7 @@
 "FACILITIES" = "المرافق";
 "PANEL_AND_TALKS" = "قطر تبدع: فعاليات افتتاح متحف قطر الوطني";
 "PARKS_HEADER_LABEL" = "Park";
-"NMOQ_TOUR_HEADER" = "الدليل السياحي متحف قطر الوطني";
+"NMOQ_TOUR_HEADER" = "";
 
 // Ticketing Library Module Changes Started From Here
 

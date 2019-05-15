@@ -51,8 +51,15 @@ class MiaTourDetailViewController: UIViewController, HeaderViewProtocol, comingS
         headerView.headerViewDelegate = self
         headerView.headerTitle.text = NSLocalizedString("MIA_TOUR_GUIDES_TITLE", comment: "MIA_TOUR_GUIDES_TITLE in the Mia tour guide page")
         
-        if (museumId == "66") {
-            headerView.headerTitle.text = NSLocalizedString("NMOQ_TOUR_HEADER", comment: "NMoQ in the Mia tour guide page")
+        if ((museumId == "66") || (museumId == "638")) {
+            headerView.headerTitle.text = NSLocalizedString("NMOQ_TOUR_HEADER", comment: "NMoQ in the nmoq tour guide page")
+            scienceTourTitle.font = UIFont.nmoqtourGuideFont
+            
+            if(UIDevice.current.screenType.rawValue == "iPhone 5, iPhone 5s, iPhone 5c or iPhone SE"){
+                self.scienceTourTitle.textContainer.maximumNumberOfLines = 2
+                scienceTourTitle.font = scienceTourTitle.font!.withSize(30)
+            }
+            
         }
 
        // slideshowView.imagesContentMode = .scaleAspectFill
