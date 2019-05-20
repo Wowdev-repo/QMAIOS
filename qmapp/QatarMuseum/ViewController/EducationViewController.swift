@@ -40,7 +40,8 @@ class EducationViewController: UIViewController,AVPlayerViewControllerDelegate,H
         loadingView.showLoading()
         educationTitle.text = NSLocalizedString("KNOWLEDGE_ACTION_TITLE", comment: "KNOWLEDGE_ACTION_TITLE in the education page")
         firstDescriptionLabel.text = NSLocalizedString("EDUCATION_DESCRIPTION", comment: "EDUCATION_DESCRIPTION in the education page")
-        
+        secondDescriptionLabel.font = UIFont.englishTitleFont
+
         let str : NSString = NSLocalizedString("EDUCATION_TEXT", comment: "EDUCATION_TEXT in the education page") as NSString
         secondDescriptionLabel.delegate = self
         secondDescriptionLabel.text = str
