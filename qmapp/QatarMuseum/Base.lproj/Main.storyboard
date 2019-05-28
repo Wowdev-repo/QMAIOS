@@ -3258,6 +3258,7 @@
                     <connections>
                         <outlet property="accessNumberLabel" destination="nGa-6H-zsz" id="hUh-b8-nih"/>
                         <outlet property="objectTableView" destination="74w-BL-5G8" id="spC-Yr-OB0"/>
+                        <outlet property="underLineLabel" destination="MYW-gZ-bTp" id="HFL-Ue-g2d"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ErX-ix-9ds" userLabel="First Responder" sceneMemberID="firstResponder"/>

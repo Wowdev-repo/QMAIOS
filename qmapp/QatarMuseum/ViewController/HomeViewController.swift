@@ -689,13 +689,16 @@ class HomeViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     }
     
     func topBarProfileButtonPressed() {
+        print("Topbar profile action function")
         let profileView =  self.storyboard?.instantiateViewController(withIdentifier: "profileViewId") as! ProfileViewController
+        print("Topbar profile action function initiated ProfileView")
         profileView.fromHome = true
         let transition = CATransition()
         transition.duration = 0.3
         transition.type = kCATransitionPush
         transition.subtype = kCATransitionFromRight
         view.window!.layer.add(transition, forKey: kCATransition)
+        print("Topbar profile action function added transition effect")
         self.present(profileView, animated: false, completion: nil)
         
     }
