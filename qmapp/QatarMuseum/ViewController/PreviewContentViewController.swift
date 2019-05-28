@@ -51,17 +51,17 @@ class PreviewContentViewController: UIViewController, UITableViewDelegate, UITab
         if tourGuideData?.galleyNumber != nil  {
             floorLevel = (tourGuideData?.floorLevel?.replacingOccurrences(of: "<[^>]+>|&nbsp;|&#039;", with: "", options: .regularExpression, range: nil))!
         }
-        
-        if tourGuideData?.tourGuideId != "16076" {
+//        print("tourGuideId: \(tourGuideData?.tourGuideId)")
+        if tourGuideData?.tourGuideId == "16076" || tourGuideData?.tourGuideId == "16086" { // NMoQ tourGUideIds for english n arabic
+            accessNumberLabel.isHidden = true
+            underLineLabel.isHidden = true
+        }
+        else {
             accessNumberLabel.text = NSLocalizedString("FLOOR", comment: "FLOOR text in the preview page") + " " + floorLevel + ", " + NSLocalizedString("GALLERY", comment: "GALLERY text in the preview page") + " " + galleryNumber
             accessNumberLabel.font = UIFont.sideMenuLabelFont
             if(UIScreen.main.bounds.height <= 568) {
                 accessNumberLabel.font = UIFont.exhibitionDateLabelFont
             }
-        }
-        else {
-            accessNumberLabel.isHidden = true
-            underLineLabel.isHidden = true
         }
     }
     
