@@ -137,12 +137,12 @@ class MiaTourDetailViewController: UIViewController, HeaderViewProtocol, comingS
     }
     
     @IBAction func didTapPlayButton(_ sender: UIButton) {
-        self.playButton.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
-        loadComingSoonPopup()
+//        self.playButton.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+//        loadComingSoonPopup()
     }
     
     @IBAction func playButtonTouchDown(_ sender: UIButton) {
-        self.playButton.transform = CGAffineTransform(scaleX: 0.7, y: 0.7)
+//        self.playButton.transform = CGAffineTransform(scaleX: 0.7, y: 0.7)
     }
     
     @IBAction func didTapStartTour(_ sender: UIButton) {
