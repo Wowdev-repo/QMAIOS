@@ -380,7 +380,7 @@ class MuseumsViewController: UIViewController,KASlideShowDelegate,TopBarProtocol
                 transition.timingFunction = CAMediaTimingFunction(name:kCAMediaTimingFunctionEaseInEaseOut)
                 view.window!.layer.add(transition, forKey: kCATransition)
                 self.present(heritageDtlView, animated: false, completion: nil)
-            } else if ((selectedItem == "Audio Guide") || (selectedItem == "الدليل الصوتي")){
+            } else if ((selectedItem == "Audio Tour") || (selectedItem == "الدليل الصوتي")){
                 if((museumId == "66") || (museumId == "638")) {
                     let tourGuideView =  self.storyboard?.instantiateViewController(withIdentifier: "exhibitionViewId") as! CommonListViewController
                     tourGuideView.exhibitionsPageNameString = ExhbitionPageName.miaTourGuideList
