@@ -16,6 +16,7 @@ import UserNotifications
 import Fabric
 import Crashlytics
 import IQKeyboardManagerSwift
+import AVFoundation
 
 
 var tokenValue : String? = nil
@@ -65,6 +66,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             self.window?.makeKeyAndVisible()
         }
         application.applicationIconBadgeNumber = 0
+        
+        // enable playback category: this is required for background audio to function normally
+        let audioSession = AVAudioSession.sharedInstance()
+        try? audioSession.setCategory(AVAudioSessionCategoryPlayback, mode: AVAudioSessionModeDefault)
+        try? audioSession.setActive(true, with: [])
         
         return true
     }

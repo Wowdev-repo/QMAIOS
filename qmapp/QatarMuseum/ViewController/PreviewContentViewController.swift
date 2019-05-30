@@ -11,6 +11,8 @@ import AVKit
 import Crashlytics
 import Firebase
 import UIKit
+import MediaPlayer
+import Kingfisher
 
 class PreviewContentViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate {
     @IBOutlet weak var accessNumberLabel: UILabel!
@@ -168,6 +170,8 @@ class PreviewContentViewController: UIViewController, UITableViewDelegate, UITab
     func setPlayButtonAction(cellObj: ObjectDetailTableViewCell) {
         selectedCell  = cellObj
         
+        self.setupPlayerInfo(title: self.accessNumberLabel.text ?? "Museum audio")
+        
         if(tourGuideDict != nil) {
             if((tourGuideDict.audioFile != nil) && (tourGuideDict.audioFile != "")){
                 if (firstLoad == true) {
@@ -197,5 +201,38 @@ class PreviewContentViewController: UIViewController, UITableViewDelegate, UITab
     func recordScreenView() {
         let screenClass = String(describing: type(of: self))
         Analytics.setScreenName(PREVIEW_CONTENT_VC, screenClass: screenClass)
+    }
+}
+
+
+// configure media player and remote controls
+extension PreviewContentViewController {
+    
+    func setupPlayerInfo(title: String) {
+        
+        let nowPlayingInfo: [String: Any] = [
+            MPMediaItemPropertyArtist: "Qatar Museum",
+            MPMediaItemPropertyTitle: title,
+            MPNowPlayingInfoPropertyIsLiveStream: true
+        ]
+//        if tourGuideDict.image != "" {
+//            if let imageUrl = tourGuideDict.image {
+//                guard let url = URL.init(string: imageUrl) else {
+//                    MPNowPlayingInfoCenter.default().nowPlayingInfo = nowPlayingInfo
+//                    return
+//                }
+//                let resource = ImageResource(downloadURL: url)
+//                KingfisherManager.shared.retrieveImage(with: resource, options: nil, progressBlock: nil, completionHandler: { image, error, cacheType, imageURL in
+//                    guard let image = image else {
+//                        MPNowPlayingInfoCenter.default().nowPlayingInfo = nowPlayingInfo
+//                        return
+//                    }
+//                    nowPlayingInfo["MPMediaItemPropertyArtwork"] = MPMediaItemArtwork(boundsSize: image.size) { (size: CGSize) -> UIImage in
+//                        return image
+//                    }
+//                })
+//            }
+//        }
+        MPNowPlayingInfoCenter.default().nowPlayingInfo = nowPlayingInfo
     }
 }

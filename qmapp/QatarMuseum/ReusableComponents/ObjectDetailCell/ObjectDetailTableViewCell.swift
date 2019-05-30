@@ -163,6 +163,7 @@ class ObjectDetailTableViewCell: UITableViewCell,UITextViewDelegate,MapDetailPro
         avPlayer.play()
     }
     @IBAction func playButtonClicked(_ sender: UIButton) {
+        
         self.playBtnTapAction?()
 //        if (firstLoad == true) {
 //            self.playList = "http://www.qm.org.qa/sites/default/files/floors.mp3"
@@ -179,6 +180,7 @@ class ObjectDetailTableViewCell: UITableViewCell,UITextViewDelegate,MapDetailPro
     }
     
     func togglePlayPause() {
+        
         if #available(iOS 10.0, *) {
             if avPlayer.timeControlStatus == .playing  {
                     playButton.setImage(UIImage(named:"play_blackX1"), for: .normal)
@@ -298,6 +300,5 @@ class ObjectDetailTableViewCell: UITableViewCell,UITextViewDelegate,MapDetailPro
     }
     func dismissOvelay() {
     }
-
-    
 }
+
