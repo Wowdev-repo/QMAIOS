@@ -256,29 +256,15 @@
         <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="fullContentID" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="introductionText" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="language" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="promotionalCode" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="bannerImageRelations" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="HomeBannerImageEntity" inverseName="bannerImageRelations" inverseEntity="HomeBannerImageEntity" syncable="YES"/>
     </entity>
-    <entity name="HomeBannerEntityAr" representedClassName="HomeBannerEntityAr" syncable="YES" codeGenerationType="class">
-        <attribute name="bannerLink" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="bannerTitle" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="claimOffer" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="contactNumber" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="fullContentID" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="introductionText" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="promotionalCode" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="bannerImageRelationsAr" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="HomeBannerImageEntityAr" inverseName="bannerImageRelationsAr" inverseEntity="HomeBannerImageEntityAr" syncable="YES"/>
-    </entity>
     <entity name="HomeBannerImageEntity" representedClassName="HomeBannerImageEntity" syncable="YES" codeGenerationType="class">
         <attribute name="image" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="language" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="bannerImageRelations" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="HomeBannerEntity" inverseName="bannerImageRelations" inverseEntity="HomeBannerEntity" syncable="YES"/>
-    </entity>
-    <entity name="HomeBannerImageEntityAr" representedClassName="HomeBannerImageEntityAr" syncable="YES" codeGenerationType="class">
-        <attribute name="image" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="bannerImageRelationsAr" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="HomeBannerEntityAr" inverseName="bannerImageRelationsAr" inverseEntity="HomeBannerEntityAr" syncable="YES"/>
     </entity>
     <entity name="HomeEntity" representedClassName="HomeEntity" syncable="YES" codeGenerationType="class">
         <attribute name="id" optional="YES" attributeType="String" syncable="YES"/>
@@ -484,17 +470,7 @@
         <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="fullContentID" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="introductionText" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="promotionalCode" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
-    </entity>
-    <entity name="NMoQTravelListEntityAr" representedClassName="NMoQTravelListEntityAr" syncable="YES" codeGenerationType="class">
-        <attribute name="bannerLink" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="bannerTitle" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="claimOffer" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="contactNumber" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="fullContentID" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="introductionText" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="language" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="promotionalCode" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
@@ -556,26 +532,17 @@
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="TourGuideEntity" representedClassName="TourGuideEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="language" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="museumsEntity" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="nid" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="tourGuideDescription" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="tourGuideMultimediaRelation" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TourGuideMultimediaEntity" inverseName="tourGuideMultimediaRelation" inverseEntity="TourGuideMultimediaEntity" syncable="YES"/>
     </entity>
-    <entity name="TourGuideEntityAr" representedClassName="TourGuideEntityAr" syncable="YES" codeGenerationType="class">
-        <attribute name="museumsEntity" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="nid" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="tourGuideDescription" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="tourGuideMultimediaRelation" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TourGuideMultimediaEntityAr" inverseName="tourGuideMultimediaRelation" inverseEntity="TourGuideMultimediaEntityAr" syncable="YES"/>
-    </entity>
     <entity name="TourGuideMultimediaEntity" representedClassName="TourGuideMultimediaEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="language" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="multimediaFile" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="tourGuideMultimediaRelation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TourGuideEntity" inverseName="tourGuideMultimediaRelation" inverseEntity="TourGuideEntity" syncable="YES"/>
-    </entity>
-    <entity name="TourGuideMultimediaEntityAr" representedClassName="TourGuideMultimediaEntityAr" syncable="YES" codeGenerationType="class">
-        <attribute name="multimediaFile" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="tourGuideMultimediaRelation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TourGuideEntityAr" inverseName="tourGuideMultimediaRelation" inverseEntity="TourGuideEntityAr" syncable="YES"/>
     </entity>
     <elements>
         <element name="AboutDescriptionEntity" positionX="-27" positionY="135" width="128" height="103"/>
@@ -607,10 +574,8 @@
         <element name="FloorMapTourGuideEntity" positionX="-9" positionY="135" width="128" height="435"/>
         <element name="HeritageEntity" positionX="-63" positionY="27" width="128" height="210"/>
         <element name="HeritageImagesEntity" positionX="-27" positionY="135" width="128" height="75"/>
-        <element name="HomeBannerEntity" positionX="-9" positionY="135" width="128" height="195"/>
-        <element name="HomeBannerEntityAr" positionX="-9" positionY="135" width="128" height="195"/>
-        <element name="HomeBannerImageEntity" positionX="-9" positionY="135" width="128" height="75"/>
-        <element name="HomeBannerImageEntityAr" positionX="0" positionY="144" width="128" height="75"/>
+        <element name="HomeBannerEntity" positionX="-9" positionY="135" width="128" height="210"/>
+        <element name="HomeBannerImageEntity" positionX="-9" positionY="135" width="128" height="90"/>
         <element name="HomeEntity" positionX="-63" positionY="-18" width="128" height="135"/>
         <element name="NMoQActivitiesEntity" positionX="9" positionY="153" width="128" height="255"/>
         <element name="NMoQActivitiesEntityAr" positionX="18" positionY="162" width="128" height="255"/>
@@ -634,8 +599,7 @@
         <element name="NMoqTourImagesEntityAr" positionX="0" positionY="144" width="128" height="75"/>
         <element name="NMoQTourListEntity" positionX="0" positionY="144" width="128" height="270"/>
         <element name="NMoQTourListEntityAr" positionX="-9" positionY="135" width="128" height="270"/>
-        <element name="NMoQTravelListEntity" positionX="-9" positionY="135" width="128" height="180"/>
-        <element name="NMoQTravelListEntityAr" positionX="-9" positionY="135" width="128" height="180"/>
+        <element name="NMoQTravelListEntity" positionX="-9" positionY="135" width="128" height="195"/>
         <element name="NotificationsEntity" positionX="-9" positionY="135" width="128" height="75"/>
         <element name="NotificationsEntityArabic" positionX="0" positionY="144" width="128" height="75"/>
         <element name="ParksEntity" positionX="-54" positionY="108" width="128" height="105"/>
@@ -645,9 +609,7 @@
         <element name="PublicArtsImagesEntity" positionX="-18" positionY="144" width="128" height="75"/>
         <element name="PublicArtsImagesEntityAr" positionX="-9" positionY="153" width="128" height="75"/>
         <element name="RegisteredEventListEntity" positionX="-9" positionY="135" width="128" height="120"/>
-        <element name="TourGuideEntity" positionX="-9" positionY="135" width="128" height="120"/>
-        <element name="TourGuideEntityAr" positionX="0" positionY="144" width="128" height="120"/>
-        <element name="TourGuideMultimediaEntity" positionX="9" positionY="153" width="128" height="75"/>
-        <element name="TourGuideMultimediaEntityAr" positionX="18" positionY="162" width="128" height="75"/>
+        <element name="TourGuideEntity" positionX="-9" positionY="135" width="128" height="135"/>
+        <element name="TourGuideMultimediaEntity" positionX="9" positionY="153" width="128" height="90"/>
     </elements>
 </model>

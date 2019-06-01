@@ -19,6 +19,7 @@ struct HomeBanner: ResponseObjectSerializable, ResponseCollectionSerializable {
     var contactNumber: String? = nil
     var promotionalCode: String? = nil
     var claimOffer: String? = nil
+    var language: String?
 
     
     public init?(response: HTTPURLResponse, representation: AnyObject) {
@@ -34,10 +35,21 @@ struct HomeBanner: ResponseObjectSerializable, ResponseCollectionSerializable {
             self.contactNumber = representation["contact_number"] as? String
             self.promotionalCode = representation["Promotional_code"] as? String
             self.claimOffer = representation["claim_offer"] as? String
+            self.language = representation["language"] as? String
         }
     }
     
-    init (title:String?, fullContentID: String?, bannerTitle: String?, bannerLink: String?, image: [String]?,introductionText:String?, email: String?, contactNumber: String?, promotionalCode: String?,claimOffer: String?) {
+    init (title:String?,
+          fullContentID: String?,
+          bannerTitle: String?,
+          bannerLink: String?,
+          image: [String]?,
+          introductionText:String?,
+          email: String?,
+          contactNumber: String?,
+          promotionalCode: String?,
+          claimOffer: String?,
+          language: String?) {
         self.title = title
         self.fullContentID = fullContentID
         self.bannerTitle = bannerTitle
@@ -49,6 +61,7 @@ struct HomeBanner: ResponseObjectSerializable, ResponseCollectionSerializable {
         self.contactNumber = contactNumber
         self.promotionalCode = promotionalCode
         self.claimOffer = claimOffer
+        self.language = language
     }
 }
 

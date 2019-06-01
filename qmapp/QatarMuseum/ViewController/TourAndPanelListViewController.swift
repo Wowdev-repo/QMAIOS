@@ -1359,7 +1359,7 @@ class TourAndPanelListViewController: UIViewController,UITableViewDelegate,UITab
     }
     
     func travelListCoreDataInBackgroundThread(travelList:[HomeBanner]?,managedContext: NSManagedObjectContext) {
-        if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
+//        if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
             let fetchData = checkAddedToCoredata(entityName: "NMoQTravelListEntity", idKey: "fullContentID", idValue: nil, managedContext: managedContext) as! [NMoQTravelListEntity]
             if (fetchData.count > 0) {
                 for i in 0 ... (travelList?.count)!-1 {
@@ -1378,6 +1378,7 @@ class TourAndPanelListViewController: UIViewController,UITableViewDelegate,UITab
                         travelListdbDict.contactNumber = travelListDict.contactNumber
                         travelListdbDict.promotionalCode =  travelListDict.promotionalCode
                         travelListdbDict.claimOffer = travelListDict.claimOffer
+                        travelListdbDict.language = Utils.getLanguage()
                         
                         do{
                             try managedContext.save()
@@ -1397,48 +1398,48 @@ class TourAndPanelListViewController: UIViewController,UITableViewDelegate,UITab
                     self.saveTrevelListToCoreData(travelListDict: travelListDict!, managedObjContext: managedContext)
                 }
             }
-        } else {
-            let fetchData = checkAddedToCoredata(entityName: "NMoQTravelListEntityAr", idKey: "fullContentID", idValue: nil, managedContext: managedContext) as! [NMoQTravelListEntityAr]
-            if (fetchData.count > 0) {
-                for i in 0 ... (travelList?.count)!-1 {
-                    let travelListDict = travelList![i]
-                    let fetchResult = checkAddedToCoredata(entityName: "NMoQTravelListEntityAr", idKey: "fullContentID", idValue: travelListDict.fullContentID, managedContext: managedContext)
-                    //update
-                    if(fetchResult.count != 0) {
-                        let travelListdbDict = fetchResult[0] as! NMoQTravelListEntityAr
-                        travelListdbDict.title = travelListDict.title
-                        travelListdbDict.fullContentID = travelListDict.fullContentID
-                        travelListdbDict.bannerTitle =  travelListDict.bannerTitle
-                        travelListdbDict.bannerLink = travelListDict.bannerLink
-                        travelListdbDict.introductionText =  travelListDict.introductionText
-                        travelListdbDict.email = travelListDict.email
-                        
-                        travelListdbDict.contactNumber = travelListDict.contactNumber
-                        travelListdbDict.promotionalCode =  travelListDict.promotionalCode
-                        travelListdbDict.claimOffer = travelListDict.claimOffer
-                        
-                        do{
-                            try managedContext.save()
-                        }
-                        catch{
-                            print(error)
-                        }
-                    } else {
-                        //save
-                        self.saveTrevelListToCoreData(travelListDict: travelListDict, managedObjContext: managedContext)
-                    }
-                }
-            } else {
-                for i in 0 ... (travelList?.count)!-1 {
-                    let travelListDict : HomeBanner?
-                    travelListDict = travelList?[i]
-                    self.saveTrevelListToCoreData(travelListDict: travelListDict!, managedObjContext: managedContext)
-                }
-            }
-        }
+//        } else {
+//            let fetchData = checkAddedToCoredata(entityName: "NMoQTravelListEntityAr", idKey: "fullContentID", idValue: nil, managedContext: managedContext) as! [NMoQTravelListEntityAr]
+//            if (fetchData.count > 0) {
+//                for i in 0 ... (travelList?.count)!-1 {
+//                    let travelListDict = travelList![i]
+//                    let fetchResult = checkAddedToCoredata(entityName: "NMoQTravelListEntityAr", idKey: "fullContentID", idValue: travelListDict.fullContentID, managedContext: managedContext)
+//                    //update
+//                    if(fetchResult.count != 0) {
+//                        let travelListdbDict = fetchResult[0] as! NMoQTravelListEntityAr
+//                        travelListdbDict.title = travelListDict.title
+//                        travelListdbDict.fullContentID = travelListDict.fullContentID
+//                        travelListdbDict.bannerTitle =  travelListDict.bannerTitle
+//                        travelListdbDict.bannerLink = travelListDict.bannerLink
+//                        travelListdbDict.introductionText =  travelListDict.introductionText
+//                        travelListdbDict.email = travelListDict.email
+//
+//                        travelListdbDict.contactNumber = travelListDict.contactNumber
+//                        travelListdbDict.promotionalCode =  travelListDict.promotionalCode
+//                        travelListdbDict.claimOffer = travelListDict.claimOffer
+//
+//                        do{
+//                            try managedContext.save()
+//                        }
+//                        catch{
+//                            print(error)
+//                        }
+//                    } else {
+//                        //save
+//                        self.saveTrevelListToCoreData(travelListDict: travelListDict, managedObjContext: managedContext)
+//                    }
+//                }
+//            } else {
+//                for i in 0 ... (travelList?.count)!-1 {
+//                    let travelListDict : HomeBanner?
+//                    travelListDict = travelList?[i]
+//                    self.saveTrevelListToCoreData(travelListDict: travelListDict!, managedObjContext: managedContext)
+//                }
+//            }
+//        }
     }
     func saveTrevelListToCoreData(travelListDict: HomeBanner, managedObjContext: NSManagedObjectContext) {
-        if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
+//        if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
             let travelListdbDict: NMoQTravelListEntity = NSEntityDescription.insertNewObject(forEntityName: "NMoQTravelListEntity", into: managedObjContext) as! NMoQTravelListEntity
             travelListdbDict.title = travelListDict.title
             travelListdbDict.fullContentID = travelListDict.fullContentID
@@ -1449,18 +1450,20 @@ class TourAndPanelListViewController: UIViewController,UITableViewDelegate,UITab
             travelListdbDict.contactNumber = travelListDict.contactNumber
             travelListdbDict.promotionalCode =  travelListDict.promotionalCode
             travelListdbDict.claimOffer = travelListDict.claimOffer
-        } else {
-            let travelListdbDict: NMoQTravelListEntityAr = NSEntityDescription.insertNewObject(forEntityName: "NMoQTravelListEntityAr", into: managedObjContext) as! NMoQTravelListEntityAr
-            travelListdbDict.title = travelListDict.title
-            travelListdbDict.fullContentID = travelListDict.fullContentID
-            travelListdbDict.bannerTitle =  travelListDict.bannerTitle
-            travelListdbDict.bannerLink = travelListDict.bannerLink
-            travelListdbDict.introductionText =  travelListDict.introductionText
-            travelListdbDict.email = travelListDict.email
-            travelListdbDict.contactNumber = travelListDict.contactNumber
-            travelListdbDict.promotionalCode =  travelListDict.promotionalCode
-            travelListdbDict.claimOffer = travelListDict.claimOffer
-        }
+        travelListdbDict.language = Utils.getLanguage()
+        
+//        } else {
+//            let travelListdbDict: NMoQTravelListEntityAr = NSEntityDescription.insertNewObject(forEntityName: "NMoQTravelListEntityAr", into: managedObjContext) as! NMoQTravelListEntityAr
+//            travelListdbDict.title = travelListDict.title
+//            travelListdbDict.fullContentID = travelListDict.fullContentID
+//            travelListdbDict.bannerTitle =  travelListDict.bannerTitle
+//            travelListdbDict.bannerLink = travelListDict.bannerLink
+//            travelListdbDict.introductionText =  travelListDict.introductionText
+//            travelListdbDict.email = travelListDict.email
+//            travelListdbDict.contactNumber = travelListDict.contactNumber
+//            travelListdbDict.promotionalCode =  travelListDict.promotionalCode
+//            travelListdbDict.claimOffer = travelListDict.claimOffer
+//        }
         do {
             try managedObjContext.save()
         } catch let error as NSError {
@@ -1470,7 +1473,7 @@ class TourAndPanelListViewController: UIViewController,UITableViewDelegate,UITab
     func fetchTravelInfoFromCoredata() {
         let managedContext = getContext()
         do {
-            if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
+//            if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
                 var travelListArray = [NMoQTravelListEntity]()
                 let fetchRequest =  NSFetchRequest<NSFetchRequestResult>(entityName: "NMoQTravelListEntity")
                 travelListArray = (try managedContext.fetch(fetchRequest) as? [NMoQTravelListEntity])!
@@ -1481,7 +1484,7 @@ class TourAndPanelListViewController: UIViewController,UITableViewDelegate,UITab
                         }
                     }
                     for i in 0 ... travelListArray.count-1 {
-                        self.travelList.insert(HomeBanner(title: travelListArray[i].title, fullContentID: travelListArray[i].fullContentID, bannerTitle: travelListArray[i].bannerTitle, bannerLink: travelListArray[i].bannerLink, image: nil, introductionText: travelListArray[i].introductionText, email: travelListArray[i].email, contactNumber: travelListArray[i].contactNumber, promotionalCode: travelListArray[i].promotionalCode, claimOffer: travelListArray[i].claimOffer), at: i)
+                        self.travelList.insert(HomeBanner(title: travelListArray[i].title, fullContentID: travelListArray[i].fullContentID, bannerTitle: travelListArray[i].bannerTitle, bannerLink: travelListArray[i].bannerLink, image: nil, introductionText: travelListArray[i].introductionText, email: travelListArray[i].email, contactNumber: travelListArray[i].contactNumber, promotionalCode: travelListArray[i].promotionalCode, claimOffer: travelListArray[i].claimOffer, language: travelListArray[i].language), at: i)
                     }
                     if(travelList.count == 0){
                         if(self.networkReachability?.isReachable == false) {
@@ -1507,45 +1510,45 @@ class TourAndPanelListViewController: UIViewController,UITableViewDelegate,UITab
                         self.getTravelList()//coreDataMigratio  solution
                     }
                 }
-            } else {
-                var travelListArray = [NMoQTravelListEntityAr]()
-                let fetchRequest =  NSFetchRequest<NSFetchRequestResult>(entityName: "NMoQTravelListEntityAr")
-                travelListArray = (try managedContext.fetch(fetchRequest) as? [NMoQTravelListEntityAr])!
-                if (travelListArray.count > 0) {
-                    if (networkReachability?.isReachable)! {
-                        DispatchQueue.global(qos: .background).async {
-                            self.getTravelList()
-                        }
-                    }
-
-                    for i in 0 ... travelListArray.count-1 {
-                        self.travelList.insert(HomeBanner(title: travelListArray[i].title, fullContentID: travelListArray[i].fullContentID, bannerTitle: travelListArray[i].bannerTitle, bannerLink: travelListArray[i].bannerLink, image: nil, introductionText: travelListArray[i].introductionText, email: travelListArray[i].email, contactNumber: travelListArray[i].contactNumber, promotionalCode: travelListArray[i].promotionalCode, claimOffer: travelListArray[i].claimOffer), at: i)
-                    }
-                    if(travelList.count == 0){
-                        if(self.networkReachability?.isReachable == false) {
-                            self.showNoNetwork()
-                        } else {
-                            self.loadingView.showNoDataView()
-                        }
-                    } else {
-                        if(bannerId != nil) {
-                            if let arrayOffset = self.travelList.index(where: {$0.fullContentID == bannerId}) {
-                                self.travelList.remove(at: arrayOffset)
-                            }
-                        }
-                    }
-                    DispatchQueue.main.async{
-                        self.collectionTableView.reloadData()
-                    }
-                } else{
-                    if(self.networkReachability?.isReachable == false) {
-                        self.showNoNetwork()
-                    } else {
-                        //self.loadingView.showNoDataView()
-                        self.getTravelList()//coreDataMigratio  solution
-                    }
-                }
-            }
+//            } else {
+//                var travelListArray = [NMoQTravelListEntityAr]()
+//                let fetchRequest =  NSFetchRequest<NSFetchRequestResult>(entityName: "NMoQTravelListEntityAr")
+//                travelListArray = (try managedContext.fetch(fetchRequest) as? [NMoQTravelListEntityAr])!
+//                if (travelListArray.count > 0) {
+//                    if (networkReachability?.isReachable)! {
+//                        DispatchQueue.global(qos: .background).async {
+//                            self.getTravelList()
+//                        }
+//                    }
+//
+//                    for i in 0 ... travelListArray.count-1 {
+//                        self.travelList.insert(HomeBanner(title: travelListArray[i].title, fullContentID: travelListArray[i].fullContentID, bannerTitle: travelListArray[i].bannerTitle, bannerLink: travelListArray[i].bannerLink, image: nil, introductionText: travelListArray[i].introductionText, email: travelListArray[i].email, contactNumber: travelListArray[i].contactNumber, promotionalCode: travelListArray[i].promotionalCode, claimOffer: travelListArray[i].claimOffer), at: i)
+//                    }
+//                    if(travelList.count == 0){
+//                        if(self.networkReachability?.isReachable == false) {
+//                            self.showNoNetwork()
+//                        } else {
+//                            self.loadingView.showNoDataView()
+//                        }
+//                    } else {
+//                        if(bannerId != nil) {
+//                            if let arrayOffset = self.travelList.index(where: {$0.fullContentID == bannerId}) {
+//                                self.travelList.remove(at: arrayOffset)
+//                            }
+//                        }
+//                    }
+//                    DispatchQueue.main.async{
+//                        self.collectionTableView.reloadData()
+//                    }
+//                } else{
+//                    if(self.networkReachability?.isReachable == false) {
+//                        self.showNoNetwork()
+//                    } else {
+//                        //self.loadingView.showNoDataView()
+//                        self.getTravelList()//coreDataMigratio  solution
+//                    }
+//                }
+//            }
         } catch let error as NSError {
             print("Could not fetch. \(error), \(error.userInfo)")
         }
