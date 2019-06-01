@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14490.98" systemVersion="18E226" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14490.98" systemVersion="18F132" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="AboutDescriptionEntity" representedClassName="AboutDescriptionEntity" syncable="YES" codeGenerationType="class">
         <attribute name="id" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="language" optional="YES" attributeType="String" syncable="YES"/>
@@ -171,6 +171,7 @@
     <entity name="FacilitiesDetailEntity" representedClassName="FacilitiesDetailEntity" syncable="YES" codeGenerationType="class">
         <attribute name="category" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="facilitiesDes" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="language" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="latitude" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="locationTitle" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="longtitude" optional="YES" attributeType="String" syncable="YES"/>
@@ -181,46 +182,21 @@
         <attribute name="titleTiming" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="facilitiesDetailRelation" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="FacilitiesDetailImgEntity" inverseName="facilitiesDetailRelation" inverseEntity="FacilitiesDetailImgEntity" syncable="YES"/>
     </entity>
-    <entity name="FacilitiesDetailEntityAr" representedClassName="FacilitiesDetailEntityAr" syncable="YES" codeGenerationType="class">
-        <attribute name="category" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="facilitiesDes" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="latitude" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="locationTitle" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="longtitude" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="nid" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="subtitle" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="timing" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="titleTiming" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="facilitiesDetailRelationAr" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="FacilitiesDetailImgEntityAr" inverseName="facilitiesDetailRelationAr" inverseEntity="FacilitiesDetailImgEntityAr" syncable="YES"/>
-    </entity>
     <entity name="FacilitiesDetailImgEntity" representedClassName="FacilitiesDetailImgEntity" syncable="YES" codeGenerationType="class">
         <attribute name="images" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="language" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="facilitiesDetailRelation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="FacilitiesDetailEntity" inverseName="facilitiesDetailRelation" inverseEntity="FacilitiesDetailEntity" syncable="YES"/>
     </entity>
-    <entity name="FacilitiesDetailImgEntityAr" representedClassName="FacilitiesDetailImgEntityAr" syncable="YES" codeGenerationType="class">
-        <attribute name="images" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="facilitiesDetailRelationAr" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="FacilitiesDetailEntityAr" inverseName="facilitiesDetailRelationAr" inverseEntity="FacilitiesDetailEntityAr" syncable="YES"/>
-    </entity>
     <entity name="FacilitiesEntity" representedClassName="FacilitiesEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="language" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="nid" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="sortId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="facilitiesImgRelation" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="FacilitiesImgEntity" inverseName="facilitiesImgRelation" inverseEntity="FacilitiesImgEntity" syncable="YES"/>
     </entity>
-    <entity name="FacilitiesEntityAr" representedClassName="FacilitiesEntityAr" syncable="YES" codeGenerationType="class">
-        <attribute name="nid" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="sortId" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="facilitiesImgRelationAr" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="FacilitiesImgEntityAr" inverseName="facilitiesImgRelation" inverseEntity="FacilitiesImgEntityAr" syncable="YES"/>
-    </entity>
     <entity name="FacilitiesImgEntity" representedClassName="FacilitiesImgEntity" syncable="YES" codeGenerationType="class">
         <attribute name="images" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="facilitiesImgRelation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="FacilitiesEntity" inverseName="facilitiesImgRelation" inverseEntity="FacilitiesEntity" syncable="YES"/>
-    </entity>
-    <entity name="FacilitiesImgEntityAr" representedClassName="FacilitiesImgEntityAr" syncable="YES" codeGenerationType="class">
-        <attribute name="images" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="facilitiesImgRelation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="FacilitiesEntityAr" inverseName="facilitiesImgRelationAr" inverseEntity="FacilitiesEntityAr" syncable="YES"/>
     </entity>
     <entity name="FloorMapImagesEntity" representedClassName="FloorMapImagesEntity" syncable="YES" codeGenerationType="class">
         <attribute name="image" optional="YES" attributeType="String" syncable="YES"/>
@@ -652,14 +628,10 @@
         <element name="EventStartDateEntity" positionX="0" positionY="144" width="128" height="30"/>
         <element name="EventTopicsEntity" positionX="9" positionY="171" width="128" height="30"/>
         <element name="ExhibitionsEntity" positionX="-54" positionY="108" width="128" height="345"/>
-        <element name="FacilitiesDetailEntity" positionX="27" positionY="171" width="128" height="210"/>
-        <element name="FacilitiesDetailEntityAr" positionX="0" positionY="144" width="128" height="210"/>
-        <element name="FacilitiesDetailImgEntity" positionX="-9" positionY="135" width="128" height="75"/>
-        <element name="FacilitiesDetailImgEntityAr" positionX="9" positionY="153" width="128" height="75"/>
-        <element name="FacilitiesEntity" positionX="-9" positionY="252" width="128" height="105"/>
-        <element name="FacilitiesEntityAr" positionX="0" positionY="261" width="128" height="105"/>
+        <element name="FacilitiesDetailEntity" positionX="27" positionY="171" width="128" height="225"/>
+        <element name="FacilitiesDetailImgEntity" positionX="-9" positionY="135" width="128" height="90"/>
+        <element name="FacilitiesEntity" positionX="-9" positionY="252" width="128" height="120"/>
         <element name="FacilitiesImgEntity" positionX="9" positionY="270" width="128" height="75"/>
-        <element name="FacilitiesImgEntityAr" positionX="18" positionY="279" width="128" height="75"/>
         <element name="FloorMapImagesEntity" positionX="0" positionY="144" width="128" height="75"/>
         <element name="FloorMapImagesEntityAr" positionX="18" positionY="162" width="128" height="75"/>
         <element name="FloorMapTourGuideEntity" positionX="-9" positionY="135" width="128" height="420"/>

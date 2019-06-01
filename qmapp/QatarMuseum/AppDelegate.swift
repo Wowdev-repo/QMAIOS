@@ -1841,7 +1841,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 }
                 
             case .failure(let error):
-                print("error")
+                print(error.localizedDescription)
             }
         }
     }
@@ -2064,7 +2064,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 }
                 
             case .failure(let error):
-                print("error")
+                print(error.localizedDescription)
             }
         }
     }
@@ -2192,19 +2192,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             }
         }
     }
-    func facilitiesListCoreDataInBackgroundThread(facilitiesList:[Facilities]?,managedContext: NSManagedObjectContext,lang:String?) {
-        if (lang == ENG_LANGUAGE) {
-            let fetchData = checkAddedToCoredata(entityName: "FacilitiesEntity", idKey: "nid", idValue: nil, managedContext: managedContext) as! [FacilitiesEntity]
+    func facilitiesListCoreDataInBackgroundThread(facilitiesList:[Facilities]?,
+                                                  managedContext: NSManagedObjectContext,lang:String?) {
+//        if (lang == ENG_LANGUAGE) {
+            let fetchData = checkAddedToCoredata(entityName: "FacilitiesEntity",
+                                                 idKey: "nid",
+                                                 idValue: nil,
+                                                 managedContext: managedContext) as! [FacilitiesEntity]
             if (fetchData.count > 0) {
                 for i in 0 ... (facilitiesList?.count)!-1 {
                     let facilitiesListDict = facilitiesList![i]
-                    let fetchResult = checkAddedToCoredata(entityName: "FacilitiesEntity", idKey: "nid", idValue: facilitiesListDict.nid, managedContext: managedContext)
+                    let fetchResult = checkAddedToCoredata(entityName: "FacilitiesEntity",
+                                                           idKey: "nid",
+                                                           idValue: facilitiesListDict.nid,
+                                                           managedContext: managedContext)
                     //update
                     if(fetchResult.count != 0) {
                         let facilitiesListdbDict = fetchResult[0] as! FacilitiesEntity
                         facilitiesListdbDict.title = facilitiesListDict.title
                         facilitiesListdbDict.sortId = facilitiesListDict.sortId
                         facilitiesListdbDict.nid =  facilitiesListDict.nid
+                        facilitiesListdbDict.language = Utils.getLanguage()
                         
                         if(facilitiesListDict.images != nil){
                             if((facilitiesListDict.images?.count)! > 0) {
@@ -2232,77 +2240,85 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                         }
                     } else {
                         //save
-                        self.saveFacilitiesListToCoreData(facilitiesListDict: facilitiesListDict, managedObjContext: managedContext, lang: lang)
+                        self.saveFacilitiesListToCoreData(facilitiesListDict: facilitiesListDict,
+                                                          managedObjContext: managedContext,
+                                                          lang: lang)
                     }
                 }
-                NotificationCenter.default.post(name: NSNotification.Name(facilitiesListNotificationEn), object: self)
+                NotificationCenter.default.post(name: NSNotification.Name(facilitiesListNotificationEn),
+                                                object: self)
             } else {
                 for i in 0 ... (facilitiesList?.count)!-1 {
                     let facilitiesListDict : Facilities?
                     facilitiesListDict = facilitiesList?[i]
-                    self.saveFacilitiesListToCoreData(facilitiesListDict: facilitiesListDict!, managedObjContext: managedContext, lang: lang)
+                    self.saveFacilitiesListToCoreData(facilitiesListDict: facilitiesListDict!,
+                                                      managedObjContext: managedContext,
+                                                      lang: lang)
                 }
                 NotificationCenter.default.post(name: NSNotification.Name(facilitiesListNotificationEn), object: self)
             }
-        } else {
-            let fetchData = checkAddedToCoredata(entityName: "FacilitiesEntityAr", idKey: "nid", idValue: nil, managedContext: managedContext) as! [FacilitiesEntityAr]
-            if (fetchData.count > 0) {
-                for i in 0 ... (facilitiesList?.count)!-1 {
-                    let facilitiesListDict = facilitiesList![i]
-                    let fetchResult = checkAddedToCoredata(entityName: "FacilitiesEntityAr", idKey: "nid", idValue: facilitiesListDict.nid, managedContext: managedContext)
-                    //update
-                    if(fetchResult.count != 0) {
-                        let facilitiesListdbDict = fetchResult[0] as! FacilitiesEntityAr
-                        facilitiesListdbDict.title = facilitiesListDict.title
-                        facilitiesListdbDict.sortId = facilitiesListDict.sortId
-                        facilitiesListdbDict.nid =  facilitiesListDict.nid
-                        
-                        if(facilitiesListDict.images != nil){
-                            if((facilitiesListDict.images?.count)! > 0) {
-                                for i in 0 ... (facilitiesListDict.images?.count)!-1 {
-                                    var facilitiesImage: FacilitiesImgEntityAr!
-                                    let facilitiesImgaeArray: FacilitiesImgEntityAr = NSEntityDescription.insertNewObject(forEntityName: "FacilitiesImgEntityAr", into: managedContext) as! FacilitiesImgEntityAr
-                                    facilitiesImgaeArray.images = facilitiesListDict.images?[i]
-                                    
-                                    facilitiesImage = facilitiesImgaeArray
-                                    facilitiesListdbDict.addToFacilitiesImgRelationAr(facilitiesImage)
-                                    do {
-                                        try managedContext.save()
-                                    } catch let error as NSError {
-                                        print("Could not save. \(error), \(error.userInfo)")
-                                    }
-                                }
-                            }
-                        }
-                        
-                        do{
-                            try managedContext.save()
-                        }
-                        catch{
-                            print(error)
-                        }
-                    } else {
-                        //save
-                        self.saveFacilitiesListToCoreData(facilitiesListDict: facilitiesListDict, managedObjContext: managedContext, lang: lang)
-                    }
-                }
-                NotificationCenter.default.post(name: NSNotification.Name(facilitiesListNotificationAr), object: self)
-            } else {
-                for i in 0 ... (facilitiesList?.count)!-1 {
-                    let facilitiesListDict : Facilities?
-                    facilitiesListDict = facilitiesList![i]
-                    self.saveFacilitiesListToCoreData(facilitiesListDict: facilitiesListDict!, managedObjContext: managedContext, lang: lang)
-                }
-                NotificationCenter.default.post(name: NSNotification.Name(facilitiesListNotificationAr), object: self)
-            }
-        }
+//        } else {
+//            let fetchData = checkAddedToCoredata(entityName: "FacilitiesEntityAr", idKey: "nid", idValue: nil, managedContext: managedContext) as! [FacilitiesEntityAr]
+//            if (fetchData.count > 0) {
+//                for i in 0 ... (facilitiesList?.count)!-1 {
+//                    let facilitiesListDict = facilitiesList![i]
+//                    let fetchResult = checkAddedToCoredata(entityName: "FacilitiesEntityAr", idKey: "nid", idValue: facilitiesListDict.nid, managedContext: managedContext)
+//                    //update
+//                    if(fetchResult.count != 0) {
+//                        let facilitiesListdbDict = fetchResult[0] as! FacilitiesEntityAr
+//                        facilitiesListdbDict.title = facilitiesListDict.title
+//                        facilitiesListdbDict.sortId = facilitiesListDict.sortId
+//                        facilitiesListdbDict.nid =  facilitiesListDict.nid
+//
+//                        if(facilitiesListDict.images != nil){
+//                            if((facilitiesListDict.images?.count)! > 0) {
+//                                for i in 0 ... (facilitiesListDict.images?.count)!-1 {
+//                                    var facilitiesImage: FacilitiesImgEntityAr!
+//                                    let facilitiesImgaeArray: FacilitiesImgEntityAr = NSEntityDescription.insertNewObject(forEntityName: "FacilitiesImgEntityAr", into: managedContext) as! FacilitiesImgEntityAr
+//                                    facilitiesImgaeArray.images = facilitiesListDict.images?[i]
+//
+//                                    facilitiesImage = facilitiesImgaeArray
+//                                    facilitiesListdbDict.addToFacilitiesImgRelationAr(facilitiesImage)
+//                                    do {
+//                                        try managedContext.save()
+//                                    } catch let error as NSError {
+//                                        print("Could not save. \(error), \(error.userInfo)")
+//                                    }
+//                                }
+//                            }
+//                        }
+//
+//                        do{
+//                            try managedContext.save()
+//                        }
+//                        catch{
+//                            print(error)
+//                        }
+//                    } else {
+//                        //save
+//                        self.saveFacilitiesListToCoreData(facilitiesListDict: facilitiesListDict, managedObjContext: managedContext, lang: lang)
+//                    }
+//                }
+//                NotificationCenter.default.post(name: NSNotification.Name(facilitiesListNotificationAr), object: self)
+//            } else {
+//                for i in 0 ... (facilitiesList?.count)!-1 {
+//                    let facilitiesListDict : Facilities?
+//                    facilitiesListDict = facilitiesList![i]
+//                    self.saveFacilitiesListToCoreData(facilitiesListDict: facilitiesListDict!, managedObjContext: managedContext, lang: lang)
+//                }
+//                NotificationCenter.default.post(name: NSNotification.Name(facilitiesListNotificationAr), object: self)
+//            }
+//        }
     }
-    func saveFacilitiesListToCoreData(facilitiesListDict: Facilities, managedObjContext: NSManagedObjectContext,lang:String?) {
-        if (lang == ENG_LANGUAGE) {
+    func saveFacilitiesListToCoreData(facilitiesListDict: Facilities,
+                                      managedObjContext: NSManagedObjectContext,lang:String?) {
+//        if (lang == ENG_LANGUAGE) {
             let facilitiesListInfo: FacilitiesEntity = NSEntityDescription.insertNewObject(forEntityName: "FacilitiesEntity", into: managedObjContext) as! FacilitiesEntity
             facilitiesListInfo.title = facilitiesListDict.title
             facilitiesListInfo.sortId = facilitiesListDict.sortId
             facilitiesListInfo.nid = facilitiesListDict.nid
+        facilitiesListInfo.language = Utils.getLanguage()
+        
             if(facilitiesListDict.images != nil){
                 if((facilitiesListDict.images?.count)! > 0) {
                     for i in 0 ... (facilitiesListDict.images?.count)!-1 {
@@ -2320,29 +2336,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                     }
                 }
             }
-        } else {
-            let facilitiesListInfo: FacilitiesEntityAr = NSEntityDescription.insertNewObject(forEntityName: "FacilitiesEntityAr", into: managedObjContext) as! FacilitiesEntityAr
-            facilitiesListInfo.title = facilitiesListDict.title
-            facilitiesListInfo.sortId = facilitiesListDict.sortId
-            facilitiesListInfo.nid =  facilitiesListDict.nid
-            if(facilitiesListDict.images != nil){
-                if((facilitiesListDict.images?.count)! > 0) {
-                    for i in 0 ... (facilitiesListDict.images?.count)!-1 {
-                        var facilitiesImage: FacilitiesImgEntityAr!
-                        let facilitiesImgaeArray: FacilitiesImgEntityAr = NSEntityDescription.insertNewObject(forEntityName: "FacilitiesImgEntityAr", into: managedObjContext) as! FacilitiesImgEntityAr
-                        facilitiesImgaeArray.images = facilitiesListDict.images?[i]
-                        
-                        facilitiesImage = facilitiesImgaeArray
-                        facilitiesListInfo.addToFacilitiesImgRelationAr(facilitiesImage)
-                        do {
-                            try managedObjContext.save()
-                        } catch let error as NSError {
-                            print("Could not save. \(error), \(error.userInfo)")
-                        }
-                    }
-                }
-            }
-        }
+//        } else {
+//            let facilitiesListInfo: FacilitiesEntityAr = NSEntityDescription.insertNewObject(forEntityName: "FacilitiesEntityAr", into: managedObjContext) as! FacilitiesEntityAr
+//            facilitiesListInfo.title = facilitiesListDict.title
+//            facilitiesListInfo.sortId = facilitiesListDict.sortId
+//            facilitiesListInfo.nid =  facilitiesListDict.nid
+//            if(facilitiesListDict.images != nil){
+//                if((facilitiesListDict.images?.count)! > 0) {
+//                    for i in 0 ... (facilitiesListDict.images?.count)!-1 {
+//                        var facilitiesImage: FacilitiesImgEntityAr!
+//                        let facilitiesImgaeArray: FacilitiesImgEntityAr = NSEntityDescription.insertNewObject(forEntityName: "FacilitiesImgEntityAr", into: managedObjContext) as! FacilitiesImgEntityAr
+//                        facilitiesImgaeArray.images = facilitiesListDict.images?[i]
+//
+//                        facilitiesImage = facilitiesImgaeArray
+//                        facilitiesListInfo.addToFacilitiesImgRelationAr(facilitiesImage)
+//                        do {
+//                            try managedObjContext.save()
+//                        } catch let error as NSError {
+//                            print("Could not save. \(error), \(error.userInfo)")
+//                        }
+//                    }
+//                }
+//            }
+//        }
         do {
             try managedObjContext.save()
         } catch let error as NSError {
