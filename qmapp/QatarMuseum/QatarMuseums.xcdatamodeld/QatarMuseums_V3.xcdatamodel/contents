@@ -200,11 +200,8 @@
     </entity>
     <entity name="FloorMapImagesEntity" representedClassName="FloorMapImagesEntity" syncable="YES" codeGenerationType="class">
         <attribute name="image" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="language" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="imagesRelation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="FloorMapTourGuideEntity" inverseName="imagesRelation" inverseEntity="FloorMapTourGuideEntity" syncable="YES"/>
-    </entity>
-    <entity name="FloorMapImagesEntityAr" representedClassName="FloorMapImagesEntityAr" syncable="YES" codeGenerationType="class">
-        <attribute name="image" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="imagesRelation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="FloorMapTourGuideEntityAr" inverseName="imagesRelation" inverseEntity="FloorMapTourGuideEntityAr" syncable="YES"/>
     </entity>
     <entity name="FloorMapTourGuideEntity" representedClassName="FloorMapTourGuideEntity" syncable="YES" codeGenerationType="class">
         <attribute name="accessionNumber" optional="YES" attributeType="String" syncable="YES"/>
@@ -220,6 +217,7 @@
         <attribute name="floorLevel" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="galleyNumber" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="image" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="language" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="mainTitle" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="nid" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="objectEngSummary" optional="YES" attributeType="String" syncable="YES"/>
@@ -232,33 +230,6 @@
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="tourGuideId" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="imagesRelation" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="FloorMapImagesEntity" inverseName="imagesRelation" inverseEntity="FloorMapImagesEntity" syncable="YES"/>
-    </entity>
-    <entity name="FloorMapTourGuideEntityAr" representedClassName="FloorMapTourGuideEntityAr" syncable="YES" codeGenerationType="class">
-        <attribute name="accessionNumber" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="artifactImg" optional="YES" attributeType="Binary" syncable="YES"/>
-        <attribute name="artifactNumber" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="artifactPosition" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="artistOrCreatorOrAuthor" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="audioDescriptif" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="audioFile" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="curatorialDescription" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="diam" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="dimensions" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="floorLevel" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="galleyNumber" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="image" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="mainTitle" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="nid" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="objectEngSummary" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="objectHistory" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="periodOrStyle" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="production" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="productionDates" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="techniqueAndMaterials" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="thumbImage" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="tourGuideId" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="imagesRelation" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="FloorMapImagesEntityAr" inverseName="imagesRelation" inverseEntity="FloorMapImagesEntityAr" syncable="YES"/>
     </entity>
     <entity name="HeritageEntity" representedClassName="HeritageEntity" syncable="YES" codeGenerationType="class">
         <attribute name="detaillatitude" optional="YES" attributeType="String" syncable="YES"/>
@@ -632,10 +603,8 @@
         <element name="FacilitiesDetailImgEntity" positionX="-9" positionY="135" width="128" height="90"/>
         <element name="FacilitiesEntity" positionX="-9" positionY="252" width="128" height="120"/>
         <element name="FacilitiesImgEntity" positionX="9" positionY="270" width="128" height="75"/>
-        <element name="FloorMapImagesEntity" positionX="0" positionY="144" width="128" height="75"/>
-        <element name="FloorMapImagesEntityAr" positionX="18" positionY="162" width="128" height="75"/>
-        <element name="FloorMapTourGuideEntity" positionX="-9" positionY="135" width="128" height="420"/>
-        <element name="FloorMapTourGuideEntityAr" positionX="-9" positionY="135" width="128" height="420"/>
+        <element name="FloorMapImagesEntity" positionX="0" positionY="144" width="128" height="90"/>
+        <element name="FloorMapTourGuideEntity" positionX="-9" positionY="135" width="128" height="435"/>
         <element name="HeritageEntity" positionX="-63" positionY="27" width="128" height="210"/>
         <element name="HeritageImagesEntity" positionX="-27" positionY="135" width="128" height="75"/>
         <element name="HomeBannerEntity" positionX="-9" positionY="135" width="128" height="195"/>
