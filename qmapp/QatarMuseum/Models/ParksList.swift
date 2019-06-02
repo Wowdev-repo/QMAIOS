@@ -12,6 +12,7 @@ struct ParksList: ResponseObjectSerializable, ResponseCollectionSerializable {
     var description: String? = nil
     var sortId: String? = nil
     var image: String? = nil
+    var language: String?
     
     public init?(response: HTTPURLResponse, representation: AnyObject) {
         if let representation = representation as? [String: Any] {
@@ -19,13 +20,16 @@ struct ParksList: ResponseObjectSerializable, ResponseCollectionSerializable {
             self.description = representation["Description"] as? String
             self.sortId = representation["sort_id"] as? String
             self.image = representation["image"] as? String
+            self.language = representation["language"] as? String
         }
     }
-    init(title:String?, description:String?, sortId: String?, image: String?) {
+    
+    init(title:String?, description:String?, sortId: String?, image: String?, language: String?) {
         self.title = title
         self.description = description
         self.sortId = sortId
         self.image = image
+        self.language = language
     }
 }
 
@@ -49,6 +53,7 @@ struct NMoQParksList: ResponseObjectSerializable, ResponseCollectionSerializable
     var longitude: String? = nil
     var latitude: String? = nil
     var locationTitle: String? = nil
+    var language: String?
     //var nmoqParks: [String]? = []
     
     public init?(response: HTTPURLResponse, representation: AnyObject) {
@@ -64,10 +69,11 @@ struct NMoQParksList: ResponseObjectSerializable, ResponseCollectionSerializable
             self.longitude = representation["longtitude_nmoq"] as? String
             self.latitude = representation["latitude_nmoq"] as? String
             self.locationTitle = representation["location_title"] as? String
+            self.language = representation["language"] as? String
             //self.nmoqParks = representation["nmoq_parks"] as? [String]
         }
     }
-    init(title:String?, parkTitle:String?,mainDescription:String?, parkDescription: String?, hoursTitle: String?,hoursDesc:String?, nid:String?, longitude: String?, latitude: String?, locationTitle: String?) {
+    init(title:String?, parkTitle:String?,mainDescription:String?, parkDescription: String?, hoursTitle: String?,hoursDesc:String?, nid:String?, longitude: String?, latitude: String?, locationTitle: String?, language: String?) {
         self.title = title
         self.parkTitle = parkTitle
         self.mainDescription = mainDescription
@@ -78,6 +84,7 @@ struct NMoQParksList: ResponseObjectSerializable, ResponseCollectionSerializable
         self.longitude = longitude
         self.latitude = latitude
         self.locationTitle = locationTitle
+        self.language = language
     }
 }
 struct NmoqParksLists: ResponseObjectSerializable {
@@ -95,6 +102,7 @@ struct NMoQPark: ResponseObjectSerializable, ResponseCollectionSerializable {
     var nid: String? = nil
     var sortId: String? = nil
     var title: String? = nil
+    var language: String?
 
     public init?(response: HTTPURLResponse, representation: AnyObject) {
         if let representation = representation as? [String: Any] {
@@ -102,14 +110,16 @@ struct NMoQPark: ResponseObjectSerializable, ResponseCollectionSerializable {
             self.nid = representation["Nid"] as? String
             self.sortId = representation["sort_id"] as? String
             self.title = representation["title"] as? String
+            self.language = representation["language"] as? String
         }
     }
     
-    init (title:String?, sortId: String?,nid: String?, images: [String]?) {
+    init (title:String?, sortId: String?,nid: String?, images: [String]?, language: String?) {
         self.title = title
         self.images = images
         self.sortId = sortId
         self.nid = nid
+        self.language = language
     }
 }
 

@@ -16,7 +16,7 @@ struct PublicArtsList: ResponseObjectSerializable, ResponseCollectionSerializabl
     var areaofwork:NSArray? = nil
     var sortcoefficient: String? = nil
     var isFavourite : Bool = false
-    
+    var language: String?
     
     public init?(response: HTTPURLResponse, representation: AnyObject) {
         if let representation = representation as? [String: Any] {
@@ -27,16 +27,18 @@ struct PublicArtsList: ResponseObjectSerializable, ResponseCollectionSerializabl
             self.image = representation["LATEST_IMAGE"] as? String
             self.areaofwork = representation["Area of Work"] as? NSArray
             self.sortcoefficient = representation["sort coefficient"] as? String
+            self.language = representation["language"] as? String
             
         }
     }
-    init(id: String?, name: String?, latitude:String?, longitude:String?,image:String?,sortcoefficient:String?) {
+    init(id: String?, name: String?, latitude:String?, longitude:String?,image:String?,sortcoefficient:String?, language: String?) {
         self.id = id
         self.name = name
         self.longitude = longitude
         self.latitude = latitude
         self.image = image
         self.sortcoefficient = sortcoefficient
+        self.language = language
         
     }
 }

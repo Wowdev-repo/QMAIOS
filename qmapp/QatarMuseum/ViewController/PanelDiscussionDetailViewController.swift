@@ -1731,13 +1731,19 @@ class PanelDiscussionDetailViewController: UIViewController,LoadingViewProtocol,
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
     }
     
-    func nmoqParkDetailCoreDataInBackgroundThread(nmoqParkList: [NMoQParkDetail]?, managedContext: NSManagedObjectContext) {
-        if (LocalizationLanguage.currentAppleLanguage() == ENG_LANGUAGE) {
-            let fetchData = checkAddedToCoredata(entityName: "NMoQParkDetailEntity", idKey: "nid", idValue: nil, managedContext: managedContext) as! [NMoQParkDetailEntity]
+    func nmoqParkDetailCoreDataInBackgroundThread(nmoqParkList: [NMoQParkDetail]?,
+                                                  managedContext: NSManagedObjectContext) {
+            let fetchData = checkAddedToCoredata(entityName: "NMoQParkDetailEntity",
+                                                 idKey: "nid",
+                                                 idValue: nil,
+                                                 managedContext: managedContext) as! [NMoQParkDetailEntity]
             if (fetchData.count > 0) {
                 for i in 0 ... (nmoqParkList?.count)!-1 {
                     let nmoqParkListDict = nmoqParkList![i]
-                    let fetchResult = checkAddedToCoredata(entityName: "NMoQParkDetailEntity", idKey: "nid", idValue: nmoqParkListDict.nid, managedContext: managedContext)
+                    let fetchResult = checkAddedToCoredata(entityName: "NMoQParkDetailEntity",
+                                                           idKey: "nid",
+                                                           idValue: nmoqParkListDict.nid,
+                                                           managedContext: managedContext)
                     //update
                     if(fetchResult.count != 0) {
                         let nmoqParkListdbDict = fetchResult[0] as! NMoQParkDetailEntity
@@ -1745,6 +1751,7 @@ class PanelDiscussionDetailViewController: UIViewController,LoadingViewProtocol,
                         nmoqParkListdbDict.nid =  nmoqParkListDict.nid
                         nmoqParkListdbDict.sortId =  nmoqParkListDict.sortId
                         nmoqParkListdbDict.parkDesc =  nmoqParkListDict.parkDesc
+                        nmoqParkListdbDict.language = Utils.getLanguage()
                         
                         if(nmoqParkListDict.images != nil){
                             if((nmoqParkListDict.images?.count)! > 0) {
@@ -1752,7 +1759,7 @@ class PanelDiscussionDetailViewController: UIViewController,LoadingViewProtocol,
                                     var parkListImage: NMoQParkDetailImgEntity!
                                     let parkListImageArray: NMoQParkDetailImgEntity = NSEntityDescription.insertNewObject(forEntityName: "NMoQParkDetailImgEntity", into: managedContext) as! NMoQParkDetailImgEntity
                                     parkListImageArray.images = nmoqParkListDict.images![i]
-                                    
+                                    parkListImageArray.language = Utils.getLanguage()
                                     parkListImage = parkListImageArray
                                     nmoqParkListdbDict.addToParkDetailImgRelation(parkListImage)
                                     do {
@@ -1784,68 +1791,16 @@ class PanelDiscussionDetailViewController: UIViewController,LoadingViewProtocol,
                 }
                 NotificationCenter.default.post(name: NSNotification.Name(nmoqParkDetailNotificationEn), object: self)
             }
-        } else {
-            let fetchData = checkAddedToCoredata(entityName: "NMoQParkDetailEntityAr", idKey: "nid", idValue: nil, managedContext: managedContext) as! [NMoQParkDetailEntityAr]
-            if (fetchData.count > 0) {
-                for i in 0 ... (nmoqParkList?.count)!-1 {
-                    let nmoqParkListDict = nmoqParkList![i]
-                    let fetchResult = checkAddedToCoredata(entityName: "NMoQParkDetailEntityAr", idKey: "nid", idValue: nmoqParkListDict.nid, managedContext: managedContext)
-                    //update
-                    if(fetchResult.count != 0) {
-                        let nmoqParkListdbDict = fetchResult[0] as! NMoQParkDetailEntityAr
-                        nmoqParkListdbDict.title = nmoqParkListDict.title
-                        nmoqParkListdbDict.nid =  nmoqParkListDict.nid
-                        nmoqParkListdbDict.sortId =  nmoqParkListDict.sortId
-                        nmoqParkListdbDict.parkDesc =  nmoqParkListDict.parkDesc
-                        
-                        if(nmoqParkListDict.images != nil){
-                            if((nmoqParkListDict.images?.count)! > 0) {
-                                for i in 0 ... (nmoqParkListDict.images?.count)!-1 {
-                                    var parkListImage: NMoQParkDetailImgEntityAr!
-                                    let parkListImageArray: NMoQParkDetailImgEntityAr = NSEntityDescription.insertNewObject(forEntityName: "NMoQParkDetailImgEntityAr", into: managedContext) as! NMoQParkDetailImgEntityAr
-                                    parkListImageArray.images = nmoqParkListDict.images![i]
-                                    
-                                    parkListImage = parkListImageArray
-                                    nmoqParkListdbDict.addToParkDetailImgRelationAr(parkListImage)
-                                    do {
-                                        try managedContext.save()
-                                    } catch let error as NSError {
-                                        print("Could not save. \(error), \(error.userInfo)")
-                                    }
-                                }
-                            }
-                        }
-                        do{
-                            try managedContext.save()
-                        }
-                        catch{
-                            print(error)
-                        }
-                    } else {
-                        //save
-                        self.saveNMoQParkDetailToCoreData(nmoqParkListDict: nmoqParkListDict, managedObjContext: managedContext)
-                    }
-                }
-                NotificationCenter.default.post(name: NSNotification.Name(nmoqParkDetailNotificationAr), object: self)
-            } else {
-                for i in 0 ... (nmoqParkList?.count)!-1 {
-                    let nmoqParkListDict : NMoQParkDetail?
-                    nmoqParkListDict = nmoqParkList![i]
-                    self.saveNMoQParkDetailToCoreData(nmoqParkListDict: nmoqParkListDict!, managedObjContext: managedContext)
-                }
-                NotificationCenter.default.post(name: NSNotification.Name(nmoqParkDetailNotificationAr), object: self)
-            }
-        }
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
     }
     
     func saveNMoQParkDetailToCoreData(nmoqParkListDict: NMoQParkDetail, managedObjContext: NSManagedObjectContext) {
-        if (LocalizationLanguage.currentAppleLanguage() == ENG_LANGUAGE) {
             let nmoqParkListdbDict: NMoQParkDetailEntity = NSEntityDescription.insertNewObject(forEntityName: "NMoQParkDetailEntity", into: managedObjContext) as! NMoQParkDetailEntity
             nmoqParkListdbDict.title = nmoqParkListDict.title
             nmoqParkListdbDict.nid =  nmoqParkListDict.nid
             nmoqParkListdbDict.sortId =  nmoqParkListDict.sortId
             nmoqParkListdbDict.parkDesc =  nmoqParkListDict.parkDesc
+        nmoqParkListdbDict.language = Utils.getLanguage()
             
             if(nmoqParkListDict.images != nil){
                 if((nmoqParkListDict.images?.count)! > 0) {
@@ -1853,7 +1808,7 @@ class PanelDiscussionDetailViewController: UIViewController,LoadingViewProtocol,
                         var parkListImage: NMoQParkDetailImgEntity!
                         let parkListImageArray: NMoQParkDetailImgEntity = NSEntityDescription.insertNewObject(forEntityName: "NMoQParkDetailImgEntity", into: managedObjContext) as! NMoQParkDetailImgEntity
                         parkListImageArray.images = nmoqParkListDict.images![i]
-                        
+                        parkListImageArray.language = Utils.getLanguage()
                         parkListImage = parkListImageArray
                         nmoqParkListdbDict.addToParkDetailImgRelation(parkListImage)
                         do {
@@ -1864,31 +1819,6 @@ class PanelDiscussionDetailViewController: UIViewController,LoadingViewProtocol,
                     }
                 }
             }
-        } else {
-            let nmoqParkListdbDict: NMoQParkDetailEntityAr = NSEntityDescription.insertNewObject(forEntityName: "NMoQParkDetailEntityAr", into: managedObjContext) as! NMoQParkDetailEntityAr
-            nmoqParkListdbDict.title = nmoqParkListDict.title
-            nmoqParkListdbDict.nid =  nmoqParkListDict.nid
-            nmoqParkListdbDict.sortId =  nmoqParkListDict.sortId
-            nmoqParkListdbDict.parkDesc =  nmoqParkListDict.parkDesc
-            
-            if(nmoqParkListDict.images != nil){
-                if((nmoqParkListDict.images?.count)! > 0) {
-                    for i in 0 ... (nmoqParkListDict.images?.count)!-1 {
-                        var parkListImage: NMoQParkDetailImgEntityAr!
-                        let parkListImageArray: NMoQParkDetailImgEntityAr = NSEntityDescription.insertNewObject(forEntityName: "NMoQParkDetailImgEntityAr", into: managedObjContext) as! NMoQParkDetailImgEntityAr
-                        parkListImageArray.images = nmoqParkListDict.images![i]
-                        
-                        parkListImage = parkListImageArray
-                        nmoqParkListdbDict.addToParkDetailImgRelationAr(parkListImage)
-                        do {
-                            try managedObjContext.save()
-                        } catch let error as NSError {
-                            print("Could not save. \(error), \(error.userInfo)")
-                        }
-                    }
-                }
-            }
-        }
         do {
             try managedObjContext.save()
         } catch let error as NSError {
@@ -1900,9 +1830,11 @@ class PanelDiscussionDetailViewController: UIViewController,LoadingViewProtocol,
     func fetchNMoQParkDetailFromCoredata() {
         let managedContext = getContext()
         do {
-            if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
                 var parkListArray = [NMoQParkDetailEntity]()
-                parkListArray = checkAddedToCoredata(entityName: "NMoQParkDetailEntity", idKey: "nid", idValue: nid, managedContext: managedContext) as! [NMoQParkDetailEntity]
+                parkListArray = checkAddedToCoredata(entityName: "NMoQParkDetailEntity",
+                                                     idKey: "nid",
+                                                     idValue: nid,
+                                                     managedContext: managedContext) as! [NMoQParkDetailEntity]
                 if (parkListArray.count > 0) {
                     for i in 0 ... parkListArray.count-1 {
                         let parkListDict = parkListArray[i]
@@ -1913,7 +1845,7 @@ class PanelDiscussionDetailViewController: UIViewController,LoadingViewProtocol,
                                 imagesArray.append(imagesInfoArray[i].images!)
                             }
                         }
-                        self.nmoqParkDetailArray.insert(NMoQParkDetail(title: parkListDict.title, sortId: parkListDict.sortId, nid: parkListDict.nid, images: imagesArray, parkDesc: parkListDict.parkDesc), at: i)
+                        self.nmoqParkDetailArray.insert(NMoQParkDetail(title: parkListDict.title, sortId: parkListDict.sortId, nid: parkListDict.nid, images: imagesArray, parkDesc: parkListDict.parkDesc, language: parkListDict.language), at: i)
                     }
                     if(nmoqParkDetailArray.count == 0){
                         if(self.networkReachability?.isReachable == false) {
@@ -1936,46 +1868,10 @@ class PanelDiscussionDetailViewController: UIViewController,LoadingViewProtocol,
                         self.loadingView.showNoDataView()
                     }
                 }
-            } else {
-                var parkListArray = [NMoQParkDetailEntityAr]()
-                parkListArray = checkAddedToCoredata(entityName: "NMoQParkDetailEntityAr", idKey: "nid", idValue: nid, managedContext: managedContext) as! [NMoQParkDetailEntityAr]
-                if (parkListArray.count > 0) {
-                    for i in 0 ... parkListArray.count-1 {
-                        let parkListDict = parkListArray[i]
-                        var imagesArray : [String] = []
-                        let imagesInfoArray = (parkListDict.parkDetailImgRelationAr?.allObjects) as! [NMoQParkDetailImgEntityAr]
-                        if(imagesInfoArray.count > 0) {
-                            for i in 0 ... imagesInfoArray.count-1 {
-                                imagesArray.append(imagesInfoArray[i].images!)
-                            }
-                        }
-                        self.nmoqParkDetailArray.insert(NMoQParkDetail(title: parkListDict.title, sortId: parkListDict.sortId, nid: parkListDict.nid, images: imagesArray, parkDesc: parkListDict.parkDesc), at: i)
-                    }
-                    if(nmoqParkDetailArray.count == 0){
-                        if(self.networkReachability?.isReachable == false) {
-                            self.showNoNetwork()
-                        } else {
-                            self.loadingView.showNoDataView()
-                        }
-                    } else {
-                        if self.nmoqParkDetailArray.first(where: {$0.sortId != "" && $0.sortId != nil} ) != nil {
-                            self.nmoqParkDetailArray = self.nmoqParkDetailArray.sorted(by: { Int16($0.sortId!)! < Int16($1.sortId!)! })
-                        }
-                    }
-                    DispatchQueue.main.async{
-                        self.tableView.reloadData()
-                    }
-                } else{
-                    if(self.networkReachability?.isReachable == false) {
-                        self.showNoNetwork()
-                    } else {
-                        self.loadingView.showNoDataView()
-                    }
-                }
-            }
         }
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
     }
+        
     func checkAddedToCoredata(entityName: String?, idKey:String?, idValue: String?, managedContext: NSManagedObjectContext) -> [NSManagedObject] {
         var fetchResults : [NSManagedObject] = []
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: entityName!)
@@ -1985,6 +1881,7 @@ class PanelDiscussionDetailViewController: UIViewController,LoadingViewProtocol,
         fetchResults = try! managedContext.fetch(fetchRequest)
         return fetchResults
     }
+        
     func recordScreenView() {
         let screenClass = String(describing: type(of: self))
         if (pageNameString == NMoQPanelPage.TourDetailPage) {

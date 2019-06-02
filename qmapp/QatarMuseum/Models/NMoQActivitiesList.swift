@@ -22,6 +22,7 @@ struct NMoQActivitiesList: ResponseObjectSerializable, ResponseCollectionSeriali
     var longitude: String? = nil
     var contactEmail: String? = nil
     var contactPhone: String? = nil
+    var language: String?
     
     
     public init?(response: HTTPURLResponse, representation: AnyObject) {
@@ -41,10 +42,11 @@ struct NMoQActivitiesList: ResponseObjectSerializable, ResponseCollectionSeriali
             self.longitude = representation["longitude"] as? String
             self.contactEmail = representation["contact_email"] as? String
             self.contactPhone = representation["contact_phone"] as? String
+            self.language = representation["language"] as? String
         }
     }
     
-    init (title:String?, dayDescription: String?, images: [String]?, subtitle: String?,sortId:String?, nid: String?, eventDate: String?, date: String?, descriptioForModerator: String?, mobileLatitude: String?,moderatorName:String?, longitude: String?, contactEmail: String?, contactPhone: String?) {
+    init (title:String?, dayDescription: String?, images: [String]?, subtitle: String?,sortId:String?, nid: String?, eventDate: String?, date: String?, descriptioForModerator: String?, mobileLatitude: String?,moderatorName:String?, longitude: String?, contactEmail: String?, contactPhone: String?, language: String?) {
         self.title = title
         self.dayDescription = dayDescription
         self.images = images
@@ -59,6 +61,7 @@ struct NMoQActivitiesList: ResponseObjectSerializable, ResponseCollectionSeriali
         self.longitude = longitude
         self.contactEmail = contactEmail
         self.contactPhone = contactPhone
+        self.language = language
     }
 }
 
