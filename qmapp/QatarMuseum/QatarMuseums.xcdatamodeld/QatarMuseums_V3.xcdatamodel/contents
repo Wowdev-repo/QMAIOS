@@ -71,25 +71,10 @@
         <attribute name="language" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="ageGroupRelation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="EducationEventEntity" inverseName="ageGroupRelation" inverseEntity="EducationEventEntity" syncable="YES"/>
     </entity>
-    <entity name="EdEndDateEntity" representedClassName="EdEndDateEntity" syncable="YES" codeGenerationType="class">
-        <attribute name="endDate" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="language" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="endDateRelation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="EducationEventEntity" inverseName="endDateRelation" inverseEntity="EducationEventEntity" syncable="YES"/>
-    </entity>
-    <entity name="EdEventDateEntity" representedClassName="EdEventDateEntity" syncable="YES" codeGenerationType="class">
-        <attribute name="fieldRepeatDate" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="language" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="fieldRepeatDates" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="EducationEventEntity" inverseName="fieldRepeatDates" inverseEntity="EducationEventEntity" syncable="YES"/>
-    </entity>
     <entity name="EdEventTopicsEntity" representedClassName="EdEventTopicsEntity" syncable="YES" codeGenerationType="class">
         <attribute name="associatedTopic" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="language" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="assTopicRelation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="EducationEventEntity" inverseName="assTopicRelation" inverseEntity="EducationEventEntity" syncable="YES"/>
-    </entity>
-    <entity name="EdStartDateEntity" representedClassName="EdStartDateEntity" syncable="YES" codeGenerationType="class">
-        <attribute name="language" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="startDate" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="startDateRelation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="EducationEventEntity" inverseName="startDateRelation" inverseEntity="EducationEventEntity" syncable="YES"/>
     </entity>
     <entity name="EducationEventEntity" representedClassName="EducationEventEntity" syncable="YES" codeGenerationType="class">
         <attribute name="dateId" optional="YES" attributeType="String" syncable="YES"/>
@@ -104,9 +89,9 @@
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="ageGroupRelation" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="EdAgeGroupEntity" inverseName="ageGroupRelation" inverseEntity="EdAgeGroupEntity" syncable="YES"/>
         <relationship name="assTopicRelation" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="EdEventTopicsEntity" inverseName="assTopicRelation" inverseEntity="EdEventTopicsEntity" syncable="YES"/>
-        <relationship name="endDateRelation" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="EdEndDateEntity" inverseName="endDateRelation" inverseEntity="EdEndDateEntity" syncable="YES"/>
-        <relationship name="fieldRepeatDates" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="EdEventDateEntity" inverseName="fieldRepeatDates" inverseEntity="EdEventDateEntity" syncable="YES"/>
-        <relationship name="startDateRelation" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="EdStartDateEntity" inverseName="startDateRelation" inverseEntity="EdStartDateEntity" syncable="YES"/>
+        <relationship name="endDateRelation" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="DateEntity" syncable="YES"/>
+        <relationship name="fieldRepeatDates" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="DateEntity" syncable="YES"/>
+        <relationship name="startDateRelation" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="DateEntity" syncable="YES"/>
     </entity>
     <entity name="EventAgeGroupEntity" representedClassName="EventAgeGroupEntity" syncable="YES" codeGenerationType="class">
         <attribute name="ageGroup" optional="YES" attributeType="String" syncable="YES"/>
@@ -439,10 +424,7 @@
         <element name="DiningEntity" positionX="-54" positionY="90" width="128" height="210"/>
         <element name="DiningImagesEntity" positionX="-9" positionY="135" width="128" height="75"/>
         <element name="EdAgeGroupEntity" positionX="-9" positionY="153" width="128" height="90"/>
-        <element name="EdEndDateEntity" positionX="-9" positionY="135" width="128" height="90"/>
-        <element name="EdEventDateEntity" positionX="-18" positionY="153" width="128" height="90"/>
         <element name="EdEventTopicsEntity" positionX="36" positionY="189" width="128" height="90"/>
-        <element name="EdStartDateEntity" positionX="18" positionY="162" width="128" height="90"/>
         <element name="EducationEventEntity" positionX="-36" positionY="108" width="128" height="270"/>
         <element name="EventAgeGroupEntity" positionX="-27" positionY="135" width="128" height="90"/>
         <element name="EventEntity" positionX="-18" positionY="153" width="128" height="270"/>

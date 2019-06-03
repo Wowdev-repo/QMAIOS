@@ -748,9 +748,9 @@ class EventViewController: UIViewController,UICollectionViewDelegate,UICollectio
             if(educationEventDict.fieldRepeatDate != nil) {
             if((educationEventDict.fieldRepeatDate?.count)! > 0) {
                 for i in 0 ... (educationEventDict.fieldRepeatDate?.count)!-1 {
-                    var eventDateEntity: EdEventDateEntity!
-                    let edEventDate: EdEventDateEntity = NSEntityDescription.insertNewObject(forEntityName: "EdEventDateEntity", into: managedObjContext) as! EdEventDateEntity
-                    edEventDate.fieldRepeatDate = educationEventDict.fieldRepeatDate![i].replacingOccurrences(of: "<[^>]+>|&nbsp;|&|#039;", with: "", options: .regularExpression, range: nil)
+                    var eventDateEntity: DateEntity!
+                    let edEventDate = NSEntityDescription.insertNewObject(forEntityName: "DateEntity", into: managedObjContext) as! DateEntity
+                    edEventDate.date = educationEventDict.fieldRepeatDate![i].replacingOccurrences(of: "<[^>]+>|&nbsp;|&|#039;", with: "", options: .regularExpression, range: nil)
                     
                     eventDateEntity = edEventDate
                     eventDateEntity.language = Utils.getLanguage()
@@ -807,9 +807,9 @@ class EventViewController: UIViewController,UICollectionViewDelegate,UICollectio
             //StartDate
             if((educationEventDict.startDate?.count)! > 0) {
                 for i in 0 ... (educationEventDict.startDate?.count)!-1 {
-                    var eventSubEntity: EdStartDateEntity!
-                    let event: EdStartDateEntity = NSEntityDescription.insertNewObject(forEntityName: "EdStartDateEntity", into: managedObjContext) as! EdStartDateEntity
-                    event.startDate = educationEventDict.startDate![i].replacingOccurrences(of: "<[^>]+>|&nbsp;|&|#039;", with: "", options: .regularExpression, range: nil)
+                    var eventSubEntity: DateEntity!
+                    let event = NSEntityDescription.insertNewObject(forEntityName: "DateEntity", into: managedObjContext) as! DateEntity
+                    event.date = educationEventDict.startDate![i].replacingOccurrences(of: "<[^>]+>|&nbsp;|&|#039;", with: "", options: .regularExpression, range: nil)
                     
                     event.language = Utils.getLanguage()
                     eventSubEntity = event
@@ -826,9 +826,9 @@ class EventViewController: UIViewController,UICollectionViewDelegate,UICollectio
             //endDate
             if((educationEventDict.endDate?.count)! > 0) {
                 for i in 0 ... (educationEventDict.endDate?.count)!-1 {
-                    var eventSubEntity: EdEndDateEntity!
-                    let event: EdEndDateEntity = NSEntityDescription.insertNewObject(forEntityName: "EdEndDateEntity", into: managedObjContext) as! EdEndDateEntity
-                    event.endDate = educationEventDict.endDate![i].replacingOccurrences(of: "<[^>]+>|&nbsp;|&|#039;", with: "", options: .regularExpression, range: nil)
+                    var eventSubEntity: DateEntity!
+                    let event = NSEntityDescription.insertNewObject(forEntityName: "DateEntity", into: managedObjContext) as! DateEntity
+                    event.date = educationEventDict.endDate![i].replacingOccurrences(of: "<[^>]+>|&nbsp;|&|#039;", with: "", options: .regularExpression, range: nil)
                     
                     event.language = Utils.getLanguage()
                     eventSubEntity = event
@@ -977,9 +977,9 @@ class EventViewController: UIViewController,UICollectionViewDelegate,UICollectio
                     for i in 0 ... educationArray.count-1 {
                         var dateArray : [String] = []
                         let educationInfo = educationArray[i]
-                        let educationInfoArray = (educationInfo.fieldRepeatDates?.allObjects) as! [EdEventDateEntity]
+                        let educationInfoArray = (educationInfo.fieldRepeatDates?.allObjects) as! [DateEntity]
                         for i in 0 ... educationInfoArray.count-1 {
-                            dateArray.append(educationInfoArray[i].fieldRepeatDate!)
+                            dateArray.append(educationInfoArray[i].date!)
                         }
                         var ageGrpArray : [String] = []
                         let ageInfoArray = (educationInfo.ageGroupRelation?.allObjects) as! [EdAgeGroupEntity]
@@ -992,14 +992,14 @@ class EventViewController: UIViewController,UICollectionViewDelegate,UICollectio
                             topicsArray.append(topicsInfoArray[i].associatedTopic!)
                         }
                         var startDateArray : [String] = []
-                        let startDateInfoArray = (educationInfo.startDateRelation?.allObjects) as! [EdStartDateEntity]
+                        let startDateInfoArray = (educationInfo.startDateRelation?.allObjects) as! [DateEntity]
                         for i in 0 ... startDateInfoArray.count-1 {
-                            startDateArray.append(startDateInfoArray[i].startDate!)
+                            startDateArray.append(startDateInfoArray[i].date!)
                         }
                         var endDateArray : [String] = []
-                        let endDateInfoArray = (educationInfo.endDateRelation?.allObjects) as! [EdEndDateEntity]
+                        let endDateInfoArray = (educationInfo.endDateRelation?.allObjects) as! [DateEntity]
                         for i in 0 ... endDateInfoArray.count-1 {
-                            endDateArray.append(endDateInfoArray[i].endDate!)
+                            endDateArray.append(endDateInfoArray[i].date!)
                         }
                         
                         
