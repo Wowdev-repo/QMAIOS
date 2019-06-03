@@ -1170,12 +1170,14 @@ class EventViewController: UIViewController,UICollectionViewDelegate,UICollectio
              if(educationEventDict.fieldRepeatDate != nil){
             if((educationEventDict.fieldRepeatDate?.count)! > 0) {
                 for i in 0 ... (educationEventDict.fieldRepeatDate?.count)!-1 {
-                    var eventDateEntity: EventDateEntity!
-                    let edEventDate: EventDateEntity = NSEntityDescription.insertNewObject(forEntityName: "EventDateEntity", into: managedObjContext) as! EventDateEntity
-                    edEventDate.fieldRepeatDate = educationEventDict.fieldRepeatDate![i].replacingOccurrences(of: "<[^>]+>|&nbsp;|&|#039;", with: "", options: .regularExpression, range: nil)
+                    let eventDateEntity = NSEntityDescription.insertNewObject(forEntityName: "DateEntity",
+                                                                          into: managedObjContext) as! DateEntity
+                    eventDateEntity.date = educationEventDict.fieldRepeatDate![i].replacingOccurrences(of: "<[^>]+>|&nbsp;|&|#039;",
+                                                                                                   with: "",
+                                                                                                   options: .regularExpression,
+                                                                                                   range: nil)
                     
                     eventDateEntity.language = Utils.getLanguage()
-                    eventDateEntity = edEventDate
                     edducationInfo.addToFieldRepeatDates(eventDateEntity)
                     do {
                         try managedObjContext.save()
@@ -1226,154 +1228,47 @@ class EventViewController: UIViewController,UICollectionViewDelegate,UICollectio
                     
                 }
             }
-            //StartDate
-            if((educationEventDict.startDate?.count)! > 0) {
-                for i in 0 ... (educationEventDict.startDate?.count)!-1 {
-                    var eventSubEntity: EventStartDateEntity!
-                    let event: EventStartDateEntity = NSEntityDescription.insertNewObject(forEntityName: "EventStartDateEntity", into: managedObjContext) as! EventStartDateEntity
-                    event.startDate = educationEventDict.startDate![i].replacingOccurrences(of: "<[^>]+>|&nbsp;|&|#039;", with: "", options: .regularExpression, range: nil)
+        
+        //StartDate
+        if let startDates = educationEventDict.startDate {
+            for dateDict in startDates {
+                let event = NSEntityDescription.insertNewObject(forEntityName: "DateEntity",
+                                                                into: managedObjContext) as! DateEntity
+                event.date = dateDict.replacingOccurrences(of: "<[^>]+>|&nbsp;|&|#039;",
+                                                           with: "",
+                                                           options: .regularExpression,
+                                                           range: nil)
+                event.language = Utils.getLanguage()
+                edducationInfo.addToStartDateRelation(event)
+                do {
+                    try managedObjContext.save()
                     
-                    event.language = Utils.getLanguage()
-                    eventSubEntity = event
-                    edducationInfo.addToStartDateRelation(eventSubEntity)
-                    do {
-                        try managedObjContext.save()
-                        
-                    } catch let error as NSError {
-                        print("Could not save. \(error), \(error.userInfo)")
-                    }
-                    
+                } catch let error as NSError {
+                    print("Could not save. \(error), \(error.userInfo)")
                 }
             }
-            //endDate
-            if((educationEventDict.endDate?.count)! > 0) {
-                for i in 0 ... (educationEventDict.endDate?.count)!-1 {
-                    var eventSubEntity: EventEndDateEntity!
-                    let event: EventEndDateEntity = NSEntityDescription.insertNewObject(forEntityName: "EventEndDateEntity", into: managedObjContext) as! EventEndDateEntity
-                    event.endDate = educationEventDict.endDate![i].replacingOccurrences(of: "<[^>]+>|&nbsp;|&|#039;", with: "", options: .regularExpression, range: nil)
+        }
+        
+        //EndDate
+        if let startDates = educationEventDict.endDate {
+            for dateDict in startDates {
+                let event = NSEntityDescription.insertNewObject(forEntityName: "DateEntity",
+                                                                into: managedObjContext) as! DateEntity
+                event.date = dateDict.replacingOccurrences(of: "<[^>]+>|&nbsp;|&|#039;",
+                                                           with: "",
+                                                           options: .regularExpression,
+                                                           range: nil)
+                event.language = Utils.getLanguage()
+                edducationInfo.addToEndDateRelation(event)
+                do {
+                    try managedObjContext.save()
                     
-                    event.language = Utils.getLanguage()
-                    eventSubEntity = event
-                    edducationInfo.addToEndDateRelation(eventSubEntity)
-                    do {
-                        try managedObjContext.save()
-                        
-                    } catch let error as NSError {
-                        print("Could not save. \(error), \(error.userInfo)")
-                    }
-                    
+                } catch let error as NSError {
+                    print("Could not save. \(error), \(error.userInfo)")
                 }
             }
-            
-            
-//        }
-//        else {
-//
-//
-//                let edducationInfo: EventEntityArabic = NSEntityDescription.insertNewObject(forEntityName: "EventEntityArabic", into: managedObjContext) as! EventEntityArabic
-//                 edducationInfo.dateId = dateId
-//                edducationInfo.itemId = educationEventDict.itemId
-//                edducationInfo.introductionText = educationEventDict.introductionText
-//                edducationInfo.registerAr = educationEventDict.register
-//                edducationInfo.titleAr = educationEventDict.title
-//                edducationInfo.pgmTypeAr = educationEventDict.programType
-//                edducationInfo.museumDepartMent = educationEventDict.museumDepartMent
-//            edducationInfo.mainDesc = educationEventDict.mainDescription
-//            if(educationEventDict.fieldRepeatDate != nil) {
-//            if((educationEventDict.fieldRepeatDate?.count)! > 0) {
-//                for i in 0 ... (educationEventDict.fieldRepeatDate?.count)!-1 {
-//                    var eventDateEntity: EventDateEntityAr!
-//                    let edEventDate: EventDateEntityAr = NSEntityDescription.insertNewObject(forEntityName: "EventDateEntityAr", into: managedObjContext) as! EventDateEntityAr
-//                    edEventDate.fieldRepeatDate = educationEventDict.fieldRepeatDate![i].replacingOccurrences(of: "<[^>]+>|&nbsp;|&|#039;", with: "", options: .regularExpression, range: nil)
-//
-//                    eventDateEntity = edEventDate
-//                    edducationInfo.addToFieldRepeatDates(eventDateEntity)
-//
-//                    do {
-//                        try managedObjContext.save()
-//
-//
-//                    } catch let error as NSError {
-//                        print("Could not save. \(error), \(error.userInfo)")
-//                    }
-//
-//                }
-//            }
-//        }
-//
-//            //AgeGroup
-//            if((educationEventDict.ageGroup?.count)! > 0) {
-//                for i in 0 ... (educationEventDict.ageGroup?.count)!-1 {
-//                    var eventAgeEntity: EventAgeGroupEntityAr!
-//                    let eventAge: EventAgeGroupEntityAr = NSEntityDescription.insertNewObject(forEntityName: "EventAgeGroupEntityAr", into: managedObjContext) as! EventAgeGroupEntityAr
-//                    eventAge.ageGroup = educationEventDict.ageGroup![i].replacingOccurrences(of: "<[^>]+>|&nbsp;|&|#039;", with: "", options: .regularExpression, range: nil)
-//
-//                    eventAgeEntity = eventAge
-//                    edducationInfo.addToAgeGroupRelation(eventAgeEntity)
-//                    do {
-//                        try managedObjContext.save()
-//
-//                    } catch let error as NSError {
-//                        print("Could not save. \(error), \(error.userInfo)")
-//                    }
-//
-//                }
-//            }
-//            //Associated_topics
-//            if((educationEventDict.associatedTopics?.count)! > 0) {
-//                for i in 0 ... (educationEventDict.associatedTopics?.count)!-1 {
-//                    var eventSubEntity: EventTopicsEntityAr!
-//                    let event: EventTopicsEntityAr = NSEntityDescription.insertNewObject(forEntityName: "EventTopicsEntityAr", into: managedObjContext) as! EventTopicsEntityAr
-//                    event.associatedTopic = educationEventDict.associatedTopics![i].replacingOccurrences(of: "<[^>]+>|&nbsp;|&|#039;", with: "", options: .regularExpression, range: nil)
-//
-//                    eventSubEntity = event
-//                    edducationInfo.addToAssTopicRelation(eventSubEntity)
-//                    do {
-//                        try managedObjContext.save()
-//
-//                    } catch let error as NSError {
-//                        print("Could not save. \(error), \(error.userInfo)")
-//                    }
-//
-//                }
-//            }
-//            //StartDate
-//            if((educationEventDict.startDate?.count)! > 0) {
-//                for i in 0 ... (educationEventDict.startDate?.count)!-1 {
-//                    var eventSubEntity: EventStartDateEntityAr!
-//                    let event: EventStartDateEntityAr = NSEntityDescription.insertNewObject(forEntityName: "EventStartDateEntityAr", into: managedObjContext) as! EventStartDateEntityAr
-//                    event.startDate = educationEventDict.startDate![i].replacingOccurrences(of: "<[^>]+>|&nbsp;|&|#039;", with: "", options: .regularExpression, range: nil)
-//
-//                    eventSubEntity = event
-//                    edducationInfo.addToStartDateRelation(eventSubEntity)
-//                    do {
-//                        try managedObjContext.save()
-//
-//                    } catch let error as NSError {
-//                        print("Could not save. \(error), \(error.userInfo)")
-//                    }
-//
-//                }
-//            }
-//            //endDate
-//            if((educationEventDict.endDate?.count)! > 0) {
-//                for i in 0 ... (educationEventDict.endDate?.count)!-1 {
-//                    var eventSubEntity: EventEndDateEntityAr!
-//                    let event: EventEndDateEntityAr = NSEntityDescription.insertNewObject(forEntityName: "EventEndDateEntityAr", into: managedObjContext) as! EventEndDateEntityAr
-//                    event.endDate = educationEventDict.endDate![i].replacingOccurrences(of: "<[^>]+>|&nbsp;|&|#039;", with: "", options: .regularExpression, range: nil)
-//
-//                    eventSubEntity = event
-//                    edducationInfo.addToEndDateRelation(eventSubEntity)
-//                    do {
-//                        try managedObjContext.save()
-//
-//                    } catch let error as NSError {
-//                        print("Could not save. \(error), \(error.userInfo)")
-//                    }
-//
-//                }
-//            }
-//        }
+        }
+        
         do {
             try managedObjContext.save()
             
@@ -1397,9 +1292,9 @@ class EventViewController: UIViewController,UICollectionViewDelegate,UICollectio
                     for i in 0 ... educationArray.count-1 {
                         var dateArray : [String] = []
                         let educationInfo = educationArray[i]
-                        let educationInfoArray = (educationInfo.fieldRepeatDates?.allObjects) as! [EventDateEntity]
+                        let educationInfoArray = (educationInfo.fieldRepeatDates?.allObjects) as! [DateEntity]
                         for i in 0 ... educationInfoArray.count-1 {
-                            dateArray.append(educationInfoArray[i].fieldRepeatDate!)
+                            dateArray.append(educationInfoArray[i].date!)
                         }
                         var ageGrpArray : [String] = []
                         let ageInfoArray = (educationInfo.ageGroupRelation?.allObjects) as! [EventAgeGroupEntity]
@@ -1412,14 +1307,14 @@ class EventViewController: UIViewController,UICollectionViewDelegate,UICollectio
                             topicsArray.append(topicsInfoArray[i].associatedTopic!)
                         }
                         var startDateArray : [String] = []
-                        let startDateInfoArray = (educationInfo.startDateRelation?.allObjects) as! [EventStartDateEntity]
+                        let startDateInfoArray = (educationInfo.startDateRelation?.allObjects) as! [DateEntity]
                         for i in 0 ... startDateInfoArray.count-1 {
-                            startDateArray.append(startDateInfoArray[i].startDate!)
+                            startDateArray.append(startDateInfoArray[i].date!)
                         }
                         var endDateArray : [String] = []
-                        let endDateInfoArray = (educationInfo.endDateRelation?.allObjects) as! [EventEndDateEntity]
+                        let endDateInfoArray = (educationInfo.endDateRelation?.allObjects) as! [DateEntity]
                         for i in 0 ... endDateInfoArray.count-1 {
-                            endDateArray.append(endDateInfoArray[i].endDate!)
+                            endDateArray.append(endDateInfoArray[i].date!)
                         }
                         
                        
