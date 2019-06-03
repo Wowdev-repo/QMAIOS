@@ -467,17 +467,10 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
                 AnalyticsParameterContentType: "cont"
                 ])
         } else if (exhibitionsPageNameString == ExhbitionPageName.diningList) {
-<<<<<<< HEAD
-<<<<<<< HEAD
-            _ = diningListArray[indexPath.row].id
-//            loadDiningDetailAnimation(idValue: diningId!)
-=======
-=======
+
             DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
->>>>>>> added DLogInfo in cell tap functions
             let diningId = diningListArray[indexPath.row].id
             loadDiningDetailAnimation(idValue: diningId!)
->>>>>>> fixed bugs found after merging OptimizationTaskMerged
             Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
                 AnalyticsParameterItemID: FirebaseAnalyticsEvents.tapped_dining_detail,
                 AnalyticsParameterItemName: exhibitionsPageNameString ?? "",
