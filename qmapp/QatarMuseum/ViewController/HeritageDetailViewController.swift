@@ -508,9 +508,9 @@ class HeritageDetailViewController: UIViewController,UITableViewDelegate,UITable
             
             if((heritageDetailDict.images?.count)! > 0) {
                 for i in 0 ... (heritageDetailDict.images?.count)!-1 {
-                    var heritageImagesEntity: HeritageImagesEntity!
-                    let heritageImage: HeritageImagesEntity = NSEntityDescription.insertNewObject(forEntityName: "HeritageImagesEntity", into: managedContext) as! HeritageImagesEntity
-                    heritageImage.images = heritageDetailDict.images![i]
+                    var heritageImagesEntity: ImageEntity!
+                    let heritageImage = NSEntityDescription.insertNewObject(forEntityName: "ImageEntity", into: managedContext) as! ImageEntity
+                    heritageImage.image = heritageDetailDict.images![i]
                     
                     heritageImagesEntity = heritageImage
                     heritagedbDict.addToImagesRelation(heritageImagesEntity)
@@ -561,9 +561,9 @@ class HeritageDetailViewController: UIViewController,UITableViewDelegate,UITable
             
             if((heritageDetailDict.images?.count)! > 0) {
                 for i in 0 ... (heritageDetailDict.images?.count)!-1 {
-                    var heritageImagesEntity: HeritageImagesEntity!
-                    let heritageImage: HeritageImagesEntity = NSEntityDescription.insertNewObject(forEntityName: "HeritageImagesEntity", into: managedObjContext) as! HeritageImagesEntity
-                    heritageImage.images = heritageDetailDict.images![i]
+                    var heritageImagesEntity: ImageEntity!
+                    let heritageImage = NSEntityDescription.insertNewObject(forEntityName: "ImageEntity", into: managedObjContext) as! ImageEntity
+                    heritageImage.image = heritageDetailDict.images![i]
                     
                     heritageImagesEntity = heritageImage
                     heritageInfo.addToImagesRelation(heritageImagesEntity)
@@ -596,10 +596,10 @@ class HeritageDetailViewController: UIViewController,UITableViewDelegate,UITable
                         let heritageDict = heritageArray[0]
                         if((heritageDict.detailshortdescription != nil) && (heritageDict.detaillongdescription != nil) ) {
                             var imagesArray : [String] = []
-                            let heritageImagesArray = (heritageDict.imagesRelation?.allObjects) as! [HeritageImagesEntity]
+                            let heritageImagesArray = (heritageDict.imagesRelation?.allObjects) as! [ImageEntity]
                             if(heritageImagesArray.count > 0) {
                                 for i in 0 ... heritageImagesArray.count-1 {
-                                    imagesArray.append(heritageImagesArray[i].images!)
+                                    imagesArray.append(heritageImagesArray[i].image!)
                                 }
                             }
                             self.heritageDetailtArray.insert(Heritage(id: heritageDict.listid, name: heritageDict.listname, location: heritageDict.detaillocation, latitude: heritageDict.detaillatitude, longitude: heritageDict.detaillongitude, image: heritageDict.listimage, shortdescription: heritageDict.detailshortdescription, longdescription: heritageDict.detaillongdescription, images: imagesArray, sortid: heritageDict.listsortid), at: 0)
@@ -673,9 +673,9 @@ class HeritageDetailViewController: UIViewController,UITableViewDelegate,UITable
                 if(publicArtsDetailDict.images != nil) {
                 if((publicArtsDetailDict.images?.count)! > 0) {
                     for i in 0 ... (publicArtsDetailDict.images?.count)!-1 {
-                        var publicArtsImagesEntity: PublicArtsImagesEntity!
-                        let publicArtsImage: PublicArtsImagesEntity = NSEntityDescription.insertNewObject(forEntityName: "PublicArtsImagesEntity", into: managedContext) as! PublicArtsImagesEntity
-                        publicArtsImage.images = publicArtsDetailDict.images![i]
+                        var publicArtsImagesEntity: ImageEntity!
+                        let publicArtsImage = NSEntityDescription.insertNewObject(forEntityName: "ImageEntity", into: managedContext) as! ImageEntity
+                        publicArtsImage.image = publicArtsDetailDict.images![i]
                         publicArtsImage.language = Utils.getLanguage()
                         publicArtsImagesEntity = publicArtsImage
                         publicArtsbDict.addToPublicImagesRelation(publicArtsImagesEntity)
@@ -717,9 +717,9 @@ class HeritageDetailViewController: UIViewController,UITableViewDelegate,UITable
             
             if((publicArtseDetailDict.images?.count)! > 0) {
                 for i in 0 ... (publicArtseDetailDict.images?.count)!-1 {
-                    var publicArtsImagesEntity: PublicArtsImagesEntity!
-                    let publicArtsImage: PublicArtsImagesEntity = NSEntityDescription.insertNewObject(forEntityName: "PublicArtsImagesEntity", into: managedObjContext) as! PublicArtsImagesEntity
-                    publicArtsImage.images = publicArtseDetailDict.images![i]
+                    var publicArtsImagesEntity: ImageEntity!
+                    let publicArtsImage = NSEntityDescription.insertNewObject(forEntityName: "ImageEntity", into: managedObjContext) as! ImageEntity
+                    publicArtsImage.image = publicArtseDetailDict.images![i]
                     publicArtsImage.language = Utils.getLanguage()
                     publicArtsImagesEntity = publicArtsImage
                     publicArtsInfo.addToPublicImagesRelation(publicArtsImagesEntity)
@@ -754,10 +754,10 @@ class HeritageDetailViewController: UIViewController,UITableViewDelegate,UITable
                         if((publicArtsDict.detaildescription != nil) && (publicArtsDict.shortdescription != nil) ) {
                             
                             var imagesArray : [String] = []
-                            let publicArtsImagesArray = (publicArtsDict.publicImagesRelation?.allObjects) as! [PublicArtsImagesEntity]
+                            let publicArtsImagesArray = (publicArtsDict.publicImagesRelation?.allObjects) as! [ImageEntity]
                             if(publicArtsImagesArray.count > 0) {
                                 for i in 0 ... publicArtsImagesArray.count-1 {
-                                    imagesArray.append(publicArtsImagesArray[i].images!)
+                                    imagesArray.append(publicArtsImagesArray[i].image!)
                                 }
                             }
                             self.publicArtsDetailtArray.insert(PublicArtsDetail(id:publicArtsDict.id , name:publicArtsDict.name, description: publicArtsDict.detaildescription, shortdescription: publicArtsDict.shortdescription, image: publicArtsDict.image, images: imagesArray,longitude: publicArtsDict.longitude, latitude: publicArtsDict.latitude, language: publicArtsDict.language), at: 0)

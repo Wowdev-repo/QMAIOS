@@ -1210,8 +1210,9 @@ class HomeViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             if(homeListDict.image != nil){
                 if((homeListDict.image?.count)! > 0) {
                     for i in 0 ... (homeListDict.image?.count)!-1 {
-                        var bannerImage: HomeBannerImageEntity
-                        let bannerImgaeArray: HomeBannerImageEntity = NSEntityDescription.insertNewObject(forEntityName: "HomeBannerImageEntity", into: managedObjContext) as! HomeBannerImageEntity
+                        var bannerImage: ImageEntity
+                        let bannerImgaeArray = NSEntityDescription.insertNewObject(forEntityName: "ImageEntity",
+                                                                                   into: managedObjContext) as! ImageEntity
                         bannerImgaeArray.image = homeListDict.image![i]
                         bannerImgaeArray.language = Utils.getLanguage()
                         bannerImage = bannerImgaeArray
@@ -1272,7 +1273,7 @@ class HomeViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                     for i in 0 ... homeArray.count-1 {
                         let homeBannerDict = homeArray[i]
                         var imagesArray : [String] = []
-                        let imagesInfoArray = (homeBannerDict.bannerImageRelations?.allObjects) as! [HomeBannerImageEntity]
+                        let imagesInfoArray = (homeBannerDict.bannerImageRelations?.allObjects) as! [ImageEntity]
                         if(imagesInfoArray.count > 0) {
                             for i in 0 ... imagesInfoArray.count-1 {
                                 imagesArray.append(imagesInfoArray[i].image!)

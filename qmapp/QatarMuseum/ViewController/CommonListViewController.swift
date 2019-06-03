@@ -1808,9 +1808,9 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
                         if(tourDetailDict.imageBanner != nil){
                             if((tourDetailDict.imageBanner?.count)! > 0) {
                                 for i in 0 ... (tourDetailDict.imageBanner?.count)!-1 {
-                                    var tourImage: NMoqTourDetailImagesEntity
-                                    let tourImgaeArray: NMoqTourDetailImagesEntity = NSEntityDescription.insertNewObject(forEntityName: "NMoqTourDetailImagesEntity", into: managedContext) as! NMoqTourDetailImagesEntity
-                                    tourImgaeArray.imgBanner = tourDetailDict.imageBanner?[i]
+                                    var tourImage: ImageEntity
+                                    let tourImgaeArray = NSEntityDescription.insertNewObject(forEntityName: "ImageEntity", into: managedContext) as! ImageEntity
+                                    tourImgaeArray.image = tourDetailDict.imageBanner?[i]
                                     tourImgaeArray.language = Utils.getLanguage()
                                     tourImage = tourImgaeArray
                                     tourDetaildbDict.addToNmoqTourDetailImgBannerRelation(tourImage)
@@ -1926,9 +1926,9 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
             if(tourDetailDict.imageBanner != nil){
                 if((tourDetailDict.imageBanner?.count)! > 0) {
                     for i in 0 ... (tourDetailDict.imageBanner?.count)!-1 {
-                        var tourImage: NMoqTourDetailImagesEntity
-                        let tourImgaeArray: NMoqTourDetailImagesEntity = NSEntityDescription.insertNewObject(forEntityName: "NMoqTourDetailImagesEntity", into: managedObjContext) as! NMoqTourDetailImagesEntity
-                        tourImgaeArray.imgBanner = tourDetailDict.imageBanner?[i]
+                        var tourImage: ImageEntity
+                        let tourImgaeArray = NSEntityDescription.insertNewObject(forEntityName: "ImageEntity", into: managedObjContext) as! ImageEntity
+                        tourImgaeArray.image = tourDetailDict.imageBanner?[i]
                         tourImgaeArray.language = Utils.getLanguage()
                         tourImage = tourImgaeArray
                         tourDetaildbDict.addToNmoqTourDetailImgBannerRelation(tourImage)
@@ -1992,10 +1992,10 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
                 if (tourDetailArray.count > 0) {
                     for i in 0 ... tourDetailArray.count-1 {
                         var imagesArray : [String] = []
-                        let imagesInfoArray = (tourDetailArray[i].nmoqTourDetailImgBannerRelation?.allObjects) as! [NMoqTourDetailImagesEntity]
+                        let imagesInfoArray = (tourDetailArray[i].nmoqTourDetailImgBannerRelation?.allObjects) as! [ImageEntity]
                         if(imagesInfoArray.count > 0) {
                             for i in 0 ... imagesInfoArray.count-1 {
-                                imagesArray.append(imagesInfoArray[i].imgBanner!)
+                                imagesArray.append(imagesInfoArray[i].image!)
                             }
                         }
                         
@@ -2136,9 +2136,9 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
                         if(facilitiesDetailDict.images != nil){
                             if((facilitiesDetailDict.images?.count)! > 0) {
                                 for i in 0 ... (facilitiesDetailDict.images?.count)!-1 {
-                                    var facilitiesDetailImage: FacilitiesDetailImgEntity
-                                    let facilitiesImgaeArray: FacilitiesDetailImgEntity = NSEntityDescription.insertNewObject(forEntityName: "FacilitiesDetailImgEntity", into: managedContext) as! FacilitiesDetailImgEntity
-                                    facilitiesImgaeArray.images = facilitiesDetailDict.images?[i]
+                                    var facilitiesDetailImage: ImageEntity
+                                    let facilitiesImgaeArray = NSEntityDescription.insertNewObject(forEntityName: "ImageEntity", into: managedContext) as! ImageEntity
+                                    facilitiesImgaeArray.image = facilitiesDetailDict.images?[i]
                                     facilitiesImgaeArray.language = Utils.getLanguage()
                                     facilitiesDetailImage = facilitiesImgaeArray
                                     facilitiesDetaildbDict.addToFacilitiesDetailRelation(facilitiesDetailImage)
@@ -2246,9 +2246,10 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
             if(facilitiesDetailDict.images != nil){
                 if((facilitiesDetailDict.images?.count)! > 0) {
                     for i in 0 ... (facilitiesDetailDict.images?.count)!-1 {
-                        var facilitiesDetailImage: FacilitiesDetailImgEntity
-                        let facilitiesImgaeArray: FacilitiesDetailImgEntity = NSEntityDescription.insertNewObject(forEntityName: "FacilitiesDetailImgEntity", into: managedObjContext) as! FacilitiesDetailImgEntity
-                        facilitiesImgaeArray.images = facilitiesDetailDict.images?[i]
+                        var facilitiesDetailImage: ImageEntity
+                        let facilitiesImgaeArray = NSEntityDescription.insertNewObject(forEntityName: "ImageEntity",
+                                                                                       into: managedObjContext) as! ImageEntity
+                        facilitiesImgaeArray.image = facilitiesDetailDict.images?[i]
                         facilitiesDetailImage = facilitiesImgaeArray
                         facilitiesDetaildbDict.addToFacilitiesDetailRelation(facilitiesDetailImage)
                         do {
@@ -2307,10 +2308,10 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
                 if (facilitiesDetailArray.count > 0) {
                     for i in 0 ... facilitiesDetailArray.count-1 {
                         var imagesArray : [String] = []
-                        let imagesInfoArray = (facilitiesDetailArray[i].facilitiesDetailRelation!.allObjects) as! [FacilitiesDetailImgEntity]
+                        let imagesInfoArray = (facilitiesDetailArray[i].facilitiesDetailRelation!.allObjects) as! [ImageEntity]
                         if(imagesInfoArray.count > 0) {
                             for i in 0 ... imagesInfoArray.count-1 {
-                                imagesArray.append(imagesInfoArray[i].images!)
+                                imagesArray.append(imagesInfoArray[i].image!)
                             }
                         }
                         self.facilitiesDetail.insert(FacilitiesDetail(entity: facilitiesDetailArray[i]), at: i)
@@ -3159,9 +3160,9 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
                         if(nmoqParkListDict.images != nil){
                             if((nmoqParkListDict.images?.count)! > 0) {
                                 for i in 0 ... (nmoqParkListDict.images?.count)!-1 {
-                                    var parkListImage: NMoQParkImgEntity!
-                                    let parkListImageArray: NMoQParkImgEntity = NSEntityDescription.insertNewObject(forEntityName: "NMoQParkImgEntity", into: managedContext) as! NMoQParkImgEntity
-                                    parkListImageArray.images = nmoqParkListDict.images![i]
+                                    var parkListImage: ImageEntity!
+                                    let parkListImageArray = NSEntityDescription.insertNewObject(forEntityName: "ImageEntity", into: managedContext) as! ImageEntity
+                                    parkListImageArray.image = nmoqParkListDict.images![i]
                                     parkListImageArray.language = Utils.getLanguage()
                                     parkListImage = parkListImageArray
                                     nmoqParkListdbDict.addToParkImgRelation(parkListImage)
@@ -3258,9 +3259,9 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
             if(nmoqParkListDict.images != nil){
                 if((nmoqParkListDict.images?.count)! > 0) {
                     for i in 0 ... (nmoqParkListDict.images?.count)!-1 {
-                        var parkListImage: NMoQParkImgEntity!
-                        let parkListImageArray: NMoQParkImgEntity = NSEntityDescription.insertNewObject(forEntityName: "NMoQParkImgEntity", into: managedObjContext) as! NMoQParkImgEntity
-                        parkListImageArray.images = nmoqParkListDict.images![i]
+                        var parkListImage: ImageEntity!
+                        let parkListImageArray = NSEntityDescription.insertNewObject(forEntityName: "ImageEntity", into: managedObjContext) as! ImageEntity
+                        parkListImageArray.image = nmoqParkListDict.images![i]
                         parkListImageArray.language = Utils.getLanguage()
                         parkListImage = parkListImageArray
                         nmoqParkListdbDict.addToParkImgRelation(parkListImage)
@@ -3395,10 +3396,10 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
                     for i in 0 ... parkListArray.count-1 {
                         let parkListDict = parkListArray[i]
                         var imagesArray : [String] = []
-                        let imagesInfoArray = (parkListDict.parkImgRelation?.allObjects) as! [NMoQParkImgEntity]
+                        let imagesInfoArray = (parkListDict.parkImgRelation?.allObjects) as! [ImageEntity]
                         if(imagesInfoArray.count > 0) {
                             for i in 0 ... imagesInfoArray.count-1 {
-                                imagesArray.append(imagesInfoArray[i].images!)
+                                imagesArray.append(imagesInfoArray[i].image!)
                             }
                         }
                         self.nmoqParks.insert(NMoQPark(title: parkListDict.title, sortId: parkListDict.sortId, nid: parkListDict.nid, images: imagesArray, language: parkListDict.language), at: i)

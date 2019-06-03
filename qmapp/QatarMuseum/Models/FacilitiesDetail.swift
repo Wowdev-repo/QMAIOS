@@ -68,9 +68,9 @@ struct FacilitiesDetail: ResponseObjectSerializable, ResponseCollectionSerializa
     init(entity: FacilitiesDetailEntity) {
         
         var imagesArray : [String] = []
-        let imagesInfoArray = (entity.facilitiesDetailRelation!.allObjects) as! [FacilitiesDetailImgEntity]
+        let imagesInfoArray = (entity.facilitiesDetailRelation!.allObjects) as! [ImageEntity]
         for imagesInfo in imagesInfoArray {
-            imagesArray.append(imagesInfo.images!)
+            imagesArray.append(imagesInfo.image!)
         }
         
         self.title = entity.title

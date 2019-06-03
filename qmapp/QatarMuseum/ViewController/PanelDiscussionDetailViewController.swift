@@ -1259,9 +1259,9 @@ class PanelDiscussionDetailViewController: UIViewController,LoadingViewProtocol,
                         if(facilitiesDetailDict.images != nil){
                             if((facilitiesDetailDict.images?.count)! > 0) {
                                 for i in 0 ... (facilitiesDetailDict.images?.count)!-1 {
-                                    var facilitiesDetailImage: FacilitiesDetailImgEntity
-                                    let facilitiesImgaeArray: FacilitiesDetailImgEntity = NSEntityDescription.insertNewObject(forEntityName: "FacilitiesDetailImgEntity", into: managedContext) as! FacilitiesDetailImgEntity
-                                    facilitiesImgaeArray.images = facilitiesDetailDict.images?[i]
+                                    var facilitiesDetailImage: ImageEntity
+                                    let facilitiesImgaeArray = NSEntityDescription.insertNewObject(forEntityName: "ImageEntity", into: managedContext) as! ImageEntity
+                                    facilitiesImgaeArray.image = facilitiesDetailDict.images?[i]
                                     facilitiesImgaeArray.language = Utils.getLanguage()
                                     facilitiesDetailImage = facilitiesImgaeArray
                                     facilitiesDetaildbDict.addToFacilitiesDetailRelation(facilitiesDetailImage)
@@ -1370,9 +1370,9 @@ class PanelDiscussionDetailViewController: UIViewController,LoadingViewProtocol,
             if(facilitiesDetailDict.images != nil){
                 if((facilitiesDetailDict.images?.count)! > 0) {
                     for i in 0 ... (facilitiesDetailDict.images?.count)!-1 {
-                        var facilitiesDetailImage: FacilitiesDetailImgEntity
-                        let facilitiesImgaeArray: FacilitiesDetailImgEntity = NSEntityDescription.insertNewObject(forEntityName: "FacilitiesDetailImgEntity", into: managedObjContext) as! FacilitiesDetailImgEntity
-                        facilitiesImgaeArray.images = facilitiesDetailDict.images?[i]
+                        var facilitiesDetailImage: ImageEntity
+                        let facilitiesImgaeArray = NSEntityDescription.insertNewObject(forEntityName: "ImageEntity", into: managedObjContext) as! ImageEntity
+                        facilitiesImgaeArray.image = facilitiesDetailDict.images?[i]
                         facilitiesDetailImage = facilitiesImgaeArray
                         facilitiesDetaildbDict.addToFacilitiesDetailRelation(facilitiesDetailImage)
                         do {
@@ -1756,9 +1756,9 @@ class PanelDiscussionDetailViewController: UIViewController,LoadingViewProtocol,
                         if(nmoqParkListDict.images != nil){
                             if((nmoqParkListDict.images?.count)! > 0) {
                                 for i in 0 ... (nmoqParkListDict.images?.count)!-1 {
-                                    var parkListImage: NMoQParkDetailImgEntity!
-                                    let parkListImageArray: NMoQParkDetailImgEntity = NSEntityDescription.insertNewObject(forEntityName: "NMoQParkDetailImgEntity", into: managedContext) as! NMoQParkDetailImgEntity
-                                    parkListImageArray.images = nmoqParkListDict.images![i]
+                                    var parkListImage: ImageEntity!
+                                    let parkListImageArray = NSEntityDescription.insertNewObject(forEntityName: "ImageEntity", into: managedContext) as! ImageEntity
+                                    parkListImageArray.image = nmoqParkListDict.images![i]
                                     parkListImageArray.language = Utils.getLanguage()
                                     parkListImage = parkListImageArray
                                     nmoqParkListdbDict.addToParkDetailImgRelation(parkListImage)
@@ -1805,9 +1805,9 @@ class PanelDiscussionDetailViewController: UIViewController,LoadingViewProtocol,
             if(nmoqParkListDict.images != nil){
                 if((nmoqParkListDict.images?.count)! > 0) {
                     for i in 0 ... (nmoqParkListDict.images?.count)!-1 {
-                        var parkListImage: NMoQParkDetailImgEntity!
-                        let parkListImageArray: NMoQParkDetailImgEntity = NSEntityDescription.insertNewObject(forEntityName: "NMoQParkDetailImgEntity", into: managedObjContext) as! NMoQParkDetailImgEntity
-                        parkListImageArray.images = nmoqParkListDict.images![i]
+                        var parkListImage: ImageEntity!
+                        let parkListImageArray = NSEntityDescription.insertNewObject(forEntityName: "ImageEntity", into: managedObjContext) as! ImageEntity
+                        parkListImageArray.image = nmoqParkListDict.images![i]
                         parkListImageArray.language = Utils.getLanguage()
                         parkListImage = parkListImageArray
                         nmoqParkListdbDict.addToParkDetailImgRelation(parkListImage)
@@ -1839,10 +1839,10 @@ class PanelDiscussionDetailViewController: UIViewController,LoadingViewProtocol,
                     for i in 0 ... parkListArray.count-1 {
                         let parkListDict = parkListArray[i]
                         var imagesArray : [String] = []
-                        let imagesInfoArray = (parkListDict.parkDetailImgRelation?.allObjects) as! [NMoQParkDetailImgEntity]
+                        let imagesInfoArray = (parkListDict.parkDetailImgRelation?.allObjects) as! [ImageEntity]
                         if(imagesInfoArray.count > 0) {
                             for i in 0 ... imagesInfoArray.count-1 {
-                                imagesArray.append(imagesInfoArray[i].images!)
+                                imagesArray.append(imagesInfoArray[i].image!)
                             }
                         }
                         self.nmoqParkDetailArray.insert(NMoQParkDetail(title: parkListDict.title, sortId: parkListDict.sortId, nid: parkListDict.nid, images: imagesArray, parkDesc: parkListDict.parkDesc, language: parkListDict.language), at: i)

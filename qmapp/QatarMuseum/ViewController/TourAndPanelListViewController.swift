@@ -365,8 +365,8 @@ class TourAndPanelListViewController: UIViewController,UITableViewDelegate,UITab
                         if(tourListDict.images != nil){
                             if((tourListDict.images?.count)! > 0) {
                                 for i in 0 ... (tourListDict.images?.count)!-1 {
-                                    var tourImage: NMoqTourImagesEntity!
-                                    let tourImgaeArray: NMoqTourImagesEntity = NSEntityDescription.insertNewObject(forEntityName: "NMoqTourImagesEntity", into: managedContext) as! NMoqTourImagesEntity
+                                    var tourImage: ImageEntity!
+                                    let tourImgaeArray = NSEntityDescription.insertNewObject(forEntityName: "ImageEntity", into: managedContext) as! ImageEntity
                                     tourImgaeArray.image = tourListDict.images?[i]
                                     tourImgaeArray.language = Utils.getLanguage()
                                     tourImage = tourImgaeArray
@@ -426,8 +426,8 @@ class TourAndPanelListViewController: UIViewController,UITableViewDelegate,UITab
             if(tourListDict.images != nil){
                 if((tourListDict.images?.count)! > 0) {
                     for i in 0 ... (tourListDict.images?.count)!-1 {
-                        var tourImage: NMoqTourImagesEntity!
-                        let tourImgaeArray: NMoqTourImagesEntity = NSEntityDescription.insertNewObject(forEntityName: "NMoqTourImagesEntity", into: managedObjContext) as! NMoqTourImagesEntity
+                        var tourImage: ImageEntity!
+                        let tourImgaeArray = NSEntityDescription.insertNewObject(forEntityName: "ImageEntity", into: managedObjContext) as! ImageEntity
                         tourImgaeArray.image = tourListDict.images?[i]
                         tourImgaeArray.language = Utils.getLanguage()
                         tourImage = tourImgaeArray
@@ -463,7 +463,7 @@ class TourAndPanelListViewController: UIViewController,UITableViewDelegate,UITab
                     for i in 0 ... tourListArray.count-1 {
                         let tourListDict = tourListArray[i]
                         var imagesArray : [String] = []
-                        let imagesInfoArray = (tourListDict.tourImagesRelation?.allObjects) as! [NMoqTourImagesEntity]
+                        let imagesInfoArray = (tourListDict.tourImagesRelation?.allObjects) as! [ImageEntity]
                         if(imagesInfoArray.count > 0) {
                             for i in 0 ... imagesInfoArray.count-1 {
                                 imagesArray.append(imagesInfoArray[i].image!)
@@ -574,9 +574,9 @@ class TourAndPanelListViewController: UIViewController,UITableViewDelegate,UITab
                         if(nmoqActivityListDict.images != nil){
                             if((nmoqActivityListDict.images?.count)! > 0) {
                                 for i in 0 ... (nmoqActivityListDict.images?.count)!-1 {
-                                    var activityImage: NMoqActivityImgEntity!
-                                    let activityImgaeArray: NMoqActivityImgEntity = NSEntityDescription.insertNewObject(forEntityName: "NMoqActivityImgEntity", into: managedContext) as! NMoqActivityImgEntity
-                                    activityImgaeArray.images = nmoqActivityListDict.images![i]
+                                    var activityImage: ImageEntity!
+                                    let activityImgaeArray = NSEntityDescription.insertNewObject(forEntityName: "ImageEntity", into: managedContext) as! ImageEntity
+                                    activityImgaeArray.image = nmoqActivityListDict.images![i]
                                     activityImgaeArray.language = Utils.getLanguage()
                                     activityImage = activityImgaeArray
                                     activityListdbDict.addToActivityImgRelation(activityImage)
@@ -633,9 +633,9 @@ class TourAndPanelListViewController: UIViewController,UITableViewDelegate,UITab
             if(activityListDict.images != nil){
                 if((activityListDict.images?.count)! > 0) {
                     for i in 0 ... (activityListDict.images?.count)!-1 {
-                        var activityImage: NMoqActivityImgEntity!
-                        let activityImgaeArray: NMoqActivityImgEntity = NSEntityDescription.insertNewObject(forEntityName: "NMoqActivityImgEntity", into: managedObjContext) as! NMoqActivityImgEntity
-                        activityImgaeArray.images = activityListDict.images![i]
+                        var activityImage: ImageEntity!
+                        let activityImgaeArray = NSEntityDescription.insertNewObject(forEntityName: "ImageEntity", into: managedObjContext) as! ImageEntity
+                        activityImgaeArray.image = activityListDict.images![i]
                         activityImgaeArray.language = Utils.getLanguage()
                         activityImage = activityImgaeArray
                         activityListdbDict.addToActivityImgRelation(activityImage)
@@ -669,10 +669,10 @@ class TourAndPanelListViewController: UIViewController,UITableViewDelegate,UITab
                     for i in 0 ... activityListArray.count-1 {
                         let activityListDict = activityListArray[i]
                         var imagesArray : [String] = []
-                        let imagesInfoArray = (activityListDict.activityImgRelation?.allObjects) as! [NMoqActivityImgEntity]
+                        let imagesInfoArray = (activityListDict.activityImgRelation?.allObjects) as! [ImageEntity]
                         if(imagesInfoArray.count > 0) {
                             for i in 0 ... imagesInfoArray.count-1 {
-                                imagesArray.append(imagesInfoArray[i].images!)
+                                imagesArray.append(imagesInfoArray[i].image!)
                             }
                         }
                         self.nmoqActivityList.insert(NMoQActivitiesList(title: activityListDict.title, dayDescription: activityListDict.dayDescription, images: imagesArray, subtitle: activityListDict.subtitle, sortId: activityListDict.sortId, nid: activityListDict.nid, eventDate: activityListDict.eventDate, date: activityListDict.date, descriptioForModerator: activityListDict.descriptioForModerator, mobileLatitude: activityListDict.mobileLatitude, moderatorName: activityListDict.moderatorName, longitude: activityListDict.longitude, contactEmail: activityListDict.contactEmail, contactPhone: activityListDict.contactPhone, language: activityListDict.language), at: i)
@@ -780,9 +780,9 @@ class TourAndPanelListViewController: UIViewController,UITableViewDelegate,UITab
                         if(facilitiesListDict.images != nil){
                             if((facilitiesListDict.images?.count)! > 0) {
                                 for i in 0 ... (facilitiesListDict.images?.count)!-1 {
-                                    var facilitiesImage: FacilitiesImgEntity!
-                                    let facilitiesImgaeArray: FacilitiesImgEntity = NSEntityDescription.insertNewObject(forEntityName: "FacilitiesImgEntity", into: managedContext) as! FacilitiesImgEntity
-                                    facilitiesImgaeArray.images = facilitiesListDict.images![i]
+                                    var facilitiesImage: ImageEntity!
+                                    let facilitiesImgaeArray = NSEntityDescription.insertNewObject(forEntityName: "ImageEntity", into: managedContext) as! ImageEntity
+                                    facilitiesImgaeArray.image = facilitiesListDict.images![i]
                                     facilitiesImage = facilitiesImgaeArray
                                     facilitiesListdbDict.addToFacilitiesImgRelation(facilitiesImage)
                                     do {
@@ -875,9 +875,9 @@ class TourAndPanelListViewController: UIViewController,UITableViewDelegate,UITab
             if(facilitiesListDict.images != nil){
                 if((facilitiesListDict.images?.count)! > 0) {
                     for i in 0 ... (facilitiesListDict.images?.count)!-1 {
-                        var facilitiesImage: FacilitiesImgEntity!
-                        let facilitiesImgaeArray: FacilitiesImgEntity = NSEntityDescription.insertNewObject(forEntityName: "FacilitiesImgEntity", into: managedObjContext) as! FacilitiesImgEntity
-                        facilitiesImgaeArray.images = facilitiesListDict.images![i]
+                        var facilitiesImage: ImageEntity!
+                        let facilitiesImgaeArray = NSEntityDescription.insertNewObject(forEntityName: "ImageEntity", into: managedObjContext) as! ImageEntity
+                        facilitiesImgaeArray.image = facilitiesListDict.images![i]
                         facilitiesImage = facilitiesImgaeArray
                         facilitiesListInfo.addToFacilitiesImgRelation(facilitiesImage)
                         do {
@@ -937,10 +937,10 @@ class TourAndPanelListViewController: UIViewController,UITableViewDelegate,UITab
                     for i in 0 ... facilitiesListArray.count-1 {
                         let facilitiesListDict = facilitiesListArray[i]
                         var imagesArray : [String] = []
-                        let imagesInfoArray = (facilitiesListDict.facilitiesImgRelation?.allObjects) as! [FacilitiesImgEntity]
+                        let imagesInfoArray = (facilitiesListDict.facilitiesImgRelation?.allObjects) as! [ImageEntity]
                         if(imagesInfoArray.count > 0) {
                             for i in 0 ... imagesInfoArray.count-1 {
-                                imagesArray.append(imagesInfoArray[i].images!)
+                                imagesArray.append(imagesInfoArray[i].image!)
                             }
                         }
                         self.facilitiesList.insert(Facilities(title: facilitiesListDict.title, sortId: facilitiesListDict.sortId, nid: facilitiesListDict.nid, images: imagesArray), at: i)
