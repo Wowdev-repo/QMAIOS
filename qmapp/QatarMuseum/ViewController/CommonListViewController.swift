@@ -451,6 +451,7 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
                 AnalyticsParameterContentType: "cont"
                 ])
         } else if (exhibitionsPageNameString == ExhbitionPageName.publicArtsList) {
+            DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
             loadPublicArtsDetail(idValue: publicArtsListArray[indexPath.row].id!)
             Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
                 AnalyticsParameterItemID: FirebaseAnalyticsEvents.tapped_publicart_detail,
@@ -458,6 +459,7 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
                 AnalyticsParameterContentType: "cont"
                 ])
         } else if (exhibitionsPageNameString == ExhbitionPageName.museumCollectionsList) {
+            DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
             loadCollectionDetail(currentRow: indexPath.row)
             Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
                 AnalyticsParameterItemID: FirebaseAnalyticsEvents.tapped_collections_detail,
@@ -466,9 +468,13 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
                 ])
         } else if (exhibitionsPageNameString == ExhbitionPageName.diningList) {
 <<<<<<< HEAD
+<<<<<<< HEAD
             _ = diningListArray[indexPath.row].id
 //            loadDiningDetailAnimation(idValue: diningId!)
 =======
+=======
+            DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
+>>>>>>> added DLogInfo in cell tap functions
             let diningId = diningListArray[indexPath.row].id
             loadDiningDetailAnimation(idValue: diningId!)
 >>>>>>> fixed bugs found after merging OptimizationTaskMerged
@@ -497,6 +503,7 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
                     ])
             }
         else if (exhibitionsPageNameString == ExhbitionPageName.facilitiesSecondList) {
+            DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
             loadTourSecondDetailPage(selectedRow: indexPath.row, fromTour: false, pageName: ExhbitionPageName.facilitiesSecondList)
             Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
                 AnalyticsParameterItemID: FirebaseAnalyticsEvents.tapped_facilities_second_detail,
@@ -543,8 +550,10 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
     }
 
     func loadExhibitionCellPages(cellObj: CommonListCell, selectedIndex: Int) {
+        
     }
     func loadPublicArtsDetail(idValue: String) {
+        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
         let publicDtlView = self.storyboard?.instantiateViewController(withIdentifier: "heritageDetailViewId") as! CommonDetailViewController
         publicDtlView.pageNameString = PageName.publicArtsDetail
         publicDtlView.publicArtsDetailId = idValue
@@ -556,6 +565,7 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
         self.present(publicDtlView, animated: false, completion: nil)
     }
     func loadCollectionDetail(currentRow: Int?) {
+        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
         let collectionDetailView =  self.storyboard?.instantiateViewController(withIdentifier: "paneldetailViewId") as! PanelDiscussionDetailViewController
         collectionDetailView.pageNameString = NMoQPanelPage.CollectionDetail
         collectionDetailView.collectionName = collection[currentRow!].name?.replacingOccurrences(of: "<[^>]+>|&nbsp;|&|#039;", with: "", options: .regularExpression, range: nil)
@@ -575,6 +585,7 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
         self.view.addSubview(popupView)
     }
     func loadHeritageDetail(heritageListId: String) {
+        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
         let heritageDtlView = self.storyboard?.instantiateViewController(withIdentifier: "heritageDetailViewId") as! CommonDetailViewController
         heritageDtlView.pageNameString = PageName.heritageDetail
         heritageDtlView.heritageDetailId = heritageListId
@@ -586,6 +597,7 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
         self.present(heritageDtlView, animated: false, completion: nil)
     }
     func loadExhibitionDetailAnimation(exhibitionId: String) {
+        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
         let exhibitionDtlView = self.storyboard?.instantiateViewController(withIdentifier: "heritageDetailViewId") as! CommonDetailViewController
         exhibitionDtlView.pageNameString = PageName.exhibitionDetail
         exhibitionDtlView.fromHome = true
@@ -598,6 +610,7 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
 
     }
     func loadDiningDetailAnimation(idValue: String) {
+        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
         let diningDetailView =  self.storyboard?.instantiateViewController(withIdentifier: "heritageDetailViewId") as! CommonDetailViewController
         diningDetailView.diningDetailId = idValue
         diningDetailView.pageNameString = PageName.DiningDetail
