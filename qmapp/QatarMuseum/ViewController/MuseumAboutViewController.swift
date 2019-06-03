@@ -635,8 +635,8 @@ class MuseumAboutViewController: UIViewController,UITableViewDelegate,UITableVie
                         var aboutImage: AboutMultimediaFileEntity!
                         let aboutImgaeArray: AboutMultimediaFileEntity = NSEntityDescription.insertNewObject(forEntityName: "AboutMultimediaFileEntity", into: managedObjContext) as! AboutMultimediaFileEntity
                         aboutImgaeArray.image = aboutDetailDict.multimediaFile![i]
-                        aboutImage.language = Utils.getLanguage()
                         aboutImage = aboutImgaeArray
+                        aboutImage.language = Utils.getLanguage()
                         aboutdbDict.addToMultimediaRelation(aboutImage)
                         do {
                             try managedObjContext.save()

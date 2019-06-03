@@ -1174,8 +1174,8 @@ class EventViewController: UIViewController,UICollectionViewDelegate,UICollectio
                     let edEventDate: EventDateEntity = NSEntityDescription.insertNewObject(forEntityName: "EventDateEntity", into: managedObjContext) as! EventDateEntity
                     edEventDate.fieldRepeatDate = educationEventDict.fieldRepeatDate![i].replacingOccurrences(of: "<[^>]+>|&nbsp;|&|#039;", with: "", options: .regularExpression, range: nil)
                     
-                    eventDateEntity.language = Utils.getLanguage()
                     eventDateEntity = edEventDate
+                    eventDateEntity.language = Utils.getLanguage()
                     edducationInfo.addToFieldRepeatDates(eventDateEntity)
                     do {
                         try managedObjContext.save()

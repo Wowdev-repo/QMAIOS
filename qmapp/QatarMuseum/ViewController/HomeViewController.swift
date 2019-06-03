@@ -701,7 +701,7 @@ class HomeViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     }
     
     func parksButtonPressed() {
-        let parksView =  self.storyboard?.instantiateViewController(withIdentifier: "heritageDetailViewId") as! HeritageDetailViewController
+        let parksView =  self.storyboard?.instantiateViewController(withIdentifier: "heritageDetailViewId") as! CommonDetailViewController
         parksView.pageNameString = PageName.SideMenuPark
         let transition = CATransition()
         transition.duration = 0.25
