@@ -1177,6 +1177,10 @@ class EventViewController: UIViewController,UICollectionViewDelegate,UICollectio
                                                                                                    options: .regularExpression,
                                                                                                    range: nil)
                     
+<<<<<<< HEAD
+=======
+                    eventDateEntity = edEventDate
+>>>>>>> fixed bugs found after merging OptimizationTaskMerged
                     eventDateEntity.language = Utils.getLanguage()
                     edducationInfo.addToFieldRepeatDates(eventDateEntity)
                     do {

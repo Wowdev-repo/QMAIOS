@@ -128,7 +128,6 @@
 		B85BA4AC20D01BC900E7F4D1 /* ExhibitionDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85BA4AB20D01BC800E7F4D1 /* ExhibitionDetailTableViewCell.swift */; };
 		B85BA4B020D01D1C00E7F4D1 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85BA4AF20D01D1C00E7F4D1 /* SplashViewController.swift */; };
 		B85BA4B720D03CE500E7F4D1 /* iOSDevCenters+GIF.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85BA4B620D03CE500E7F4D1 /* iOSDevCenters+GIF.swift */; };
-		B869C9C52296AEE700E31784 /* HeritageDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B869C9C42296AEE600E31784 /* HeritageDetailViewController.swift */; };
 		B87F62E9225DD01B00ADCB1F /* DiningDetailCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B87F62E8225DD01B00ADCB1F /* DiningDetailCellView.xib */; };
 		B87F62EB225E2E6100ADCB1F /* Migration2to3.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = B87F62EA225E2E6100ADCB1F /* Migration2to3.xcmappingmodel */; };
 		B88F07E8217DD5F600B16875 /* CulturePassCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88F07E7217DD5F600B16875 /* CulturePassCardViewController.swift */; };
@@ -393,7 +392,6 @@
 		B85BA4AB20D01BC800E7F4D1 /* ExhibitionDetailTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExhibitionDetailTableViewCell.swift; sourceTree = "<group>"; };
 		B85BA4AF20D01D1C00E7F4D1 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		B85BA4B620D03CE500E7F4D1 /* iOSDevCenters+GIF.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "iOSDevCenters+GIF.swift"; sourceTree = "<group>"; };
-		B869C9C42296AEE600E31784 /* HeritageDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeritageDetailViewController.swift; sourceTree = "<group>"; };
 		B87F62E8225DD01B00ADCB1F /* DiningDetailCellView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiningDetailCellView.xib; sourceTree = "<group>"; };
 		B87F62EA225E2E6100ADCB1F /* Migration2to3.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = Migration2to3.xcmappingmodel; sourceTree = "<group>"; };
 		B88F07E7217DD5F600B16875 /* CulturePassCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CulturePassCardViewController.swift; sourceTree = "<group>"; };
@@ -770,7 +768,6 @@
 		B80DC08620C792FE00E28034 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				B869C9C42296AEE600E31784 /* HeritageDetailViewController.swift */,
 				B8EAB7B320CA420100C001B2 /* FSCalendarVC */,
 				B80DC08B20C798BA00E28034 /* HomeViewController.swift */,
 				B8D1228C20C8EE8600772507 /* WebViewController.swift */,
@@ -1570,7 +1567,6 @@
 				1BE526D72107896600C8CD51 /* Exhibition.swift in Sources */,
 				1B444A3A21AE9F03009FF40F /* TourAndPanelListViewController.swift in Sources */,
 				B82729B821778B2F0017EC71 /* VersaPlayerControlsBehaviour.swift in Sources */,
-				B869C9C52296AEE700E31784 /* HeritageDetailViewController.swift in Sources */,
 				B85BA4B020D01D1C00E7F4D1 /* SplashViewController.swift in Sources */,
 				B8294CF520CBF265002AFF72 /* FSCalendarStickyHeader.m in Sources */,
 				B80674322240CFF000885544 /* ParkListTableViewCell.swift in Sources */,
@@ -1866,8 +1862,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = QatarMuseums.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Musheer Khan (BAWXFPU7M6)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Musheer Khan (BAWXFPU7M6)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Maher Odeh (2V4TGYXU8B)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Maher Odeh (2V4TGYXU8B)";
 				CODE_SIGN_STYLE = Manual;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = DNV2Z9FR68;
@@ -1882,7 +1878,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.qatarmuseums.qatarmuseumsapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "563779af-c6f7-43a8-acf8-a004ad0aadd4";
-				PROVISIONING_PROFILE_SPECIFIER = QMDevelopmentProfile;
+				PROVISIONING_PROFILE_SPECIFIER = QMA_Dev_Provisional_Certificate;
 				SWIFT_OBJC_BRIDGING_HEADER = "QatarMuseum/ReusableComponents/FSCalendar/QatarMuseum-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
@@ -1897,8 +1893,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = QatarMuseums.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Musheer Khan (BAWXFPU7M6)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Musheer Khan (BAWXFPU7M6)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Maher Odeh (2V4TGYXU8B)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Maher Odeh (2V4TGYXU8B)";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = DNV2Z9FR68;
 				ENABLE_BITCODE = NO;
@@ -1912,7 +1908,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.qatarmuseums.qatarmuseumsapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "563779af-c6f7-43a8-acf8-a004ad0aadd4";
-				PROVISIONING_PROFILE_SPECIFIER = QMDevelopmentProfile;
+				PROVISIONING_PROFILE_SPECIFIER = QMA_Dev_Provisional_Certificate;
 				SWIFT_OBJC_BRIDGING_HEADER = "QatarMuseum/ReusableComponents/FSCalendar/QatarMuseum-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;

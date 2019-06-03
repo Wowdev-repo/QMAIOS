@@ -443,15 +443,6 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
         } else if (exhibitionsPageNameString == ExhbitionPageName.heritageList) {
             DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
             self.performSegue(withIdentifier: "commonListToDetailSegue", sender: self)
-        } else if (exhibitionsPageNameString == ExhbitionPageName.publicArtsList) {
-            DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
-            self.performSegue(withIdentifier: "commonListToDetailSegue", sender: self)
-        } else if (exhibitionsPageNameString == ExhbitionPageName.museumCollectionsList) {
-            DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
-            self.performSegue(withIdentifier: "commonListToPanelDetailSegue", sender: self)
-        } else if (exhibitionsPageNameString == ExhbitionPageName.diningList) {
-            DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
-            self.performSegue(withIdentifier: "commonListToDetailSegue", sender: self)
             let heritageId = heritageListArray[indexPath.row].id
             loadHeritageDetail(heritageListId: heritageId!)
             Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
@@ -474,8 +465,13 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
                 AnalyticsParameterContentType: "cont"
                 ])
         } else if (exhibitionsPageNameString == ExhbitionPageName.diningList) {
+<<<<<<< HEAD
             _ = diningListArray[indexPath.row].id
 //            loadDiningDetailAnimation(idValue: diningId!)
+=======
+            let diningId = diningListArray[indexPath.row].id
+            loadDiningDetailAnimation(idValue: diningId!)
+>>>>>>> fixed bugs found after merging OptimizationTaskMerged
             Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
                 AnalyticsParameterItemID: FirebaseAnalyticsEvents.tapped_dining_detail,
                 AnalyticsParameterItemName: exhibitionsPageNameString ?? "",
@@ -549,6 +545,15 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
     func loadExhibitionCellPages(cellObj: CommonListCell, selectedIndex: Int) {
     }
     func loadPublicArtsDetail(idValue: String) {
+        let publicDtlView = self.storyboard?.instantiateViewController(withIdentifier: "heritageDetailViewId") as! CommonDetailViewController
+        publicDtlView.pageNameString = PageName.publicArtsDetail
+        publicDtlView.publicArtsDetailId = idValue
+        let transition = CATransition()
+        transition.duration = 0.5
+        transition.type = kCATransitionFade
+        transition.timingFunction = CAMediaTimingFunction(name:kCAMediaTimingFunctionEaseInEaseOut)
+        view.window!.layer.add(transition, forKey: kCATransition)
+        self.present(publicDtlView, animated: false, completion: nil)
     }
     func loadCollectionDetail(currentRow: Int?) {
         let collectionDetailView =  self.storyboard?.instantiateViewController(withIdentifier: "paneldetailViewId") as! PanelDiscussionDetailViewController
@@ -570,8 +575,39 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
         self.view.addSubview(popupView)
     }
     func loadHeritageDetail(heritageListId: String) {
+        let heritageDtlView = self.storyboard?.instantiateViewController(withIdentifier: "heritageDetailViewId") as! CommonDetailViewController
+        heritageDtlView.pageNameString = PageName.heritageDetail
+        heritageDtlView.heritageDetailId = heritageListId
+        let transition = CATransition()
+        transition.duration = 0.25
+        transition.type = kCATransitionFade
+        transition.timingFunction = CAMediaTimingFunction(name:kCAMediaTimingFunctionEaseInEaseOut)
+        view.window!.layer.add(transition, forKey: kCATransition)
+        self.present(heritageDtlView, animated: false, completion: nil)
     }
     func loadExhibitionDetailAnimation(exhibitionId: String) {
+        let exhibitionDtlView = self.storyboard?.instantiateViewController(withIdentifier: "heritageDetailViewId") as! CommonDetailViewController
+        exhibitionDtlView.pageNameString = PageName.exhibitionDetail
+        exhibitionDtlView.fromHome = true
+        exhibitionDtlView.exhibitionId = exhibitionId
+        let transition = CATransition()
+        transition.duration = 0.5
+        transition.type = kCATransitionFade
+        transition.timingFunction = CAMediaTimingFunction(name:kCAMediaTimingFunctionEaseInEaseOut)
+        view.window!.layer.add(transition, forKey: kCATransition)
+
+    }
+    func loadDiningDetailAnimation(idValue: String) {
+        let diningDetailView =  self.storyboard?.instantiateViewController(withIdentifier: "heritageDetailViewId") as! CommonDetailViewController
+        diningDetailView.diningDetailId = idValue
+        diningDetailView.pageNameString = PageName.DiningDetail
+        let transition = CATransition()
+        transition.duration = 0.3
+        transition.type = kCATransitionFade
+        transition.timingFunction = CAMediaTimingFunction(name:kCAMediaTimingFunctionEaseInEaseOut)
+        view.window!.layer.add(transition, forKey: kCATransition)
+        self.present(diningDetailView, animated: false, completion: nil)
+        
     }
     func loadTourSecondDetailPage(selectedRow: Int?,fromTour:Bool?,pageName: ExhbitionPageName?) {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
