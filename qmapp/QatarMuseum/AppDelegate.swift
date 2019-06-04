@@ -1169,8 +1169,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                         if(tourListDict.images != nil){
                             if((tourListDict.images?.count)! > 0) {
                                 for i in 0 ... (tourListDict.images?.count)!-1 {
-                                    var tourImage: NMoqTourImagesEntity!
-                                    let tourImgaeArray: NMoqTourImagesEntity = NSEntityDescription.insertNewObject(forEntityName: "NMoqTourImagesEntity", into: managedContext) as! NMoqTourImagesEntity
+                                    var tourImage: ImageEntity!
+                                    let tourImgaeArray = NSEntityDescription.insertNewObject(forEntityName: "ImageEntity", into: managedContext) as! ImageEntity
                                     tourImgaeArray.image = tourListDict.images?[i]
                                     tourImgaeArray.language = Utils.getLanguage()
                                     tourImage = tourImgaeArray
@@ -1231,8 +1231,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             if(tourListDict.images != nil){
                 if((tourListDict.images?.count)! > 0) {
                     for i in 0 ... (tourListDict.images?.count)!-1 {
-                        var tourImage: NMoqTourImagesEntity!
-                        let tourImgaeArray: NMoqTourImagesEntity = NSEntityDescription.insertNewObject(forEntityName: "NMoqTourImagesEntity", into: managedObjContext) as! NMoqTourImagesEntity
+                        var tourImage: ImageEntity!
+                        let tourImgaeArray = NSEntityDescription.insertNewObject(forEntityName: "ImageEntity", into: managedObjContext) as! ImageEntity
                         tourImgaeArray.image = tourListDict.images?[i]
                         tourImgaeArray.language = Utils.getLanguage()
                         tourImage = tourImgaeArray
@@ -1427,9 +1427,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                         if(nmoqActivityListDict.images != nil){
                             if((nmoqActivityListDict.images?.count)! > 0) {
                                 for i in 0 ... (nmoqActivityListDict.images?.count)!-1 {
-                                    var activityImage: NMoqActivityImgEntity!
-                                    let activityImgaeArray: NMoqActivityImgEntity = NSEntityDescription.insertNewObject(forEntityName: "NMoqActivityImgEntity", into: managedContext) as! NMoqActivityImgEntity
-                                    activityImgaeArray.images = nmoqActivityListDict.images![i]
+                                    var activityImage: ImageEntity!
+                                    let activityImgaeArray = NSEntityDescription.insertNewObject(forEntityName: "ImageEntity", into: managedContext) as! ImageEntity
+                                    activityImgaeArray.image = nmoqActivityListDict.images![i]
                                     activityImgaeArray.language = Utils.getLanguage()
                                     activityImage = activityImgaeArray
                                     activityListdbDict.addToActivityImgRelation(activityImage)
@@ -1486,9 +1486,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             if(activityListDict.images != nil){
                 if((activityListDict.images?.count)! > 0) {
                     for i in 0 ... (activityListDict.images?.count)!-1 {
-                        var activityImage: NMoqActivityImgEntity!
-                        let activityImgaeArray: NMoqActivityImgEntity = NSEntityDescription.insertNewObject(forEntityName: "NMoqActivityImgEntity", into: managedObjContext) as! NMoqActivityImgEntity
-                        activityImgaeArray.images = activityListDict.images![i]
+                        var activityImage: ImageEntity!
+                        let activityImgaeArray = NSEntityDescription.insertNewObject(forEntityName: "ImageEntity", into: managedObjContext) as! ImageEntity
+                        activityImgaeArray.image = activityListDict.images![i]
                         activityImgaeArray.language = Utils.getLanguage()
                         activityImage = activityImgaeArray
                         activityListdbDict.addToActivityImgRelation(activityImage)
@@ -1938,9 +1938,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                         if(facilitiesListDict.images != nil){
                             if((facilitiesListDict.images?.count)! > 0) {
                                 for i in 0 ... (facilitiesListDict.images?.count)!-1 {
-                                    var facilitiesImage: FacilitiesImgEntity!
-                                    let facilitiesImgaeArray: FacilitiesImgEntity = NSEntityDescription.insertNewObject(forEntityName: "FacilitiesImgEntity", into: managedContext) as! FacilitiesImgEntity
-                                    facilitiesImgaeArray.images = facilitiesListDict.images![i]
+                                    var facilitiesImage: ImageEntity!
+                                    let facilitiesImgaeArray = NSEntityDescription.insertNewObject(forEntityName: "ImageEntity", into: managedContext) as! ImageEntity
+                                    facilitiesImgaeArray.image = facilitiesListDict.images![i]
                                     
                                     facilitiesImage = facilitiesImgaeArray
                                     facilitiesListdbDict.addToFacilitiesImgRelation(facilitiesImage)
@@ -2043,9 +2043,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             if(facilitiesListDict.images != nil){
                 if((facilitiesListDict.images?.count)! > 0) {
                     for i in 0 ... (facilitiesListDict.images?.count)!-1 {
-                        var facilitiesImage: FacilitiesImgEntity!
-                        let facilitiesImgaeArray: FacilitiesImgEntity = NSEntityDescription.insertNewObject(forEntityName: "FacilitiesImgEntity", into: managedObjContext) as! FacilitiesImgEntity
-                        facilitiesImgaeArray.images = facilitiesListDict.images![i]
+                        var facilitiesImage: ImageEntity!
+                        let facilitiesImgaeArray = NSEntityDescription.insertNewObject(forEntityName: "ImageEntity", into: managedObjContext) as! ImageEntity
+                        facilitiesImgaeArray.image = facilitiesListDict.images![i]
                         
                         facilitiesImage = facilitiesImgaeArray
                         facilitiesListInfo.addToFacilitiesImgRelation(facilitiesImage)
@@ -2279,9 +2279,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                         if(nmoqParkListDict.images != nil){
                             if((nmoqParkListDict.images?.count)! > 0) {
                                 for i in 0 ... (nmoqParkListDict.images?.count)!-1 {
-                                    var parkListImage: NMoQParkImgEntity!
-                                    let parkListImageArray: NMoQParkImgEntity = NSEntityDescription.insertNewObject(forEntityName: "NMoQParkImgEntity", into: managedContext) as! NMoQParkImgEntity
-                                    parkListImageArray.images = nmoqParkListDict.images![i]
+                                    var parkListImage: ImageEntity!
+                                    let parkListImageArray = NSEntityDescription.insertNewObject(forEntityName: "ImageEntity", into: managedContext) as! ImageEntity
+                                    parkListImageArray.image = nmoqParkListDict.images![i]
                                     parkListImageArray.language = Utils.getLanguage()
                                     parkListImage = parkListImageArray
                                     nmoqParkListdbDict.addToParkImgRelation(parkListImage)
@@ -2325,9 +2325,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             if(nmoqParkListDict.images != nil){
                 if((nmoqParkListDict.images?.count)! > 0) {
                     for i in 0 ... (nmoqParkListDict.images?.count)!-1 {
-                        var parkListImage: NMoQParkImgEntity!
-                        let parkListImageArray: NMoQParkImgEntity = NSEntityDescription.insertNewObject(forEntityName: "NMoQParkImgEntity", into: managedObjContext) as! NMoQParkImgEntity
-                        parkListImageArray.images = nmoqParkListDict.images![i]
+                        var parkListImage: ImageEntity!
+                        let parkListImageArray = NSEntityDescription.insertNewObject(forEntityName: "ImageEntity", into: managedObjContext) as! ImageEntity
+                        parkListImageArray.image = nmoqParkListDict.images![i]
                         parkListImageArray.language = Utils.getLanguage()
                         parkListImage = parkListImageArray
                         nmoqParkListdbDict.addToParkImgRelation(parkListImage)

@@ -60,11 +60,7 @@
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="openingtime" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="sortid" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="imagesRelation" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="DiningImagesEntity" inverseName="imagesRelation" inverseEntity="DiningImagesEntity" syncable="YES"/>
-    </entity>
-    <entity name="DiningImagesEntity" representedClassName="DiningImagesEntity" syncable="YES" codeGenerationType="class">
-        <attribute name="images" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="imagesRelation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="DiningEntity" inverseName="imagesRelation" inverseEntity="DiningEntity" syncable="YES"/>
+        <relationship name="imagesRelation" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ImageEntity" syncable="YES"/>
     </entity>
     <entity name="EdAgeGroupEntity" representedClassName="EdAgeGroupEntity" syncable="YES" codeGenerationType="class">
         <attribute name="ageGroup" optional="YES" attributeType="String" syncable="YES"/>
@@ -154,28 +150,14 @@
         <attribute name="timing" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="titleTiming" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="facilitiesDetailRelation" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="FacilitiesDetailImgEntity" inverseName="facilitiesDetailRelation" inverseEntity="FacilitiesDetailImgEntity" syncable="YES"/>
-    </entity>
-    <entity name="FacilitiesDetailImgEntity" representedClassName="FacilitiesDetailImgEntity" syncable="YES" codeGenerationType="class">
-        <attribute name="images" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="language" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="facilitiesDetailRelation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="FacilitiesDetailEntity" inverseName="facilitiesDetailRelation" inverseEntity="FacilitiesDetailEntity" syncable="YES"/>
+        <relationship name="facilitiesDetailRelation" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ImageEntity" syncable="YES"/>
     </entity>
     <entity name="FacilitiesEntity" representedClassName="FacilitiesEntity" syncable="YES" codeGenerationType="class">
         <attribute name="language" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="nid" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="sortId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="facilitiesImgRelation" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="FacilitiesImgEntity" inverseName="facilitiesImgRelation" inverseEntity="FacilitiesImgEntity" syncable="YES"/>
-    </entity>
-    <entity name="FacilitiesImgEntity" representedClassName="FacilitiesImgEntity" syncable="YES" codeGenerationType="class">
-        <attribute name="images" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="facilitiesImgRelation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="FacilitiesEntity" inverseName="facilitiesImgRelation" inverseEntity="FacilitiesEntity" syncable="YES"/>
-    </entity>
-    <entity name="FloorMapImagesEntity" representedClassName="FloorMapImagesEntity" syncable="YES" codeGenerationType="class">
-        <attribute name="image" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="language" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="imagesRelation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="FloorMapTourGuideEntity" inverseName="imagesRelation" inverseEntity="FloorMapTourGuideEntity" syncable="YES"/>
+        <relationship name="facilitiesImgRelation" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ImageEntity" syncable="YES"/>
     </entity>
     <entity name="FloorMapTourGuideEntity" representedClassName="FloorMapTourGuideEntity" syncable="YES" codeGenerationType="class">
         <attribute name="accessionNumber" optional="YES" attributeType="String" syncable="YES"/>
@@ -203,7 +185,7 @@
         <attribute name="thumbImage" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="tourGuideId" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="imagesRelation" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="FloorMapImagesEntity" inverseName="imagesRelation" inverseEntity="FloorMapImagesEntity" syncable="YES"/>
+        <relationship name="imagesRelation" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ImageEntity" syncable="YES"/>
     </entity>
     <entity name="HeritageEntity" representedClassName="HeritageEntity" syncable="YES" codeGenerationType="class">
         <attribute name="detaillatitude" optional="YES" attributeType="String" syncable="YES"/>
@@ -216,11 +198,7 @@
         <attribute name="listimage" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="listname" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="listsortid" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="imagesRelation" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="HeritageImagesEntity" inverseName="imagesRelation" inverseEntity="HeritageImagesEntity" syncable="YES"/>
-    </entity>
-    <entity name="HeritageImagesEntity" representedClassName="HeritageImagesEntity" syncable="YES" codeGenerationType="class">
-        <attribute name="images" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="imagesRelation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="HeritageEntity" inverseName="imagesRelation" inverseEntity="HeritageEntity" syncable="YES"/>
+        <relationship name="imagesRelation" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ImageEntity" syncable="YES"/>
     </entity>
     <entity name="HomeBannerEntity" representedClassName="HomeBannerEntity" syncable="YES" codeGenerationType="class">
         <attribute name="bannerLink" optional="YES" attributeType="String" syncable="YES"/>
@@ -233,12 +211,7 @@
         <attribute name="language" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="promotionalCode" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="bannerImageRelations" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="HomeBannerImageEntity" inverseName="bannerImageRelations" inverseEntity="HomeBannerImageEntity" syncable="YES"/>
-    </entity>
-    <entity name="HomeBannerImageEntity" representedClassName="HomeBannerImageEntity" syncable="YES" codeGenerationType="class">
-        <attribute name="image" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="language" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="bannerImageRelations" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="HomeBannerEntity" inverseName="bannerImageRelations" inverseEntity="HomeBannerEntity" syncable="YES"/>
+        <relationship name="bannerImageRelations" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ImageEntity" syncable="YES"/>
     </entity>
     <entity name="HomeEntity" representedClassName="HomeEntity" syncable="YES" codeGenerationType="class">
         <attribute name="id" optional="YES" attributeType="String" syncable="YES"/>
@@ -247,6 +220,10 @@
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="sortid" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="tourguideavailable" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="ImageEntity" representedClassName="ImageEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="image" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="language" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="NMoQActivitiesEntity" representedClassName="NMoQActivitiesEntity" syncable="YES" codeGenerationType="class">
         <attribute name="contactEmail" optional="YES" attributeType="String" syncable="YES"/>
@@ -263,12 +240,7 @@
         <attribute name="sortId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="subtitle" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="activityImgRelation" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="NMoqActivityImgEntity" inverseName="activityImgRelation" inverseEntity="NMoqActivityImgEntity" syncable="YES"/>
-    </entity>
-    <entity name="NMoqActivityImgEntity" representedClassName="NMoqActivityImgEntity" syncable="YES" codeGenerationType="class">
-        <attribute name="images" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="language" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="activityImgRelation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="NMoQActivitiesEntity" inverseName="activityImgRelation" inverseEntity="NMoQActivitiesEntity" syncable="YES"/>
+        <relationship name="activityImgRelation" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ImageEntity" syncable="YES"/>
     </entity>
     <entity name="NMoQParkDetailEntity" representedClassName="NMoQParkDetailEntity" syncable="YES" codeGenerationType="class">
         <attribute name="language" optional="YES" attributeType="String" syncable="YES"/>
@@ -276,17 +248,7 @@
         <attribute name="parkDesc" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="sortId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="parkDetailImgRelation" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="NMoQParkDetailImgEntity" inverseName="parkDetailImgRelation" inverseEntity="NMoQParkDetailImgEntity" syncable="YES"/>
-    </entity>
-    <entity name="NMoQParkDetailImgEntity" representedClassName="NMoQParkDetailImgEntity" syncable="YES" codeGenerationType="class">
-        <attribute name="images" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="language" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="parkDetailImgRelation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="NMoQParkDetailEntity" inverseName="parkDetailImgRelation" inverseEntity="NMoQParkDetailEntity" syncable="YES"/>
-    </entity>
-    <entity name="NMoQParkImgEntity" representedClassName="NMoQParkImgEntity" syncable="YES" codeGenerationType="class">
-        <attribute name="images" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="language" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="parkImgRelation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="NMoQParksEntity" inverseName="parkImgRelation" inverseEntity="NMoQParksEntity" syncable="YES"/>
+        <relationship name="parkDetailImgRelation" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ImageEntity" syncable="YES"/>
     </entity>
     <entity name="NMoQParkListEntity" representedClassName="NMoQParkListEntity" syncable="YES" codeGenerationType="class">
         <attribute name="hoursDesc" optional="YES" attributeType="String" syncable="YES"/>
@@ -306,7 +268,7 @@
         <attribute name="nid" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="sortId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="parkImgRelation" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="NMoQParkImgEntity" inverseName="parkImgRelation" inverseEntity="NMoQParkImgEntity" syncable="YES"/>
+        <relationship name="parkImgRelation" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ImageEntity" syncable="YES"/>
     </entity>
     <entity name="NmoqTourDetailEntity" representedClassName="NmoqTourDetailEntity" syncable="YES" codeGenerationType="class">
         <attribute name="body" optional="YES" attributeType="String" syncable="YES"/>
@@ -323,17 +285,7 @@
         <attribute name="seatsRemaining" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="sort_id" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="nmoqTourDetailImgBannerRelation" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="NMoqTourDetailImagesEntity" inverseName="nmoqTourDetailImgBannerRelation" inverseEntity="NMoqTourDetailImagesEntity" syncable="YES"/>
-    </entity>
-    <entity name="NMoqTourDetailImagesEntity" representedClassName="NMoqTourDetailImagesEntity" syncable="YES" codeGenerationType="class">
-        <attribute name="imgBanner" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="language" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="nmoqTourDetailImgBannerRelation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="NmoqTourDetailEntity" inverseName="nmoqTourDetailImgBannerRelation" inverseEntity="NmoqTourDetailEntity" syncable="YES"/>
-    </entity>
-    <entity name="NMoqTourImagesEntity" representedClassName="NMoqTourImagesEntity" syncable="YES" codeGenerationType="class">
-        <attribute name="image" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="language" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="tourImagesRelation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="NMoQTourListEntity" inverseName="tourImagesRelation" inverseEntity="NMoQTourListEntity" syncable="YES"/>
+        <relationship name="nmoqTourDetailImgBannerRelation" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ImageEntity" syncable="YES"/>
     </entity>
     <entity name="NMoQTourListEntity" representedClassName="NMoQTourListEntity" syncable="YES" codeGenerationType="class">
         <attribute name="contactEmail" optional="YES" attributeType="String" syncable="YES"/>
@@ -351,7 +303,7 @@
         <attribute name="sortId" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="subtitle" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="tourImagesRelation" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="NMoqTourImagesEntity" inverseName="tourImagesRelation" inverseEntity="NMoqTourImagesEntity" syncable="YES"/>
+        <relationship name="tourImagesRelation" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ImageEntity" syncable="YES"/>
     </entity>
     <entity name="NMoQTravelListEntity" representedClassName="NMoQTravelListEntity" syncable="YES" codeGenerationType="class">
         <attribute name="bannerLink" optional="YES" attributeType="String" syncable="YES"/>
@@ -387,12 +339,7 @@
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="shortdescription" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="sortcoefficient" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="publicImagesRelation" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="PublicArtsImagesEntity" inverseName="publicImagesRelation" inverseEntity="PublicArtsImagesEntity" syncable="YES"/>
-    </entity>
-    <entity name="PublicArtsImagesEntity" representedClassName="PublicArtsImagesEntity" syncable="YES" codeGenerationType="class">
-        <attribute name="images" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="language" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="publicImagesRelation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="PublicArtsEntity" inverseName="publicImagesRelation" inverseEntity="PublicArtsEntity" syncable="YES"/>
+        <relationship name="publicImagesRelation" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ImageEntity" syncable="YES"/>
     </entity>
     <entity name="RegisteredEventListEntity" representedClassName="RegisteredEventListEntity" syncable="YES" codeGenerationType="class">
         <attribute name="eventId" optional="YES" attributeType="String" syncable="YES"/>
@@ -421,8 +368,8 @@
         <element name="AboutMultimediaFileEntity" positionX="-9" positionY="135" width="128" height="88"/>
         <element name="CollectionDetailsEntity" positionX="-36" positionY="135" width="128" height="135"/>
         <element name="CollectionsEntity" positionX="-36" positionY="126" width="128" height="105"/>
+        <element name="DateEntity" positionX="-9" positionY="135" width="128" height="75"/>
         <element name="DiningEntity" positionX="-54" positionY="90" width="128" height="210"/>
-        <element name="DiningImagesEntity" positionX="-9" positionY="135" width="128" height="75"/>
         <element name="EdAgeGroupEntity" positionX="-9" positionY="153" width="128" height="90"/>
         <element name="EdEventTopicsEntity" positionX="36" positionY="189" width="128" height="90"/>
         <element name="EducationEventEntity" positionX="-36" positionY="108" width="128" height="270"/>
@@ -431,35 +378,24 @@
         <element name="EventTopicsEntity" positionX="9" positionY="171" width="128" height="30"/>
         <element name="ExhibitionsEntity" positionX="-54" positionY="108" width="128" height="345"/>
         <element name="FacilitiesDetailEntity" positionX="27" positionY="171" width="128" height="225"/>
-        <element name="FacilitiesDetailImgEntity" positionX="-9" positionY="135" width="128" height="90"/>
         <element name="FacilitiesEntity" positionX="-9" positionY="252" width="128" height="120"/>
-        <element name="FacilitiesImgEntity" positionX="9" positionY="270" width="128" height="75"/>
-        <element name="FloorMapImagesEntity" positionX="0" positionY="144" width="128" height="90"/>
         <element name="FloorMapTourGuideEntity" positionX="-9" positionY="135" width="128" height="435"/>
         <element name="HeritageEntity" positionX="-63" positionY="27" width="128" height="210"/>
-        <element name="HeritageImagesEntity" positionX="-27" positionY="135" width="128" height="75"/>
         <element name="HomeBannerEntity" positionX="-9" positionY="135" width="128" height="210"/>
-        <element name="HomeBannerImageEntity" positionX="-9" positionY="135" width="128" height="90"/>
         <element name="HomeEntity" positionX="-63" positionY="-18" width="128" height="135"/>
         <element name="NMoQActivitiesEntity" positionX="9" positionY="153" width="128" height="270"/>
-        <element name="NMoqActivityImgEntity" positionX="27" positionY="171" width="128" height="90"/>
         <element name="NMoQParkDetailEntity" positionX="9" positionY="153" width="128" height="135"/>
-        <element name="NMoQParkDetailImgEntity" positionX="-9" positionY="135" width="128" height="90"/>
-        <element name="NMoQParkImgEntity" positionX="9" positionY="153" width="128" height="90"/>
         <element name="NMoQParkListEntity" positionX="-9" positionY="135" width="128" height="210"/>
         <element name="NMoQParksEntity" positionX="-9" positionY="135" width="128" height="120"/>
         <element name="NmoqTourDetailEntity" positionX="-9" positionY="135" width="128" height="270"/>
-        <element name="NMoqTourDetailImagesEntity" positionX="9" positionY="153" width="128" height="90"/>
-        <element name="NMoqTourImagesEntity" positionX="9" positionY="153" width="128" height="90"/>
         <element name="NMoQTourListEntity" positionX="0" positionY="144" width="128" height="285"/>
         <element name="NMoQTravelListEntity" positionX="-9" positionY="135" width="128" height="195"/>
         <element name="NotificationsEntity" positionX="-9" positionY="135" width="128" height="90"/>
         <element name="ParksEntity" positionX="-54" positionY="108" width="128" height="120"/>
         <element name="PublicArtsEntity" positionX="-54" positionY="108" width="128" height="195"/>
-        <element name="PublicArtsImagesEntity" positionX="-18" positionY="144" width="128" height="90"/>
         <element name="RegisteredEventListEntity" positionX="-9" positionY="135" width="128" height="120"/>
         <element name="TourGuideEntity" positionX="-9" positionY="135" width="128" height="135"/>
         <element name="TourGuideMultimediaEntity" positionX="9" positionY="153" width="128" height="90"/>
-        <element name="DateEntity" positionX="-9" positionY="135" width="128" height="75"/>
+        <element name="ImageEntity" positionX="-9" positionY="135" width="128" height="75"/>
     </elements>
 </model>

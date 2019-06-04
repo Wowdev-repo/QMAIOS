@@ -852,8 +852,8 @@ class PreviewContainerViewController: UIViewController,UIPageViewControllerDeleg
                         if(tourGuideDeatilDict.images != nil) {
                             if((tourGuideDeatilDict.images?.count)! > 0) {
                                 for i in 0 ... (tourGuideDeatilDict.images?.count)!-1 {
-                                    var tourGuideImgEntity: FloorMapImagesEntity!
-                                    let tourGuideImg: FloorMapImagesEntity = NSEntityDescription.insertNewObject(forEntityName: "FloorMapImagesEntity", into: managedContext) as! FloorMapImagesEntity
+                                    var tourGuideImgEntity: ImageEntity!
+                                    let tourGuideImg = NSEntityDescription.insertNewObject(forEntityName: "ImageEntity", into: managedContext) as! ImageEntity
                                     tourGuideImg.image = tourGuideDeatilDict.images?[i]
                                     tourGuideImg.language = Utils.getLanguage()
                                     tourGuideImgEntity = tourGuideImg
@@ -1016,8 +1016,8 @@ class PreviewContainerViewController: UIViewController,UIPageViewControllerDeleg
             if(tourGuideDetailDict.images != nil) {
                 if((tourGuideDetailDict.images?.count)! > 0) {
                     for i in 0 ... (tourGuideDetailDict.images?.count)!-1 {
-                        var tourGuideImgEntity: FloorMapImagesEntity!
-                        let tourGuideImg: FloorMapImagesEntity = NSEntityDescription.insertNewObject(forEntityName: "FloorMapImagesEntity", into: managedObjContext) as! FloorMapImagesEntity
+                        var tourGuideImgEntity: ImageEntity!
+                        let tourGuideImg = NSEntityDescription.insertNewObject(forEntityName: "ImageEntity", into: managedObjContext) as! ImageEntity
                         tourGuideImg.image = tourGuideDetailDict.images?[i]
                         tourGuideImg.language = Utils.getLanguage()
                         tourGuideImgEntity = tourGuideImg
@@ -1113,7 +1113,7 @@ class PreviewContainerViewController: UIViewController,UIPageViewControllerDeleg
                         } else {
                         let tourGuideDict = tourGuideArray[i]
                         var imgsArray : [String] = []
-                        let imgInfoArray = (tourGuideDict.imagesRelation?.allObjects) as! [FloorMapImagesEntity]
+                        let imgInfoArray = (tourGuideDict.imagesRelation?.allObjects) as! [ImageEntity]
                         if(imgInfoArray != nil) {
                             if(imgInfoArray.count > 0) {
                                 for i in 0 ... imgInfoArray.count-1 {

@@ -735,9 +735,10 @@ class CommonDetailViewController: UIViewController,UITableViewDelegate,UITableVi
             
             if((heritageDetailDict.images?.count)! > 0) {
                 for i in 0 ... (heritageDetailDict.images?.count)!-1 {
-                    var heritageImagesEntity: HeritageImagesEntity!
-                    let heritageImage: HeritageImagesEntity = NSEntityDescription.insertNewObject(forEntityName: "HeritageImagesEntity", into: managedContext) as! HeritageImagesEntity
-                    heritageImage.images = heritageDetailDict.images![i]
+                    var heritageImagesEntity: ImageEntity!
+                    let heritageImage = NSEntityDescription.insertNewObject(forEntityName: "ImageEntity",
+                                                                            into: managedContext) as! ImageEntity
+                    heritageImage.image = heritageDetailDict.images![i]
                     
                     heritageImagesEntity = heritageImage
                     heritagedbDict.addToImagesRelation(heritageImagesEntity)
@@ -748,7 +749,6 @@ class CommonDetailViewController: UIViewController,UITableViewDelegate,UITableVi
                     } catch let error as NSError {
                         print("Could not save. \(error), \(error.userInfo)")
                     }
-                    
                 }
             }
             
@@ -788,10 +788,10 @@ class CommonDetailViewController: UIViewController,UITableViewDelegate,UITableVi
             
             if((heritageDetailDict.images?.count)! > 0) {
                 for i in 0 ... (heritageDetailDict.images?.count)!-1 {
-                    var heritageImagesEntity: HeritageImagesEntity!
-                    let heritageImage: HeritageImagesEntity = NSEntityDescription.insertNewObject(forEntityName: "HeritageImagesEntity", into: managedObjContext) as! HeritageImagesEntity
-                    heritageImage.images = heritageDetailDict.images![i]
-                    
+                    var heritageImagesEntity: ImageEntity!
+                    let heritageImage = NSEntityDescription.insertNewObject(forEntityName: "ImageEntity",
+                                                                            into: managedObjContext) as! ImageEntity
+                    heritageImage.image = heritageDetailDict.images![i]
                     heritageImagesEntity = heritageImage
                     heritageInfo.addToImagesRelation(heritageImagesEntity)
                     do {
@@ -823,10 +823,10 @@ class CommonDetailViewController: UIViewController,UITableViewDelegate,UITableVi
                         let heritageDict = heritageArray[0]
                         if((heritageDict.detailshortdescription != nil) && (heritageDict.detaillongdescription != nil) ) {
                             var imagesArray : [String] = []
-                            let heritageImagesArray = (heritageDict.imagesRelation?.allObjects) as! [HeritageImagesEntity]
+                            let heritageImagesArray = (heritageDict.imagesRelation?.allObjects) as! [ImageEntity]
                             if(heritageImagesArray.count > 0) {
                                 for i in 0 ... heritageImagesArray.count-1 {
-                                    imagesArray.append(heritageImagesArray[i].images!)
+                                    imagesArray.append(heritageImagesArray[i].image!)
                                 }
                             }
                             self.heritageDetailtArray.insert(Heritage(id: heritageDict.listid, name: heritageDict.listname, location: heritageDict.detaillocation, latitude: heritageDict.detaillatitude, longitude: heritageDict.detaillongitude, image: heritageDict.listimage, shortdescription: heritageDict.detailshortdescription, longdescription: heritageDict.detaillongdescription, images: imagesArray, sortid: heritageDict.listsortid), at: 0)
@@ -900,9 +900,10 @@ class CommonDetailViewController: UIViewController,UITableViewDelegate,UITableVi
                 if(publicArtsDetailDict.images != nil) {
                 if((publicArtsDetailDict.images?.count)! > 0) {
                     for i in 0 ... (publicArtsDetailDict.images?.count)!-1 {
-                        var publicArtsImagesEntity: PublicArtsImagesEntity!
-                        let publicArtsImage: PublicArtsImagesEntity = NSEntityDescription.insertNewObject(forEntityName: "PublicArtsImagesEntity", into: managedContext) as! PublicArtsImagesEntity
-                        publicArtsImage.images = publicArtsDetailDict.images![i]
+                        var publicArtsImagesEntity: ImageEntity!
+                        let publicArtsImage = NSEntityDescription.insertNewObject(forEntityName: "ImageEntity",
+                                                                                  into: managedContext) as! ImageEntity
+                        publicArtsImage.image = publicArtsDetailDict.images![i]
                         publicArtsImage.language = Utils.getLanguage()
                         publicArtsImagesEntity = publicArtsImage
                         publicArtsbDict.addToPublicImagesRelation(publicArtsImagesEntity)
@@ -945,9 +946,9 @@ class CommonDetailViewController: UIViewController,UITableViewDelegate,UITableVi
             
             if((publicArtseDetailDict.images?.count)! > 0) {
                 for i in 0 ... (publicArtseDetailDict.images?.count)!-1 {
-                    var publicArtsImagesEntity: PublicArtsImagesEntity!
-                    let publicArtsImage: PublicArtsImagesEntity = NSEntityDescription.insertNewObject(forEntityName: "PublicArtsImagesEntity", into: managedObjContext) as! PublicArtsImagesEntity
-                    publicArtsImage.images = publicArtseDetailDict.images![i]
+                    var publicArtsImagesEntity: ImageEntity!
+                    let publicArtsImage = NSEntityDescription.insertNewObject(forEntityName: "ImageEntity", into: managedObjContext) as! ImageEntity
+                    publicArtsImage.image = publicArtseDetailDict.images![i]
                     publicArtsImage.language = Utils.getLanguage()
                     publicArtsImagesEntity = publicArtsImage
                     publicArtsInfo.addToPublicImagesRelation(publicArtsImagesEntity)
@@ -983,10 +984,10 @@ class CommonDetailViewController: UIViewController,UITableViewDelegate,UITableVi
                         if((publicArtsDict.detaildescription != nil) && (publicArtsDict.shortdescription != nil) ) {
                             
                             var imagesArray : [String] = []
-                            let publicArtsImagesArray = (publicArtsDict.publicImagesRelation?.allObjects) as! [PublicArtsImagesEntity]
+                            let publicArtsImagesArray = (publicArtsDict.publicImagesRelation?.allObjects) as! [ImageEntity]
                             if(publicArtsImagesArray.count > 0) {
                                 for i in 0 ... publicArtsImagesArray.count-1 {
-                                    imagesArray.append(publicArtsImagesArray[i].images!)
+                                    imagesArray.append(publicArtsImagesArray[i].image!)
                                 }
                             }
                             self.publicArtsDetailtArray.insert(PublicArtsDetail(id:publicArtsDict.id , name:publicArtsDict.name, description: publicArtsDict.detaildescription, shortdescription: publicArtsDict.shortdescription, image: publicArtsDict.image, images: imagesArray,longitude: publicArtsDict.longitude, latitude: publicArtsDict.latitude, language: publicArtsDict.language), at: 0)
@@ -1418,9 +1419,9 @@ class CommonDetailViewController: UIViewController,UITableViewDelegate,UITableVi
                         if(nmoqParkListDict.images != nil){
                             if((nmoqParkListDict.images?.count)! > 0) {
                                 for i in 0 ... (nmoqParkListDict.images?.count)!-1 {
-                                    var parkListImage: NMoQParkDetailImgEntity!
-                                    let parkListImageArray: NMoQParkDetailImgEntity = NSEntityDescription.insertNewObject(forEntityName: "NMoQParkDetailImgEntity", into: managedContext) as! NMoQParkDetailImgEntity
-                                    parkListImageArray.images = nmoqParkListDict.images![i]
+                                    var parkListImage: ImageEntity!
+                                    let parkListImageArray = NSEntityDescription.insertNewObject(forEntityName: "ImageEntity", into: managedContext) as! ImageEntity
+                                    parkListImageArray.image = nmoqParkListDict.images![i]
                                     
                                     parkListImage = parkListImageArray
                                     nmoqParkListdbDict.addToParkDetailImgRelation(parkListImage)
@@ -1467,9 +1468,9 @@ class CommonDetailViewController: UIViewController,UITableViewDelegate,UITableVi
             if(nmoqParkListDict.images != nil){
                 if((nmoqParkListDict.images?.count)! > 0) {
                     for i in 0 ... (nmoqParkListDict.images?.count)!-1 {
-                        var parkListImage: NMoQParkDetailImgEntity!
-                        let parkListImageArray: NMoQParkDetailImgEntity = NSEntityDescription.insertNewObject(forEntityName: "NMoQParkDetailImgEntity", into: managedObjContext) as! NMoQParkDetailImgEntity
-                        parkListImageArray.images = nmoqParkListDict.images![i]
+                        var parkListImage: ImageEntity!
+                        let parkListImageArray = NSEntityDescription.insertNewObject(forEntityName: "ImageEntity", into: managedObjContext) as! ImageEntity
+                        parkListImageArray.image = nmoqParkListDict.images![i]
                         parkListImageArray.language = Utils.getLanguage()
                         parkListImage = parkListImageArray
                         nmoqParkListdbDict.addToParkDetailImgRelation(parkListImage)
@@ -1527,10 +1528,10 @@ class CommonDetailViewController: UIViewController,UITableViewDelegate,UITableVi
                     for i in 0 ... parkListArray.count-1 {
                         let parkListDict = parkListArray[i]
                         var imagesArray : [String] = []
-                        let imagesInfoArray = (parkListDict.parkDetailImgRelation?.allObjects) as! [NMoQParkDetailImgEntity]
+                        let imagesInfoArray = (parkListDict.parkDetailImgRelation?.allObjects) as! [ImageEntity]
                         if(imagesInfoArray.count > 0) {
                             for i in 0 ... imagesInfoArray.count-1 {
-                                imagesArray.append(imagesInfoArray[i].images!)
+                                imagesArray.append(imagesInfoArray[i].image!)
                             }
                         }
                         self.nmoqParkDetailArray.insert(NMoQParkDetail(title: parkListDict.title, sortId: parkListDict.sortId, nid: parkListDict.nid, images: imagesArray, parkDesc: parkListDict.parkDesc, language: parkListDict.language), at: i)
@@ -1675,9 +1676,9 @@ class CommonDetailViewController: UIViewController,UITableViewDelegate,UITableVi
                 }
                 if((diningDetailDict.images?.count)! > 0) {
                     for i in 0 ... (diningDetailDict.images?.count)!-1 {
-                        var diningImagesEntity: DiningImagesEntity!
-                        let diningImage: DiningImagesEntity = NSEntityDescription.insertNewObject(forEntityName: "DiningImagesEntity", into: managedContext) as! DiningImagesEntity
-                        diningImage.images = diningDetailDict.images![i]
+                        var diningImagesEntity: ImageEntity!
+                        let diningImage = NSEntityDescription.insertNewObject(forEntityName: "ImageEntity", into: managedContext) as! ImageEntity
+                        diningImage.image = diningDetailDict.images![i]
                         
                         diningImagesEntity = diningImage
                         diningdbDict.addToImagesRelation(diningImagesEntity)
@@ -1718,9 +1719,9 @@ class CommonDetailViewController: UIViewController,UITableViewDelegate,UITableVi
             }
             if((diningDetailDict.images?.count)! > 0) {
                 for i in 0 ... (diningDetailDict.images?.count)!-1 {
-                    var diningImagesEntity: DiningImagesEntity!
-                    let diningImage: DiningImagesEntity = NSEntityDescription.insertNewObject(forEntityName: "DiningImagesEntity", into: managedObjContext) as! DiningImagesEntity
-                    diningImage.images = diningDetailDict.images![i]
+                    var diningImagesEntity: ImageEntity!
+                    let diningImage = NSEntityDescription.insertNewObject(forEntityName: "ImageEntity", into: managedObjContext) as! ImageEntity
+                    diningImage.image = diningDetailDict.images![i]
                     
                     diningImagesEntity = diningImage
                     diningInfo.addToImagesRelation(diningImagesEntity)
@@ -1755,10 +1756,10 @@ class CommonDetailViewController: UIViewController,UITableViewDelegate,UITableVi
                 let diningDict = diningArray[0]
                 if ((diningArray.count > 0) && (diningDict.diningdescription != nil)) {
                     var imagesArray : [String] = []
-                    let diningImagesArray = (diningDict.imagesRelation?.allObjects) as! [DiningImagesEntity]
+                    let diningImagesArray = (diningDict.imagesRelation?.allObjects) as! [ImageEntity]
                     if(diningImagesArray.count > 0) {
                         for i in 0 ... diningImagesArray.count-1 {
-                            imagesArray.append(diningImagesArray[i].images!)
+                            imagesArray.append(diningImagesArray[i].image!)
                         }
                     }
                     self.diningDetailtArray.insert(Dining(id: diningDict.id, name: diningDict.name, location: diningDict.location, description: diningDict.diningdescription, image: diningDict.image, openingtime: diningDict.openingtime, closetime: diningDict.closetime, sortid: diningDict.sortid, museumId: nil, images: imagesArray), at: 0)
