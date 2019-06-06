@@ -1177,6 +1177,7 @@ class EventViewController: UIViewController,UICollectionViewDelegate,UICollectio
                                                                                                    options: .regularExpression,
                                                                                                    range: nil)
                     
+                    eventDateEntity = edEventDate
                     eventDateEntity.language = Utils.getLanguage()
                     edducationInfo.addToFieldRepeatDates(eventDateEntity)
                     do {
