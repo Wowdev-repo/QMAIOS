@@ -372,8 +372,8 @@ class MuseumsViewController: UIViewController,KASlideShowDelegate,TopBarProtocol
                     self.present(heritageDtlView, animated: false, completion: nil)
             } else if ((selectedItem == "Tour Guide") || (selectedItem == "الدليل السياحي")){
                 if((museumId == "63") || (museumId == "96") || (museumId == "66") || (museumId == "638")) {
-                        let tourGuideView =  self.storyboard?.instantiateViewController(withIdentifier: "exhibitionViewId") as! CommonListViewController
-                        tourGuideView.exhibitionsPageNameString = ExhbitionPageName.miaTourGuideList
+                        let tourGuideView =  self.storyboard?.instantiateViewController(withIdentifier: "exhibitionViewId") as! CPCommonListViewController
+                        tourGuideView.exhibitionsPageNameString = CPExhbitionPageName.miaTourGuideList
                         tourGuideView.museumId = museumId!
                         let transition = CATransition()
                         transition.duration = 0.3
@@ -393,14 +393,14 @@ class MuseumsViewController: UIViewController,KASlideShowDelegate,TopBarProtocol
                 }
                     
             } else if ((selectedItem == "Exhibitions") || (selectedItem == "المعارض")){
-                    let exhibitionView = self.storyboard?.instantiateViewController(withIdentifier: "exhibitionViewId") as! CommonListViewController
+                    let exhibitionView = self.storyboard?.instantiateViewController(withIdentifier: "exhibitionViewId") as! CPCommonListViewController
                     exhibitionView.museumId = museumId
                     let transition = CATransition()
                     transition.duration = 0.3
                     transition.type = kCATransitionPush
                     transition.subtype = kCATransitionFromRight
                     view.window!.layer.add(transition, forKey: kCATransition)
-                    exhibitionView.exhibitionsPageNameString = ExhbitionPageName.museumExhibition
+                    exhibitionView.exhibitionsPageNameString = CPExhbitionPageName.museumExhibition
                     
                     Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
                         AnalyticsParameterItemID: FirebaseAnalyticsEvents.tapped_museum_exhibition,
@@ -410,9 +410,9 @@ class MuseumsViewController: UIViewController,KASlideShowDelegate,TopBarProtocol
                     
                     self.present(exhibitionView, animated: false, completion: nil)
             } else if ((selectedItem == "Collections") || (selectedItem == "المجموعات")){
-                    let musmCollectionnView = self.storyboard?.instantiateViewController(withIdentifier: "exhibitionViewId") as! CommonListViewController
+                    let musmCollectionnView = self.storyboard?.instantiateViewController(withIdentifier: "exhibitionViewId") as! CPCommonListViewController
                     musmCollectionnView.museumId = museumId
-                    musmCollectionnView.exhibitionsPageNameString = ExhbitionPageName.museumCollectionsList
+                    musmCollectionnView.exhibitionsPageNameString = CPExhbitionPageName.museumCollectionsList
                     let transition = CATransition()
                     transition.duration = 0.3
                     transition.type = kCATransitionPush
@@ -428,8 +428,8 @@ class MuseumsViewController: UIViewController,KASlideShowDelegate,TopBarProtocol
                     self.present(musmCollectionnView, animated: false, completion: nil)
             } else if ((selectedItem == "Parks") || (selectedItem == "الحدائق")){
                     if((museumId == "66") || (museumId == "638")) {
-                        let parkView = self.storyboard?.instantiateViewController(withIdentifier: "exhibitionViewId") as! CommonListViewController
-                        parkView.exhibitionsPageNameString = ExhbitionPageName.parkList
+                        let parkView = self.storyboard?.instantiateViewController(withIdentifier: "exhibitionViewId") as! CPCommonListViewController
+                        parkView.exhibitionsPageNameString = CPExhbitionPageName.parkList
                         let transition = CATransition()
                         transition.duration = 0.3
                         transition.type = kCATransitionFade
@@ -442,7 +442,7 @@ class MuseumsViewController: UIViewController,KASlideShowDelegate,TopBarProtocol
                             ])
                         self.present(parkView, animated: false, completion: nil)
                     } else {
-                                            let parkView = self.storyboard?.instantiateViewController(withIdentifier: "heritageDetailViewId") as! CommonDetailViewController
+                                            let parkView = self.storyboard?.instantiateViewController(withIdentifier: "heritageDetailViewId") as! CPCommonDetailViewController
                                             parkView.pageNameString = PageName.SideMenuPark
                                             let transition = CATransition()
                                             transition.duration = 0.3
@@ -457,11 +457,11 @@ class MuseumsViewController: UIViewController,KASlideShowDelegate,TopBarProtocol
                                             self.present(parkView, animated: false, completion: nil)
                     }
             } else if((selectedItem == "Dining") || (selectedItem == "الطعام")) {
-                    let diningView =  self.storyboard?.instantiateViewController(withIdentifier: "exhibitionViewId") as! CommonListViewController
+                    let diningView =  self.storyboard?.instantiateViewController(withIdentifier: "exhibitionViewId") as! CPCommonListViewController
                     diningView.museumId = museumId
                     diningView.fromHome = false
                     diningView.fromSideMenu = false
-                    diningView.exhibitionsPageNameString = ExhbitionPageName.diningList
+                    diningView.exhibitionsPageNameString = CPExhbitionPageName.diningList
                     let transition = CATransition()
                     transition.duration = 0.25
                     transition.type = kCATransitionPush
@@ -980,26 +980,26 @@ class MuseumsViewController: UIViewController,KASlideShowDelegate,TopBarProtocol
                 tourAndPanelView.pageNameString = NMoQPageName.Facilities
             }
         } else if (segue.identifier == "museumsToCommonListSegue") {
-            let commonList = segue.destination as! CommonListViewController
+            let commonList = segue.destination as! CPCommonListViewController
             if ((selectedItemName == "Tour Guide") || (selectedItemName == "الدليل السياحي")){
-                    commonList.exhibitionsPageNameString = ExhbitionPageName.miaTourGuideList
+                    commonList.exhibitionsPageNameString = CPExhbitionPageName.miaTourGuideList
                     commonList.museumId = museumId!
             } else if ((selectedItemName == "Exhibitions") || (selectedItemName == "المعارض")){
                 commonList.museumId = museumId
-                commonList.exhibitionsPageNameString = ExhbitionPageName.museumExhibition
+                commonList.exhibitionsPageNameString = CPExhbitionPageName.museumExhibition
             } else if ((selectedItemName == "Collections") || (selectedItemName == "المجموعات")){
                 commonList.museumId = museumId
-                commonList.exhibitionsPageNameString = ExhbitionPageName.museumCollectionsList
+                commonList.exhibitionsPageNameString = CPExhbitionPageName.museumCollectionsList
             } else if ((selectedItemName == "Parks") || (selectedItemName == "الحدائق")){
-                commonList.exhibitionsPageNameString = ExhbitionPageName.parkList
+                commonList.exhibitionsPageNameString = CPExhbitionPageName.parkList
             }else if((selectedItemName == "Dining") || (selectedItemName == "الطعام")) {
                 commonList.museumId = museumId
                 commonList.fromHome = false
                 commonList.fromSideMenu = false
-                commonList.exhibitionsPageNameString = ExhbitionPageName.diningList
+                commonList.exhibitionsPageNameString = CPExhbitionPageName.diningList
             }
         } else if (segue.identifier == "museumToCommonDetailSegue") {
-            let commonDetail = segue.destination as! CommonDetailViewController
+            let commonDetail = segue.destination as! CPCommonDetailViewController
             commonDetail.pageNameString = PageName.SideMenuPark
         }
         

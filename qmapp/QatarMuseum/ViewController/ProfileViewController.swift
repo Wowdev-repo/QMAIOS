@@ -254,7 +254,7 @@ class ProfileViewController: UIViewController,HeaderViewProtocol,comingSoonPopUp
         transition.subtype = kCATransitionFromLeft
         self.view.window!.layer.add(transition, forKey: kCATransition)
             let appDelegate = UIApplication.shared.delegate
-            let homeViewController = self.storyboard?.instantiateViewController(withIdentifier: "homeId") as! HomeViewController
+            let homeViewController = self.storyboard?.instantiateViewController(withIdentifier: "homeId") as! CPHomeViewController
             appDelegate?.window??.rootViewController = homeViewController
     }
     

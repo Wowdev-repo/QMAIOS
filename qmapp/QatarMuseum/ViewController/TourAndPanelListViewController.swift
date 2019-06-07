@@ -167,21 +167,21 @@ class TourAndPanelListViewController: UIViewController,UITableViewDelegate,UITab
     }
     
     func loadTourViewPage(selectedRow: Int?,isFromTour:Bool?, pageName: NMoQPageName?) {
-        let tourView =  self.storyboard?.instantiateViewController(withIdentifier: "exhibitionViewId") as! CommonListViewController
+        let tourView =  self.storyboard?.instantiateViewController(withIdentifier: "exhibitionViewId") as! CPCommonListViewController
         
         if pageName == NMoQPageName.Tours {
             tourView.isFromTour = true
-            tourView.exhibitionsPageNameString = ExhbitionPageName.nmoqTourSecondList
+            tourView.exhibitionsPageNameString = CPExhbitionPageName.nmoqTourSecondList
             tourView.tourDetailId = nmoqTourList[selectedRow!].nid
             tourView.headerTitle = nmoqTourList[selectedRow!].subtitle
         } else if pageName == NMoQPageName.PanelDiscussion {
             tourView.isFromTour = false
-            tourView.exhibitionsPageNameString = ExhbitionPageName.nmoqTourSecondList
+            tourView.exhibitionsPageNameString = CPExhbitionPageName.nmoqTourSecondList
             tourView.tourDetailId = nmoqActivityList[selectedRow!].nid
             tourView.headerTitle = nmoqActivityList[selectedRow!].subtitle
         } else if pageName == NMoQPageName.Facilities {
             tourView.isFromTour = false
-            tourView.exhibitionsPageNameString = ExhbitionPageName.facilitiesSecondList
+            tourView.exhibitionsPageNameString = CPExhbitionPageName.facilitiesSecondList
             tourView.tourDetailId = facilitiesList[selectedRow!].nid
             tourView.headerTitle = facilitiesList[selectedRow!].title
         }

@@ -284,8 +284,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         }
         if let topController = UIApplication.topViewController() {
             print(topController)
-            if topController is HomeViewController {
-                (topController as! HomeViewController).updateNotificationBadge()
+            if topController is CPHomeViewController {
+                (topController as! CPHomeViewController).updateNotificationBadge()
             } else if topController is MuseumsViewController {
                 (topController as! MuseumsViewController).updateNotificationBadge()
             } else if topController is NotificationsViewController {
