@@ -671,7 +671,6 @@ class MuseumsViewController: UIViewController,KASlideShowDelegate,TopBarProtocol
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         let managedContext = getContext()
         do {
-//            if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
                 var aboutArray = [AboutEntity]()
                 let fetchRequest =  NSFetchRequest<NSFetchRequestResult>(entityName: "AboutEntity")
                 if(museumId != nil) {
@@ -714,36 +713,6 @@ class MuseumsViewController: UIViewController,KASlideShowDelegate,TopBarProtocol
                         }
                     }
                 }
-//            } else {
-//                var aboutArray = [AboutEntityArabic]()
-//                let fetchRequest =  NSFetchRequest<NSFetchRequestResult>(entityName: "AboutEntityArabic")
-//                if(museumId != nil) {
-//                    fetchRequest.predicate = NSPredicate.init(format: "id == \(museumId!)")
-//                    aboutArray = (try managedContext.fetch(fetchRequest) as? [AboutEntityArabic])!
-//
-//                    if (aboutArray.count > 0) {
-//                        let aboutDict = aboutArray[0]
-//                        var multimediaArray : [String] = []
-//                        let mutimediaInfoArray = (aboutDict.multimediaRelation?.allObjects) as! [AboutMultimediaFileEntityAr]
-//                        if(mutimediaInfoArray.count > 0){
-//                            for i in 0 ... mutimediaInfoArray.count-1 {
-//                                multimediaArray.append(mutimediaInfoArray[i].image!)
-//                            }
-//                        }
-//                        self.museumArray.insert(Museum(name: aboutDict.nameAr, id: aboutDict.id, tourguideAvailable: nil, contactNumber: nil, contactEmail: nil, mobileLongtitude: nil, subtitle: nil, openingTime: nil, mobileDescription: nil, multimediaFile: multimediaArray, mobileLatitude: nil, tourGuideAvailability: nil,multimediaVideo: nil,downloadable:nil,eventDate:nil),at: 0)
-//                        if(museumArray.count != 0){
-//                            self.setImageArray(imageArray: self.museumArray[0].multimediaFile)
-//                        }
-//                    }
-//                    else{
-//                        if (networkReachability?.isReachable)! {
-//                            DispatchQueue.global(qos: .background).async {
-//                                self.getMuseumDataFromServer()
-//                            }
-//                        }
-//                    }
-//                }
-//            }
         } catch let error as NSError {
             print("Could not fetch. \(error), \(error.userInfo)")
         }
