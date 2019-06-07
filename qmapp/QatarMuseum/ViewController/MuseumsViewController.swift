@@ -33,7 +33,7 @@ class MuseumsViewController: UIViewController,KASlideShowDelegate,TopBarProtocol
     var sliderImgCount : Int? = 0
     var sliderImgArray = NSMutableArray()
     var apnDelegate : APNProtocol?
-    var fromHomeBanner : Bool? = false
+    var fromHomeBanner = false
     var bannerId: String? = nil
     var bannerImageArray : [String]? = []
     let networkReachability = NetworkReachabilityManager()
@@ -84,7 +84,8 @@ class MuseumsViewController: UIViewController,KASlideShowDelegate,TopBarProtocol
             nextButton.isHidden = true
             previousButton.setImage(UIImage(named: "nextImg"), for: .normal)
         }
-        if(fromHomeBanner)! {
+        
+        if fromHomeBanner {
             let aboutBanner = NSLocalizedString("ABOUT", comment: "ABOUT  in the Museum")
             let tourBanner = NSLocalizedString("TOURS", comment: "TOURS  in the Museum page")
             let travelBanner = NSLocalizedString("TRAVEL_ARRANGEMENTS", comment: "TRAVEL_ARRANGEMENTS  in the Museum page")
@@ -246,7 +247,7 @@ class MuseumsViewController: UIViewController,KASlideShowDelegate,TopBarProtocol
         museumsCell.itemButton.setImage(UIImage(named: collectionViewImages.object(at: indexPath.row) as! String), for: .normal)
         let itemName = collectionViewNames.object(at: indexPath.row) as? String
         museumsCell.itemName.text = collectionViewNames.object(at: indexPath.row) as? String
-        if (fromHomeBanner)! {
+        if fromHomeBanner {
             if((itemName == "About Event") || (itemName == "")) {
                 museumsCell.itemButton.contentEdgeInsets = UIEdgeInsets(top: 12, left: 9, bottom: 12, right: 9)
             } else if((itemName == "Tours") || (itemName == "")) {
@@ -334,7 +335,8 @@ class MuseumsViewController: UIViewController,KASlideShowDelegate,TopBarProtocol
         return CGSize(width: museumsBottomCollectionView.frame.width/4, height: 110)
     }
     func loadBottomCellPages(cellObj: MuseumBottomCell, selectedItem: String?) {
-        if(fromHomeBanner)! {
+        
+        if fromHomeBanner {
             let aboutBanner = NSLocalizedString("ABOUT", comment: "ABOUT  in the Museum")
             let tourBanner = NSLocalizedString("TOURS", comment: "TOURS  in the Museum page")
             let travelBanner = NSLocalizedString("TRAVEL_ARRANGEMENTS", comment: "TRAVEL_ARRANGEMENTS  in the Museum page")
@@ -618,6 +620,7 @@ class MuseumsViewController: UIViewController,KASlideShowDelegate,TopBarProtocol
             AnalyticsParameterContentType: "cont"
             ])
     }
+    
     func menuButtonPressed() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
     }
@@ -640,6 +643,7 @@ class MuseumsViewController: UIViewController,KASlideShowDelegate,TopBarProtocol
             }
         }
     }
+    
     //MARK: About CoreData
     func saveOrUpdateAboutCoredata(aboutDetailtArray:[Museum]?) {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
@@ -648,209 +652,18 @@ class MuseumsViewController: UIViewController,KASlideShowDelegate,TopBarProtocol
             if #available(iOS 10.0, *) {
                 let container = appDelegate!.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
-                    self.aboutCoreDataInBackgroundThread(managedContext: managedContext, aboutDetailtArray: aboutDetailtArray)
+                    DataManager.saveAboutDetails(managedContext: managedContext,
+                                          aboutDetailtArray: aboutDetailtArray,
+                                          fromHomeBanner: self.fromHomeBanner)
                 }
             } else {
                 let managedContext = appDelegate!.managedObjectContext
                 managedContext.perform {
-                    self.aboutCoreDataInBackgroundThread(managedContext : managedContext, aboutDetailtArray: aboutDetailtArray)
+                    DataManager.saveAboutDetails(managedContext : managedContext,
+                                          aboutDetailtArray: aboutDetailtArray,
+                                          fromHomeBanner: self.fromHomeBanner)
                 }
             }
-        }
-    }
-    func aboutCoreDataInBackgroundThread(managedContext: NSManagedObjectContext,aboutDetailtArray:[Museum]?) {
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-        
-//        if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
-            let fetchData = checkAddedToCoredata(entityName: "AboutEntity",
-                                                 idKey: "id" ,
-                                                 idValue: aboutDetailtArray![0].id,
-                                                 managedContext: managedContext) as! [AboutEntity]
-            
-            if (fetchData.count > 0) {
-                let aboutDetailDict = aboutDetailtArray![0]
-                let isDeleted = self.deleteExistingEvent(managedContext: managedContext, entityName: "AboutEntity")
-                if(isDeleted == true) {
-                    var desDeleted = self.deleteExistingEvent(managedContext: managedContext, entityName: "AboutDescriptionEntity")
-                    desDeleted = self.deleteExistingEvent(managedContext: managedContext, entityName: "AboutMultimediaFileEntity")
-                    desDeleted = self.deleteExistingEvent(managedContext: managedContext, entityName: "AboutDownloadLinkEntity")
-                    print(desDeleted ?? true)
-                    self.saveToCoreData(aboutDetailDict: aboutDetailDict, managedObjContext: managedContext)
-                    
-                }
-            } else {
-                let aboutDetailDict : Museum?
-                aboutDetailDict = aboutDetailtArray?[0]
-                self.saveToCoreData(aboutDetailDict: aboutDetailDict!, managedObjContext: managedContext)
-            }
-//        } else {
-//            let fetchData = checkAddedToCoredata(entityName: "AboutEntityArabic",
-//                                                 idKey:"id" ,
-//                                                 idValue: aboutDetailtArray![0].id,
-//                                                 managedContext: managedContext) as! [AboutEntityArabic]
-//            if (fetchData.count > 0) {
-//                let aboutDetailDict = aboutDetailtArray![0]
-//                let isDeleted = self.deleteExistingEvent(managedContext: managedContext, entityName: "AboutEntityArabic")
-//                if(isDeleted == true) {
-//                    var aboutDeleted = self.deleteExistingEvent(managedContext: managedContext, entityName: "AboutDescriptionEntityAr")
-//                    aboutDeleted = self.deleteExistingEvent(managedContext: managedContext, entityName: "AboutMultimediaFileEntityAr")
-//                    print(aboutDeleted ?? true)
-//                    self.saveToCoreData(aboutDetailDict: aboutDetailDict, managedObjContext: managedContext)
-//                }
-//            } else {
-//                let aboutDetailDict : Museum?
-//                aboutDetailDict = aboutDetailtArray?[0]
-//                self.saveToCoreData(aboutDetailDict: aboutDetailDict!, managedObjContext: managedContext)
-//            }
-//        }
-    }
-    
-    func saveToCoreData(aboutDetailDict: Museum, managedObjContext: NSManagedObjectContext) {
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-//        if LocalizationLanguage.currentAppleLanguage() == ENG_LANGUAGE {
-        
-            let aboutdbDict: AboutEntity = NSEntityDescription.insertNewObject(forEntityName: "AboutEntity",
-                                                                               into: managedObjContext) as! AboutEntity
-            
-            aboutdbDict.name = aboutDetailDict.name
-            aboutdbDict.id = aboutDetailDict.id
-            aboutdbDict.tourguideAvailable = aboutDetailDict.tourguideAvailable
-            aboutdbDict.contactNumber = aboutDetailDict.contactNumber
-            aboutdbDict.contactEmail = aboutDetailDict.contactEmail
-            aboutdbDict.mobileLongtitude = aboutDetailDict.mobileLongtitude
-            aboutdbDict.subtitle = aboutDetailDict.subtitle
-            aboutdbDict.language = Utils.getLanguage()
-        
-        
-            if(fromHomeBanner == false) {
-                aboutdbDict.openingTime = aboutDetailDict.openingTime
-            } else {
-                aboutdbDict.openingTime = aboutDetailDict.eventDate
-            }
-            aboutdbDict.mobileLatitude = aboutDetailDict.mobileLatitude
-            aboutdbDict.tourGuideAvailability = aboutDetailDict.tourGuideAvailability
-            
-            if((aboutDetailDict.mobileDescription?.count)! > 0) {
-                for i in 0 ... (aboutDetailDict.mobileDescription?.count)!-1 {
-                    var aboutDescEntity: AboutDescriptionEntity!
-                    let aboutDesc: AboutDescriptionEntity = NSEntityDescription.insertNewObject(forEntityName: "AboutDescriptionEntity", into: managedObjContext) as! AboutDescriptionEntity
-                    aboutDesc.mobileDesc = aboutDetailDict.mobileDescription![i].replacingOccurrences(of: "<[^>]+>|&nbsp;|&|#039;", with: "", options: .regularExpression, range: nil)
-                    aboutDesc.id = Int16(i)
-                    aboutDescEntity = aboutDesc
-                    aboutDescEntity.language = Utils.getLanguage()
-                    aboutdbDict.addToMobileDescRelation(aboutDescEntity)
-                    do {
-                        try managedObjContext.save()
-                    } catch let error as NSError {
-                        print("Could not save. \(error), \(error.userInfo)")
-                    }
-                }
-            }
-            //MultimediaFile
-            if(aboutDetailDict.multimediaFile != nil){
-                if((aboutDetailDict.multimediaFile?.count)! > 0) {
-                    for i in 0 ... (aboutDetailDict.multimediaFile?.count)!-1 {
-                        var aboutImage: AboutMultimediaFileEntity!
-                        let aboutImgaeArray: AboutMultimediaFileEntity = NSEntityDescription.insertNewObject(forEntityName: "AboutMultimediaFileEntity", into: managedObjContext) as! AboutMultimediaFileEntity
-                        aboutImgaeArray.image = aboutDetailDict.multimediaFile![i]
-                        aboutImgaeArray.language = Utils.getLanguage()
-                        aboutImage = aboutImgaeArray
-                        aboutdbDict.addToMultimediaRelation(aboutImage)
-                        do {
-                            try managedObjContext.save()
-                        } catch let error as NSError {
-                            print("Could not save. \(error), \(error.userInfo)")
-                        }
-                    }
-                }
-            }
-            //Download File
-            if(aboutDetailDict.downloadable != nil){
-                if((aboutDetailDict.downloadable?.count)! > 0) {
-                    for i in 0 ... (aboutDetailDict.downloadable?.count)!-1 {
-                        var aboutImage: AboutDownloadLinkEntity
-                        let aboutImgaeArray: AboutDownloadLinkEntity = NSEntityDescription.insertNewObject(forEntityName: "AboutDownloadLinkEntity", into: managedObjContext) as! AboutDownloadLinkEntity
-                        aboutImgaeArray.downloadLink = aboutDetailDict.downloadable![i]
-                        
-                        aboutImage = aboutImgaeArray
-                        aboutdbDict.addToDownloadLinkRelation(aboutImage)
-                        do {
-                            try managedObjContext.save()
-                        } catch let error as NSError {
-                            print("Could not save. \(error), \(error.userInfo)")
-                        }
-                    }
-                }
-            }
-//        }
-//        else {
-//            let aboutdbDict: AboutEntityArabic = NSEntityDescription.insertNewObject(forEntityName: "AboutEntityArabic", into: managedObjContext) as! AboutEntityArabic
-//            aboutdbDict.nameAr = aboutDetailDict.name
-//            aboutdbDict.id = aboutDetailDict.id
-//            aboutdbDict.tourguideAvailableAr = aboutDetailDict.tourguideAvailable
-//            aboutdbDict.contactNumberAr = aboutDetailDict.contactNumber
-//            aboutdbDict.contactEmailAr = aboutDetailDict.contactEmail
-//            aboutdbDict.mobileLongtitudeAr = aboutDetailDict.mobileLongtitude
-//            aboutdbDict.subtitleAr = aboutDetailDict.subtitle
-//            aboutdbDict.openingTimeAr = aboutDetailDict.openingTime
-//
-//            aboutdbDict.mobileLatitudear = aboutDetailDict.mobileLatitude
-//            aboutdbDict.tourGuideAvlblyAr = aboutDetailDict.tourGuideAvailability
-//
-//            if((aboutDetailDict.mobileDescription?.count)! > 0) {
-//                for i in 0 ... (aboutDetailDict.mobileDescription?.count)!-1 {
-//                    var aboutDescEntity: AboutDescriptionEntityAr!
-//                    let aboutDesc: AboutDescriptionEntityAr = NSEntityDescription.insertNewObject(forEntityName: "AboutDescriptionEntityAr", into: managedObjContext) as! AboutDescriptionEntityAr
-//                    aboutDesc.mobileDesc = aboutDetailDict.mobileDescription![i].replacingOccurrences(of: "<[^>]+>|&nbsp;|&|#039;", with: "", options: .regularExpression, range: nil)
-//                    aboutDesc.id = Int16(i)
-//                    aboutDescEntity = aboutDesc
-//                    aboutdbDict.addToMobileDescRelation(aboutDescEntity)
-//
-//                    do {
-//                        try managedObjContext.save()
-//                    } catch let error as NSError {
-//                        print("Could not save. \(error), \(error.userInfo)")
-//                    }
-//
-//                }
-//            }
-//
-//            //MultimediaFile
-//            if(aboutDetailDict.multimediaFile != nil){
-//                if((aboutDetailDict.multimediaFile?.count)! > 0) {
-//                    for i in 0 ... (aboutDetailDict.multimediaFile?.count)!-1 {
-//                        var aboutImage: AboutMultimediaFileEntityAr!
-//                        let aboutImgaeArray: AboutMultimediaFileEntityAr = NSEntityDescription.insertNewObject(forEntityName: "AboutMultimediaFileEntityAr", into: managedObjContext) as! AboutMultimediaFileEntityAr
-//                        aboutImgaeArray.image = aboutDetailDict.multimediaFile![i]
-//
-//                        aboutImage = aboutImgaeArray
-//                        aboutdbDict.addToMultimediaRelation(aboutImage)
-//                        do {
-//                            try managedObjContext.save()
-//                        } catch let error as NSError {
-//                            print("Could not save. \(error), \(error.userInfo)")
-//                        }
-//                    }
-//                }
-//            }
-//        }
-        
-        do {
-            try managedObjContext.save()
-        } catch let error as NSError {
-            print("Could not save. \(error), \(error.userInfo)")
-        }
-    }
-    
-    func deleteExistingEvent(managedContext:NSManagedObjectContext,entityName : String?) ->Bool? {
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entityName!)
-        let deleteRequest = NSBatchDeleteRequest( fetchRequest: fetchRequest)
-        do{
-            try managedContext.execute(deleteRequest)
-            return true
-        }catch _ as NSError {
-            return false
         }
     }
     
@@ -960,7 +773,8 @@ class MuseumsViewController: UIViewController,KASlideShowDelegate,TopBarProtocol
         let panelBanner = NSLocalizedString("PANEL_DISCUSSION", comment: "PANEL_DISCUSSION  in the Museum page")
         if (segue.identifier == "museumsToAboutSegue") {
             let museumAboutView = segue.destination as! MuseumAboutViewController
-            if(fromHomeBanner)! {
+            
+            if fromHomeBanner {
                 museumAboutView.pageNameString = PageName2.museumEvent
                 museumAboutView.museumId = bannerId
             } else {

@@ -56,6 +56,23 @@ class DataManager {
         return false
         
     }
+    
+    /// Delete
+    ///
+    /// - Parameters:
+    ///   - managedContext: NSManagedObjectContext
+    ///   - entityName: Entity name as String
+    /// - Returns: Bool, success/failure
+    static func delete(managedContext: NSManagedObjectContext, entityName : String) -> Bool {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
+        let deleteRequest = NSBatchDeleteRequest( fetchRequest: fetchRequest)
+        do {
+            try managedContext.execute(deleteRequest)
+            return true
+        } catch _ as NSError {
+        }
+        return false
+    }
 }
 
 //Fetch functions
@@ -119,13 +136,124 @@ extension DataManager {
 //Store functions
 extension DataManager {
     
+    static func saveAboutDetails(managedContext: NSManagedObjectContext,
+                          aboutDetailtArray: [Museum]?,
+                          fromHomeBanner: Bool) {
+        if let aboutDetailDict = aboutDetailtArray?.first {
+            let fetchData = checkAddedToCoredata(entityName: "AboutEntity",
+                                                 idKey: "id" ,
+                                                 idValue: aboutDetailDict.id,
+                                                 managedContext: managedContext) as! [AboutEntity]
+            if !fetchData.isEmpty {
+                if self.delete(managedContext: managedContext, entityName: "AboutEntity") {
+                    _ = self.delete(managedContext: managedContext, entityName: "AboutDescriptionEntity")
+                    _ = self.delete(managedContext: managedContext, entityName: "AboutMultimediaFileEntity")
+                    _ = self.delete(managedContext: managedContext, entityName: "AboutDownloadLinkEntity")
+                    self.saveToCoreData(aboutDetailDict: aboutDetailDict,
+                                        managedObjContext: managedContext,
+                                        fromHomeBanner: fromHomeBanner)
+                }
+            } else {
+                self.saveToCoreData(aboutDetailDict: aboutDetailDict,
+                                    managedObjContext: managedContext,
+                                    fromHomeBanner: fromHomeBanner)
+            }
+        }
+    }
+    
+    static func saveToCoreData(aboutDetailDict: Museum,
+                        managedObjContext: NSManagedObjectContext,
+                        fromHomeBanner: Bool) {
+        let aboutdbDict: AboutEntity = NSEntityDescription.insertNewObject(forEntityName: "AboutEntity",
+                                                                           into: managedObjContext) as! AboutEntity
+        
+        aboutdbDict.name = aboutDetailDict.name
+        aboutdbDict.id = aboutDetailDict.id
+        aboutdbDict.tourguideAvailable = aboutDetailDict.tourguideAvailable
+        aboutdbDict.contactNumber = aboutDetailDict.contactNumber
+        aboutdbDict.contactEmail = aboutDetailDict.contactEmail
+        aboutdbDict.mobileLongtitude = aboutDetailDict.mobileLongtitude
+        aboutdbDict.subtitle = aboutDetailDict.subtitle
+        aboutdbDict.language = Utils.getLanguage()
+        
+        if !fromHomeBanner {
+            aboutdbDict.openingTime = aboutDetailDict.openingTime
+        } else {
+            aboutdbDict.openingTime = aboutDetailDict.eventDate
+        }
+        
+        aboutdbDict.mobileLatitude = aboutDetailDict.mobileLatitude
+        aboutdbDict.tourGuideAvailability = aboutDetailDict.tourGuideAvailability
+        
+        if((aboutDetailDict.mobileDescription?.count)! > 0) {
+            for i in 0 ... (aboutDetailDict.mobileDescription?.count)!-1 {
+                var aboutDescEntity: AboutDescriptionEntity!
+                let aboutDesc: AboutDescriptionEntity = NSEntityDescription.insertNewObject(forEntityName: "AboutDescriptionEntity", into: managedObjContext) as! AboutDescriptionEntity
+                aboutDesc.mobileDesc = aboutDetailDict.mobileDescription![i].replacingOccurrences(of: "<[^>]+>|&nbsp;|&|#039;", with: "", options: .regularExpression, range: nil)
+                aboutDesc.id = Int16(i)
+                aboutDescEntity = aboutDesc
+                aboutDescEntity.language = Utils.getLanguage()
+                aboutdbDict.addToMobileDescRelation(aboutDescEntity)
+                do {
+                    try managedObjContext.save()
+                } catch let error as NSError {
+                    print("Could not save. \(error), \(error.userInfo)")
+                }
+            }
+        }
+        
+        //MultimediaFile
+        if(aboutDetailDict.multimediaFile != nil){
+            if((aboutDetailDict.multimediaFile?.count)! > 0) {
+                for i in 0 ... (aboutDetailDict.multimediaFile?.count)!-1 {
+                    var aboutImage: AboutMultimediaFileEntity!
+                    let aboutImgaeArray: AboutMultimediaFileEntity = NSEntityDescription.insertNewObject(forEntityName: "AboutMultimediaFileEntity", into: managedObjContext) as! AboutMultimediaFileEntity
+                    aboutImgaeArray.image = aboutDetailDict.multimediaFile![i]
+                    aboutImgaeArray.language = Utils.getLanguage()
+                    aboutImage = aboutImgaeArray
+                    aboutdbDict.addToMultimediaRelation(aboutImage)
+                    do {
+                        try managedObjContext.save()
+                    } catch let error as NSError {
+                        print("Could not save. \(error), \(error.userInfo)")
+                    }
+                }
+            }
+        }
+        
+        //Download File
+        if(aboutDetailDict.downloadable != nil){
+            if((aboutDetailDict.downloadable?.count)! > 0) {
+                for i in 0 ... (aboutDetailDict.downloadable?.count)!-1 {
+                    var aboutImage: AboutDownloadLinkEntity
+                    let aboutImgaeArray: AboutDownloadLinkEntity = NSEntityDescription.insertNewObject(forEntityName: "AboutDownloadLinkEntity", into: managedObjContext) as! AboutDownloadLinkEntity
+                    aboutImgaeArray.downloadLink = aboutDetailDict.downloadable![i]
+                    
+                    aboutImage = aboutImgaeArray
+                    aboutdbDict.addToDownloadLinkRelation(aboutImage)
+                    do {
+                        try managedObjContext.save()
+                    } catch let error as NSError {
+                        print("Could not save. \(error), \(error.userInfo)")
+                    }
+                }
+            }
+        }
+        
+        do {
+            try managedObjContext.save()
+        } catch let error as NSError {
+            print("Could not save. \(error), \(error.userInfo)")
+        }
+    }
+    
     /// Store education events
     ///
     /// - Parameters:
     ///   - events: EducationEvent list
     ///   - date: Date
     ///   - managedContext: NSManagedObjectContext
-    static func storeEducationEvents(events: [EducationEvent],
+    static func storeEvents(events: [EducationEvent],
                               for date: Date,
                               managedContext: NSManagedObjectContext) {
         let dateID = Utils.uniqueDate(date)
@@ -287,6 +415,168 @@ extension DataManager {
                 } catch let error as NSError {
                     print("Could not save. \(error), \(error.userInfo)")
                 }
+            }
+        }
+        
+        do {
+            try managedObjContext.save()
+            
+            
+        } catch let error as NSError {
+            print("Could not save. \(error), \(error.userInfo)")
+        }
+    }
+    
+    static func saveEducationEvents(_ events: [EducationEvent],
+                             date: Date,
+                             managedContext: NSManagedObjectContext) {
+        let dateID = Utils.uniqueDate(date)
+        let fetchData = DataManager.checkAddedToCoredata(entityName: "EducationEventEntity",
+                                                         idKey: "dateId",
+                                                         idValue: dateID,
+                                                         managedContext: managedContext) as! [EducationEventEntity]
+        if !fetchData.isEmpty {
+            for educationDict in events {
+                let fetchResultData = DataManager.checkAddedToCoredata(entityName: "EducationEventEntity",
+                                                                       idKey: "itemId",
+                                                                       idValue: educationDict.itemId,
+                                                                       managedContext: managedContext) as! [EducationEventEntity]
+                
+                if !fetchResultData.isEmpty {
+                    let isDeleted  = DataManager.delete(managedContext: managedContext,
+                                                        for: date,
+                                                        entityName: "EducationEventEntity")
+                    if isDeleted {
+                        self.saveToCoreData(educationEventDict: educationDict,
+                                            dateId: dateID,
+                                            managedObjContext: managedContext)
+                    }
+                } else {
+                    self.saveToCoreData(educationEventDict: educationDict,
+                                        dateId: dateID,
+                                        managedObjContext: managedContext)
+                }
+            }
+        } else {
+            for educationEvent in events {
+                self.saveToCoreData(educationEventDict: educationEvent,
+                                    dateId: dateID,
+                                    managedObjContext: managedContext)
+            }
+        }
+    }
+    
+    static func saveToCoreData(educationEventDict: EducationEvent,
+                        dateId: String?,
+                        managedObjContext: NSManagedObjectContext) {
+        let edducationInfo: EducationEventEntity = NSEntityDescription.insertNewObject(forEntityName: "EducationEventEntity",
+                                                                                       into: managedObjContext) as! EducationEventEntity
+        edducationInfo.dateId = dateId
+        edducationInfo.itemId = educationEventDict.itemId
+        edducationInfo.introductionText = educationEventDict.introductionText
+        edducationInfo.register = educationEventDict.register
+        edducationInfo.title = educationEventDict.title
+        edducationInfo.pgmType = educationEventDict.programType
+        edducationInfo.language = Utils.getLanguage()
+        edducationInfo.mainDesc = educationEventDict.mainDescription
+        
+        if let dates  = educationEventDict.fieldRepeatDate {
+            for date in dates {
+                let eventDateEntity = NSEntityDescription.insertNewObject(forEntityName: "DateEntity",
+                                                                          into: managedObjContext) as! DateEntity
+                eventDateEntity.date = date.replacingOccurrences(of: "<[^>]+>|&nbsp;|&|#039;",
+                                                                 with: "",
+                                                                 options: .regularExpression,
+                                                                 range: nil)
+                
+                eventDateEntity.language = Utils.getLanguage()
+                edducationInfo.addToFieldRepeatDates(eventDateEntity)
+                
+                do {
+                    try managedObjContext.save()
+                } catch let error as NSError {
+                    print("Could not save. \(error), \(error.userInfo)")
+                }
+                
+            }
+        }
+        
+        //AgeGroup
+        if((educationEventDict.ageGroup?.count)! > 0) {
+            for i in 0 ... (educationEventDict.ageGroup?.count)!-1 {
+                var eventAgeEntity: EdAgeGroupEntity!
+                let eventAge: EdAgeGroupEntity = NSEntityDescription.insertNewObject(forEntityName: "EdAgeGroupEntity", into: managedObjContext) as! EdAgeGroupEntity
+                eventAge.ageGroup = educationEventDict.ageGroup![i].replacingOccurrences(of: "<[^>]+>|&nbsp;|&|#039;", with: "", options: .regularExpression, range: nil)
+                eventAge.language = Utils.getLanguage()
+                eventAgeEntity = eventAge
+                edducationInfo.addToAgeGroupRelation(eventAgeEntity)
+                do {
+                    try managedObjContext.save()
+                    
+                } catch let error as NSError {
+                    print("Could not save. \(error), \(error.userInfo)")
+                }
+                
+            }
+        }
+        
+        //Associated_topics
+        if((educationEventDict.associatedTopics?.count)! > 0) {
+            for i in 0 ... (educationEventDict.associatedTopics?.count)!-1 {
+                var eventSubEntity: EdEventTopicsEntity!
+                let event: EdEventTopicsEntity = NSEntityDescription.insertNewObject(forEntityName: "EdEventTopicsEntity", into: managedObjContext) as! EdEventTopicsEntity
+                event.associatedTopic = educationEventDict.associatedTopics![i].replacingOccurrences(of: "<[^>]+>|&nbsp;|&|#039;", with: "", options: .regularExpression, range: nil)
+                
+                event.language = Utils.getLanguage()
+                eventSubEntity = event
+                edducationInfo.addToAssTopicRelation(eventSubEntity)
+                do {
+                    try managedObjContext.save()
+                    
+                } catch let error as NSError {
+                    print("Could not save. \(error), \(error.userInfo)")
+                }
+                
+            }
+        }
+        
+        //StartDate
+        if((educationEventDict.startDate?.count)! > 0) {
+            for i in 0 ... (educationEventDict.startDate?.count)!-1 {
+                var eventSubEntity: DateEntity!
+                let event = NSEntityDescription.insertNewObject(forEntityName: "DateEntity", into: managedObjContext) as! DateEntity
+                event.date = educationEventDict.startDate![i].replacingOccurrences(of: "<[^>]+>|&nbsp;|&|#039;", with: "", options: .regularExpression, range: nil)
+                
+                event.language = Utils.getLanguage()
+                eventSubEntity = event
+                edducationInfo.addToStartDateRelation(eventSubEntity)
+                do {
+                    try managedObjContext.save()
+                    
+                } catch let error as NSError {
+                    print("Could not save. \(error), \(error.userInfo)")
+                }
+                
+            }
+        }
+        
+        //endDate
+        if((educationEventDict.endDate?.count)! > 0) {
+            for i in 0 ... (educationEventDict.endDate?.count)!-1 {
+                var eventSubEntity: DateEntity!
+                let event = NSEntityDescription.insertNewObject(forEntityName: "DateEntity", into: managedObjContext) as! DateEntity
+                event.date = educationEventDict.endDate![i].replacingOccurrences(of: "<[^>]+>|&nbsp;|&|#039;", with: "", options: .regularExpression, range: nil)
+                
+                event.language = Utils.getLanguage()
+                eventSubEntity = event
+                edducationInfo.addToEndDateRelation(eventSubEntity)
+                do {
+                    try managedObjContext.save()
+                    
+                } catch let error as NSError {
+                    print("Could not save. \(error), \(error.userInfo)")
+                }
+                
             }
         }
         
