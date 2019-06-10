@@ -654,6 +654,45 @@ extension DataManager {
         }
     }
     
+    static func updateTourGuide(managedContext: NSManagedObjectContext,
+                         miaTourDataFullArray: [TourGuide],
+                         museumID: String?) {
+        let fetchData = checkAddedToCoredata(entityName: "TourGuideEntity",
+                                             idKey: "museumsEntity",
+                                             idValue: museumID,
+                                             managedContext: managedContext) as! [TourGuideEntity]
+        if !fetchData.isEmpty {
+            for tourGuideListDict in miaTourDataFullArray {
+                let fetchResult = DataManager.checkAddedToCoredata(entityName: "TourGuideEntity",
+                                                                   idKey: "nid",
+                                                                   idValue: tourGuideListDict.nid,
+                                                                   managedContext: managedContext)
+                //update
+                if fetchResult.isEmpty {
+                    let tourguidedbDict = fetchResult[0] as! TourGuideEntity
+                    DataManager.saveTourGuide(tourguideListDict: tourGuideListDict,
+                                              managedObjContext: managedContext,
+                                              entity: tourguidedbDict)
+                }
+                else {
+                    //save
+                    DataManager.saveTourGuide(tourguideListDict: tourGuideListDict,
+                                              managedObjContext: managedContext,
+                                              entity: nil)
+                    
+                }
+            }
+        }
+        else {
+            for tourGuideListDict in miaTourDataFullArray {
+                DataManager.saveTourGuide(tourguideListDict: tourGuideListDict,
+                                          managedObjContext: managedContext,
+                                          entity: nil)
+                
+            }
+        }
+    }
+    
     static func saveFacilitiesDetails(facilitiesDetailDict: FacilitiesDetail,
                                       managedContext: NSManagedObjectContext,
                                       fetchResult: [FacilitiesDetailEntity]?) {
@@ -742,6 +781,43 @@ extension DataManager {
             }
         }
         
+        do {
+            try managedObjContext.save()
+        } catch let error as NSError {
+            print("Could not save. \(error), \(error.userInfo)")
+        }
+    }
+    
+    static func saveTourGuide(tourguideListDict: TourGuide,
+                       managedObjContext: NSManagedObjectContext,
+                       entity: TourGuideEntity?) {
+        var tourGuideInfo = entity
+        if entity == nil {
+            tourGuideInfo = NSEntityDescription.insertNewObject(forEntityName: "TourGuideEntity",
+                                                                into: managedObjContext) as? TourGuideEntity
+        }
+        tourGuideInfo?.title = tourguideListDict.title
+        tourGuideInfo?.tourGuideDescription = tourguideListDict.tourGuideDescription
+        tourGuideInfo?.museumsEntity = tourguideListDict.museumsEntity
+        tourGuideInfo?.nid = tourguideListDict.nid
+        tourGuideInfo?.language = Utils.getLanguage()
+        
+        if let multimediaFiles = tourguideListDict.multimediaFile {
+            for file in multimediaFiles {
+                var multimediaEntity: TourGuideMultimediaEntity!
+                let multimediaArray: TourGuideMultimediaEntity = NSEntityDescription.insertNewObject(forEntityName: "TourGuideMultimediaEntity", into: managedObjContext) as! TourGuideMultimediaEntity
+                multimediaArray.multimediaFile = file
+                multimediaArray.language = Utils.getLanguage()
+                multimediaEntity = multimediaArray
+                tourGuideInfo?.addToTourGuideMultimediaRelation(multimediaEntity)
+                do {
+                    try managedObjContext.save()
+                } catch let error as NSError {
+                    print("Could not save. \(error), \(error.userInfo)")
+                }
+                
+            }
+        }
         do {
             try managedObjContext.save()
         } catch let error as NSError {
