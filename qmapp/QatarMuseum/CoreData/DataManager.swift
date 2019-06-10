@@ -602,17 +602,22 @@ extension DataManager {
                 let fetchResult = DataManager.checkAddedToCoredata(entityName: "FacilitiesDetailEntity",
                                                                    idKey: "nid",
                                                                    idValue: facilitiesDetailDict.nid,
-                                                                   managedContext: managedContext) as? [FacilitiesDetailEntity]
-                DataManager.saveFacilitiesDetails(facilitiesDetailDict: facilitiesDetailDict,
-                                                  managedContext: managedContext,
-                                                  fetchResult: fetchResult)
-                
+                                                                   managedContext: managedContext) as! [FacilitiesDetailEntity]
+                if fetchResult.isEmpty {
+                    DataManager.saveFacilitiesDetails(facilitiesDetailDict: facilitiesDetailDict,
+                                                      managedContext: managedContext,
+                                                      entity: nil)
+                } else {
+                    DataManager.saveFacilitiesDetails(facilitiesDetailDict: facilitiesDetailDict,
+                                                      managedContext: managedContext,
+                                                      entity: fetchResult.first)
+                }                
             }
         } else {
             for facilitiesDetailDict in facilities {
                 DataManager.saveFacilitiesDetails(facilitiesDetailDict: facilitiesDetailDict,
                                                   managedContext: managedContext,
-                                                  fetchResult: nil)
+                                                  entity: nil)
             }
         }
     }
@@ -693,13 +698,17 @@ extension DataManager {
         }
     }
     
+    /// Save facilities details to core data
+    ///
+    /// - Parameters:
+    ///   - facilitiesDetailDict: Facilities details as FacilitiesDetail
+    ///   - managedContext: NSManagedObjectContext
+    ///   - entity: FacilitiesDetailEntity, nil will create new entity
     static func saveFacilitiesDetails(facilitiesDetailDict: FacilitiesDetail,
                                       managedContext: NSManagedObjectContext,
-                                      fetchResult: [FacilitiesDetailEntity]?) {
-        var facilitiesDetaildbDict: FacilitiesDetailEntity?
-        if let results = fetchResult, !results.isEmpty {
-            facilitiesDetaildbDict = results.first
-        } else {
+                                      entity: FacilitiesDetailEntity?) {
+        var facilitiesDetaildbDict = entity
+        if entity == nil {
             facilitiesDetaildbDict = NSEntityDescription.insertNewObject(forEntityName: "FacilitiesDetailEntity",
                                                                          into: managedContext) as? FacilitiesDetailEntity
         }
@@ -739,6 +748,12 @@ extension DataManager {
         }
     }
     
+    /// Save tour details to core data
+    ///
+    /// - Parameters:
+    ///   - tourDetailDict: tour details as NMoQTourDetail
+    ///   - managedObjContext: NSManagedObjectContext
+    ///   - entity: NmoqTourDetailEntity, nil will create new entity
     static func saveTourDetails(tourDetailDict: NMoQTourDetail,
                                 managedObjContext: NSManagedObjectContext,
                                 entity: NmoqTourDetailEntity?) {
@@ -788,6 +803,12 @@ extension DataManager {
         }
     }
     
+    /// Save tour guide to core data
+    ///
+    /// - Parameters:
+    ///   - tourguideListDict: tour guide details as TourGuide
+    ///   - managedObjContext: NSManagedObjectContext
+    ///   - entity: TourGuideEntity, nil will create new entity and save to core data
     static func saveTourGuide(tourguideListDict: TourGuide,
                        managedObjContext: NSManagedObjectContext,
                        entity: TourGuideEntity?) {
