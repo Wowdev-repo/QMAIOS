@@ -718,19 +718,6 @@ class MuseumsViewController: UIViewController,KASlideShowDelegate,TopBarProtocol
         }
     }
     
-    func checkAddedToCoredata(entityName: String?,
-                              idKey:String?,
-                              idValue: String?,
-                              managedContext: NSManagedObjectContext) -> [NSManagedObject] {
-        var fetchResults : [NSManagedObject] = []
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: entityName!)
-        if (idValue != nil) {
-            fetchRequest.predicate = NSPredicate.init(format: "\(idKey!) == \(idValue!)")
-        }
-        fetchResults = try! managedContext.fetch(fetchRequest)
-        return fetchResults
-    }
-    
     func recordScreenView() {
         let screenClass = String(describing: type(of: self))
         Analytics.setScreenName(MUSEUM_VC, screenClass: screenClass)

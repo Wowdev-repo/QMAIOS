@@ -712,7 +712,7 @@ class CommonDetailViewController: UIViewController,UITableViewDelegate,UITableVi
     
     func heritageCoreDataInBackgroundThread(managedContext: NSManagedObjectContext) {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
-            let fetchData = checkAddedToCoredata(entityName: "HeritageEntity", idKey: "listid" , idValue: heritageDetailtArray[0].id, managedContext: managedContext) as! [HeritageEntity]
+            let fetchData = DataManager.checkAddedToCoredata(entityName: "HeritageEntity", idKey: "listid" , idValue: heritageDetailtArray[0].id, managedContext: managedContext) as! [HeritageEntity]
            if (fetchData.count > 0) {
                 let heritageDetailDict = heritageDetailtArray[0]
             
@@ -880,7 +880,7 @@ class CommonDetailViewController: UIViewController,UITableViewDelegate,UITableVi
     
     func publicArtCoreDataInBackgroundThread(managedContext: NSManagedObjectContext) {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
-            let fetchData = checkAddedToCoredata(entityName: "PublicArtsEntity",
+            let fetchData = DataManager.checkAddedToCoredata(entityName: "PublicArtsEntity",
                                                  idKey: "id" ,
                                                  idValue: publicArtsDetailtArray[0].id,
                                                  managedContext: managedContext) as! [PublicArtsEntity]
@@ -1071,7 +1071,7 @@ class CommonDetailViewController: UIViewController,UITableViewDelegate,UITableVi
     }
     func exhibitionCoreDataInBackgroundThread(managedContext: NSManagedObjectContext) {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-            let fetchData = checkAddedToCoredata(entityName: "ExhibitionsEntity", idKey: "id" , idValue: exhibition[0].id, managedContext: managedContext) as! [ExhibitionsEntity]
+            let fetchData = DataManager.checkAddedToCoredata(entityName: "ExhibitionsEntity", idKey: "id" , idValue: exhibition[0].id, managedContext: managedContext) as! [ExhibitionsEntity]
             if (fetchData.count > 0) {
                 let exhibitionDetailDict = exhibition[0]
                 
@@ -1232,7 +1232,7 @@ class CommonDetailViewController: UIViewController,UITableViewDelegate,UITableVi
     }
     func parksCoreDataInBackgroundThread(managedContext: NSManagedObjectContext,parksListArray:[ParksList]?) {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
-            let fetchData = checkAddedToCoredata(entityName: "ParksEntity",
+            let fetchData = DataManager.checkAddedToCoredata(entityName: "ParksEntity",
                                                  idKey: nil,
                                                  idValue: nil,
                                                  managedContext: managedContext) as! [ParksEntity]
@@ -1397,14 +1397,14 @@ class CommonDetailViewController: UIViewController,UITableViewDelegate,UITableVi
     func nmoqParkDetailCoreDataInBackgroundThread(nmoqParkList: [NMoQParkDetail]?,
                                                   managedContext: NSManagedObjectContext) {
             DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
-            let fetchData = checkAddedToCoredata(entityName: "NMoQParkDetailEntity",
+            let fetchData = DataManager.checkAddedToCoredata(entityName: "NMoQParkDetailEntity",
                                                  idKey: "nid",
                                                  idValue: nil,
                                                  managedContext: managedContext) as! [NMoQParkDetailEntity]
             if (fetchData.count > 0) {
                 for i in 0 ... (nmoqParkList?.count)!-1 {
                     let nmoqParkListDict = nmoqParkList![i]
-                    let fetchResult = checkAddedToCoredata(entityName: "NMoQParkDetailEntity",
+                    let fetchResult = DataManager.checkAddedToCoredata(entityName: "NMoQParkDetailEntity",
                                                            idKey: "nid",
                                                            idValue: nmoqParkListDict.nid,
                                                            managedContext: managedContext)
@@ -1520,7 +1520,7 @@ class CommonDetailViewController: UIViewController,UITableViewDelegate,UITableVi
         do {
 //            if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
                 var parkListArray = [NMoQParkDetailEntity]()
-                parkListArray = checkAddedToCoredata(entityName: "NMoQParkDetailEntity",
+                parkListArray = DataManager.checkAddedToCoredata(entityName: "NMoQParkDetailEntity",
                                                      idKey: "nid",
                                                      idValue: parkDetailId,
                                                      managedContext: managedContext) as! [NMoQParkDetailEntity]
@@ -1563,41 +1563,6 @@ class CommonDetailViewController: UIViewController,UITableViewDelegate,UITableVi
                         self.loadingView.showNoDataView()
                     }
                 }
-//            } else {
-//                var parkListArray = [NMoQParkDetailEntityAr]()
-//                parkListArray = checkAddedToCoredata(entityName: "NMoQParkDetailEntityAr", idKey: "nid", idValue: parkDetailId, managedContext: managedContext) as! [NMoQParkDetailEntityAr]
-//                if (parkListArray.count > 0) {
-//                    for i in 0 ... parkListArray.count-1 {
-//                        let parkListDict = parkListArray[i]
-//                        var imagesArray : [String] = []
-//                        let imagesInfoArray = (parkListDict.parkDetailImgRelationAr?.allObjects) as! [NMoQParkDetailImgEntityAr]
-//                        if(imagesInfoArray.count > 0) {
-//                            for i in 0 ... imagesInfoArray.count-1 {
-//                                imagesArray.append(imagesInfoArray[i].images!)
-//                            }
-//                        }
-//                        self.nmoqParkDetailArray.insert(NMoQParkDetail(title: parkListDict.title, sortId: parkListDict.sortId, nid: parkListDict.nid, images: imagesArray, parkDesc: parkListDict.parkDesc), at: i)
-//                    }
-//                    if(nmoqParkDetailArray.count == 0){
-//                        if(self.networkReachability?.isReachable == false) {
-//                            self.showNoNetwork()
-//                        } else {
-//                            self.loadingView.showNoDataView()
-//                        }
-//                    } else {
-//                        if self.nmoqParkDetailArray.first(where: {$0.sortId != "" && $0.sortId != nil} ) != nil {
-//                            self.nmoqParkDetailArray = self.nmoqParkDetailArray.sorted(by: { Int16($0.sortId!)! < Int16($1.sortId!)! })
-//                        }
-//                    }
-//                    heritageDetailTableView.reloadData()
-//                } else{
-//                    if(self.networkReachability?.isReachable == false) {
-//                        self.showNoNetwork()
-//                    } else {
-//                        self.loadingView.showNoDataView()
-//                    }
-//                }
-//            }
         } catch let error as NSError {
             print("Could not fetch. \(error), \(error.userInfo)")
             if(self.networkReachability?.isReachable == false) {
@@ -1656,7 +1621,7 @@ class CommonDetailViewController: UIViewController,UITableViewDelegate,UITableVi
     }
     func diningCoreDataInBackgroundThread(managedContext: NSManagedObjectContext) {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
-            let fetchData = checkAddedToCoredata(entityName: "DiningEntity", idKey: "id", idValue: diningDetailtArray[0].id, managedContext: managedContext) as! [DiningEntity]
+            let fetchData = DataManager.checkAddedToCoredata(entityName: "DiningEntity", idKey: "id", idValue: diningDetailtArray[0].id, managedContext: managedContext) as! [DiningEntity]
             if (fetchData.count > 0) {
                 let diningDetailDict = diningDetailtArray[0]
                 
@@ -1808,15 +1773,7 @@ class CommonDetailViewController: UIViewController,UITableViewDelegate,UITableVi
         }
         return false
     }
-    func checkAddedToCoredata(entityName: String?,idKey:String?, idValue: String?, managedContext: NSManagedObjectContext) -> [NSManagedObject] {
-        var fetchResults : [NSManagedObject] = []
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: entityName!)
-        if (idValue != nil) {
-            fetchRequest.predicate = NSPredicate.init(format: "\(idKey!) == \(idValue!)")
-        }
-        fetchResults = try! managedContext.fetch(fetchRequest)
-        return fetchResults
-    }
+    
     func deleteExistingEvent(managedContext:NSManagedObjectContext,entityName : String?) ->Bool? {
         
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entityName!)

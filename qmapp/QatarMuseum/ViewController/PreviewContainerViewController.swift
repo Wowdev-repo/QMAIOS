@@ -797,14 +797,14 @@ class PreviewContainerViewController: UIViewController,UIPageViewControllerDeleg
     func coreDataInBackgroundThread(managedContext: NSManagedObjectContext) {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
 //        if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
-            let fetchData = checkAddedToCoredata(entityName: "FloorMapTourGuideEntity",
+            let fetchData = DataManager.checkAddedToCoredata(entityName: "FloorMapTourGuideEntity",
                                                  idKey: "tourGuideId" ,
                                                  idValue: tourGuideId,
                                                  managedContext: managedContext) as! [FloorMapTourGuideEntity]
             if (fetchData.count > 0) {
                 for i in 0 ... tourGuideArray.count-1 {
                     let tourGuideDeatilDict = tourGuideArray[i]
-                    let fetchResult = checkAddedToCoredata(entityName: "FloorMapTourGuideEntity",
+                    let fetchResult = DataManager.checkAddedToCoredata(entityName: "FloorMapTourGuideEntity",
                                                            idKey: "nid",
                                                            idValue: tourGuideArray[i].nid, managedContext: managedContext) as! [FloorMapTourGuideEntity]
                     
@@ -888,90 +888,6 @@ class PreviewContainerViewController: UIViewController,UIPageViewControllerDeleg
                 }
                 
             }
-//        }
-//        else {
-//            let fetchData = checkAddedToCoredata(entityName: "FloorMapTourGuideEntityAr", idKey:"tourGuideId" , idValue: tourGuideId, managedContext: managedContext) as! [FloorMapTourGuideEntityAr]
-//            if (fetchData.count > 0) {
-//                for i in 0 ... tourGuideArray.count-1 {
-//                    let tourGuideDeatilDict = tourGuideArray[i]
-//                    let fetchResult = checkAddedToCoredata(entityName: "FloorMapTourGuideEntityAr", idKey: "nid", idValue: tourGuideArray[i].nid, managedContext: managedContext) as! [FloorMapTourGuideEntityAr]
-//                    //update
-//                    if(fetchResult.count != 0) {
-//                        let tourguidedbDict = fetchResult[0]
-//                        tourguidedbDict.title = tourGuideDeatilDict.title
-//                        tourguidedbDict.accessionNumber = tourGuideDeatilDict.accessionNumber
-//                        tourguidedbDict.nid =  tourGuideDeatilDict.nid
-//                        tourguidedbDict.curatorialDescription = tourGuideDeatilDict.curatorialDescription
-//                        tourguidedbDict.diam = tourGuideDeatilDict.diam
-//
-//                        tourguidedbDict.dimensions = tourGuideDeatilDict.dimensions
-//                        tourguidedbDict.mainTitle = tourGuideDeatilDict.mainTitle
-//                        tourguidedbDict.objectEngSummary =  tourGuideDeatilDict.objectENGSummary
-//                        tourguidedbDict.objectHistory = tourGuideDeatilDict.objectHistory
-//                        tourguidedbDict.production = tourGuideDeatilDict.production
-//
-//                        tourguidedbDict.productionDates = tourGuideDeatilDict.productionDates
-//                        tourguidedbDict.image = tourGuideDeatilDict.image
-//                        tourguidedbDict.tourGuideId =  tourGuideDeatilDict.tourGuideId
-//                        tourguidedbDict.artifactNumber = tourGuideDeatilDict.artifactNumber
-//                        tourguidedbDict.artifactPosition = tourGuideDeatilDict.artifactPosition
-//
-//                        tourguidedbDict.audioDescriptif = tourGuideDeatilDict.audioDescriptif
-//                        tourguidedbDict.audioFile = tourGuideDeatilDict.audioFile
-//                        tourguidedbDict.floorLevel =  tourGuideDeatilDict.floorLevel
-//                        tourguidedbDict.galleyNumber = tourGuideDeatilDict.galleyNumber
-//                        tourguidedbDict.artistOrCreatorOrAuthor = tourGuideDeatilDict.artistOrCreatorOrAuthor
-//                        tourguidedbDict.periodOrStyle = tourGuideDeatilDict.periodOrStyle
-//                        tourguidedbDict.techniqueAndMaterials = tourGuideDeatilDict.techniqueAndMaterials
-//                        if let imageUrl = tourGuideDeatilDict.thumbImage{
-//                            if(imageUrl != "") {
-//                                if let data = try? Data(contentsOf: URL(string: imageUrl)!)
-//                                {
-//                                    let image: UIImage = UIImage(data: data)!
-//                                    tourguidedbDict.artifactImg = UIImagePNGRepresentation(image)
-//                                }
-//                            }
-//
-//                        }
-//                        if(tourGuideDeatilDict.images != nil) {
-//                            if((tourGuideDeatilDict.images?.count)! > 0) {
-//                                for i in 0 ... (tourGuideDeatilDict.images?.count)!-1 {
-//                                    var tourGuideImgEntity: FloorMapImagesEntityAr!
-//                                    let tourGuideImg: FloorMapImagesEntityAr = NSEntityDescription.insertNewObject(forEntityName: "FloorMapImagesEntityAr", into: managedContext) as! FloorMapImagesEntityAr
-//                                    tourGuideImg.image = tourGuideDeatilDict.images?[i]
-//
-//                                    tourGuideImgEntity = tourGuideImg
-//                                    tourguidedbDict.addToImagesRelation(tourGuideImgEntity)
-//                                    do {
-//                                        try managedContext.save()
-//
-//                                    } catch let error as NSError {
-//                                        print("Could not save. \(error), \(error.userInfo)")
-//                                    }
-//
-//                                }
-//                            }
-//                        }
-//                        do{
-//                            try managedContext.save()
-//                        }
-//                        catch{
-//                            print(error)
-//                        }
-//                    } else {
-//                        self.saveToCoreData(tourGuideDetailDict: tourGuideDeatilDict, managedObjContext: managedContext)
-//                    }
-//                }//for
-//            } //if
-//            else {
-//                for i in 0 ... tourGuideArray.count-1 {
-//                    let tourGuideDetailDict : TourGuideFloorMap?
-//                    tourGuideDetailDict = tourGuideArray[i]
-//                    self.saveToCoreData(tourGuideDetailDict: tourGuideDetailDict!, managedObjContext: managedContext)
-//                }
-//
-//            }
-//        }
     }
     
     func saveToCoreData(tourGuideDetailDict: TourGuideFloorMap, managedObjContext: NSManagedObjectContext) {
@@ -1102,7 +1018,7 @@ class PreviewContainerViewController: UIViewController,UIPageViewControllerDeleg
         do {
 //            if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
                 var tourGuideArray = [FloorMapTourGuideEntity]()
-                tourGuideArray = checkAddedToCoredata(entityName: "FloorMapTourGuideEntity",
+                tourGuideArray = DataManager.checkAddedToCoredata(entityName: "FloorMapTourGuideEntity",
                                                       idKey: "tourGuideId",
                                                       idValue: tourGuideId,
                                                       managedContext: managedContext) as! [FloorMapTourGuideEntity]
@@ -1152,69 +1068,9 @@ class PreviewContainerViewController: UIViewController,UIPageViewControllerDeleg
                     self.loadingView.isHidden = true
                     self.showNoNetwork()
                 }
-//            } else {
-//                var tourGuideArray = [FloorMapTourGuideEntityAr]()
-//                tourGuideArray = checkAddedToCoredata(entityName: "FloorMapTourGuideEntityAr", idKey: "tourGuideId", idValue: tourGuideId, managedContext: managedContext) as! [FloorMapTourGuideEntityAr]
-//                 var j:Int? = 0
-//                if(tourGuideArray.count > 0) {
-//                    for i in 0 ... tourGuideArray.count-1 {
-//                        if let duplicateId = self.tourGuideArray.first(where: {$0.nid == tourGuideArray[i].nid}) {
-//                        } else {
-//                        let tourGuideDict = tourGuideArray[i]
-//                        var imgsArray : [String] = []
-//                        let imgInfoArray = (tourGuideDict.imagesRelation?.allObjects) as! [FloorMapImagesEntityAr]
-//                        if(imgInfoArray != nil) {
-//                            if(imgInfoArray.count > 0) {
-//                                for i in 0 ... imgInfoArray.count-1 {
-//                                    imgsArray.append(imgInfoArray[i].image!)
-//                                }
-//                            }
-//                        }
-//                        self.tourGuideArray.insert(TourGuideFloorMap(title: tourGuideDict.title, accessionNumber: tourGuideDict.accessionNumber, nid: tourGuideDict.nid, curatorialDescription: tourGuideDict.curatorialDescription, diam: tourGuideDict.diam, dimensions: tourGuideDict.dimensions, mainTitle: tourGuideDict.mainTitle, objectENGSummary: tourGuideDict.objectEngSummary, objectHistory: tourGuideDict.objectHistory, production: tourGuideDict.production, productionDates: tourGuideDict.productionDates, image: tourGuideDict.image, tourGuideId: tourGuideDict.tourGuideId,artifactNumber: tourGuideDict.artifactNumber, artifactPosition: tourGuideDict.artifactPosition, audioDescriptif: tourGuideDict.audioDescriptif, images: imgsArray, audioFile: tourGuideDict.audioFile, floorLevel: tourGuideDict.floorLevel, galleyNumber: tourGuideDict.galleyNumber, artistOrCreatorOrAuthor: tourGuideDict.artistOrCreatorOrAuthor, periodOrStyle: tourGuideDict.periodOrStyle, techniqueAndMaterials: tourGuideDict.techniqueAndMaterials,thumbImage: tourGuideDict.thumbImage,artifactImg: tourGuideDict.artifactImg), at: j!)
-//                            j = j!+1
-//                        }
-//                    }
-//                    self.loadingView.stopLoading()
-//                    self.loadingView.isHidden = true
-//                    if (self.tourGuideArray.count > 0) {
-//                        self.headerView.settingsButton.isHidden = false
-//                        if((self.museumId == "63") || (self.museumId == "96")) {
-//                            self.headerView.settingsButton.setImage(UIImage(named: "locationImg"), for: .normal)
-//                            self.headerView.settingsButton.contentEdgeInsets = UIEdgeInsets(top: 9, left: 10, bottom:9, right: 10)
-//                        } else {
-//                            self.headerView.settingsButton.isHidden = true
-//                        }
-//                        self.setUpPageControl()
-//                        self.showOrHidePageControlView(countValue: self.tourGuideArray.count, scrolling: false)
-//                        self.showPageControlAtFirstTime()
-//                    } else if (networkReachability?.isReachable)! {
-//                        self.showNoData()
-//                    } else {
-//                        self.showNoNetwork()
-//                    }
-//                } else if (networkReachability?.isReachable)! && self.tourGuideArray.count == 0 {
-//                    self.getTourGuideDataFromServer()
-//                } else {
-//                    self.loadingView.stopLoading()
-//                    self.loadingView.isHidden = true
-//                    self.showNoNetwork()
-//                }
-//            }
         } catch let error as NSError {
             print("Could not fetch. \(error), \(error.userInfo)")
         }
-    }
-    
-    func checkAddedToCoredata(entityName: String?, idKey:String?, idValue: String?, managedContext: NSManagedObjectContext) -> [NSManagedObject] {
-        var fetchResults : [NSManagedObject] = []
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: entityName!)
-        if (idValue != nil) {
-            fetchRequest.predicate = NSPredicate(format: "\(idKey!) == %@", idValue!)
-           // fetchRequest.predicate = NSPredicate(format: "\(idKey!) == \(idValue!)")
-            
-        }
-        fetchResults = try! managedContext.fetch(fetchRequest)
-        return fetchResults
     }
     
     func showNodata() {

@@ -630,16 +630,6 @@ class MuseumAboutViewController: UIViewController,UITableViewDelegate,UITableVie
         }
     }
     
-    func checkAddedToCoredata(entityName: String?,idKey:String?, idValue: String?, managedContext: NSManagedObjectContext) -> [NSManagedObject] {
-        var fetchResults : [NSManagedObject] = []
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: entityName!)
-        if (idValue != nil) {
-            fetchRequest.predicate = NSPredicate.init(format: "\(idKey!) == \(idValue!)")
-        }
-        fetchResults = try! managedContext.fetch(fetchRequest)
-        return fetchResults
-    }
-    
     func showNodata() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         var errorMessage: String

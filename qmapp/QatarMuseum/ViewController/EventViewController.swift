@@ -797,16 +797,6 @@ class EventViewController: UIViewController,UICollectionViewDelegate,UICollectio
         }
     }
     
-//    func checkAddedToCoredata(entityName: String?,idKey:String?,idValue: String?, managedContext: NSManagedObjectContext) -> [NSManagedObject] {
-//        var fetchResults : [NSManagedObject] = []
-//        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: entityName!)
-//        if (idValue != nil) {
-//            fetchRequest.predicate = NSPredicate.init(format: "\(idKey!) == \(idValue!)")
-//        }
-//        fetchResults = try! managedContext.fetch(fetchRequest)
-//        return fetchResults
-//    }
-    
     func showNodata() {
         var errorMessage: String
         errorMessage = String(format: NSLocalizedString("NO_RESULT_MESSAGE",
