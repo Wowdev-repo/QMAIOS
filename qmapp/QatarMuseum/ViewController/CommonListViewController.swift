@@ -2136,207 +2136,21 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
             if #available(iOS 10.0, *) {
                 let container = appDelegate!.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
-                    self.facilitiesDetailCoreDataInBackgroundThread(managedContext: managedContext)
+                    DataManager.updateFacilitiesDetails(managedContext : managedContext,
+                                                                    category: self.tourDetailId,
+                                                                    facilities: self.facilitiesDetail)
                 }
             } else {
                 let managedContext = appDelegate!.managedObjectContext
                 managedContext.perform {
-                    self.facilitiesDetailCoreDataInBackgroundThread(managedContext : managedContext)
+                    DataManager.updateFacilitiesDetails(managedContext : managedContext,
+                                                                    category: self.tourDetailId,
+                                                                    facilities: self.facilitiesDetail)
                 }
             }
         }
     }
-    func facilitiesDetailCoreDataInBackgroundThread(managedContext: NSManagedObjectContext) {
-//        if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
-            let fetchData = checkAddedToCoredata(entityName: "FacilitiesDetailEntity",
-                                                 idKey: "category",
-                                                 idValue: tourDetailId,
-                                                 managedContext: managedContext) as! [FacilitiesDetailEntity]
-            if (fetchData.count > 0) {
-                for i in 0 ... facilitiesDetail.count-1 {
-                    let facilitiesDetailDict = facilitiesDetail[i]
-                    let fetchResult = checkAddedToCoredata(entityName: "FacilitiesDetailEntity",
-                                                           idKey: "nid",
-                                                           idValue: facilitiesDetailDict.nid,
-                                                           managedContext: managedContext)
-                    //update
-                    if(fetchResult.count != 0) {
-                        let facilitiesDetaildbDict = fetchResult[0] as! FacilitiesDetailEntity
-                        facilitiesDetaildbDict.title = facilitiesDetailDict.title
-                        facilitiesDetaildbDict.subtitle = facilitiesDetailDict.subtitle
-                        facilitiesDetaildbDict.facilitiesDes =  facilitiesDetailDict.facilitiesDes
-                        facilitiesDetaildbDict.timing =  facilitiesDetailDict.timing
-                        facilitiesDetaildbDict.titleTiming = facilitiesDetailDict.titleTiming
-                        facilitiesDetaildbDict.nid = facilitiesDetailDict.nid
-                        facilitiesDetaildbDict.longtitude =  facilitiesDetailDict.longtitude
-                        facilitiesDetaildbDict.category =  facilitiesDetailDict.category
-                        facilitiesDetaildbDict.latitude = facilitiesDetailDict.latitude
-                        facilitiesDetaildbDict.locationTitle = facilitiesDetailDict.locationTitle
-                        facilitiesDetaildbDict.language = Utils.getLanguage()
-                        
-                        if(facilitiesDetailDict.images != nil){
-                            if((facilitiesDetailDict.images?.count)! > 0) {
-                                for i in 0 ... (facilitiesDetailDict.images?.count)!-1 {
-                                    var facilitiesDetailImage: ImageEntity
-                                    let facilitiesImgaeArray = NSEntityDescription.insertNewObject(forEntityName: "ImageEntity", into: managedContext) as! ImageEntity
-                                    facilitiesImgaeArray.image = facilitiesDetailDict.images?[i]
-                                    facilitiesImgaeArray.language = Utils.getLanguage()
-                                    facilitiesDetailImage = facilitiesImgaeArray
-                                    facilitiesDetaildbDict.addToFacilitiesDetailRelation(facilitiesDetailImage)
-                                    do {
-                                        try managedContext.save()
-                                    } catch let error as NSError {
-                                        print("Could not save. \(error), \(error.userInfo)")
-                                    }
-                                }
-                            }
-                        }
-                        do{
-                            try managedContext.save()
-                        }
-                        catch{
-                            print(error)
-                        }
-                    }
-                    else {
-                        //save
-                        self.saveFacilitiesDetailsToCoreData(facilitiesDetailDict: facilitiesDetailDict, managedObjContext: managedContext)
-                    }
-                }
-            }
-            else {
-                for i in 0 ... facilitiesDetail.count-1 {
-                    let facilitiesDetailDict : FacilitiesDetail?
-                    facilitiesDetailDict = facilitiesDetail[i]
-                    self.saveFacilitiesDetailsToCoreData(facilitiesDetailDict: facilitiesDetailDict!, managedObjContext: managedContext)
-                }
-            }
-//        } else {
-//            let fetchData = checkAddedToCoredata(entityName: "FacilitiesDetailEntityAr", idKey: "category", idValue: tourDetailId, managedContext: managedContext) as! [FacilitiesDetailEntityAr]
-//            if (fetchData.count > 0) {
-//                for i in 0 ... facilitiesDetail.count-1 {
-//                    let facilitiesDetailDict = facilitiesDetail[i]
-//                    let fetchResult = checkAddedToCoredata(entityName: "FacilitiesDetailEntityAr", idKey: "nid", idValue: facilitiesDetailDict.nid, managedContext: managedContext)
-//                    //update
-//                    if(fetchResult.count != 0) {
-//                        let facilitiesDetaildbDict = fetchResult[0] as! FacilitiesDetailEntityAr
-//                        facilitiesDetaildbDict.title = facilitiesDetailDict.title
-//                        facilitiesDetaildbDict.subtitle = facilitiesDetailDict.subtitle
-//                        facilitiesDetaildbDict.facilitiesDes =  facilitiesDetailDict.facilitiesDes
-//                        facilitiesDetaildbDict.timing =  facilitiesDetailDict.timing
-//                        facilitiesDetaildbDict.titleTiming = facilitiesDetailDict.titleTiming
-//                        facilitiesDetaildbDict.nid = facilitiesDetailDict.nid
-//                        facilitiesDetaildbDict.longtitude =  facilitiesDetailDict.longtitude
-//                        facilitiesDetaildbDict.category =  facilitiesDetailDict.category
-//                        facilitiesDetaildbDict.latitude = facilitiesDetailDict.latitude
-//                        facilitiesDetaildbDict.locationTitle = facilitiesDetailDict.locationTitle
-//
-//                        if(facilitiesDetailDict.images != nil){
-//                            if((facilitiesDetailDict.images?.count)! > 0) {
-//                                for i in 0 ... (facilitiesDetailDict.images?.count)!-1 {
-//                                    var facilitiesDetailImage: FacilitiesDetailImgEntityAr
-//                                    let facilitiesImgaeArray: FacilitiesDetailImgEntityAr = NSEntityDescription.insertNewObject(forEntityName: "FacilitiesDetailImgEntityAr", into: managedContext) as! FacilitiesDetailImgEntityAr
-//                                    facilitiesImgaeArray.images = facilitiesDetailDict.images?[i]
-//                                    facilitiesDetailImage = facilitiesImgaeArray
-//                                    facilitiesDetaildbDict.addToFacilitiesDetailRelationAr(facilitiesDetailImage)
-//                                    do {
-//                                        try managedContext.save()
-//                                    } catch let error as NSError {
-//                                        print("Could not save. \(error), \(error.userInfo)")
-//                                    }
-//                                }
-//                            }
-//                        }
-//                        do{
-//                            try managedContext.save()
-//                        }
-//                        catch{
-//                            print(error)
-//                        }
-//                    }
-//                    else {
-//                        //save
-//                        self.saveFacilitiesDetailsToCoreData(facilitiesDetailDict: facilitiesDetailDict, managedObjContext: managedContext)
-//                    }
-//                }
-//            }
-//            else {
-//                for i in 0 ... facilitiesDetail.count-1 {
-//                    let facilitiesDetailDict : FacilitiesDetail?
-//                    facilitiesDetailDict = facilitiesDetail[i]
-//                    self.saveFacilitiesDetailsToCoreData(facilitiesDetailDict: facilitiesDetailDict!, managedObjContext: managedContext)
-//                }
-//            }
-//        }
-    }
-    func saveFacilitiesDetailsToCoreData(facilitiesDetailDict: FacilitiesDetail, managedObjContext: NSManagedObjectContext) {
-//        if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
-            let facilitiesDetaildbDict: FacilitiesDetailEntity = NSEntityDescription.insertNewObject(forEntityName: "FacilitiesDetailEntity", into: managedObjContext) as! FacilitiesDetailEntity
-            facilitiesDetaildbDict.title = facilitiesDetailDict.title
-            facilitiesDetaildbDict.subtitle = facilitiesDetailDict.subtitle
-            facilitiesDetaildbDict.facilitiesDes =  facilitiesDetailDict.facilitiesDes
-            facilitiesDetaildbDict.timing =  facilitiesDetailDict.timing
-            facilitiesDetaildbDict.titleTiming = facilitiesDetailDict.titleTiming
-            facilitiesDetaildbDict.nid = facilitiesDetailDict.nid
-            facilitiesDetaildbDict.longtitude =  facilitiesDetailDict.longtitude
-            facilitiesDetaildbDict.category =  facilitiesDetailDict.category
-            facilitiesDetaildbDict.latitude = facilitiesDetailDict.latitude
-            facilitiesDetaildbDict.locationTitle = facilitiesDetailDict.locationTitle
-        facilitiesDetaildbDict.language = Utils.getLanguage()
-            
-            if(facilitiesDetailDict.images != nil){
-                if((facilitiesDetailDict.images?.count)! > 0) {
-                    for i in 0 ... (facilitiesDetailDict.images?.count)!-1 {
-                        var facilitiesDetailImage: ImageEntity
-                        let facilitiesImgaeArray = NSEntityDescription.insertNewObject(forEntityName: "ImageEntity",
-                                                                                       into: managedObjContext) as! ImageEntity
-                        facilitiesImgaeArray.image = facilitiesDetailDict.images?[i]
-                        facilitiesDetailImage = facilitiesImgaeArray
-                        facilitiesDetaildbDict.addToFacilitiesDetailRelation(facilitiesDetailImage)
-                        do {
-                            try managedObjContext.save()
-                        } catch let error as NSError {
-                            print("Could not save. \(error), \(error.userInfo)")
-                        }
-                    }
-                }
-            }
-//        } else {
-//            let facilitiesDetaildbDict: FacilitiesDetailEntityAr = NSEntityDescription.insertNewObject(forEntityName: "FacilitiesDetailEntityAr", into: managedObjContext) as! FacilitiesDetailEntityAr
-//            facilitiesDetaildbDict.title = facilitiesDetailDict.title
-//            facilitiesDetaildbDict.subtitle = facilitiesDetailDict.subtitle
-//            facilitiesDetaildbDict.facilitiesDes =  facilitiesDetailDict.facilitiesDes
-//            facilitiesDetaildbDict.timing =  facilitiesDetailDict.timing
-//            facilitiesDetaildbDict.titleTiming = facilitiesDetailDict.titleTiming
-//            facilitiesDetaildbDict.nid = facilitiesDetailDict.nid
-//            facilitiesDetaildbDict.longtitude =  facilitiesDetailDict.longtitude
-//            facilitiesDetaildbDict.category =  facilitiesDetailDict.category
-//            facilitiesDetaildbDict.latitude = facilitiesDetailDict.latitude
-//            facilitiesDetaildbDict.locationTitle = facilitiesDetailDict.locationTitle
-//
-//            if(facilitiesDetailDict.images != nil){
-//                if((facilitiesDetailDict.images?.count)! > 0) {
-//                    for i in 0 ... (facilitiesDetailDict.images?.count)!-1 {
-//                        var facilitiesDetailImage: FacilitiesDetailImgEntityAr
-//                        let facilitiesImgaeArray: FacilitiesDetailImgEntityAr = NSEntityDescription.insertNewObject(forEntityName: "FacilitiesDetailImgEntityAr", into: managedObjContext) as! FacilitiesDetailImgEntityAr
-//                        facilitiesImgaeArray.images = facilitiesDetailDict.images?[i]
-//                        facilitiesDetailImage = facilitiesImgaeArray
-//                        facilitiesDetaildbDict.addToFacilitiesDetailRelationAr(facilitiesDetailImage)
-//                        do {
-//                            try managedObjContext.save()
-//                        } catch let error as NSError {
-//                            print("Could not save. \(error), \(error.userInfo)")
-//                        }
-//                    }
-//                }
-//            }
-//        }
-        do {
-            try managedObjContext.save()
-        } catch let error as NSError {
-            print("Could not save. \(error), \(error.userInfo)")
-        }
-    }
+   
     func fetchFacilitiesDetailsFromCoredata() {
         let managedContext = getContext()
         do {

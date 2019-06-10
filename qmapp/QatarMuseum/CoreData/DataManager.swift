@@ -588,5 +588,79 @@ extension DataManager {
             print("Could not save. \(error), \(error.userInfo)")
         }
     }
+    
+    static func updateFacilitiesDetails(managedContext: NSManagedObjectContext,
+                                                            category: String?,
+                                                            facilities: [FacilitiesDetail]) {
+        let fetchData = DataManager.checkAddedToCoredata(entityName: "FacilitiesDetailEntity",
+                                                         idKey: "category",
+                                                         idValue: category,
+                                                         managedContext: managedContext) as! [FacilitiesDetailEntity]
+        
+        if !fetchData.isEmpty {
+            for facilitiesDetailDict in facilities {
+                let fetchResult = DataManager.checkAddedToCoredata(entityName: "FacilitiesDetailEntity",
+                                                                   idKey: "nid",
+                                                                   idValue: facilitiesDetailDict.nid,
+                                                                   managedContext: managedContext) as? [FacilitiesDetailEntity]
+                DataManager.saveFacilitiesDetails(facilitiesDetailDict: facilitiesDetailDict,
+                                                  managedContext: managedContext,
+                                                  fetchResult: fetchResult)
+                
+            }
+        } else {
+            for facilitiesDetailDict in facilities {
+                DataManager.saveFacilitiesDetails(facilitiesDetailDict: facilitiesDetailDict,
+                                                  managedContext: managedContext,
+                                                  fetchResult: nil)
+            }
+        }
+    }
+    
+    static func saveFacilitiesDetails(facilitiesDetailDict: FacilitiesDetail,
+                                         managedContext: NSManagedObjectContext,
+                                         fetchResult: [FacilitiesDetailEntity]?) {
+        var facilitiesDetaildbDict: FacilitiesDetailEntity?
+        if let results = fetchResult, !results.isEmpty {
+            facilitiesDetaildbDict = results.first
+        } else {
+            facilitiesDetaildbDict = NSEntityDescription.insertNewObject(forEntityName: "FacilitiesDetailEntity",
+                                                                         into: managedContext) as? FacilitiesDetailEntity
+        }
+        facilitiesDetaildbDict?.title = facilitiesDetailDict.title
+        facilitiesDetaildbDict?.subtitle = facilitiesDetailDict.subtitle
+        facilitiesDetaildbDict?.facilitiesDes =  facilitiesDetailDict.facilitiesDes
+        facilitiesDetaildbDict?.timing =  facilitiesDetailDict.timing
+        facilitiesDetaildbDict?.titleTiming = facilitiesDetailDict.titleTiming
+        facilitiesDetaildbDict?.nid = facilitiesDetailDict.nid
+        facilitiesDetaildbDict?.longtitude =  facilitiesDetailDict.longtitude
+        facilitiesDetaildbDict?.category =  facilitiesDetailDict.category
+        facilitiesDetaildbDict?.latitude = facilitiesDetailDict.latitude
+        facilitiesDetaildbDict?.locationTitle = facilitiesDetailDict.locationTitle
+        facilitiesDetaildbDict?.language = Utils.getLanguage()
+        
+        if let images = facilitiesDetailDict.images {
+            for image in images {
+                var facilitiesDetailImage: ImageEntity
+                let facilitiesImgaeArray = NSEntityDescription.insertNewObject(forEntityName: "ImageEntity",
+                                                                               into: managedContext) as! ImageEntity
+                facilitiesImgaeArray.image = image
+                facilitiesImgaeArray.language = Utils.getLanguage()
+                facilitiesDetailImage = facilitiesImgaeArray
+                facilitiesDetaildbDict?.addToFacilitiesDetailRelation(facilitiesDetailImage)
+                do {
+                    try managedContext.save()
+                } catch let error as NSError {
+                    print("Could not save. \(error), \(error.userInfo)")
+                }
+            }
+        }
+        do {
+            try managedContext.save()
+        }
+        catch{
+            print(error)
+        }
+    }
 }
 
