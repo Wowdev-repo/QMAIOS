@@ -2,8 +2,8 @@
 //  Home.swift
 //  QatarMuseums
 //
-//  Created by Developer on 27/07/18.
-//  Copyright © 2018 Exalture. All rights reserved.
+//  Created by Wakralab on 27/07/18.
+//  Copyright © 2018 Qatar museums. All rights reserved.
 //
 
 import Foundation

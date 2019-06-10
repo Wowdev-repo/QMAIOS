@@ -2,8 +2,8 @@
 //  TourAndPanelListViewController.swift
 //  QatarMuseums
 //
-//  Created by Developer on 28/11/18.
-//  Copyright © 2018 Wakralab. All rights reserved.
+//  Created by Wakralab on 28/11/18.
+//  Copyright © 2018 Qatar museums. All rights reserved.
 //
 
 import Alamofire

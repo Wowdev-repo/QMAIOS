@@ -2,8 +2,8 @@
 //  CommonListViewController.swift
 //  QatarMuseum
 //
-//  Created by Exalture on 10/06/18.
-//  Copyright © 2018 Exalture. All rights reserved.
+//  Created by Wakralab on 10/06/18.
+//  Copyright © 2018 Qatar museums. All rights reserved.
 //
 import Alamofire
 import CoreData
@@ -213,7 +213,7 @@ class CPCommonListViewController: UIViewController {
     func loadPublicArtsDetail(idValue: String) {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
         let publicDtlView = self.storyboard?.instantiateViewController(withIdentifier: "heritageDetailViewId") as! CPCommonDetailViewController
-        publicDtlView.pageNameString = PageName.publicArtsDetail
+        publicDtlView.pageNameString = CPPageName.publicArtsDetail
         publicDtlView.publicArtsDetailId = idValue
         let transition = CATransition()
         transition.duration = 0.5
@@ -238,7 +238,7 @@ class CPCommonListViewController: UIViewController {
     func loadHeritageDetail(heritageListId: String) {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
         let heritageDtlView = self.storyboard?.instantiateViewController(withIdentifier: "heritageDetailViewId") as! CPCommonDetailViewController
-        heritageDtlView.pageNameString = PageName.heritageDetail
+        heritageDtlView.pageNameString = CPPageName.heritageDetail
         heritageDtlView.heritageDetailId = heritageListId
         let transition = CATransition()
         transition.duration = 0.25
@@ -250,7 +250,7 @@ class CPCommonListViewController: UIViewController {
     func loadExhibitionDetailAnimation(exhibitionId: String) {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
         let exhibitionDtlView = self.storyboard?.instantiateViewController(withIdentifier: "heritageDetailViewId") as! CPCommonDetailViewController
-        exhibitionDtlView.pageNameString = PageName.exhibitionDetail
+        exhibitionDtlView.pageNameString = CPPageName.exhibitionDetail
         exhibitionDtlView.fromHome = true
         exhibitionDtlView.exhibitionId = exhibitionId
         let transition = CATransition()
@@ -264,7 +264,7 @@ class CPCommonListViewController: UIViewController {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
         let diningDetailView =  self.storyboard?.instantiateViewController(withIdentifier: "heritageDetailViewId") as! CPCommonDetailViewController
         diningDetailView.diningDetailId = idValue
-        diningDetailView.pageNameString = PageName.DiningDetail
+        diningDetailView.pageNameString = CPPageName.DiningDetail
         let transition = CATransition()
         transition.duration = 0.3
         transition.type = kCATransitionFade
@@ -3078,20 +3078,20 @@ extension CPCommonListViewController {
         if (segue.identifier == "commonListToDetailSegue") {
             let commonDetail = segue.destination as! CPCommonDetailViewController
             if ((exhibitionsPageNameString == CPExhbitionPageName.homeExhibition) || (exhibitionsPageNameString == CPExhbitionPageName.museumExhibition)) {
-                commonDetail.pageNameString = PageName.exhibitionDetail
+                commonDetail.pageNameString = CPPageName.exhibitionDetail
                 commonDetail.fromHome = true
                 commonDetail.exhibitionId = exhibition[selectedRow!].id
             } else if (exhibitionsPageNameString == CPExhbitionPageName.heritageList) {
-                commonDetail.pageNameString = PageName.heritageDetail
+                commonDetail.pageNameString = CPPageName.heritageDetail
                 commonDetail.heritageDetailId = heritageListArray[selectedRow!].id
             }else if (exhibitionsPageNameString == CPExhbitionPageName.publicArtsList) {
-                commonDetail.pageNameString = PageName.publicArtsDetail
+                commonDetail.pageNameString = CPPageName.publicArtsDetail
                 commonDetail.publicArtsDetailId = publicArtsListArray[selectedRow!].id
             } else if (exhibitionsPageNameString == CPExhbitionPageName.diningList) {
                 commonDetail.diningDetailId = diningListArray[selectedRow!].id
-                commonDetail.pageNameString = PageName.DiningDetail
+                commonDetail.pageNameString = CPPageName.DiningDetail
             } else if (exhibitionsPageNameString == CPExhbitionPageName.parkList) {
-                commonDetail.pageNameString = PageName.NMoQPark
+                commonDetail.pageNameString = CPPageName.NMoQPark
                 commonDetail.parkDetailId = nmoqParks[selectedRow! - 1].nid
             }
         } else if (segue.identifier == "commonListToPanelDetailSegue") {
@@ -3119,7 +3119,7 @@ extension CPCommonListViewController {
                 panelDetail.nid = nmoqParks[selectedRow! - 1].nid
             }
         } else if (segue.identifier == "commonListToMiaTourSegue") {
-            let miaTouguideView = segue.destination as! MiaTourDetailViewController
+            let miaTouguideView = segue.destination as! CPMiaTourDetailViewController
             miaTouguideView.museumId = museumId ?? "0"
             if (miaTourDataFullArray != nil) {
                 miaTouguideView.tourGuideDetail = miaTourDataFullArray[selectedRow! - 1]

@@ -3,7 +3,7 @@
 //  QatarMuseum
 //
 //  Created by Wakralab on 06/06/18.
-//  Copyright © 2018 Wakralab. All rights reserved.
+//  Copyright © 2018 Qatar museums. All rights reserved.
 //
 
 import Alamofire
@@ -251,7 +251,7 @@ class CPHomeViewController: UIViewController,UIViewControllerTransitioningDelega
     }
 
     func loadMuseumsPage(curretRow:Int? = 0) {
-        let museumsView =  self.storyboard?.instantiateViewController(withIdentifier: "museumViewId") as! MuseumsViewController
+        let museumsView =  self.storyboard?.instantiateViewController(withIdentifier: "museumViewId") as! CPMuseumsViewController
         museumsView.museumId = homeList[curretRow!].id
         museumsView.museumTitleString = homeList[curretRow!].name
         museumsView.fromHomeBanner = false
@@ -391,7 +391,7 @@ class CPHomeViewController: UIViewController,UIViewControllerTransitioningDelega
     }
     
     func topBarProfileButtonPressed() {
-        let profileView =  self.storyboard?.instantiateViewController(withIdentifier: "profileViewId") as! ProfileViewController
+        let profileView =  self.storyboard?.instantiateViewController(withIdentifier: "profileViewId") as! CPProfileViewController
         profileView.fromHome = true
         let transition = CATransition()
         transition.duration = 0.3
@@ -747,7 +747,7 @@ extension CPHomeViewController: TopBarProtocol{
         //        transition.subtype = kCATransitionFromRight
         //        view.window!.layer.add(transition, forKey: kCATransition)
         //        self.present(notificationsView, animated: false, completion: nil)
-        let notificationsView =  self.storyboard?.instantiateViewController(withIdentifier: "notificationId") as! NotificationsViewController
+        let notificationsView =  self.storyboard?.instantiateViewController(withIdentifier: "notificationId") as! CPNotificationsViewController
         notificationsView.fromHome = true
         let transition = CATransition()
         transition.duration = 0.3
@@ -850,7 +850,7 @@ extension CPHomeViewController: SideMenuProtocol {
     }
     
     func eventbuttonPressed() {
-        let eventView =  self.storyboard?.instantiateViewController(withIdentifier: "eventPageID") as! EventViewController
+        let eventView =  self.storyboard?.instantiateViewController(withIdentifier: "eventPageID") as! CPEventViewController
         eventView.fromHome = true
         eventView.isLoadEventPage = true
         eventView.fromSideMenu = true
@@ -868,7 +868,7 @@ extension CPHomeViewController: SideMenuProtocol {
     }
     
     func educationButtonPressed() {
-        let educationView =  self.storyboard?.instantiateViewController(withIdentifier: "educationPageID") as! EducationViewController
+        let educationView =  self.storyboard?.instantiateViewController(withIdentifier: "educationPageID") as! CPEducationViewController
         educationView.fromSideMenu = true
         let transition = CATransition()
         transition.duration = 0.3
@@ -936,7 +936,7 @@ extension CPHomeViewController: SideMenuProtocol {
     
     func parksButtonPressed() {
         let parksView =  self.storyboard?.instantiateViewController(withIdentifier: "heritageDetailViewId") as! CPCommonDetailViewController
-        parksView.pageNameString = PageName.SideMenuPark
+        parksView.pageNameString = CPPageName.SideMenuPark
         let transition = CATransition()
         transition.duration = 0.25
         transition.type = kCATransitionFade
@@ -990,7 +990,7 @@ extension CPHomeViewController: SideMenuProtocol {
         if let aboutUrl = URL(string: aboutUrlString) {
             // show alert to choose app
             if UIApplication.shared.canOpenURL(aboutUrl as URL) {
-                let webViewVc:WebViewController = self.storyboard?.instantiateViewController(withIdentifier: "webViewId") as! WebViewController
+                let webViewVc:CPWebViewController = self.storyboard?.instantiateViewController(withIdentifier: "webViewId") as! CPWebViewController
                 webViewVc.webViewUrl = aboutUrl
                 webViewVc.titleString = NSLocalizedString("WEBVIEW_TITLE", comment: "WEBVIEW_TITLE  in the Webview")
                 self.present(webViewVc, animated: false, completion: nil)
@@ -1025,7 +1025,7 @@ extension CPHomeViewController: SideMenuProtocol {
     }
     
     func menuNotificationPressed() {
-        let notificationsView =  self.storyboard?.instantiateViewController(withIdentifier: "notificationId") as! NotificationsViewController
+        let notificationsView =  self.storyboard?.instantiateViewController(withIdentifier: "notificationId") as! CPNotificationsViewController
         notificationsView.fromHome = true
         let transition = CATransition()
         transition.duration = 0.3
@@ -1505,7 +1505,7 @@ extension CPHomeViewController {
                 commonList.exhibitionsPageNameString = CPExhbitionPageName.publicArtsList
             }
         }else if (segue.identifier == "homeToMuseumLandingSegue") {
-            let museumsView = segue.destination as! MuseumsViewController
+            let museumsView = segue.destination as! CPMuseumsViewController
             
             if(homePageNameString == HomePageName.museumLandingPage){
                 museumsView.museumId = homeList[selectedRow!].id
@@ -1526,12 +1526,12 @@ extension CPHomeViewController {
             culturePass.fromHome = true
         } else if (segue.identifier == "homeToCommonDetail") {
             let commonDetail = segue.destination as! CPCommonDetailViewController
-            commonDetail.pageNameString = PageName.SideMenuPark
+            commonDetail.pageNameString = CPPageName.SideMenuPark
         } else if (segue.identifier == "homeToNotificationSegue") {
-            let notificationView = segue.destination as! NotificationsViewController
+            let notificationView = segue.destination as! CPNotificationsViewController
             notificationView.fromHome = true
         } else if(homePageNameString == HomePageName.eventList){
-            let eventView = segue.destination as! EventViewController
+            let eventView = segue.destination as! CPEventViewController
             if (segue.identifier == "homeToEventSegue") {
                 eventView.fromHome = true
                 eventView.isLoadEventPage = true
@@ -1542,10 +1542,10 @@ extension CPHomeViewController {
             }
             
         } else if (segue.identifier == "homeToEducationFadeSegue") {
-            let educationView = segue.destination as! EducationViewController
+            let educationView = segue.destination as! CPEducationViewController
             educationView.fromSideMenu = true
         }else if (segue.identifier == "homeToWebViewSegue") {
-            let webViewVc = segue.destination as! WebViewController
+            let webViewVc = segue.destination as! CPWebViewController
             let aboutUrlString = "https://inq-online.com/"
             if let aboutUrl = URL(string: aboutUrlString) {
                 // show alert to choose app
@@ -1555,7 +1555,7 @@ extension CPHomeViewController {
                 }
             }
         } else if (homePageNameString == HomePageName.profilePage) {
-            let profileView = segue.destination as! ProfileViewController
+            let profileView = segue.destination as! CPProfileViewController
             if (segue.identifier == "homeToProfileSegue") {
                 profileView.fromHome = true
                 //homeToProfileSegue

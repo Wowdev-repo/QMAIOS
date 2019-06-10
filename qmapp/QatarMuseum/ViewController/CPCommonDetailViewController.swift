@@ -2,8 +2,8 @@
 //  CommonDetailViewController.swift
 //  QatarMuseums
 //
-//  Created by Exalture on 21/06/18.
-//  Copyright © 2018 Exalture. All rights reserved.
+//  Created by Wakralab on 21/06/18.
+//  Copyright © 2018 Qatar museums. All rights reserved.
 //
 
 import Alamofire
@@ -13,7 +13,7 @@ import Firebase
 import MessageUI
 import UIKit
 
-enum PageName{
+enum CPPageName{
     case heritageDetail
     case publicArtsDetail
     case exhibitionDetail
@@ -28,7 +28,7 @@ class CPCommonDetailViewController: UIViewController {
     let imageView = UIImageView()
     let closeButton = UIButton()
     var blurView = UIVisualEffectView()
-    var pageNameString : PageName?
+    var pageNameString : CPPageName?
     var heritageDetailtArray: [Heritage] = []
     var publicArtsDetailtArray: [PublicArtsDetail] = []
     var exhibition: [Exhibition] = []
@@ -52,19 +52,19 @@ class CPCommonDetailViewController: UIViewController {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
         setupUIContents()
         registerCells()
-        if ((pageNameString == PageName.heritageDetail) && (heritageDetailId != nil)) {
+        if ((pageNameString == CPPageName.heritageDetail) && (heritageDetailId != nil)) {
             if  (networkReachability?.isReachable)! {
                 getHeritageDetailsFromServer()
             } else {
                 self.fetchHeritageDetailsFromCoredata()
             }
-        } else if ((pageNameString == PageName.publicArtsDetail) && (publicArtsDetailId != nil)) {
+        } else if ((pageNameString == CPPageName.publicArtsDetail) && (publicArtsDetailId != nil)) {
             if  (networkReachability?.isReachable)! {
                 getPublicArtsDetailsFromServer()
             } else {
                 self.fetchPublicArtsDetailsFromCoredata()
             }
-        } else if (pageNameString == PageName.exhibitionDetail) {
+        } else if (pageNameString == CPPageName.exhibitionDetail) {
             if (fromHome == true) {
                 if  (networkReachability?.isReachable)! {
                     getExhibitionDetail()
@@ -72,11 +72,11 @@ class CPCommonDetailViewController: UIViewController {
                     self.fetchExhibitionDetailsFromCoredata()
                 }
             }
-        } else if (pageNameString == PageName.SideMenuPark) {
+        } else if (pageNameString == CPPageName.SideMenuPark) {
             NotificationCenter.default.addObserver(self, selector: #selector(CPCommonDetailViewController.receiveParksNotificationEn(notification:)), name: NSNotification.Name(parksNotificationEn), object: nil)
             NotificationCenter.default.addObserver(self, selector: #selector(CPCommonDetailViewController.receiveParksNotificationAr(notification:)), name: NSNotification.Name(parksNotificationAr), object: nil)
             self.fetchParksFromCoredata()
-        } else if (pageNameString == PageName.NMoQPark) {
+        } else if (pageNameString == CPPageName.NMoQPark) {
             if  (networkReachability?.isReachable)! {
                 getNMoQParkDetailFromServer()
             } else {
@@ -84,7 +84,7 @@ class CPCommonDetailViewController: UIViewController {
                 self.showNoNetwork()
                 addCloseButton()
             }
-        } else if (pageNameString == PageName.DiningDetail) {
+        } else if (pageNameString == CPPageName.DiningDetail) {
             if  (networkReachability?.isReachable)! {
                 getDiningDetailsFromServer()
             } else {
@@ -102,9 +102,13 @@ class CPCommonDetailViewController: UIViewController {
         setTopBarImage()
     }
     func registerCells() {
-        self.heritageDetailTableView.register(UINib(nibName: "HeritageDetailView", bundle: nil), forCellReuseIdentifier: "heritageDetailCellId")
+        self.heritageDetailTableView.register(UINib(
+            nibName: "HeritageDetailView", bundle: nil),
+            forCellReuseIdentifier: "heritageDetailCellId")
         self.heritageDetailTableView.register(UINib(nibName: "ExhibitionDetailView", bundle: nil), forCellReuseIdentifier: "exhibitionDetailCellId")
-        self.heritageDetailTableView.register(UINib(nibName: "ParkTableCellXib", bundle: nil), forCellReuseIdentifier: "parkCellId")
+        self.heritageDetailTableView.register(
+            UINib(nibName: "ParkTableCellXib",bundle: nil),
+            forCellReuseIdentifier: "parkCellId")
         self.heritageDetailTableView.register(UINib(nibName: "CollectionDetailView", bundle: nil), forCellReuseIdentifier: "collectionCellId")
         self.heritageDetailTableView.register(UINib(nibName: "DiningDetailCellView", bundle: nil), forCellReuseIdentifier: "diningDetailCellId")
     }
@@ -115,7 +119,7 @@ class CPCommonDetailViewController: UIViewController {
         
         imageView.frame = CGRect(x: 0, y:20, width: UIScreen.main.bounds.size.width, height: 300)
         imageView.image = UIImage(named: "default_imageX2")
-        if (pageNameString == PageName.heritageDetail) {
+        if (pageNameString == CPPageName.heritageDetail) {
         
             if heritageDetailtArray.count != 0 {
                 if let imageUrl = heritageDetailtArray[0].image{
@@ -128,7 +132,7 @@ class CPCommonDetailViewController: UIViewController {
             else {
                 imageView.image = nil
             }
-        } else if (pageNameString == PageName.publicArtsDetail){
+        } else if (pageNameString == CPPageName.publicArtsDetail){
             
             if publicArtsDetailtArray.count != 0 {
                 if let imageUrl = publicArtsDetailtArray[0].image{
@@ -141,7 +145,7 @@ class CPCommonDetailViewController: UIViewController {
             else {
                 imageView.image = nil
             }
-        } else if (pageNameString == PageName.exhibitionDetail){
+        } else if (pageNameString == CPPageName.exhibitionDetail){
             if (fromHome == true) {
                 if exhibition.count > 0 {
                     
@@ -179,7 +183,7 @@ class CPCommonDetailViewController: UIViewController {
                     imageView.image = nil
                 }
             }
-        } else if (pageNameString == PageName.SideMenuPark){
+        } else if (pageNameString == CPPageName.SideMenuPark){
             if parksListArray.count != 0 {
                 if let imageUrl = parksListArray[0].image{
                     imageView.kf.setImage(with: URL(string: imageUrl))
@@ -191,7 +195,7 @@ class CPCommonDetailViewController: UIViewController {
             else {
                 imageView.image = nil
             }
-        } else if (pageNameString == PageName.NMoQPark){
+        } else if (pageNameString == CPPageName.NMoQPark){
             if nmoqParkDetailArray.count != 0 {
                 if ( (self.nmoqParkDetailArray[0].images?.count)! > 0) {
                     if let imageUrl = nmoqParkDetailArray[0].images?[0]{
@@ -206,7 +210,7 @@ class CPCommonDetailViewController: UIViewController {
             else {
                 imageView.image = nil
             }
-        } else if (pageNameString == PageName.DiningDetail){
+        } else if (pageNameString == CPPageName.DiningDetail){
             if diningDetailtArray.count != 0 {
                 if let imageUrl = diningDetailtArray[0].image{
                     imageView.kf.setImage(with: URL(string: imageUrl))
@@ -300,26 +304,26 @@ class CPCommonDetailViewController: UIViewController {
         var longitudeString = String()
         var latitude : Double?
         var longitude : Double?
-            if ((pageNameString == PageName.heritageDetail) && (heritageDetailtArray[currentRow].latitude != nil) && (heritageDetailtArray[currentRow].longitude != nil)) {
+            if ((pageNameString == CPPageName.heritageDetail) && (heritageDetailtArray[currentRow].latitude != nil) && (heritageDetailtArray[currentRow].longitude != nil)) {
             latitudeString = heritageDetailtArray[currentRow].latitude!
             longitudeString = heritageDetailtArray[currentRow].longitude!
         }
-            else if ((pageNameString == PageName.publicArtsDetail) && (publicArtsDetailtArray[currentRow].latitude != nil) && (publicArtsDetailtArray[currentRow].longitude != nil))
+            else if ((pageNameString == CPPageName.publicArtsDetail) && (publicArtsDetailtArray[currentRow].latitude != nil) && (publicArtsDetailtArray[currentRow].longitude != nil))
         {
             latitudeString = publicArtsDetailtArray[currentRow].latitude!
             longitudeString = publicArtsDetailtArray[currentRow].longitude!
         }
-            else if (( pageNameString == PageName.exhibitionDetail) && ( self.fromHome == true) && (exhibition[currentRow].latitude != nil) && (exhibition[currentRow].longitude != nil)) {
+            else if (( pageNameString == CPPageName.exhibitionDetail) && ( self.fromHome == true) && (exhibition[currentRow].latitude != nil) && (exhibition[currentRow].longitude != nil)) {
                 latitudeString = exhibition[currentRow].latitude!
                 longitudeString = exhibition[currentRow].longitude!
-            } else if ( pageNameString == PageName.SideMenuPark) {
+            } else if ( pageNameString == CPPageName.SideMenuPark) {
                // showLocationErrorPopup()
-            } else if (( pageNameString == PageName.DiningDetail) && (diningDetailtArray[currentRow].latitude != nil) && (diningDetailtArray[currentRow].longitude != nil)) {
+            } else if (( pageNameString == CPPageName.DiningDetail) && (diningDetailtArray[currentRow].latitude != nil) && (diningDetailtArray[currentRow].longitude != nil)) {
                 latitudeString = diningDetailtArray[currentRow].latitude!
                 longitudeString = diningDetailtArray[currentRow].longitude!
         }
         if latitudeString != nil && longitudeString != nil && latitudeString != "" && longitudeString != ""{
-            if ((pageNameString == PageName.publicArtsDetail) || (pageNameString == PageName.DiningDetail))  {
+            if ((pageNameString == CPPageName.publicArtsDetail) || (pageNameString == CPPageName.DiningDetail))  {
                 if let lat : Double = Double(latitudeString) {
                     latitude = lat
                 }
@@ -394,7 +398,7 @@ class CPCommonDetailViewController: UIViewController {
     }
     
     func isHeritageImgArrayAvailable() -> Bool {
-        if (pageNameString == PageName.heritageDetail) {
+        if (pageNameString == CPPageName.heritageDetail) {
             if(self.heritageDetailtArray.count != 0) {
                 if(self.heritageDetailtArray[0].images != nil) {
                     if((self.heritageDetailtArray[0].images?.count)! > 0) {
@@ -407,7 +411,7 @@ class CPCommonDetailViewController: UIViewController {
     }
     
     func isPublicArtImgArrayAvailable() -> Bool {
-        if (pageNameString == PageName.publicArtsDetail) {
+        if (pageNameString == CPPageName.publicArtsDetail) {
             if(self.publicArtsDetailtArray.count != 0) {
                 if(self.publicArtsDetailtArray[0].images != nil) {
                     if((self.publicArtsDetailtArray[0].images?.count)! > 0) {
@@ -448,15 +452,15 @@ class CPCommonDetailViewController: UIViewController {
     func recordScreenView() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
         let screenClass = String(describing: type(of: self))
-        if (pageNameString == PageName.publicArtsDetail) {
+        if (pageNameString == CPPageName.publicArtsDetail) {
             Analytics.setScreenName(PUBLICARTS_DETAIL, screenClass: screenClass)
-        } else if (pageNameString == PageName.exhibitionDetail) {
+        } else if (pageNameString == CPPageName.exhibitionDetail) {
             Analytics.setScreenName(EXHIBITION_DETAIL, screenClass: screenClass)
-        } else if (pageNameString == PageName.SideMenuPark) {
+        } else if (pageNameString == CPPageName.SideMenuPark) {
             Analytics.setScreenName(PARKS_VC, screenClass: screenClass)
-        } else if (pageNameString == PageName.NMoQPark) {
+        } else if (pageNameString == CPPageName.NMoQPark) {
             Analytics.setScreenName(NMOQ_PARKS_DETAIL, screenClass: screenClass)
-        }else if (pageNameString == PageName.DiningDetail) {
+        }else if (pageNameString == CPPageName.DiningDetail) {
             Analytics.setScreenName(DINING_DETAIL, screenClass: screenClass)
         }else {
             Analytics.setScreenName(HERITAGE_DETAIL, screenClass: screenClass)
@@ -470,19 +474,19 @@ class CPCommonDetailViewController: UIViewController {
 //MARK:- TableView delegates and datasource
 extension CPCommonDetailViewController: UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if (pageNameString == PageName.heritageDetail) {
+        if (pageNameString == CPPageName.heritageDetail) {
             return heritageDetailtArray.count
-        } else if (pageNameString == PageName.publicArtsDetail){
+        } else if (pageNameString == CPPageName.publicArtsDetail){
             return publicArtsDetailtArray.count
-        } else if (pageNameString == PageName.exhibitionDetail){
+        } else if (pageNameString == CPPageName.exhibitionDetail){
             if (fromHome == true) {
                 return exhibition.count
             }
-        } else if (pageNameString == PageName.SideMenuPark) {
+        } else if (pageNameString == CPPageName.SideMenuPark) {
             return parksListArray.count
-        } else if (pageNameString == PageName.NMoQPark) {
+        } else if (pageNameString == CPPageName.NMoQPark) {
             return nmoqParkDetailArray.count
-        } else if (pageNameString == PageName.DiningDetail) {
+        } else if (pageNameString == CPPageName.DiningDetail) {
             return diningDetailtArray.count
         }
         return 1
@@ -495,57 +499,57 @@ extension CPCommonDetailViewController: UITableViewDelegate,UITableViewDataSourc
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         loadingView.stopLoading()
         loadingView.isHidden = true
-        let heritageCell = tableView.dequeueReusableCell(withIdentifier: "heritageDetailCellId", for: indexPath) as! HeritageDetailCell
-        if ((pageNameString == PageName.heritageDetail) || (pageNameString == PageName.publicArtsDetail)) {
-            if (pageNameString == PageName.heritageDetail) {
-                heritageCell.setHeritageDetailData(heritageDetail: heritageDetailtArray[indexPath.row])
-                heritageCell.midTitleDescriptionLabel.textAlignment = .center
-            } else if(pageNameString == PageName.publicArtsDetail){
-                heritageCell.setPublicArtsDetailValues(publicArsDetail: publicArtsDetailtArray[indexPath.row])
+        let CommonCell = tableView.dequeueReusableCell(withIdentifier: "heritageDetailCellId", for: indexPath) as! HeritageDetailCell
+        if ((pageNameString == CPPageName.heritageDetail) || (pageNameString == CPPageName.publicArtsDetail)) {
+            if (pageNameString == CPPageName.heritageDetail) {
+                CommonCell.setHeritageDetailData(heritageDetail: heritageDetailtArray[indexPath.row])
+                CommonCell.midTitleDescriptionLabel.textAlignment = .center
+            } else if(pageNameString == CPPageName.publicArtsDetail){
+                CommonCell.setPublicArtsDetailValues(publicArsDetail: publicArtsDetailtArray[indexPath.row])
             }
             if (isHeritageImgArrayAvailable() || isPublicArtImgArrayAvailable()) {
-                heritageCell.pageControl.isHidden = false
+                CommonCell.pageControl.isHidden = false
             } else {
-                heritageCell.pageControl.isHidden = true
+                CommonCell.pageControl.isHidden = true
             }
-            heritageCell.favBtnTapAction = {
+            CommonCell.favBtnTapAction = {
                 () in
-                self.setFavouritesAction(cellObj: heritageCell)
+                self.setFavouritesAction(cellObj: CommonCell)
             }
-            heritageCell.shareBtnTapAction = {
+            CommonCell.shareBtnTapAction = {
                 () in
-                self.setShareAction(cellObj: heritageCell)
+                self.setShareAction(cellObj: CommonCell)
             }
-            heritageCell.locationButtonTapAction = {
+            CommonCell.locationButtonTapAction = {
                 () in
                 self.loadLocationInMap(currentRow: indexPath.row)
             }
             
-        } else if(pageNameString == PageName.exhibitionDetail){
-            let cell = tableView.dequeueReusableCell(withIdentifier: "exhibitionDetailCellId", for: indexPath) as! ExhibitionDetailTableViewCell
-            cell.descriptionLabel.textAlignment = .center
+        } else if(pageNameString == CPPageName.exhibitionDetail){
+            let exhibitionCell = tableView.dequeueReusableCell(withIdentifier: "exhibitionDetailCellId", for: indexPath) as! ExhibitionDetailTableViewCell
+            exhibitionCell.descriptionLabel.textAlignment = .center
             if (fromHome == true) {
-                cell.setHomeExhibitionDetail(exhibition: exhibition[indexPath.row])
+                exhibitionCell.setHomeExhibitionDetail(exhibition: exhibition[indexPath.row])
             } else {
-                cell.setMuseumExhibitionDetail()
+                exhibitionCell.setMuseumExhibitionDetail()
             }
-            cell.favBtnTapAction = {
+            exhibitionCell.favBtnTapAction = {
                 () in
-                self.setFavouritesAction(cellObj: cell)
+                self.setFavouritesAction(cellObj: exhibitionCell)
             }
-            cell.shareBtnTapAction = {
+            exhibitionCell.shareBtnTapAction = {
                 () in
-                self.setShareAction(cellObj: cell)
+                self.setShareAction(cellObj: exhibitionCell)
             }
-            cell.locationButtonAction = {
+            exhibitionCell.locationButtonAction = {
                 () in
                 self.loadLocationInMap(currentRow: indexPath.row)
             }
-            cell.loadEmailComposer = {
+            exhibitionCell.loadEmailComposer = {
                 self.openEmail(email:"nmoq@qm.org.qa")
             }
-            return cell
-        } else if(pageNameString == PageName.SideMenuPark){
+            return exhibitionCell
+        } else if(pageNameString == CPPageName.SideMenuPark){
             let parkCell = tableView.dequeueReusableCell(withIdentifier: "parkCellId", for: indexPath) as! ParkTableViewCell
             if (indexPath.row != 0) {
                 parkCell.titleLineView.isHidden = true
@@ -569,13 +573,13 @@ extension CPCommonDetailViewController: UITableViewDelegate,UITableViewDataSourc
             }
             parkCell.setParksCellValues(parksList: parksListArray[indexPath.row], currentRow: indexPath.row)
             return parkCell
-        } else if(pageNameString == PageName.NMoQPark){
-            let parkCell = tableView.dequeueReusableCell(withIdentifier: "parkCellId", for: indexPath) as! ParkTableViewCell
-            parkCell.titleLineView.isHidden = false
-            parkCell.imageViewHeight.constant = 0
-            parkCell.setNmoqParkDetailValues(parkDetails: nmoqParkDetailArray[indexPath.row])
-            return parkCell
-        } else if(pageNameString == PageName.DiningDetail){
+        } else if(pageNameString == CPPageName.NMoQPark){
+            let NMoQparkCell = tableView.dequeueReusableCell(withIdentifier: "parkCellId", for: indexPath) as! ParkTableViewCell
+            NMoQparkCell.titleLineView.isHidden = false
+            NMoQparkCell.imageViewHeight.constant = 0
+            NMoQparkCell.setNmoqParkDetailValues(parkDetails: nmoqParkDetailArray[indexPath.row])
+            return NMoQparkCell
+        } else if(pageNameString == CPPageName.DiningDetail){
             let diningCell = tableView.dequeueReusableCell(withIdentifier: "diningDetailCellId", for: indexPath) as! DiningDetailTableViewCell
             diningCell.titleLineView.isHidden = true
             diningCell.setDiningDetailValues(diningDetail: diningDetailtArray[indexPath.row])
@@ -598,7 +602,7 @@ extension CPCommonDetailViewController: UITableViewDelegate,UITableViewDataSourc
             }
             return diningCell
         }
-        return heritageCell
+        return CommonCell
     }
     
 }
@@ -635,17 +639,17 @@ extension CPCommonDetailViewController: comingSoonPopUpProtocol,LoadingViewProto
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
         if  (networkReachability?.isReachable)! {
             let appDelegate =  UIApplication.shared.delegate as? AppDelegate
-            if ((pageNameString == PageName.heritageDetail) && (heritageDetailId != nil)) {
+            if ((pageNameString == CPPageName.heritageDetail) && (heritageDetailId != nil)) {
                 self.getHeritageDetailsFromServer()
-            } else if ((pageNameString == PageName.publicArtsDetail) && (publicArtsDetailId != nil)) {
+            } else if ((pageNameString == CPPageName.publicArtsDetail) && (publicArtsDetailId != nil)) {
                 self.getPublicArtsDetailsFromServer()
-            } else if (pageNameString == PageName.exhibitionDetail) {
+            } else if (pageNameString == CPPageName.exhibitionDetail) {
                 self.getExhibitionDetail()
-            } else if (pageNameString == PageName.SideMenuPark) {
+            } else if (pageNameString == CPPageName.SideMenuPark) {
                 appDelegate?.getParksDataFromServer(lang: LocalizationLanguage.currentAppleLanguage())
-            } else if (pageNameString == PageName.NMoQPark) {
+            } else if (pageNameString == CPPageName.NMoQPark) {
                 getNMoQParkDetailFromServer()
-            } else if (pageNameString == PageName.DiningDetail) {
+            } else if (pageNameString == CPPageName.DiningDetail) {
                 self.getDiningDetailsFromServer()
             }
         }
@@ -678,11 +682,11 @@ extension CPCommonDetailViewController: iCarouselDelegate,iCarouselDataSource {
         itemView = UIImageView(frame: CGRect(x: 0, y: 0, width: carousel.frame.width, height: 300))
         itemView.contentMode = .scaleAspectFit
         var carouselImg: [String]?
-        if (pageNameString == PageName.heritageDetail) {
+        if (pageNameString == CPPageName.heritageDetail) {
             carouselImg = self.heritageDetailtArray[0].images
-        } else if (pageNameString == PageName.publicArtsDetail) {
+        } else if (pageNameString == CPPageName.publicArtsDetail) {
             carouselImg = self.publicArtsDetailtArray[0].images
-        } else if (pageNameString == PageName.DiningDetail) {
+        } else if (pageNameString == CPPageName.DiningDetail) {
             carouselImg = self.diningDetailtArray[0].images
         }
         if (carouselImg != nil) {

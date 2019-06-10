@@ -2,8 +2,8 @@
 //  FacilitiesDetail.swift
 //  QatarMuseums
 //
-//  Created by Exalture on 18/03/19.
-//  Copyright © 2019 Wakralab. All rights reserved.
+//  Created by Wakralab on 18/03/19.
+//  Copyright © 2019 Qatar museums. All rights reserved.
 //
 
 import Foundation

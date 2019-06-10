@@ -2,8 +2,8 @@
 //  NotificationsViewController.swift
 //  QatarMuseums
 //
-//  Created by Exalture on 19/07/18.
-//  Copyright © 2018 Exalture. All rights reserved.
+//  Created by Wakralab on 19/07/18.
+//  Copyright © 2018 Qatar museums. All rights reserved.
 //
 
 import CoreData
@@ -12,7 +12,7 @@ import Firebase
 import UIKit
 import CocoaLumberjack
 
-class NotificationsViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,HeaderViewProtocol {
+class CPNotificationsViewController: UIViewController {
     @IBOutlet weak var notificationsTableView: UITableView!
     @IBOutlet weak var notificationsHeader: CommonHeaderView!
     @IBOutlet weak var loadingView: LoadingView!
@@ -79,7 +79,23 @@ class NotificationsViewController: UIViewController,UITableViewDelegate,UITableV
         return .lightContent
     }
     
-    //MARK:- TableView Delegate Methods
+    func loadNotificationDetail(cellObj: NotificationsTableViewCell) {
+       
+    }
+
+    func recordScreenView() {
+        let screenClass = String(describing: type(of: self))
+        Analytics.setScreenName(NOTIFICATIONS_LIST, screenClass: screenClass)
+    }
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+}
+
+//MARK:- TableView Delegate Methods
+extension CPNotificationsViewController: UITableViewDelegate,UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return notificationArray.count
     }
@@ -112,11 +128,10 @@ class NotificationsViewController: UIViewController,UITableViewDelegate,UITableV
         return cell
     }
     
-    func loadNotificationDetail(cellObj: NotificationsTableViewCell) {
-       
-    }
-    
-    //    //MARK: Coredata Method
+}
+
+//MARK:- Coredata Method
+extension CPNotificationsViewController {
     func saveOrUpdateNotificationsCoredata() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         if (notificationArray.count > 0) {
@@ -137,44 +152,44 @@ class NotificationsViewController: UIViewController,UITableViewDelegate,UITableV
     
     func coreDataInBackgroundThread(managedContext: NSManagedObjectContext) {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-            let fetchData = checkAddedToCoredata(entityName: "NotificationsEntity",
-                                                 idKey: "sortId",
-                                                 idValue: nil,
-                                                 managedContext: managedContext) as! [NotificationsEntity]
-            if (fetchData.count > 0) {
-                for i in 0 ... notificationArray.count-1 {
-                    let notificationDict = notificationArray[i]
-                    let fetchResult = checkAddedToCoredata(entityName: "NotificationsEntity",
-                                                           idKey: "sortId",
-                                                           idValue: nil,
-                                                           managedContext: managedContext) as! [NotificationsEntity]
-                    if(fetchResult.count > 0) {
-                        let isDeleted = self.deleteExistingNotification(managedContext: managedContext, entityName: "NotificationsEntity")
-                        if(isDeleted == true) {
-                            self.saveToCoreData(notificationsDict: notificationDict, managedObjContext: managedContext)
-                        }
-                    } else {
+        let fetchData = checkAddedToCoredata(entityName: "NotificationsEntity",
+                                             idKey: "sortId",
+                                             idValue: nil,
+                                             managedContext: managedContext) as! [NotificationsEntity]
+        if (fetchData.count > 0) {
+            for i in 0 ... notificationArray.count-1 {
+                let notificationDict = notificationArray[i]
+                let fetchResult = checkAddedToCoredata(entityName: "NotificationsEntity",
+                                                       idKey: "sortId",
+                                                       idValue: nil,
+                                                       managedContext: managedContext) as! [NotificationsEntity]
+                if(fetchResult.count > 0) {
+                    let isDeleted = self.deleteExistingNotification(managedContext: managedContext, entityName: "NotificationsEntity")
+                    if(isDeleted == true) {
                         self.saveToCoreData(notificationsDict: notificationDict, managedObjContext: managedContext)
                     }
-                }
-            } else {
-                for i in 0 ... notificationArray.count-1 {
-                    let notificationDict : Notification?
-                    notificationDict = notificationArray[i]
-                    self.saveToCoreData(notificationsDict: notificationDict!, managedObjContext: managedContext)
+                } else {
+                    self.saveToCoreData(notificationsDict: notificationDict, managedObjContext: managedContext)
                 }
             }
+        } else {
+            for i in 0 ... notificationArray.count-1 {
+                let notificationDict : Notification?
+                notificationDict = notificationArray[i]
+                self.saveToCoreData(notificationsDict: notificationDict!, managedObjContext: managedContext)
+            }
+        }
     }
     
     func saveToCoreData(notificationsDict: Notification, managedObjContext: NSManagedObjectContext) {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-            let notificationInfo: NotificationsEntity = NSEntityDescription.insertNewObject(forEntityName: "NotificationsEntity", into: managedObjContext) as! NotificationsEntity
-            notificationInfo.title = notificationsDict.title
+        let notificationInfo: NotificationsEntity = NSEntityDescription.insertNewObject(forEntityName: "NotificationsEntity", into: managedObjContext) as! NotificationsEntity
+        notificationInfo.title = notificationsDict.title
         notificationInfo.language = Utils.getLanguage()
         
-            if(notificationsDict.sortId != nil) {
-                notificationInfo.sortId = notificationsDict.sortId
-            }
+        if(notificationsDict.sortId != nil) {
+            notificationInfo.sortId = notificationsDict.sortId
+        }
         do {
             try managedObjContext.save()
         } catch let error as NSError {
@@ -190,6 +205,7 @@ class NotificationsViewController: UIViewController,UITableViewDelegate,UITableV
             return true
         }catch let error as NSError {
             //handle error here
+            print("Could not delete. \(error), \(error.userInfo)")
             return false
         }
         
@@ -199,28 +215,28 @@ class NotificationsViewController: UIViewController,UITableViewDelegate,UITableV
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         let managedContext = getContext()
         do {
-                var listArray = [NotificationsEntity]()
-                let notificationsFetchRequest =  NSFetchRequest<NSFetchRequestResult>(entityName: "NotificationsEntity")
-                listArray = (try managedContext.fetch(notificationsFetchRequest) as? [NotificationsEntity])!
-                
-                if (listArray.count > 0) {
-                    for i in 0 ... listArray.count-1 {
-                        self.notificationArray.insert(Notification(title: listArray[i].title,
-                                                                   sortId: listArray[i].sortId,
-                                                                   language: listArray[i].language), at: i)
-                        
-                    }
-                    if(notificationArray.count == 0){
-                        self.emptyNotificationData()
-                    } else {
-                        self.loadingView.stopLoading()
-                        self.loadingView.isHidden = true
-                    }
-                    notificationsTableView.reloadData()
+            var listArray = [NotificationsEntity]()
+            let notificationsFetchRequest =  NSFetchRequest<NSFetchRequestResult>(entityName: "NotificationsEntity")
+            listArray = (try managedContext.fetch(notificationsFetchRequest) as? [NotificationsEntity])!
+            
+            if (listArray.count > 0) {
+                for i in 0 ... listArray.count-1 {
+                    self.notificationArray.insert(Notification(title: listArray[i].title,
+                                                               sortId: listArray[i].sortId,
+                                                               language: listArray[i].language), at: i)
+                    
                 }
-                else{
+                if(notificationArray.count == 0){
                     self.emptyNotificationData()
+                } else {
+                    self.loadingView.stopLoading()
+                    self.loadingView.isHidden = true
                 }
+                notificationsTableView.reloadData()
+            }
+            else{
+                self.emptyNotificationData()
+            }
         } catch let error as NSError {
             print("Could not fetch. \(error), \(error.userInfo)")
         }
@@ -236,7 +252,10 @@ class NotificationsViewController: UIViewController,UITableViewDelegate,UITableV
         return fetchResults
     }
     
-    //MARK: header delegate
+}
+
+//MARK:- header delegate
+extension CPNotificationsViewController: HeaderViewProtocol {
     func headerCloseButtonPressed() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         let transition = CATransition()
@@ -254,13 +273,5 @@ class NotificationsViewController: UIViewController,UITableViewDelegate,UITableV
             self.dismiss(animated: false, completion: nil)
         }
         
-    }
-    func recordScreenView() {
-        let screenClass = String(describing: type(of: self))
-        Analytics.setScreenName(NOTIFICATIONS_LIST, screenClass: screenClass)
-    }
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 }

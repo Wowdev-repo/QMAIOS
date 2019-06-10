@@ -2,8 +2,8 @@
 //  ParkListTableViewCell.swift
 //  QatarMuseums
 //
-//  Created by Exalture on 19/03/19.
-//  Copyright © 2019 Wakralab. All rights reserved.
+//  Created by Wakralab on 19/03/19.
+//  Copyright © 2019 Qatar museums. All rights reserved.
 //
 
 import MapKit

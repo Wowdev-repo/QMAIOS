@@ -2,8 +2,8 @@
 //  QMUtility.swift
 //  QatarMuseums
 //
-//  Created by Developer on 25/07/18.
-//  Copyright © 2018 Exalture. All rights reserved.
+//  Created by Wakralab on 25/07/18.
+//  Copyright © 2018 Qatar museums. All rights reserved.
 //
 
 import Foundation
@@ -265,6 +265,7 @@ class SegueFromRight: UIStoryboardSegue {
         }
     }
 }
+
 class FadeSegue: UIStoryboardSegue {
     
     var placeholderView: UIViewController?

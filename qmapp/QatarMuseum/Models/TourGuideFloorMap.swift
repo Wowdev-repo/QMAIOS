@@ -2,8 +2,8 @@
 //  TourGuideFloorMap.swift
 //  QatarMuseums
 //
-//  Created by Exalture on 25/09/18.
-//  Copyright © 2018 Wakralab. All rights reserved.
+//  Created by Wakralab on 25/09/18.
+//  Copyright © 2018 Qatar museums. All rights reserved.
 //
 
 import Foundation

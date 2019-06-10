@@ -2,8 +2,8 @@
 //  CulturePassViewController.swift
 //  QatarMuseums
 //
-//  Created by Developer on 21/08/18.
-//  Copyright © 2018 Exalture. All rights reserved.
+//  Created by Wakralab on 21/08/18.
+//  Copyright © 2018 Qatar museums. All rights reserved.
 //
 
 import Alamofire
@@ -146,7 +146,7 @@ class CulturePassViewController: UIViewController, HeaderViewProtocol, comingSoo
             DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
             // show alert to choose app
             if UIApplication.shared.canOpenURL(registrationUrl as URL) {
-                let webViewVc:WebViewController = self.storyboard?.instantiateViewController(withIdentifier: "webViewId") as! WebViewController
+                let webViewVc:CPWebViewController = self.storyboard?.instantiateViewController(withIdentifier: "webViewId") as! CPWebViewController
                 webViewVc.webViewUrl = registrationUrl
                 webViewVc.titleString = NSLocalizedString("CULTURE_BECOME_A_MEMBER", comment: "CULTURE_BECOME_A_MEMBER in the Registration page")
                 //webViewVc.titleString = NSLocalizedString("WEBVIEW_TITLE", comment: "WEBVIEW_TITLE  in the Webview")
@@ -517,7 +517,7 @@ class CulturePassViewController: UIViewController, HeaderViewProtocol, comingSoo
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "culturePassToProfileSegue") {
-            let profileView = segue.destination as! ProfileViewController
+            let profileView = segue.destination as! CPProfileViewController
             profileView.loginInfo = loginArray
             profileView.fromCulturePass = true
         }

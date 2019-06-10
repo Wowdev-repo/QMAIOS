@@ -2,8 +2,8 @@
 //  MiaTourDetailViewController.swift
 //  QatarMuseums
 //
-//  Created by Exalture on 17/07/18.
-//  Copyright © 2018 Exalture. All rights reserved.
+//  Created by Wakralab on 17/07/18.
+//  Copyright © 2018 Qatar museums. All rights reserved.
 //
 import Alamofire
 import Crashlytics
@@ -12,7 +12,8 @@ import Kingfisher
 import UIKit
 import CocoaLumberjack
 
-class MiaTourDetailViewController: UIViewController, HeaderViewProtocol, comingSoonPopUpProtocol, KASlideShowDelegate {
+class CPMiaTourDetailViewController: UIViewController {
+    
     @IBOutlet weak var tourGuideDescription: UITextView!
     @IBOutlet weak var startTourButton: UIButton!
     @IBOutlet weak var playButton: UIButton!
@@ -34,6 +35,7 @@ class MiaTourDetailViewController: UIViewController, HeaderViewProtocol, comingS
     var sliderImgArray = NSMutableArray()
     var titleString : String? = ""
     let networkReachability = NetworkReachabilityManager()
+    
     override func viewDidLoad() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
 
@@ -66,66 +68,6 @@ class MiaTourDetailViewController: UIViewController, HeaderViewProtocol, comingS
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
-    }
-    
-    func setSlideShow(imgArray : NSArray) {
-        //sliderLoading.stopAnimating()
-        // sliderLoading.isHidden = true
-
-        //KASlideshow
-        slideshowView.delegate = self
-        slideshowView.delay = 0.5
-        slideshowView.transitionDuration = 2.7
-        slideshowView.transitionType = KASlideShowTransitionType.fade
-        slideshowView.images = imgArray as! NSMutableArray
-        slideshowView.add(KASlideShowGestureType.swipe)
-        slideshowView.imagesContentMode = .scaleAspectFill
-        slideshowView.start()
-        if slideshowView.images.count > 0 {
-            let dot = pageControl.subviews[0]
-            dot.transform = CGAffineTransform(scaleX: 1.6, y: 1.6)
-        }
-    
-        pageControl.numberOfPages = imgArray.count
-        pageControl.currentPage = Int(slideshowView.currentIndex)
-        pageControl.addTarget(self, action: #selector(MiaTourDetailViewController.pageChanged), for: .valueChanged)
-    }
-    
-    //KASlideShow delegate
-    func kaSlideShowWillShowNext(_ slideshow: KASlideShow) {
-        
-    }
-    
-    func kaSlideShowWillShowPrevious(_ slideshow: KASlideShow) {
-        
-    }
-    
-    func kaSlideShowDidShowNext(_ slideshow: KASlideShow) {
-        let currentIndex = Int(slideshowView.currentIndex)
-        pageControl.currentPage = Int(slideshowView.currentIndex)
-        customizePageControlDot(currentIndex: currentIndex)
-    }
-    
-    func kaSlideShowDidShowPrevious(_ slideshow: KASlideShow) {
-        let currentIndex = Int(slideshowView.currentIndex)
-        pageControl.currentPage = Int(slideshowView.currentIndex)
-        customizePageControlDot(currentIndex: currentIndex)
-    }
-    
-    func customizePageControlDot(currentIndex: Int) {
-        for i in 0...2 {
-            if (i == currentIndex) {
-                let dot = pageControl.subviews[i]
-                for j in 0...2 {
-                    let dot1 = pageControl.subviews[j]
-                    dot1.transform = CGAffineTransform(scaleX: 1, y: 1)
-                }
-                dot.transform = CGAffineTransform(scaleX: 1.6, y: 1.6)
-                break
-            }
-        }
-        
-        
     }
     
     @IBAction func didTapPlayButton(_ sender: UIButton) {
@@ -179,39 +121,10 @@ class MiaTourDetailViewController: UIViewController, HeaderViewProtocol, comingS
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
     }
     
-    func loadComingSoonPopup() {
-        popupView  = ComingSoonPopUp(frame: self.view.frame)
-        popupView.comingSoonPopupDelegate = self
-        popupView.loadPopup()
-        self.view.addSubview(popupView)
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-    }
-    
     @objc func pageChanged() {
         
     }
-    
-    //MARK: Poup Delegate
-    func closeButtonPressed() {
-        self.popupView.removeFromSuperview()
-        
-        Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
-            AnalyticsParameterItemID: FirebaseAnalyticsEvents.tapped_header_close,
-            AnalyticsParameterItemName: "",
-            AnalyticsParameterContentType: "cont"
-            ])
-    }
-    
-    //MARK: Header delegate
-    func headerCloseButtonPressed() {
-        let transition = CATransition()
-        transition.duration = 0.25
-        transition.type = kCATransitionPush
-        transition.subtype = kCATransitionFromLeft
-        self.view.window!.layer.add(transition, forKey: kCATransition)
-        self.dismiss(animated: false, completion: nil)
-        
-    }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -238,7 +151,7 @@ class MiaTourDetailViewController: UIViewController, HeaderViewProtocol, comingS
         self.sliderImgArray[1] = UIImage(named: "sliderPlaceholder")!
         self.sliderImgArray[2] = UIImage(named: "sliderPlaceholder")!
         if ((tourGuideImgDict?.multimediaFile?.count)! > 0) {
-            for  var i in 0 ... (tourGuideImgDict?.multimediaFile?.count)!-1 {
+            for var i in 0 ... (tourGuideImgDict?.multimediaFile?.count)!-1 {
                 let imageUrlString = tourGuideImgDict?.multimediaFile![i]
                 downloadImage(imageUrlString: imageUrlString)
             }
@@ -285,6 +198,106 @@ class MiaTourDetailViewController: UIViewController, HeaderViewProtocol, comingS
         let screenClass = String(describing: type(of: self))
         Analytics.setScreenName(MIA_TOUR_DETAIL, screenClass: screenClass)
     }
+}
+
+//MARK:- Header delegate
+extension CPMiaTourDetailViewController: HeaderViewProtocol {
+    
+    func headerCloseButtonPressed() {
+        let transition = CATransition()
+        transition.duration = 0.25
+        transition.type = kCATransitionPush
+        transition.subtype = kCATransitionFromLeft
+        self.view.window!.layer.add(transition, forKey: kCATransition)
+        self.dismiss(animated: false, completion: nil)
+        
+    }
+}
+
+extension CPMiaTourDetailViewController: comingSoonPopUpProtocol {
+    
+    func loadComingSoonPopup() {
+        popupView  = ComingSoonPopUp(frame: self.view.frame)
+        popupView.comingSoonPopupDelegate = self
+        popupView.loadPopup()
+        self.view.addSubview(popupView)
+        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
+    }
+    //MARK: Poup Delegate
+    func closeButtonPressed() {
+        self.popupView.removeFromSuperview()
+        
+        Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
+            AnalyticsParameterItemID: FirebaseAnalyticsEvents.tapped_header_close,
+            AnalyticsParameterItemName: "",
+            AnalyticsParameterContentType: "cont"
+            ])
+    }
+}
+
+//MARK:- KASlideshow delegates and methods
+extension CPMiaTourDetailViewController: KASlideShowDelegate {
+    func setSlideShow(imgArray : NSArray) {
+        //sliderLoading.stopAnimating()
+        // sliderLoading.isHidden = true
+        
+        //KASlideshow
+        slideshowView.delegate = self
+        slideshowView.delay = 0.5
+        slideshowView.transitionDuration = 2.7
+        slideshowView.transitionType = KASlideShowTransitionType.fade
+        slideshowView.images = imgArray as! NSMutableArray
+        slideshowView.add(KASlideShowGestureType.swipe)
+        slideshowView.imagesContentMode = .scaleAspectFill
+        slideshowView.start()
+        if slideshowView.images.count > 0 {
+            let dot = pageControl.subviews[0]
+            dot.transform = CGAffineTransform(scaleX: 1.6, y: 1.6)
+        }
+        
+        pageControl.numberOfPages = imgArray.count
+        pageControl.currentPage = Int(slideshowView.currentIndex)
+        pageControl.addTarget(self, action: #selector(CPMiaTourDetailViewController.pageChanged), for: .valueChanged)
+    }
+    
+    //KASlideShow delegate
+    func kaSlideShowWillShowNext(_ slideshow: KASlideShow) {
+        
+    }
+    
+    func kaSlideShowWillShowPrevious(_ slideshow: KASlideShow) {
+        
+    }
+    
+    func kaSlideShowDidShowNext(_ slideshow: KASlideShow) {
+        let currentIndex = Int(slideshowView.currentIndex)
+        pageControl.currentPage = Int(slideshowView.currentIndex)
+        customizePageControlDot(currentIndex: currentIndex)
+    }
+    
+    func kaSlideShowDidShowPrevious(_ slideshow: KASlideShow) {
+        let currentIndex = Int(slideshowView.currentIndex)
+        pageControl.currentPage = Int(slideshowView.currentIndex)
+        customizePageControlDot(currentIndex: currentIndex)
+    }
+    
+    func customizePageControlDot(currentIndex: Int) {
+        for i in 0...2 {
+            if (i == currentIndex) {
+                let dot = pageControl.subviews[i]
+                for j in 0...2 {
+                    let dot1 = pageControl.subviews[j]
+                    dot1.transform = CGAffineTransform(scaleX: 1, y: 1)
+                }
+                dot.transform = CGAffineTransform(scaleX: 1.6, y: 1.6)
+                break
+            }
+        }
+    }
+}
+
+//MARK:- Segue controller
+extension CPMiaTourDetailViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "miaTourToPreviewSegue") {
             let previewPage = segue.destination as! PreviewContainerViewController

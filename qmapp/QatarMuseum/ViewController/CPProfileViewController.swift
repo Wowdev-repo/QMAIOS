@@ -15,7 +15,7 @@ import UIKit
 import KeychainSwift
 import CocoaLumberjack
 
-class CPProfileViewController: UIViewController,HeaderViewProtocol,comingSoonPopUpProtocol {
+class CPProfileViewController: UIViewController {
     @IBOutlet weak var headerView: CommonHeaderView!
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var viewmyCulturePassButton: UIButton!
@@ -32,7 +32,8 @@ class CPProfileViewController: UIViewController,HeaderViewProtocol,comingSoonPop
     @IBOutlet weak var dateOfBirthKeyLabel: UILabel!
     @IBOutlet weak var countryKeyLabel: UILabel!
     @IBOutlet weak var nationalityKeyLabel: UILabel!
-    //VIP Inviation controls
+    
+    //MARK: VIP Inviation controls
     var membershipNum = Int()
     var popupView : ComingSoonPopUp = ComingSoonPopUp()
     var fromHome : Bool = false
@@ -44,8 +45,13 @@ class CPProfileViewController: UIViewController,HeaderViewProtocol,comingSoonPop
     var countryDictArabic : NSDictionary!
     let keychain = KeychainSwift()
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
     override func viewDidLoad() {
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
+        DDLogInfo(NSStringFromClass(type(of: self)) +
+            "Function: \(#function), line: \(#line)")
 
         super.viewDidLoad()
         if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
@@ -60,13 +66,18 @@ class CPProfileViewController: UIViewController,HeaderViewProtocol,comingSoonPop
     func setUpProfileUI() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         headerView.headerViewDelegate = self
-        headerView.headerTitle.text = NSLocalizedString("PROFILE_TITLE", comment: "PROFILE_TITLE Label in the PROFILE page")
-        headerView.headerBackButton.setImage(UIImage(named: "back_buttonX1"), for: .normal)
+        headerView.headerTitle.text =
+            NSLocalizedString("PROFILE_TITLE",
+                              comment: "PROFILE_TITLE Label in the PROFILE page")
+        headerView.headerBackButton.setImage(UIImage(named: "back_buttonX1"),
+                                             for: .normal)
         profileImageView.image = UIImage(named: "profile_pic_round")
         if ((LocalizationLanguage.currentAppleLanguage()) == "en") {
-            headerView.headerBackButton.setImage(UIImage(named: "back_buttonX1"), for: .normal)
+            headerView.headerBackButton.setImage(UIImage(named: "back_buttonX1"),
+                                                 for: .normal)
         } else {
-            headerView.headerBackButton.setImage(UIImage(named: "back_mirrorX1"), for: .normal)
+            headerView.headerBackButton.setImage(UIImage(named: "back_mirrorX1"),
+                                                 for: .normal)
             membershipNumKeyLabel.textAlignment = .right
             emailKeyLabel.textAlignment = .right
             dateOfBirthKeyLabel.textAlignment = .right
@@ -183,40 +194,7 @@ class CPProfileViewController: UIViewController,HeaderViewProtocol,comingSoonPop
             "Country: \(String(describing: countryText.text))" +
             "Nationality: \(String(describing: nationalityText))")
     }
-    //MARK: Service call
-    func getCountryListsFromJson(){
-        let url = Bundle.main.url(forResource: "CountryList", withExtension: "json")
-        let dataObject = NSData(contentsOf: url!)
-        if let jsonObj = try? JSONSerialization.jsonObject(with: dataObject! as Data, options: .allowFragments) as? NSDictionary {
-            countryListsArray = jsonObj!.value(forKey: "countryLists")
-                as? NSArray
-        }
-        
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-    }
-    func getCountryListsArabicFromJson(){
-        let url = Bundle.main.url(forResource: "CountryListArabic", withExtension: "json")
-        let dataObject = NSData(contentsOf: url!)
-        if let jsonObj = try? JSONSerialization.jsonObject(with: dataObject! as Data, options: .allowFragments) as? NSDictionary {
-            countryDictArabic = jsonObj
-        }
-        
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-    }
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
-    func loadComingSoonPopup() {
-        popupView  = ComingSoonPopUp(frame: self.view.frame)
-        popupView.comingSoonPopupDelegate = self
-        popupView.loadPopup()
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-        self.view.addSubview(popupView)
-    }
-    func closeButtonPressed() {
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-        self.popupView.removeFromSuperview()
-    }
+    
     @IBAction func didTapViewMyFavoriteButton(_ sender: UIButton) {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         loadComingSoonPopup()
@@ -245,6 +223,70 @@ class CPProfileViewController: UIViewController,HeaderViewProtocol,comingSoonPop
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
     }
     
+
+    func deleteExistingEvent(managedContext:NSManagedObjectContext,entityName : String?)  {
+        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entityName!)
+        let deleteRequest = NSBatchDeleteRequest( fetchRequest: fetchRequest)
+        do{
+            try managedContext.execute(deleteRequest)
+            
+        }catch _ as NSError {
+        }
+    }
+    func recordScreenView() {
+        let screenClass = String(describing: type(of: self))
+        Analytics.setScreenName(PROFILE_VC, screenClass: screenClass)
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+}
+
+//MARK:- Popup methods and delegates
+extension CPProfileViewController: comingSoonPopUpProtocol {
+    
+    func closeButtonPressed() {
+        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
+        self.popupView.removeFromSuperview()
+    }
+    
+    func loadComingSoonPopup() {
+        popupView  = ComingSoonPopUp(frame: self.view.frame)
+        popupView.comingSoonPopupDelegate = self
+        popupView.loadPopup()
+        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
+        self.view.addSubview(popupView)
+    }
+}
+
+//MARK:- Service call
+extension CPProfileViewController {
+    
+    func getCountryListsFromJson(){
+        let url = Bundle.main.url(forResource: "CountryList", withExtension: "json")
+        let dataObject = NSData(contentsOf: url!)
+        if let jsonObj = try? JSONSerialization.jsonObject(with: dataObject! as Data, options: .allowFragments) as? NSDictionary {
+            countryListsArray = jsonObj!.value(forKey: "countryLists")
+                as? NSArray
+        }
+        
+        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
+    }
+    func getCountryListsArabicFromJson(){
+        let url = Bundle.main.url(forResource: "CountryListArabic", withExtension: "json")
+        let dataObject = NSData(contentsOf: url!)
+        if let jsonObj = try? JSONSerialization.jsonObject(with: dataObject! as Data, options: .allowFragments) as? NSDictionary {
+            countryDictArabic = jsonObj
+        }
+        
+        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
+    }
+}
+
+//MARK:- HeaderView delegates
+extension CPProfileViewController: HeaderViewProtocol {
     //MARK: headerView Protocol
     func headerCloseButtonPressed() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
@@ -253,9 +295,9 @@ class CPProfileViewController: UIViewController,HeaderViewProtocol,comingSoonPop
         transition.type = kCATransitionPush
         transition.subtype = kCATransitionFromLeft
         self.view.window!.layer.add(transition, forKey: kCATransition)
-            let appDelegate = UIApplication.shared.delegate
-            let homeViewController = self.storyboard?.instantiateViewController(withIdentifier: "homeId") as! CPHomeViewController
-            appDelegate?.window??.rootViewController = homeViewController
+        let appDelegate = UIApplication.shared.delegate
+        let homeViewController = self.storyboard?.instantiateViewController(withIdentifier: "homeId") as! CPHomeViewController
+        appDelegate?.window??.rootViewController = homeViewController
     }
     
     //MARK: WebServiceCall
@@ -269,7 +311,7 @@ class CPProfileViewController: UIViewController,HeaderViewProtocol,comingSoonPop
                     if(response.response?.statusCode == 200) {
                         UserDefaults.standard.removeObject(forKey: "accessToken")
                         UserDefaults.standard.removeObject(forKey: "acceptOrDecline")
-
+                        
                         
                         self.keychain.set("", forKey: UserProfileInfo.user_id)
                         self.keychain.set("", forKey: UserProfileInfo.user_email)
@@ -281,7 +323,7 @@ class CPProfileViewController: UIViewController,HeaderViewProtocol,comingSoonPop
                         
                         self.keychain.delete(UserProfileInfo.user_firstname)
                         self.keychain.delete(UserProfileInfo.user_lastname)// Remove single key
-
+                        
                         if((UserDefaults.standard.value(forKey: "acceptOrDecline") as? String != nil) && (UserDefaults.standard.value(forKey: "acceptOrDecline") as? String != "")) {
                             let managedContext = getContext()
                             self.deleteExistingEvent(managedContext: managedContext, entityName: "RegisteredEventListEntity")
@@ -312,29 +354,19 @@ class CPProfileViewController: UIViewController,HeaderViewProtocol,comingSoonPop
             showAlertView(title: NSLocalizedString("WEBVIEW_TITLE", comment: "WEBVIEW_TITLE in profile page"), message: NSLocalizedString("LOGOUT_ERROR", comment: "LOGOUT_ERROR in profile page"), viewController: self)
         }
     }
-    func deleteExistingEvent(managedContext:NSManagedObjectContext,entityName : String?)  {
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entityName!)
-        let deleteRequest = NSBatchDeleteRequest( fetchRequest: fetchRequest)
-        do{
-            try managedContext.execute(deleteRequest)
-            
-        }catch _ as NSError {
-        }
-    }
-    func recordScreenView() {
-        let screenClass = String(describing: type(of: self))
-        Analytics.setScreenName(PROFILE_VC, screenClass: screenClass)
-    }
+}
+
+//MARK:- Segue controller
+extension CPProfileViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "profileToCultureCardSegue") {
             let culturepassCard = segue.destination as! CulturePassCardViewController
-//            if((UserDefaults.standard.value(forKey: "uid") as? String != nil) && (UserDefaults.standard.value(forKey: "uid") as? String != "") ) {
-//                culturepassCard.membershipNumber = "00" + String(membershipNum)
-//            }
-//            if((UserDefaults.standard.value(forKey: "displayName") as? String != nil) && (UserDefaults.standard.value(forKey: "displayName") as? String != "")) {
-//                culturepassCard.nameString = (UserDefaults.standard.value(forKey: "displayName") as? String)
-//            }
+            //            if((UserDefaults.standard.value(forKey: "uid") as? String != nil) && (UserDefaults.standard.value(forKey: "uid") as? String != "") ) {
+            //                culturepassCard.membershipNumber = "00" + String(membershipNum)
+            //            }
+            //            if((UserDefaults.standard.value(forKey: "displayName") as? String != nil) && (UserDefaults.standard.value(forKey: "displayName") as? String != "")) {
+            //                culturepassCard.nameString = (UserDefaults.standard.value(forKey: "displayName") as? String)
+            //            }
             if((keychain.get(UserProfileInfo.user_id) != nil) && (keychain.get(UserProfileInfo.user_id) != "")) {
                 culturepassCard.membershipNumber = "00" + String(membershipNum)
             }
@@ -342,8 +374,5 @@ class CPProfileViewController: UIViewController,HeaderViewProtocol,comingSoonPop
                 culturepassCard.nameString = (keychain.get(UserProfileInfo.user_dispaly_name))
             }
         }
-    }
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
     }
 }

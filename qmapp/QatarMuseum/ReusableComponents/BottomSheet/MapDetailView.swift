@@ -2,8 +2,8 @@
 //  MapDetailView.swift
 //  QatarMuseums
 //
-//  Created by Exalture on 10/09/18.
-//  Copyright © 2018 Wakralab. All rights reserved.
+//  Created by Wakralb on 10/09/18.
+//  Copyright © 2018 Qatar museums. All rights reserved.
 //
 import AVFoundation
 import AVKit

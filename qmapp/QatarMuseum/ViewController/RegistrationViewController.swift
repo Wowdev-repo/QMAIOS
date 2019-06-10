@@ -2,8 +2,8 @@
 //  RegistrationViewController.swift
 //  QatarMuseums
 //
-//  Created by Exalture on 18/10/18.
-//  Copyright © 2018 Wakralab. All rights reserved.
+//  Created by Wakralab on 18/10/18.
+//  Copyright © 2018 Qatar museums. All rights reserved.
 //
 
 import UIKit
@@ -163,7 +163,7 @@ class RegistrationViewController: UIViewController, HeaderViewProtocol, UIPicker
     
     @IBAction func didTapCreateAccount(_ sender: UIButton) {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
-        let profileView =  self.storyboard?.instantiateViewController(withIdentifier: "profileViewId") as! ProfileViewController
+        let profileView =  self.storyboard?.instantiateViewController(withIdentifier: "profileViewId") as! CPProfileViewController
         let transition = CATransition()
         transition.duration = 0.3
         transition.type = kCATransitionFade

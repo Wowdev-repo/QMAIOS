@@ -2,8 +2,8 @@
 //  DiningList.swift
 //  QatarMuseums
 //
-//  Created by Exalture on 02/08/18.
-//  Copyright © 2018 Exalture. All rights reserved.
+//  Created by Wakralab on 02/08/18.
+//  Copyright © 2018 Qatar museums. All rights reserved.
 //
 
 import Foundation

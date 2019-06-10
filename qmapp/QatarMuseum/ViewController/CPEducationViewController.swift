@@ -2,8 +2,8 @@
 //  EducationViewController.swift
 //  QatarMuseums
 //
-//  Created by Exalture on 20/07/18.
-//  Copyright © 2018 Exalture. All rights reserved.
+//  Created by Wakralab on 20/07/18.
+//  Copyright © 2018 Qatar museums. All rights reserved.
 //
 
 import AVKit
@@ -14,7 +14,7 @@ import UIKit
 import YouTubePlayer
 import CocoaLumberjack
 
-class EducationViewController: UIViewController,AVPlayerViewControllerDelegate,HeaderViewProtocol {
+class CPEducationViewController: UIViewController {
     @IBOutlet weak var headerView: CommonHeaderView!
     @IBOutlet weak var educationTitle: UILabel!
     @IBOutlet weak var videoView: YouTubePlayerView!
@@ -82,31 +82,6 @@ class EducationViewController: UIViewController,AVPlayerViewControllerDelegate,H
         
         //player.play()
     }
-    //MARK: header delegate
-    func headerCloseButtonPressed() {
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
-        let transition = CATransition()
-        transition.duration = 0.3
-        if (fromSideMenu == true) {
-            transition.type = kCATransitionFade
-            transition.timingFunction = CAMediaTimingFunction(name:kCAMediaTimingFunctionEaseInEaseOut)
-            self.view.window!.layer.add(transition, forKey: kCATransition)
-            dismiss(animated: false, completion: nil)
-        } else {
-            transition.type = kCATransitionPush
-            transition.subtype = kCATransitionFromLeft
-            self.view.window!.layer.add(transition, forKey: kCATransition)
-            let homeViewController = self.storyboard?.instantiateViewController(withIdentifier: "homeId") as! CPHomeViewController
-            let appDelegate = UIApplication.shared.delegate
-            appDelegate?.window??.rootViewController = homeViewController
-        }
-        
-        Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
-            AnalyticsParameterItemID: FirebaseAnalyticsEvents.tapped_header_close,
-            AnalyticsParameterItemName: "",
-            AnalyticsParameterContentType: "cont"
-            ])
-    }
     
     @IBAction func didTapPlayPauseButton(_ sender: UIButton) {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
@@ -134,7 +109,7 @@ class EducationViewController: UIViewController,AVPlayerViewControllerDelegate,H
        
         //self.discoverButton.backgroundColor = UIColor.viewMycultureBlue
         self.discoverButton.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
-        let eventView =  self.storyboard?.instantiateViewController(withIdentifier: "eventPageID") as! EventViewController
+        let eventView =  self.storyboard?.instantiateViewController(withIdentifier: "eventPageID") as! CPEventViewController
         eventView.fromHome = false
         eventView.isLoadEventPage = false
         let transition = CATransition()
@@ -168,15 +143,45 @@ class EducationViewController: UIViewController,AVPlayerViewControllerDelegate,H
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+}
+
+
+//MARK:- header delegate
+extension CPEducationViewController: HeaderViewProtocol {
+    func headerCloseButtonPressed() {
+        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
+        let transition = CATransition()
+        transition.duration = 0.3
+        if (fromSideMenu == true) {
+            transition.type = kCATransitionFade
+            transition.timingFunction = CAMediaTimingFunction(name:kCAMediaTimingFunctionEaseInEaseOut)
+            self.view.window!.layer.add(transition, forKey: kCATransition)
+            dismiss(animated: false, completion: nil)
+        } else {
+            transition.type = kCATransitionPush
+            transition.subtype = kCATransitionFromLeft
+            self.view.window!.layer.add(transition, forKey: kCATransition)
+            let homeViewController = self.storyboard?.instantiateViewController(withIdentifier: "homeId") as! CPHomeViewController
+            let appDelegate = UIApplication.shared.delegate
+            appDelegate?.window??.rootViewController = homeViewController
+        }
+        
+        Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
+            AnalyticsParameterItemID: FirebaseAnalyticsEvents.tapped_header_close,
+            AnalyticsParameterItemName: "",
+            AnalyticsParameterContentType: "cont"
+            ])
+    }
+}
+
+//MARK:- Segue controller
+extension CPEducationViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "educationToEventSegue") {
-            let eventView = segue.destination as! EventViewController
+            let eventView = segue.destination as! CPEventViewController
             eventView.fromHome = false
             eventView.isLoadEventPage = false
         }
         
     }
-
-   
-
 }

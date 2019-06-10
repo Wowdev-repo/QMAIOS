@@ -2,7 +2,7 @@
 //  HeritageDetailCell.swift
 //  QatarMuseums
 //
-//  Created by Exalture on 21/06/18.
+//  Created by Wakralab on 21/06/18.
 //  Copyright © 2018 Exalture. All rights reserved.
 //
 

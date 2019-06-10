@@ -2,8 +2,8 @@
 //  AppDelegate.swift
 //  QatarMuseum
 //
-//  Created by Exalture on 06/06/18.
-//  Copyright © 2018 Exalture. All rights reserved.
+//  Created by Wakralab on 06/06/18.
+//  Copyright © 2018 Qatar museums. All rights reserved.
 //
 import Alamofire
 import CoreData
@@ -67,7 +67,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             //            let aps = remoteNotif!["aps"] as? [String:AnyObject]
             //            NSLog("\n Custom: \(String(describing: aps))")
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let notificationsView = storyboard.instantiateViewController(withIdentifier: "notificationId") as! NotificationsViewController
+            let notificationsView = storyboard.instantiateViewController(withIdentifier: "notificationId") as! CPNotificationsViewController
             notificationsView.fromHome = true
             self.window?.rootViewController = notificationsView
             self.window?.makeKeyAndVisible()
@@ -247,7 +247,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             ])
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let notificationsView = storyboard.instantiateViewController(withIdentifier: "notificationId") as! NotificationsViewController
+        let notificationsView = storyboard.instantiateViewController(withIdentifier: "notificationId") as! CPNotificationsViewController
         notificationsView.fromHome = true
         self.window?.rootViewController = notificationsView
         self.window?.makeKeyAndVisible()
@@ -286,10 +286,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             print(topController)
             if topController is CPHomeViewController {
                 (topController as! CPHomeViewController).updateNotificationBadge()
-            } else if topController is MuseumsViewController {
-                (topController as! MuseumsViewController).updateNotificationBadge()
-            } else if topController is NotificationsViewController {
-                (topController as! NotificationsViewController).updateNotificationTableView()
+            } else if topController is CPMuseumsViewController {
+                (topController as! CPMuseumsViewController).updateNotificationBadge()
+            } else if topController is CPNotificationsViewController {
+                (topController as! CPNotificationsViewController).updateNotificationTableView()
             }
         }
         //        completionHandler([.alert, .badge, .sound])

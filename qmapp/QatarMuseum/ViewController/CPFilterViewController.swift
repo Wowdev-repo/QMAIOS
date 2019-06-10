@@ -1,9 +1,9 @@
 //
-//  FilterViewController.swift
+//  CPFilterViewController.swift
 //  QatarMuseums
 //
-//  Created by Exalture on 22/07/18.
-//  Copyright © 2018 Exalture. All rights reserved.
+//  Created by Wakralab on 22/07/18.
+//  Copyright © 2018 Qatar museums. All rights reserved.
 //
 
 import Crashlytics
@@ -11,7 +11,7 @@ import Firebase
 import UIKit
 import CocoaLumberjack
 
-class FilterViewController: UIViewController,HeaderViewProtocol,UIPickerViewDelegate,UIPickerViewDataSource,UITextFieldDelegate {
+class CPFilterViewController: UIViewController,UIPickerViewDelegate,UIPickerViewDataSource,UITextFieldDelegate {
     @IBOutlet weak var institutionTitleLabel: UILabel!
     @IBOutlet weak var ageGroupLabel: UILabel!
     @IBOutlet weak var programmeTypeLabel: UILabel!
@@ -179,7 +179,7 @@ class FilterViewController: UIViewController,HeaderViewProtocol,UIPickerViewDele
         transition.type = kCATransitionPush
         transition.subtype = kCATransitionFromLeft
         self.view.window!.layer.add(transition, forKey: kCATransition)
-        if let presenter = presentingViewController as? EventViewController {
+        if let presenter = presentingViewController as? CPEventViewController {
             presenter.institutionType = institutionPass
             presenter.ageGroupType = ageGroupPass
             presenter.programmeType = programmePass
@@ -229,17 +229,6 @@ class FilterViewController: UIViewController,HeaderViewProtocol,UIPickerViewDele
         programmeTypeText.inputAccessoryView = pickerToolBar
     }
     
-    //MARK: header delegate
-    func headerCloseButtonPressed() {
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
-        let transition = CATransition()
-        transition.duration = 0.3
-        transition.type = kCATransitionPush
-        transition.subtype = kCATransitionFromLeft
-        self.view.window!.layer.add(transition, forKey: kCATransition)
-        self.dismiss(animated: false, completion: nil)
-        
-    }
     func textFieldDidBeginEditing(_ textField: UITextField) {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
         var viewForTextField : UIView!
@@ -424,5 +413,19 @@ class FilterViewController: UIViewController,HeaderViewProtocol,UIPickerViewDele
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
         let screenClass = String(describing: type(of: self))
         Analytics.setScreenName(FILTER_VC, screenClass: screenClass)
+    }
+}
+
+//MARK:- header delegate
+extension CPFilterViewController: HeaderViewProtocol {
+    func headerCloseButtonPressed() {
+        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
+        let transition = CATransition()
+        transition.duration = 0.3
+        transition.type = kCATransitionPush
+        transition.subtype = kCATransitionFromLeft
+        self.view.window!.layer.add(transition, forKey: kCATransition)
+        self.dismiss(animated: false, completion: nil)
+        
     }
 }
