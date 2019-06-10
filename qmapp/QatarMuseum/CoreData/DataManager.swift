@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 
 class DataManager {
-
+    
     /// Get stored objects from coredata
     ///
     /// - Parameters:
@@ -137,8 +137,8 @@ extension DataManager {
 extension DataManager {
     
     static func saveAboutDetails(managedContext: NSManagedObjectContext,
-                          aboutDetailtArray: [Museum]?,
-                          fromHomeBanner: Bool) {
+                                 aboutDetailtArray: [Museum]?,
+                                 fromHomeBanner: Bool) {
         if let aboutDetailDict = aboutDetailtArray?.first {
             let fetchData = checkAddedToCoredata(entityName: "AboutEntity",
                                                  idKey: "id" ,
@@ -162,8 +162,8 @@ extension DataManager {
     }
     
     static func saveToCoreData(aboutDetailDict: Museum,
-                        managedObjContext: NSManagedObjectContext,
-                        fromHomeBanner: Bool) {
+                               managedObjContext: NSManagedObjectContext,
+                               fromHomeBanner: Bool) {
         let aboutdbDict: AboutEntity = NSEntityDescription.insertNewObject(forEntityName: "AboutEntity",
                                                                            into: managedObjContext) as! AboutEntity
         
@@ -254,8 +254,8 @@ extension DataManager {
     ///   - date: Date
     ///   - managedContext: NSManagedObjectContext
     static func storeEvents(events: [EducationEvent],
-                              for date: Date,
-                              managedContext: NSManagedObjectContext) {
+                            for date: Date,
+                            managedContext: NSManagedObjectContext) {
         let dateID = Utils.uniqueDate(date)
         let fetchData = checkAddedToCoredata(entityName: "EventEntity",
                                              idKey: "dateId",
@@ -282,7 +282,7 @@ extension DataManager {
                                              managedObjContext: managedContext)
                 }
             }
-                
+            
         } else {
             for educationEvent in events {
                 self.saveEventToCoreData(educationEventDict: educationEvent,
@@ -293,8 +293,8 @@ extension DataManager {
     }
     
     static func saveEventToCoreData(educationEventDict: EducationEvent,
-                             dateId: String?,
-                             managedObjContext: NSManagedObjectContext) {
+                                    dateId: String?,
+                                    managedObjContext: NSManagedObjectContext) {
         let edducationInfo: EventEntity = NSEntityDescription.insertNewObject(forEntityName: "EventEntity",
                                                                               into: managedObjContext) as! EventEntity
         edducationInfo.dateId = dateId
@@ -428,8 +428,8 @@ extension DataManager {
     }
     
     static func saveEducationEvents(_ events: [EducationEvent],
-                             date: Date,
-                             managedContext: NSManagedObjectContext) {
+                                    date: Date,
+                                    managedContext: NSManagedObjectContext) {
         let dateID = Utils.uniqueDate(date)
         let fetchData = DataManager.checkAddedToCoredata(entityName: "EducationEventEntity",
                                                          idKey: "dateId",
@@ -467,8 +467,8 @@ extension DataManager {
     }
     
     static func saveToCoreData(educationEventDict: EducationEvent,
-                        dateId: String?,
-                        managedObjContext: NSManagedObjectContext) {
+                               dateId: String?,
+                               managedObjContext: NSManagedObjectContext) {
         let edducationInfo: EducationEventEntity = NSEntityDescription.insertNewObject(forEntityName: "EducationEventEntity",
                                                                                        into: managedObjContext) as! EducationEventEntity
         edducationInfo.dateId = dateId
@@ -590,8 +590,8 @@ extension DataManager {
     }
     
     static func updateFacilitiesDetails(managedContext: NSManagedObjectContext,
-                                                            category: String?,
-                                                            facilities: [FacilitiesDetail]) {
+                                        category: String?,
+                                        facilities: [FacilitiesDetail]) {
         let fetchData = DataManager.checkAddedToCoredata(entityName: "FacilitiesDetailEntity",
                                                          idKey: "category",
                                                          idValue: category,
@@ -617,9 +617,46 @@ extension DataManager {
         }
     }
     
+    static func updateNmoqTourDetails(managedContext: NSManagedObjectContext,
+                                    eventID: String?,
+                                    events: [NMoQTourDetail]) {
+        let fetchData = DataManager.checkAddedToCoredata(entityName: "NmoqTourDetailEntity",
+                                             idKey: "nmoqEvent",
+                                             idValue: eventID,
+                                             managedContext: managedContext) as! [NmoqTourDetailEntity]
+        if !fetchData.isEmpty {
+            for tourDetailDict in events {
+                let fetchResult = DataManager.checkAddedToCoredata(entityName: "NmoqTourDetailEntity",
+                                                       idKey: "nid",
+                                                       idValue: tourDetailDict.nid,
+                                                       managedContext: managedContext)
+                //update
+                if !fetchResult.isEmpty {
+                    let tourDetaildbDict = fetchResult[0] as! NmoqTourDetailEntity
+                    DataManager.saveTourDetails(tourDetailDict: tourDetailDict,
+                                                managedObjContext: managedContext,
+                                                entity: tourDetaildbDict)
+                }
+                else {
+                    //save
+                    DataManager.saveTourDetails(tourDetailDict: tourDetailDict,
+                                                managedObjContext: managedContext,
+                                                entity: nil)
+                }
+            }
+        }
+        else {
+            for tourDetailDict in events {
+                DataManager.saveTourDetails(tourDetailDict: tourDetailDict,
+                                            managedObjContext: managedContext,
+                                            entity: nil)
+            }
+        }
+    }
+    
     static func saveFacilitiesDetails(facilitiesDetailDict: FacilitiesDetail,
-                                         managedContext: NSManagedObjectContext,
-                                         fetchResult: [FacilitiesDetailEntity]?) {
+                                      managedContext: NSManagedObjectContext,
+                                      fetchResult: [FacilitiesDetailEntity]?) {
         var facilitiesDetaildbDict: FacilitiesDetailEntity?
         if let results = fetchResult, !results.isEmpty {
             facilitiesDetaildbDict = results.first
@@ -660,6 +697,55 @@ extension DataManager {
         }
         catch{
             print(error)
+        }
+    }
+    
+    static func saveTourDetails(tourDetailDict: NMoQTourDetail,
+                                managedObjContext: NSManagedObjectContext,
+                                entity: NmoqTourDetailEntity?) {
+        
+        var tourDetaildbDict = entity
+        if entity == nil {
+            tourDetaildbDict = NSEntityDescription.insertNewObject(forEntityName: "NmoqTourDetailEntity",
+                                                                   into: managedObjContext) as? NmoqTourDetailEntity
+        }
+        
+        tourDetaildbDict?.title = tourDetailDict.title
+        tourDetaildbDict?.date = tourDetailDict.date
+        tourDetaildbDict?.nmoqEvent =  tourDetailDict.nmoqEvent
+        tourDetaildbDict?.register =  tourDetailDict.register
+        tourDetaildbDict?.contactEmail = tourDetailDict.contactEmail
+        tourDetaildbDict?.contactPhone = tourDetailDict.contactPhone
+        tourDetaildbDict?.mobileLatitude =  tourDetailDict.mobileLatitude
+        tourDetaildbDict?.longitude =  tourDetailDict.longitude
+        tourDetaildbDict?.sort_id = tourDetailDict.sortId
+        tourDetaildbDict?.body = tourDetailDict.body
+        tourDetaildbDict?.registered =  tourDetailDict.registered
+        tourDetaildbDict?.nid =  tourDetailDict.nid
+        tourDetaildbDict?.seatsRemaining =  tourDetailDict.seatsRemaining
+        tourDetaildbDict?.language = Utils.getLanguage()
+        
+        if let imageBanner = tourDetailDict.imageBanner {
+            for image in imageBanner {
+                var tourImage: ImageEntity
+                let tourImgaeArray = NSEntityDescription.insertNewObject(forEntityName: "ImageEntity",
+                                                                         into: managedObjContext) as! ImageEntity
+                tourImgaeArray.image = image
+                tourImgaeArray.language = Utils.getLanguage()
+                tourImage = tourImgaeArray
+                tourDetaildbDict?.addToNmoqTourDetailImgBannerRelation(tourImage)
+                do {
+                    try managedObjContext.save()
+                } catch let error as NSError {
+                    print("Could not save. \(error), \(error.userInfo)")
+                }
+            }
+        }
+        
+        do {
+            try managedObjContext.save()
+        } catch let error as NSError {
+            print("Could not save. \(error), \(error.userInfo)")
         }
     }
 }
