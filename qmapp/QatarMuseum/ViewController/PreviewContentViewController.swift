@@ -210,29 +210,59 @@ extension PreviewContentViewController {
     
     func setupPlayerInfo(title: String) {
         
-        let nowPlayingInfo: [String: Any] = [
+        let commandCenter = MPRemoteCommandCenter.shared()
+        
+        commandCenter.playCommand.addTarget { [unowned self] event in
+            
+            if (self.selectedCell != nil) {
+                self.selectedCell!.togglePlayPause()
+                return .success
+            }
+            else {
+                return .commandFailed
+            }
+        }
+        
+        commandCenter.pauseCommand.addTarget { [unowned self] event in
+            
+            if (self.selectedCell != nil) {
+                self.selectedCell!.togglePlayPause()
+                return .success
+            }
+            else {
+                return .commandFailed
+            }
+        }
+        
+        var nowPlayingInfo: [String: Any] = [
             MPMediaItemPropertyArtist: "Qatar Museum",
             MPMediaItemPropertyTitle: title,
             MPNowPlayingInfoPropertyIsLiveStream: true
         ]
-//        if tourGuideDict.image != "" {
-//            if let imageUrl = tourGuideDict.image {
-//                guard let url = URL.init(string: imageUrl) else {
-//                    MPNowPlayingInfoCenter.default().nowPlayingInfo = nowPlayingInfo
-//                    return
-//                }
-//                let resource = ImageResource(downloadURL: url)
-//                KingfisherManager.shared.retrieveImage(with: resource, options: nil, progressBlock: nil, completionHandler: { image, error, cacheType, imageURL in
-//                    guard let image = image else {
-//                        MPNowPlayingInfoCenter.default().nowPlayingInfo = nowPlayingInfo
-//                        return
-//                    }
-//                    nowPlayingInfo["MPMediaItemPropertyArtwork"] = MPMediaItemArtwork(boundsSize: image.size) { (size: CGSize) -> UIImage in
-//                        return image
-//                    }
-//                })
-//            }
-//        }
-        MPNowPlayingInfoCenter.default().nowPlayingInfo = nowPlayingInfo
+        
+        if tourGuideDict.image != "" {
+            if let imageUrl = tourGuideDict.image {
+                guard let url = URL.init(string: imageUrl) else {
+                    MPNowPlayingInfoCenter.default().nowPlayingInfo = nowPlayingInfo
+                    return
+                }
+                let resource = ImageResource(downloadURL: url)
+                KingfisherManager.shared.retrieveImage(with: resource, options: nil, progressBlock: nil, completionHandler: { image, error, cacheType, imageURL in
+                    guard let image = image else {
+                        MPNowPlayingInfoCenter.default().nowPlayingInfo = nowPlayingInfo
+                        return
+                    }
+                    nowPlayingInfo["MPMediaItemPropertyArtwork"] = MPMediaItemArtwork(boundsSize: image.size) { (size: CGSize) -> UIImage in
+                        return image
+                    }
+                    MPNowPlayingInfoCenter.default().nowPlayingInfo = nowPlayingInfo
+                })
+            }
+        }
+        else {
+            
+            MPNowPlayingInfoCenter.default().nowPlayingInfo = nowPlayingInfo
+        }
     }
 }
+

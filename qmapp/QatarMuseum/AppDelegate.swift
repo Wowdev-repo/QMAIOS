@@ -67,10 +67,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         }
         application.applicationIconBadgeNumber = 0
         
-        // enable playback category: this is required for background audio to function normally
+//         enable playback category
         let audioSession = AVAudioSession.sharedInstance()
         try? audioSession.setCategory(AVAudioSessionCategoryPlayback, mode: AVAudioSessionModeDefault)
         try? audioSession.setActive(true, with: [])
+//        enalbe remote control access for audio control
+        application.beginReceivingRemoteControlEvents()
         
         return true
     }
@@ -621,10 +623,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         var langVar : String? = nil
         if (lang == ENG_LANGUAGE) {
             langVar = "1"
-            
         } else {
             langVar = "0"
         }
+        
         fetchData = checkAddedToCoredata(entityName: "HomeEntity", idKey: "lang", idValue: langVar, managedContext: managedContext) as! [HomeEntity]
             if (fetchData.count > 0) {
                 for i in 0 ... (homeList?.count)!-1 {
