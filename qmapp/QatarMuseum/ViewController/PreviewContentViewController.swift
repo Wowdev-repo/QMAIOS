@@ -236,7 +236,7 @@ extension PreviewContentViewController {
         
         var nowPlayingInfo: [String: Any] = [
             MPMediaItemPropertyArtist: "Qatar Museum",
-            MPMediaItemPropertyTitle: title,
+            MPMediaItemPropertyTitle: "Audio tour",
             MPNowPlayingInfoPropertyIsLiveStream: true
         ]
         
