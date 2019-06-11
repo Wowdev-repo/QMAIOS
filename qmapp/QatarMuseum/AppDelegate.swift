@@ -705,117 +705,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             if #available(iOS 10.0, *) {
                 let container = CoreDataManager.shared.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
-                    self.miaTourGuideCoreDataInBackgroundThread(managedContext: managedContext, miaTourDataFullArray: miaTourDataFullArray, museumId: museumId, lang: lang)
+                    if let array = miaTourDataFullArray {
+                        DataManager.updateTourGuide(managedContext: managedContext,
+                                                    miaTourDataFullArray: array,
+                                                    museumID: museumId)
+                    }
                 }
             } else {
                 let managedContext = self.managedObjectContext
                 managedContext.perform {
-                    self.miaTourGuideCoreDataInBackgroundThread(managedContext : managedContext, miaTourDataFullArray: miaTourDataFullArray, museumId: museumId, lang: lang)
+                    if let array = miaTourDataFullArray {
+                        DataManager.updateTourGuide(managedContext: managedContext,
+                                                    miaTourDataFullArray: array,
+                                                    museumID: museumId)
+                    }
                 }
             }
         }
     }
     
-    func miaTourGuideCoreDataInBackgroundThread(managedContext: NSManagedObjectContext,miaTourDataFullArray:[TourGuide]?,museumId:String?,lang:String?) {
-        let tourIdDict = ["id":museumId]
-            let fetchData = DataManager.checkAddedToCoredata(entityName: "TourGuideEntity",
-                                                 idKey: "museumsEntity",
-                                                 idValue: museumId,
-                                                 managedContext: managedContext) as! [TourGuideEntity]
-            if (fetchData.count > 0) {
-                for i in 0 ... (miaTourDataFullArray?.count)!-1 {
-                    let tourGuideListDict = miaTourDataFullArray![i]
-                    let fetchResult = DataManager.checkAddedToCoredata(entityName: "TourGuideEntity",
-                                                           idKey: "nid",
-                                                           idValue: miaTourDataFullArray![i].nid,
-                                                           managedContext: managedContext)
-                    //update
-                    if(fetchResult.count != 0) {
-                        let tourguidedbDict = fetchResult[0] as! TourGuideEntity
-                        tourguidedbDict.title = tourGuideListDict.title
-                        tourguidedbDict.tourGuideDescription = tourGuideListDict.tourGuideDescription
-                        tourguidedbDict.museumsEntity =  tourGuideListDict.museumsEntity
-                        tourguidedbDict.nid =  tourGuideListDict.nid
-                        tourguidedbDict.language = Utils.getLanguage()
-                        
-                        if(tourGuideListDict.multimediaFile != nil) {
-                            if((tourGuideListDict.multimediaFile?.count)! > 0) {
-                                for i in 0 ... (tourGuideListDict.multimediaFile?.count)!-1 {
-                                    var multimediaEntity: TourGuideMultimediaEntity!
-                                    let multimediaArray: TourGuideMultimediaEntity = NSEntityDescription.insertNewObject(forEntityName: "TourGuideMultimediaEntity", into: managedContext) as! TourGuideMultimediaEntity
-                                    multimediaArray.multimediaFile = tourGuideListDict.multimediaFile![i]
-                                    multimediaArray.language = Utils.getLanguage()
-                                    multimediaEntity = multimediaArray
-                                    tourguidedbDict.addToTourGuideMultimediaRelation(multimediaEntity)
-                                    do {
-                                        try managedContext.save()
-                                    } catch let error as NSError {
-                                        print("Could not save. \(error), \(error.userInfo)")
-                                    }
-                                    
-                                }
-                            }
-                        }
-                        
-                        do{
-                            try managedContext.save()
-                        }
-                        catch{
-                            print(error)
-                        }
-                    }
-                    else {
-                        //save
-                        self.saveMiaTourToCoreData(tourguideListDict: tourGuideListDict, managedObjContext: managedContext, lang: lang)
-                        
-                    }
-                }
-                NotificationCenter.default.post(name: NSNotification.Name(miaTourNotification), object: self, userInfo: tourIdDict)
-            }
-            else {
-                for i in 0 ... (miaTourDataFullArray?.count)!-1 {
-                    let tourGuideListDict : TourGuide?
-                    tourGuideListDict = miaTourDataFullArray?[i]
-                    self.saveMiaTourToCoreData(tourguideListDict: tourGuideListDict!, managedObjContext: managedContext, lang: lang)
-                    
-                }
-                NotificationCenter.default.post(name: NSNotification.Name(miaTourNotification), object: self, userInfo: tourIdDict)
-            }
-    }
     
-    func saveMiaTourToCoreData(tourguideListDict: TourGuide, managedObjContext: NSManagedObjectContext,lang:String?) {
-            let tourGuideInfo: TourGuideEntity = NSEntityDescription.insertNewObject(forEntityName: "TourGuideEntity", into: managedObjContext) as! TourGuideEntity
-            tourGuideInfo.title = tourguideListDict.title
-            tourGuideInfo.tourGuideDescription = tourguideListDict.tourGuideDescription
-            tourGuideInfo.museumsEntity = tourguideListDict.museumsEntity
-            tourGuideInfo.nid = tourguideListDict.nid
-            tourGuideInfo.language = Utils.getLanguage()
-        
-            if(tourguideListDict.multimediaFile != nil) {
-                if((tourguideListDict.multimediaFile?.count)! > 0) {
-                    for i in 0 ... (tourguideListDict.multimediaFile?.count)!-1 {
-                        var multimediaEntity: TourGuideMultimediaEntity!
-                        let multimediaArray: TourGuideMultimediaEntity = NSEntityDescription.insertNewObject(forEntityName: "TourGuideMultimediaEntity", into: managedObjContext) as! TourGuideMultimediaEntity
-                        multimediaArray.multimediaFile = tourguideListDict.multimediaFile![i]
-                        multimediaArray.language = Utils.getLanguage()
-                        multimediaEntity = multimediaArray
-                        tourGuideInfo.addToTourGuideMultimediaRelation(multimediaEntity)
-                        do {
-                            try managedObjContext.save()
-                        } catch let error as NSError {
-                            print("Could not save. \(error), \(error.userInfo)")
-                        }
-                        
-                    }
-                }
-            }
-        do {
-            try managedObjContext.save()
-        } catch let error as NSError {
-            print("Could not save. \(error), \(error.userInfo)")
-        }
-        
-    }
     //MARK: NMoQ ABoutEvent Webservice
     func getNmoQAboutDetailsFromServer(museumId:String?,lang: String?) {
         let queue = DispatchQueue(label: "NmoQAboutThread", qos: .background, attributes: .concurrent)
