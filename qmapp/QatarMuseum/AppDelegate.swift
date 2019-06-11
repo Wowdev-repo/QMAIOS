@@ -1244,90 +1244,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             if #available(iOS 10.0, *) {
                 let container = CoreDataManager.shared.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
-                    self.publicArtsCoreDataInBackgroundThread(managedContext: managedContext, publicArtsListArray: publicArtsListArray, lang: lang)
+                    DataManager.updatePublicArts(managedContext : managedContext,
+                                                 publicArtsListArray: publicArtsListArray)
                 }
             } else {
                 let managedContext = self.managedObjectContext
                 managedContext.perform {
-                    self.publicArtsCoreDataInBackgroundThread(managedContext : managedContext, publicArtsListArray: publicArtsListArray, lang: lang)
+                    DataManager.updatePublicArts(managedContext : managedContext,
+                                                 publicArtsListArray: publicArtsListArray)
                 }
             }
         }
     }
     
-    func publicArtsCoreDataInBackgroundThread(managedContext: NSManagedObjectContext,
-                                              publicArtsListArray:[PublicArtsList]?,
-                                              lang: String?) {
-            let fetchData = DataManager.checkAddedToCoredata(entityName: "PublicArtsEntity",
-                                                 idKey: "id",
-                                                 idValue: nil,
-                                                 managedContext: managedContext) as! [PublicArtsEntity]
-            if (fetchData.count > 0) {
-                for i in 0 ... (publicArtsListArray?.count)!-1 {
-                    let publicArtsListDict = publicArtsListArray![i]
-                    let fetchResult = DataManager.checkAddedToCoredata(entityName: "PublicArtsEntity",
-                                                           idKey: "id",
-                                                           idValue: publicArtsListArray![i].id,
-                                                           managedContext: managedContext)
-                    //update
-                    if(fetchResult.count != 0) {
-                        let publicArtsdbDict = fetchResult[0] as! PublicArtsEntity
-                        
-                        publicArtsdbDict.name = publicArtsListDict.name
-                        publicArtsdbDict.image = publicArtsListDict.image
-                        publicArtsdbDict.latitude =  publicArtsListDict.latitude
-                        publicArtsdbDict.longitude = publicArtsListDict.longitude
-                        publicArtsdbDict.sortcoefficient = publicArtsListDict.sortcoefficient
-                        publicArtsdbDict.language = Utils.getLanguage()
-                        
-                        do{
-                            try managedContext.save()
-                        }
-                        catch{
-                            print(error)
-                        }
-                    }
-                    else {
-                        //save
-                        self.saveToPublicArtsCoreData(publicArtsListDict: publicArtsListDict,
-                                                      managedObjContext: managedContext,
-                                                      lang: lang)
-                        
-                    }
-                }
-                NotificationCenter.default.post(name: NSNotification.Name(publicArtsListNotificationEn), object: self)
-            }
-            else {
-                for i in 0 ... (publicArtsListArray?.count)!-1 {
-                    let publicArtsListDict : PublicArtsList?
-                    publicArtsListDict = publicArtsListArray?[i]
-                    self.saveToPublicArtsCoreData(publicArtsListDict: publicArtsListDict!, managedObjContext: managedContext, lang: lang)
-                }
-                NotificationCenter.default.post(name: NSNotification.Name(publicArtsListNotificationEn), object: self)
-            }
-    }
     
-    func saveToPublicArtsCoreData(publicArtsListDict: PublicArtsList,
-                                  managedObjContext: NSManagedObjectContext,
-                                  lang: String?) {
-            let publicArtsInfo: PublicArtsEntity = NSEntityDescription.insertNewObject(forEntityName: "PublicArtsEntity",
-                                                                                       into: managedObjContext) as! PublicArtsEntity
-            publicArtsInfo.id = publicArtsListDict.id
-            publicArtsInfo.name = publicArtsListDict.name
-            publicArtsInfo.image = publicArtsListDict.image
-            publicArtsInfo.latitude = publicArtsListDict.name
-            publicArtsInfo.longitude = publicArtsListDict.image
-            publicArtsInfo.sortcoefficient = publicArtsListDict.sortcoefficient
-        publicArtsInfo.language = Utils.getLanguage()
-
-        do {
-            try managedObjContext.save()
-            
-            
-        } catch let error as NSError {
-            print("Could not save. \(error), \(error.userInfo)")
-        }
-    }
     //MARK: Webservice call
     func getCollectionList(museumId:String?,lang: String?) {
         let queue = DispatchQueue(label: "CollectionListThread", qos: .background, attributes: .concurrent)

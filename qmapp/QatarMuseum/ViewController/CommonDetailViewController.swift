@@ -880,24 +880,28 @@ class CommonDetailViewController: UIViewController,UITableViewDelegate,UITableVi
     
     func publicArtCoreDataInBackgroundThread(managedContext: NSManagedObjectContext) {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
-            let fetchData = DataManager.checkAddedToCoredata(entityName: "PublicArtsEntity",
-                                                 idKey: "id" ,
-                                                 idValue: publicArtsDetailtArray[0].id,
-                                                 managedContext: managedContext) as! [PublicArtsEntity]
-            if (fetchData.count > 0) {
-                let publicArtsDetailDict = publicArtsDetailtArray[0]
-                
-                //update
-                let publicArtsbDict = fetchData[0]
-                publicArtsbDict.name = publicArtsDetailDict.name
-                publicArtsbDict.detaildescription = publicArtsDetailDict.description
-                publicArtsbDict.shortdescription = publicArtsDetailDict.shortdescription
-                publicArtsbDict.image = publicArtsDetailDict.image
-                publicArtsbDict.latitude = publicArtsDetailDict.latitude
-                publicArtsbDict.longitude = publicArtsDetailDict.longitude
-                publicArtsbDict.language = Utils.getLanguage()
-                
-                if(publicArtsDetailDict.images != nil) {
+        let fetchData = DataManager.checkAddedToCoredata(entityName: "PublicArtsEntity",
+                                                         idKey: "id" ,
+                                                         idValue: publicArtsDetailtArray[0].id,
+                                                         managedContext: managedContext) as! [PublicArtsEntity]
+        if (fetchData.count > 0) {
+            let publicArtsDetailDict = publicArtsDetailtArray[0]
+            let publicArtsbDict = fetchData[0]
+            
+            //                DataManager.saveToPublicArtsCoreData(publicArtsListDict: publicArtsDetailDict,
+            //                                                     managedObjContext: managedContext,
+            //                                                     entity: publicArtsbDict)
+            
+            //update
+            publicArtsbDict.name = publicArtsDetailDict.name
+            publicArtsbDict.detaildescription = publicArtsDetailDict.description
+            publicArtsbDict.shortdescription = publicArtsDetailDict.shortdescription
+            publicArtsbDict.image = publicArtsDetailDict.image
+            publicArtsbDict.latitude = publicArtsDetailDict.latitude
+            publicArtsbDict.longitude = publicArtsDetailDict.longitude
+            publicArtsbDict.language = Utils.getLanguage()
+            
+            if(publicArtsDetailDict.images != nil) {
                 if((publicArtsDetailDict.images?.count)! > 0) {
                     for i in 0 ... (publicArtsDetailDict.images?.count)!-1 {
                         var publicArtsImagesEntity: ImageEntity!
@@ -907,28 +911,17 @@ class CommonDetailViewController: UIViewController,UITableViewDelegate,UITableVi
                         publicArtsImage.language = Utils.getLanguage()
                         publicArtsImagesEntity = publicArtsImage
                         publicArtsbDict.addToPublicImagesRelation(publicArtsImagesEntity)
-                        do {
-                            try managedContext.save()
-                            
-                            
-                        } catch let error as NSError {
-                            print("Could not save. \(error), \(error.userInfo)")
-                        }
+                        DataManager.save(managedContext)
                     }
                 }
             }
-                do{
-                    try managedContext.save()
-                }
-                catch{
-                    print(error)
-                }
-            }
-            else {
-                let publicArtsDetailDict : PublicArtsDetail?
-                publicArtsDetailDict = publicArtsDetailtArray[0]
-                self.saveToCoreData(publicArtseDetailDict: publicArtsDetailDict!, managedObjContext: managedContext)
-            }
+            DataManager.save(managedContext)
+        }
+        else {
+            let publicArtsDetailDict : PublicArtsDetail?
+            publicArtsDetailDict = publicArtsDetailtArray[0]
+            self.saveToCoreData(publicArtseDetailDict: publicArtsDetailDict!, managedObjContext: managedContext)
+        }
     }
     
     func saveToCoreData(publicArtseDetailDict: PublicArtsDetail, managedObjContext: NSManagedObjectContext) {

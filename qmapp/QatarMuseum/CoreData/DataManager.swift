@@ -845,5 +845,58 @@ extension DataManager {
         
         DataManager.save(managedObjContext)
     }
+    
+    static func updatePublicArts(managedContext: NSManagedObjectContext,
+                                 publicArtsListArray:[PublicArtsList]?) {
+        let fetchData = DataManager.checkAddedToCoredata(entityName: "PublicArtsEntity",
+                                                         idKey: "id",
+                                                         idValue: nil,
+                                                         managedContext: managedContext) as! [PublicArtsEntity]
+        if let publicArts = publicArtsListArray, !fetchData.isEmpty {
+            for publicArtsListDict in publicArts {
+                let fetchResult = DataManager.checkAddedToCoredata(entityName: "PublicArtsEntity",
+                                                                   idKey: "id",
+                                                                   idValue: publicArtsListDict.id,
+                                                                   managedContext: managedContext)
+                //update
+                if !fetchResult.isEmpty {
+                    let publicArtsdbDict = fetchResult[0] as! PublicArtsEntity
+                    DataManager.saveToPublicArtsCoreData(publicArtsListDict: publicArtsListDict,
+                                                         managedObjContext: managedContext,
+                                                         entity: publicArtsdbDict)
+                } else {
+                    //save
+                    DataManager.saveToPublicArtsCoreData(publicArtsListDict: publicArtsListDict,
+                                                         managedObjContext: managedContext,
+                                                         entity: nil)
+                }
+            }
+        } else {
+            if let publicArts = publicArtsListArray {
+                for publicArtsListDict in publicArts {
+                    DataManager.saveToPublicArtsCoreData(publicArtsListDict: publicArtsListDict,
+                                                         managedObjContext: managedContext,
+                                                         entity: nil)
+                }
+            }
+        }
+    }
+    
+    static func saveToPublicArtsCoreData(publicArtsListDict: PublicArtsList,
+                                         managedObjContext: NSManagedObjectContext,
+                                         entity: PublicArtsEntity?) {
+        var publicArtsInfo = entity
+        if entity == nil {
+            publicArtsInfo = NSEntityDescription.insertNewObject(forEntityName: "PublicArtsEntity",
+                                                                 into: managedObjContext) as? PublicArtsEntity
+        }
+        publicArtsInfo?.name = publicArtsListDict.name
+        publicArtsInfo?.image = publicArtsListDict.image
+        publicArtsInfo?.latitude =  publicArtsListDict.latitude
+        publicArtsInfo?.longitude = publicArtsListDict.longitude
+        publicArtsInfo?.sortcoefficient = publicArtsListDict.sortcoefficient
+        publicArtsInfo?.language = Utils.getLanguage()
+        DataManager.save(managedObjContext)
+    }
 }
 
