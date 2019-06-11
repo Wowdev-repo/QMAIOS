@@ -1619,52 +1619,25 @@ class CommonDetailViewController: UIViewController,UITableViewDelegate,UITableVi
             }
         }
     }
+    
     func diningCoreDataInBackgroundThread(managedContext: NSManagedObjectContext) {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
-            let fetchData = DataManager.checkAddedToCoredata(entityName: "DiningEntity", idKey: "id", idValue: diningDetailtArray[0].id, managedContext: managedContext) as! [DiningEntity]
+            let fetchData = DataManager.checkAddedToCoredata(entityName: "DiningEntity",
+                                                             idKey: "id",
+                                                             idValue: diningDetailtArray[0].id,
+                                                             managedContext: managedContext) as! [DiningEntity]
+        let diningDetailDict = diningDetailtArray[0]
             if (fetchData.count > 0) {
-                let diningDetailDict = diningDetailtArray[0]
-                
-                //update
                 let diningdbDict = fetchData[0]
-                diningdbDict.name = diningDetailDict.name
-                diningdbDict.image = diningDetailDict.image
-                diningdbDict.diningdescription = diningDetailDict.description
-                diningdbDict.closetime = diningDetailDict.closetime
-                diningdbDict.openingtime =  diningDetailDict.openingtime
-                diningdbDict.sortid =  diningDetailDict.sortid
-                diningdbDict.location =  diningDetailDict.location
-                if (LocalizationLanguage.currentAppleLanguage() == ENG_LANGUAGE) {
-                    diningdbDict.lang =  "1"
-                } else {
-                    diningdbDict.lang =  "0"
-                }
-                if((diningDetailDict.images?.count)! > 0) {
-                    for i in 0 ... (diningDetailDict.images?.count)!-1 {
-                        var diningImagesEntity: ImageEntity!
-                        let diningImage = NSEntityDescription.insertNewObject(forEntityName: "ImageEntity", into: managedContext) as! ImageEntity
-                        diningImage.image = diningDetailDict.images![i]
-                        
-                        diningImagesEntity = diningImage
-                        diningdbDict.addToImagesRelation(diningImagesEntity)
-                        do {
-                            try managedContext.save()
-                        } catch let error as NSError {
-                            print("Could not save. \(error), \(error.userInfo)")
-                        }
-                        
-                    }
-                }
-                do{
-                    try managedContext.save()
-                }
-                catch{
-                    print(error)
-                }
+
+                DataManager.saveToDiningCoreData(diningListDict: diningDetailDict,
+                                                 managedObjContext: managedContext,
+                                                 entity: diningdbDict)
+                
             } else {
-                let diningListDict : Dining?
-                diningListDict = diningDetailtArray[0]
-                self.saveDiningDetailToCoreData(diningDetailDict: diningListDict!, managedObjContext: managedContext)
+                DataManager.saveToDiningCoreData(diningListDict: diningDetailDict,
+                                                 managedObjContext: managedContext,
+                                                 entity: nil)
             }
     }
     func saveDiningDetailToCoreData(diningDetailDict: Dining, managedObjContext: NSManagedObjectContext) {

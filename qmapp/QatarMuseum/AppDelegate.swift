@@ -1298,89 +1298,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             if #available(iOS 10.0, *) {
                 let container = CoreDataManager.shared.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
-                    self.diningCoreDataInBackgroundThread(managedContext: managedContext, diningListArray: diningListArray!, lang: lang)
+                    DataManager.updateDinings(managedContext: managedContext,
+                                              diningListArray: diningListArray!)
                 }
             } else {
                 let managedContext = self.managedObjectContext
                 managedContext.perform {
-                    self.diningCoreDataInBackgroundThread(managedContext : managedContext, diningListArray: diningListArray!, lang: lang)
+                    DataManager.updateDinings(managedContext: managedContext,
+                                              diningListArray: diningListArray!)
                 }
             }
         }
     }
     
-    func diningCoreDataInBackgroundThread(managedContext: NSManagedObjectContext,diningListArray : [Dining]?,lang: String?) {
-        var fetchData = [DiningEntity]()
-        var langVar : String? = nil
-        if (lang == ENG_LANGUAGE) {
-            langVar = "1"
-            
-        } else {
-            langVar = "0"
-        }
-            fetchData = DataManager.checkAddedToCoredata(entityName: "DiningEntity", idKey: "lang", idValue: langVar, managedContext: managedContext) as! [DiningEntity]
-            if (fetchData.count > 0) {
-                for i in 0 ... (diningListArray?.count)!-1 {
-                    let diningListDict = diningListArray![i]
-                    let fetchResult = DataManager.checkAddedToCoredata(entityName: "DiningEntity", idKey: "id", idValue: diningListArray![i].id, managedContext: managedContext)
-                    //update
-                    if(fetchResult.count != 0) {
-                        let diningdbDict = fetchResult[0] as! DiningEntity
-                        diningdbDict.name = diningListDict.name
-                        diningdbDict.image = diningListDict.image
-                        diningdbDict.sortid =  diningListDict.sortid
-                        diningdbDict.museumId =  diningListDict.museumId
-                        diningdbDict.lang = langVar
-                        do{
-                            try managedContext.save()
-                        }
-                        catch{
-                            print(error)
-                        }
-                    }
-                    else {
-                        //save
-                        self.saveToDiningCoreData(diningListDict: diningListDict, managedObjContext: managedContext, lang: lang)
-                        
-                    }
-                }
-            }
-            else {
-                for i in 0 ... (diningListArray?.count)!-1 {
-                    let diningListDict : Dining?
-                    diningListDict = diningListArray?[i]
-                    self.saveToDiningCoreData(diningListDict: diningListDict!, managedObjContext: managedContext, lang: lang)
-                }
-            }
-
-    }
-    
-    func saveToDiningCoreData(diningListDict: Dining, managedObjContext: NSManagedObjectContext,lang: String?) {
-        var langVar : String? = nil
-        if (lang == ENG_LANGUAGE) {
-            langVar = "1"
-            
-        } else {
-            langVar = "0"
-        }
-            let diningInfoInfo: DiningEntity = NSEntityDescription.insertNewObject(forEntityName: "DiningEntity", into: managedObjContext) as! DiningEntity
-            diningInfoInfo.id = diningListDict.id
-            diningInfoInfo.name = diningListDict.name
-            
-            diningInfoInfo.image = diningListDict.image
-            if(diningListDict.sortid != nil) {
-                diningInfoInfo.sortid = diningListDict.sortid
-            }
-            diningInfoInfo.museumId = diningListDict.museumId
-            diningInfoInfo.lang = langVar
-        do {
-            try managedObjContext.save()
-            
-            
-        } catch let error as NSError {
-            print("Could not save. \(error), \(error.userInfo)")
-        }
-    }
     //MARK: PublicArtsList WebServiceCall
     func getPublicArtsListDataFromServer(lang: String?) {
         let queue = DispatchQueue(label: "PublicArtsListThread", qos: .background, attributes: .concurrent)

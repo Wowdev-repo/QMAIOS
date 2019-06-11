@@ -611,7 +611,7 @@ extension DataManager {
                     DataManager.saveFacilitiesDetails(facilitiesDetailDict: facilitiesDetailDict,
                                                       managedContext: managedContext,
                                                       entity: fetchResult.first)
-                }                
+                }
             }
         } else {
             for facilitiesDetailDict in facilities {
@@ -839,6 +839,106 @@ extension DataManager {
                 
             }
         }
+        do {
+            try managedObjContext.save()
+        } catch let error as NSError {
+            print("Could not save. \(error), \(error.userInfo)")
+        }
+    }
+    
+    static func updateDinings(managedContext: NSManagedObjectContext,
+                              diningListArray : [Dining]?) {
+        var fetchData = [DiningEntity]()
+        fetchData = DataManager.checkAddedToCoredata(entityName: "DiningEntity",
+                                                     idKey: "lang",
+                                                     idValue: Utils.getLanguage(),
+                                                     managedContext: managedContext) as! [DiningEntity]
+        if let diningList = diningListArray, !fetchData.isEmpty {
+            for diningListDict in diningList {
+                let fetchResult = DataManager.checkAddedToCoredata(entityName: "DiningEntity",
+                                                                   idKey: "id",
+                                                                   idValue: diningListDict.id,
+                                                                   managedContext: managedContext)
+                //update
+                if fetchResult.isEmpty {
+                    let diningdbDict = fetchResult[0] as! DiningEntity
+                    DataManager.saveToDiningCoreData(diningListDict: diningListDict,
+                                                     managedObjContext: managedContext,
+                                                     entity: diningdbDict)
+                } else {
+                    //save
+                    DataManager.saveToDiningCoreData(diningListDict: diningListDict,
+                                                     managedObjContext: managedContext,
+                                                     entity: nil)
+                }
+            }
+        } else if let diningList = diningListArray {
+            for diningListDict in diningList {
+                DataManager.saveToDiningCoreData(diningListDict: diningListDict,
+                                                 managedObjContext: managedContext,
+                                                 entity: nil)
+            }
+        }
+    }
+    
+    /// Save dining entity to coredata
+    ///
+    /// - Parameters:
+    ///   - diningListDict: Dining
+    ///   - managedObjContext: NSManagedObjectContext
+    ///   - entity: DiningEntity, nil will create new entity
+    static func saveToDiningCoreData(diningListDict: Dining,
+                              managedObjContext: NSManagedObjectContext,
+                              entity: DiningEntity?) {
+        var diningInfo: DiningEntity?
+        if entity == nil {
+            diningInfo = NSEntityDescription.insertNewObject(forEntityName: "DiningEntity",
+                                                             into: managedObjContext) as? DiningEntity
+        }
+        diningInfo?.id = diningListDict.id
+        diningInfo?.name = diningListDict.name
+        
+        diningInfo?.image = diningListDict.image
+        if let sortID = diningListDict.sortid {
+            diningInfo?.sortid = sortID
+        }
+        diningInfo?.museumId = diningListDict.museumId
+        diningInfo?.lang = Utils.getLanguage()
+        
+        if let description = diningListDict.description {
+            diningInfo?.diningdescription = description
+        }
+        
+        if let closetime = diningListDict.closetime {
+            diningInfo?.closetime = closetime
+        }
+        
+        if let openingtime = diningListDict.openingtime {
+            diningInfo?.openingtime =  openingtime
+        }
+        
+        if let location = diningListDict.location {
+            diningInfo?.location =  location
+        }
+        
+        if let images = diningListDict.images {
+            for imageString in images {
+                var diningImagesEntity: ImageEntity!
+                let diningImage = NSEntityDescription.insertNewObject(forEntityName: "ImageEntity",
+                                                                      into: managedObjContext) as! ImageEntity
+                diningImage.image = imageString
+                diningImagesEntity = diningImage
+                diningInfo?.addToImagesRelation(diningImagesEntity)
+                do {
+                    try managedObjContext.save()
+                } catch let error as NSError {
+                    print("Could not save. \(error), \(error.userInfo)")
+                }
+                
+            }
+        }
+        
+        
         do {
             try managedObjContext.save()
         } catch let error as NSError {
