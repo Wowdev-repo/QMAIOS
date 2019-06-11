@@ -73,6 +73,17 @@ class DataManager {
         }
         return false
     }
+    
+    /// Save NSManagedObjectContext
+    ///
+    /// - Parameter context: NSManagedObjectContext
+    static func save(_ context: NSManagedObjectContext) {
+        do {
+            try context.save()
+        } catch {
+            print(error)
+        }
+    }
 }
 
 //Fetch functions
@@ -194,11 +205,7 @@ extension DataManager {
                 aboutDescEntity = aboutDesc
                 aboutDescEntity.language = Utils.getLanguage()
                 aboutdbDict.addToMobileDescRelation(aboutDescEntity)
-                do {
-                    try managedObjContext.save()
-                } catch let error as NSError {
-                    print("Could not save. \(error), \(error.userInfo)")
-                }
+                DataManager.save(managedObjContext)
             }
         }
         
@@ -212,11 +219,7 @@ extension DataManager {
                     aboutImgaeArray.language = Utils.getLanguage()
                     aboutImage = aboutImgaeArray
                     aboutdbDict.addToMultimediaRelation(aboutImage)
-                    do {
-                        try managedObjContext.save()
-                    } catch let error as NSError {
-                        print("Could not save. \(error), \(error.userInfo)")
-                    }
+                    DataManager.save(managedObjContext)
                 }
             }
         }
@@ -231,20 +234,12 @@ extension DataManager {
                     
                     aboutImage = aboutImgaeArray
                     aboutdbDict.addToDownloadLinkRelation(aboutImage)
-                    do {
-                        try managedObjContext.save()
-                    } catch let error as NSError {
-                        print("Could not save. \(error), \(error.userInfo)")
-                    }
+                    DataManager.save(managedObjContext)
                 }
             }
         }
         
-        do {
-            try managedObjContext.save()
-        } catch let error as NSError {
-            print("Could not save. \(error), \(error.userInfo)")
-        }
+        DataManager.save(managedObjContext)
     }
     
     /// Store education events
@@ -320,12 +315,7 @@ extension DataManager {
                     
                     eventDateEntity.language = Utils.getLanguage()
                     edducationInfo.addToFieldRepeatDates(eventDateEntity)
-                    do {
-                        try managedObjContext.save()
-                        
-                    } catch let error as NSError {
-                        print("Could not save. \(error), \(error.userInfo)")
-                    }
+                    DataManager.save(managedObjContext)
                     
                 }
             }
@@ -345,13 +335,7 @@ extension DataManager {
                 eventAge.language = Utils.getLanguage()
                 eventAgeEntity = eventAge
                 edducationInfo.addToAgeGroupRelation(eventAgeEntity)
-                do {
-                    try managedObjContext.save()
-                    
-                } catch let error as NSError {
-                    print("Could not save. \(error), \(error.userInfo)")
-                }
-                
+                DataManager.save(managedObjContext)
             }
         }
         //Associated_topics
@@ -368,12 +352,7 @@ extension DataManager {
                 event.language = Utils.getLanguage()
                 eventSubEntity = event
                 edducationInfo.addToAssTopicRelation(eventSubEntity)
-                do {
-                    try managedObjContext.save()
-                    
-                } catch let error as NSError {
-                    print("Could not save. \(error), \(error.userInfo)")
-                }
+                DataManager.save(managedObjContext)
                 
             }
         }
@@ -389,12 +368,7 @@ extension DataManager {
                                                            range: nil)
                 event.language = Utils.getLanguage()
                 edducationInfo.addToStartDateRelation(event)
-                do {
-                    try managedObjContext.save()
-                    
-                } catch let error as NSError {
-                    print("Could not save. \(error), \(error.userInfo)")
-                }
+                DataManager.save(managedObjContext)
             }
         }
         
@@ -409,22 +383,11 @@ extension DataManager {
                                                            range: nil)
                 event.language = Utils.getLanguage()
                 edducationInfo.addToEndDateRelation(event)
-                do {
-                    try managedObjContext.save()
-                    
-                } catch let error as NSError {
-                    print("Could not save. \(error), \(error.userInfo)")
-                }
+                DataManager.save(managedObjContext)
             }
         }
         
-        do {
-            try managedObjContext.save()
-            
-            
-        } catch let error as NSError {
-            print("Could not save. \(error), \(error.userInfo)")
-        }
+        DataManager.save(managedObjContext)
     }
     
     static func saveEducationEvents(_ events: [EducationEvent],
@@ -492,11 +455,7 @@ extension DataManager {
                 eventDateEntity.language = Utils.getLanguage()
                 edducationInfo.addToFieldRepeatDates(eventDateEntity)
                 
-                do {
-                    try managedObjContext.save()
-                } catch let error as NSError {
-                    print("Could not save. \(error), \(error.userInfo)")
-                }
+               DataManager.save(managedObjContext)
                 
             }
         }
@@ -510,12 +469,7 @@ extension DataManager {
                 eventAge.language = Utils.getLanguage()
                 eventAgeEntity = eventAge
                 edducationInfo.addToAgeGroupRelation(eventAgeEntity)
-                do {
-                    try managedObjContext.save()
-                    
-                } catch let error as NSError {
-                    print("Could not save. \(error), \(error.userInfo)")
-                }
+                DataManager.save(managedObjContext)
                 
             }
         }
@@ -530,12 +484,7 @@ extension DataManager {
                 event.language = Utils.getLanguage()
                 eventSubEntity = event
                 edducationInfo.addToAssTopicRelation(eventSubEntity)
-                do {
-                    try managedObjContext.save()
-                    
-                } catch let error as NSError {
-                    print("Could not save. \(error), \(error.userInfo)")
-                }
+                DataManager.save(managedObjContext)
                 
             }
         }
@@ -550,12 +499,7 @@ extension DataManager {
                 event.language = Utils.getLanguage()
                 eventSubEntity = event
                 edducationInfo.addToStartDateRelation(eventSubEntity)
-                do {
-                    try managedObjContext.save()
-                    
-                } catch let error as NSError {
-                    print("Could not save. \(error), \(error.userInfo)")
-                }
+               DataManager.save(managedObjContext)
                 
             }
         }
@@ -570,23 +514,12 @@ extension DataManager {
                 event.language = Utils.getLanguage()
                 eventSubEntity = event
                 edducationInfo.addToEndDateRelation(eventSubEntity)
-                do {
-                    try managedObjContext.save()
-                    
-                } catch let error as NSError {
-                    print("Could not save. \(error), \(error.userInfo)")
-                }
+                DataManager.save(managedObjContext)
                 
             }
         }
         
-        do {
-            try managedObjContext.save()
-            
-            
-        } catch let error as NSError {
-            print("Could not save. \(error), \(error.userInfo)")
-        }
+        DataManager.save(managedObjContext)
     }
     
     static func updateFacilitiesDetails(managedContext: NSManagedObjectContext,
@@ -733,19 +666,11 @@ extension DataManager {
                 facilitiesImgaeArray.language = Utils.getLanguage()
                 facilitiesDetailImage = facilitiesImgaeArray
                 facilitiesDetaildbDict?.addToFacilitiesDetailRelation(facilitiesDetailImage)
-                do {
-                    try managedContext.save()
-                } catch let error as NSError {
-                    print("Could not save. \(error), \(error.userInfo)")
-                }
+                DataManager.save(managedContext)
             }
         }
-        do {
-            try managedContext.save()
-        }
-        catch{
-            print(error)
-        }
+        
+        DataManager.save(managedContext)
     }
     
     /// Save tour details to core data
@@ -788,19 +713,11 @@ extension DataManager {
                 tourImgaeArray.language = Utils.getLanguage()
                 tourImage = tourImgaeArray
                 tourDetaildbDict?.addToNmoqTourDetailImgBannerRelation(tourImage)
-                do {
-                    try managedObjContext.save()
-                } catch let error as NSError {
-                    print("Could not save. \(error), \(error.userInfo)")
-                }
+                DataManager.save(managedObjContext)
             }
         }
         
-        do {
-            try managedObjContext.save()
-        } catch let error as NSError {
-            print("Could not save. \(error), \(error.userInfo)")
-        }
+        DataManager.save(managedObjContext)
     }
     
     /// Save tour guide to core data
@@ -831,19 +748,11 @@ extension DataManager {
                 multimediaArray.language = Utils.getLanguage()
                 multimediaEntity = multimediaArray
                 tourGuideInfo?.addToTourGuideMultimediaRelation(multimediaEntity)
-                do {
-                    try managedObjContext.save()
-                } catch let error as NSError {
-                    print("Could not save. \(error), \(error.userInfo)")
-                }
+                DataManager.save(managedObjContext)
                 
             }
         }
-        do {
-            try managedObjContext.save()
-        } catch let error as NSError {
-            print("Could not save. \(error), \(error.userInfo)")
-        }
+        DataManager.save(managedObjContext)
     }
     
     static func updateDinings(managedContext: NSManagedObjectContext,
@@ -929,21 +838,12 @@ extension DataManager {
                 diningImage.image = imageString
                 diningImagesEntity = diningImage
                 diningInfo?.addToImagesRelation(diningImagesEntity)
-                do {
-                    try managedObjContext.save()
-                } catch let error as NSError {
-                    print("Could not save. \(error), \(error.userInfo)")
-                }
+                DataManager.save(managedObjContext)
                 
             }
         }
         
-        
-        do {
-            try managedObjContext.save()
-        } catch let error as NSError {
-            print("Could not save. \(error), \(error.userInfo)")
-        }
+        DataManager.save(managedObjContext)
     }
 }
 
