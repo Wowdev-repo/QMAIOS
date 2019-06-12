@@ -124,75 +124,17 @@ class NotificationsViewController: UIViewController,UITableViewDelegate,UITableV
             if #available(iOS 10.0, *) {
                 let container = appDelegate!.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
-                    self.coreDataInBackgroundThread(managedContext: managedContext)
+                    DataManager.updateNotifications(managedContext: managedContext,
+                                                    notifications: self.notificationArray)
                 }
             } else {
                 let managedContext = appDelegate!.managedObjectContext
                 managedContext.perform {
-                    self.coreDataInBackgroundThread(managedContext : managedContext)
+                    DataManager.updateNotifications(managedContext : managedContext,
+                                                    notifications: self.notificationArray)
                 }
             }
         }
-    }
-    
-    func coreDataInBackgroundThread(managedContext: NSManagedObjectContext) {
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-            let fetchData = DataManager.checkAddedToCoredata(entityName: "NotificationsEntity",
-                                                 idKey: "sortId",
-                                                 idValue: nil,
-                                                 managedContext: managedContext) as! [NotificationsEntity]
-            if (fetchData.count > 0) {
-                for i in 0 ... notificationArray.count-1 {
-                    let notificationDict = notificationArray[i]
-                    let fetchResult = DataManager.checkAddedToCoredata(entityName: "NotificationsEntity",
-                                                           idKey: "sortId",
-                                                           idValue: nil,
-                                                           managedContext: managedContext) as! [NotificationsEntity]
-                    if(fetchResult.count > 0) {
-                        let isDeleted = self.deleteExistingNotification(managedContext: managedContext, entityName: "NotificationsEntity")
-                        if(isDeleted == true) {
-                            self.saveToCoreData(notificationsDict: notificationDict, managedObjContext: managedContext)
-                        }
-                    } else {
-                        self.saveToCoreData(notificationsDict: notificationDict, managedObjContext: managedContext)
-                    }
-                }
-            } else {
-                for i in 0 ... notificationArray.count-1 {
-                    let notificationDict : Notification?
-                    notificationDict = notificationArray[i]
-                    self.saveToCoreData(notificationsDict: notificationDict!, managedObjContext: managedContext)
-                }
-            }
-    }
-    
-    func saveToCoreData(notificationsDict: Notification, managedObjContext: NSManagedObjectContext) {
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-            let notificationInfo: NotificationsEntity = NSEntityDescription.insertNewObject(forEntityName: "NotificationsEntity", into: managedObjContext) as! NotificationsEntity
-            notificationInfo.title = notificationsDict.title
-        notificationInfo.language = Utils.getLanguage()
-        
-            if(notificationsDict.sortId != nil) {
-                notificationInfo.sortId = notificationsDict.sortId
-            }
-        do {
-            try managedObjContext.save()
-        } catch let error as NSError {
-            print("Could not save. \(error), \(error.userInfo)")
-        }
-    }
-    
-    func deleteExistingNotification(managedContext:NSManagedObjectContext,entityName : String?) ->Bool? {
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entityName!)
-        let deleteRequest = NSBatchDeleteRequest( fetchRequest: fetchRequest)
-        do{
-            try managedContext.execute(deleteRequest)
-            return true
-        }catch let error as NSError {
-            //handle error here
-            return false
-        }
-        
     }
     
     func fetchNotificationsFromCoredata() {

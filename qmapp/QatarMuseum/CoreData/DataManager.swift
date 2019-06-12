@@ -940,5 +940,48 @@ extension DataManager {
         }
         DataManager.save(managedObjContext)
     }
+    
+    static func updateNotifications(managedContext: NSManagedObjectContext,
+                                    notifications: [Notification]) {
+        let fetchData = DataManager.checkAddedToCoredata(entityName: "NotificationsEntity",
+                                                         idKey: "sortId",
+                                                         idValue: nil,
+                                                         managedContext: managedContext) as! [NotificationsEntity]
+        if (fetchData.count > 0) {
+            for notificationDict in notifications {
+                let fetchResult = DataManager.checkAddedToCoredata(entityName: "NotificationsEntity",
+                                                                   idKey: "sortId",
+                                                                   idValue: nil,
+                                                                   managedContext: managedContext) as! [NotificationsEntity]
+                if(fetchResult.count > 0) {
+                    if DataManager.delete(managedContext: managedContext,
+                                          entityName: "NotificationsEntity") {
+                        DataManager.saveNotificatons(notificationsDict: notificationDict,
+                                              managedObjContext: managedContext)
+                    }
+                } else {
+                    DataManager.saveNotificatons(notificationsDict: notificationDict,
+                                          managedObjContext: managedContext)
+                }
+            }
+        } else {
+            for notificationDict in notifications {
+                DataManager.saveNotificatons(notificationsDict: notificationDict,
+                                      managedObjContext: managedContext)
+            }
+        }
+    }
+    
+    static func saveNotificatons(notificationsDict: Notification,
+                          managedObjContext: NSManagedObjectContext) {
+        let notificationInfo: NotificationsEntity = NSEntityDescription.insertNewObject(forEntityName: "NotificationsEntity", into: managedObjContext) as! NotificationsEntity
+        notificationInfo.title = notificationsDict.title
+        notificationInfo.language = Utils.getLanguage()
+        
+        if let sortID = notificationsDict.sortId {
+            notificationInfo.sortId = sortID
+        }
+        DataManager.save(managedObjContext)
+    }
 }
 
