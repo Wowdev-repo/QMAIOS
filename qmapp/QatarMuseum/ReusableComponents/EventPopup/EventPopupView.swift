@@ -8,6 +8,7 @@
 
 import UIKit
 import CocoaLumberjack
+
 protocol EventPopUpProtocol
 {
     func eventCloseButtonPressed()

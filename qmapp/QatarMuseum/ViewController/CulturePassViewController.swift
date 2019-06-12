@@ -14,7 +14,7 @@ import UIKit
 import KeychainSwift
 import CocoaLumberjack
 
-class CulturePassViewController: UIViewController, HeaderViewProtocol, comingSoonPopUpProtocol,LoginPopUpProtocol,UITextFieldDelegate {
+class CulturePassViewController: UIViewController {
     @IBOutlet weak var headerView: CommonHeaderView!
     @IBOutlet weak var loadingView: LoadingView!
     @IBOutlet weak var introLabel: UILabel!
@@ -109,19 +109,6 @@ class CulturePassViewController: UIViewController, HeaderViewProtocol, comingSoo
         logInButton.titleLabel?.font = UIFont.discoverButtonFont
     }
     
-    func loadComingSoonPopup() {
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-        popupView  = ComingSoonPopUp(frame: self.view.frame)
-        popupView.comingSoonPopupDelegate = self
-        popupView.loadPopup()
-        self.view.addSubview(popupView)
-    }
-    
-    func closeButtonPressed() {
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-        self.popupView.removeFromSuperview()
-    }
-    
     func loadSuccessMessage() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         popupView  = ComingSoonPopUp(frame: self.view.frame)
@@ -188,47 +175,6 @@ class CulturePassViewController: UIViewController, HeaderViewProtocol, comingSoo
         loginPopUpView.userNameText.delegate = self
         loginPopUpView.passwordText.delegate = self
         self.view.addSubview(loginPopUpView)
-    }
-    //MARK: Login Popup Delegate
-    func popupCloseButtonPressed() {
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-        self.loginPopUpView.removeFromSuperview()
-    }
-    
-    func loginButtonPressed() {
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-        Analytics.logEvent("Login", parameters: [
-            "user_name":loginPopUpView.userNameText.text ?? "",
-            "login_id":"1"
-            ])
-        loginPopUpView.userNameText.resignFirstResponder()
-        loginPopUpView.passwordText.resignFirstResponder()
-        self.loginPopUpView.loadingView.isHidden = false
-        self.loginPopUpView.loadingView.showLoading()
-        
-        let titleString = NSLocalizedString("WEBVIEW_TITLE",comment: "Set the title for Alert")
-        if  (networkReachability?.isReachable)! {
-            if ((loginPopUpView.userNameText.text != "") && (loginPopUpView.passwordText.text != "")) {
-                self.getCulturePassTokenFromServer(login: true)
-            }  else {
-                self.loginPopUpView.loadingView.stopLoading()
-                self.loginPopUpView.loadingView.isHidden = true
-                if ((loginPopUpView.userNameText.text == "") && (loginPopUpView.passwordText.text == "")) {
-                    showAlertView(title: titleString, message: NSLocalizedString("USERNAME_REQUIRED",comment: "Set the message for user name required")+"\n"+NSLocalizedString("PASSWORD_REQUIRED",comment: "Set the message for password required"), viewController: self)
-                    
-                } else if ((loginPopUpView.userNameText.text == "") && (loginPopUpView.passwordText.text != "")) {
-                    showAlertView(title: titleString, message: NSLocalizedString("USERNAME_REQUIRED",comment: "Set the message for user name required"), viewController: self)
-                } else if ((loginPopUpView.userNameText.text != "") && (loginPopUpView.passwordText.text == "")) {
-                    showAlertView(title: titleString, message: NSLocalizedString("PASSWORD_REQUIRED",comment: "Set the message for password required"), viewController: self)
-                }
-            }
-        } else {
-            self.loginPopUpView.loadingView.stopLoading()
-            self.loginPopUpView.loadingView.isHidden = true
-            self.view.hideAllToasts()
-            let eventAddedMessage =  NSLocalizedString("CHECK_NETWORK", comment: "CHECK_NETWORK") 
-            self.view.makeToast(eventAddedMessage)
-        }
     }
     
     func loadProfilepage(loginInfo : LoginData?) {
@@ -304,18 +250,15 @@ class CulturePassViewController: UIViewController, HeaderViewProtocol, comingSoo
             showAlertView(title: titleString, message: NSLocalizedString("USERNAME_REQUIRED",comment: "Set the message for user name required"), viewController: self)
         }
     }
-    //MARK:TextField Delegate
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-        if (textField == loginPopUpView.userNameText) {
-            loginPopUpView.passwordText.becomeFirstResponder()
-        } else {
-            loginPopUpView.userNameText.resignFirstResponder()
-            loginPopUpView.passwordText.resignFirstResponder()
-        }
-        return true
+
+    func recordScreenView() {
+        let screenClass = String(describing: type(of: self))
+        Analytics.setScreenName(CULTUREPASS_VC, screenClass: screenClass)
     }
-    //MARK: Header delegates
+}
+
+//MARK:- Header delegates
+extension CulturePassViewController: HeaderViewProtocol {
     func headerCloseButtonPressed() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         let transition = CATransition()
@@ -333,6 +276,147 @@ class CulturePassViewController: UIViewController, HeaderViewProtocol, comingSoo
         }
         
     }
+}
+
+//MARK:- Popup delgates and methods
+extension CulturePassViewController: comingSoonPopUpProtocol,LoginPopUpProtocol {
+    //MARK: comingsoon popup delegate
+    func loadComingSoonPopup() {
+        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
+        popupView  = ComingSoonPopUp(frame: self.view.frame)
+        popupView.comingSoonPopupDelegate = self
+        popupView.loadPopup()
+        self.view.addSubview(popupView)
+    }
+    
+    func closeButtonPressed() {
+        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
+        self.popupView.removeFromSuperview()
+    }
+    //MARK: Login Popup Delegate
+    func popupCloseButtonPressed() {
+        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
+        self.loginPopUpView.removeFromSuperview()
+    }
+    
+    func loginButtonPressed() {
+        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
+        Analytics.logEvent("Login", parameters: [
+            "user_name":loginPopUpView.userNameText.text ?? "",
+            "login_id":"1"
+            ])
+        loginPopUpView.userNameText.resignFirstResponder()
+        loginPopUpView.passwordText.resignFirstResponder()
+        self.loginPopUpView.loadingView.isHidden = false
+        self.loginPopUpView.loadingView.showLoading()
+        
+        let titleString = NSLocalizedString("WEBVIEW_TITLE",comment: "Set the title for Alert")
+        if  (networkReachability?.isReachable)! {
+            if ((loginPopUpView.userNameText.text != "") && (loginPopUpView.passwordText.text != "")) {
+                self.getCulturePassTokenFromServer(login: true)
+            }  else {
+                self.loginPopUpView.loadingView.stopLoading()
+                self.loginPopUpView.loadingView.isHidden = true
+                if ((loginPopUpView.userNameText.text == "") && (loginPopUpView.passwordText.text == "")) {
+                    showAlertView(title: titleString, message: NSLocalizedString("USERNAME_REQUIRED",comment: "Set the message for user name required")+"\n"+NSLocalizedString("PASSWORD_REQUIRED",comment: "Set the message for password required"), viewController: self)
+                    
+                } else if ((loginPopUpView.userNameText.text == "") && (loginPopUpView.passwordText.text != "")) {
+                    showAlertView(title: titleString, message: NSLocalizedString("USERNAME_REQUIRED",comment: "Set the message for user name required"), viewController: self)
+                } else if ((loginPopUpView.userNameText.text != "") && (loginPopUpView.passwordText.text == "")) {
+                    showAlertView(title: titleString, message: NSLocalizedString("PASSWORD_REQUIRED",comment: "Set the message for password required"), viewController: self)
+                }
+            }
+        } else {
+            self.loginPopUpView.loadingView.stopLoading()
+            self.loginPopUpView.loadingView.isHidden = true
+            self.view.hideAllToasts()
+            let eventAddedMessage =  NSLocalizedString("CHECK_NETWORK", comment: "CHECK_NETWORK")
+            self.view.makeToast(eventAddedMessage)
+        }
+    }
+}
+
+//MARK:- TextField Delegate
+extension CulturePassViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
+        if (textField == loginPopUpView.userNameText) {
+            loginPopUpView.passwordText.becomeFirstResponder()
+        } else {
+            loginPopUpView.userNameText.resignFirstResponder()
+            loginPopUpView.passwordText.resignFirstResponder()
+        }
+        return true
+    }
+}
+
+//MARK:- coredata methods
+extension CulturePassViewController {
+    //MARK : NMoQ EntityRegistratiion
+    func getEventListUserRegistrationFromServer() {
+        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
+        if((accessToken != nil) && (keychain.get(UserProfileInfo.user_id) != nil)){
+            let userId = keychain.get(UserProfileInfo.user_id)!
+            _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.NMoQEventListUserRegistration(["user_id" : userId])).responseObject { (response: DataResponse<NMoQUserEventListValues>) -> Void in
+                switch response.result {
+                case .success(let data):
+                    self.userEventList = data.eventList
+                    self.saveOrUpdateEventReistratedCoredata()
+                case .failure( _):
+                    self.loginPopUpView.removeFromSuperview()
+                    self.loginPopUpView.loadingView.stopLoading()
+                    self.loginPopUpView.loadingView.isHidden = true
+                    
+                }
+            }
+            
+        }
+    }
+    
+    //MARK: EventRegistrationCoreData
+    func saveOrUpdateEventReistratedCoredata() {
+        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
+        if (userEventList.count > 0) {
+            let appDelegate =  UIApplication.shared.delegate as? AppDelegate
+            if #available(iOS 10.0, *) {
+                let container = appDelegate!.persistentContainer
+                container.performBackgroundTask() {(managedContext) in
+                    self.userEventCoreDataInBackgroundThread(managedContext: managedContext)
+                }
+            } else {
+                let managedContext = appDelegate!.managedObjectContext
+                managedContext.perform {
+                    self.userEventCoreDataInBackgroundThread(managedContext : managedContext)
+                }
+            }
+        }
+    }
+    func userEventCoreDataInBackgroundThread(managedContext: NSManagedObjectContext) {
+        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
+        if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
+            if (userEventList.count > 0) {
+                for i in 0 ... userEventList.count-1 {
+                    let userEventInfo: RegisteredEventListEntity = NSEntityDescription.insertNewObject(forEntityName: "RegisteredEventListEntity", into: managedContext) as! RegisteredEventListEntity
+                    let userEventListDict = userEventList[i]
+                    userEventInfo.title = userEventListDict.title
+                    userEventInfo.eventId = userEventListDict.eventID
+                    userEventInfo.regId = userEventListDict.regID
+                    userEventInfo.seats = userEventListDict.seats
+                    do{
+                        try managedContext.save()
+                    }
+                    catch{
+                        print(error)
+                    }
+                }
+            }
+        }
+    }
+}
+
+//MARK:- Service calls
+extension CulturePassViewController {
+    
     //MARK: WebServiceCall
     func getCulturePassTokenFromServer(login: Bool? = false) {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
@@ -340,9 +424,9 @@ class CulturePassViewController: UIViewController, HeaderViewProtocol, comingSoo
             switch response.result {
             case .success(let data):
                 self.accessToken = data.accessToken
-//                UserDefaults.standard.set(data.accessToken, forKey: "accessToken")
+                //                UserDefaults.standard.set(data.accessToken, forKey: "accessToken")
                 //self.loginPopUpView.loadingView.stopLoading()
-               // self.loginPopUpView.loadingView.isHidden = true
+                // self.loginPopUpView.loadingView.isHidden = true
                 if(login == true) {
                     self.getCulturePassLoginFromServer()
                 } else {
@@ -388,7 +472,7 @@ class CulturePassViewController: UIViewController, HeaderViewProtocol, comingSoo
                     
                 }
             }
-
+            
         }
     }
     
@@ -451,70 +535,10 @@ class CulturePassViewController: UIViewController, HeaderViewProtocol, comingSoo
             }
         }
     }
-    //MARK : NMoQ EntityRegistratiion
-    func getEventListUserRegistrationFromServer() {
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-        if((accessToken != nil) && (keychain.get(UserProfileInfo.user_id) != nil)){
-            let userId = keychain.get(UserProfileInfo.user_id)!
-            _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.NMoQEventListUserRegistration(["user_id" : userId])).responseObject { (response: DataResponse<NMoQUserEventListValues>) -> Void in
-                switch response.result {
-                case .success(let data):
-                    self.userEventList = data.eventList
-                    self.saveOrUpdateEventReistratedCoredata()
-                case .failure( _):
-                    self.loginPopUpView.removeFromSuperview()
-                    self.loginPopUpView.loadingView.stopLoading()
-                    self.loginPopUpView.loadingView.isHidden = true
-                    
-                }
-            }
-            
-        }
-    }
 
-    //MARK: EventRegistrationCoreData
-    func saveOrUpdateEventReistratedCoredata() {
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-        if (userEventList.count > 0) {
-            let appDelegate =  UIApplication.shared.delegate as? AppDelegate
-            if #available(iOS 10.0, *) {
-                let container = appDelegate!.persistentContainer
-                container.performBackgroundTask() {(managedContext) in
-                    self.userEventCoreDataInBackgroundThread(managedContext: managedContext)
-                }
-            } else {
-                let managedContext = appDelegate!.managedObjectContext
-                managedContext.perform {
-                    self.userEventCoreDataInBackgroundThread(managedContext : managedContext)
-                }
-            }
-        }
-    }
-    func userEventCoreDataInBackgroundThread(managedContext: NSManagedObjectContext) {
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-        if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
-            if (userEventList.count > 0) {
-                for i in 0 ... userEventList.count-1 {
-                    let userEventInfo: RegisteredEventListEntity = NSEntityDescription.insertNewObject(forEntityName: "RegisteredEventListEntity", into: managedContext) as! RegisteredEventListEntity
-                    let userEventListDict = userEventList[i]
-                    userEventInfo.title = userEventListDict.title
-                    userEventInfo.eventId = userEventListDict.eventID
-                    userEventInfo.regId = userEventListDict.regID
-                    userEventInfo.seats = userEventListDict.seats
-                    do{
-                        try managedContext.save()
-                    }
-                    catch{
-                        print(error)
-                    }
-                }
-            }
-        }
-    }
-    func recordScreenView() {
-        let screenClass = String(describing: type(of: self))
-        Analytics.setScreenName(CULTUREPASS_VC, screenClass: screenClass)
-    }
+}
+//MARK:- Segue controller
+extension CulturePassViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "culturePassToProfileSegue") {
             let profileView = segue.destination as! CPProfileViewController

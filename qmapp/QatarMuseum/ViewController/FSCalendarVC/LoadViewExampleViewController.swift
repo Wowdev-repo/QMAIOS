@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LoadViewExampleViewController: UIViewController, FSCalendarDataSource, FSCalendarDelegate {
+class LoadViewExampleViewController: UIViewController {
 
     private weak var calendar: FSCalendar!
     
@@ -32,11 +32,12 @@ class LoadViewExampleViewController: UIViewController, FSCalendarDataSource, FSC
         super.viewDidLoad()
         self.title = "FSCalendar"
     }
-    
+}
+
+extension LoadViewExampleViewController: FSCalendarDataSource, FSCalendarDelegate {
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         if monthPosition == .previous || monthPosition == .next {
             calendar.setCurrentPage(date, animated: true)
         }
     }
-
 }

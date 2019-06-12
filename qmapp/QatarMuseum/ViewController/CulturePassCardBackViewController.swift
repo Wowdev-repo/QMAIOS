@@ -66,7 +66,4 @@ class CulturePassCardBackViewController: UIViewController {
     @IBAction func didTapClose(_ sender: UIButton) {
         self.presentingViewController?.presentingViewController?.dismiss(animated: false, completion: nil)
     }
-    
-    
-
 }

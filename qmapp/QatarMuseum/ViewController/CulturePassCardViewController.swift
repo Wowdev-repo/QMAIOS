@@ -103,27 +103,32 @@ class CulturePassCardViewController: UIViewController {
         let screenClass = String(describing: type(of: self))
         Analytics.setScreenName(CULTUREPASS_CARD_VC, screenClass: screenClass)
     }
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if (segue.identifier == "culturepassFrontToBackSegue") {
-//            let culturePassBackCard = segue.destination as! CulturePassCardBackViewController
-//            culturePassBackCard.modalTransitionStyle = .flipHorizontal
-//            if((UserDefaults.standard.value(forKey: "uid") as? String != nil) && (UserDefaults.standard.value(forKey: "uid") as? String != "") ) {
-//                let membershipNum = Int((UserDefaults.standard.value(forKey: "uid") as? String)!)! + 006000
-//                culturePassBackCard.cardNumber = "00" + String(membershipNum)
-//            }
-//            if((UserDefaults.standard.value(forKey: "displayName") as? String != nil) && (UserDefaults.standard.value(forKey: "displayName") as? String != "")) {
-//                culturePassBackCard.usernameString = (UserDefaults.standard.value(forKey: "displayName") as? String)
-//            }
-//            if (UserDefaults.standard.value(forKey: "fieldFirstName") as? String != nil) && (UserDefaults.standard.value(forKey: "fieldLastName") as? String != nil) {
-//                let firstName = UserDefaults.standard.value(forKey: "fieldFirstName") as! String
-//                let lastName = UserDefaults.standard.value(forKey: "fieldLastName") as! String
-//                culturePassBackCard.displayName = firstName + " "  + lastName
-//            }
-//        }
-//    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
 
+}
+
+//MARK:- Sugue controller
+extension CulturePassViewController {
+    //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    //        if (segue.identifier == "culturepassFrontToBackSegue") {
+    //            let culturePassBackCard = segue.destination as! CulturePassCardBackViewController
+    //            culturePassBackCard.modalTransitionStyle = .flipHorizontal
+    //            if((UserDefaults.standard.value(forKey: "uid") as? String != nil) && (UserDefaults.standard.value(forKey: "uid") as? String != "") ) {
+    //                let membershipNum = Int((UserDefaults.standard.value(forKey: "uid") as? String)!)! + 006000
+    //                culturePassBackCard.cardNumber = "00" + String(membershipNum)
+    //            }
+    //            if((UserDefaults.standard.value(forKey: "displayName") as? String != nil) && (UserDefaults.standard.value(forKey: "displayName") as? String != "")) {
+    //                culturePassBackCard.usernameString = (UserDefaults.standard.value(forKey: "displayName") as? String)
+    //            }
+    //            if (UserDefaults.standard.value(forKey: "fieldFirstName") as? String != nil) && (UserDefaults.standard.value(forKey: "fieldLastName") as? String != nil) {
+    //                let firstName = UserDefaults.standard.value(forKey: "fieldFirstName") as! String
+    //                let lastName = UserDefaults.standard.value(forKey: "fieldLastName") as! String
+    //                culturePassBackCard.displayName = firstName + " "  + lastName
+    //            }
+    //        }
+    //    }
 }

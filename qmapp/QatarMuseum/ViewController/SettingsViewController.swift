@@ -12,7 +12,7 @@ import UIKit
 import MessageUI
 import CocoaLumberjack
 
-class SettingsViewController: UIViewController,HeaderViewProtocol,EventPopUpProtocol, MFMailComposeViewControllerDelegate {
+class SettingsViewController: UIViewController {
 
     @IBOutlet weak var headerView: CommonHeaderView!
     @IBOutlet weak var selectLanguageLabel: UILabel!
@@ -36,6 +36,7 @@ class SettingsViewController: UIViewController,HeaderViewProtocol,EventPopUpProt
     @IBOutlet weak var settingsInnerView: UIView!
     
     var eventPopup : EventPopupView = EventPopupView()
+    
     override func viewDidLoad() {
         DDLogInfo(NSStringFromClass(type(of: self)) + " " + "Function: \(#function)")
 
@@ -224,72 +225,7 @@ class SettingsViewController: UIViewController,HeaderViewProtocol,EventPopUpProt
         self.sendLogsButton.setTitleColor(UIColor.viewMyculTitleBlue, for: .normal)
         self.sendLogsButton.transform = CGAffineTransform(scaleX: 0.7, y:0.7)
     }
-    //MARK: header delegate
-    func headerCloseButtonPressed() {
-        let transition = CATransition()
-        transition.duration = 0.3
-        transition.type = kCATransitionPush
-        transition.subtype = kCATransitionFromLeft
-        self.view.window!.layer.add(transition, forKey: kCATransition)
-        self.dismiss(animated: false, completion: nil)
-        
-    }
-    //MARK: Event Popup Delegate
-    func loadConfirmationPopup() {
-        eventPopup  = EventPopupView(frame: self.view.frame)
-       // eventPopup.eventPopupHeight.constant = 250
-        eventPopup.eventPopupDelegate = self
-        eventPopup.eventTitle.text = NSLocalizedString("CHANGE_LANGUAGE_TITLE", comment: "CHANGE_LANGUAGE_TITLE  in the popup view")
-        eventPopup.eventDescription.text = NSLocalizedString("SETTINGS_REDIRECTION_MSG", comment: "SETTINGS_REDIRECTION_MSG  in the popup view")
-        eventPopup.addToCalendarButton.setTitle(NSLocalizedString("CONTINUE_TITLE", comment: "CONTINUE_TITLE  in the popup view"), for: .normal)
-        self.view.addSubview(eventPopup)
-        }
-    func eventCloseButtonPressed() {
-        if (self.languageSwitch.isOn == true) {
-            self.languageSwitch.isOn = false
-        }
-        else{
-            self.languageSwitch.isOn = true
-        }
-        self.eventPopup.removeFromSuperview()
-    }
-    
-    func addToCalendarButtonPressed() {
-        if ((LocalizationLanguage.currentAppleLanguage()) == "en") {
-            LocalizationLanguage.setAppleLAnguageTo(lang: "ar")
-            languageKey = 2
-            UserDefaults.standard.set(true, forKey: "Arabic")
-            if #available(iOS 9.0, *) {
-                UIView.appearance().semanticContentAttribute = .forceRightToLeft
-//                self.view.window!.rootViewController?.dismiss(animated: false, completion: nil)
-                let homeViewController = self.storyboard?.instantiateViewController(withIdentifier: "homeId") as! CPHomeViewController
 
-                let appDelegate = UIApplication.shared.delegate
-                appDelegate?.window??.rootViewController = homeViewController
-                
-                
-            } else {
-                // Fallback on earlier versions
-            }
-        }
-        else {
-            LocalizationLanguage.setAppleLAnguageTo(lang: "en")
-            languageKey = 1
-            UserDefaults.standard.set(false, forKey: "Arabic")
-            if #available(iOS 9.0, *) {
-                UIView.appearance().semanticContentAttribute = .forceLeftToRight
-//                self.view.window!.rootViewController?.dismiss(animated: false, completion: nil)
-                let homeViewController = self.storyboard?.instantiateViewController(withIdentifier: "homeId") as! CPHomeViewController
-                let appDelegate = UIApplication.shared.delegate
-                appDelegate?.window??.rootViewController = homeViewController
-                // self.dismiss(animated: false, completion: nil)
-                
-            } else {
-                // Fallback on earlier versions
-                
-            }
-        }
-    }
     func recordScreenView() {
         let screenClass = String(describing: type(of: self))
         Analytics.setScreenName(SETTINGS_VC, screenClass: screenClass)
@@ -324,8 +260,82 @@ class SettingsViewController: UIViewController,HeaderViewProtocol,EventPopUpProt
         self.present(sendMailConfirmAlert, animated: true, completion: nil)
         
     }
+}
+
+//MARK:- header delegate
+extension SettingsViewController: HeaderViewProtocol {
+    func headerCloseButtonPressed() {
+        let transition = CATransition()
+        transition.duration = 0.3
+        transition.type = kCATransitionPush
+        transition.subtype = kCATransitionFromLeft
+        self.view.window!.layer.add(transition, forKey: kCATransition)
+        self.dismiss(animated: false, completion: nil)
+        
+    }
+}
+
+//MARK:- Event Popup Delegate
+extension SettingsViewController: EventPopUpProtocol {
+    func loadConfirmationPopup() {
+        eventPopup  = EventPopupView(frame: self.view.frame)
+        // eventPopup.eventPopupHeight.constant = 250
+        eventPopup.eventPopupDelegate = self
+        eventPopup.eventTitle.text = NSLocalizedString("CHANGE_LANGUAGE_TITLE", comment: "CHANGE_LANGUAGE_TITLE  in the popup view")
+        eventPopup.eventDescription.text = NSLocalizedString("SETTINGS_REDIRECTION_MSG", comment: "SETTINGS_REDIRECTION_MSG  in the popup view")
+        eventPopup.addToCalendarButton.setTitle(NSLocalizedString("CONTINUE_TITLE", comment: "CONTINUE_TITLE  in the popup view"), for: .normal)
+        self.view.addSubview(eventPopup)
+    }
+    func eventCloseButtonPressed() {
+        if (self.languageSwitch.isOn == true) {
+            self.languageSwitch.isOn = false
+        }
+        else{
+            self.languageSwitch.isOn = true
+        }
+        self.eventPopup.removeFromSuperview()
+    }
     
-    // MARK: MFMailComposeViewControllerDelegate Method
+    func addToCalendarButtonPressed() {
+        if ((LocalizationLanguage.currentAppleLanguage()) == "en") {
+            LocalizationLanguage.setAppleLAnguageTo(lang: "ar")
+            languageKey = 2
+            UserDefaults.standard.set(true, forKey: "Arabic")
+            if #available(iOS 9.0, *) {
+                UIView.appearance().semanticContentAttribute = .forceRightToLeft
+                //                self.view.window!.rootViewController?.dismiss(animated: false, completion: nil)
+                let homeViewController = self.storyboard?.instantiateViewController(withIdentifier: "homeId") as! CPHomeViewController
+                
+                let appDelegate = UIApplication.shared.delegate
+                appDelegate?.window??.rootViewController = homeViewController
+                
+                
+            } else {
+                // Fallback on earlier versions
+            }
+        }
+        else {
+            LocalizationLanguage.setAppleLAnguageTo(lang: "en")
+            languageKey = 1
+            UserDefaults.standard.set(false, forKey: "Arabic")
+            if #available(iOS 9.0, *) {
+                UIView.appearance().semanticContentAttribute = .forceLeftToRight
+                //                self.view.window!.rootViewController?.dismiss(animated: false, completion: nil)
+                let homeViewController = self.storyboard?.instantiateViewController(withIdentifier: "homeId") as! CPHomeViewController
+                let appDelegate = UIApplication.shared.delegate
+                appDelegate?.window??.rootViewController = homeViewController
+                // self.dismiss(animated: false, completion: nil)
+                
+            } else {
+                // Fallback on earlier versions
+                
+            }
+        }
+    }
+}
+
+// MARK:- MFMailComposeViewControllerDelegate Method
+extension SettingsViewController: MFMailComposeViewControllerDelegate {
     func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         
         switch (result)
@@ -334,7 +344,7 @@ class SettingsViewController: UIViewController,HeaderViewProtocol,EventPopUpProt
             DDLogInfo("Mail cancelled: you cancelled the operation and no email message was queued.");
             controller.dismiss(animated: true, completion: nil)
             self.view.makeToast(NSLocalizedString("EMAIL_CANCELLED", comment: ""))
-//            self.view.hideAllToasts()
+            //            self.view.hideAllToasts()
             break;
         case .saved:
             DDLogInfo("Mail saved: you saved the email message in the drafts folder.");
@@ -388,7 +398,7 @@ class SettingsViewController: UIViewController,HeaderViewProtocol,EventPopUpProt
         
         let mailComposerVC = MFMailComposeViewController()
         mailComposerVC.mailComposeDelegate = self // Extremely important to set the --mailComposeDelegate-- property, NOT the --delegate-- property
-    
+        
         mailComposerVC.setToRecipients([emailId])
         mailComposerVC.setSubject("Please describe your problem:")
         mailComposerVC.setMessageBody(label, isHTML: false)
@@ -399,7 +409,7 @@ class SettingsViewController: UIViewController,HeaderViewProtocol,EventPopUpProt
             if let data = data {
                 mailComposerVC.addAttachmentData(data, mimeType: "application/zip", fileName: "logs.piz")
                 DDLogInfo("Logs attached successfully")
-
+                
             }
         } else {
             DDLogWarn("No logs attached")
@@ -410,7 +420,7 @@ class SettingsViewController: UIViewController,HeaderViewProtocol,EventPopUpProt
     
     func showSendMailErrorAlert() {
         DDLogInfo(NSStringFromClass(type(of: self)) + " " + "Function: \(#function)")
-
+        
         let sendMailErrorAlert = UIAlertController(title: NSLocalizedString("EMAIL_DEVICE_CONFIG_TITLE", comment: ""), message: NSLocalizedString("EMAIL_DEVICE_CONFIG_MESSAGE", comment: ""), preferredStyle: UIAlertControllerStyle.alert)
         
         let okAction = UIAlertAction(title: NSLocalizedString("OK", comment: ""), style: UIAlertActionStyle.default)

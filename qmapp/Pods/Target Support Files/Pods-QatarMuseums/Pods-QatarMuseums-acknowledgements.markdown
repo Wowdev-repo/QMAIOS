@@ -28,7 +28,7 @@ THE SOFTWARE.
 
 BSD 3-Clause License
 
-Copyright (c) 2010-2018, Deusty, LLC
+Copyright (c) 2010-2019, Deusty, LLC
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -797,7 +797,7 @@ THE SOFTWARE.
 
 ## SSZipArchive
 
-Copyright (c) 2010-2015, Sam Soffes, http://soff.es
+Copyright (c) 2010-2015, Sam Soffes, https://soff.es
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the

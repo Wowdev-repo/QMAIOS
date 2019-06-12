@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DelegateAppearanceViewController: UIViewController, FSCalendarDataSource, FSCalendarDelegate, FSCalendarDelegateAppearance {
+class DelegateAppearanceViewController: UIViewController {
     
     fileprivate weak var calendar: FSCalendar!
     
@@ -68,7 +68,9 @@ class DelegateAppearanceViewController: UIViewController, FSCalendarDataSource, 
     func todayItemClicked(sender: AnyObject) {
         self.calendar.setCurrentPage(Date(), animated: false)
     }
-    
+}
+
+extension DelegateAppearanceViewController: FSCalendarDataSource, FSCalendarDelegate, FSCalendarDelegateAppearance {
     func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
         let dateString = self.dateFormatter2.string(from: date)
         if self.datesWithEvent.contains(dateString) {

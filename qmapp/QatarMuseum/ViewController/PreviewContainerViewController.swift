@@ -13,7 +13,8 @@ import Firebase
 import UIKit
 import CocoaLumberjack
 
-class PreviewContainerViewController: UIViewController,UIPageViewControllerDelegate,UIPageViewControllerDataSource,HeaderViewProtocol,UIGestureRecognizerDelegate,LoadingViewProtocol {
+class PreviewContainerViewController: UIViewController {
+    
     @IBOutlet weak var loadingView: LoadingView!
     @IBOutlet weak var headerView: CommonHeaderView!
     @IBOutlet weak var contentView: UIView!
@@ -110,6 +111,7 @@ class PreviewContainerViewController: UIViewController,UIPageViewControllerDeleg
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
+    
     func showOrHidePageControlView(countValue: Int?,scrolling:Bool?) {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         if countValue == 0 {
@@ -337,14 +339,146 @@ class PreviewContainerViewController: UIViewController,UIPageViewControllerDeleg
         
         viewOneLineOne.isHidden = true
     }
+   
+    func viewControllerAtIndex(index : Int) -> PreviewContentViewController? {
+        if ((self.tourGuideArray.count == 0) || (index > self.tourGuideArray.count)){
+            return nil
+        }
+        let pageContentViewController = self.storyboard?.instantiateViewController(withIdentifier: "PageContentViewControllerId") as! PreviewContentViewController
+        pageContentViewController.pageIndex = index
+        pageContentViewController.tourGuideDict = tourGuideArray[index]
+        return pageContentViewController
+    }
     
+    func setPageViewVisible() {
+        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
+        
+        pageViewOne.isHidden = false
+        pageViewTwo.isHidden = false
+        pageViewThree.isHidden = false
+        pageViewFour.isHidden = false
+        pageViewFive.isHidden = false
+        
+        pageImageViewOne.isHidden = false
+        pageImageViewTwo.isHidden = false
+        pageImageViewThree.isHidden = false
+        pageImageViewFour.isHidden = false
+        pageImageViewFive.isHidden = false
+        
+        viewOneLineOne.isHidden = false
+        viewOneLineTwo.isHidden = false
+        viewTwoLineOne.isHidden = false
+        viewTwoLineTwo.isHidden = false
+        viewThreeLineOne.isHidden = false
+        viewThreeLineTwo.isHidden = false
+        viewFourLineOne.isHidden = false
+        viewFourLineTwo.isHidden = false
+        viewFiveLineOne.isHidden = false
+        viewFiveLineTwo.isHidden = false
+        
+        pageImageOneHeight.constant = 20
+        pageImageOneWidth.constant = 20
+        pageImageTwoHeight.constant = 20
+        pageImageTwoWidth.constant = 20
+        pageImageThreeHeight.constant = 20
+        pageImageThreeWidth.constant = 20
+        pageImageFourHeight.constant = 20
+        pageImageFourWidth.constant = 20
+       // pageImageOneHeight.constant = 20
+       // pageImageOneWidth.constant = 20
+        pageImageViewOne.image = UIImage(named: "unselected")
+        pageImageViewTwo.image = UIImage(named: "unselected")
+        pageImageViewThree.image = UIImage(named: "unselected")
+        pageImageViewFour.image = UIImage(named: "unselected")
+    }
+    
+    func closeAudio() {
+        if (currentContentViewController != nil) {
+            currentContentViewController.stopAudio()
+            Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
+                AnalyticsParameterItemID: FirebaseAnalyticsEvents.tapped_previewcontainer_stopaudio,
+                AnalyticsParameterItemName: "",
+                AnalyticsParameterContentType: "cont"
+                ])
+        }
+    }
+    
+    func filterButtonPressed() {
+        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
+        self.closeAudio()
+        if (tourGuideArray.count != 0) {
+            let selectedItem = tourGuideArray[currentPreviewItem]
+            if((selectedItem.artifactPosition != nil) && (selectedItem.artifactPosition != "") && (selectedItem.floorLevel != nil) && (selectedItem.floorLevel != "")) {
+                let floorMapView =  self.storyboard?.instantiateViewController(withIdentifier: "floorMapId") as!FloorMapViewController
+                
+                floorMapView.selectedScienceTour = selectedItem.artifactPosition
+                floorMapView.selectedScienceTourLevel = selectedItem.floorLevel
+                floorMapView.selectednid = selectedItem.nid
+//                if let imageUrl = selectedItem.image{
+//                    if(imageUrl != "") {
+//                        if let data = try? Data(contentsOf: URL(string: imageUrl)!) {
+//                            let image: UIImage = UIImage(data: data)!
+//                            floorMapView.selectedImageFromPreview = image
+//                        }
+//                    }
+//                }
+                
+                if(fromScienceTour) {
+                    floorMapView.fromTourString = fromTour.scienceTour
+                } else {
+                    floorMapView.fromTourString = fromTour.HighlightTour
+                }
+                let transition = CATransition()
+                transition.duration = 0.9
+                transition.type = "flip"
+                transition.subtype = kCATransitionFromLeft
+                view.window!.layer.add(transition, forKey: kCATransition)
+                //floorMapView.modalTransitionStyle = .flipHorizontal
+                self.present(floorMapView, animated: true, completion: nil)
+            } else {
+                self.view.hideAllToasts()
+                let locationMissingMessage =  NSLocalizedString("LOCATION_MISSING_MESSAGE", comment: "LOCATION_MISSING_MESSAGE")
+                self.view.makeToast(locationMissingMessage)
+            }
+            
+            Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
+                AnalyticsParameterItemID: FirebaseAnalyticsEvents.tapped_previewcontainer_filter,
+                AnalyticsParameterItemName: "",
+                AnalyticsParameterContentType: "cont"
+                ])
+            
+        } else {
+            
+        }
+    }
+    @objc func loadDetailPage(sender: UITapGestureRecognizer? = nil) {
+        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
+        self.performSegue(withIdentifier: "previewToObjectDetailSegue", sender: self)
+    }
+    
+    func showNodata() {
+        
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    func recordScreenView() {
+        let screenClass = String(describing: type(of: self))
+        Analytics.setScreenName(PREVIEW_CONTAINER_VC, screenClass: screenClass)
+    }
+}
+
+//MARK:- PageControl delegates
+extension PreviewContainerViewController: UIPageViewControllerDelegate,UIPageViewControllerDataSource {
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         var index: Int? = (viewController as? PreviewContentViewController)?.pageIndex
         if ((index == 0) || (index == NSNotFound)) {
             return nil
         }
         index = index! - 1
-
+        
         return self.viewControllerAtIndex(index: index!)
     }
     
@@ -372,7 +506,7 @@ class PreviewContainerViewController: UIViewController,UIPageViewControllerDeleg
         currentContentViewController = self.viewControllerAtIndex(index: currentPreviewItem)
         self.closeAudio()
         if let currentViewController = pageViewController.viewControllers![0] as? PreviewContentViewController {
-             let currentPageIndex = currentViewController.pageIndex
+            let currentPageIndex = currentViewController.pageIndex
             reloaded = true
             var remainingCount = Int()
             if(currentPageIndex % 5 == 0) {
@@ -583,62 +717,38 @@ class PreviewContainerViewController: UIViewController,UIPageViewControllerDeleg
             currentPreviewItem = currentPageIndex
             currentContentViewController = self.viewControllerAtIndex(index: currentPreviewItem)
         }
-       
+        
     }
-   
-    func viewControllerAtIndex(index : Int) -> PreviewContentViewController? {
-        if ((self.tourGuideArray.count == 0) || (index > self.tourGuideArray.count)){
-            return nil
-        }
-        let pageContentViewController = self.storyboard?.instantiateViewController(withIdentifier: "PageContentViewControllerId") as! PreviewContentViewController
-        pageContentViewController.pageIndex = index
-        pageContentViewController.tourGuideDict = tourGuideArray[index]
-        return pageContentViewController
-    }
-    
-    func setPageViewVisible() {
+}
+
+//MARK:- LoadingView Delegate
+extension PreviewContainerViewController: LoadingViewProtocol {
+    func tryAgainButtonPressed() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-        
-        pageViewOne.isHidden = false
-        pageViewTwo.isHidden = false
-        pageViewThree.isHidden = false
-        pageViewFour.isHidden = false
-        pageViewFive.isHidden = false
-        
-        pageImageViewOne.isHidden = false
-        pageImageViewTwo.isHidden = false
-        pageImageViewThree.isHidden = false
-        pageImageViewFour.isHidden = false
-        pageImageViewFive.isHidden = false
-        
-        viewOneLineOne.isHidden = false
-        viewOneLineTwo.isHidden = false
-        viewTwoLineOne.isHidden = false
-        viewTwoLineTwo.isHidden = false
-        viewThreeLineOne.isHidden = false
-        viewThreeLineTwo.isHidden = false
-        viewFourLineOne.isHidden = false
-        viewFourLineTwo.isHidden = false
-        viewFiveLineOne.isHidden = false
-        viewFiveLineTwo.isHidden = false
-        
-        pageImageOneHeight.constant = 20
-        pageImageOneWidth.constant = 20
-        pageImageTwoHeight.constant = 20
-        pageImageTwoWidth.constant = 20
-        pageImageThreeHeight.constant = 20
-        pageImageThreeWidth.constant = 20
-        pageImageFourHeight.constant = 20
-        pageImageFourWidth.constant = 20
-       // pageImageOneHeight.constant = 20
-       // pageImageOneWidth.constant = 20
-        pageImageViewOne.image = UIImage(named: "unselected")
-        pageImageViewTwo.image = UIImage(named: "unselected")
-        pageImageViewThree.image = UIImage(named: "unselected")
-        pageImageViewFour.image = UIImage(named: "unselected")
+        if  (networkReachability?.isReachable)! {
+            self.getTourGuideDataFromServer()
+        }
     }
     
-    //MARK: Header Delegate
+    func showNoNetwork() {
+        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
+        self.loadingView.stopLoading()
+        self.loadingView.noDataView.isHidden = false
+        self.loadingView.isHidden = false
+        self.loadingView.showNoNetworkView()
+    }
+    
+    func showNoData() {
+        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
+        self.loadingView.stopLoading()
+        self.loadingView.noDataView.isHidden = false
+        self.loadingView.isHidden = false
+        self.loadingView.showNoDataView()
+    }
+}
+
+//MARK:- Header Delegate
+extension PreviewContainerViewController: HeaderViewProtocol {
     func headerCloseButtonPressed() {
         self.closeAudio()
         let transition = CATransition()
@@ -653,19 +763,465 @@ class PreviewContainerViewController: UIViewController,UIPageViewControllerDeleg
             ])
         self.dismiss(animated: false, completion: nil)
     }
-    
-    func closeAudio() {
-        if (currentContentViewController != nil) {
-            currentContentViewController.stopAudio()
-            Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
-                AnalyticsParameterItemID: FirebaseAnalyticsEvents.tapped_previewcontainer_stopaudio,
-                AnalyticsParameterItemName: "",
-                AnalyticsParameterContentType: "cont"
-                ])
+}
+
+extension PreviewContainerViewController: UIGestureRecognizerDelegate {} //FIXME:
+
+//MARK:- Segue controller
+extension PreviewContainerViewController {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if (segue.identifier == "previewToObjectDetailSegue") {
+            let objectDetailView = segue.destination as! ObjectDetailViewController
+            objectDetailView.detailArray.append(tourGuideArray[currentPreviewItem])
+        }
+    }
+}
+
+extension PreviewContainerViewController {
+    //MARK: TourGuide DataBase
+    func saveOrUpdateTourGuideCoredata() {
+        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
+        if (tourGuideArray.count > 0) {
+            if #available(iOS 10.0, *) {
+                let container = appDelegate!.persistentContainer
+                container.performBackgroundTask() {(managedContext) in
+                    self.coreDataInBackgroundThread(managedContext: managedContext)
+                }
+            } else {
+                let managedContext = appDelegate!.managedObjectContext
+                managedContext.perform {
+                    self.coreDataInBackgroundThread(managedContext : managedContext)
+                }
+            }
         }
     }
     
-    //MARK: WebServiceCall
+    func coreDataInBackgroundThread(managedContext: NSManagedObjectContext) {
+        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
+        //        if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
+        let fetchData = checkAddedToCoredata(entityName: "FloorMapTourGuideEntity",
+                                             idKey: "tourGuideId" ,
+                                             idValue: tourGuideId,
+                                             managedContext: managedContext) as! [FloorMapTourGuideEntity]
+        if (fetchData.count > 0) {
+            for i in 0 ... tourGuideArray.count-1 {
+                let tourGuideDeatilDict = tourGuideArray[i]
+                let fetchResult = checkAddedToCoredata(entityName: "FloorMapTourGuideEntity",
+                                                       idKey: "nid",
+                                                       idValue: tourGuideArray[i].nid, managedContext: managedContext) as! [FloorMapTourGuideEntity]
+                
+                if(fetchResult.count != 0) {
+                    
+                    //update
+                    let tourguidedbDict = fetchResult[0]
+                    tourguidedbDict.title = tourGuideDeatilDict.title
+                    tourguidedbDict.accessionNumber = tourGuideDeatilDict.accessionNumber
+                    tourguidedbDict.nid =  tourGuideDeatilDict.nid
+                    tourguidedbDict.curatorialDescription = tourGuideDeatilDict.curatorialDescription
+                    tourguidedbDict.diam = tourGuideDeatilDict.diam
+                    
+                    tourguidedbDict.dimensions = tourGuideDeatilDict.dimensions
+                    tourguidedbDict.mainTitle = tourGuideDeatilDict.mainTitle
+                    tourguidedbDict.objectEngSummary =  tourGuideDeatilDict.objectENGSummary
+                    tourguidedbDict.objectHistory = tourGuideDeatilDict.objectHistory
+                    tourguidedbDict.production = tourGuideDeatilDict.production
+                    
+                    tourguidedbDict.productionDates = tourGuideDeatilDict.productionDates
+                    tourguidedbDict.image = tourGuideDeatilDict.image
+                    tourguidedbDict.tourGuideId =  tourGuideDeatilDict.tourGuideId
+                    tourguidedbDict.artifactNumber = tourGuideDeatilDict.artifactNumber
+                    tourguidedbDict.artifactPosition = tourGuideDeatilDict.artifactPosition
+                    
+                    tourguidedbDict.audioDescriptif = tourGuideDeatilDict.audioDescriptif
+                    tourguidedbDict.audioFile = tourGuideDeatilDict.audioFile
+                    tourguidedbDict.floorLevel =  tourGuideDeatilDict.floorLevel
+                    tourguidedbDict.galleyNumber = tourGuideDeatilDict.galleyNumber
+                    tourguidedbDict.artistOrCreatorOrAuthor = tourGuideDeatilDict.artistOrCreatorOrAuthor
+                    tourguidedbDict.periodOrStyle = tourGuideDeatilDict.periodOrStyle
+                    tourguidedbDict.techniqueAndMaterials = tourGuideDeatilDict.techniqueAndMaterials
+                    tourguidedbDict.language = Utils.getLanguage()
+                    
+                    if let imageUrl = tourGuideDeatilDict.thumbImage{
+                        
+                        if(imageUrl != "") {
+                            if let data = try? Data(contentsOf: URL(string: imageUrl)!){
+                                let image: UIImage = UIImage(data: data)!
+                                tourguidedbDict.artifactImg = UIImagePNGRepresentation(image)
+                            }
+                        }
+                    }
+                    
+                    if(tourGuideDeatilDict.images != nil) {
+                        if((tourGuideDeatilDict.images?.count)! > 0) {
+                            for i in 0 ... (tourGuideDeatilDict.images?.count)!-1 {
+                                var tourGuideImgEntity: ImageEntity!
+                                let tourGuideImg = NSEntityDescription.insertNewObject(forEntityName: "ImageEntity", into: managedContext) as! ImageEntity
+                                tourGuideImg.image = tourGuideDeatilDict.images?[i]
+                                tourGuideImg.language = Utils.getLanguage()
+                                tourGuideImgEntity = tourGuideImg
+                                tourguidedbDict.addToImagesRelation(tourGuideImgEntity)
+                                do {
+                                    try managedContext.save()
+                                    
+                                } catch let error as NSError {
+                                    print("Could not save. \(error), \(error.userInfo)")
+                                }
+                                
+                            }
+                        }
+                    }
+                    
+                    do{
+                        try managedContext.save()
+                    }
+                    catch{
+                        print(error)
+                    }
+                }else {
+                    self.saveToCoreData(tourGuideDetailDict: tourGuideDeatilDict, managedObjContext: managedContext)
+                }
+            }//for
+        }//if
+        else {
+            for i in 0 ... tourGuideArray.count-1 {
+                let tourGuideDetailDict : TourGuideFloorMap?
+                tourGuideDetailDict = tourGuideArray[i]
+                self.saveToCoreData(tourGuideDetailDict: tourGuideDetailDict!, managedObjContext: managedContext)
+            }
+            
+        }
+        //        }
+        //        else {
+        //            let fetchData = checkAddedToCoredata(entityName: "FloorMapTourGuideEntityAr", idKey:"tourGuideId" , idValue: tourGuideId, managedContext: managedContext) as! [FloorMapTourGuideEntityAr]
+        //            if (fetchData.count > 0) {
+        //                for i in 0 ... tourGuideArray.count-1 {
+        //                    let tourGuideDeatilDict = tourGuideArray[i]
+        //                    let fetchResult = checkAddedToCoredata(entityName: "FloorMapTourGuideEntityAr", idKey: "nid", idValue: tourGuideArray[i].nid, managedContext: managedContext) as! [FloorMapTourGuideEntityAr]
+        //                    //update
+        //                    if(fetchResult.count != 0) {
+        //                        let tourguidedbDict = fetchResult[0]
+        //                        tourguidedbDict.title = tourGuideDeatilDict.title
+        //                        tourguidedbDict.accessionNumber = tourGuideDeatilDict.accessionNumber
+        //                        tourguidedbDict.nid =  tourGuideDeatilDict.nid
+        //                        tourguidedbDict.curatorialDescription = tourGuideDeatilDict.curatorialDescription
+        //                        tourguidedbDict.diam = tourGuideDeatilDict.diam
+        //
+        //                        tourguidedbDict.dimensions = tourGuideDeatilDict.dimensions
+        //                        tourguidedbDict.mainTitle = tourGuideDeatilDict.mainTitle
+        //                        tourguidedbDict.objectEngSummary =  tourGuideDeatilDict.objectENGSummary
+        //                        tourguidedbDict.objectHistory = tourGuideDeatilDict.objectHistory
+        //                        tourguidedbDict.production = tourGuideDeatilDict.production
+        //
+        //                        tourguidedbDict.productionDates = tourGuideDeatilDict.productionDates
+        //                        tourguidedbDict.image = tourGuideDeatilDict.image
+        //                        tourguidedbDict.tourGuideId =  tourGuideDeatilDict.tourGuideId
+        //                        tourguidedbDict.artifactNumber = tourGuideDeatilDict.artifactNumber
+        //                        tourguidedbDict.artifactPosition = tourGuideDeatilDict.artifactPosition
+        //
+        //                        tourguidedbDict.audioDescriptif = tourGuideDeatilDict.audioDescriptif
+        //                        tourguidedbDict.audioFile = tourGuideDeatilDict.audioFile
+        //                        tourguidedbDict.floorLevel =  tourGuideDeatilDict.floorLevel
+        //                        tourguidedbDict.galleyNumber = tourGuideDeatilDict.galleyNumber
+        //                        tourguidedbDict.artistOrCreatorOrAuthor = tourGuideDeatilDict.artistOrCreatorOrAuthor
+        //                        tourguidedbDict.periodOrStyle = tourGuideDeatilDict.periodOrStyle
+        //                        tourguidedbDict.techniqueAndMaterials = tourGuideDeatilDict.techniqueAndMaterials
+        //                        if let imageUrl = tourGuideDeatilDict.thumbImage{
+        //                            if(imageUrl != "") {
+        //                                if let data = try? Data(contentsOf: URL(string: imageUrl)!)
+        //                                {
+        //                                    let image: UIImage = UIImage(data: data)!
+        //                                    tourguidedbDict.artifactImg = UIImagePNGRepresentation(image)
+        //                                }
+        //                            }
+        //
+        //                        }
+        //                        if(tourGuideDeatilDict.images != nil) {
+        //                            if((tourGuideDeatilDict.images?.count)! > 0) {
+        //                                for i in 0 ... (tourGuideDeatilDict.images?.count)!-1 {
+        //                                    var tourGuideImgEntity: FloorMapImagesEntityAr!
+        //                                    let tourGuideImg: FloorMapImagesEntityAr = NSEntityDescription.insertNewObject(forEntityName: "FloorMapImagesEntityAr", into: managedContext) as! FloorMapImagesEntityAr
+        //                                    tourGuideImg.image = tourGuideDeatilDict.images?[i]
+        //
+        //                                    tourGuideImgEntity = tourGuideImg
+        //                                    tourguidedbDict.addToImagesRelation(tourGuideImgEntity)
+        //                                    do {
+        //                                        try managedContext.save()
+        //
+        //                                    } catch let error as NSError {
+        //                                        print("Could not save. \(error), \(error.userInfo)")
+        //                                    }
+        //
+        //                                }
+        //                            }
+        //                        }
+        //                        do{
+        //                            try managedContext.save()
+        //                        }
+        //                        catch{
+        //                            print(error)
+        //                        }
+        //                    } else {
+        //                        self.saveToCoreData(tourGuideDetailDict: tourGuideDeatilDict, managedObjContext: managedContext)
+        //                    }
+        //                }//for
+        //            } //if
+        //            else {
+        //                for i in 0 ... tourGuideArray.count-1 {
+        //                    let tourGuideDetailDict : TourGuideFloorMap?
+        //                    tourGuideDetailDict = tourGuideArray[i]
+        //                    self.saveToCoreData(tourGuideDetailDict: tourGuideDetailDict!, managedObjContext: managedContext)
+        //                }
+        //
+        //            }
+        //        }
+    }
+    
+    func saveToCoreData(tourGuideDetailDict: TourGuideFloorMap, managedObjContext: NSManagedObjectContext) {
+        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
+        //        if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
+        let tourguidedbDict: FloorMapTourGuideEntity = NSEntityDescription.insertNewObject(forEntityName: "FloorMapTourGuideEntity", into: managedObjContext) as! FloorMapTourGuideEntity
+        tourguidedbDict.title = tourGuideDetailDict.title
+        tourguidedbDict.accessionNumber = tourGuideDetailDict.accessionNumber
+        tourguidedbDict.nid =  tourGuideDetailDict.nid
+        tourguidedbDict.curatorialDescription = tourGuideDetailDict.curatorialDescription
+        tourguidedbDict.diam = tourGuideDetailDict.diam
+        
+        tourguidedbDict.dimensions = tourGuideDetailDict.dimensions
+        tourguidedbDict.mainTitle = tourGuideDetailDict.mainTitle
+        tourguidedbDict.objectEngSummary =  tourGuideDetailDict.objectENGSummary
+        tourguidedbDict.objectHistory = tourGuideDetailDict.objectHistory
+        tourguidedbDict.production = tourGuideDetailDict.production
+        
+        tourguidedbDict.productionDates = tourGuideDetailDict.productionDates
+        tourguidedbDict.image = tourGuideDetailDict.image
+        tourguidedbDict.tourGuideId =  tourGuideDetailDict.tourGuideId
+        tourguidedbDict.artifactNumber = tourGuideDetailDict.artifactNumber
+        tourguidedbDict.artifactPosition = tourGuideDetailDict.artifactPosition
+        
+        tourguidedbDict.audioDescriptif = tourGuideDetailDict.audioDescriptif
+        tourguidedbDict.audioFile = tourGuideDetailDict.audioFile
+        tourguidedbDict.floorLevel =  tourGuideDetailDict.floorLevel
+        tourguidedbDict.galleyNumber = tourGuideDetailDict.galleyNumber
+        tourguidedbDict.artistOrCreatorOrAuthor = tourGuideDetailDict.artistOrCreatorOrAuthor
+        tourguidedbDict.periodOrStyle = tourGuideDetailDict.periodOrStyle
+        tourguidedbDict.techniqueAndMaterials = tourGuideDetailDict.techniqueAndMaterials
+        tourguidedbDict.language = Utils.getLanguage()
+        
+        if let imageUrl = tourGuideDetailDict.thumbImage{
+            if(imageUrl != "") {
+                if let data = try? Data(contentsOf: URL(string: imageUrl)!) {
+                    let image: UIImage = UIImage(data: data)!
+                    tourguidedbDict.artifactImg = UIImagePNGRepresentation(image)
+                }
+            }
+        }
+        if(tourGuideDetailDict.images != nil) {
+            if((tourGuideDetailDict.images?.count)! > 0) {
+                for i in 0 ... (tourGuideDetailDict.images?.count)!-1 {
+                    var tourGuideImgEntity: ImageEntity!
+                    let tourGuideImg = NSEntityDescription.insertNewObject(forEntityName: "ImageEntity", into: managedObjContext) as! ImageEntity
+                    tourGuideImg.image = tourGuideDetailDict.images?[i]
+                    tourGuideImg.language = Utils.getLanguage()
+                    tourGuideImgEntity = tourGuideImg
+                    tourguidedbDict.addToImagesRelation(tourGuideImgEntity)
+                    do {
+                        try managedObjContext.save()
+                        
+                    } catch let error as NSError {
+                        print("Could not save. \(error), \(error.userInfo)")
+                    }
+                    
+                }
+            }
+        }
+        
+        //        }
+        //        else {
+        //            let tourguidedbDict: FloorMapTourGuideEntityAr = NSEntityDescription.insertNewObject(forEntityName: "FloorMapTourGuideEntityAr", into: managedObjContext) as! FloorMapTourGuideEntityAr
+        //            tourguidedbDict.title = tourGuideDetailDict.title
+        //            tourguidedbDict.accessionNumber = tourGuideDetailDict.accessionNumber
+        //            tourguidedbDict.nid =  tourGuideDetailDict.nid
+        //            tourguidedbDict.curatorialDescription = tourGuideDetailDict.curatorialDescription
+        //            tourguidedbDict.diam = tourGuideDetailDict.diam
+        //
+        //            tourguidedbDict.dimensions = tourGuideDetailDict.dimensions
+        //            tourguidedbDict.mainTitle = tourGuideDetailDict.mainTitle
+        //            tourguidedbDict.objectEngSummary =  tourGuideDetailDict.objectENGSummary
+        //            tourguidedbDict.objectHistory = tourGuideDetailDict.objectHistory
+        //            tourguidedbDict.production = tourGuideDetailDict.production
+        //
+        //            tourguidedbDict.productionDates = tourGuideDetailDict.productionDates
+        //            tourguidedbDict.image = tourGuideDetailDict.image
+        //            tourguidedbDict.tourGuideId =  tourGuideDetailDict.tourGuideId
+        //            tourguidedbDict.artifactNumber = tourGuideDetailDict.artifactNumber
+        //            tourguidedbDict.artifactPosition = tourGuideDetailDict.artifactPosition
+        //
+        //            tourguidedbDict.audioDescriptif = tourGuideDetailDict.audioDescriptif
+        //            tourguidedbDict.audioFile = tourGuideDetailDict.audioFile
+        //            tourguidedbDict.floorLevel =  tourGuideDetailDict.floorLevel
+        //            tourguidedbDict.galleyNumber = tourGuideDetailDict.galleyNumber
+        //            tourguidedbDict.artistOrCreatorOrAuthor = tourGuideDetailDict.artistOrCreatorOrAuthor
+        //            tourguidedbDict.periodOrStyle = tourGuideDetailDict.periodOrStyle
+        //            tourguidedbDict.techniqueAndMaterials = tourGuideDetailDict.techniqueAndMaterials
+        //            if let imageUrl = tourGuideDetailDict.thumbImage{
+        //                if(imageUrl != "") {
+        //                    if let data = try? Data(contentsOf: URL(string: imageUrl)!) {
+        //                        let image: UIImage = UIImage(data: data)!
+        //                        tourguidedbDict.artifactImg = UIImagePNGRepresentation(image)
+        //                    }
+        //                }
+        //            }
+        //            if(tourGuideDetailDict.images != nil) {
+        //                if((tourGuideDetailDict.images?.count)! > 0) {
+        //                    for i in 0 ... (tourGuideDetailDict.images?.count)!-1 {
+        //                        var tourGuideImgEntity: FloorMapImagesEntityAr!
+        //                        let tourGuideImg: FloorMapImagesEntityAr = NSEntityDescription.insertNewObject(forEntityName: "FloorMapImagesEntityAr", into: managedObjContext) as! FloorMapImagesEntityAr
+        //                        tourGuideImg.image = tourGuideDetailDict.images?[i]
+        //
+        //                        tourGuideImgEntity = tourGuideImg
+        //                        tourguidedbDict.addToImagesRelation(tourGuideImgEntity)
+        //                        do {
+        //                            try managedObjContext.save()
+        //
+        //                        } catch let error as NSError {
+        //                            print("Could not save. \(error), \(error.userInfo)")
+        //                        }
+        //
+        //                    }
+        //                }
+        //            }
+        //        }
+        do {
+            try managedObjContext.save()
+        } catch let error as NSError {
+            print("Could not save. \(error), \(error.userInfo)")
+        }
+    }
+    
+    func fetchTourGuideFromCoredata() {
+        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
+        let managedContext = getContext()
+        do {
+            //            if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
+            var tourGuideArray = [FloorMapTourGuideEntity]()
+            tourGuideArray = checkAddedToCoredata(entityName: "FloorMapTourGuideEntity",
+                                                  idKey: "tourGuideId",
+                                                  idValue: tourGuideId,
+                                                  managedContext: managedContext) as! [FloorMapTourGuideEntity]
+            var j:Int? = 0
+            if (tourGuideArray.count > 0) {
+                for i in 0 ... tourGuideArray.count-1 {
+                    if let duplicateId = self.tourGuideArray.first(where: {$0.nid == tourGuideArray[i].nid}) {
+                    } else {
+                        let tourGuideDict = tourGuideArray[i]
+                        var imgsArray : [String] = []
+                        let imgInfoArray = (tourGuideDict.imagesRelation?.allObjects) as! [ImageEntity]
+                        if(imgInfoArray != nil) {
+                            if(imgInfoArray.count > 0) {
+                                for i in 0 ... imgInfoArray.count-1 {
+                                    imgsArray.append(imgInfoArray[i].image!)
+                                }
+                            }
+                        }
+                        self.tourGuideArray.insert(TourGuideFloorMap(title: tourGuideDict.title, accessionNumber: tourGuideDict.accessionNumber, nid: tourGuideDict.nid, curatorialDescription: tourGuideDict.curatorialDescription, diam: tourGuideDict.diam, dimensions: tourGuideDict.dimensions, mainTitle: tourGuideDict.mainTitle, objectENGSummary: tourGuideDict.objectEngSummary, objectHistory: tourGuideDict.objectHistory, production: tourGuideDict.production, productionDates: tourGuideDict.productionDates, image: tourGuideDict.image, tourGuideId: tourGuideDict.tourGuideId,artifactNumber: tourGuideDict.artifactNumber, artifactPosition: tourGuideDict.artifactPosition, audioDescriptif: tourGuideDict.audioDescriptif, images: imgsArray, audioFile: tourGuideDict.audioFile, floorLevel: tourGuideDict.floorLevel, galleyNumber: tourGuideDict.galleyNumber, artistOrCreatorOrAuthor: tourGuideDict.artistOrCreatorOrAuthor, periodOrStyle: tourGuideDict.periodOrStyle, techniqueAndMaterials: tourGuideDict.techniqueAndMaterials,thumbImage: tourGuideDict.thumbImage,artifactImg: tourGuideDict.artifactImg, language: tourGuideDict.language), at: j!)
+                        j = j!+1
+                    }
+                    
+                }
+                self.loadingView.stopLoading()
+                self.loadingView.isHidden = true
+                if (self.tourGuideArray.count > 0) {
+                    self.headerView.settingsButton.isHidden = false
+                    if((self.museumId == "63") || (self.museumId == "96")) {
+                        self.headerView.settingsButton.setImage(UIImage(named: "locationImg"), for: .normal)
+                        self.headerView.settingsButton.contentEdgeInsets = UIEdgeInsets(top: 9, left: 10, bottom:9, right: 10)
+                    } else {
+                        self.headerView.settingsButton.isHidden = true
+                    }
+                    self.setUpPageControl()
+                    self.showOrHidePageControlView(countValue: self.tourGuideArray.count, scrolling: false)
+                    self.showPageControlAtFirstTime()
+                } else if (networkReachability?.isReachable)! {
+                    self.showNoData()
+                } else {
+                    self.showNoNetwork()
+                }
+                
+            } else if (networkReachability?.isReachable)! && self.tourGuideArray.count == 0 {
+                self.getTourGuideDataFromServer()
+            } else {
+                self.loadingView.stopLoading()
+                self.loadingView.isHidden = true
+                self.showNoNetwork()
+            }
+            //            } else {
+            //                var tourGuideArray = [FloorMapTourGuideEntityAr]()
+            //                tourGuideArray = checkAddedToCoredata(entityName: "FloorMapTourGuideEntityAr", idKey: "tourGuideId", idValue: tourGuideId, managedContext: managedContext) as! [FloorMapTourGuideEntityAr]
+            //                 var j:Int? = 0
+            //                if(tourGuideArray.count > 0) {
+            //                    for i in 0 ... tourGuideArray.count-1 {
+            //                        if let duplicateId = self.tourGuideArray.first(where: {$0.nid == tourGuideArray[i].nid}) {
+            //                        } else {
+            //                        let tourGuideDict = tourGuideArray[i]
+            //                        var imgsArray : [String] = []
+            //                        let imgInfoArray = (tourGuideDict.imagesRelation?.allObjects) as! [FloorMapImagesEntityAr]
+            //                        if(imgInfoArray != nil) {
+            //                            if(imgInfoArray.count > 0) {
+            //                                for i in 0 ... imgInfoArray.count-1 {
+            //                                    imgsArray.append(imgInfoArray[i].image!)
+            //                                }
+            //                            }
+            //                        }
+            //                        self.tourGuideArray.insert(TourGuideFloorMap(title: tourGuideDict.title, accessionNumber: tourGuideDict.accessionNumber, nid: tourGuideDict.nid, curatorialDescription: tourGuideDict.curatorialDescription, diam: tourGuideDict.diam, dimensions: tourGuideDict.dimensions, mainTitle: tourGuideDict.mainTitle, objectENGSummary: tourGuideDict.objectEngSummary, objectHistory: tourGuideDict.objectHistory, production: tourGuideDict.production, productionDates: tourGuideDict.productionDates, image: tourGuideDict.image, tourGuideId: tourGuideDict.tourGuideId,artifactNumber: tourGuideDict.artifactNumber, artifactPosition: tourGuideDict.artifactPosition, audioDescriptif: tourGuideDict.audioDescriptif, images: imgsArray, audioFile: tourGuideDict.audioFile, floorLevel: tourGuideDict.floorLevel, galleyNumber: tourGuideDict.galleyNumber, artistOrCreatorOrAuthor: tourGuideDict.artistOrCreatorOrAuthor, periodOrStyle: tourGuideDict.periodOrStyle, techniqueAndMaterials: tourGuideDict.techniqueAndMaterials,thumbImage: tourGuideDict.thumbImage,artifactImg: tourGuideDict.artifactImg), at: j!)
+            //                            j = j!+1
+            //                        }
+            //                    }
+            //                    self.loadingView.stopLoading()
+            //                    self.loadingView.isHidden = true
+            //                    if (self.tourGuideArray.count > 0) {
+            //                        self.headerView.settingsButton.isHidden = false
+            //                        if((self.museumId == "63") || (self.museumId == "96")) {
+            //                            self.headerView.settingsButton.setImage(UIImage(named: "locationImg"), for: .normal)
+            //                            self.headerView.settingsButton.contentEdgeInsets = UIEdgeInsets(top: 9, left: 10, bottom:9, right: 10)
+            //                        } else {
+            //                            self.headerView.settingsButton.isHidden = true
+            //                        }
+            //                        self.setUpPageControl()
+            //                        self.showOrHidePageControlView(countValue: self.tourGuideArray.count, scrolling: false)
+            //                        self.showPageControlAtFirstTime()
+            //                    } else if (networkReachability?.isReachable)! {
+            //                        self.showNoData()
+            //                    } else {
+            //                        self.showNoNetwork()
+            //                    }
+            //                } else if (networkReachability?.isReachable)! && self.tourGuideArray.count == 0 {
+            //                    self.getTourGuideDataFromServer()
+            //                } else {
+            //                    self.loadingView.stopLoading()
+            //                    self.loadingView.isHidden = true
+            //                    self.showNoNetwork()
+            //                }
+            //            }
+        } catch let error as NSError {
+            print("Could not fetch. \(error), \(error.userInfo)")
+        }
+    }
+    
+    func checkAddedToCoredata(entityName: String?, idKey:String?, idValue: String?, managedContext: NSManagedObjectContext) -> [NSManagedObject] {
+        var fetchResults : [NSManagedObject] = []
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: entityName!)
+        if (idValue != nil) {
+            fetchRequest.predicate = NSPredicate(format: "\(idKey!) == %@", idValue!)
+            // fetchRequest.predicate = NSPredicate(format: "\(idKey!) == \(idValue!)")
+            
+        }
+        fetchResults = try! managedContext.fetch(fetchRequest)
+        return fetchResults
+    }
+}
+
+//MARK:- WebServiceCalls
+extension PreviewContainerViewController {
     func getTourGuideDataFromServer() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.CollectionByTourGuide(LocalizationLanguage.currentAppleLanguage(),["tour_guide_id": tourGuideId!])).responseObject { (response: DataResponse<TourGuideFloorMaps>) -> Void in
@@ -723,539 +1279,4 @@ class PreviewContainerViewController: UIViewController,UIPageViewControllerDeleg
         }
     }
     
-    func filterButtonPressed() {
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-        self.closeAudio()
-        if (tourGuideArray.count != 0) {
-            let selectedItem = tourGuideArray[currentPreviewItem]
-            if((selectedItem.artifactPosition != nil) && (selectedItem.artifactPosition != "") && (selectedItem.floorLevel != nil) && (selectedItem.floorLevel != "")) {
-                let floorMapView =  self.storyboard?.instantiateViewController(withIdentifier: "floorMapId") as!FloorMapViewController
-                
-                floorMapView.selectedScienceTour = selectedItem.artifactPosition
-                floorMapView.selectedScienceTourLevel = selectedItem.floorLevel
-                floorMapView.selectednid = selectedItem.nid
-//                if let imageUrl = selectedItem.image{
-//                    if(imageUrl != "") {
-//                        if let data = try? Data(contentsOf: URL(string: imageUrl)!) {
-//                            let image: UIImage = UIImage(data: data)!
-//                            floorMapView.selectedImageFromPreview = image
-//                        }
-//                    }
-//                }
-                
-                if(fromScienceTour) {
-                    floorMapView.fromTourString = fromTour.scienceTour
-                } else {
-                    floorMapView.fromTourString = fromTour.HighlightTour
-                }
-                let transition = CATransition()
-                transition.duration = 0.9
-                transition.type = "flip"
-                transition.subtype = kCATransitionFromLeft
-                view.window!.layer.add(transition, forKey: kCATransition)
-                //floorMapView.modalTransitionStyle = .flipHorizontal
-                self.present(floorMapView, animated: true, completion: nil)
-            } else {
-                self.view.hideAllToasts()
-                let locationMissingMessage =  NSLocalizedString("LOCATION_MISSING_MESSAGE", comment: "LOCATION_MISSING_MESSAGE")
-                self.view.makeToast(locationMissingMessage)
-            }
-            
-            Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
-                AnalyticsParameterItemID: FirebaseAnalyticsEvents.tapped_previewcontainer_filter,
-                AnalyticsParameterItemName: "",
-                AnalyticsParameterContentType: "cont"
-                ])
-            
-        } else {
-            
-        }
-    }
-    @objc func loadDetailPage(sender: UITapGestureRecognizer? = nil) {
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-        self.performSegue(withIdentifier: "previewToObjectDetailSegue", sender: self)
-    }
-    
-    //MARK: TourGuide DataBase
-    func saveOrUpdateTourGuideCoredata() {
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-        if (tourGuideArray.count > 0) {
-            if #available(iOS 10.0, *) {
-                let container = appDelegate!.persistentContainer
-                container.performBackgroundTask() {(managedContext) in
-                    self.coreDataInBackgroundThread(managedContext: managedContext)
-                }
-            } else {
-                let managedContext = appDelegate!.managedObjectContext
-                managedContext.perform {
-                    self.coreDataInBackgroundThread(managedContext : managedContext)
-                }
-            }
-        }
-    }
-    
-    func coreDataInBackgroundThread(managedContext: NSManagedObjectContext) {
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-//        if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
-            let fetchData = checkAddedToCoredata(entityName: "FloorMapTourGuideEntity",
-                                                 idKey: "tourGuideId" ,
-                                                 idValue: tourGuideId,
-                                                 managedContext: managedContext) as! [FloorMapTourGuideEntity]
-            if (fetchData.count > 0) {
-                for i in 0 ... tourGuideArray.count-1 {
-                    let tourGuideDeatilDict = tourGuideArray[i]
-                    let fetchResult = checkAddedToCoredata(entityName: "FloorMapTourGuideEntity",
-                                                           idKey: "nid",
-                                                           idValue: tourGuideArray[i].nid, managedContext: managedContext) as! [FloorMapTourGuideEntity]
-                    
-                    if(fetchResult.count != 0) {
-                        
-                        //update
-                        let tourguidedbDict = fetchResult[0]
-                        tourguidedbDict.title = tourGuideDeatilDict.title
-                        tourguidedbDict.accessionNumber = tourGuideDeatilDict.accessionNumber
-                        tourguidedbDict.nid =  tourGuideDeatilDict.nid
-                        tourguidedbDict.curatorialDescription = tourGuideDeatilDict.curatorialDescription
-                        tourguidedbDict.diam = tourGuideDeatilDict.diam
-                        
-                        tourguidedbDict.dimensions = tourGuideDeatilDict.dimensions
-                        tourguidedbDict.mainTitle = tourGuideDeatilDict.mainTitle
-                        tourguidedbDict.objectEngSummary =  tourGuideDeatilDict.objectENGSummary
-                        tourguidedbDict.objectHistory = tourGuideDeatilDict.objectHistory
-                        tourguidedbDict.production = tourGuideDeatilDict.production
-                        
-                        tourguidedbDict.productionDates = tourGuideDeatilDict.productionDates
-                        tourguidedbDict.image = tourGuideDeatilDict.image
-                        tourguidedbDict.tourGuideId =  tourGuideDeatilDict.tourGuideId
-                        tourguidedbDict.artifactNumber = tourGuideDeatilDict.artifactNumber
-                        tourguidedbDict.artifactPosition = tourGuideDeatilDict.artifactPosition
-                        
-                        tourguidedbDict.audioDescriptif = tourGuideDeatilDict.audioDescriptif
-                        tourguidedbDict.audioFile = tourGuideDeatilDict.audioFile
-                        tourguidedbDict.floorLevel =  tourGuideDeatilDict.floorLevel
-                        tourguidedbDict.galleyNumber = tourGuideDeatilDict.galleyNumber
-                        tourguidedbDict.artistOrCreatorOrAuthor = tourGuideDeatilDict.artistOrCreatorOrAuthor
-                        tourguidedbDict.periodOrStyle = tourGuideDeatilDict.periodOrStyle
-                        tourguidedbDict.techniqueAndMaterials = tourGuideDeatilDict.techniqueAndMaterials
-                        tourguidedbDict.language = Utils.getLanguage()
-                        
-                        if let imageUrl = tourGuideDeatilDict.thumbImage{
-                            
-                            if(imageUrl != "") {
-                                if let data = try? Data(contentsOf: URL(string: imageUrl)!){
-                                    let image: UIImage = UIImage(data: data)!
-                                    tourguidedbDict.artifactImg = UIImagePNGRepresentation(image)
-                                }
-                            }
-                        }
-                        
-                        if(tourGuideDeatilDict.images != nil) {
-                            if((tourGuideDeatilDict.images?.count)! > 0) {
-                                for i in 0 ... (tourGuideDeatilDict.images?.count)!-1 {
-                                    var tourGuideImgEntity: ImageEntity!
-                                    let tourGuideImg = NSEntityDescription.insertNewObject(forEntityName: "ImageEntity", into: managedContext) as! ImageEntity
-                                    tourGuideImg.image = tourGuideDeatilDict.images?[i]
-                                    tourGuideImg.language = Utils.getLanguage()
-                                    tourGuideImgEntity = tourGuideImg
-                                    tourguidedbDict.addToImagesRelation(tourGuideImgEntity)
-                                    do {
-                                        try managedContext.save()
-                                        
-                                    } catch let error as NSError {
-                                        print("Could not save. \(error), \(error.userInfo)")
-                                    }
-                                    
-                                }
-                            }
-                        }
-                        
-                        do{
-                            try managedContext.save()
-                        }
-                        catch{
-                            print(error)
-                        }
-                    }else {
-                        self.saveToCoreData(tourGuideDetailDict: tourGuideDeatilDict, managedObjContext: managedContext)
-                    }
-                }//for
-            }//if
-            else {
-                for i in 0 ... tourGuideArray.count-1 {
-                    let tourGuideDetailDict : TourGuideFloorMap?
-                    tourGuideDetailDict = tourGuideArray[i]
-                    self.saveToCoreData(tourGuideDetailDict: tourGuideDetailDict!, managedObjContext: managedContext)
-                }
-                
-            }
-//        }
-//        else {
-//            let fetchData = checkAddedToCoredata(entityName: "FloorMapTourGuideEntityAr", idKey:"tourGuideId" , idValue: tourGuideId, managedContext: managedContext) as! [FloorMapTourGuideEntityAr]
-//            if (fetchData.count > 0) {
-//                for i in 0 ... tourGuideArray.count-1 {
-//                    let tourGuideDeatilDict = tourGuideArray[i]
-//                    let fetchResult = checkAddedToCoredata(entityName: "FloorMapTourGuideEntityAr", idKey: "nid", idValue: tourGuideArray[i].nid, managedContext: managedContext) as! [FloorMapTourGuideEntityAr]
-//                    //update
-//                    if(fetchResult.count != 0) {
-//                        let tourguidedbDict = fetchResult[0]
-//                        tourguidedbDict.title = tourGuideDeatilDict.title
-//                        tourguidedbDict.accessionNumber = tourGuideDeatilDict.accessionNumber
-//                        tourguidedbDict.nid =  tourGuideDeatilDict.nid
-//                        tourguidedbDict.curatorialDescription = tourGuideDeatilDict.curatorialDescription
-//                        tourguidedbDict.diam = tourGuideDeatilDict.diam
-//
-//                        tourguidedbDict.dimensions = tourGuideDeatilDict.dimensions
-//                        tourguidedbDict.mainTitle = tourGuideDeatilDict.mainTitle
-//                        tourguidedbDict.objectEngSummary =  tourGuideDeatilDict.objectENGSummary
-//                        tourguidedbDict.objectHistory = tourGuideDeatilDict.objectHistory
-//                        tourguidedbDict.production = tourGuideDeatilDict.production
-//
-//                        tourguidedbDict.productionDates = tourGuideDeatilDict.productionDates
-//                        tourguidedbDict.image = tourGuideDeatilDict.image
-//                        tourguidedbDict.tourGuideId =  tourGuideDeatilDict.tourGuideId
-//                        tourguidedbDict.artifactNumber = tourGuideDeatilDict.artifactNumber
-//                        tourguidedbDict.artifactPosition = tourGuideDeatilDict.artifactPosition
-//
-//                        tourguidedbDict.audioDescriptif = tourGuideDeatilDict.audioDescriptif
-//                        tourguidedbDict.audioFile = tourGuideDeatilDict.audioFile
-//                        tourguidedbDict.floorLevel =  tourGuideDeatilDict.floorLevel
-//                        tourguidedbDict.galleyNumber = tourGuideDeatilDict.galleyNumber
-//                        tourguidedbDict.artistOrCreatorOrAuthor = tourGuideDeatilDict.artistOrCreatorOrAuthor
-//                        tourguidedbDict.periodOrStyle = tourGuideDeatilDict.periodOrStyle
-//                        tourguidedbDict.techniqueAndMaterials = tourGuideDeatilDict.techniqueAndMaterials
-//                        if let imageUrl = tourGuideDeatilDict.thumbImage{
-//                            if(imageUrl != "") {
-//                                if let data = try? Data(contentsOf: URL(string: imageUrl)!)
-//                                {
-//                                    let image: UIImage = UIImage(data: data)!
-//                                    tourguidedbDict.artifactImg = UIImagePNGRepresentation(image)
-//                                }
-//                            }
-//
-//                        }
-//                        if(tourGuideDeatilDict.images != nil) {
-//                            if((tourGuideDeatilDict.images?.count)! > 0) {
-//                                for i in 0 ... (tourGuideDeatilDict.images?.count)!-1 {
-//                                    var tourGuideImgEntity: FloorMapImagesEntityAr!
-//                                    let tourGuideImg: FloorMapImagesEntityAr = NSEntityDescription.insertNewObject(forEntityName: "FloorMapImagesEntityAr", into: managedContext) as! FloorMapImagesEntityAr
-//                                    tourGuideImg.image = tourGuideDeatilDict.images?[i]
-//
-//                                    tourGuideImgEntity = tourGuideImg
-//                                    tourguidedbDict.addToImagesRelation(tourGuideImgEntity)
-//                                    do {
-//                                        try managedContext.save()
-//
-//                                    } catch let error as NSError {
-//                                        print("Could not save. \(error), \(error.userInfo)")
-//                                    }
-//
-//                                }
-//                            }
-//                        }
-//                        do{
-//                            try managedContext.save()
-//                        }
-//                        catch{
-//                            print(error)
-//                        }
-//                    } else {
-//                        self.saveToCoreData(tourGuideDetailDict: tourGuideDeatilDict, managedObjContext: managedContext)
-//                    }
-//                }//for
-//            } //if
-//            else {
-//                for i in 0 ... tourGuideArray.count-1 {
-//                    let tourGuideDetailDict : TourGuideFloorMap?
-//                    tourGuideDetailDict = tourGuideArray[i]
-//                    self.saveToCoreData(tourGuideDetailDict: tourGuideDetailDict!, managedObjContext: managedContext)
-//                }
-//
-//            }
-//        }
-    }
-    
-    func saveToCoreData(tourGuideDetailDict: TourGuideFloorMap, managedObjContext: NSManagedObjectContext) {
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-//        if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
-            let tourguidedbDict: FloorMapTourGuideEntity = NSEntityDescription.insertNewObject(forEntityName: "FloorMapTourGuideEntity", into: managedObjContext) as! FloorMapTourGuideEntity
-            tourguidedbDict.title = tourGuideDetailDict.title
-            tourguidedbDict.accessionNumber = tourGuideDetailDict.accessionNumber
-            tourguidedbDict.nid =  tourGuideDetailDict.nid
-            tourguidedbDict.curatorialDescription = tourGuideDetailDict.curatorialDescription
-            tourguidedbDict.diam = tourGuideDetailDict.diam
-            
-            tourguidedbDict.dimensions = tourGuideDetailDict.dimensions
-            tourguidedbDict.mainTitle = tourGuideDetailDict.mainTitle
-            tourguidedbDict.objectEngSummary =  tourGuideDetailDict.objectENGSummary
-            tourguidedbDict.objectHistory = tourGuideDetailDict.objectHistory
-            tourguidedbDict.production = tourGuideDetailDict.production
-            
-            tourguidedbDict.productionDates = tourGuideDetailDict.productionDates
-            tourguidedbDict.image = tourGuideDetailDict.image
-            tourguidedbDict.tourGuideId =  tourGuideDetailDict.tourGuideId
-            tourguidedbDict.artifactNumber = tourGuideDetailDict.artifactNumber
-            tourguidedbDict.artifactPosition = tourGuideDetailDict.artifactPosition
-            
-            tourguidedbDict.audioDescriptif = tourGuideDetailDict.audioDescriptif
-            tourguidedbDict.audioFile = tourGuideDetailDict.audioFile
-            tourguidedbDict.floorLevel =  tourGuideDetailDict.floorLevel
-            tourguidedbDict.galleyNumber = tourGuideDetailDict.galleyNumber
-            tourguidedbDict.artistOrCreatorOrAuthor = tourGuideDetailDict.artistOrCreatorOrAuthor
-            tourguidedbDict.periodOrStyle = tourGuideDetailDict.periodOrStyle
-            tourguidedbDict.techniqueAndMaterials = tourGuideDetailDict.techniqueAndMaterials
-        tourguidedbDict.language = Utils.getLanguage()
-        
-            if let imageUrl = tourGuideDetailDict.thumbImage{
-                if(imageUrl != "") {
-                if let data = try? Data(contentsOf: URL(string: imageUrl)!) {
-                    let image: UIImage = UIImage(data: data)!
-                    tourguidedbDict.artifactImg = UIImagePNGRepresentation(image)
-                }
-            }
-            }
-            if(tourGuideDetailDict.images != nil) {
-                if((tourGuideDetailDict.images?.count)! > 0) {
-                    for i in 0 ... (tourGuideDetailDict.images?.count)!-1 {
-                        var tourGuideImgEntity: ImageEntity!
-                        let tourGuideImg = NSEntityDescription.insertNewObject(forEntityName: "ImageEntity", into: managedObjContext) as! ImageEntity
-                        tourGuideImg.image = tourGuideDetailDict.images?[i]
-                        tourGuideImg.language = Utils.getLanguage()
-                        tourGuideImgEntity = tourGuideImg
-                        tourguidedbDict.addToImagesRelation(tourGuideImgEntity)
-                        do {
-                            try managedObjContext.save()
-                            
-                        } catch let error as NSError {
-                            print("Could not save. \(error), \(error.userInfo)")
-                        }
-                        
-                    }
-                }
-            }
-            
-//        }
-//        else {
-//            let tourguidedbDict: FloorMapTourGuideEntityAr = NSEntityDescription.insertNewObject(forEntityName: "FloorMapTourGuideEntityAr", into: managedObjContext) as! FloorMapTourGuideEntityAr
-//            tourguidedbDict.title = tourGuideDetailDict.title
-//            tourguidedbDict.accessionNumber = tourGuideDetailDict.accessionNumber
-//            tourguidedbDict.nid =  tourGuideDetailDict.nid
-//            tourguidedbDict.curatorialDescription = tourGuideDetailDict.curatorialDescription
-//            tourguidedbDict.diam = tourGuideDetailDict.diam
-//
-//            tourguidedbDict.dimensions = tourGuideDetailDict.dimensions
-//            tourguidedbDict.mainTitle = tourGuideDetailDict.mainTitle
-//            tourguidedbDict.objectEngSummary =  tourGuideDetailDict.objectENGSummary
-//            tourguidedbDict.objectHistory = tourGuideDetailDict.objectHistory
-//            tourguidedbDict.production = tourGuideDetailDict.production
-//
-//            tourguidedbDict.productionDates = tourGuideDetailDict.productionDates
-//            tourguidedbDict.image = tourGuideDetailDict.image
-//            tourguidedbDict.tourGuideId =  tourGuideDetailDict.tourGuideId
-//            tourguidedbDict.artifactNumber = tourGuideDetailDict.artifactNumber
-//            tourguidedbDict.artifactPosition = tourGuideDetailDict.artifactPosition
-//
-//            tourguidedbDict.audioDescriptif = tourGuideDetailDict.audioDescriptif
-//            tourguidedbDict.audioFile = tourGuideDetailDict.audioFile
-//            tourguidedbDict.floorLevel =  tourGuideDetailDict.floorLevel
-//            tourguidedbDict.galleyNumber = tourGuideDetailDict.galleyNumber
-//            tourguidedbDict.artistOrCreatorOrAuthor = tourGuideDetailDict.artistOrCreatorOrAuthor
-//            tourguidedbDict.periodOrStyle = tourGuideDetailDict.periodOrStyle
-//            tourguidedbDict.techniqueAndMaterials = tourGuideDetailDict.techniqueAndMaterials
-//            if let imageUrl = tourGuideDetailDict.thumbImage{
-//                if(imageUrl != "") {
-//                    if let data = try? Data(contentsOf: URL(string: imageUrl)!) {
-//                        let image: UIImage = UIImage(data: data)!
-//                        tourguidedbDict.artifactImg = UIImagePNGRepresentation(image)
-//                    }
-//                }
-//            }
-//            if(tourGuideDetailDict.images != nil) {
-//                if((tourGuideDetailDict.images?.count)! > 0) {
-//                    for i in 0 ... (tourGuideDetailDict.images?.count)!-1 {
-//                        var tourGuideImgEntity: FloorMapImagesEntityAr!
-//                        let tourGuideImg: FloorMapImagesEntityAr = NSEntityDescription.insertNewObject(forEntityName: "FloorMapImagesEntityAr", into: managedObjContext) as! FloorMapImagesEntityAr
-//                        tourGuideImg.image = tourGuideDetailDict.images?[i]
-//
-//                        tourGuideImgEntity = tourGuideImg
-//                        tourguidedbDict.addToImagesRelation(tourGuideImgEntity)
-//                        do {
-//                            try managedObjContext.save()
-//
-//                        } catch let error as NSError {
-//                            print("Could not save. \(error), \(error.userInfo)")
-//                        }
-//
-//                    }
-//                }
-//            }
-//        }
-        do {
-            try managedObjContext.save()
-        } catch let error as NSError {
-            print("Could not save. \(error), \(error.userInfo)")
-        }
-    }
-    
-    func fetchTourGuideFromCoredata() {
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-        let managedContext = getContext()
-        do {
-//            if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
-                var tourGuideArray = [FloorMapTourGuideEntity]()
-                tourGuideArray = checkAddedToCoredata(entityName: "FloorMapTourGuideEntity",
-                                                      idKey: "tourGuideId",
-                                                      idValue: tourGuideId,
-                                                      managedContext: managedContext) as! [FloorMapTourGuideEntity]
-                var j:Int? = 0
-                if (tourGuideArray.count > 0) {
-                    for i in 0 ... tourGuideArray.count-1 {
-                        if let duplicateId = self.tourGuideArray.first(where: {$0.nid == tourGuideArray[i].nid}) {
-                        } else {
-                        let tourGuideDict = tourGuideArray[i]
-                        var imgsArray : [String] = []
-                        let imgInfoArray = (tourGuideDict.imagesRelation?.allObjects) as! [ImageEntity]
-                        if(imgInfoArray != nil) {
-                            if(imgInfoArray.count > 0) {
-                                for i in 0 ... imgInfoArray.count-1 {
-                                    imgsArray.append(imgInfoArray[i].image!)
-                                }
-                            }
-                        }
-                        self.tourGuideArray.insert(TourGuideFloorMap(title: tourGuideDict.title, accessionNumber: tourGuideDict.accessionNumber, nid: tourGuideDict.nid, curatorialDescription: tourGuideDict.curatorialDescription, diam: tourGuideDict.diam, dimensions: tourGuideDict.dimensions, mainTitle: tourGuideDict.mainTitle, objectENGSummary: tourGuideDict.objectEngSummary, objectHistory: tourGuideDict.objectHistory, production: tourGuideDict.production, productionDates: tourGuideDict.productionDates, image: tourGuideDict.image, tourGuideId: tourGuideDict.tourGuideId,artifactNumber: tourGuideDict.artifactNumber, artifactPosition: tourGuideDict.artifactPosition, audioDescriptif: tourGuideDict.audioDescriptif, images: imgsArray, audioFile: tourGuideDict.audioFile, floorLevel: tourGuideDict.floorLevel, galleyNumber: tourGuideDict.galleyNumber, artistOrCreatorOrAuthor: tourGuideDict.artistOrCreatorOrAuthor, periodOrStyle: tourGuideDict.periodOrStyle, techniqueAndMaterials: tourGuideDict.techniqueAndMaterials,thumbImage: tourGuideDict.thumbImage,artifactImg: tourGuideDict.artifactImg, language: tourGuideDict.language), at: j!)
-                             j = j!+1
-                        }
-                        
-                    }
-                    self.loadingView.stopLoading()
-                    self.loadingView.isHidden = true
-                    if (self.tourGuideArray.count > 0) {
-                        self.headerView.settingsButton.isHidden = false
-                        if((self.museumId == "63") || (self.museumId == "96")) {
-                            self.headerView.settingsButton.setImage(UIImage(named: "locationImg"), for: .normal)
-                            self.headerView.settingsButton.contentEdgeInsets = UIEdgeInsets(top: 9, left: 10, bottom:9, right: 10)
-                        } else {
-                            self.headerView.settingsButton.isHidden = true
-                        }
-                        self.setUpPageControl()
-                        self.showOrHidePageControlView(countValue: self.tourGuideArray.count, scrolling: false)
-                        self.showPageControlAtFirstTime()
-                    } else if (networkReachability?.isReachable)! {
-                        self.showNoData()
-                    } else {
-                        self.showNoNetwork()
-                    }
-                    
-                } else if (networkReachability?.isReachable)! && self.tourGuideArray.count == 0 {
-                    self.getTourGuideDataFromServer()
-                } else {
-                    self.loadingView.stopLoading()
-                    self.loadingView.isHidden = true
-                    self.showNoNetwork()
-                }
-//            } else {
-//                var tourGuideArray = [FloorMapTourGuideEntityAr]()
-//                tourGuideArray = checkAddedToCoredata(entityName: "FloorMapTourGuideEntityAr", idKey: "tourGuideId", idValue: tourGuideId, managedContext: managedContext) as! [FloorMapTourGuideEntityAr]
-//                 var j:Int? = 0
-//                if(tourGuideArray.count > 0) {
-//                    for i in 0 ... tourGuideArray.count-1 {
-//                        if let duplicateId = self.tourGuideArray.first(where: {$0.nid == tourGuideArray[i].nid}) {
-//                        } else {
-//                        let tourGuideDict = tourGuideArray[i]
-//                        var imgsArray : [String] = []
-//                        let imgInfoArray = (tourGuideDict.imagesRelation?.allObjects) as! [FloorMapImagesEntityAr]
-//                        if(imgInfoArray != nil) {
-//                            if(imgInfoArray.count > 0) {
-//                                for i in 0 ... imgInfoArray.count-1 {
-//                                    imgsArray.append(imgInfoArray[i].image!)
-//                                }
-//                            }
-//                        }
-//                        self.tourGuideArray.insert(TourGuideFloorMap(title: tourGuideDict.title, accessionNumber: tourGuideDict.accessionNumber, nid: tourGuideDict.nid, curatorialDescription: tourGuideDict.curatorialDescription, diam: tourGuideDict.diam, dimensions: tourGuideDict.dimensions, mainTitle: tourGuideDict.mainTitle, objectENGSummary: tourGuideDict.objectEngSummary, objectHistory: tourGuideDict.objectHistory, production: tourGuideDict.production, productionDates: tourGuideDict.productionDates, image: tourGuideDict.image, tourGuideId: tourGuideDict.tourGuideId,artifactNumber: tourGuideDict.artifactNumber, artifactPosition: tourGuideDict.artifactPosition, audioDescriptif: tourGuideDict.audioDescriptif, images: imgsArray, audioFile: tourGuideDict.audioFile, floorLevel: tourGuideDict.floorLevel, galleyNumber: tourGuideDict.galleyNumber, artistOrCreatorOrAuthor: tourGuideDict.artistOrCreatorOrAuthor, periodOrStyle: tourGuideDict.periodOrStyle, techniqueAndMaterials: tourGuideDict.techniqueAndMaterials,thumbImage: tourGuideDict.thumbImage,artifactImg: tourGuideDict.artifactImg), at: j!)
-//                            j = j!+1
-//                        }
-//                    }
-//                    self.loadingView.stopLoading()
-//                    self.loadingView.isHidden = true
-//                    if (self.tourGuideArray.count > 0) {
-//                        self.headerView.settingsButton.isHidden = false
-//                        if((self.museumId == "63") || (self.museumId == "96")) {
-//                            self.headerView.settingsButton.setImage(UIImage(named: "locationImg"), for: .normal)
-//                            self.headerView.settingsButton.contentEdgeInsets = UIEdgeInsets(top: 9, left: 10, bottom:9, right: 10)
-//                        } else {
-//                            self.headerView.settingsButton.isHidden = true
-//                        }
-//                        self.setUpPageControl()
-//                        self.showOrHidePageControlView(countValue: self.tourGuideArray.count, scrolling: false)
-//                        self.showPageControlAtFirstTime()
-//                    } else if (networkReachability?.isReachable)! {
-//                        self.showNoData()
-//                    } else {
-//                        self.showNoNetwork()
-//                    }
-//                } else if (networkReachability?.isReachable)! && self.tourGuideArray.count == 0 {
-//                    self.getTourGuideDataFromServer()
-//                } else {
-//                    self.loadingView.stopLoading()
-//                    self.loadingView.isHidden = true
-//                    self.showNoNetwork()
-//                }
-//            }
-        } catch let error as NSError {
-            print("Could not fetch. \(error), \(error.userInfo)")
-        }
-    }
-    
-    func checkAddedToCoredata(entityName: String?, idKey:String?, idValue: String?, managedContext: NSManagedObjectContext) -> [NSManagedObject] {
-        var fetchResults : [NSManagedObject] = []
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: entityName!)
-        if (idValue != nil) {
-            fetchRequest.predicate = NSPredicate(format: "\(idKey!) == %@", idValue!)
-           // fetchRequest.predicate = NSPredicate(format: "\(idKey!) == \(idValue!)")
-            
-        }
-        fetchResults = try! managedContext.fetch(fetchRequest)
-        return fetchResults
-    }
-    
-    func showNodata() {
-        
-    }
-    //MARK: LoadingView Delegate
-    func tryAgainButtonPressed() {
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-        if  (networkReachability?.isReachable)! {
-            self.getTourGuideDataFromServer()
-        }
-    }
-    
-    func showNoNetwork() {
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-        self.loadingView.stopLoading()
-        self.loadingView.noDataView.isHidden = false
-        self.loadingView.isHidden = false
-        self.loadingView.showNoNetworkView()
-    }
-    
-    func showNoData() {
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-        self.loadingView.stopLoading()
-        self.loadingView.noDataView.isHidden = false
-        self.loadingView.isHidden = false
-        self.loadingView.showNoDataView()
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    func recordScreenView() {
-        let screenClass = String(describing: type(of: self))
-        Analytics.setScreenName(PREVIEW_CONTAINER_VC, screenClass: screenClass)
-    }
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if (segue.identifier == "previewToObjectDetailSegue") {
-            let objectDetailView = segue.destination as! ObjectDetailViewController
-            objectDetailView.detailArray.append(tourGuideArray[currentPreviewItem])
-        }
-    }
 }

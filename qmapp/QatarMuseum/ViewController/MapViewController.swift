@@ -12,7 +12,7 @@ import CoreLocation
 import CocoaLumberjack
 import Firebase
 
-class MapViewController: UIViewController, HeaderViewProtocol, MKMapViewDelegate, CLLocationManagerDelegate {
+class MapViewController: UIViewController {
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var headerView: CommonHeaderView!
     
@@ -47,7 +47,55 @@ class MapViewController: UIViewController, HeaderViewProtocol, MKMapViewDelegate
         return .lightContent
     }
     
-    // CLLocationManager delegate
+    @IBAction func setMapType(_ sender: UISwitch) {
+        if sender.isOn == true {
+            mapView.mapType = .satellite
+        } else {
+            mapView.mapType = .standard
+        }
+        
+        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+}
+
+//MARK:- HeaderView delegate
+extension MapViewController: HeaderViewProtocol {
+    func headerCloseButtonPressed() {
+        let transition = CATransition()
+        transition.duration = 0.3
+        transition.type = kCATransitionFade
+        transition.timingFunction = CAMediaTimingFunction(name:kCAMediaTimingFunctionEaseInEaseOut)
+        view.window!.layer.add(transition, forKey: kCATransition)
+        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
+        Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
+            AnalyticsParameterItemID: FirebaseAnalyticsEvents.tapped_header_close,
+            AnalyticsParameterItemName: "",
+            AnalyticsParameterContentType: "cont"
+            ])
+        self.dismiss(animated: false, completion: nil)
+    }
+}
+
+//MARK:- MapLocation delegate and methods
+extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate{
+    //MARK: MapView delegate
+    func mapView(_ mapView: MKMapView, rendererFor
+        overlay: MKOverlay) -> MKOverlayRenderer {
+        let renderer = MKPolylineRenderer(overlay: overlay)
+        
+        renderer.strokeColor = UIColor.blue
+        renderer.lineWidth = 5.0
+        return renderer
+        
+        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
+    }
+    
+    //MARK: CLLocationManager delegate
     func locationManager(_ manager: CLLocationManager,
                          didUpdateLocations locations: [CLLocation]) {
         userLocation = locations[0]
@@ -60,6 +108,7 @@ class MapViewController: UIViewController, HeaderViewProtocol, MKMapViewDelegate
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
     }
     
+    //MARK: Map route methods
     func getDirections() {
         let request = MKDirectionsRequest()
         request.source = MKMapItem.forCurrentLocation()
@@ -88,7 +137,7 @@ class MapViewController: UIViewController, HeaderViewProtocol, MKMapViewDelegate
         for route in response.routes {
             
             mapView.add(route.polyline,
-                         level: MKOverlayLevel.aboveRoads)
+                        level: MKOverlayLevel.aboveRoads)
             
             for step in route.steps {
                 print(step.instructions)
@@ -101,18 +150,6 @@ class MapViewController: UIViewController, HeaderViewProtocol, MKMapViewDelegate
                                                    2000, 2000)
             mapView.setRegion(region, animated: true)
         }
-        
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-    }
-    
-    //MapView delegate
-    func mapView(_ mapView: MKMapView, rendererFor
-        overlay: MKOverlay) -> MKOverlayRenderer {
-        let renderer = MKPolylineRenderer(overlay: overlay)
-        
-        renderer.strokeColor = UIColor.blue
-        renderer.lineWidth = 5.0
-        return renderer
         
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
     }
@@ -151,37 +188,4 @@ class MapViewController: UIViewController, HeaderViewProtocol, MKMapViewDelegate
         
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
     }
-    
-    @IBAction func setMapType(_ sender: UISwitch) {
-        if sender.isOn == true {
-            mapView.mapType = .satellite
-        } else {
-            mapView.mapType = .standard
-        }
-        
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-    }
-    
-    func headerCloseButtonPressed() {
-        let transition = CATransition()
-        transition.duration = 0.3
-        transition.type = kCATransitionFade
-        transition.timingFunction = CAMediaTimingFunction(name:kCAMediaTimingFunctionEaseInEaseOut)
-        view.window!.layer.add(transition, forKey: kCATransition)
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-        Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
-            AnalyticsParameterItemID: FirebaseAnalyticsEvents.tapped_header_close,
-            AnalyticsParameterItemName: "",
-            AnalyticsParameterContentType: "cont"
-            ])
-        self.dismiss(animated: false, completion: nil)
-    }
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-
-    
-
 }

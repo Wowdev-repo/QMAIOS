@@ -11,7 +11,7 @@ import Firebase
 import UIKit
 import CocoaLumberjack
 
-class ArtifactNumberPadViewController: UIViewController, HeaderViewProtocol, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class ArtifactNumberPadViewController: UIViewController {
     @IBOutlet weak var artifactHeader: CommonHeaderView!
     @IBOutlet weak var numberPadCollectionView: UICollectionView!
     @IBOutlet weak var loadingView: LoadingView!
@@ -73,14 +73,72 @@ class ArtifactNumberPadViewController: UIViewController, HeaderViewProtocol, UIC
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
-    //MARK: collectionView Delegates
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    
+    func disableButtons(collectionView: UICollectionView) {
+        let closeButtonView = collectionView.cellForItem(at: IndexPath(item: 9,
+                                                                   section: 0)) as! ArtifactNumberPadCell
+        
+        closeButtonView.innerView.alpha = 0.3
+        let nextButtonView = collectionView.cellForItem(at: IndexPath(item: 11,
+                                                                   section: 0)) as! ArtifactNumberPadCell
+        nextButtonView.innerView.alpha = 0.3
+    }
+    
+    func enableButtons(collectionView: UICollectionView) {
+        let closeButtonView = collectionView.cellForItem(at: IndexPath(item: 9,
+                                                                       section: 0)) as! ArtifactNumberPadCell
+        
+        closeButtonView.innerView.alpha = 1.0
+        let nextButtonView = collectionView.cellForItem(at: IndexPath(item: 11,
+                                                                      section: 0)) as! ArtifactNumberPadCell
+        nextButtonView.innerView.alpha = 1.0
+    }
+    
+    func getObjectDetail() {
+        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
+        if ((artifactTextField.text != nil) && (artifactTextField.text != "") ) {
+            loadingView.isHidden = false
+            loadingView.showLoading()
+            getnumberSearchDataFromServer(searchString: self.artifactTextField.text)
+        } else {
+            self.view.hideAllToasts()
+            let locationMissingMessage =  NSLocalizedString("ENTER_ARTIFACT_NUMBER", comment: "ENTER_ARTIFACT_NUMBER")
+            self.view.makeToast(locationMissingMessage)
+        }
+    }
+    func loadObjectDetail() {
+        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
+        if(objectDetailArray[0] != nil) {
+            self.performSegue(withIdentifier: "numSearchToObjDetailSegue", sender: self)
+        }
+        
+    }
+   
+    func recordScreenView() {
+        let screenClass = String(describing: type(of: self))
+        Analytics.setScreenName(ARTIFACT_NUMBER_VC, screenClass: screenClass)
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if (segue.identifier == "numSearchToObjDetailSegue") {
+            let objectDetailView = segue.destination as! ObjectDetailViewController
+            objectDetailView.detailArray.append(objectDetailArray[0])
+        }
+    }
+}
+
+//MARK:- collectionView Delegates
+extension ArtifactNumberPadViewController: UICollectionViewDelegate,
+UICollectionViewDataSource, UICollectionViewDelegateFlowLayout  {
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        numberOfItemsInSection section: Int) -> Int {
         return 12
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView,
+                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell : ArtifactNumberPadCell = numberPadCollectionView.dequeueReusableCell(withReuseIdentifier: "artifactNumberPadCellId", for: indexPath) as! ArtifactNumberPadCell
-       // cell.innerView.layer.cornerRadius = (NUMBER_CELL_WIDTH-10)/2
+        // cell.innerView.layer.cornerRadius = (NUMBER_CELL_WIDTH-10)/2
         let cellWidth = numberPadCollectionView.frame.width/3
         let corner = (cellWidth)/2-15
         cell.innerView.layer.cornerRadius = CGFloat(Int(floorf(Float(corner))))
@@ -127,7 +185,7 @@ class ArtifactNumberPadViewController: UIViewController, HeaderViewProtocol, UIC
             disableButtons(collectionView: collectionView)
         } else if (indexPath.row == 11) {
             if artifactValue != "" {
-               getObjectDetail()
+                getObjectDetail()
             }
         } else {
             enableButtons(collectionView: collectionView)
@@ -139,47 +197,11 @@ class ArtifactNumberPadViewController: UIViewController, HeaderViewProtocol, UIC
         }
         artifactValue = artifactTextField.text!
     }
+}
+
+//MARK:- Header delegate
+extension ArtifactNumberPadViewController: HeaderViewProtocol {
     
-    func disableButtons(collectionView: UICollectionView) {
-        let closeButtonView = collectionView.cellForItem(at: IndexPath(item: 9,
-                                                                   section: 0)) as! ArtifactNumberPadCell
-        
-        closeButtonView.innerView.alpha = 0.3
-        let nextButtonView = collectionView.cellForItem(at: IndexPath(item: 11,
-                                                                   section: 0)) as! ArtifactNumberPadCell
-        nextButtonView.innerView.alpha = 0.3
-    }
-    
-    func enableButtons(collectionView: UICollectionView) {
-        let closeButtonView = collectionView.cellForItem(at: IndexPath(item: 9,
-                                                                       section: 0)) as! ArtifactNumberPadCell
-        
-        closeButtonView.innerView.alpha = 1.0
-        let nextButtonView = collectionView.cellForItem(at: IndexPath(item: 11,
-                                                                      section: 0)) as! ArtifactNumberPadCell
-        nextButtonView.innerView.alpha = 1.0
-    }
-    
-    func getObjectDetail() {
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-        if ((artifactTextField.text != nil) && (artifactTextField.text != "") ) {
-            loadingView.isHidden = false
-            loadingView.showLoading()
-            getnumberSearchDataFromServer(searchString: self.artifactTextField.text)
-        } else {
-            self.view.hideAllToasts()
-            let locationMissingMessage =  NSLocalizedString("ENTER_ARTIFACT_NUMBER", comment: "ENTER_ARTIFACT_NUMBER")
-            self.view.makeToast(locationMissingMessage)
-        }
-    }
-    func loadObjectDetail() {
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-        if(objectDetailArray[0] != nil) {
-            self.performSegue(withIdentifier: "numSearchToObjDetailSegue", sender: self)
-        }
-        
-    }
-    //MARK: Header delegate
     func headerCloseButtonPressed() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         let transition = CATransition()
@@ -194,45 +216,37 @@ class ArtifactNumberPadViewController: UIViewController, HeaderViewProtocol, UIC
             ])
         dismiss(animated: false, completion: nil)
     }
-    //MARK: WebServiceCall
+}
+
+//MARK: WebServiceCall
+extension ArtifactNumberPadViewController {
     func getnumberSearchDataFromServer(searchString : String?)
     {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)" + "SearchString: \(searchString)")
         if((searchString != "") && (searchString != nil)) {
-        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.CollectionByTourGuide(LocalizationLanguage.currentAppleLanguage(),["artifact_number": searchString!])).responseObject { (response: DataResponse<TourGuideFloorMaps>) -> Void in
-            switch response.result {
-            case .success(let data):
-                self.objectDetailArray = data.tourGuideFloorMap
-                if(self.objectDetailArray.count != 0) {
-                    self.loadObjectDetail()
-                }
-                self.loadingView.stopLoading()
-                self.loadingView.isHidden = true
-                
-                if (self.objectDetailArray.count == 0) {
-                   self.loadingView.stopLoading()
+            _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.CollectionByTourGuide(LocalizationLanguage.currentAppleLanguage(),["artifact_number": searchString!])).responseObject { (response: DataResponse<TourGuideFloorMaps>) -> Void in
+                switch response.result {
+                case .success(let data):
+                    self.objectDetailArray = data.tourGuideFloorMap
+                    if(self.objectDetailArray.count != 0) {
+                        self.loadObjectDetail()
+                    }
+                    self.loadingView.stopLoading()
                     self.loadingView.isHidden = true
-                    self.view.hideAllToasts()
-                    let locationMissingMessage =  NSLocalizedString("NO_ARTIFACTS", comment: "NO_ARTIFACTS")
-                    self.view.makeToast(locationMissingMessage)
-
+                    
+                    if (self.objectDetailArray.count == 0) {
+                        self.loadingView.stopLoading()
+                        self.loadingView.isHidden = true
+                        self.view.hideAllToasts()
+                        let locationMissingMessage =  NSLocalizedString("NO_ARTIFACTS", comment: "NO_ARTIFACTS")
+                        self.view.makeToast(locationMissingMessage)
+                        
+                    }
+                case .failure(let error):
+                    self.loadingView.stopLoading()
+                    self.loadingView.isHidden = true
                 }
-            case .failure(let error):
-                self.loadingView.stopLoading()
-                self.loadingView.isHidden = true
             }
         }
     }
-    }
-    func recordScreenView() {
-        let screenClass = String(describing: type(of: self))
-        Analytics.setScreenName(ARTIFACT_NUMBER_VC, screenClass: screenClass)
-    }
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if (segue.identifier == "numSearchToObjDetailSegue") {
-            let objectDetailView = segue.destination as! ObjectDetailViewController
-            objectDetailView.detailArray.append(objectDetailArray[0])
-        }
-    }
 }
-

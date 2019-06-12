@@ -12,7 +12,8 @@ import WebKit
 import Crashlytics
 import CocoaLumberjack
 import Firebase
-class CPWebViewController: UIViewController,UIWebViewDelegate,LoadingViewProtocol {
+
+class CPWebViewController: UIViewController {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var webView: UIWebView!
     
@@ -54,6 +55,18 @@ class CPWebViewController: UIViewController,UIWebViewDelegate,LoadingViewProtoco
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        
+    }
+    
+    @IBAction func didTapClose(_ sender: UIButton) {
+        self.dismiss(animated: false, completion: nil)
+    }
+}
+
+extension CPWebViewController: UIWebViewDelegate {
     func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
         
     }
@@ -63,7 +76,7 @@ class CPWebViewController: UIViewController,UIWebViewDelegate,LoadingViewProtoco
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
     }
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
-       loadingView.stopLoading()
+        loadingView.stopLoading()
         loadingView.isHidden = true
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
     }
@@ -77,14 +90,10 @@ class CPWebViewController: UIViewController,UIWebViewDelegate,LoadingViewProtoco
         loadingView.stopLoading()
         loadingView.isHidden = true
     }
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        
-    }
-    
-    @IBAction func didTapClose(_ sender: UIButton) {
-        self.dismiss(animated: false, completion: nil)
-    }
+}
+
+//MARK:- LoadingView Methods
+extension CPWebViewController: LoadingViewProtocol {
     //MARK: LoadingView Delegate
     func tryAgainButtonPressed() {
         if  (networkReachability?.isReachable)! {
@@ -105,3 +114,4 @@ class CPWebViewController: UIViewController,UIWebViewDelegate,LoadingViewProtoco
     }
 
 }
+

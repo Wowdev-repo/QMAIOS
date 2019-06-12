@@ -16,7 +16,7 @@ import Firebase
 
 import UIKit
 
-class GoogleMapViewController: UIViewController,CLLocationManagerDelegate,GMSMapViewDelegate {
+class GoogleMapViewController: UIViewController {
 
     @IBOutlet weak var headerView: CommonHeaderView!
     @IBOutlet weak var mapView: GMSMapView!
@@ -33,49 +33,29 @@ class GoogleMapViewController: UIViewController,CLLocationManagerDelegate,GMSMap
 
         loadMap()
     }
-    func loadMap() {
-        locationManager = CLLocationManager()
-        locationManager.delegate = self
-        locationManager.requestWhenInUseAuthorization()
-        locationManager.startUpdatingLocation()
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.startMonitoringSignificantLocationChanges()
+
+    @IBAction func setMapType(_ sender: UISwitch) {
+        if sender.isOn == true {
+            mapView.mapType = .satellite
+        } else {
+            mapView.mapType = .normal
+        }
+        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), MapType: \(mapView.mapType)")
         
-        
-        let camera: GMSCameraPosition = GMSCameraPosition.camera(withLatitude: 9.997090, longitude: 76.302818, zoom: 10.0)
-        mapView.camera = camera
-        mapView.delegate = self
-        mapView.isMyLocationEnabled = true
-        mapView.settings.myLocationButton = true
-        mapView.settings.compassButton = true
-        mapView.settings.zoomGestures = true
-        locationManager.requestWhenInUseAuthorization()
-        mapView.addObserver(self, forKeyPath: "myLocation", options: NSKeyValueObservingOptions.new, context: nil)
-        createMarker(titleMarker: "Kaloor", iconMarker: nil, latitude: 9.997090, longitude: 76.302818)
-        
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
+        Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
+            AnalyticsParameterItemID: FirebaseAnalyticsEvents.tapped_mapview_maptype,
+            AnalyticsParameterItemName: mapView.mapType,
+            AnalyticsParameterContentType: "cont"
+            ])
     }
-    //MARK: - Location Manager delegates
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print("Error to get location : \(error)")
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        
     }
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        let location = locations.last
-        
-        
-        
-        let locationTujuan = CLLocation(latitude: 17.369590, longitude: 76.852570)
-        
-        createMarker(titleMarker: "Lokasi Tujuan", iconMarker: nil , latitude: locationTujuan.coordinate.latitude, longitude: locationTujuan.coordinate.longitude)
-        
-        createMarker(titleMarker: "Lokasi Aku", iconMarker: nil , latitude: (location?.coordinate.latitude)!, longitude: (location?.coordinate.longitude)!)
-        
-        drawPath(startLocation: location!, endLocation: locationTujuan)
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
-        self.locationManager.stopUpdatingLocation()
-    }
-    // MARK: - GMSMapViewDelegate
+}
+
+// MARK:- GMSMapViewDelegate
+extension GoogleMapViewController: GMSMapViewDelegate {
     func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
         self.mapView.isMyLocationEnabled = true
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
@@ -103,7 +83,63 @@ class GoogleMapViewController: UIViewController,CLLocationManagerDelegate,GMSMap
         self.mapView.selectedMarker = nil
         return false
     }
-    //MARK: - this is function for create direction path, from start location to desination location
+}
+
+//MARK: - Location Manager delegates
+extension GoogleMapViewController: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        if status == CLAuthorizationStatus.authorizedWhenInUse {
+            mapView.isMyLocationEnabled = true
+        }
+        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("Error to get location : \(error)")
+        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let location = locations.last
+        
+        let locationTujuan = CLLocation(latitude: 17.369590, longitude: 76.852570)
+        
+        createMarker(titleMarker: "Lokasi Tujuan", iconMarker: nil , latitude: locationTujuan.coordinate.latitude, longitude: locationTujuan.coordinate.longitude)
+        
+        createMarker(titleMarker: "Lokasi Aku", iconMarker: nil , latitude: (location?.coordinate.latitude)!, longitude: (location?.coordinate.longitude)!)
+        
+        drawPath(startLocation: location!, endLocation: locationTujuan)
+        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
+        self.locationManager.stopUpdatingLocation()
+    }
+}
+
+//MARK:- Map Location process methods
+extension GoogleMapViewController {
+    func loadMap() {
+        locationManager = CLLocationManager()
+        locationManager.delegate = self
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.startUpdatingLocation()
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.startMonitoringSignificantLocationChanges()
+        
+        
+        let camera: GMSCameraPosition = GMSCameraPosition.camera(withLatitude: 9.997090, longitude: 76.302818, zoom: 10.0)
+        mapView.camera = camera
+        mapView.delegate = self
+        mapView.isMyLocationEnabled = true
+        mapView.settings.myLocationButton = true
+        mapView.settings.compassButton = true
+        mapView.settings.zoomGestures = true
+        locationManager.requestWhenInUseAuthorization()
+        mapView.addObserver(self, forKeyPath: "myLocation", options: NSKeyValueObservingOptions.new, context: nil)
+        createMarker(titleMarker: "Kaloor", iconMarker: nil, latitude: 9.997090, longitude: 76.302818)
+        
+        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
+    }
+    
+    //MARK: This is function for create direction path, from start location to desination location
     
     func drawPath(startLocation: CLLocation, endLocation: CLLocation)
     {
@@ -126,21 +162,21 @@ class GoogleMapViewController: UIViewController,CLLocationManagerDelegate,GMSMap
             print(response.data as Any)     // server data
             print(response.result as Any)   // result of response serialization
             //let json = JSONEncoding(options: response.data)
-        
-//            let json = JSON(data: response.data!)
-//            let routes = json["routes"].arrayValue
-//            
-//            // print route using Polyline
-//            for route in routes
-//            {
-//                let routeOverviewPolyline = route["overview_polyline"].dictionary
-//                let points = routeOverviewPolyline?["points"]?.stringValue
-//                let path = GMSPath.init(fromEncodedPath: points!)
-//                let polyline = GMSPolyline.init(path: path)
-//                polyline.strokeWidth = 4
-//                polyline.strokeColor = UIColor.red
-//                polyline.map = self.googleMaps
-//            }
+            
+            //            let json = JSON(data: response.data!)
+            //            let routes = json["routes"].arrayValue
+            //
+            //            // print route using Polyline
+            //            for route in routes
+            //            {
+            //                let routeOverviewPolyline = route["overview_polyline"].dictionary
+            //                let points = routeOverviewPolyline?["points"]?.stringValue
+            //                let path = GMSPath.init(fromEncodedPath: points!)
+            //                let polyline = GMSPolyline.init(path: path)
+            //                polyline.strokeWidth = 4
+            //                polyline.strokeColor = UIColor.red
+            //                polyline.map = self.googleMaps
+            //            }
             
         }
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
@@ -156,6 +192,7 @@ class GoogleMapViewController: UIViewController,CLLocationManagerDelegate,GMSMap
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         marker.map = mapView
     }
+    
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if !didFindMyLocation {
             let myLocation: CLLocation = change![NSKeyValueChangeKey.newKey] as! CLLocation
@@ -164,35 +201,4 @@ class GoogleMapViewController: UIViewController,CLLocationManagerDelegate,GMSMap
             didFindMyLocation = true
         }
     }
-    
-
- // MARK: CLLocationManagerDelegate method implementation
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        if status == CLAuthorizationStatus.authorizedWhenInUse {
-            mapView.isMyLocationEnabled = true
-        }
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-    }
-    @IBAction func setMapType(_ sender: UISwitch) {
-        if sender.isOn == true {
-            mapView.mapType = .satellite
-        } else {
-            mapView.mapType = .normal
-        }
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), MapType: \(mapView.mapType)")
-        
-        Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
-            AnalyticsParameterItemID: FirebaseAnalyticsEvents.tapped_mapview_maptype,
-            AnalyticsParameterItemName: mapView.mapType,
-            AnalyticsParameterContentType: "cont"
-            ])
-    }
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        
-    }
-
-    
-    
-
 }
