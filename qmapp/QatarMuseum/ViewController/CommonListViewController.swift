@@ -2084,7 +2084,9 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
                     }
                 }
                 if(self.nmoqParkList.count > 0) {
-                    self.saveOrUpdateNmoqParkListCoredata(nmoqParkList: data.nmoqParkList)
+                    if let nmoqParkList = data.nmoqParkList {
+                        self.saveOrUpdateNmoqParkListCoredata(nmoqParkList: nmoqParkList)
+                    }
                 }
             case .failure( _):
                 if(self.nmoqParkList.count == 0) {
@@ -2130,88 +2132,26 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
     }
     
     //MARK: NMoqPark List Coredata Method
-    func saveOrUpdateNmoqParkListCoredata(nmoqParkList:[NMoQParksList]?) {
+    func saveOrUpdateNmoqParkListCoredata(nmoqParkList: [NMoQParksList]) {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
-        if ((nmoqParkList?.count)! > 0) {
+        if !nmoqParkList.isEmpty {
             let appDelegate =  UIApplication.shared.delegate as? AppDelegate
             if #available(iOS 10.0, *) {
                 let container = appDelegate!.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
-                    self.nmoqParkListCoreDataInBackgroundThread(nmoqParkList: nmoqParkList, managedContext: managedContext)
+                    DataManager.updateNmoqParkList(nmoqParkList: nmoqParkList,
+                                                   managedContext: managedContext)
                 }
             } else {
                 let managedContext = appDelegate!.managedObjectContext
                 managedContext.perform {
-                    self.nmoqParkListCoreDataInBackgroundThread(nmoqParkList: nmoqParkList, managedContext : managedContext)
+                    DataManager.updateNmoqParkList(nmoqParkList: nmoqParkList,
+                                                   managedContext : managedContext)
                 }
             }
         }
     }
-    func nmoqParkListCoreDataInBackgroundThread(nmoqParkList:[NMoQParksList]?,managedContext: NSManagedObjectContext) {
-//        if (LocalizationLanguage.currentAppleLanguage() == ENG_LANGUAGE) {
-            let fetchData = DataManager.checkAddedToCoredata(entityName: "NMoQParkListEntity", idKey: "nid", idValue: nil, managedContext: managedContext) as! [NMoQParkListEntity]
-            if (fetchData.count > 0) {
-                for i in 0 ... (nmoqParkList?.count)!-1 {
-                    let nmoqParkListDict = nmoqParkList![i]
-                    let fetchResult = DataManager.checkAddedToCoredata(entityName: "NMoQParkListEntity", idKey: "nid", idValue: nmoqParkListDict.nid, managedContext: managedContext)
-                    //update
-                    if(fetchResult.count != 0) {
-                        let nmoqParkListdbDict = fetchResult[0] as! NMoQParkListEntity
-                        nmoqParkListdbDict.title = nmoqParkListDict.title
-                        nmoqParkListdbDict.parkTitle = nmoqParkListDict.parkTitle
-                        nmoqParkListdbDict.mainDescription = nmoqParkListDict.mainDescription
-                        nmoqParkListdbDict.parkDescription =  nmoqParkListDict.parkDescription
-                        nmoqParkListdbDict.hoursTitle = nmoqParkListDict.hoursTitle
-                        nmoqParkListdbDict.hoursDesc = nmoqParkListDict.hoursDesc
-                        nmoqParkListdbDict.nid =  nmoqParkListDict.nid
-                        nmoqParkListdbDict.longitude = nmoqParkListDict.longitude
-                        nmoqParkListdbDict.latitude = nmoqParkListDict.latitude
-                        nmoqParkListdbDict.locationTitle =  nmoqParkListDict.locationTitle
-                        nmoqParkListdbDict.language = Utils.getLanguage()
-                        
-                        do{
-                            try managedContext.save()
-                        }
-                        catch{
-                            print(error)
-                        }
-                    } else {
-                        //save
-                        self.saveNmoqParkListToCoreData(nmoqParkListDict: nmoqParkListDict, managedObjContext: managedContext)
-                    }
-                }
-                NotificationCenter.default.post(name: NSNotification.Name(facilitiesListNotificationEn), object: self)
-            } else {
-                for i in 0 ... (nmoqParkList?.count)!-1 {
-                    let nmoqParkListDict : NMoQParksList?
-                    nmoqParkListDict = nmoqParkList?[i]
-                    self.saveNmoqParkListToCoreData(nmoqParkListDict: nmoqParkListDict!, managedObjContext: managedContext)
-                }
-                NotificationCenter.default.post(name: NSNotification.Name(facilitiesListNotificationEn), object: self)
-            }
-    }
-    func saveNmoqParkListToCoreData(nmoqParkListDict: NMoQParksList, managedObjContext: NSManagedObjectContext) {
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
-//        if (LocalizationLanguage.currentAppleLanguage() == ENG_LANGUAGE) {
-            let nmoqParkListdbDict: NMoQParkListEntity = NSEntityDescription.insertNewObject(forEntityName: "NMoQParkListEntity", into: managedObjContext) as! NMoQParkListEntity
-            nmoqParkListdbDict.title = nmoqParkListDict.title
-            nmoqParkListdbDict.parkTitle = nmoqParkListDict.parkTitle
-            nmoqParkListdbDict.mainDescription = nmoqParkListDict.mainDescription
-            nmoqParkListdbDict.parkDescription =  nmoqParkListDict.parkDescription
-            nmoqParkListdbDict.hoursTitle = nmoqParkListDict.hoursTitle
-            nmoqParkListdbDict.hoursDesc = nmoqParkListDict.hoursDesc
-            nmoqParkListdbDict.nid =  nmoqParkListDict.nid
-            nmoqParkListdbDict.longitude = nmoqParkListDict.longitude
-            nmoqParkListdbDict.latitude = nmoqParkListDict.latitude
-            nmoqParkListdbDict.locationTitle =  nmoqParkListDict.locationTitle
-        nmoqParkListdbDict.language = Utils.getLanguage()
-        
-        do {
-            try managedObjContext.save()
-        } catch let error as NSError {
-            print("Could not save. \(error), \(error.userInfo)")
-        }
-    }
+    
     
     //MARK: NMoq List of Parks Coredata Method
     func saveOrUpdateNmoqParksCoredata(nmoqParkList: [NMoQPark]) {
@@ -2239,7 +2179,6 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
         let managedContext = getContext()
         do {
-//            if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
                 var parkListArray = [NMoQParkListEntity]()
                 let fetchRequest =  NSFetchRequest<NSFetchRequestResult>(entityName: "NMoQParkListEntity")
                 parkListArray = (try managedContext.fetch(fetchRequest) as? [NMoQParkListEntity])!
@@ -2271,39 +2210,6 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
                         self.getNmoqParkListFromServer()//coreDataMigratio  solution
                     }
                 }
-//            } else {
-//                var parkListArray = [NMoQParkListEntityAr]()
-//                let fetchRequest =  NSFetchRequest<NSFetchRequestResult>(entityName: "NMoQParkListEntityAr")
-//                parkListArray = (try managedContext.fetch(fetchRequest) as? [NMoQParkListEntityAr])!
-//                if (parkListArray.count > 0) {
-//                    if  (networkReachability?.isReachable)! {
-//                        DispatchQueue.global(qos: .background).async {
-//                            self.getNmoqParkListFromServer()
-//                        }
-//                    }
-//                    for i in 0 ... parkListArray.count-1 {
-//                        let parkListDict = parkListArray[i]
-//                        self.nmoqParkList.insert(NMoQParksList(title: parkListDict.title,parkTitle: parkListDict.parkTitle, mainDescription: parkListDict.mainDescription, parkDescription: parkListDict.parkDescription, hoursTitle: parkListDict.hoursTitle, hoursDesc: parkListDict.hoursDesc, nid: parkListDict.nid, longitude: parkListDict.longitude, latitude: parkListDict.latitude, locationTitle: parkListDict.locationTitle), at: i)
-//                    }
-//                    if(nmoqParkList.count == 0){
-//                        if(self.networkReachability?.isReachable == false) {
-//                            self.showNoNetwork()
-//                        } else {
-//                            self.exbtnLoadingView.showNoDataView()
-//                        }
-//                    } else {
-//                        self.exhibitionHeaderView.headerTitle.text = self.nmoqParkList[0].title?.replacingOccurrences(of: "<[^>]+>|&nbsp;", with: "", options: .regularExpression, range: nil).uppercased()
-//                    }
-//                    exhibitionCollectionView.reloadData()
-//                } else{
-//                    if(self.networkReachability?.isReachable == false) {
-//                        self.showNoNetwork()
-//                    } else {
-//                        //self.loadingView.showNoDataView()
-//                        self.getNmoqParkListFromServer()//coreDataMigratio  solution
-//                    }
-//                }
-//            }
         } catch let error as NSError {
             print("Could not fetch. \(error), \(error.userInfo)")
         }

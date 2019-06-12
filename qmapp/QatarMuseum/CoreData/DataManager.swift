@@ -1190,5 +1190,63 @@ extension DataManager {
         }
         DataManager.save(managedObjContext)
     }
+    
+    static func updateNmoqParkList(nmoqParkList: [NMoQParksList], managedContext: NSManagedObjectContext) {
+        let fetchData = DataManager.checkAddedToCoredata(entityName: "NMoQParkListEntity",
+                                                         idKey: "nid",
+                                                         idValue: nil,
+                                                         managedContext: managedContext) as! [NMoQParkListEntity]
+        if (fetchData.count > 0) {
+            for nmoqParkListDict in nmoqParkList {
+                let fetchResult = DataManager.checkAddedToCoredata(entityName: "NMoQParkListEntity",
+                                                                   idKey: "nid",
+                                                                   idValue: nmoqParkListDict.nid,
+                                                                   managedContext: managedContext)
+                //update
+                if(fetchResult.count != 0) {
+                    let nmoqParkListdbDict = fetchResult[0] as! NMoQParkListEntity
+                    DataManager.saveNmoqParkList(nmoqParkListDict: nmoqParkListDict,
+                                          managedObjContext: managedContext,
+                                          entity: nmoqParkListdbDict)
+                } else {
+                    //save
+                    DataManager.saveNmoqParkList(nmoqParkListDict: nmoqParkListDict,
+                                          managedObjContext: managedContext,
+                                          entity: nil)
+                }
+            }
+            NotificationCenter.default.post(name: NSNotification.Name(facilitiesListNotificationEn), object: self)
+        } else {
+            for nmoqParkListDict in nmoqParkList {
+                DataManager.saveNmoqParkList(nmoqParkListDict: nmoqParkListDict,
+                                      managedObjContext: managedContext,
+                                      entity: nil)
+            }
+            NotificationCenter.default.post(name: NSNotification.Name(facilitiesListNotificationEn), object: self)
+        }
+    }
+    
+    static func saveNmoqParkList(nmoqParkListDict: NMoQParksList,
+                          managedObjContext: NSManagedObjectContext,
+                          entity: NMoQParkListEntity?) {
+        var nmoqParkListdbDict = entity
+        if entity == nil {
+            nmoqParkListdbDict = NSEntityDescription.insertNewObject(forEntityName: "NMoQParkListEntity",
+                                                                     into: managedObjContext) as? NMoQParkListEntity
+        }
+        nmoqParkListdbDict?.title = nmoqParkListDict.title
+        nmoqParkListdbDict?.parkTitle = nmoqParkListDict.parkTitle
+        nmoqParkListdbDict?.mainDescription = nmoqParkListDict.mainDescription
+        nmoqParkListdbDict?.parkDescription =  nmoqParkListDict.parkDescription
+        nmoqParkListdbDict?.hoursTitle = nmoqParkListDict.hoursTitle
+        nmoqParkListdbDict?.hoursDesc = nmoqParkListDict.hoursDesc
+        nmoqParkListdbDict?.nid =  nmoqParkListDict.nid
+        nmoqParkListdbDict?.longitude = nmoqParkListDict.longitude
+        nmoqParkListdbDict?.latitude = nmoqParkListDict.latitude
+        nmoqParkListdbDict?.locationTitle =  nmoqParkListDict.locationTitle
+        nmoqParkListdbDict?.language = Utils.getLanguage()
+        
+        DataManager.save(managedObjContext)
+    }
 }
 
