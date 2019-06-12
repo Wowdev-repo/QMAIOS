@@ -295,7 +295,10 @@ class TourAndPanelListViewController: UIViewController,UITableViewDelegate,UITab
                     }
                 }
                 if(self.nmoqTourList.count > 0) {
-                    self.saveOrUpdateTourListCoredata(nmoqTourList: data.nmoqTourList, isTourGuide: true)
+                    if let nmoqTourList = data.nmoqTourList {
+                        self.saveOrUpdateTourListCoredata(nmoqTourList: nmoqTourList,
+                                                          isTourGuide: true)
+                    }
                 }
                 
             case .failure( _):
@@ -311,141 +314,28 @@ class TourAndPanelListViewController: UIViewController,UITableViewDelegate,UITab
     }
     
     //MARK: Tour List Coredata Method
-    func saveOrUpdateTourListCoredata(nmoqTourList:[NMoQTour]?,isTourGuide:Bool) {
-        if ((nmoqTourList?.count)! > 0) {
+    func saveOrUpdateTourListCoredata(nmoqTourList: [NMoQTour], isTourGuide:Bool) {
+        if !nmoqTourList.isEmpty {
             let appDelegate =  UIApplication.shared.delegate as? AppDelegate
             if #available(iOS 10.0, *) {
                 let container = appDelegate!.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
-                    self.tourListCoreDataInBackgroundThread(nmoqTourList: nmoqTourList, managedContext: managedContext, isTourGuide: isTourGuide)
+                    DataManager.updateTourList(nmoqTourList: nmoqTourList,
+                                                            managedContext: managedContext,
+                                                            isTourGuide: isTourGuide)
                 }
             } else {
                 let managedContext = appDelegate!.managedObjectContext
                 managedContext.perform {
-                    self.tourListCoreDataInBackgroundThread(nmoqTourList: nmoqTourList, managedContext : managedContext, isTourGuide: isTourGuide)
+                    DataManager.updateTourList(nmoqTourList: nmoqTourList,
+                                                            managedContext : managedContext,
+                                                            isTourGuide: isTourGuide)
                 }
             }
         }
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
     }
     
-    func tourListCoreDataInBackgroundThread(nmoqTourList:[NMoQTour]?,managedContext: NSManagedObjectContext,isTourGuide:Bool) {
-            let fetchData = DataManager.checkAddedToCoredata(entityName: "NMoQTourListEntity",
-                                                 idKey: "nid",
-                                                 idValue: nil,
-                                                 managedContext: managedContext) as! [NMoQTourListEntity]
-            if (fetchData.count > 0) {
-                for i in 0 ... (nmoqTourList?.count)!-1 {
-                    let tourListDict = nmoqTourList![i]
-                    let fetchResult = DataManager.checkAddedToCoredata(entityName: "NMoQTourListEntity",
-                                                           idKey: "nid",
-                                                           idValue: tourListDict.nid,
-                                                           managedContext: managedContext)
-                    //update
-                    if(fetchResult.count != 0) {
-                        let tourListdbDict = fetchResult[0] as! NMoQTourListEntity
-                        tourListdbDict.title = tourListDict.title
-                        tourListdbDict.dayDescription = tourListDict.dayDescription
-                        tourListdbDict.subtitle =  tourListDict.subtitle
-                        tourListdbDict.sortId = Int16(tourListDict.sortId!)!
-                        tourListdbDict.nid =  tourListDict.nid
-                        tourListdbDict.eventDate = tourListDict.eventDate
-                        tourListdbDict.language = Utils.getLanguage()
-                        
-                        //eventlist
-                        tourListdbDict.dateString = tourListDict.date
-                        tourListdbDict.descriptioForModerator = tourListDict.descriptioForModerator
-                        tourListdbDict.mobileLatitude = tourListDict.mobileLatitude
-                        tourListdbDict.moderatorName = tourListDict.moderatorName
-                        tourListdbDict.longitude = tourListDict.longitude
-                        tourListdbDict.contactEmail = tourListDict.contactEmail
-                        tourListdbDict.contactPhone = tourListDict.contactPhone
-                        tourListdbDict.isTourGuide = isTourGuide
-                        
-                        if(tourListDict.images != nil){
-                            if((tourListDict.images?.count)! > 0) {
-                                for i in 0 ... (tourListDict.images?.count)!-1 {
-                                    var tourImage: ImageEntity!
-                                    let tourImgaeArray = NSEntityDescription.insertNewObject(forEntityName: "ImageEntity", into: managedContext) as! ImageEntity
-                                    tourImgaeArray.image = tourListDict.images?[i]
-                                    tourImgaeArray.language = Utils.getLanguage()
-                                    tourImage = tourImgaeArray
-                                    tourListdbDict.addToTourImagesRelation(tourImage)
-                                    do {
-                                        try managedContext.save()
-                                    } catch let error as NSError {
-                                        print("Could not save. \(error), \(error.userInfo)")
-                                    }
-                                }
-                            }
-                        }
-                        
-                        do{
-                            try managedContext.save()
-                        }
-                        catch{
-                            print(error)
-                        }
-                    } else {
-                        //save
-                        self.saveTourListToCoreData(tourListDict: tourListDict, managedObjContext: managedContext, isTourGuide: isTourGuide)
-                    }
-                }
-            } else {
-                for i in 0 ... (nmoqTourList?.count)!-1 {
-                    let tourListDict : NMoQTour?
-                    tourListDict = nmoqTourList?[i]
-                    self.saveTourListToCoreData(tourListDict: tourListDict!, managedObjContext: managedContext, isTourGuide: isTourGuide)
-                }
-            }
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-    }
-    
-    func saveTourListToCoreData(tourListDict: NMoQTour,
-                                managedObjContext: NSManagedObjectContext,
-                                isTourGuide:Bool) {
-            let tourListInfo: NMoQTourListEntity = NSEntityDescription.insertNewObject(forEntityName: "NMoQTourListEntity", into: managedObjContext) as! NMoQTourListEntity
-            tourListInfo.title = tourListDict.title
-            tourListInfo.dayDescription = tourListDict.dayDescription
-            tourListInfo.subtitle = tourListDict.subtitle
-            tourListInfo.sortId = Int16(tourListDict.sortId!)!
-            tourListInfo.nid = tourListDict.nid
-            tourListInfo.eventDate = tourListDict.eventDate
-            
-            //specialEvent
-            tourListInfo.dateString = tourListDict.date
-            tourListInfo.descriptioForModerator = tourListDict.descriptioForModerator
-            tourListInfo.mobileLatitude = tourListDict.mobileLatitude
-            tourListInfo.moderatorName = tourListDict.moderatorName
-            tourListInfo.longitude = tourListDict.longitude
-            tourListInfo.contactEmail = tourListDict.contactEmail
-            tourListInfo.contactPhone = tourListDict.contactPhone
-            tourListInfo.isTourGuide = isTourGuide
-        tourListInfo.language = Utils.getLanguage()
-        
-            if(tourListDict.images != nil){
-                if((tourListDict.images?.count)! > 0) {
-                    for i in 0 ... (tourListDict.images?.count)!-1 {
-                        var tourImage: ImageEntity!
-                        let tourImgaeArray = NSEntityDescription.insertNewObject(forEntityName: "ImageEntity", into: managedObjContext) as! ImageEntity
-                        tourImgaeArray.image = tourListDict.images?[i]
-                        tourImgaeArray.language = Utils.getLanguage()
-                        tourImage = tourImgaeArray
-                        tourListInfo.addToTourImagesRelation(tourImage)
-                        do {
-                            try managedObjContext.save()
-                        } catch let error as NSError {
-                            print("Could not save. \(error), \(error.userInfo)")
-                        }
-                    }
-                }
-            }
-        do {
-            try managedObjContext.save()
-        } catch let error as NSError {
-            DDLogError("Could not save. \(error), \(error.userInfo)")
-        }
-    }
     func fetchTourInfoFromCoredata(isTourGuide:Bool) {
         let managedContext = getContext()
         do {

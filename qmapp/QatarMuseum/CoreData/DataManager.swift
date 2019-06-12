@@ -1041,5 +1041,88 @@ extension DataManager {
         
         DataManager.save(managedObjContext)
     }
+    
+    static func updateTourList(nmoqTourList:[NMoQTour],
+                        managedContext: NSManagedObjectContext,
+                        isTourGuide:Bool) {
+        let fetchData = DataManager.checkAddedToCoredata(entityName: "NMoQTourListEntity",
+                                                         idKey: "nid",
+                                                         idValue: nil,
+                                                         managedContext: managedContext) as! [NMoQTourListEntity]
+        if (fetchData.count > 0) {
+            for tourListDict in nmoqTourList {
+                let fetchResult = DataManager.checkAddedToCoredata(entityName: "NMoQTourListEntity",
+                                                                   idKey: "nid",
+                                                                   idValue: tourListDict.nid,
+                                                                   managedContext: managedContext)
+                //update
+                if(fetchResult.count != 0) {
+                    let tourListdbDict = fetchResult[0] as! NMoQTourListEntity
+                    DataManager.saveTourList(tourListDict: tourListDict,
+                                      managedObjContext: managedContext,
+                                      isTourGuide: isTourGuide,
+                                      entity: tourListdbDict)
+                } else {
+                    //save
+                    DataManager.saveTourList(tourListDict: tourListDict,
+                                      managedObjContext: managedContext,
+                                      isTourGuide: isTourGuide,
+                                      entity: nil)
+                }
+            }
+        } else {
+            for tourListDict in nmoqTourList {
+                DataManager.saveTourList(tourListDict: tourListDict,
+                                  managedObjContext: managedContext,
+                                  isTourGuide: isTourGuide,
+                                  entity: nil)
+            }
+        }
+    }
+    
+    static func saveTourList(tourListDict: NMoQTour,
+                      managedObjContext: NSManagedObjectContext,
+                      isTourGuide: Bool,
+                      entity: NMoQTourListEntity?) {
+        var tourListInfo = entity
+        if entity == nil {
+            tourListInfo = NSEntityDescription.insertNewObject(forEntityName: "NMoQTourListEntity",
+                                                               into: managedObjContext) as? NMoQTourListEntity
+        }
+        
+        tourListInfo?.title = tourListDict.title
+        tourListInfo?.dayDescription = tourListDict.dayDescription
+        tourListInfo?.subtitle = tourListDict.subtitle
+        tourListInfo?.sortId = Int16(tourListDict.sortId!)!
+        tourListInfo?.nid = tourListDict.nid
+        tourListInfo?.eventDate = tourListDict.eventDate
+        
+        //specialEvent
+        tourListInfo?.dateString = tourListDict.date
+        tourListInfo?.descriptioForModerator = tourListDict.descriptioForModerator
+        tourListInfo?.mobileLatitude = tourListDict.mobileLatitude
+        tourListInfo?.moderatorName = tourListDict.moderatorName
+        tourListInfo?.longitude = tourListDict.longitude
+        tourListInfo?.contactEmail = tourListDict.contactEmail
+        tourListInfo?.contactPhone = tourListDict.contactPhone
+        tourListInfo?.isTourGuide = isTourGuide
+        tourListInfo?.language = Utils.getLanguage()
+        
+        if(tourListDict.images != nil){
+            if((tourListDict.images?.count)! > 0) {
+                for i in 0 ... (tourListDict.images?.count)!-1 {
+                    var tourImage: ImageEntity!
+                    let tourImgaeArray = NSEntityDescription.insertNewObject(forEntityName: "ImageEntity",
+                                                                             into: managedObjContext) as! ImageEntity
+                    tourImgaeArray.image = tourListDict.images?[i]
+                    tourImgaeArray.language = Utils.getLanguage()
+                    tourImage = tourImgaeArray
+                    tourListInfo?.addToTourImagesRelation(tourImage)
+                    DataManager.save(managedObjContext)
+                }
+            }
+        }
+        DataManager.save(managedObjContext)
+    }
 }
 
