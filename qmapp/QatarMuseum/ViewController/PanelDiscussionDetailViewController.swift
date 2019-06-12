@@ -37,7 +37,7 @@ class PanelDiscussionDetailViewController: UIViewController,LoadingViewProtocol,
     var entityRegistration : NMoQEntityRegistration?
     var completedEntityReg : NMoQEntityRegistration?
     var userEventList: [NMoQUserEventList]! = []
-    var facilitiesDetail: [FacilitiesDetail]! = []
+    var facilitiesDetail = [FacilitiesDetail]()
     var collectionDetailArray: [CollectionDetail]! = []
     var nmoqParkDetailArray: [NMoQParkDetail]! = []
     var popupView : ComingSoonPopUp = ComingSoonPopUp()
@@ -1179,7 +1179,7 @@ class PanelDiscussionDetailViewController: UIViewController,LoadingViewProtocol,
             _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.GetFacilitiesDetail(["category_id" : panelDetailId!])).responseObject { (response: DataResponse<FacilitiesDetailData>) -> Void in
                 switch response.result {
                 case .success(let data):
-                    self.facilitiesDetail = data.facilitiesDetail
+                    self.facilitiesDetail = data.facilitiesDetail ?? []
                     //                    if self.nmoqTourDetail.first(where: {$0.sortId != "" && $0.sortId != nil} ) != nil {
                     //                        self.nmoqTourDetail = self.nmoqTourDetail.sorted(by: { Int16($0.sortId!)! < Int16($1.sortId!)! })
                     //                    }
@@ -1217,215 +1217,28 @@ class PanelDiscussionDetailViewController: UIViewController,LoadingViewProtocol,
             if #available(iOS 10.0, *) {
                 let container = appDelegate!.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
-                    self.facilitiesDetailCoreDataInBackgroundThread(managedContext: managedContext)
+                    DataManager.updateFacilitiesDetails(managedContext : managedContext,
+                                                        category: self.panelDetailId,
+                                                        facilities: self.facilitiesDetail)
                 }
             } else {
                 let managedContext = appDelegate!.managedObjectContext
                 managedContext.perform {
-                    self.facilitiesDetailCoreDataInBackgroundThread(managedContext : managedContext)
+                    DataManager.updateFacilitiesDetails(managedContext : managedContext,
+                                                        category: self.panelDetailId,
+                                                        facilities: self.facilitiesDetail)
                 }
             }
         }
     }
-    func facilitiesDetailCoreDataInBackgroundThread(managedContext: NSManagedObjectContext) {
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-//        if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
-            let fetchData = checkAddedToCoredata(entityName: "FacilitiesDetailEntity",
-                                                 idKey: "category",
-                                                 idValue: panelDetailId,
-                                                 managedContext: managedContext) as! [FacilitiesDetailEntity]
-            if (fetchData.count > 0) {
-                for i in 0 ... facilitiesDetail.count-1 {
-                    let facilitiesDetailDict = facilitiesDetail[i]
-                    let fetchResult = checkAddedToCoredata(entityName: "FacilitiesDetailEntity",
-                                                           idKey: "nid",
-                                                           idValue: facilitiesDetailDict.nid,
-                                                           managedContext: managedContext)
-                    //update
-                    if(fetchResult.count != 0) {
-                        let facilitiesDetaildbDict = fetchResult[0] as! FacilitiesDetailEntity
-                        facilitiesDetaildbDict.title = facilitiesDetailDict.title
-                        facilitiesDetaildbDict.subtitle = facilitiesDetailDict.subtitle
-                        facilitiesDetaildbDict.facilitiesDes =  facilitiesDetailDict.facilitiesDes
-                        facilitiesDetaildbDict.timing =  facilitiesDetailDict.timing
-                        facilitiesDetaildbDict.titleTiming = facilitiesDetailDict.titleTiming
-                        facilitiesDetaildbDict.nid = facilitiesDetailDict.nid
-                        facilitiesDetaildbDict.longtitude =  facilitiesDetailDict.longtitude
-                        facilitiesDetaildbDict.category =  facilitiesDetailDict.category
-                        facilitiesDetaildbDict.latitude = facilitiesDetailDict.latitude
-                        facilitiesDetaildbDict.locationTitle = facilitiesDetailDict.locationTitle
-                        facilitiesDetaildbDict.language = Utils.getLanguage()
-                        
-                        if(facilitiesDetailDict.images != nil){
-                            if((facilitiesDetailDict.images?.count)! > 0) {
-                                for i in 0 ... (facilitiesDetailDict.images?.count)!-1 {
-                                    var facilitiesDetailImage: ImageEntity
-                                    let facilitiesImgaeArray = NSEntityDescription.insertNewObject(forEntityName: "ImageEntity", into: managedContext) as! ImageEntity
-                                    facilitiesImgaeArray.image = facilitiesDetailDict.images?[i]
-                                    facilitiesImgaeArray.language = Utils.getLanguage()
-                                    facilitiesDetailImage = facilitiesImgaeArray
-                                    facilitiesDetaildbDict.addToFacilitiesDetailRelation(facilitiesDetailImage)
-                                    do {
-                                        try managedContext.save()
-                                    } catch let error as NSError {
-                                        print("Could not save. \(error), \(error.userInfo)")
-                                    }
-                                }
-                            }
-                        }
-                        do{
-                            try managedContext.save()
-                        }
-                        catch{
-                            print(error)
-                        }
-                    }
-                    else {
-                        //save
-                        self.saveFacilitiesDetailsToCoreData(facilitiesDetailDict: facilitiesDetailDict,
-                                                             managedObjContext: managedContext)
-                    }
-                }
-            }
-            else {
-                for i in 0 ... facilitiesDetail.count-1 {
-                    let facilitiesDetailDict : FacilitiesDetail?
-                    facilitiesDetailDict = facilitiesDetail[i]
-                    self.saveFacilitiesDetailsToCoreData(facilitiesDetailDict: facilitiesDetailDict!, managedObjContext: managedContext)
-                }
-            }
-//        } else {
-//            let fetchData = checkAddedToCoredata(entityName: "FacilitiesDetailEntityAr", idKey: "category", idValue: panelDetailId, managedContext: managedContext) as! [FacilitiesDetailEntityAr]
-//            if (fetchData.count > 0) {
-//                for i in 0 ... facilitiesDetail.count-1 {
-//                    let facilitiesDetailDict = facilitiesDetail[i]
-//                    let fetchResult = checkAddedToCoredata(entityName: "FacilitiesDetailEntityAr", idKey: "nid", idValue: facilitiesDetailDict.nid, managedContext: managedContext)
-//                    //update
-//                    if(fetchResult.count != 0) {
-//                        let facilitiesDetaildbDict = fetchResult[0] as! FacilitiesDetailEntityAr
-//                        facilitiesDetaildbDict.title = facilitiesDetailDict.title
-//                        facilitiesDetaildbDict.subtitle = facilitiesDetailDict.subtitle
-//                        facilitiesDetaildbDict.facilitiesDes =  facilitiesDetailDict.facilitiesDes
-//                        facilitiesDetaildbDict.timing =  facilitiesDetailDict.timing
-//                        facilitiesDetaildbDict.titleTiming = facilitiesDetailDict.titleTiming
-//                        facilitiesDetaildbDict.nid = facilitiesDetailDict.nid
-//                        facilitiesDetaildbDict.longtitude =  facilitiesDetailDict.longtitude
-//                        facilitiesDetaildbDict.category =  facilitiesDetailDict.category
-//                        facilitiesDetaildbDict.latitude = facilitiesDetailDict.latitude
-//                        facilitiesDetaildbDict.locationTitle = facilitiesDetailDict.locationTitle
-//
-//                        if(facilitiesDetailDict.images != nil){
-//                            if((facilitiesDetailDict.images?.count)! > 0) {
-//                                for i in 0 ... (facilitiesDetailDict.images?.count)!-1 {
-//                                    var facilitiesDetailImage: FacilitiesDetailImgEntityAr
-//                                    let facilitiesImgaeArray: FacilitiesDetailImgEntityAr = NSEntityDescription.insertNewObject(forEntityName: "FacilitiesDetailImgEntityAr", into: managedContext) as! FacilitiesDetailImgEntityAr
-//                                    facilitiesImgaeArray.images = facilitiesDetailDict.images?[i]
-//                                    facilitiesDetailImage = facilitiesImgaeArray
-//                                    facilitiesDetaildbDict.addToFacilitiesDetailRelationAr(facilitiesDetailImage)
-//                                    do {
-//                                        try managedContext.save()
-//                                    } catch let error as NSError {
-//                                        print("Could not save. \(error), \(error.userInfo)")
-//                                    }
-//                                }
-//                            }
-//                        }
-//                        do{
-//                            try managedContext.save()
-//                        }
-//                        catch{
-//                            print(error)
-//                        }
-//                    }
-//                    else {
-//                        //save
-//                        self.saveFacilitiesDetailsToCoreData(facilitiesDetailDict: facilitiesDetailDict, managedObjContext: managedContext)
-//                    }
-//                }
-//            }
-//            else {
-//                for i in 0 ... facilitiesDetail.count-1 {
-//                    let facilitiesDetailDict : FacilitiesDetail?
-//                    facilitiesDetailDict = facilitiesDetail[i]
-//                    self.saveFacilitiesDetailsToCoreData(facilitiesDetailDict: facilitiesDetailDict!, managedObjContext: managedContext)
-//                }
-//            }
-//        }
-    }
-    func saveFacilitiesDetailsToCoreData(facilitiesDetailDict: FacilitiesDetail, managedObjContext: NSManagedObjectContext) {
-//        if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
-            let facilitiesDetaildbDict: FacilitiesDetailEntity = NSEntityDescription.insertNewObject(forEntityName: "FacilitiesDetailEntity", into: managedObjContext) as! FacilitiesDetailEntity
-            facilitiesDetaildbDict.title = facilitiesDetailDict.title
-            facilitiesDetaildbDict.subtitle = facilitiesDetailDict.subtitle
-            facilitiesDetaildbDict.facilitiesDes =  facilitiesDetailDict.facilitiesDes
-            facilitiesDetaildbDict.timing =  facilitiesDetailDict.timing
-            facilitiesDetaildbDict.titleTiming = facilitiesDetailDict.titleTiming
-            facilitiesDetaildbDict.nid = facilitiesDetailDict.nid
-            facilitiesDetaildbDict.longtitude =  facilitiesDetailDict.longtitude
-            facilitiesDetaildbDict.category =  facilitiesDetailDict.category
-            facilitiesDetaildbDict.latitude = facilitiesDetailDict.latitude
-            facilitiesDetaildbDict.locationTitle = facilitiesDetailDict.locationTitle
-        facilitiesDetaildbDict.language = Utils.getLanguage()
-            
-            if(facilitiesDetailDict.images != nil){
-                if((facilitiesDetailDict.images?.count)! > 0) {
-                    for i in 0 ... (facilitiesDetailDict.images?.count)!-1 {
-                        var facilitiesDetailImage: ImageEntity
-                        let facilitiesImgaeArray = NSEntityDescription.insertNewObject(forEntityName: "ImageEntity", into: managedObjContext) as! ImageEntity
-                        facilitiesImgaeArray.image = facilitiesDetailDict.images?[i]
-                        facilitiesDetailImage = facilitiesImgaeArray
-                        facilitiesDetaildbDict.addToFacilitiesDetailRelation(facilitiesDetailImage)
-                        do {
-                            try managedObjContext.save()
-                        } catch let error as NSError {
-                            print("Could not save. \(error), \(error.userInfo)")
-                        }
-                    }
-                }
-            }
-//        } else {
-//            let facilitiesDetaildbDict: FacilitiesDetailEntityAr = NSEntityDescription.insertNewObject(forEntityName: "FacilitiesDetailEntityAr", into: managedObjContext) as! FacilitiesDetailEntityAr
-//            facilitiesDetaildbDict.title = facilitiesDetailDict.title
-//            facilitiesDetaildbDict.subtitle = facilitiesDetailDict.subtitle
-//            facilitiesDetaildbDict.facilitiesDes =  facilitiesDetailDict.facilitiesDes
-//            facilitiesDetaildbDict.timing =  facilitiesDetailDict.timing
-//            facilitiesDetaildbDict.titleTiming = facilitiesDetailDict.titleTiming
-//            facilitiesDetaildbDict.nid = facilitiesDetailDict.nid
-//            facilitiesDetaildbDict.longtitude =  facilitiesDetailDict.longtitude
-//            facilitiesDetaildbDict.category =  facilitiesDetailDict.category
-//            facilitiesDetaildbDict.latitude = facilitiesDetailDict.latitude
-//            facilitiesDetaildbDict.locationTitle = facilitiesDetailDict.locationTitle
-//
-//            if(facilitiesDetailDict.images != nil){
-//                if((facilitiesDetailDict.images?.count)! > 0) {
-//                    for i in 0 ... (facilitiesDetailDict.images?.count)!-1 {
-//                        var facilitiesDetailImage: FacilitiesDetailImgEntityAr
-//                        let facilitiesImgaeArray: FacilitiesDetailImgEntityAr = NSEntityDescription.insertNewObject(forEntityName: "FacilitiesDetailImgEntityAr", into: managedObjContext) as! FacilitiesDetailImgEntityAr
-//                        facilitiesImgaeArray.images = facilitiesDetailDict.images?[i]
-//                        facilitiesDetailImage = facilitiesImgaeArray
-//                        facilitiesDetaildbDict.addToFacilitiesDetailRelationAr(facilitiesDetailImage)
-//                        do {
-//                            try managedObjContext.save()
-//                        } catch let error as NSError {
-//                            print("Could not save. \(error), \(error.userInfo)")
-//                        }
-//                    }
-//                }
-//            }
-//        }
-        do {
-            try managedObjContext.save()
-        } catch let error as NSError {
-            print("Could not save. \(error), \(error.userInfo)")
-        }
-    }
+    
     
     func fetchFacilitiesDetailsFromCoredata() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         let managedContext = getContext()
         do {
                 var facilitiesDetailArray = [FacilitiesDetailEntity]()
-                facilitiesDetailArray = checkAddedToCoredata(entityName: "FacilitiesDetailEntity",
+            facilitiesDetailArray = DataManager.checkAddedToCoredata(entityName: "FacilitiesDetailEntity",
                                                              idKey: "category",
                                                              idValue: panelDetailId,
                                                              managedContext: managedContext) as! [FacilitiesDetailEntity]
@@ -1533,83 +1346,49 @@ class PanelDiscussionDetailViewController: UIViewController,LoadingViewProtocol,
             DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         }
     }
+    
     func collectionDetailCoreDataInBackgroundThread(managedContext: NSManagedObjectContext) {
-//        if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
-            let fetchData = checkAddedToCoredata(entityName: "CollectionDetailsEntity", idKey: "categoryCollection" , idValue: collectionName, managedContext: managedContext) as! [CollectionDetailsEntity]
-            
-            if (fetchData.count > 0) {
-                for i in 0 ... collectionDetailArray.count-1 {
-                    let collectionDetailDict = collectionDetailArray[i]
-                    let fetchResult = checkAddedToCoredata(entityName: "CollectionDetailsEntity", idKey: "nid", idValue: collectionDetailArray[i].nid, managedContext: managedContext) as! [CollectionDetailsEntity]
+        
+        if let fetchData = DataManager.checkAddedToCoredata(entityName: "CollectionDetailsEntity",
+                                                            idKey: "categoryCollection",
+                                                            idValue: collectionName,
+                                                            managedContext: managedContext) as? [CollectionDetailsEntity],
+            !fetchData.isEmpty {
+            for collectionDetailDict in collectionDetailArray {
+                if let fetchData = DataManager.checkAddedToCoredata(entityName: "CollectionDetailsEntity",
+                                                                    idKey: "nid",
+                                                                    idValue: collectionDetailDict.nid,
+                                                                    managedContext: managedContext) as? [CollectionDetailsEntity],
+                    !fetchData.isEmpty {
+                    let collectiondbDict = fetchData[0]
+                    collectiondbDict.title = collectionDetailDict.title
+                    collectiondbDict.body = collectionDetailDict.body
+                    collectiondbDict.categoryCollection =  collectionDetailDict.categoryCollection?.replacingOccurrences(of: "<[^>]+>|&nbsp;|&|#039;", with: "", options: .regularExpression, range: nil)
+                    collectiondbDict.nid = collectionDetailDict.nid
+                    collectiondbDict.image = collectionDetailDict.image
+                    collectiondbDict.language = Utils.getLanguage()
                     
-                    if(fetchResult.count != 0) {
-                        
-                        //update
-                        let collectiondbDict = fetchResult[0]
-                        collectiondbDict.title = collectionDetailDict.title
-                        collectiondbDict.body = collectionDetailDict.body
-                        collectiondbDict.categoryCollection =  collectionDetailDict.categoryCollection?.replacingOccurrences(of: "<[^>]+>|&nbsp;|&|#039;", with: "", options: .regularExpression, range: nil)
-                        collectiondbDict.nid = collectionDetailDict.nid
-                        collectiondbDict.image = collectionDetailDict.image
-                        collectiondbDict.language = Utils.getLanguage()
-                        
-                        do{
-                            try managedContext.save()
-                        }
-                        catch{
-                            print(error)
-                        }
-                    }else {
-                        self.collectionDetailSaveToCoreData(collectionDetailDict: collectionDetailDict, managedObjContext: managedContext)
+                    do {
+                        try managedContext.save()
                     }
-                }//for
-            }//if
-            else {
-                for i in 0 ... collectionDetailArray.count-1 {
-                    let collectionDetailDict : CollectionDetail?
-                    collectionDetailDict = collectionDetailArray[i]
-                    self.collectionDetailSaveToCoreData(collectionDetailDict: collectionDetailDict!, managedObjContext: managedContext)
+                    catch{
+                        print(error)
+                    }
+                    
+                } else {
+                    self.collectionDetailSaveToCoreData(collectionDetailDict: collectionDetailDict, managedObjContext: managedContext)
                 }
-                
             }
-//        }
-//        else {
-//            let fetchData = checkAddedToCoredata(entityName: "CollectionDetailsEntityAr", idKey:"categoryCollection" , idValue: collectionName, managedContext: managedContext) as! [CollectionDetailsEntityAr]
-//            if (fetchData.count > 0) {
-//                for i in 0 ... collectionDetailArray.count-1 {
-//                    let collectionDetailDict = collectionDetailArray[i]
-//                    let fetchResult = checkAddedToCoredata(entityName: "CollectionDetailsEntityAr", idKey: "nid", idValue: collectionDetailArray[i].nid, managedContext: managedContext) as! [CollectionDetailsEntityAr]
-//                    //update
-//                    if(fetchResult.count != 0) {
-//                        let collectiondbDict = fetchResult[0]
-//                        collectiondbDict.titleAr = collectionDetailDict.title
-//                        collectiondbDict.bodyAr = collectionDetailDict.body
-//                        collectiondbDict.categoryCollection =  collectionDetailDict.categoryCollection?.replacingOccurrences(of: "<[^>]+>|&nbsp;|&|#039;", with: "", options: .regularExpression, range: nil)
-//                        collectiondbDict.imageAr = collectionDetailDict.image
-//
-//                        do{
-//                            try managedContext.save()
-//                        }
-//                        catch{
-//                            print(error)
-//                        }
-//                    } else {
-//                        self.collectionDetailSaveToCoreData(collectionDetailDict: collectionDetailDict, managedObjContext: managedContext)
-//                    }
-//                }//for
-//            } //if
-//            else {
-//                for i in 0 ... collectionDetailArray.count-1 {
-//                    let collectionDetailDict : CollectionDetail?
-//                    collectionDetailDict = collectionDetailArray[i]
-//                    self.collectionDetailSaveToCoreData(collectionDetailDict: collectionDetailDict!, managedObjContext: managedContext)
-//                }
-//            }
-//        }
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
+            
+        } else {
+            for collectionDetailDict in collectionDetailArray {
+                self.collectionDetailSaveToCoreData(collectionDetailDict: collectionDetailDict,
+                                                    managedObjContext: managedContext)
+            }
+        }
     }
+    
     func collectionDetailSaveToCoreData(collectionDetailDict: CollectionDetail, managedObjContext: NSManagedObjectContext) {
-//        if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
             let collectiondbDict: CollectionDetailsEntity = NSEntityDescription.insertNewObject(forEntityName: "CollectionDetailsEntity", into: managedObjContext) as! CollectionDetailsEntity
             collectiondbDict.title = collectionDetailDict.title
             collectiondbDict.body = collectionDetailDict.body
@@ -1617,16 +1396,7 @@ class PanelDiscussionDetailViewController: UIViewController,LoadingViewProtocol,
             collectiondbDict.categoryCollection =  collectionDetailDict.categoryCollection?.replacingOccurrences(of: "<[^>]+>|&nbsp;|&|#039;", with: "", options: .regularExpression, range: nil)
             collectiondbDict.image = collectionDetailDict.image
         collectiondbDict.language = Utils.getLanguage()
-            
-//        }
-//        else {
-//            let collectiondbDict: CollectionDetailsEntityAr = NSEntityDescription.insertNewObject(forEntityName: "CollectionDetailsEntityAr", into: managedObjContext) as! CollectionDetailsEntityAr
-//            collectiondbDict.titleAr = collectionDetailDict.title
-//            collectiondbDict.bodyAr = collectionDetailDict.body
-//            collectiondbDict.nid = collectionDetailDict.nid
-//            collectiondbDict.categoryCollection =  collectionDetailDict.categoryCollection?.replacingOccurrences(of: "<[^>]+>|&nbsp;|&|#039;", with: "", options: .regularExpression, range: nil)
-//            collectiondbDict.imageAr = collectionDetailDict.image
-//        }
+        
         do {
             try managedObjContext.save()
             
@@ -1642,10 +1412,11 @@ class PanelDiscussionDetailViewController: UIViewController,LoadingViewProtocol,
         do {
 //            if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
                 var collectionArray = [CollectionDetailsEntity]()
-                collectionArray = checkAddedToCoredata(entityName: "CollectionDetailsEntity",
-                                                       idKey: "categoryCollection",
-                                                       idValue: collectionName,
-                                                       managedContext: managedContext) as! [CollectionDetailsEntity]
+            collectionArray = DataManager.checkAddedToCoredata(entityName: "CollectionDetailsEntity",
+                                                             idKey: "categoryCollection",
+                                                             idValue: collectionName,
+                                                             managedContext: managedContext) as! [CollectionDetailsEntity]
+            
                 if (collectionArray.count > 0) {
                     for i in 0 ... collectionArray.count-1 {
                         let collectionDict = collectionArray[i]
@@ -1676,39 +1447,6 @@ class PanelDiscussionDetailViewController: UIViewController,LoadingViewProtocol,
                         self.loadingView.showNoDataView()
                     }
                 }
-//            } else {
-//                var collectionArray = [CollectionDetailsEntityAr]()
-//                collectionArray = checkAddedToCoredata(entityName: "CollectionDetailsEntityAr", idKey: "categoryCollection", idValue: collectionName, managedContext: managedContext) as! [CollectionDetailsEntityAr]
-//                if(collectionArray.count > 0) {
-//                    for i in 0 ... collectionArray.count-1 {
-//                        let collectionDict = collectionArray[i]
-//                        if((collectionDict.titleAr == nil) && (collectionDict.bodyAr == nil)) {
-//                            if(self.networkReachability?.isReachable == false) {
-//                                self.showNoNetwork()
-//                            } else {
-//                                self.loadingView.showNoDataView()
-//                            }
-//                        } else {
-//                            self.collectionDetailArray.insert(CollectionDetail(title: collectionDict.titleAr, image: collectionDict.imageAr, body: collectionDict.bodyAr, nid: collectionDict.nid, categoryCollection: collectionDict.categoryCollection?.replacingOccurrences(of: "<[^>]+>|&nbsp;|&|#039;", with: "", options: .regularExpression, range: nil)), at: 0)
-//
-//                        }
-//                    }
-//                    if(collectionDetailArray.count == 0){
-//                        if(self.networkReachability?.isReachable == false) {
-//                            self.showNoNetwork()
-//                        } else {
-//                            self.loadingView.showNoDataView()
-//                        }
-//                    }
-//                    tableView.reloadData()
-//                } else {
-//                    if(self.networkReachability?.isReachable == false) {
-//                        self.showNoNetwork()
-//                    } else {
-//                        self.loadingView.showNoDataView()
-//                    }
-//                }
-//            }
         }
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
     }
@@ -1733,17 +1471,19 @@ class PanelDiscussionDetailViewController: UIViewController,LoadingViewProtocol,
     
     func nmoqParkDetailCoreDataInBackgroundThread(nmoqParkList: [NMoQParkDetail]?,
                                                   managedContext: NSManagedObjectContext) {
-            let fetchData = checkAddedToCoredata(entityName: "NMoQParkDetailEntity",
-                                                 idKey: "nid",
-                                                 idValue: nil,
-                                                 managedContext: managedContext) as! [NMoQParkDetailEntity]
+        let fetchData = DataManager.checkAddedToCoredata(entityName: "NMoQParkDetailEntity",
+                                                                 idKey: "nid",
+                                                                 idValue: nil,
+                                                                 managedContext: managedContext) as! [NMoQParkDetailEntity]
+        
             if (fetchData.count > 0) {
                 for i in 0 ... (nmoqParkList?.count)!-1 {
                     let nmoqParkListDict = nmoqParkList![i]
-                    let fetchResult = checkAddedToCoredata(entityName: "NMoQParkDetailEntity",
-                                                           idKey: "nid",
-                                                           idValue: nmoqParkListDict.nid,
-                                                           managedContext: managedContext)
+                    let fetchResult = DataManager.checkAddedToCoredata(entityName: "NMoQParkDetailEntity",
+                                                                             idKey: "nid",
+                                                                             idValue: nmoqParkListDict.nid,
+                                                                             managedContext: managedContext)
+                    
                     //update
                     if(fetchResult.count != 0) {
                         let nmoqParkListdbDict = fetchResult[0] as! NMoQParkDetailEntity
@@ -1831,10 +1571,11 @@ class PanelDiscussionDetailViewController: UIViewController,LoadingViewProtocol,
         let managedContext = getContext()
         do {
                 var parkListArray = [NMoQParkDetailEntity]()
-                parkListArray = checkAddedToCoredata(entityName: "NMoQParkDetailEntity",
-                                                     idKey: "nid",
-                                                     idValue: nid,
-                                                     managedContext: managedContext) as! [NMoQParkDetailEntity]
+            parkListArray = DataManager.checkAddedToCoredata(entityName: "NMoQParkDetailEntity",
+                                                                     idKey: "nid",
+                                                                     idValue: nid,
+                                                                     managedContext: managedContext) as! [NMoQParkDetailEntity]
+            
                 if (parkListArray.count > 0) {
                     for i in 0 ... parkListArray.count-1 {
                         let parkListDict = parkListArray[i]
@@ -1871,17 +1612,7 @@ class PanelDiscussionDetailViewController: UIViewController,LoadingViewProtocol,
         }
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
     }
-        
-    func checkAddedToCoredata(entityName: String?, idKey:String?, idValue: String?, managedContext: NSManagedObjectContext) -> [NSManagedObject] {
-        var fetchResults : [NSManagedObject] = []
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: entityName!)
-        if (idValue != nil) {
-            fetchRequest.predicate = NSPredicate(format: "\(idKey!) == %@", idValue!)
-        }
-        fetchResults = try! managedContext.fetch(fetchRequest)
-        return fetchResults
-    }
-        
+    
     func recordScreenView() {
         let screenClass = String(describing: type(of: self))
         if (pageNameString == NMoQPanelPage.TourDetailPage) {

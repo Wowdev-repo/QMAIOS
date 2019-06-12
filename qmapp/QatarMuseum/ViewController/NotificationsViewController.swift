@@ -137,14 +137,14 @@ class NotificationsViewController: UIViewController,UITableViewDelegate,UITableV
     
     func coreDataInBackgroundThread(managedContext: NSManagedObjectContext) {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-            let fetchData = checkAddedToCoredata(entityName: "NotificationsEntity",
+            let fetchData = DataManager.checkAddedToCoredata(entityName: "NotificationsEntity",
                                                  idKey: "sortId",
                                                  idValue: nil,
                                                  managedContext: managedContext) as! [NotificationsEntity]
             if (fetchData.count > 0) {
                 for i in 0 ... notificationArray.count-1 {
                     let notificationDict = notificationArray[i]
-                    let fetchResult = checkAddedToCoredata(entityName: "NotificationsEntity",
+                    let fetchResult = DataManager.checkAddedToCoredata(entityName: "NotificationsEntity",
                                                            idKey: "sortId",
                                                            idValue: nil,
                                                            managedContext: managedContext) as! [NotificationsEntity]
@@ -224,16 +224,6 @@ class NotificationsViewController: UIViewController,UITableViewDelegate,UITableV
         } catch let error as NSError {
             print("Could not fetch. \(error), \(error.userInfo)")
         }
-    }
-    
-    func checkAddedToCoredata(entityName: String?,idKey:String?, idValue: String?, managedContext: NSManagedObjectContext) -> [NSManagedObject] {
-        var fetchResults : [NSManagedObject] = []
-        let notificationFetchRequest = NSFetchRequest<NSManagedObject>(entityName: entityName!)
-        if (idValue != nil) {
-            notificationFetchRequest.predicate = NSPredicate.init(format: "\(idKey!) == \(idValue!)")
-        }
-        fetchResults = try! managedContext.fetch(notificationFetchRequest)
-        return fetchResults
     }
     
     //MARK: header delegate

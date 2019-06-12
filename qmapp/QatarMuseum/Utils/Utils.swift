@@ -20,4 +20,16 @@ class Utils {
         }
         return language
     }
+    
+    static func uniqueDate(_ date: Date) -> String? {
+        if let newDate = Calendar.current.date(bySettingHour: 0, minute: 0, second: 0, of: date) {
+            let timestamp = newDate.timeIntervalSince1970
+            let dateString = String(timestamp)
+            let delimiter = "."
+            let token = dateString.components(separatedBy: delimiter)
+            return token.isEmpty ? nil : token.first
+        }
+        
+        return nil
+    }
 }

@@ -974,11 +974,11 @@ class HomeViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         } else {
             langVar = "0"
         }
-        fetchData = checkAddedToCoredata(entityName: "HomeEntity", idKey: "lang", idValue: langVar, managedContext: managedContext) as! [HomeEntity]
+        fetchData = DataManager.checkAddedToCoredata(entityName: "HomeEntity", idKey: "lang", idValue: langVar, managedContext: managedContext) as! [HomeEntity]
             if (fetchData.count > 0) {
                 for i in 0 ... (homeList?.count)!-1 {
                     let homeListDict = homeList![i]
-                    let fetchResult = checkAddedToCoredata(entityName: "HomeEntity", idKey: "id", idValue: homeList![i].id, managedContext: managedContext)
+                    let fetchResult = DataManager.checkAddedToCoredata(entityName: "HomeEntity", idKey: "id", idValue: homeList![i].id, managedContext: managedContext)
                     //update
                     if(fetchResult.count != 0) {
                         let homedbDict = fetchResult[0] as! HomeEntity
@@ -1044,7 +1044,7 @@ class HomeViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                 } else {
                     langVar = "0"
                 }
-                homeArray = checkAddedToCoredata(entityName: "HomeEntity", idKey: "lang", idValue: langVar, managedContext: managedContext) as! [HomeEntity]
+                homeArray = DataManager.checkAddedToCoredata(entityName: "HomeEntity", idKey: "lang", idValue: langVar, managedContext: managedContext) as! [HomeEntity]
                 var j:Int? = 0
             if (homeArray.count > 0) {
                 if((self.networkReachability?.isReachable)!) {
@@ -1123,6 +1123,7 @@ class HomeViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             }
         }
     }
+    
     func userEventCoreDataInBackgroundThread(managedContext: NSManagedObjectContext) {
         if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
             if (userEventList.count > 0) {
@@ -1162,8 +1163,7 @@ class HomeViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     }
     
     func homeBannerCoreDataInBackgroundThread(managedContext: NSManagedObjectContext) {
-//        if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
-            let fetchData = checkAddedToCoredata(entityName: "HomeBannerEntity",
+            let fetchData = DataManager.checkAddedToCoredata(entityName: "HomeBannerEntity",
                                                  idKey: "fullContentID",
                                                  idValue: nil,
                                                  managedContext: managedContext) as! [HomeBannerEntity]
@@ -1180,21 +1180,6 @@ class HomeViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                         //save
                         self.saveHomeBannerToCoreData(homeListDict: homeListDict, managedObjContext: managedContext)
                     }
-//        } else {
-//            let fetchData = checkAddedToCoredata(entityName: "HomeBannerEntityAr", idKey: "fullContentID", idValue: nil, managedContext: managedContext) as! [HomeBannerEntityAr]
-//            let homeListDict = homeBannerList[0]
-//            if (fetchData.count > 0) {
-//
-//                let isDeleted = self.deleteExistingEvent(managedContext: managedContext, entityName: "HomeBannerEntityAr")
-//                if(isDeleted == true) {
-//                    self.saveHomeBannerToCoreData(homeListDict: homeListDict, managedObjContext: managedContext)
-//                }
-//
-//            } else {
-//                //save
-//                self.saveHomeBannerToCoreData(homeListDict: homeListDict, managedObjContext: managedContext)
-//            }
-//        }
     }
     
     func saveHomeBannerToCoreData(homeListDict: HomeBanner, managedObjContext: NSManagedObjectContext) {
@@ -1332,16 +1317,6 @@ class HomeViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             return false
         }
         
-    }
-    
-    func checkAddedToCoredata(entityName: String?, idKey:String?, idValue: String?, managedContext: NSManagedObjectContext) -> [NSManagedObject] {
-        var fetchResults : [NSManagedObject] = []
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: entityName!)
-        if (idValue != nil) {
-            fetchRequest.predicate = NSPredicate(format: "\(idKey!) == %@", idValue!)
-        }
-        fetchResults = try! managedContext.fetch(fetchRequest)
-        return fetchResults
     }
     
     func showNodata() {
