@@ -997,7 +997,9 @@ class TourAndPanelListViewController: UIViewController,UITableViewDelegate,UITab
                     }
                 }
                 if(self.nmoqActivityList.count > 0) {
-                    self.saveOrUpdateTravelListCoredata(travelList: data.homeBannerList)
+                    if let homeBannerList = data.homeBannerList {
+                        self.saveOrUpdateTravelListCoredata(travelList: homeBannerList)
+                    }
                 }
             case .failure( _):
                 if(self.travelList.count == 0) {
@@ -1011,84 +1013,27 @@ class TourAndPanelListViewController: UIViewController,UITableViewDelegate,UITab
     }
     
     //MARK: Travel List Coredata
-    func saveOrUpdateTravelListCoredata(travelList:[HomeBanner]?) {
-        if ((travelList?.count)! > 0) {
+    func saveOrUpdateTravelListCoredata(travelList: [HomeBanner]) {
+        if !travelList.isEmpty {
             let appDelegate =  UIApplication.shared.delegate as? AppDelegate
             if #available(iOS 10.0, *) {
                 let container = appDelegate!.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
-                    self.travelListCoreDataInBackgroundThread(travelList: travelList, managedContext: managedContext)
+                    DataManager.updateTravelList(travelList: travelList,
+                                                 managedContext: managedContext)
                 }
             } else {
                 let managedContext = appDelegate!.managedObjectContext
                 managedContext.perform {
-                    self.travelListCoreDataInBackgroundThread(travelList: travelList, managedContext : managedContext)
+                    DataManager.updateTravelList(travelList: travelList,
+                                                 managedContext : managedContext)
                 }
             }
         }
     }
     
-    func travelListCoreDataInBackgroundThread(travelList:[HomeBanner]?,managedContext: NSManagedObjectContext) {
-//        if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
-            let fetchData = DataManager.checkAddedToCoredata(entityName: "NMoQTravelListEntity", idKey: "fullContentID", idValue: nil, managedContext: managedContext) as! [NMoQTravelListEntity]
-            if (fetchData.count > 0) {
-                for i in 0 ... (travelList?.count)!-1 {
-                    let travelListDict = travelList![i]
-                    let fetchResult = DataManager.checkAddedToCoredata(entityName: "NMoQTravelListEntity", idKey: "fullContentID", idValue: travelListDict.fullContentID, managedContext: managedContext)
-                    //update
-                    if(fetchResult.count != 0) {
-                        let travelListdbDict = fetchResult[0] as! NMoQTravelListEntity
-                        travelListdbDict.title = travelListDict.title
-                        travelListdbDict.fullContentID = travelListDict.fullContentID
-                        travelListdbDict.bannerTitle =  travelListDict.bannerTitle
-                        travelListdbDict.bannerLink = travelListDict.bannerLink
-                        travelListdbDict.introductionText =  travelListDict.introductionText
-                        travelListdbDict.email = travelListDict.email
-                        
-                        travelListdbDict.contactNumber = travelListDict.contactNumber
-                        travelListdbDict.promotionalCode =  travelListDict.promotionalCode
-                        travelListdbDict.claimOffer = travelListDict.claimOffer
-                        travelListdbDict.language = Utils.getLanguage()
-                        
-                        do{
-                            try managedContext.save()
-                        }
-                        catch{
-                            print(error)
-                        }
-                    } else {
-                        //save
-                        self.saveTrevelListToCoreData(travelListDict: travelListDict, managedObjContext: managedContext)
-                    }
-                }
-            } else {
-                for i in 0 ... (travelList?.count)!-1 {
-                    let travelListDict : HomeBanner?
-                    travelListDict = travelList?[i]
-                    self.saveTrevelListToCoreData(travelListDict: travelListDict!, managedObjContext: managedContext)
-                }
-            }
-    }
-    func saveTrevelListToCoreData(travelListDict: HomeBanner, managedObjContext: NSManagedObjectContext) {
-//        if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
-            let travelListdbDict: NMoQTravelListEntity = NSEntityDescription.insertNewObject(forEntityName: "NMoQTravelListEntity", into: managedObjContext) as! NMoQTravelListEntity
-            travelListdbDict.title = travelListDict.title
-            travelListdbDict.fullContentID = travelListDict.fullContentID
-            travelListdbDict.bannerTitle =  travelListDict.bannerTitle
-            travelListdbDict.bannerLink = travelListDict.bannerLink
-            travelListdbDict.introductionText =  travelListDict.introductionText
-            travelListdbDict.email = travelListDict.email
-            travelListdbDict.contactNumber = travelListDict.contactNumber
-            travelListdbDict.promotionalCode =  travelListDict.promotionalCode
-            travelListdbDict.claimOffer = travelListDict.claimOffer
-        travelListdbDict.language = Utils.getLanguage()
-        
-        do {
-            try managedObjContext.save()
-        } catch let error as NSError {
-            print("Could not save. \(error), \(error.userInfo)")
-        }
-    }
+    
+    
     func fetchTravelInfoFromCoredata() {
         let managedContext = getContext()
         do {
@@ -1129,45 +1074,6 @@ class TourAndPanelListViewController: UIViewController,UITableViewDelegate,UITab
                         self.getTravelList()//coreDataMigratio  solution
                     }
                 }
-//            } else {
-//                var travelListArray = [NMoQTravelListEntityAr]()
-//                let fetchRequest =  NSFetchRequest<NSFetchRequestResult>(entityName: "NMoQTravelListEntityAr")
-//                travelListArray = (try managedContext.fetch(fetchRequest) as? [NMoQTravelListEntityAr])!
-//                if (travelListArray.count > 0) {
-//                    if (networkReachability?.isReachable)! {
-//                        DispatchQueue.global(qos: .background).async {
-//                            self.getTravelList()
-//                        }
-//                    }
-//
-//                    for i in 0 ... travelListArray.count-1 {
-//                        self.travelList.insert(HomeBanner(title: travelListArray[i].title, fullContentID: travelListArray[i].fullContentID, bannerTitle: travelListArray[i].bannerTitle, bannerLink: travelListArray[i].bannerLink, image: nil, introductionText: travelListArray[i].introductionText, email: travelListArray[i].email, contactNumber: travelListArray[i].contactNumber, promotionalCode: travelListArray[i].promotionalCode, claimOffer: travelListArray[i].claimOffer), at: i)
-//                    }
-//                    if(travelList.count == 0){
-//                        if(self.networkReachability?.isReachable == false) {
-//                            self.showNoNetwork()
-//                        } else {
-//                            self.loadingView.showNoDataView()
-//                        }
-//                    } else {
-//                        if(bannerId != nil) {
-//                            if let arrayOffset = self.travelList.index(where: {$0.fullContentID == bannerId}) {
-//                                self.travelList.remove(at: arrayOffset)
-//                            }
-//                        }
-//                    }
-//                    DispatchQueue.main.async{
-//                        self.collectionTableView.reloadData()
-//                    }
-//                } else{
-//                    if(self.networkReachability?.isReachable == false) {
-//                        self.showNoNetwork()
-//                    } else {
-//                        //self.loadingView.showNoDataView()
-//                        self.getTravelList()//coreDataMigratio  solution
-//                    }
-//                }
-//            }
         } catch let error as NSError {
             print("Could not fetch. \(error), \(error.userInfo)")
         }

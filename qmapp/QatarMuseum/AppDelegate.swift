@@ -935,8 +935,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             switch response.result {
             case .success(let data):
                 if(data.homeBannerList != nil) {
-                    if((data.homeBannerList?.count)! > 0) {
-                        self.saveOrUpdateTravelListCoredata(travelList: data.homeBannerList, lang: lang)
+                    if let homeBannerList = data.homeBannerList {
+                        self.saveOrUpdateTravelListCoredata(travelList: homeBannerList)
                     }
                 }
                 
@@ -946,92 +946,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         }
     }
     //MARK: Travel List Coredata
-    func saveOrUpdateTravelListCoredata(travelList:[HomeBanner]?,lang:String?) {
-        if ((travelList?.count)! > 0) {
+    func saveOrUpdateTravelListCoredata(travelList: [HomeBanner]) {
+        if travelList.count > 0 {
             if #available(iOS 10.0, *) {
                 let container = CoreDataManager.shared.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
-                    self.travelListCoreDataInBackgroundThread(travelList: travelList, managedContext: managedContext, lang: lang)
+                    DataManager.updateTravelList(travelList: travelList,
+                                                 managedContext : managedContext)
                 }
             } else {
                 let managedContext = self.managedObjectContext
                 managedContext.perform {
-                    self.travelListCoreDataInBackgroundThread(travelList: travelList, managedContext : managedContext, lang: lang)
+                    DataManager.updateTravelList(travelList: travelList,
+                                                 managedContext : managedContext)
                 }
             }
-        }
-    }
-    
-    func travelListCoreDataInBackgroundThread(travelList:[HomeBanner]?,
-                                              managedContext: NSManagedObjectContext,
-                                              lang:String?) {
-        let fetchData = DataManager.checkAddedToCoredata(entityName: "NMoQTravelListEntity",
-                                             idKey: "fullContentID",
-                                             idValue: nil,
-                                             managedContext: managedContext) as! [NMoQTravelListEntity]
-        if (fetchData.count > 0) {
-            for i in 0 ... (travelList?.count)!-1 {
-                let travelListDict = travelList![i]
-                let fetchResult = DataManager.checkAddedToCoredata(entityName: "NMoQTravelListEntity",
-                                                       idKey: "fullContentID",
-                                                       idValue: travelListDict.fullContentID,
-                                                       managedContext: managedContext)
-                //update
-                if(fetchResult.count != 0) {
-                    let travelListdbDict = fetchResult[0] as! NMoQTravelListEntity
-                    travelListdbDict.title = travelListDict.title
-                    travelListdbDict.fullContentID = travelListDict.fullContentID
-                    travelListdbDict.bannerTitle =  travelListDict.bannerTitle
-                    travelListdbDict.bannerLink = travelListDict.bannerLink
-                    travelListdbDict.introductionText =  travelListDict.introductionText
-                    travelListdbDict.email = travelListDict.email
-                    travelListdbDict.language = Utils.getLanguage()
-                    travelListdbDict.contactNumber = travelListDict.contactNumber
-                    travelListdbDict.promotionalCode =  travelListDict.promotionalCode
-                    travelListdbDict.claimOffer = travelListDict.claimOffer
-                    
-                    do{
-                        try managedContext.save()
-                    }
-                    catch{
-                        print(error)
-                    }
-                } else {
-                    //save
-                    self.saveTrevelListToCoreData(travelListDict: travelListDict, managedObjContext: managedContext, lang: lang)
-                }
-            }
-            NotificationCenter.default.post(name: NSNotification.Name(nmoqTravelListNotificationEn), object: self)
-        } else {
-            for i in 0 ... (travelList?.count)!-1 {
-                let travelListDict : HomeBanner?
-                travelListDict = travelList?[i]
-                self.saveTrevelListToCoreData(travelListDict: travelListDict!, managedObjContext: managedContext, lang: lang)
-            }
-            NotificationCenter.default.post(name: NSNotification.Name(nmoqTravelListNotificationEn), object: self)
-        }
-    }
-    
-    func saveTrevelListToCoreData(travelListDict: HomeBanner,
-                                  managedObjContext: NSManagedObjectContext,
-                                  lang:String?) {
-        let travelListdbDict: NMoQTravelListEntity = NSEntityDescription.insertNewObject(forEntityName: "NMoQTravelListEntity",
-                                                                                         into: managedObjContext) as! NMoQTravelListEntity
-        travelListdbDict.title = travelListDict.title
-        travelListdbDict.fullContentID = travelListDict.fullContentID
-        travelListdbDict.bannerTitle =  travelListDict.bannerTitle
-        travelListdbDict.bannerLink = travelListDict.bannerLink
-        travelListdbDict.introductionText =  travelListDict.introductionText
-        travelListdbDict.email = travelListDict.email
-        travelListdbDict.contactNumber = travelListDict.contactNumber
-        travelListdbDict.promotionalCode =  travelListDict.promotionalCode
-        travelListdbDict.claimOffer = travelListDict.claimOffer
-        travelListdbDict.language = Utils.getLanguage()
-        
-        do {
-            try managedObjContext.save()
-        } catch let error as NSError {
-            print("Could not save. \(error), \(error.userInfo)")
         }
     }
     

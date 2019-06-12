@@ -983,5 +983,63 @@ extension DataManager {
         }
         DataManager.save(managedObjContext)
     }
+    
+    static func updateTravelList(travelList: [HomeBanner],
+                          managedContext: NSManagedObjectContext) {
+        let fetchData = DataManager.checkAddedToCoredata(entityName: "NMoQTravelListEntity",
+                                                         idKey: "fullContentID",
+                                                         idValue: nil,
+                                                         managedContext: managedContext) as! [NMoQTravelListEntity]
+        if (fetchData.count > 0) {
+            for travelListDict in travelList {
+                let fetchResult = DataManager.checkAddedToCoredata(entityName: "NMoQTravelListEntity",
+                                                                   idKey: "fullContentID",
+                                                                   idValue: travelListDict.fullContentID,
+                                                                   managedContext: managedContext)
+                //update
+                if(fetchResult.count != 0) {
+                    let travelListdbDict = fetchResult[0] as! NMoQTravelListEntity
+                    DataManager.saveTravelList(travelListDict: travelListDict,
+                                        managedObjContext: managedContext,
+                                        entity: travelListdbDict)
+                } else {
+                    //save
+                    DataManager.saveTravelList(travelListDict: travelListDict,
+                                        managedObjContext: managedContext,
+                                        entity: nil)
+                }
+            }
+        } else {
+            for travelListDict in travelList {
+                DataManager.saveTravelList(travelListDict: travelListDict,
+                                    managedObjContext: managedContext,
+                                    entity: nil)
+            }
+        }
+    }
+    
+    static func saveTravelList(travelListDict: HomeBanner,
+                        managedObjContext: NSManagedObjectContext,
+                        entity: NMoQTravelListEntity?) {
+        
+        var travelListdbDict = entity
+        
+        if entity == nil {
+            travelListdbDict = NSEntityDescription.insertNewObject(forEntityName: "NMoQTravelListEntity",
+                                                                   into: managedObjContext) as? NMoQTravelListEntity
+        }
+        travelListdbDict?.title = travelListDict.title
+        travelListdbDict?.fullContentID = travelListDict.fullContentID
+        travelListdbDict?.bannerTitle =  travelListDict.bannerTitle
+        travelListdbDict?.bannerLink = travelListDict.bannerLink
+        travelListdbDict?.introductionText =  travelListDict.introductionText
+        travelListdbDict?.email = travelListDict.email
+        travelListdbDict?.contactNumber = travelListDict.contactNumber
+        travelListdbDict?.promotionalCode =  travelListDict.promotionalCode
+        travelListdbDict?.claimOffer = travelListDict.claimOffer
+        travelListdbDict?.language = Utils.getLanguage()
+        
+        DataManager.save(managedObjContext)
+    }
 }
 
