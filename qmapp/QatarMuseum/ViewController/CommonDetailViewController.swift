@@ -1184,7 +1184,10 @@ class CommonDetailViewController: UIViewController,UITableViewDelegate,UITableVi
                     }
                 }
                 if (self.parksListArray.count > 0)  {
-                    self.saveOrUpdateParksCoredata(parksListArray: data.parkList)
+                    if let parkList = data.parkList {
+                        self.saveOrUpdateParksCoredata(parksListArray: parkList)
+                    }
+                    
                         self.setTopBarImage()
                 }
                 
@@ -1206,66 +1209,23 @@ class CommonDetailViewController: UIViewController,UITableViewDelegate,UITableVi
         }
     }
     //MARK: Coredata Method
-    func saveOrUpdateParksCoredata(parksListArray:[ParksList]? ) {
+    func saveOrUpdateParksCoredata(parksListArray: [ParksList] ) {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
-        if (parksListArray!.count > 0) {
+        if !parksListArray.isEmpty {
             let appDelegate =  UIApplication.shared.delegate as? AppDelegate
             if #available(iOS 10.0, *) {
                 let container = appDelegate!.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
-                    self.parksCoreDataInBackgroundThread(managedContext: managedContext, parksListArray: parksListArray)
+                    DataManager.updateParks(managedContext: managedContext,
+                                                         parksListArray: parksListArray)
                 }
             } else {
                 let managedContext = appDelegate!.managedObjectContext
                 managedContext.perform {
-                    self.parksCoreDataInBackgroundThread(managedContext : managedContext, parksListArray: parksListArray)
+                    DataManager.updateParks(managedContext : managedContext,
+                                                         parksListArray: parksListArray)
                 }
             }
-        }
-    }
-    func parksCoreDataInBackgroundThread(managedContext: NSManagedObjectContext,parksListArray:[ParksList]?) {
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
-            let fetchData = DataManager.checkAddedToCoredata(entityName: "ParksEntity",
-                                                 idKey: nil,
-                                                 idValue: nil,
-                                                 managedContext: managedContext) as! [ParksEntity]
-            if (fetchData.count > 0) {
-                let isDeleted = self.deleteExistingEvent(managedContext: managedContext,
-                                                         entityName: "ParksEntity")
-                if(isDeleted == true) {
-                    for i in 0 ... parksListArray!.count-1 {
-                        let parksDict : ParksList?
-                        parksDict = parksListArray![i]
-                        self.saveParksToCoreData(parksDict: parksDict!,
-                                                 managedObjContext: managedContext)
-                    }
-                }
-            }
-            else {
-                for i in 0 ... parksListArray!.count-1 {
-                    let parksDict : ParksList?
-                    parksDict = parksListArray![i]
-                    self.saveParksToCoreData(parksDict: parksDict!, managedObjContext: managedContext)
-                    
-                }
-            }
-    }
-    func saveParksToCoreData(parksDict: ParksList, managedObjContext: NSManagedObjectContext) {
-            let parksInfo: ParksEntity = NSEntityDescription.insertNewObject(forEntityName: "ParksEntity", into: managedObjContext) as! ParksEntity
-            parksInfo.title = parksDict.title
-            parksInfo.parksDescription = parksDict.description
-            parksInfo.image = parksDict.image
-        parksInfo.language = Utils.getLanguage()
-        
-            if(parksDict.sortId != nil) {
-                parksInfo.sortId = parksDict.sortId
-            }
-        do {
-            try managedObjContext.save()
-            
-            
-        } catch let error as NSError {
-            print("Could not save. \(error), \(error.userInfo)")
         }
     }
     
@@ -1740,18 +1700,18 @@ class CommonDetailViewController: UIViewController,UITableViewDelegate,UITableVi
         return false
     }
     
-    func deleteExistingEvent(managedContext:NSManagedObjectContext,entityName : String?) ->Bool? {
-        
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entityName!)
-        let deleteRequest = NSBatchDeleteRequest( fetchRequest: fetchRequest)
-        do{
-            try managedContext.execute(deleteRequest)
-            return true
-        }catch let error as NSError {
-            return false
-        }
-        
-    }
+//    func deleteExistingEvent(managedContext:NSManagedObjectContext, entityName : String?) -> Bool {
+//
+//        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entityName!)
+//        let deleteRequest = NSBatchDeleteRequest( fetchRequest: fetchRequest)
+//        do {
+//            try managedContext.execute(deleteRequest)
+//            return true
+//        } catch _ as NSError {
+//            return false
+//        }
+//
+//    }
     func showNodata() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
         var errorMessage: String

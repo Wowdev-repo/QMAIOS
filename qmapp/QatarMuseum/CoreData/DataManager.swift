@@ -898,5 +898,47 @@ extension DataManager {
         publicArtsInfo?.language = Utils.getLanguage()
         DataManager.save(managedObjContext)
     }
+    
+    static func updateParks(managedContext: NSManagedObjectContext,
+                     parksListArray: [ParksList]) {
+        let fetchData = DataManager.checkAddedToCoredata(entityName: "ParksEntity",
+                                                         idKey: nil,
+                                                         idValue: nil,
+                                                         managedContext: managedContext) as! [ParksEntity]
+        if !fetchData.isEmpty {
+            if DataManager.delete(managedContext: managedContext,
+                                  entityName: "ParksEntity") {
+                for parksDict in parksListArray {
+                    DataManager.saveParks(parksDict: parksDict,
+                                   managedObjContext: managedContext)
+                }
+            }
+        } else  {
+            for parksDict in parksListArray {
+                DataManager.saveParks(parksDict: parksDict,
+                               managedObjContext: managedContext)
+            }
+        }
+    }
+    
+    /// Save Parks to core data
+    ///
+    /// - Parameters:
+    ///   - parksDict: ParksList
+    ///   - managedObjContext: NSManagedObjectContext
+    static func saveParks(parksDict: ParksList,
+                   managedObjContext: NSManagedObjectContext) {
+        let parksInfo = NSEntityDescription.insertNewObject(forEntityName: "ParksEntity",
+                                                            into: managedObjContext) as! ParksEntity
+        parksInfo.title = parksDict.title
+        parksInfo.parksDescription = parksDict.description
+        parksInfo.image = parksDict.image
+        parksInfo.language = Utils.getLanguage()
+        
+        if let sortId = parksDict.sortId {
+            parksInfo.sortId = sortId
+        }
+        DataManager.save(managedObjContext)
+    }
 }
 

@@ -1339,83 +1339,36 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             print("Could not save. \(error), \(error.userInfo)")
         }
     }
-    func getParksDataFromServer(lang:String?)
-    {
+    
+    func getParksDataFromServer(lang:String?) {
         _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.ParksList(lang ?? ENG_LANGUAGE)).responseObject { (response: DataResponse<ParksLists>) -> Void in
             switch response.result {
             case .success(let data):
-                if(data.parkList != nil) {
-                    if((data.parkList?.count)! > 0) {
-                        self.saveOrUpdateParksCoredata(parksListArray: data.parkList, lang: lang)
-                    }
+                if let parkList = data.parkList {
+                    self.saveOrUpdateParksCoredata(parksListArray: parkList)
                 }
-                
             case .failure(let error):
                 print(error.localizedDescription)
             }
         }
     }
+    
     //MARK: Coredata Method
-    func saveOrUpdateParksCoredata(parksListArray:[ParksList]?,lang:String?) {
-        if (parksListArray!.count > 0) {
+    func saveOrUpdateParksCoredata(parksListArray:[ParksList]) {
+        if parksListArray.count > 0 {
             if #available(iOS 10.0, *) {
                 let container = CoreDataManager.shared.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
-                    self.parksCoreDataInBackgroundThread(managedContext: managedContext, parksListArray: parksListArray, lang: lang)
+                    DataManager.updateParks(managedContext : managedContext,
+                                            parksListArray: parksListArray)
                 }
             } else {
                 let managedContext = appDelegate!.managedObjectContext
                 managedContext.perform {
-                    self.parksCoreDataInBackgroundThread(managedContext : managedContext, parksListArray: parksListArray, lang: lang)
+                    DataManager.updateParks(managedContext : managedContext,
+                                            parksListArray: parksListArray)
                 }
             }
-        }
-    }
-    
-    func parksCoreDataInBackgroundThread(managedContext: NSManagedObjectContext,
-                                         parksListArray:[ParksList]?,
-                                         lang:String?) {
-        let fetchData = DataManager.checkAddedToCoredata(entityName: "ParksEntity",
-                                             idKey: nil,
-                                             idValue: nil,
-                                             managedContext: managedContext) as! [ParksEntity]
-        if (fetchData.count > 0) {
-            let isDeleted = DataManager.delete(managedContext: managedContext,
-                                               entityName: "ParksEntity")
-            if isDeleted == true, let parks = parksListArray {
-                for parksDict in parks {
-                    self.saveParksToCoreData(parksDict: parksDict,
-                                             managedObjContext: managedContext,
-                                             lang: lang)
-                }
-                NotificationCenter.default.post(name: NSNotification.Name(parksNotificationEn), object: self)
-            }
-        }
-        else {
-            for i in 0 ... parksListArray!.count-1 {
-                let parksDict : ParksList?
-                parksDict = parksListArray![i]
-                self.saveParksToCoreData(parksDict: parksDict!, managedObjContext: managedContext, lang: lang)
-                
-            }
-            NotificationCenter.default.post(name: NSNotification.Name(parksNotificationEn), object: self)
-        }
-    }
-    
-    func saveParksToCoreData(parksDict: ParksList, managedObjContext: NSManagedObjectContext,lang:String?) {
-            let parksInfo: ParksEntity = NSEntityDescription.insertNewObject(forEntityName: "ParksEntity",
-                                                                             into: managedObjContext) as! ParksEntity
-            parksInfo.title = parksDict.title
-            parksInfo.parksDescription = parksDict.description
-            parksInfo.image = parksDict.image
-        parksInfo.language = Utils.getLanguage()
-            if(parksDict.sortId != nil) {
-                parksInfo.sortId = parksDict.sortId
-            }
-        do {
-            try managedObjContext.save()
-        } catch let error as NSError {
-            print("Could not save. \(error), \(error.userInfo)")
         }
     }
     
