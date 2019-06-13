@@ -699,116 +699,20 @@ class CommonDetailViewController: UIViewController,UITableViewDelegate,UITableVi
             if #available(iOS 10.0, *) {
                 let container = appDelegate!.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
-                    self.heritageCoreDataInBackgroundThread(managedContext: managedContext)
+                    DataManager.updateHeritage(managedContext : managedContext,
+                                               heritageListArray: self.heritageDetailtArray)
                 }
             } else {
                 let managedContext = appDelegate!.managedObjectContext
                 managedContext.perform {
-                    self.heritageCoreDataInBackgroundThread(managedContext : managedContext)
+                    DataManager.updateHeritage(managedContext : managedContext,
+                                               heritageListArray: self.heritageDetailtArray)
                 }
             }
         }
     }
     
-    func heritageCoreDataInBackgroundThread(managedContext: NSManagedObjectContext) {
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
-            let fetchData = DataManager.checkAddedToCoredata(entityName: "HeritageEntity", idKey: "listid" , idValue: heritageDetailtArray[0].id, managedContext: managedContext) as! [HeritageEntity]
-           if (fetchData.count > 0) {
-                let heritageDetailDict = heritageDetailtArray[0]
-            
-                //update
-                let heritagedbDict = fetchData[0]
-            
-                heritagedbDict.listname = heritageDetailDict.name
-                heritagedbDict.listimage = heritageDetailDict.image
-                heritagedbDict.listsortid =  heritageDetailDict.sortid
-                heritagedbDict.detaillocation = heritageDetailDict.location
-                heritagedbDict.detailshortdescription = heritageDetailDict.shortdescription
-                heritagedbDict.detaillongdescription =  heritageDetailDict.longdescription
-                heritagedbDict.detaillatitude =  heritageDetailDict.latitude
-                heritagedbDict.detaillongitude = heritageDetailDict.longitude
-                if (LocalizationLanguage.currentAppleLanguage() == ENG_LANGUAGE) {
-                    heritagedbDict.lang =  "1"
-                } else {
-                    heritagedbDict.lang =  "0"
-                }
-            
-            if((heritageDetailDict.images?.count)! > 0) {
-                for i in 0 ... (heritageDetailDict.images?.count)!-1 {
-                    var heritageImagesEntity: ImageEntity!
-                    let heritageImage = NSEntityDescription.insertNewObject(forEntityName: "ImageEntity",
-                                                                            into: managedContext) as! ImageEntity
-                    heritageImage.image = heritageDetailDict.images![i]
-                    
-                    heritageImagesEntity = heritageImage
-                    heritagedbDict.addToImagesRelation(heritageImagesEntity)
-                    do {
-                        try managedContext.save()
-                        
-                        
-                    } catch let error as NSError {
-                        print("Could not save. \(error), \(error.userInfo)")
-                    }
-                }
-            }
-            
-                do{
-                    try managedContext.save()
-                }
-                catch{
-                    print(error)
-                }
-           } else {
-            let heritageListDict : Heritage?
-            heritageListDict = heritageDetailtArray[0]
-            self.saveToCoreData(heritageDetailDict: heritageListDict!, managedObjContext: managedContext)
-            }
-    }
     
-    func saveToCoreData(heritageDetailDict: Heritage, managedObjContext: NSManagedObjectContext) {
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
-            let heritageInfo: HeritageEntity = NSEntityDescription.insertNewObject(forEntityName: "HeritageEntity", into: managedObjContext) as! HeritageEntity
-            heritageInfo.listid = heritageDetailDict.id
-            heritageInfo.listname = heritageDetailDict.name
-            
-            heritageInfo.listimage = heritageDetailDict.image
-            heritageInfo.detaillocation = heritageDetailDict.location
-            heritageInfo.detailshortdescription = heritageDetailDict.shortdescription
-            heritageInfo.detaillongdescription =  heritageDetailDict.longdescription
-            heritageInfo.detaillatitude =  heritageDetailDict.latitude
-            heritageInfo.detaillongitude = heritageDetailDict.longitude
-            if (LocalizationLanguage.currentAppleLanguage() == ENG_LANGUAGE) {
-                heritageInfo.lang =  "1"
-            } else {
-                heritageInfo.lang =  "0"
-            }
-            if(heritageDetailDict.sortid != nil) {
-                heritageInfo.listsortid = heritageDetailDict.sortid
-            }
-            
-            if((heritageDetailDict.images?.count)! > 0) {
-                for i in 0 ... (heritageDetailDict.images?.count)!-1 {
-                    var heritageImagesEntity: ImageEntity!
-                    let heritageImage = NSEntityDescription.insertNewObject(forEntityName: "ImageEntity",
-                                                                            into: managedObjContext) as! ImageEntity
-                    heritageImage.image = heritageDetailDict.images![i]
-                    heritageImagesEntity = heritageImage
-                    heritageInfo.addToImagesRelation(heritageImagesEntity)
-                    do {
-                        try managedObjContext.save()
-                        
-                        
-                    } catch let error as NSError {
-                        print("Could not save. \(error), \(error.userInfo)")
-                    }
-                }
-            }
-        do {
-            try managedObjContext.save()
-        } catch let error as NSError {
-            print("Could not save. \(error), \(error.userInfo)")
-        }
-    }
     func fetchHeritageDetailsFromCoredata() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
         let managedContext = getContext()

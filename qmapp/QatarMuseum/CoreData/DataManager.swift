@@ -1352,5 +1352,158 @@ extension DataManager {
         }
         DataManager.save(managedObjContext)
     }
+    
+    static func updateHomeEntity(managedContext: NSManagedObjectContext, homeList: [Home]) {
+        var fetchData = [HomeEntity]()
+        
+        fetchData = DataManager.checkAddedToCoredata(entityName: "HomeEntity",
+                                                     idKey: "lang",
+                                                     idValue: Utils.getLanguage(),
+                                                     managedContext: managedContext) as! [HomeEntity]
+        if (fetchData.count > 0) {
+            for homeListDict in homeList {
+                let fetchResult = DataManager.checkAddedToCoredata(entityName: "HomeEntity",
+                                                                   idKey: "id",
+                                                                   idValue: homeListDict.id,
+                                                                   managedContext: managedContext)
+                //update
+                if(fetchResult.count != 0) {
+                    let homedbDict = fetchResult[0] as! HomeEntity
+                    DataManager.saveHomeEntity(homeListDict: homeListDict,
+                                        managedObjContext: managedContext,
+                                        entity: homedbDict)
+                } else {
+                    //save
+                    DataManager.saveHomeEntity(homeListDict: homeListDict,
+                                        managedObjContext: managedContext,
+                                        entity: nil)
+                }
+            }
+        } else {
+            for homeListDict in homeList {
+                DataManager.saveHomeEntity(homeListDict: homeListDict,
+                                    managedObjContext: managedContext,
+                                    entity: nil)
+            }
+        }
+    }
+    
+    static func saveHomeEntity(homeListDict: Home,
+                        managedObjContext: NSManagedObjectContext,
+                        entity: HomeEntity?) {
+        var homeInfo = entity
+        if entity == nil {
+            homeInfo = NSEntityDescription.insertNewObject(forEntityName: "HomeEntity",
+                                                           into: managedObjContext) as? HomeEntity
+        }
+        homeInfo?.id = homeListDict.id
+        homeInfo?.name = homeListDict.name
+        homeInfo?.image = homeListDict.image
+        homeInfo?.tourguideavailable = homeListDict.isTourguideAvailable
+        homeInfo?.sortid = (Int16(homeListDict.sortId!) ?? 0)
+        homeInfo?.lang = Utils.getLanguage()
+        DataManager.save(managedObjContext)
+    }
+    
+    static func updateHomeBanner(managedContext: NSManagedObjectContext,
+                                 list: [HomeBanner]) {
+        let fetchData = DataManager.checkAddedToCoredata(entityName: "HomeBannerEntity",
+                                                         idKey: "fullContentID",
+                                                         idValue: nil,
+                                                         managedContext: managedContext) as! [HomeBannerEntity]
+        let homeListDict = list[0]
+        if (fetchData.count > 0) {
+            if DataManager.delete(managedContext: managedContext,
+                                  entityName: "HomeBannerEntity") {
+                DataManager.saveHomeBannerT(homeListDict: homeListDict,
+                                     managedObjContext: managedContext,
+                                     entity: nil)
+            }
+            
+        } else {
+            //save
+            DataManager.saveHomeBannerT(homeListDict: homeListDict,
+                                 managedObjContext: managedContext,
+                                 entity: nil)
+        }
+    }
+    
+    static func saveHomeBannerT(homeListDict: HomeBanner,
+                         managedObjContext: NSManagedObjectContext,
+                         entity: HomeBannerEntity?) {
+        
+        var homeInfo = entity
+        if entity == nil {
+            homeInfo = NSEntityDescription.insertNewObject(forEntityName: "HomeBannerEntity",
+                                                           into: managedObjContext) as? HomeBannerEntity
+        }
+        homeInfo?.title = homeListDict.title
+        homeInfo?.fullContentID = homeListDict.fullContentID
+        homeInfo?.bannerTitle = homeListDict.bannerTitle
+        homeInfo?.bannerLink = homeListDict.bannerLink
+        homeInfo?.language = Utils.getLanguage()
+        
+        if let images = homeListDict.image{
+            for image in images {
+                homeInfo?.addToBannerImageRelations(DataManager.getImageEntity(image, context: managedObjContext))
+                DataManager.save(managedObjContext)
+            }
+        }
+        DataManager.save(managedObjContext)
+    }
+    
+    static func updateHeritage(managedContext: NSManagedObjectContext, heritageListArray: [Heritage]) {
+        let fetchData = DataManager.checkAddedToCoredata(entityName: "HeritageEntity",
+                                                         idKey: "lang",
+                                                         idValue: Utils.getLanguage(),
+                                                         managedContext: managedContext) as! [HeritageEntity]
+        
+        if (fetchData.count > 0) {
+            for heritageListDict in heritageListArray {
+                let fetchResult = DataManager.checkAddedToCoredata(entityName: "HeritageEntity",
+                                                                   idKey: "listid",
+                                                                   idValue: heritageListDict.id,
+                                                                   managedContext: managedContext)
+                //update
+                if(fetchResult.count != 0) {
+                    let heritagedbDict = fetchResult[0] as! HeritageEntity
+                    DataManager.saveTHeritage(heritageListDict: heritageListDict,
+                                              managedObjContext: managedContext,
+                                              entity: heritagedbDict)
+                } else {
+                    //save
+                    DataManager.saveTHeritage(heritageListDict: heritageListDict,
+                                              managedObjContext: managedContext,
+                                              entity: nil)
+                    
+                }
+            }
+        } else {
+            for heritageListDict in heritageListArray {
+                DataManager.saveTHeritage(heritageListDict: heritageListDict,
+                                          managedObjContext: managedContext,
+                                          entity: nil)
+            }
+        }
+    }
+    
+    static func saveTHeritage(heritageListDict: Heritage,
+                       managedObjContext: NSManagedObjectContext,
+                       entity: HeritageEntity?) {
+        
+        var heritageInfo = entity
+        if entity == nil {
+            heritageInfo = NSEntityDescription.insertNewObject(forEntityName: "HeritageEntity",
+                                                               into: managedObjContext) as? HeritageEntity
+        }
+        heritageInfo?.listid = heritageListDict.id
+        heritageInfo?.listname = heritageListDict.name
+        heritageInfo?.listimage = heritageListDict.image
+        heritageInfo?.lang = Utils.getLanguage()
+        if let sortID = heritageListDict.sortid {
+            heritageInfo?.listsortid = sortID
+        }
+        DataManager.save(managedObjContext)
+    }
 }
 

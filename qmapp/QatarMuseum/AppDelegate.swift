@@ -344,12 +344,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.HeritageList(lang!)).responseObject(queue: queue) { (response: DataResponse<Heritages>) -> Void in
             switch response.result {
             case .success(let data):
-                if(data.heritage != nil) {
-                    if((data.heritage?.count)! > 0) {
+                if let heritage = data.heritage{
                         DispatchQueue.main.async{
-                            self.saveOrUpdateHeritageCoredata(heritageListArray: data.heritage, lang: lang)
+                            self.saveOrUpdateHeritageCoredata(heritageListArray: heritage)
                         }
-                    }
                 }
             case .failure(let error):
                 print(error)
@@ -357,107 +355,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         }
     }
     //MARK: Coredata Method
-    func saveOrUpdateHeritageCoredata(heritageListArray: [Heritage]?,lang: String?) {
-        if ((heritageListArray?.count)! > 0) {
+    func saveOrUpdateHeritageCoredata(heritageListArray: [Heritage]) {
+        if !heritageListArray.isEmpty {
             if #available(iOS 10.0, *) {
                 let container = CoreDataManager.shared.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
-                    self.coreDataInBackgroundThread(managedContext: managedContext, heritageListArray: heritageListArray, lang: lang)
+                    DataManager.updateHeritage(managedContext : managedContext,
+                                               heritageListArray: heritageListArray)
                 }
             } else {
                 let managedContext = self.managedObjectContext
                 managedContext.perform {
-                    self.coreDataInBackgroundThread(managedContext : managedContext, heritageListArray: heritageListArray, lang: lang)
+                    DataManager.updateHeritage(managedContext : managedContext,
+                                               heritageListArray: heritageListArray)
                 }
             }
         }
     }
-    
-    func coreDataInBackgroundThread(managedContext: NSManagedObjectContext,heritageListArray: [Heritage]?,lang: String?) {
-        var fetchData = [HeritageEntity]()
-        if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
-            fetchData = DataManager.checkAddedToCoredata(entityName: "HeritageEntity",
-                                                         idKey: "lang",
-                                                         idValue: "1",
-                                                         managedContext: managedContext) as! [HeritageEntity]
-        } else {
-            fetchData = DataManager.checkAddedToCoredata(entityName: "HeritageEntity",
-                                                         idKey: "lang",
-                                                         idValue: "0",
-                                                         managedContext: managedContext) as! [HeritageEntity]
-        }
-            if (fetchData.count > 0) {
-                for i in 0 ... (heritageListArray?.count)!-1 {
-                    let heritageListDict = heritageListArray![i]
-                    let fetchResult = DataManager.checkAddedToCoredata(entityName: "HeritageEntity",
-                                                                       idKey: "listid",
-                                                                       idValue: heritageListArray![i].id,
-                                                                       managedContext: managedContext)
-                    //update
-                    if(fetchResult.count != 0) {
-                        let heritagedbDict = fetchResult[0] as! HeritageEntity
-                        heritagedbDict.listname = heritageListDict.name
-                        heritagedbDict.listimage = heritageListDict.image
-                        heritagedbDict.listsortid =  heritageListDict.sortid
-                        if (lang == ENG_LANGUAGE) {
-                            heritagedbDict.lang =  "1"
-                        } else {
-                            heritagedbDict.lang =  "0"
-                        }
-                        
-                        
-                        do{
-                            try managedContext.save()
-                        }
-                        catch{
-                            print(error)
-                        }
-                    } else {
-                        //save
-                        self.saveHeritageListToCoreData(heritageListDict: heritageListDict, managedObjContext: managedContext, lang: lang)
-                        
-                    }
-                }
-                if(lang == ENG_LANGUAGE) {
-                    NotificationCenter.default.post(name: NSNotification.Name(heritageListNotificationEn), object: self)
-                } else {
-                    NotificationCenter.default.post(name: NSNotification.Name(heritageListNotificationAr), object: self)
-                }
-                
-            } else {
-                for i in 0 ... (heritageListArray?.count)!-1 {
-                    let heritageListDict : Heritage?
-                    heritageListDict = heritageListArray?[i]
-                    self.saveHeritageListToCoreData(heritageListDict: heritageListDict!, managedObjContext: managedContext, lang: lang)
-                }
-                if(lang == ENG_LANGUAGE) {
-                    NotificationCenter.default.post(name: NSNotification.Name(heritageListNotificationEn), object: self)
-                } else {
-                    NotificationCenter.default.post(name: NSNotification.Name(heritageListNotificationAr), object: self)
-                }
-        }
-    }
-    
-    func saveHeritageListToCoreData(heritageListDict: Heritage, managedObjContext: NSManagedObjectContext,lang: String?) {
-            let heritageInfo: HeritageEntity = NSEntityDescription.insertNewObject(forEntityName: "HeritageEntity", into: managedObjContext) as! HeritageEntity
-            heritageInfo.listid = heritageListDict.id
-            heritageInfo.listname = heritageListDict.name
-            
-            heritageInfo.listimage = heritageListDict.image
-        if (lang == ENG_LANGUAGE) {
-            heritageInfo.lang =  "1"
-        } else {
-            heritageInfo.lang =  "0"
-        }
-            if(heritageListDict.sortid != nil) {
-                heritageInfo.listsortid = heritageListDict.sortid
-            }
-        do {
-            try managedObjContext.save()
-        } catch let error as NSError {
-            print("Could not save. \(error), \(error.userInfo)")
-        }
-    }
+
     //MARK: Exhibitions Service call
     func getExhibitionDataFromServer(lang: String?) {
         let queue = DispatchQueue(label: "ExhibitionThread", qos: .background, attributes: .concurrent)
@@ -580,11 +495,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.HomeList(lang!)).responseObject(queue:queue) { (response: DataResponse<HomeList>) -> Void in
             switch response.result {
             case .success(let data):
-                if(data.homeList != nil) {
-                    if((data.homeList?.count)! > 0) {
+                if let homeList = data.homeList {
                         DispatchQueue.main.async{
-                            self.saveOrUpdateHomeCoredata(homeList: data.homeList, lang: lang)
-                        }
+                            self.saveOrUpdateHomeCoredata(homeList: homeList)
                     }
                 }
             case .failure( _):
@@ -593,94 +506,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         }
     }
     //MARK: Home Coredata Method
-    func saveOrUpdateHomeCoredata(homeList: [Home]?,lang: String?) {
-        if ((homeList?.count)! > 0) {
+    func saveOrUpdateHomeCoredata(homeList: [Home]) {
+        if !homeList.isEmpty {
             if #available(iOS 10.0, *) {
                 let container = CoreDataManager.shared.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
-                    self.homeCoreDataInBackgroundThread(managedContext: managedContext, homeList: homeList, lang: lang)
+                    DataManager.updateHomeEntity(managedContext: managedContext, homeList: homeList)
                 }
             } else {
                 let managedContext = self.managedObjectContext
                 managedContext.perform {
-                    self.homeCoreDataInBackgroundThread(managedContext : managedContext, homeList: homeList, lang: lang)
+                    DataManager.updateHomeEntity(managedContext: managedContext, homeList: homeList)
                 }
             }
         }
     }
     
-    func homeCoreDataInBackgroundThread(managedContext: NSManagedObjectContext, homeList: [Home]?,lang: String?) {
-        var fetchData = [HomeEntity]()
-        var langVar : String? = nil
-        if (lang == ENG_LANGUAGE) {
-            langVar = "1"
-            
-        } else {
-            langVar = "0"
-        }
-        fetchData = DataManager.checkAddedToCoredata(entityName: "HomeEntity",
-                                                     idKey: "lang",
-                                                     idValue: langVar,
-                                                     managedContext: managedContext) as! [HomeEntity]
-            if (fetchData.count > 0) {
-                for i in 0 ... (homeList?.count)!-1 {
-                    let homeListDict = homeList![i]
-                    let fetchResult = DataManager.checkAddedToCoredata(entityName: "HomeEntity",
-                                                                       idKey: "id",
-                                                                       idValue: homeList![i].id,
-                                                                       managedContext: managedContext)
-                    //update
-                    if(fetchResult.count != 0) {
-                        let homedbDict = fetchResult[0] as! HomeEntity
-                        homedbDict.name = homeListDict.name
-                        homedbDict.image = homeListDict.image
-                        homedbDict.sortid =  (Int16(homeListDict.sortId!) ?? 0)
-                        homedbDict.tourguideavailable = homeListDict.isTourguideAvailable
-                        homedbDict.lang = langVar
-                        do{
-                            try managedContext.save()
-                        }
-                        catch{
-                            print(error)
-                        }
-                    } else {
-                        //save
-                        self.saveHomeDataToCoreData(homeListDict: homeListDict, managedObjContext: managedContext, lang: lang)
-                    }
-                }
-                NotificationCenter.default.post(name: NSNotification.Name(homepageNotificationEn), object: self)
-            } else {
-                for i in 0 ... (homeList?.count)!-1 {
-                    let homeListDict : Home?
-                    homeListDict = homeList?[i]
-                    self.saveHomeDataToCoreData(homeListDict: homeListDict!, managedObjContext: managedContext, lang: lang)
-                }
-                NotificationCenter.default.post(name: NSNotification.Name(homepageNotificationEn), object: self)
-            }
-    }
     
-    func saveHomeDataToCoreData(homeListDict: Home, managedObjContext: NSManagedObjectContext,lang: String?) {
-        var langVar : String? = nil
-        if (lang == ENG_LANGUAGE) {
-            langVar = "1"
-            
-        } else {
-            langVar = "0"
-        }
-            let homeInfo: HomeEntity = NSEntityDescription.insertNewObject(forEntityName: "HomeEntity", into: managedObjContext) as! HomeEntity
-            homeInfo.id = homeListDict.id
-            homeInfo.name = homeListDict.name
-            homeInfo.image = homeListDict.image
-            homeInfo.tourguideavailable = homeListDict.isTourguideAvailable
-            homeInfo.image = homeListDict.image
-            homeInfo.sortid = (Int16(homeListDict.sortId!) ?? 0)
-            homeInfo.lang = langVar
-        do {
-            try managedObjContext.save()
-        } catch let error as NSError {
-            print("Could not save. \(error), \(error.userInfo)")
-        }
-    }
     //MARK: MIA TourGuide WebServiceCall
     func getMiaTourGuideDataFromServer(museumId:String?,lang:String?) {
         let queue = DispatchQueue(label: "MiaTourThread", qos: .background, attributes: .concurrent)

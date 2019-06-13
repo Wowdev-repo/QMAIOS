@@ -1001,85 +1001,22 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
         }
     }
     //MARK: Coredata Method
-    func saveOrUpdateHeritageCoredata(heritageListArray:[Heritage]?) {
-        if ((heritageListArray?.count)! > 0) {
+    func saveOrUpdateHeritageCoredata(heritageListArray: [Heritage]) {
+        if !heritageListArray.isEmpty {
             let appDelegate =  UIApplication.shared.delegate as? AppDelegate
             if #available(iOS 10.0, *) {
                 let container = appDelegate!.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
-                    self.coreDataInBackgroundThread(managedContext: managedContext, heritageListArray: heritageListArray)
+                    DataManager.updateHeritage(managedContext: managedContext,
+                                               heritageListArray: heritageListArray)
                 }
             } else {
                 let managedContext = appDelegate!.managedObjectContext
                 managedContext.perform {
-                    self.coreDataInBackgroundThread(managedContext : managedContext, heritageListArray: heritageListArray)
+                    DataManager.updateHeritage(managedContext : managedContext,
+                                               heritageListArray: heritageListArray)
                 }
             }
-        }
-    }
-    func coreDataInBackgroundThread(managedContext: NSManagedObjectContext,heritageListArray:[Heritage]?) {
-        var fetchData = [HeritageEntity]()
-        if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
-             fetchData = DataManager.checkAddedToCoredata(entityName: "HeritageEntity", idKey: "lang", idValue: "1", managedContext: managedContext) as! [HeritageEntity]
-        } else {
-            fetchData = DataManager.checkAddedToCoredata(entityName: "HeritageEntity", idKey: "lang", idValue: "0", managedContext: managedContext) as! [HeritageEntity]
-        }
-            if (fetchData.count > 0) {
-                for i in 0 ... (heritageListArray?.count)!-1 {
-                    let heritageListDict = heritageListArray![i]
-                    let fetchResult = DataManager.checkAddedToCoredata(entityName: "HeritageEntity", idKey: "listid", idValue: heritageListArray![i].id, managedContext: managedContext)
-                    //update
-                    if(fetchResult.count != 0) {
-                        let heritagedbDict = fetchResult[0] as! HeritageEntity
-                        heritagedbDict.listname = heritageListDict.name
-                        heritagedbDict.listimage = heritageListDict.image
-                        heritagedbDict.listsortid =  heritageListDict.sortid
-                        if (LocalizationLanguage.currentAppleLanguage() == ENG_LANGUAGE) {
-                            heritagedbDict.lang =  "1"
-                        } else {
-                            heritagedbDict.lang =  "0"
-                        }
-                        do{
-                            try managedContext.save()
-                        }
-                        catch{
-                            print(error)
-                        }
-                    } else {
-                        //save
-                        self.saveToCoreData(heritageListDict: heritageListDict, managedObjContext: managedContext)
-                        
-                    }
-                }
-            } else {
-                for i in 0 ... (heritageListArray?.count)!-1 {
-                    let heritageListDict : Heritage?
-                    heritageListDict = heritageListArray?[i]
-                    self.saveToCoreData(heritageListDict: heritageListDict!, managedObjContext: managedContext)
-                }
-            }
-        
-       
-    }
-    
-    func saveToCoreData(heritageListDict: Heritage, managedObjContext: NSManagedObjectContext) {
-        //if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
-            let heritageInfo: HeritageEntity = NSEntityDescription.insertNewObject(forEntityName: "HeritageEntity", into: managedObjContext) as! HeritageEntity
-            heritageInfo.listid = heritageListDict.id
-            heritageInfo.listname = heritageListDict.name
-            heritageInfo.listimage = heritageListDict.image
-            if (LocalizationLanguage.currentAppleLanguage() == ENG_LANGUAGE) {
-                heritageInfo.lang =  "1"
-            } else {
-                heritageInfo.lang =  "0"
-            }
-            if(heritageListDict.sortid != nil) {
-                heritageInfo.listsortid = heritageListDict.sortid
-            }
-        do {
-            try managedObjContext.save()
-        } catch let error as NSError {
-            print("Could not save. \(error), \(error.userInfo)")
         }
     }
     
@@ -1887,7 +1824,9 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
                     if let arrayOffset = self.museumsList.index(where: {$0.id == searchstring}) {
                         self.museumsList.remove(at: arrayOffset)
                     }
-                    self.saveOrUpdateMuseumsCoredata(museumsList: data.homeList)
+                    if let homeList = data.homeList {
+                        self.saveOrUpdateMuseumsCoredata(museumsList: homeList)
+                    }
                 }
             case .failure(let error):
                 print("error")
@@ -1895,94 +1834,25 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
         }
     }
     //MARK: Coredata Method
-    func saveOrUpdateMuseumsCoredata(museumsList:[Home]?) {
-        if ((museumsList?.count)! > 0) {
+    func saveOrUpdateMuseumsCoredata(museumsList: [Home]) {
+        if !museumsList.isEmpty {
             let appDelegate =  UIApplication.shared.delegate as? AppDelegate
             if #available(iOS 10.0, *) {
                 let container = appDelegate!.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
-                    self.tourGuideCoreDataInBackgroundThread(managedContext: managedContext, museumsList: museumsList)
+                    DataManager.updateHomeEntity(managedContext: managedContext, homeList: museumsList)
                 }
             } else {
                 let managedContext = appDelegate!.managedObjectContext
                 managedContext.perform {
-                    self.tourGuideCoreDataInBackgroundThread(managedContext : managedContext, museumsList: museumsList)
+                    DataManager.updateHomeEntity(managedContext: managedContext, homeList: museumsList)
                 }
             }
             DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
 
         }
     }
-    func tourGuideCoreDataInBackgroundThread(managedContext: NSManagedObjectContext,museumsList:[Home]?) {
-        var fetchData = [HomeEntity]()
-        var langVar : String? = nil
-        if (LocalizationLanguage.currentAppleLanguage() == ENG_LANGUAGE) {
-            langVar = "1"
-            
-        } else {
-            langVar = "0"
-        }
-        fetchData = DataManager.checkAddedToCoredata(entityName: "HomeEntity", idKey: "lang", idValue: langVar, managedContext: managedContext) as! [HomeEntity]
-        if (fetchData.count > 0) {
-            for i in 0 ... (museumsList?.count)!-1 {
-                let museumListDict = museumsList![i]
-                let fetchResult = DataManager.checkAddedToCoredata(entityName: "HomeEntity", idKey: "id", idValue: museumsList![i].id, managedContext: managedContext)
-                //update
-                if(fetchResult.count != 0) {
-                    let museumsdbDict = fetchResult[0] as! HomeEntity
-                    
-                    museumsdbDict.name = museumListDict.name
-                    museumsdbDict.image = museumListDict.image
-                    museumsdbDict.sortid =  (Int16(museumListDict.sortId!) ?? 0)
-                    museumsdbDict.tourguideavailable = museumListDict.isTourguideAvailable
-                    museumsdbDict.lang = langVar
-                    
-                    do{
-                        try managedContext.save()
-                    }
-                    catch{
-                        print(error)
-                    }
-                }
-                else {
-                    //save
-                    self.saveToTourGuideCoreData(museumsListDict: museumListDict, managedObjContext: managedContext)
-                    
-                }
-            }
-        }
-        else {
-            for i in 0 ... (museumsList?.count)!-1 {
-                let museumsListDict : Home?
-                museumsListDict = museumsList?[i]
-                self.saveToTourGuideCoreData(museumsListDict: museumsListDict!, managedObjContext: managedContext)
-                
-            }
-        }
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-    }
-    func saveToTourGuideCoreData(museumsListDict: Home, managedObjContext: NSManagedObjectContext) {
-        var langVar : String? = nil
-        if (LocalizationLanguage.currentAppleLanguage() == ENG_LANGUAGE) {
-            langVar = "1"
-            
-        } else {
-            langVar = "0"
-        }
-        let museumsInfo: HomeEntity = NSEntityDescription.insertNewObject(forEntityName: "HomeEntity", into: managedObjContext) as! HomeEntity
-        museumsInfo.id = museumsListDict.id
-        museumsInfo.name = museumsListDict.name
-        museumsInfo.image = museumsListDict.image
-        museumsInfo.tourguideavailable = museumsListDict.isTourguideAvailable
-        museumsInfo.image = museumsListDict.image
-        museumsInfo.sortid = (Int16(museumsListDict.sortId!) ?? 0)
-        museumsInfo.lang = langVar
-        do {
-            try managedObjContext.save()
-        } catch let error as NSError {
-            DDLogError("Could not save. \(error), \(error.userInfo)")
-        }
-    }
+    
     func fetchMuseumsInfoFromCoredata() {
         self.exbtnLoadingView.stopLoading()
         self.exbtnLoadingView.isHidden = true
