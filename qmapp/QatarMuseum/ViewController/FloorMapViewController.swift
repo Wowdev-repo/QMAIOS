@@ -1438,7 +1438,9 @@ class FloorMapViewController: UIViewController, GMSMapViewDelegate, HeaderViewPr
                 self.loadingView.stopLoading()
                 self.loadingView.isHidden = true
                 if (self.floorMapArray.count > 0) {
-                    self.saveOrUpdateFloormapCoredata(floorMapArray: data.tourGuideFloorMap)
+                    if let tourGuideFloorMap = data.tourGuideFloorMap {
+                        self.saveOrUpdateFloormapCoredata(floorMapArray: tourGuideFloorMap)
+                    }
                     if ((self.fromTourString == fromTour.HighlightTour) || (self.fromTourString == fromTour.exploreTour)){
                         //if(self.selectedScienceTourLevel == "2" ) {
                             self.showOrHideLevelTwoHighlightTour()
@@ -1682,253 +1684,29 @@ class FloorMapViewController: UIViewController, GMSMapViewDelegate, HeaderViewPr
     }
     
     //MARK: TourGuide DataBase
-    func saveOrUpdateFloormapCoredata(floorMapArray: [TourGuideFloorMap]?) {
-        if ((floorMapArray?.count)! > 0) {
+    func saveOrUpdateFloormapCoredata(floorMapArray: [TourGuideFloorMap]) {
+        if !floorMapArray.isEmpty {
             let appDelegate =  UIApplication.shared.delegate as? AppDelegate
             if #available(iOS 10.0, *) {
                 let container = appDelegate?.persistentContainer
                 container?.performBackgroundTask() {(managedContext) in
-                    self.floormapCoreDataInBackgroundThread(managedContext: managedContext, floorMapArray: floorMapArray)
+                    DataManager.updateFloorMap(managedContext : managedContext,
+                                               floorMapArray: floorMapArray,
+                                               tourGuideID: self.tourGuideId)
                 }
             } else {
                 let managedContext = appDelegate?.managedObjectContext
                 managedContext?.perform {
-                    self.floormapCoreDataInBackgroundThread(managedContext : managedContext!, floorMapArray: floorMapArray)
+                    DataManager.updateFloorMap(managedContext : managedContext!,
+                                               floorMapArray: floorMapArray,
+                                               tourGuideID: self.tourGuideId)
                 }
             }
         }
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
     }
-    func floormapCoreDataInBackgroundThread(managedContext: NSManagedObjectContext,floorMapArray: [TourGuideFloorMap]?) {
-        if ((floorMapArray?.count)! > 0) {
-            let fetchData = DataManager.checkAddedToCoredata(entityName: "FloorMapTourGuideEntity",
-                                                             idKey: "tourGuideId",
-                                                             idValue: tourGuideId,
-                                                             managedContext: managedContext)
-                
-                if (fetchData.count > 0) {
-                    for i in 0 ... (floorMapArray?.count)!-1 {
-                       // let managedContext = getContext()
-                        let tourGuideDeatilDict = floorMapArray![i]
-                        let fetchResult = DataManager.checkAddedToCoredata(entityName: "FloorMapTourGuideEntity",
-                                                                         idKey: "nid",
-                                                                         idValue: floorMapArray![i].nid,
-                                                                         managedContext: managedContext) as! [FloorMapTourGuideEntity]
-                        
-                        if(fetchResult.count != 0) {
-                            
-                            //update
-                            let tourguidedbDict = fetchResult[0]
-                            tourguidedbDict.title = tourGuideDeatilDict.title
-                            tourguidedbDict.accessionNumber = tourGuideDeatilDict.accessionNumber
-                            tourguidedbDict.nid =  tourGuideDeatilDict.nid
-                            tourguidedbDict.curatorialDescription = tourGuideDeatilDict.curatorialDescription
-                            tourguidedbDict.diam = tourGuideDeatilDict.diam
-                            
-                            tourguidedbDict.dimensions = tourGuideDeatilDict.dimensions
-                            tourguidedbDict.mainTitle = tourGuideDeatilDict.mainTitle
-                            tourguidedbDict.objectEngSummary =  tourGuideDeatilDict.objectENGSummary
-                            tourguidedbDict.objectHistory = tourGuideDeatilDict.objectHistory
-                            tourguidedbDict.production = tourGuideDeatilDict.production
-                            
-                            tourguidedbDict.productionDates = tourGuideDeatilDict.productionDates
-                            tourguidedbDict.image = tourGuideDeatilDict.image
-                            tourguidedbDict.tourGuideId =  tourGuideDeatilDict.tourGuideId
-                            tourguidedbDict.artifactNumber = tourGuideDeatilDict.artifactNumber
-                            tourguidedbDict.artifactPosition = tourGuideDeatilDict.artifactPosition
-                            
-                            tourguidedbDict.audioDescriptif = tourGuideDeatilDict.audioDescriptif
-                            tourguidedbDict.audioFile = tourGuideDeatilDict.audioFile
-                            tourguidedbDict.floorLevel =  tourGuideDeatilDict.floorLevel
-                            tourguidedbDict.galleyNumber = tourGuideDeatilDict.galleyNumber
-                            tourguidedbDict.artistOrCreatorOrAuthor = tourGuideDeatilDict.artistOrCreatorOrAuthor
-                            tourguidedbDict.periodOrStyle = tourGuideDeatilDict.periodOrStyle
-                            tourguidedbDict.techniqueAndMaterials = tourGuideDeatilDict.techniqueAndMaterials
-                            tourguidedbDict.thumbImage = tourGuideDeatilDict.thumbImage
-                            
-                            tourguidedbDict.language = Utils.getLanguage()
-//                            if let imageUrl = tourGuideDeatilDict.thumbImage{
-//                                if(imageUrl != "") {
-//                                    KingfisherManager.shared.retrieveImage(with: URL(string: imageUrl)!, options: nil, progressBlock: nil, completionHandler: { image, error, cacheType, imageURL in
-//                                        if(image != nil) {
-//                                            tourguidedbDict.artifactImg = UIImagePNGRepresentation(image!)
-//                                        }
-//                                    })
-//                                }
-//                            }
-                            
-                            
-                            if(tourGuideDeatilDict.images != nil) {
-                                if((tourGuideDeatilDict.images?.count)! > 0) {
-                                    for i in 0 ... (tourGuideDeatilDict.images?.count)!-1 {
-                                        var tourGuideImgEntity: ImageEntity!
-                                        let tourGuideImg = NSEntityDescription.insertNewObject(forEntityName: "ImageEntity", into: managedContext) as! ImageEntity
-                                        tourGuideImg.image = tourGuideDeatilDict.images?[i]
-                                        tourGuideImg.language = Utils.getLanguage()
-                                        tourGuideImgEntity = tourGuideImg
-                                        tourguidedbDict.addToImagesRelation(tourGuideImgEntity)
-                                        do {
-                                            try managedContext.save()
-                                            
-                                        } catch let error as NSError {
-                                            print("Could not save. \(error), \(error.userInfo)")
-                                        }
-                                        
-                                    }
-                                }
-                            }
-                            
-                            do{
-                                try managedContext.save()
-                            }
-                            catch{
-                                print(error)
-                            }
-                        }else {
-                            self.saveToCoreData(tourGuideDetailDict: tourGuideDeatilDict, managedObjContext: managedContext)
-                        }
-                    }//for
-                }//if
-                else {
-                    for i in 0 ... (floorMapArray?.count)!-1 {
-                       // let managedContext = getContext()
-                        let tourGuideDetailDict : TourGuideFloorMap?
-                        tourGuideDetailDict = floorMapArray?[i]
-                        self.saveToCoreData(tourGuideDetailDict: tourGuideDetailDict!, managedObjContext: managedContext)
-                    }
-                    
-                }
-        }
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-    }
-    func saveToCoreData(tourGuideDetailDict: TourGuideFloorMap, managedObjContext: NSManagedObjectContext) {
-//        if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
-            let tourguidedbDict: FloorMapTourGuideEntity = NSEntityDescription.insertNewObject(forEntityName: "FloorMapTourGuideEntity", into: managedObjContext) as! FloorMapTourGuideEntity
-            tourguidedbDict.title = tourGuideDetailDict.title
-            tourguidedbDict.accessionNumber = tourGuideDetailDict.accessionNumber
-            tourguidedbDict.nid =  tourGuideDetailDict.nid
-            tourguidedbDict.curatorialDescription = tourGuideDetailDict.curatorialDescription
-            tourguidedbDict.diam = tourGuideDetailDict.diam
-            
-            tourguidedbDict.dimensions = tourGuideDetailDict.dimensions
-            tourguidedbDict.mainTitle = tourGuideDetailDict.mainTitle
-            tourguidedbDict.objectEngSummary =  tourGuideDetailDict.objectENGSummary
-            tourguidedbDict.objectHistory = tourGuideDetailDict.objectHistory
-            tourguidedbDict.production = tourGuideDetailDict.production
-            
-            tourguidedbDict.productionDates = tourGuideDetailDict.productionDates
-            tourguidedbDict.image = tourGuideDetailDict.image
-            tourguidedbDict.tourGuideId =  tourGuideDetailDict.tourGuideId
-            tourguidedbDict.artifactNumber = tourGuideDetailDict.artifactNumber
-            tourguidedbDict.artifactPosition = tourGuideDetailDict.artifactPosition
-            
-            tourguidedbDict.audioDescriptif = tourGuideDetailDict.audioDescriptif
-            tourguidedbDict.audioFile = tourGuideDetailDict.audioFile
-            tourguidedbDict.floorLevel =  tourGuideDetailDict.floorLevel
-            tourguidedbDict.galleyNumber = tourGuideDetailDict.galleyNumber
-            tourguidedbDict.artistOrCreatorOrAuthor = tourGuideDetailDict.artistOrCreatorOrAuthor
-            tourguidedbDict.periodOrStyle = tourGuideDetailDict.periodOrStyle
-            tourguidedbDict.techniqueAndMaterials = tourGuideDetailDict.techniqueAndMaterials
-            tourguidedbDict.thumbImage = tourGuideDetailDict.thumbImage
-        tourguidedbDict.language = Utils.getLanguage()
-        
-        
-//            if let imageUrl = tourGuideDetailDict.thumbImage{
-//                if(imageUrl != "") {
-//                    KingfisherManager.shared.retrieveImage(with: URL(string: imageUrl)!, options: nil, progressBlock: nil, completionHandler: { image, error, cacheType, imageURL in
-//                        if(image != nil) {
-//                            tourguidedbDict.artifactImg = UIImagePNGRepresentation(image!)
-//                        }
-//                    })
-//                }
-//            }
-            if(tourGuideDetailDict.images != nil) {
-                if((tourGuideDetailDict.images?.count)! > 0) {
-                    for i in 0 ... (tourGuideDetailDict.images?.count)!-1 {
-                        var tourGuideImgEntity: ImageEntity!
-                        let tourGuideImg = NSEntityDescription.insertNewObject(forEntityName: "ImageEntity", into: managedObjContext) as! ImageEntity
-                        tourGuideImg.image = tourGuideDetailDict.images?[i]
-                        tourGuideImg.language = Utils.getLanguage()
-                        tourGuideImgEntity = tourGuideImg
-                        tourguidedbDict.addToImagesRelation(tourGuideImgEntity)
-                        do {
-                            try managedObjContext.save()
-                            
-                        } catch let error as NSError {
-                            print("Could not save. \(error), \(error.userInfo)")
-                        }
-                        
-                    }
-                }
-            }
-            
-//        }
-//        else {
-//            let tourguidedbDict: FloorMapTourGuideEntityAr = NSEntityDescription.insertNewObject(forEntityName: "FloorMapTourGuideEntityAr", into: managedObjContext) as! FloorMapTourGuideEntityAr
-//            tourguidedbDict.title = tourGuideDetailDict.title
-//            tourguidedbDict.accessionNumber = tourGuideDetailDict.accessionNumber
-//            tourguidedbDict.nid =  tourGuideDetailDict.nid
-//            tourguidedbDict.curatorialDescription = tourGuideDetailDict.curatorialDescription
-//            tourguidedbDict.diam = tourGuideDetailDict.diam
-//
-//            tourguidedbDict.dimensions = tourGuideDetailDict.dimensions
-//            tourguidedbDict.mainTitle = tourGuideDetailDict.mainTitle
-//            tourguidedbDict.objectEngSummary =  tourGuideDetailDict.objectENGSummary
-//            tourguidedbDict.objectHistory = tourGuideDetailDict.objectHistory
-//            tourguidedbDict.production = tourGuideDetailDict.production
-//
-//            tourguidedbDict.productionDates = tourGuideDetailDict.productionDates
-//            tourguidedbDict.image = tourGuideDetailDict.image
-//            tourguidedbDict.tourGuideId =  tourGuideDetailDict.tourGuideId
-//            tourguidedbDict.artifactNumber = tourGuideDetailDict.artifactNumber
-//            tourguidedbDict.artifactPosition = tourGuideDetailDict.artifactPosition
-//
-//            tourguidedbDict.audioDescriptif = tourGuideDetailDict.audioDescriptif
-//            tourguidedbDict.audioFile = tourGuideDetailDict.audioFile
-//            tourguidedbDict.floorLevel =  tourGuideDetailDict.floorLevel
-//            tourguidedbDict.galleyNumber = tourGuideDetailDict.galleyNumber
-//            tourguidedbDict.artistOrCreatorOrAuthor = tourGuideDetailDict.artistOrCreatorOrAuthor
-//            tourguidedbDict.periodOrStyle = tourGuideDetailDict.periodOrStyle
-//            tourguidedbDict.techniqueAndMaterials = tourGuideDetailDict.techniqueAndMaterials
-//            tourguidedbDict.thumbImage = tourGuideDetailDict.thumbImage
-////            if let imageUrl = tourGuideDetailDict.thumbImage{
-////                if(imageUrl != "") {
-////                    KingfisherManager.shared.retrieveImage(with: URL(string: imageUrl)!, options: nil, progressBlock: nil, completionHandler: { image, error, cacheType, imageURL in
-////                        if(image != nil) {
-////                            tourguidedbDict.artifactImg = UIImagePNGRepresentation(image!)
-////                        }
-////                    })
-////                }
-////            }
-//            if(tourGuideDetailDict.images != nil) {
-//                if((tourGuideDetailDict.images?.count)! > 0) {
-//                    for i in 0 ... (tourGuideDetailDict.images?.count)!-1 {
-//                        var tourGuideImgEntity: FloorMapImagesEntityAr!
-//                        let tourGuideImg: FloorMapImagesEntityAr = NSEntityDescription.insertNewObject(forEntityName: "FloorMapImagesEntityAr", into: managedObjContext) as! FloorMapImagesEntityAr
-//                        tourGuideImg.image = tourGuideDetailDict.images?[i]
-//
-//                        tourGuideImgEntity = tourGuideImg
-//                        tourguidedbDict.addToImagesRelation(tourGuideImgEntity)
-//                        do {
-//                            try managedObjContext.save()
-//
-//                        } catch let error as NSError {
-//                            print("Could not save. \(error), \(error.userInfo)")
-//                        }
-//
-//                    }
-//                }
-//            }
-//        }
-        do {
-            try managedObjContext.save()
-            
-            
-        } catch let error as NSError {
-            DDLogError("Could not save. \(error), \(error.userInfo)")
-        }
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-    }
+    
+    
     
     func fetchTourGuideFromCoredata() {
         let managedContext = getContext()

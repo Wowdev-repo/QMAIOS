@@ -1505,5 +1505,93 @@ extension DataManager {
         }
         DataManager.save(managedObjContext)
     }
+    
+    static func updateFloorMap(managedContext: NSManagedObjectContext,
+                               floorMapArray: [TourGuideFloorMap],
+                               tourGuideID: String?) {
+        if !floorMapArray.isEmpty {
+            let fetchData = DataManager.checkAddedToCoredata(entityName: "FloorMapTourGuideEntity",
+                                                             idKey: "tourGuideId",
+                                                             idValue: tourGuideID,
+                                                             managedContext: managedContext)
+            
+            if (fetchData.count > 0) {
+                for tourGuideDeatilDict in floorMapArray {
+                    let fetchResult = DataManager.checkAddedToCoredata(entityName: "FloorMapTourGuideEntity",
+                                                                       idKey: "nid",
+                                                                       idValue: tourGuideDeatilDict.nid,
+                                                                       managedContext: managedContext) as! [FloorMapTourGuideEntity]
+                    
+                    if(fetchResult.count != 0) {
+                        
+                        //update
+                        let tourguidedbDict = fetchResult[0]
+                        DataManager.saveFloorMapTourGuide(tourGuideDetailDict: tourGuideDeatilDict,
+                                                   managedObjContext: managedContext,
+                                                   entity: tourguidedbDict)
+                    } else {
+                        DataManager.saveFloorMapTourGuide(tourGuideDetailDict: tourGuideDeatilDict,
+                                                   managedObjContext: managedContext,
+                                                   entity: nil)
+                    }
+                }//for
+            }//if
+            else {
+                for tourGuideDetailDict in floorMapArray {
+                    DataManager.saveFloorMapTourGuide(tourGuideDetailDict: tourGuideDetailDict,
+                                               managedObjContext: managedContext,
+                                               entity: nil)
+                }
+                
+            }
+        }
+    }
+    
+    static func saveFloorMapTourGuide(tourGuideDetailDict: TourGuideFloorMap,
+                               managedObjContext: NSManagedObjectContext,
+                               entity: FloorMapTourGuideEntity?) {
+        var tourguidedbDict = entity
+        if entity == nil {
+            tourguidedbDict = NSEntityDescription.insertNewObject(forEntityName: "FloorMapTourGuideEntity",
+                                                                  into: managedObjContext) as? FloorMapTourGuideEntity
+        }
+        tourguidedbDict?.title = tourGuideDetailDict.title
+        tourguidedbDict?.accessionNumber = tourGuideDetailDict.accessionNumber
+        tourguidedbDict?.nid =  tourGuideDetailDict.nid
+        tourguidedbDict?.curatorialDescription = tourGuideDetailDict.curatorialDescription
+        tourguidedbDict?.diam = tourGuideDetailDict.diam
+        
+        tourguidedbDict?.dimensions = tourGuideDetailDict.dimensions
+        tourguidedbDict?.mainTitle = tourGuideDetailDict.mainTitle
+        tourguidedbDict?.objectEngSummary =  tourGuideDetailDict.objectENGSummary
+        tourguidedbDict?.objectHistory = tourGuideDetailDict.objectHistory
+        tourguidedbDict?.production = tourGuideDetailDict.production
+        
+        tourguidedbDict?.productionDates = tourGuideDetailDict.productionDates
+        tourguidedbDict?.image = tourGuideDetailDict.image
+        tourguidedbDict?.tourGuideId =  tourGuideDetailDict.tourGuideId
+        tourguidedbDict?.artifactNumber = tourGuideDetailDict.artifactNumber
+        tourguidedbDict?.artifactPosition = tourGuideDetailDict.artifactPosition
+        
+        tourguidedbDict?.audioDescriptif = tourGuideDetailDict.audioDescriptif
+        tourguidedbDict?.audioFile = tourGuideDetailDict.audioFile
+        tourguidedbDict?.floorLevel =  tourGuideDetailDict.floorLevel
+        tourguidedbDict?.galleyNumber = tourGuideDetailDict.galleyNumber
+        tourguidedbDict?.artistOrCreatorOrAuthor = tourGuideDetailDict.artistOrCreatorOrAuthor
+        tourguidedbDict?.periodOrStyle = tourGuideDetailDict.periodOrStyle
+        tourguidedbDict?.techniqueAndMaterials = tourGuideDetailDict.techniqueAndMaterials
+        tourguidedbDict?.thumbImage = tourGuideDetailDict.thumbImage
+        tourguidedbDict?.language = Utils.getLanguage()
+        
+        
+        if let images = tourGuideDetailDict.images {
+            for image in images {
+                tourguidedbDict?.addToImagesRelation(DataManager.getImageEntity(image, context: managedObjContext))
+                DataManager.save(managedObjContext)
+            }
+        }
+        
+        DataManager.save(managedObjContext)
+    }
 }
 

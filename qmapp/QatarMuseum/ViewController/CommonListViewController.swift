@@ -988,7 +988,9 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
                     }
                 }
                 if(self.heritageListArray.count > 0) {
-                    self.saveOrUpdateHeritageCoredata(heritageListArray: data.heritage)
+                    if let heritage = data.heritage {
+                        self.saveOrUpdateHeritageCoredata(heritageListArray: heritage)
+                    }
                 }
             case .failure( _):
                 if(self.heritageListArray.count == 0) {
