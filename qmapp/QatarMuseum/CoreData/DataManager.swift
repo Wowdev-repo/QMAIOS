@@ -57,6 +57,14 @@ class DataManager {
         
     }
     
+    static func getImageEntity(_ image: String, context: NSManagedObjectContext) -> ImageEntity {
+        let imageEntity = NSEntityDescription.insertNewObject(forEntityName: "ImageEntity",
+                                                              into: context) as! ImageEntity
+        imageEntity.image = image
+        imageEntity.language = Utils.getLanguage()
+        return imageEntity
+    }
+    
     /// Delete
     ///
     /// - Parameters:
@@ -1278,12 +1286,71 @@ extension DataManager {
         DataManager.save(managedObjContext)
     }
     
-    static func getImageEntity(_ image: String, context: NSManagedObjectContext) -> ImageEntity {
-        let imageEntity = NSEntityDescription.insertNewObject(forEntityName: "ImageEntity",
-                                                              into: context) as! ImageEntity
-        imageEntity.image = image
-        imageEntity.language = Utils.getLanguage()
-        return imageEntity
+    static func updateActivityList(nmoqActivityList: [NMoQActivitiesList],
+                            managedContext: NSManagedObjectContext) {
+        let fetchData = DataManager.checkAddedToCoredata(entityName: "NMoQActivitiesEntity",
+                                                         idKey: "nid",
+                                                         idValue: nil,
+                                                         managedContext: managedContext) as! [NMoQActivitiesEntity]
+        if (fetchData.count > 0) {
+            for nmoqActivityListDict in nmoqActivityList {
+                let fetchResult = DataManager.checkAddedToCoredata(entityName: "NMoQActivitiesEntity",
+                                                                   idKey: "nid",
+                                                                   idValue: nmoqActivityListDict.nid,
+                                                                   managedContext: managedContext)
+                //update
+                if(fetchResult.count != 0) {
+                    let activityListdbDict = fetchResult[0] as! NMoQActivitiesEntity
+                    DataManager.saveActivityList(activityListDict: nmoqActivityListDict,
+                                          managedObjContext: managedContext,
+                                          entity: activityListdbDict)
+                } else {
+                    //save
+                    DataManager.saveActivityList(activityListDict: nmoqActivityListDict, managedObjContext: managedContext, entity: nil)
+                }
+            }
+            NotificationCenter.default.post(name: NSNotification.Name(nmoqActivityListNotificationEn), object: self)
+        } else {
+            for activitiesListDict in nmoqActivityList {
+                DataManager.saveActivityList(activityListDict: activitiesListDict,
+                                      managedObjContext: managedContext,
+                                      entity: nil)
+            }
+            NotificationCenter.default.post(name: NSNotification.Name(nmoqActivityListNotificationEn), object: self)
+        }
+    }
+    
+    static func saveActivityList(activityListDict: NMoQActivitiesList,
+                          managedObjContext: NSManagedObjectContext, entity: NMoQActivitiesEntity?) {
+        var activityListdbDict = entity
+        if entity == nil {
+            activityListdbDict = NSEntityDescription.insertNewObject(forEntityName: "NMoQActivitiesEntity",
+                                                                     into: managedObjContext) as? NMoQActivitiesEntity
+        }
+        activityListdbDict?.title = activityListDict.title
+        activityListdbDict?.dayDescription = activityListDict.dayDescription
+        activityListdbDict?.subtitle =  activityListDict.subtitle
+        activityListdbDict?.sortId = activityListDict.sortId
+        activityListdbDict?.nid =  activityListDict.nid
+        activityListdbDict?.eventDate = activityListDict.eventDate
+        //eventlist
+        activityListdbDict?.date = activityListDict.date
+        activityListdbDict?.descriptioForModerator = activityListDict.descriptioForModerator
+        activityListdbDict?.mobileLatitude = activityListDict.mobileLatitude
+        activityListdbDict?.moderatorName = activityListDict.moderatorName
+        activityListdbDict?.longitude = activityListDict.longitude
+        activityListdbDict?.contactEmail = activityListDict.contactEmail
+        activityListdbDict?.contactPhone = activityListDict.contactPhone
+        activityListdbDict?.language = Utils.getLanguage()
+        
+        if let images = activityListDict.images {
+            for image in images {
+                activityListdbDict?.addToActivityImgRelation(DataManager.getImageEntity(image,
+                                                                                        context: managedObjContext))
+                DataManager.save(managedObjContext)
+            }
+        }
+        DataManager.save(managedObjContext)
     }
 }
 
