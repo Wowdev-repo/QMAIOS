@@ -659,13 +659,7 @@ extension DataManager {
         
         if let images = facilitiesDetailDict.images {
             for image in images {
-                var facilitiesDetailImage: ImageEntity
-                let facilitiesImgaeArray = NSEntityDescription.insertNewObject(forEntityName: "ImageEntity",
-                                                                               into: managedContext) as! ImageEntity
-                facilitiesImgaeArray.image = image
-                facilitiesImgaeArray.language = Utils.getLanguage()
-                facilitiesDetailImage = facilitiesImgaeArray
-                facilitiesDetaildbDict?.addToFacilitiesDetailRelation(facilitiesDetailImage)
+                facilitiesDetaildbDict?.addToFacilitiesDetailRelation(DataManager.getImageEntity(image, context: managedContext))
                 DataManager.save(managedContext)
             }
         }
@@ -706,13 +700,7 @@ extension DataManager {
         
         if let imageBanner = tourDetailDict.imageBanner {
             for image in imageBanner {
-                var tourImage: ImageEntity
-                let tourImgaeArray = NSEntityDescription.insertNewObject(forEntityName: "ImageEntity",
-                                                                         into: managedObjContext) as! ImageEntity
-                tourImgaeArray.image = image
-                tourImgaeArray.language = Utils.getLanguage()
-                tourImage = tourImgaeArray
-                tourDetaildbDict?.addToNmoqTourDetailImgBannerRelation(tourImage)
+                tourDetaildbDict?.addToNmoqTourDetailImgBannerRelation(DataManager.getImageEntity(image, context: managedObjContext))
                 DataManager.save(managedObjContext)
             }
         }
@@ -831,15 +819,9 @@ extension DataManager {
         }
         
         if let images = diningListDict.images {
-            for imageString in images {
-                var diningImagesEntity: ImageEntity!
-                let diningImage = NSEntityDescription.insertNewObject(forEntityName: "ImageEntity",
-                                                                      into: managedObjContext) as! ImageEntity
-                diningImage.image = imageString
-                diningImagesEntity = diningImage
-                diningInfo?.addToImagesRelation(diningImagesEntity)
+            for image in images {
+                diningInfo?.addToImagesRelation(DataManager.getImageEntity(image, context: managedObjContext))
                 DataManager.save(managedObjContext)
-                
             }
         }
         
@@ -1109,15 +1091,9 @@ extension DataManager {
         tourListInfo?.language = Utils.getLanguage()
         
         if(tourListDict.images != nil){
-            if((tourListDict.images?.count)! > 0) {
-                for i in 0 ... (tourListDict.images?.count)!-1 {
-                    var tourImage: ImageEntity!
-                    let tourImgaeArray = NSEntityDescription.insertNewObject(forEntityName: "ImageEntity",
-                                                                             into: managedObjContext) as! ImageEntity
-                    tourImgaeArray.image = tourListDict.images?[i]
-                    tourImgaeArray.language = Utils.getLanguage()
-                    tourImage = tourImgaeArray
-                    tourListInfo?.addToTourImagesRelation(tourImage)
+            if let images = tourListDict.images {
+                for image in images {
+                    tourListInfo?.addToTourImagesRelation(DataManager.getImageEntity(image, context: managedObjContext))
                     DataManager.save(managedObjContext)
                 }
             }
@@ -1176,14 +1152,9 @@ extension DataManager {
         nmoqParkListdbDict?.language = Utils.getLanguage()
         
         if(nmoqParkListDict.images != nil){
-            if((nmoqParkListDict.images?.count)! > 0) {
-                for i in 0 ... (nmoqParkListDict.images?.count)!-1 {
-                    var parkListImage: ImageEntity!
-                    let parkListImageArray = NSEntityDescription.insertNewObject(forEntityName: "ImageEntity", into: managedObjContext) as! ImageEntity
-                    parkListImageArray.image = nmoqParkListDict.images![i]
-                    parkListImageArray.language = Utils.getLanguage()
-                    parkListImage = parkListImageArray
-                    nmoqParkListdbDict?.addToParkImgRelation(parkListImage)
+            if let images = nmoqParkListDict.images {
+                for image in images {
+                    nmoqParkListdbDict?.addToParkImgRelation(DataManager.getImageEntity(image, context: managedObjContext))
                     DataManager.save(managedObjContext)
                 }
             }
@@ -1300,17 +1271,19 @@ extension DataManager {
         
         if let images = nmoqParkListDict.images{
             for image in images {
-                var parkListImage: ImageEntity!
-                let parkListImageArray = NSEntityDescription.insertNewObject(forEntityName: "ImageEntity",
-                                                                             into: managedObjContext) as! ImageEntity
-                parkListImageArray.image = image
-                parkListImageArray.language = Utils.getLanguage()
-                parkListImage = parkListImageArray
-                nmoqParkListdbDict?.addToParkDetailImgRelation(parkListImage)
+                nmoqParkListdbDict?.addToParkDetailImgRelation(DataManager.getImageEntity(image, context: managedObjContext))
                 DataManager.save(managedObjContext)
             }
         }
         DataManager.save(managedObjContext)
+    }
+    
+    static func getImageEntity(_ image: String, context: NSManagedObjectContext) -> ImageEntity {
+        let imageEntity = NSEntityDescription.insertNewObject(forEntityName: "ImageEntity",
+                                                              into: context) as! ImageEntity
+        imageEntity.image = image
+        imageEntity.language = Utils.getLanguage()
+        return imageEntity
     }
 }
 
