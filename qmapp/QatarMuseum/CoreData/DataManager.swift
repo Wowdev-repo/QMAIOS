@@ -1248,5 +1248,69 @@ extension DataManager {
         
         DataManager.save(managedObjContext)
     }
+    
+    static func updateNmoqParkDetail(nmoqParkList: [NMoQParkDetail],
+                              managedContext: NSManagedObjectContext) {
+        let fetchData = DataManager.checkAddedToCoredata(entityName: "NMoQParkDetailEntity",
+                                                         idKey: "nid",
+                                                         idValue: nil,
+                                                         managedContext: managedContext) as! [NMoQParkDetailEntity]
+        if (fetchData.count > 0) {
+            for nmoqParkListDict in nmoqParkList {
+                let fetchResult = DataManager.checkAddedToCoredata(entityName: "NMoQParkDetailEntity",
+                                                                   idKey: "nid",
+                                                                   idValue: nmoqParkListDict.nid,
+                                                                   managedContext: managedContext)
+                //update
+                if(fetchResult.count != 0) {
+                    let nmoqParkListdbDict = fetchResult[0] as! NMoQParkDetailEntity
+                    DataManager.saveNMoQParkDetail(nmoqParkListDict: nmoqParkListDict,
+                                            managedObjContext: managedContext,
+                                            entity: nmoqParkListdbDict)
+                } else {
+                    //save
+                    DataManager.saveNMoQParkDetail(nmoqParkListDict: nmoqParkListDict,
+                                            managedObjContext: managedContext,
+                                            entity: nil)
+                }
+            }
+            NotificationCenter.default.post(name: NSNotification.Name(nmoqParkDetailNotificationEn), object: self)
+        } else {
+            for nmoqParkListDict in nmoqParkList {
+                DataManager.saveNMoQParkDetail(nmoqParkListDict: nmoqParkListDict,
+                                        managedObjContext: managedContext,
+                                        entity: nil)
+            }
+            NotificationCenter.default.post(name: NSNotification.Name(nmoqParkDetailNotificationEn), object: self)
+        }
+    }
+    
+    static func saveNMoQParkDetail(nmoqParkListDict: NMoQParkDetail,
+                            managedObjContext: NSManagedObjectContext, entity: NMoQParkDetailEntity?) {
+        var nmoqParkListdbDict = entity
+        if entity == nil {
+            nmoqParkListdbDict = NSEntityDescription.insertNewObject(forEntityName: "NMoQParkDetailEntity",
+                                                                     into: managedObjContext) as? NMoQParkDetailEntity
+        }
+        nmoqParkListdbDict?.title = nmoqParkListDict.title
+        nmoqParkListdbDict?.nid =  nmoqParkListDict.nid
+        nmoqParkListdbDict?.sortId =  nmoqParkListDict.sortId
+        nmoqParkListdbDict?.parkDesc =  nmoqParkListDict.parkDesc
+        nmoqParkListdbDict?.language = Utils.getLanguage()
+        
+        if let images = nmoqParkListDict.images{
+            for image in images {
+                var parkListImage: ImageEntity!
+                let parkListImageArray = NSEntityDescription.insertNewObject(forEntityName: "ImageEntity",
+                                                                             into: managedObjContext) as! ImageEntity
+                parkListImageArray.image = image
+                parkListImageArray.language = Utils.getLanguage()
+                parkListImage = parkListImageArray
+                nmoqParkListdbDict?.addToParkDetailImgRelation(parkListImage)
+                DataManager.save(managedObjContext)
+            }
+        }
+        DataManager.save(managedObjContext)
+    }
 }
 
