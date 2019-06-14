@@ -1593,5 +1593,79 @@ extension DataManager {
         
         DataManager.save(managedObjContext)
     }
+    
+    static func updateExhibitionsEntity(managedContext: NSManagedObjectContext,
+                                 exhibition: [Exhibition],
+                                 isHomeExhibition : String?) {
+        let fetchData = DataManager.checkAddedToCoredata(entityName: "ExhibitionsEntity",
+                                                         idKey: "lang",
+                                                         idValue: Utils.getLanguage(),
+                                                         managedContext: managedContext) as! [ExhibitionsEntity]
+        if (fetchData.count > 0) {
+            for exhibitionsListDict in exhibition {
+                let fetchResult = DataManager.checkAddedToCoredata(entityName: "ExhibitionsEntity",
+                                                                   idKey: "id",
+                                                                   idValue: exhibitionsListDict.id,
+                                                                   managedContext: managedContext)
+                //update
+                if(fetchResult.count != 0) {
+                    let exhibitionsdbDict = fetchResult[0] as! ExhibitionsEntity
+                    DataManager.saveExhibitionsEntity(exhibitionDict: exhibitionsListDict,
+                                               managedObjContext: managedContext,
+                                               isHomeExhibition :isHomeExhibition,
+                                               entity: exhibitionsdbDict)
+                } else {
+                    //save
+                    DataManager.saveExhibitionsEntity(exhibitionDict: exhibitionsListDict,
+                                               managedObjContext: managedContext,
+                                               isHomeExhibition :isHomeExhibition,
+                                               entity: nil)
+                }
+            }//for
+        } else {
+            for exhibitionListDict in exhibition {
+                DataManager.saveExhibitionsEntity(exhibitionDict: exhibitionListDict,
+                                           managedObjContext: managedContext,
+                                           isHomeExhibition :isHomeExhibition,
+                                           entity:  nil)
+            }
+        }
+    }
+    
+    static func saveExhibitionsEntity(exhibitionDict: Exhibition,
+                               managedObjContext: NSManagedObjectContext,
+                               isHomeExhibition : String?,
+                               entity: ExhibitionsEntity?) {
+        
+        var exhibitionInfo = entity
+        if entity == nil {
+            exhibitionInfo = NSEntityDescription.insertNewObject(forEntityName: "ExhibitionsEntity",
+                                                                 into: managedObjContext) as? ExhibitionsEntity
+        }
+        
+        exhibitionInfo?.id = exhibitionDict.id
+        exhibitionInfo?.name = exhibitionDict.name
+        exhibitionInfo?.image = exhibitionDict.image
+        exhibitionInfo?.startDate =  exhibitionDict.startDate
+        exhibitionInfo?.endDate = exhibitionDict.endDate
+        exhibitionInfo?.location =  exhibitionDict.location
+        exhibitionInfo?.museumId =  exhibitionDict.museumId
+        exhibitionInfo?.status =  exhibitionDict.status
+        exhibitionInfo?.isHomeExhibition =  isHomeExhibition
+        exhibitionInfo?.lang = Utils.getLanguage()
+        
+        exhibitionInfo?.detailName = exhibitionDict.name
+        exhibitionInfo?.detailImage = exhibitionDict.detailImage
+        exhibitionInfo?.detailStartDate = exhibitionDict.startDate
+        exhibitionInfo?.detailEndDate = exhibitionDict.endDate
+        exhibitionInfo?.detailShortDesc =  exhibitionDict.shortDescription
+        exhibitionInfo?.detailLongDesc =  exhibitionDict.longDescription
+        exhibitionInfo?.detailLocation = exhibitionDict.location
+        exhibitionInfo?.detailLatitude =  exhibitionDict.latitude
+        exhibitionInfo?.detailLongitude = exhibitionDict.longitude
+        exhibitionInfo?.status = exhibitionDict.status
+        
+        DataManager.save(managedObjContext)
+    }
 }
 

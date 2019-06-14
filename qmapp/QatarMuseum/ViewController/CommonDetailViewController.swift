@@ -951,84 +951,26 @@ class CommonDetailViewController: UIViewController,UITableViewDelegate,UITableVi
     //MARK: Coredata Method
     func saveOrUpdateExhibitionsCoredata() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-        if (exhibition.count > 0) {
+        if !self.exhibition.isEmpty {
             let appDelegate =  UIApplication.shared.delegate as? AppDelegate
             if #available(iOS 10.0, *) {
                 let container = appDelegate!.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
-                    self.exhibitionCoreDataInBackgroundThread(managedContext: managedContext)
+                    DataManager.updateExhibitionsEntity(managedContext : managedContext,
+                                                        exhibition: self.exhibition,
+                                                        isHomeExhibition:"0")
                 }
             } else {
                 let managedContext = appDelegate!.managedObjectContext
                 managedContext.perform {
-                    self.exhibitionCoreDataInBackgroundThread(managedContext : managedContext)
+                    DataManager.updateExhibitionsEntity(managedContext: managedContext,
+                                                        exhibition: self.exhibition,
+                                                        isHomeExhibition: "0")
                 }
             }
         }
     }
-    func exhibitionCoreDataInBackgroundThread(managedContext: NSManagedObjectContext) {
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-            let fetchData = DataManager.checkAddedToCoredata(entityName: "ExhibitionsEntity", idKey: "id" , idValue: exhibition[0].id, managedContext: managedContext) as! [ExhibitionsEntity]
-            if (fetchData.count > 0) {
-                let exhibitionDetailDict = exhibition[0]
-                
-                //update
-                let exhibitiondbDict = fetchData[0]
-                exhibitiondbDict.detailName = exhibitionDetailDict.name
-                exhibitiondbDict.detailImage = exhibitionDetailDict.detailImage
-                exhibitiondbDict.detailStartDate =  exhibitionDetailDict.startDate
-                exhibitiondbDict.detailEndDate = exhibitionDetailDict.endDate
-                exhibitiondbDict.detailShortDesc = exhibitionDetailDict.shortDescription
-                exhibitiondbDict.detailLongDesc =  exhibitionDetailDict.longDescription
-                exhibitiondbDict.detailLocation =  exhibitionDetailDict.location
-                exhibitiondbDict.detailLatitude = exhibitionDetailDict.latitude
-                exhibitiondbDict.detailLongitude = exhibitionDetailDict.longitude
-                exhibitiondbDict.status = exhibitionDetailDict.status
-                if (LocalizationLanguage.currentAppleLanguage() == ENG_LANGUAGE) {
-                    exhibitiondbDict.lang =  "1"
-                } else {
-                    exhibitiondbDict.lang =  "0"
-                }
-                do{
-                    try managedContext.save()
-                }
-                catch{
-                    print(error)
-                }
-            }
-            else {
-                let exhibitionListDict : Exhibition?
-                exhibitionListDict = exhibition[0]
-                self.saveExhibitionToCoreData(exhibitionDetailDict: exhibitionListDict!, managedObjContext: managedContext)
-            }
-    }
-    func saveExhibitionToCoreData(exhibitionDetailDict: Exhibition, managedObjContext: NSManagedObjectContext) {
-       // if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
-            let exhibitionInfo: ExhibitionsEntity = NSEntityDescription.insertNewObject(forEntityName: "ExhibitionsEntity", into: managedObjContext) as! ExhibitionsEntity
-            exhibitionInfo.id = exhibitionDetailDict.id
-            exhibitionInfo.detailName = exhibitionDetailDict.name
-            exhibitionInfo.detailImage = exhibitionDetailDict.detailImage
-            exhibitionInfo.detailStartDate = exhibitionDetailDict.startDate
-            exhibitionInfo.detailEndDate = exhibitionDetailDict.endDate
-            exhibitionInfo.detailShortDesc =  exhibitionDetailDict.shortDescription
-            exhibitionInfo.detailLongDesc =  exhibitionDetailDict.longDescription
-            exhibitionInfo.detailLocation = exhibitionDetailDict.location
-            exhibitionInfo.detailLatitude =  exhibitionDetailDict.latitude
-            exhibitionInfo.detailLongitude = exhibitionDetailDict.longitude
-            exhibitionInfo.status = exhibitionDetailDict.status
-            if (LocalizationLanguage.currentAppleLanguage() == ENG_LANGUAGE) {
-                exhibitionInfo.lang =  "1"
-            } else {
-                exhibitionInfo.lang =  "0"
-            }
-        do {
-            try managedObjContext.save()
-            
-            
-        } catch let error as NSError {
-            print("Could not save. \(error), \(error.userInfo)")
-        }
-    }
+    
     func fetchExhibitionDetailsFromCoredata() {
         let managedContext = getContext()
         do {

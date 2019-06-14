@@ -380,8 +380,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             switch response.result {
             case .success(let data):
                 if(data.exhibitions != nil) {
-                    if((data.exhibitions?.count)! > 0) {
-                        self.saveOrUpdateExhibitionsCoredata(exhibition: data.exhibitions, lang: lang)
+                    if let exhibitions = data.exhibitions {
+                        self.saveOrUpdateExhibitionsCoredata(exhibition: exhibitions)
                     }
                 }
             case .failure( _):
@@ -390,101 +390,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         }
     }
     //MARK: Exhibitions Coredata Method
-    func saveOrUpdateExhibitionsCoredata(exhibition: [Exhibition]?,lang: String?) {
-        if ((exhibition?.count)! > 0) {
+    func saveOrUpdateExhibitionsCoredata(exhibition: [Exhibition]) {
+        if !exhibition.isEmpty {
             if #available(iOS 10.0, *) {
                 let container = CoreDataManager.shared.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
-                    self.exhibitionCoreDataInBackgroundThread(managedContext: managedContext, exhibition: exhibition, lang: lang)
-                }
+                    DataManager.updateExhibitionsEntity(managedContext: managedContext,
+                                                        exhibition: exhibition,
+                                                        isHomeExhibition: "0")                }
             } else {
                 let managedContext = self.managedObjectContext
                 managedContext.perform {
-                    self.exhibitionCoreDataInBackgroundThread(managedContext : managedContext, exhibition: exhibition, lang: lang)
+                    DataManager.updateExhibitionsEntity(managedContext: managedContext,
+                                                        exhibition: exhibition,
+                                                        isHomeExhibition: "0")
+                    
                 }
             }
-        }
-    }
-    
-    func exhibitionCoreDataInBackgroundThread(managedContext: NSManagedObjectContext,exhibition: [Exhibition]?,lang: String?) {
-        var fetchData = [ExhibitionsEntity]()
-        var langVar : String? = nil
-        if (lang == ENG_LANGUAGE) {
-            langVar = "1"
-            
-        } else {
-            langVar = "0"
-        }
-             fetchData = DataManager.checkAddedToCoredata(entityName: "ExhibitionsEntity",
-                                                          idKey: "lang",
-                                                          idValue: langVar,
-                                                          managedContext: managedContext) as! [ExhibitionsEntity]
-            if (fetchData.count > 0) {
-                for i in 0 ... (exhibition?.count)!-1 {
-                    let exhibitionsListDict = exhibition![i]
-                    let fetchResult = DataManager.checkAddedToCoredata(entityName: "ExhibitionsEntity",
-                                                                       idKey: "id",
-                                                                       idValue: exhibition![i].id,
-                                                                       managedContext: managedContext)
-                    //update
-                    if(fetchResult.count != 0) {
-                        let exhibitionsdbDict = fetchResult[0] as! ExhibitionsEntity
-                        exhibitionsdbDict.name = exhibitionsListDict.name
-                        exhibitionsdbDict.image = exhibitionsListDict.image
-                        exhibitionsdbDict.startDate =  exhibitionsListDict.startDate
-                        exhibitionsdbDict.endDate = exhibitionsListDict.endDate
-                        exhibitionsdbDict.location =  exhibitionsListDict.location
-                        exhibitionsdbDict.museumId = exhibitionsListDict.museumId
-                        exhibitionsdbDict.status = exhibitionsListDict.status
-                        exhibitionsdbDict.isHomeExhibition = "1"
-                        exhibitionsdbDict.lang = langVar
-                        do {
-                            try managedContext.save()
-                        }
-                        catch {
-                            print(error)
-                        }
-                    } else {
-                        //save
-                        self.saveExhibitionListToCoreData(exhibitionDict: exhibitionsListDict, managedObjContext: managedContext, lang: lang)
-                    }
-                }//for
-                NotificationCenter.default.post(name: NSNotification.Name(exhibitionsListNotificationEn), object: self)
-            } else {
-                for i in 0 ... (exhibition?.count)!-1 {
-                    let exhibitionListDict : Exhibition?
-                    exhibitionListDict = exhibition?[i]
-                    self.saveExhibitionListToCoreData(exhibitionDict: exhibitionListDict!, managedObjContext: managedContext, lang: lang)
-                }
-                NotificationCenter.default.post(name: NSNotification.Name(exhibitionsListNotificationEn), object: self)
-            }
-    }
-    
-    func saveExhibitionListToCoreData(exhibitionDict: Exhibition, managedObjContext: NSManagedObjectContext,lang: String?) {
-        var langVar : String? = nil
-        if (lang == ENG_LANGUAGE) {
-            langVar = "1"
-            
-        } else {
-            langVar = "0"
-        }
-            let exhibitionInfo: ExhibitionsEntity = NSEntityDescription.insertNewObject(forEntityName: "ExhibitionsEntity", into: managedObjContext) as! ExhibitionsEntity
-            
-            exhibitionInfo.id = exhibitionDict.id
-            exhibitionInfo.name = exhibitionDict.name
-            exhibitionInfo.image = exhibitionDict.image
-            exhibitionInfo.startDate =  exhibitionDict.startDate
-            exhibitionInfo.endDate = exhibitionDict.endDate
-            exhibitionInfo.location =  exhibitionDict.location
-            exhibitionInfo.museumId =  exhibitionDict.museumId
-            exhibitionInfo.status =  exhibitionDict.status
-            exhibitionInfo.isHomeExhibition = "1"
-            exhibitionInfo.lang = langVar
-        do {
-            try managedObjContext.save()
-            
-        } catch let error as NSError {
-            print("Could not save. \(error), \(error.userInfo)")
         }
     }
     
