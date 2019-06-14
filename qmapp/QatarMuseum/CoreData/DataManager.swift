@@ -94,6 +94,19 @@ class DataManager {
     }
 }
 
+// MARK: - NSManagedObjectContext extension
+extension NSManagedObjectContext {
+    
+    /// Save current context
+    func saveContext() {
+        do {
+            try save()
+        } catch {
+            print(error)
+        }
+    }
+}
+
 //Fetch functions
 extension DataManager {
     
@@ -1755,6 +1768,63 @@ extension DataManager {
         collectionInfo.museumId = collectionListDict.museumId
         collectionInfo.lang = Utils.getLanguage()
         DataManager.save(managedObjContext)
+    }
+    
+    static func updateFacilitiesEntity(facilitiesList: [Facilities],
+                                managedContext: NSManagedObjectContext) {
+        let fetchData = DataManager.checkAddedToCoredata(entityName: "FacilitiesEntity",
+                                                         idKey: "nid",
+                                                         idValue: nil,
+                                                         managedContext: managedContext) as! [FacilitiesEntity]
+        if (fetchData.count > 0) {
+            for facilitiesListDict in facilitiesList {
+                let fetchResult = DataManager.checkAddedToCoredata(entityName: "FacilitiesEntity",
+                                                                   idKey: "nid",
+                                                                   idValue: facilitiesListDict.nid,
+                                                                   managedContext: managedContext)
+                //update
+                if(fetchResult.count != 0) {
+                    let facilitiesListdbDict = fetchResult[0] as! FacilitiesEntity
+                    DataManager.saveFacilitiesEntity(facilitiesListDict: facilitiesListDict,
+                                              managedObjContext: managedContext,
+                                              entity: facilitiesListdbDict)
+                } else {
+                    //save
+                    DataManager.saveFacilitiesEntity(facilitiesListDict: facilitiesListDict,
+                                              managedObjContext: managedContext,
+                                              entity: nil)
+                }
+            }
+        } else {
+            for facilitiesListDict in facilitiesList {
+                DataManager.saveFacilitiesEntity(facilitiesListDict: facilitiesListDict,
+                                          managedObjContext: managedContext,
+                                          entity: nil)
+            }
+        }
+    }
+    
+    static func saveFacilitiesEntity(facilitiesListDict: Facilities,
+                              managedObjContext: NSManagedObjectContext,
+                              entity: FacilitiesEntity?) {
+        var facilitiesListInfo = entity
+        if entity == nil {
+            facilitiesListInfo = NSEntityDescription.insertNewObject(forEntityName: "FacilitiesEntity",
+                                                                     into: managedObjContext) as? FacilitiesEntity
+        }
+        facilitiesListInfo?.title = facilitiesListDict.title
+        facilitiesListInfo?.sortId = facilitiesListDict.sortId
+        facilitiesListInfo?.nid = facilitiesListDict.nid
+        facilitiesListInfo?.language = Utils.getLanguage()
+        
+        if let images = facilitiesListDict.images {
+            for image in images {
+                facilitiesListInfo?.addToFacilitiesImgRelation(DataManager.getImageEntity(image, context: managedObjContext))
+                managedObjContext.saveContext()
+            }
+        }
+        
+        managedObjContext.saveContext()
     }
 }
 

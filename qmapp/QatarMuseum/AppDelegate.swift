@@ -826,11 +826,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.FacilitiesList(lang ?? ENG_LANGUAGE)).responseObject { (response: DataResponse<FacilitiesData>) -> Void in
             switch response.result {
             case .success(let data):
-                if(data.facilitiesList != nil) {
-                    if((data.facilitiesList?.count)! > 0) {
-                        self.saveOrUpdateFacilitiesListCoredata(facilitiesList: data.facilitiesList, lang: lang)
+                    if let facilitiesList = data.facilitiesList {
+                        self.saveOrUpdateFacilitiesListCoredata(facilitiesList: facilitiesList)
                     }
-                }
                 
             case .failure( _):
                 print("error")
@@ -838,121 +836,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         }
     }
     //MARK: Facilities List Coredata Method
-    func saveOrUpdateFacilitiesListCoredata(facilitiesList:[Facilities]?,lang:String?) {
-        if ((facilitiesList?.count)! > 0) {
+    func saveOrUpdateFacilitiesListCoredata(facilitiesList: [Facilities]) {
+        if !facilitiesList.isEmpty {
             if #available(iOS 10.0, *) {
                 let container = CoreDataManager.shared.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
-                    self.facilitiesListCoreDataInBackgroundThread(facilitiesList: facilitiesList, managedContext: managedContext, lang: lang)
+                    DataManager.updateFacilitiesEntity(facilitiesList: facilitiesList,
+                                                       managedContext : managedContext)
                 }
             } else {
                 let managedContext = appDelegate!.managedObjectContext
                 managedContext.perform {
-                    self.facilitiesListCoreDataInBackgroundThread(facilitiesList: facilitiesList, managedContext : managedContext, lang: lang)
+                    DataManager.updateFacilitiesEntity(facilitiesList: facilitiesList,
+                                                       managedContext : managedContext)
                 }
             }
         }
     }
-    func facilitiesListCoreDataInBackgroundThread(facilitiesList:[Facilities]?,
-                                                  managedContext: NSManagedObjectContext,lang:String?) {
-//        if (lang == ENG_LANGUAGE) {
-            let fetchData = DataManager.checkAddedToCoredata(entityName: "FacilitiesEntity",
-                                                 idKey: "nid",
-                                                 idValue: nil,
-                                                 managedContext: managedContext) as! [FacilitiesEntity]
-            if (fetchData.count > 0) {
-                for i in 0 ... (facilitiesList?.count)!-1 {
-                    let facilitiesListDict = facilitiesList![i]
-                    let fetchResult = DataManager.checkAddedToCoredata(entityName: "FacilitiesEntity",
-                                                           idKey: "nid",
-                                                           idValue: facilitiesListDict.nid,
-                                                           managedContext: managedContext)
-                    //update
-                    if(fetchResult.count != 0) {
-                        let facilitiesListdbDict = fetchResult[0] as! FacilitiesEntity
-                        facilitiesListdbDict.title = facilitiesListDict.title
-                        facilitiesListdbDict.sortId = facilitiesListDict.sortId
-                        facilitiesListdbDict.nid =  facilitiesListDict.nid
-                        facilitiesListdbDict.language = Utils.getLanguage()
-                        
-                        if(facilitiesListDict.images != nil){
-                            if((facilitiesListDict.images?.count)! > 0) {
-                                for i in 0 ... (facilitiesListDict.images?.count)!-1 {
-                                    var facilitiesImage: ImageEntity!
-                                    let facilitiesImgaeArray = NSEntityDescription.insertNewObject(forEntityName: "ImageEntity", into: managedContext) as! ImageEntity
-                                    facilitiesImgaeArray.image = facilitiesListDict.images![i]
-                                    
-                                    facilitiesImage = facilitiesImgaeArray
-                                    facilitiesListdbDict.addToFacilitiesImgRelation(facilitiesImage)
-                                    do {
-                                        try managedContext.save()
-                                    } catch let error as NSError {
-                                        print("Could not save. \(error), \(error.userInfo)")
-                                    }
-                                }
-                            }
-                        }
-                        
-                        do{
-                            try managedContext.save()
-                        }
-                        catch{
-                            print(error)
-                        }
-                    } else {
-                        //save
-                        self.saveFacilitiesListToCoreData(facilitiesListDict: facilitiesListDict,
-                                                          managedObjContext: managedContext,
-                                                          lang: lang)
-                    }
-                }
-                NotificationCenter.default.post(name: NSNotification.Name(facilitiesListNotificationEn),
-                                                object: self)
-            } else {
-                for i in 0 ... (facilitiesList?.count)!-1 {
-                    let facilitiesListDict : Facilities?
-                    facilitiesListDict = facilitiesList?[i]
-                    self.saveFacilitiesListToCoreData(facilitiesListDict: facilitiesListDict!,
-                                                      managedObjContext: managedContext,
-                                                      lang: lang)
-                }
-                NotificationCenter.default.post(name: NSNotification.Name(facilitiesListNotificationEn), object: self)
-            }
-
-    }
-    func saveFacilitiesListToCoreData(facilitiesListDict: Facilities,
-                                      managedObjContext: NSManagedObjectContext,lang:String?) {
-//        if (lang == ENG_LANGUAGE) {
-            let facilitiesListInfo: FacilitiesEntity = NSEntityDescription.insertNewObject(forEntityName: "FacilitiesEntity", into: managedObjContext) as! FacilitiesEntity
-            facilitiesListInfo.title = facilitiesListDict.title
-            facilitiesListInfo.sortId = facilitiesListDict.sortId
-            facilitiesListInfo.nid = facilitiesListDict.nid
-        facilitiesListInfo.language = Utils.getLanguage()
-        
-            if(facilitiesListDict.images != nil){
-                if((facilitiesListDict.images?.count)! > 0) {
-                    for i in 0 ... (facilitiesListDict.images?.count)!-1 {
-                        var facilitiesImage: ImageEntity!
-                        let facilitiesImgaeArray = NSEntityDescription.insertNewObject(forEntityName: "ImageEntity", into: managedObjContext) as! ImageEntity
-                        facilitiesImgaeArray.image = facilitiesListDict.images![i]
-                        
-                        facilitiesImage = facilitiesImgaeArray
-                        facilitiesListInfo.addToFacilitiesImgRelation(facilitiesImage)
-                        do {
-                            try managedObjContext.save()
-                        } catch let error as NSError {
-                            print("Could not save. \(error), \(error.userInfo)")
-                        }
-                    }
-                }
-            }
-
-        do {
-            try managedObjContext.save()
-        } catch let error as NSError {
-            print("Could not save. \(error), \(error.userInfo)")
-        }
-    }
+    
     
     func getNmoqParkListFromServer(lang:String?) {
         _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.GetNmoqParkList(lang ?? ENG_LANGUAGE)).responseObject { (response: DataResponse<NmoqParksLists>) -> Void in

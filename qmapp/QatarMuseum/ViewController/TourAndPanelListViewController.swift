@@ -505,7 +505,9 @@ class TourAndPanelListViewController: UIViewController,UITableViewDelegate,UITab
                     }
                 }
                 if(self.facilitiesList.count > 0) {
-                    self.saveOrUpdateFacilitiesListCoredata(facilitiesList: data.facilitiesList)
+                    if let facilitiesList = data.facilitiesList {
+                        self.saveOrUpdateFacilitiesListCoredata(facilitiesList: facilitiesList)
+                    }
                 }
             case .failure( _):
                 if(self.facilitiesList.count == 0) {
@@ -520,144 +522,31 @@ class TourAndPanelListViewController: UIViewController,UITableViewDelegate,UITab
         }
     }
     //MARK: Facilities List Coredata Method
-    func saveOrUpdateFacilitiesListCoredata(facilitiesList:[Facilities]?) {
-        if ((facilitiesList?.count)! > 0) {
+    func saveOrUpdateFacilitiesListCoredata(facilitiesList: [Facilities]) {
+        if !facilitiesList.isEmpty {
             let appDelegate =  UIApplication.shared.delegate as? AppDelegate
             if #available(iOS 10.0, *) {
                 let container = appDelegate!.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
-                    self.facilitiesListCoreDataInBackgroundThread(facilitiesList: facilitiesList, managedContext: managedContext)
+                    DataManager.updateFacilitiesEntity(facilitiesList: facilitiesList,
+                                                       managedContext: managedContext)
                 }
             } else {
                 let managedContext = appDelegate!.managedObjectContext
                 managedContext.perform {
-                    self.facilitiesListCoreDataInBackgroundThread(facilitiesList: facilitiesList, managedContext : managedContext)
+                    DataManager.updateFacilitiesEntity(facilitiesList: facilitiesList,
+                                                       managedContext : managedContext)
                 }
             }
             DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         }
     }
-    func facilitiesListCoreDataInBackgroundThread(facilitiesList:[Facilities]?,
-                                                  managedContext: NSManagedObjectContext) {
-//        if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
-            let fetchData = DataManager.checkAddedToCoredata(entityName: "FacilitiesEntity",
-                                                 idKey: "nid",
-                                                 idValue: nil,
-                                                 managedContext: managedContext) as! [FacilitiesEntity]
-            if (fetchData.count > 0) {
-                for i in 0 ... (facilitiesList?.count)!-1 {
-                    let facilitiesListDict = facilitiesList![i]
-                    let fetchResult = DataManager.checkAddedToCoredata(entityName: "FacilitiesEntity",
-                                                           idKey: "nid",
-                                                           idValue: facilitiesListDict.nid,
-                                                           managedContext: managedContext)
-                    //update
-                    if(fetchResult.count != 0) {
-                        let facilitiesListdbDict = fetchResult[0] as! FacilitiesEntity
-                        facilitiesListdbDict.title = facilitiesListDict.title
-                        facilitiesListdbDict.sortId = facilitiesListDict.sortId
-                        facilitiesListdbDict.nid =  facilitiesListDict.nid
-                        facilitiesListdbDict.language = Utils.getLanguage()
-                        
-                        if(facilitiesListDict.images != nil){
-                            if((facilitiesListDict.images?.count)! > 0) {
-                                for i in 0 ... (facilitiesListDict.images?.count)!-1 {
-                                    var facilitiesImage: ImageEntity!
-                                    let facilitiesImgaeArray = NSEntityDescription.insertNewObject(forEntityName: "ImageEntity", into: managedContext) as! ImageEntity
-                                    facilitiesImgaeArray.image = facilitiesListDict.images![i]
-                                    facilitiesImage = facilitiesImgaeArray
-                                    facilitiesListdbDict.addToFacilitiesImgRelation(facilitiesImage)
-                                    do {
-                                        try managedContext.save()
-                                    } catch let error as NSError {
-                                        print("Could not save. \(error), \(error.userInfo)")
-                                    }
-                                }
-                            }
-                        }
-                        
-                        do{
-                            try managedContext.save()
-                        }
-                        catch{
-                            print(error)
-                        }
-                    } else {
-                        //save
-                        self.saveFacilitiesListToCoreData(facilitiesListDict: facilitiesListDict, managedObjContext: managedContext)
-                    }
-                }
-            } else {
-                for i in 0 ... (facilitiesList?.count)!-1 {
-                    let facilitiesListDict : Facilities?
-                    facilitiesListDict = facilitiesList?[i]
-                    self.saveFacilitiesListToCoreData(facilitiesListDict: facilitiesListDict!, managedObjContext: managedContext)
-                }
-            }
-
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-    }
-    func saveFacilitiesListToCoreData(facilitiesListDict: Facilities, managedObjContext: NSManagedObjectContext) {
-//        if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
-            let facilitiesListInfo: FacilitiesEntity = NSEntityDescription.insertNewObject(forEntityName: "FacilitiesEntity", into: managedObjContext) as! FacilitiesEntity
-            facilitiesListInfo.title = facilitiesListDict.title
-            facilitiesListInfo.sortId = facilitiesListDict.sortId
-            facilitiesListInfo.nid = facilitiesListDict.nid
-        facilitiesListInfo.language = Utils.getLanguage()
-            
-            if(facilitiesListDict.images != nil){
-                if((facilitiesListDict.images?.count)! > 0) {
-                    for i in 0 ... (facilitiesListDict.images?.count)!-1 {
-                        var facilitiesImage: ImageEntity!
-                        let facilitiesImgaeArray = NSEntityDescription.insertNewObject(forEntityName: "ImageEntity", into: managedObjContext) as! ImageEntity
-                        facilitiesImgaeArray.image = facilitiesListDict.images![i]
-                        facilitiesImage = facilitiesImgaeArray
-                        facilitiesListInfo.addToFacilitiesImgRelation(facilitiesImage)
-                        do {
-                            try managedObjContext.save()
-                        } catch let error as NSError {
-                            print("Could not save. \(error), \(error.userInfo)")
-                        }
-                    }
-                }
-            }
-//        } else {
-//            let facilitiesListInfo: FacilitiesEntityAr = NSEntityDescription.insertNewObject(forEntityName: "FacilitiesEntityAr", into: managedObjContext) as! FacilitiesEntityAr
-//            facilitiesListInfo.title = facilitiesListDict.title
-//            facilitiesListInfo.sortId = facilitiesListDict.sortId
-//            facilitiesListInfo.nid =  facilitiesListDict.nid
-//
-//            if(facilitiesListDict.images != nil){
-//                if((facilitiesListDict.images?.count)! > 0) {
-//                    for i in 0 ... (facilitiesListDict.images?.count)!-1 {
-//                        var facilitiesImage: FacilitiesImgEntityAr!
-//                        let facilitiesImgaeArray: FacilitiesImgEntityAr = NSEntityDescription.insertNewObject(forEntityName: "FacilitiesImgEntityAr", into: managedObjContext) as! FacilitiesImgEntityAr
-//                        facilitiesImgaeArray.images = facilitiesListDict.images?[i]
-//
-//                        facilitiesImage = facilitiesImgaeArray
-//                        facilitiesListInfo.addToFacilitiesImgRelationAr(facilitiesImage)
-//                        do {
-//                            try managedObjContext.save()
-//                        } catch let error as NSError {
-//                            print("Could not save. \(error), \(error.userInfo)")
-//                        }
-//                    }
-//                }
-//            }
-//        }
-        do {
-            try managedObjContext.save()
-        } catch let error as NSError {
-            DDLogError("Could not save. \(error), \(error.userInfo)")
-        }
-        
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-    }
+    
+    
     
     func fetchFacilitiesListFromCoredata() {
         let managedContext = getContext()
         do {
-//            if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
                 var facilitiesListArray = [FacilitiesEntity]()
                 let fetchRequest =  NSFetchRequest<NSFetchRequestResult>(entityName: "FacilitiesEntity")
                 facilitiesListArray = (try managedContext.fetch(fetchRequest) as? [FacilitiesEntity])!
@@ -700,51 +589,7 @@ class TourAndPanelListViewController: UIViewController,UITableViewDelegate,UITab
                         self.getFacilitiesListFromServer()//coreDataMigratio  solution
                     }
                 }
-//            } else {
-//                var facilitiesListArray = [FacilitiesEntityAr]()
-//                let fetchRequest =  NSFetchRequest<NSFetchRequestResult>(entityName: "FacilitiesEntityAr")
-//                //fetchRequest.predicate = NSPredicate.init(format: "isTourGuide == \(isTourGuide)")
-//                facilitiesListArray = (try managedContext.fetch(fetchRequest) as? [FacilitiesEntityAr])!
-//                if (facilitiesListArray.count > 0) {
-//                    if (networkReachability?.isReachable)! {
-//                        DispatchQueue.global(qos: .background).async {
-//                            self.getFacilitiesListFromServer()
-//                        }
-//                    }
-//                    for i in 0 ... facilitiesListArray.count-1 {
-//                        let facilitiesListDict = facilitiesListArray[i]
-//                        var imagesArray : [String] = []
-//                        let imagesInfoArray = (facilitiesListDict.facilitiesImgRelationAr?.allObjects) as! [FacilitiesImgEntityAr]
-//                        if(imagesInfoArray.count > 0) {
-//                            for i in 0 ... imagesInfoArray.count-1 {
-//                                imagesArray.append(imagesInfoArray[i].images!)
-//                            }
-//                        }
-//                         self.facilitiesList.insert(Facilities(title: facilitiesListDict.title, sortId: facilitiesListDict.sortId, nid: facilitiesListDict.nid, images: imagesArray), at: i)
-//                    }
-//                    if(facilitiesList.count == 0){
-//                        if(self.networkReachability?.isReachable == false) {
-//                            self.showNoNetwork()
-//                        } else {
-//                            self.loadingView.showNoDataView()
-//                        }
-//                    } else {
-//                        if self.facilitiesList.first(where: {$0.sortId != "" && $0.sortId != nil} ) != nil {
-//                            self.facilitiesList = self.facilitiesList.sorted(by: { Int16($0.sortId!)! < Int16($1.sortId!)! })
-//                        }
-//                    }
-//                    DispatchQueue.main.async{
-//                        self.collectionTableView.reloadData()
-//                    }
-//                } else{
-//                    if(self.networkReachability?.isReachable == false) {
-//                        self.showNoNetwork()
-//                    } else {
-//                        //self.loadingView.showNoDataView()
-//                        self.getFacilitiesListFromServer()//coreDataMigratio  solution
-//                    }
-//                }
-//            }
+
         } catch let error as NSError {
             DDLogError("Could not fetch. \(error), \(error.userInfo)")
         }
