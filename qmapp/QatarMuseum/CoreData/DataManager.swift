@@ -1667,5 +1667,94 @@ extension DataManager {
         
         DataManager.save(managedObjContext)
     }
+    
+    static func updateCollectionDetailsEntity(managedContext: NSManagedObjectContext,
+                                              collectionDetailArray: [CollectionDetail],
+                                              collectionName: String?) {
+        
+        if let fetchData = DataManager.checkAddedToCoredata(entityName: "CollectionDetailsEntity",
+                                                            idKey: "categoryCollection",
+                                                            idValue: collectionName,
+                                                            managedContext: managedContext) as? [CollectionDetailsEntity],
+            !fetchData.isEmpty {
+            for collectionDetailDict in collectionDetailArray {
+                if let fetchData = DataManager.checkAddedToCoredata(entityName: "CollectionDetailsEntity",
+                                                                    idKey: "nid",
+                                                                    idValue: collectionDetailDict.nid,
+                                                                    managedContext: managedContext) as? [CollectionDetailsEntity],
+                    !fetchData.isEmpty {
+                    let collectiondbDict = fetchData[0]
+                    DataManager.saveCollectionDetailsEntity(collectionDetailDict: collectionDetailDict,
+                                                     managedObjContext: managedContext,
+                                                     entity: collectiondbDict)
+                    
+                } else {
+                    DataManager.saveCollectionDetailsEntity(collectionDetailDict: collectionDetailDict,
+                                                     managedObjContext: managedContext,
+                                                     entity: nil)
+                }
+            }
+            
+        } else {
+            for collectionDetailDict in collectionDetailArray {
+                DataManager.saveCollectionDetailsEntity(collectionDetailDict: collectionDetailDict,
+                                                 managedObjContext: managedContext,
+                                                 entity: nil)
+            }
+        }
+    }
+    
+    static func saveCollectionDetailsEntity(collectionDetailDict: CollectionDetail,
+                                     managedObjContext: NSManagedObjectContext,
+                                     entity: CollectionDetailsEntity?) {
+        var collectiondbDict = entity
+        if entity == nil {
+            collectiondbDict = NSEntityDescription.insertNewObject(forEntityName: "CollectionDetailsEntity", into: managedObjContext) as? CollectionDetailsEntity
+        }
+        collectiondbDict?.title = collectionDetailDict.title
+        collectiondbDict?.body = collectionDetailDict.body
+        collectiondbDict?.nid = collectionDetailDict.nid
+        collectiondbDict?.categoryCollection =  collectionDetailDict.categoryCollection?.replacingOccurrences(of: "<[^>]+>|&nbsp;|&|#039;",
+                                                                                                              with: "", options: .regularExpression, range: nil)
+        collectiondbDict?.image = collectionDetailDict.image
+        collectiondbDict?.language = Utils.getLanguage()
+        
+        DataManager.save(managedObjContext)
+    }
+    
+    static func updateCollectionsEntity(managedContext: NSManagedObjectContext,
+                                        collection: [Collection]) {
+        let fetchData = DataManager.checkAddedToCoredata(entityName: "CollectionsEntity",
+                                                         idKey: "lang",
+                                                         idValue: Utils.getLanguage(),
+                                                         managedContext: managedContext) as! [CollectionsEntity]
+        if (fetchData.count > 0) {
+            if DataManager.delete(managedContext: managedContext, entityName: "CollectionsEntity") {
+                for collectionListDict in collection {
+                    DataManager.saveCollectionsEntity(collectionListDict: collectionListDict,
+                                               managedObjContext: managedContext)
+                }
+            }
+        } else {
+            for collectionListDict in collection {
+                DataManager.saveCollectionsEntity(collectionListDict: collectionListDict,
+                                           managedObjContext: managedContext)
+            }
+        }
+    }
+    
+    static func saveCollectionsEntity(collectionListDict: Collection,
+                               managedObjContext: NSManagedObjectContext) {
+        let collectionInfo: CollectionsEntity = NSEntityDescription.insertNewObject(forEntityName: "CollectionsEntity",
+                                                                                    into: managedObjContext) as! CollectionsEntity
+        collectionInfo.listName = collectionListDict.name?.replacingOccurrences(of: "<[^>]+>|&nbsp;",
+                                                                                with: "",
+                                                                                options: .regularExpression,
+                                                                                range: nil)
+        collectionInfo.listImage = collectionListDict.image
+        collectionInfo.museumId = collectionListDict.museumId
+        collectionInfo.lang = Utils.getLanguage()
+        DataManager.save(managedObjContext)
+    }
 }
 

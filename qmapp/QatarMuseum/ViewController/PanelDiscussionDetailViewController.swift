@@ -38,7 +38,7 @@ class PanelDiscussionDetailViewController: UIViewController,LoadingViewProtocol,
     var completedEntityReg : NMoQEntityRegistration?
     var userEventList: [NMoQUserEventList]! = []
     var facilitiesDetail = [FacilitiesDetail]()
-    var collectionDetailArray: [CollectionDetail]! = []
+    var collectionDetailArray: [CollectionDetail] = []
     var nmoqParkDetailArray: [NMoQParkDetail]! = []
     var popupView : ComingSoonPopUp = ComingSoonPopUp()
     var selectedRow : Int?
@@ -1267,7 +1267,7 @@ class PanelDiscussionDetailViewController: UIViewController,LoadingViewProtocol,
         _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.CollectionDetail(["category": collectionName!])).responseObject { (response: DataResponse<CollectionDetails>) -> Void in
             switch response.result {
             case .success(let data):
-                self.collectionDetailArray = data.collectionDetails
+                self.collectionDetailArray = data.collectionDetails ?? []
                 self.saveOrUpdateCollectionDetailCoredata()
                 self.tableView.reloadData()
                 self.loadingView.stopLoading()
@@ -1335,77 +1335,23 @@ class PanelDiscussionDetailViewController: UIViewController,LoadingViewProtocol,
             if #available(iOS 10.0, *) {
                 let container = appDelegate!.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
-                    self.collectionDetailCoreDataInBackgroundThread(managedContext: managedContext)
+                    DataManager.updateCollectionDetailsEntity(managedContext: managedContext,
+                                                                    collectionDetailArray: self.collectionDetailArray,
+                                                                    collectionName: self.collectionName)
                 }
             } else {
                 let managedContext = appDelegate!.managedObjectContext
                 managedContext.perform {
-                    self.collectionDetailCoreDataInBackgroundThread(managedContext : managedContext)
+                    DataManager.updateCollectionDetailsEntity(managedContext : managedContext,
+                                                                    collectionDetailArray: self.collectionDetailArray,
+                                                                    collectionName: self.collectionName)
                 }
             }
             DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         }
     }
     
-    func collectionDetailCoreDataInBackgroundThread(managedContext: NSManagedObjectContext) {
-        
-        if let fetchData = DataManager.checkAddedToCoredata(entityName: "CollectionDetailsEntity",
-                                                            idKey: "categoryCollection",
-                                                            idValue: collectionName,
-                                                            managedContext: managedContext) as? [CollectionDetailsEntity],
-            !fetchData.isEmpty {
-            for collectionDetailDict in collectionDetailArray {
-                if let fetchData = DataManager.checkAddedToCoredata(entityName: "CollectionDetailsEntity",
-                                                                    idKey: "nid",
-                                                                    idValue: collectionDetailDict.nid,
-                                                                    managedContext: managedContext) as? [CollectionDetailsEntity],
-                    !fetchData.isEmpty {
-                    let collectiondbDict = fetchData[0]
-                    collectiondbDict.title = collectionDetailDict.title
-                    collectiondbDict.body = collectionDetailDict.body
-                    collectiondbDict.categoryCollection =  collectionDetailDict.categoryCollection?.replacingOccurrences(of: "<[^>]+>|&nbsp;|&|#039;", with: "", options: .regularExpression, range: nil)
-                    collectiondbDict.nid = collectionDetailDict.nid
-                    collectiondbDict.image = collectionDetailDict.image
-                    collectiondbDict.language = Utils.getLanguage()
-                    
-                    do {
-                        try managedContext.save()
-                    }
-                    catch{
-                        print(error)
-                    }
-                    
-                } else {
-                    self.collectionDetailSaveToCoreData(collectionDetailDict: collectionDetailDict, managedObjContext: managedContext)
-                }
-            }
-            
-        } else {
-            for collectionDetailDict in collectionDetailArray {
-                self.collectionDetailSaveToCoreData(collectionDetailDict: collectionDetailDict,
-                                                    managedObjContext: managedContext)
-            }
-        }
-    }
     
-    func collectionDetailSaveToCoreData(collectionDetailDict: CollectionDetail, managedObjContext: NSManagedObjectContext) {
-            let collectiondbDict: CollectionDetailsEntity = NSEntityDescription.insertNewObject(forEntityName: "CollectionDetailsEntity", into: managedObjContext) as! CollectionDetailsEntity
-            collectiondbDict.title = collectionDetailDict.title
-            collectiondbDict.body = collectionDetailDict.body
-            collectiondbDict.nid = collectionDetailDict.nid
-            collectiondbDict.categoryCollection =  collectionDetailDict.categoryCollection?.replacingOccurrences(of: "<[^>]+>|&nbsp;|&|#039;", with: "", options: .regularExpression, range: nil)
-            collectiondbDict.image = collectionDetailDict.image
-        collectiondbDict.language = Utils.getLanguage()
-        
-        do {
-            try managedObjContext.save()
-            
-            
-        } catch let error as NSError {
-            print("Could not save. \(error), \(error.userInfo)")
-        }
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-    }
     
     func fetchCollectionDetailsFromCoredata() {
         let managedContext = getContext()

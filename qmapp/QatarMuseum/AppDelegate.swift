@@ -728,8 +728,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             switch response.result {
             case .success(let data):
                 if(data.collections != nil) {
-                    if((data.collections?.count)! > 0) {
-                        self.saveOrUpdateCollectionCoredata(collection: data.collections, museumId: museumId, lang: lang)
+                    if let collections = data.collections {
+                        self.saveOrUpdateCollectionCoredata(collection: collections,
+                                                            museumId: museumId)
                     }
                 }
                 
@@ -740,67 +741,52 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         }
     }
     //MARK: Coredata Method
-    func saveOrUpdateCollectionCoredata(collection: [Collection]?,museumId:String?,lang: String?) {
-        if ((collection?.count)! > 0) {
+    func saveOrUpdateCollectionCoredata(collection: [Collection],
+                                        museumId:String?) {
+        if !collection.isEmpty {
             if #available(iOS 10.0, *) {
                 let container = CoreDataManager.shared.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
-                    self.collectionsListCoreDataInBackgroundThread(managedContext: managedContext, collection: collection!, museumId: museumId, lang: lang)
+                    self.collectionsListCoreDataInBackgroundThread(managedContext : managedContext,
+                                                                   collection: collection,
+                                                                   museumId: museumId)
                 }
             } else {
                 let managedContext = self.managedObjectContext
                 managedContext.perform {
-                    self.collectionsListCoreDataInBackgroundThread(managedContext : managedContext, collection: collection!, museumId: museumId, lang: lang)
+                    self.collectionsListCoreDataInBackgroundThread(managedContext : managedContext,
+                                                                   collection: collection,
+                                                                   museumId: museumId)
                 }
             }
         }
     }
     
-    func collectionsListCoreDataInBackgroundThread(managedContext: NSManagedObjectContext,collection: [Collection]?,museumId:String?,lang: String?) {
-        let fetchData = DataManager.checkAddedToCoredata(entityName: "CollectionsEntity", idKey: "museumId", idValue: nil, managedContext: managedContext) as! [CollectionsEntity]
+    func collectionsListCoreDataInBackgroundThread(managedContext: NSManagedObjectContext,
+                                                   collection: [Collection],
+                                                   museumId:String?) {
+        let fetchData = DataManager.checkAddedToCoredata(entityName: "CollectionsEntity",
+                                                         idKey: "museumId",
+                                                         idValue: nil,
+                                                         managedContext: managedContext) as! [CollectionsEntity]
             if (fetchData.count > 0) {
                 let isDeleted = DataManager.delete(managedContext: managedContext,
                                                                 entityName: "CollectionsEntity")
                 if(isDeleted == true) {
-                    for i in 0 ... (collection?.count)!-1 {
-                        let collectionListDict : Collection?
-                        collectionListDict = collection?[i]
-                        self.saveCollectionListToCoreData(collectionListDict: collectionListDict!, managedObjContext: managedContext, lang: lang)
+                    for collectionListDict in collection {
+                        DataManager.saveCollectionsEntity(collectionListDict: collectionListDict,
+                                                          managedObjContext: managedContext)
                     }
                 }
                 NotificationCenter.default.post(name: NSNotification.Name(collectionsListNotificationEn), object: self)
             }
             else {
-                for i in 0 ... (collection?.count)!-1 {
-                    let collectionListDict : Collection?
-                    collectionListDict = collection?[i]
-                    self.saveCollectionListToCoreData(collectionListDict: collectionListDict!, managedObjContext: managedContext, lang: lang)
+                for collectionListDict in collection {
+                    DataManager.saveCollectionsEntity(collectionListDict: collectionListDict,
+                                                      managedObjContext: managedContext)
                 }
                 NotificationCenter.default.post(name: NSNotification.Name(collectionsListNotificationEn), object: self)
             }
-    }
-    
-    func saveCollectionListToCoreData(collectionListDict: Collection, managedObjContext: NSManagedObjectContext,lang: String?) {
-        var langVar : String? = nil
-        if (lang == ENG_LANGUAGE) {
-            langVar = "1"
-            
-        } else {
-            langVar = "0"
-        }
-            let collectionInfo: CollectionsEntity = NSEntityDescription.insertNewObject(forEntityName: "CollectionsEntity", into: managedObjContext) as! CollectionsEntity
-            collectionInfo.listName = collectionListDict.name?.replacingOccurrences(of: "<[^>]+>|&nbsp;", with: "", options: .regularExpression, range: nil)
-            collectionInfo.listImage = collectionListDict.image
-            collectionInfo.museumId = collectionListDict.museumId
-            collectionInfo.lang = langVar
-       
-        do {
-            try managedObjContext.save()
-            
-            
-        } catch let error as NSError {
-            print("Could not save. \(error), \(error.userInfo)")
-        }
     }
     
     func getParksDataFromServer(lang:String?) {

@@ -1137,7 +1137,9 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
                     self.exbtnLoadingView.showNoDataView()
                 }else {
                     self.exhibitionCollectionView.reloadData()
-                    self.saveOrUpdateCollectionCoredata(collection: data.collections)
+                    if let collections = data.collections {
+                        self.saveOrUpdateCollectionCoredata(collection: collections)
+                    }
                 }
                 
             case .failure( _):
@@ -1156,69 +1158,26 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
         }
     }
     //MARK: CollectionList Coredata Method
-    func saveOrUpdateCollectionCoredata(collection: [Collection]?) {
-        if ((collection?.count)! > 0) {
+    func saveOrUpdateCollectionCoredata(collection: [Collection]) {
+        if !collection.isEmpty {
             let appDelegate =  UIApplication.shared.delegate as? AppDelegate
             if #available(iOS 10.0, *) {
                 let container = appDelegate!.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
-                    self.coreDataInBackgroundThread(managedContext: managedContext, collection: collection!)
+                    DataManager.updateCollectionsEntity(managedContext: managedContext,
+                                                 collection: collection)
                 }
             } else {
                 let managedContext = appDelegate!.managedObjectContext
                 managedContext.perform {
-                    self.coreDataInBackgroundThread(managedContext : managedContext, collection: collection!)
+                    DataManager.updateCollectionsEntity(managedContext : managedContext,
+                                                 collection: collection)
                 }
             }
         }
     }
-    func coreDataInBackgroundThread(managedContext: NSManagedObjectContext,collection: [Collection]?) {
-        var fetchData = [CollectionsEntity]()
-        var langVar : String? = nil
-        if (LocalizationLanguage.currentAppleLanguage() == ENG_LANGUAGE) {
-            langVar = "1"
-            
-        } else {
-            langVar = "0"
-        }
-            fetchData = DataManager.checkAddedToCoredata(entityName: "CollectionsEntity", idKey: "lang", idValue: langVar, managedContext: managedContext) as! [CollectionsEntity]
-            if (fetchData.count > 0) {
-                let isDeleted = self.deleteExistingEntityData(managedContext: managedContext, entityName: "CollectionsEntity")
-                if(isDeleted == true) {
-                    for i in 0 ... (collection?.count)!-1 {
-                        let collectionListDict : Collection?
-                        collectionListDict = collection?[i]
-                        self.saveToCoreData(collectionListDict: collectionListDict!, managedObjContext: managedContext)
-                    }
-                }
-            }
-            else {
-                for i in 0 ... (collection?.count)!-1 {
-                    let collectionListDict : Collection?
-                    collectionListDict = collection?[i]
-                    self.saveToCoreData(collectionListDict: collectionListDict!, managedObjContext: managedContext)
-                }
-            }
-    }
-    func saveToCoreData(collectionListDict: Collection, managedObjContext: NSManagedObjectContext) {
-        var langVar : String? = nil
-        if (LocalizationLanguage.currentAppleLanguage() == ENG_LANGUAGE) {
-            langVar = "1"
-            
-        } else {
-            langVar = "0"
-        }
-            let collectionInfo: CollectionsEntity = NSEntityDescription.insertNewObject(forEntityName: "CollectionsEntity", into: managedObjContext) as! CollectionsEntity
-            collectionInfo.listName = collectionListDict.name?.replacingOccurrences(of: "<[^>]+>|&nbsp;", with: "", options: .regularExpression, range: nil)
-            collectionInfo.listImage = collectionListDict.image
-            collectionInfo.museumId = collectionListDict.museumId
-            collectionInfo.lang = langVar
-        do {
-            try managedObjContext.save()
-        } catch let error as NSError {
-            print("Could not save. \(error), \(error.userInfo)")
-        }
-    }
+    
+    
     func fetchCollectionListFromCoredata() {
         let managedContext = getContext()
         do {
