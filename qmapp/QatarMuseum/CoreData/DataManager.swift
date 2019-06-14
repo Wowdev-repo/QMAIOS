@@ -1878,5 +1878,19 @@ extension DataManager {
         
         managedObjContext.saveContext()
     }
+    
+    static func saveRegisteredEventListEntity(managedContext: NSManagedObjectContext,
+                                              list: [NMoQUserEventList]) {
+        for eventList in list {
+            let userEventInfo: RegisteredEventListEntity = NSEntityDescription.insertNewObject(forEntityName: "RegisteredEventListEntity",
+                                                                                               into: managedContext) as! RegisteredEventListEntity
+            let userEventListDict = eventList
+            userEventInfo.title = userEventListDict.title
+            userEventInfo.eventId = userEventListDict.eventID
+            userEventInfo.regId = userEventListDict.regID
+            userEventInfo.seats = userEventListDict.seats
+            managedContext.saveContext()
+        }
+    }
 }
 

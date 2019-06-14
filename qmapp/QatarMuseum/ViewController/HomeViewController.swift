@@ -67,7 +67,7 @@ class HomeViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     var accessToken : String? = nil
     var loginArray : LoginData?
     var userInfoArray : UserInfoData?
-    var userEventList: [NMoQUserEventList]! = []
+    var userEventList: [NMoQUserEventList] = []
     var alreadyFetch : Bool? = false
     var selectedRow : Int? = 0
     var homePageNameString : HomePageName?
@@ -1050,37 +1050,20 @@ class HomeViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             if #available(iOS 10.0, *) {
                 let container = appDelegate!.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
-                    self.userEventCoreDataInBackgroundThread(managedContext: managedContext)
+                    DataManager.saveRegisteredEventListEntity(managedContext: managedContext,
+                                                             list: self.userEventList)
                 }
             } else {
                 let managedContext = appDelegate!.managedObjectContext
                 managedContext.perform {
-                    self.userEventCoreDataInBackgroundThread(managedContext : managedContext)
+                    DataManager.saveRegisteredEventListEntity(managedContext : managedContext,
+                                                             list: self.userEventList)
                 }
             }
         }
     }
     
-    func userEventCoreDataInBackgroundThread(managedContext: NSManagedObjectContext) {
-        if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
-            if (userEventList.count > 0) {
-                for i in 0 ... userEventList.count-1 {
-                    let userEventInfo: RegisteredEventListEntity = NSEntityDescription.insertNewObject(forEntityName: "RegisteredEventListEntity", into: managedContext) as! RegisteredEventListEntity
-                        let userEventListDict = userEventList[i]
-                        userEventInfo.title = userEventListDict.title
-                        userEventInfo.eventId = userEventListDict.eventID
-                        userEventInfo.regId = userEventListDict.regID
-                        userEventInfo.seats = userEventListDict.seats
-                        do{
-                            try managedContext.save()
-                        }
-                        catch{
-                            print(error)
-                        }
-                }
-            }
-        }
-    }
+    
     //MARK: HomeBanner CoreData
     func saveOrUpdateHomeBannerCoredata() {
         if (homeBannerList.count > 0) {
@@ -1289,7 +1272,7 @@ class HomeViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.NMoQEventListUserRegistration(["uid" : userId])).responseObject { (response: DataResponse<NMoQUserEventListValues>) -> Void in
                 switch response.result {
                 case .success(let data):
-                    self.userEventList = data.eventList
+                    self.userEventList = data.eventList ?? []
                     self.saveOrUpdateEventReistratedCoredata()
                 case .failure( _):
                     self.loginPopUpView.removeFromSuperview()
