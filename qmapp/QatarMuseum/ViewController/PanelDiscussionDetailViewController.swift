@@ -638,12 +638,7 @@ class PanelDiscussionDetailViewController: UIViewController,LoadingViewProtocol,
                     userEventInfo.eventId = tourEntity.nid
                     userEventInfo.regId = registrationId
                     userEventInfo.seats = selectedCount
-                    do{
-                        try managedContext.save()
-                    }
-                    catch{
-                        print(error)
-                    }
+                    managedContext.saveContext()
             }
         }
     }

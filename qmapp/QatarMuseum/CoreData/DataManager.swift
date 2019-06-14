@@ -81,17 +81,6 @@ class DataManager {
         }
         return false
     }
-    
-    /// Save NSManagedObjectContext
-    ///
-    /// - Parameter context: NSManagedObjectContext
-    static func save(_ context: NSManagedObjectContext) {
-        do {
-            try context.save()
-        } catch {
-            print(error)
-        }
-    }
 }
 
 // MARK: - NSManagedObjectContext extension
@@ -226,7 +215,7 @@ extension DataManager {
                 aboutDescEntity = aboutDesc
                 aboutDescEntity.language = Utils.getLanguage()
                 aboutdbDict.addToMobileDescRelation(aboutDescEntity)
-                DataManager.save(managedObjContext)
+                managedObjContext.saveContext()
             }
         }
         
@@ -240,7 +229,7 @@ extension DataManager {
                     aboutImgaeArray.language = Utils.getLanguage()
                     aboutImage = aboutImgaeArray
                     aboutdbDict.addToMultimediaRelation(aboutImage)
-                    DataManager.save(managedObjContext)
+                    managedObjContext.saveContext()
                 }
             }
         }
@@ -255,12 +244,12 @@ extension DataManager {
                     
                     aboutImage = aboutImgaeArray
                     aboutdbDict.addToDownloadLinkRelation(aboutImage)
-                    DataManager.save(managedObjContext)
+                    managedObjContext.saveContext()
                 }
             }
         }
         
-        DataManager.save(managedObjContext)
+        managedObjContext.saveContext()
     }
     
     /// Store education events
@@ -336,7 +325,7 @@ extension DataManager {
                     
                     eventDateEntity.language = Utils.getLanguage()
                     edducationInfo.addToFieldRepeatDates(eventDateEntity)
-                    DataManager.save(managedObjContext)
+                    managedObjContext.saveContext()
                     
                 }
             }
@@ -356,7 +345,7 @@ extension DataManager {
                 eventAge.language = Utils.getLanguage()
                 eventAgeEntity = eventAge
                 edducationInfo.addToAgeGroupRelation(eventAgeEntity)
-                DataManager.save(managedObjContext)
+                managedObjContext.saveContext()
             }
         }
         //Associated_topics
@@ -373,7 +362,7 @@ extension DataManager {
                 event.language = Utils.getLanguage()
                 eventSubEntity = event
                 edducationInfo.addToAssTopicRelation(eventSubEntity)
-                DataManager.save(managedObjContext)
+                managedObjContext.saveContext()
                 
             }
         }
@@ -389,7 +378,7 @@ extension DataManager {
                                                            range: nil)
                 event.language = Utils.getLanguage()
                 edducationInfo.addToStartDateRelation(event)
-                DataManager.save(managedObjContext)
+                managedObjContext.saveContext()
             }
         }
         
@@ -404,11 +393,11 @@ extension DataManager {
                                                            range: nil)
                 event.language = Utils.getLanguage()
                 edducationInfo.addToEndDateRelation(event)
-                DataManager.save(managedObjContext)
+                managedObjContext.saveContext()
             }
         }
         
-        DataManager.save(managedObjContext)
+        managedObjContext.saveContext()
     }
     
     static func saveEducationEvents(_ events: [EducationEvent],
@@ -476,7 +465,7 @@ extension DataManager {
                 eventDateEntity.language = Utils.getLanguage()
                 edducationInfo.addToFieldRepeatDates(eventDateEntity)
                 
-               DataManager.save(managedObjContext)
+               managedObjContext.saveContext()
                 
             }
         }
@@ -490,7 +479,7 @@ extension DataManager {
                 eventAge.language = Utils.getLanguage()
                 eventAgeEntity = eventAge
                 edducationInfo.addToAgeGroupRelation(eventAgeEntity)
-                DataManager.save(managedObjContext)
+                managedObjContext.saveContext()
                 
             }
         }
@@ -505,7 +494,7 @@ extension DataManager {
                 event.language = Utils.getLanguage()
                 eventSubEntity = event
                 edducationInfo.addToAssTopicRelation(eventSubEntity)
-                DataManager.save(managedObjContext)
+                managedObjContext.saveContext()
                 
             }
         }
@@ -520,7 +509,7 @@ extension DataManager {
                 event.language = Utils.getLanguage()
                 eventSubEntity = event
                 edducationInfo.addToStartDateRelation(eventSubEntity)
-               DataManager.save(managedObjContext)
+               managedObjContext.saveContext()
                 
             }
         }
@@ -535,12 +524,12 @@ extension DataManager {
                 event.language = Utils.getLanguage()
                 eventSubEntity = event
                 edducationInfo.addToEndDateRelation(eventSubEntity)
-                DataManager.save(managedObjContext)
+                managedObjContext.saveContext()
                 
             }
         }
         
-        DataManager.save(managedObjContext)
+        managedObjContext.saveContext()
     }
     
     static func updateFacilitiesDetails(managedContext: NSManagedObjectContext,
@@ -681,11 +670,11 @@ extension DataManager {
         if let images = facilitiesDetailDict.images {
             for image in images {
                 facilitiesDetaildbDict?.addToFacilitiesDetailRelation(DataManager.getImageEntity(image, context: managedContext))
-                DataManager.save(managedContext)
+                managedContext.saveContext()
             }
         }
         
-        DataManager.save(managedContext)
+        managedContext.saveContext()
     }
     
     /// Save tour details to core data
@@ -722,11 +711,11 @@ extension DataManager {
         if let imageBanner = tourDetailDict.imageBanner {
             for image in imageBanner {
                 tourDetaildbDict?.addToNmoqTourDetailImgBannerRelation(DataManager.getImageEntity(image, context: managedObjContext))
-                DataManager.save(managedObjContext)
+                managedObjContext.saveContext()
             }
         }
         
-        DataManager.save(managedObjContext)
+        managedObjContext.saveContext()
     }
     
     /// Save tour guide to core data
@@ -757,11 +746,11 @@ extension DataManager {
                 multimediaArray.language = Utils.getLanguage()
                 multimediaEntity = multimediaArray
                 tourGuideInfo?.addToTourGuideMultimediaRelation(multimediaEntity)
-                DataManager.save(managedObjContext)
+                managedObjContext.saveContext()
                 
             }
         }
-        DataManager.save(managedObjContext)
+        managedObjContext.saveContext()
     }
     
     static func updateDinings(managedContext: NSManagedObjectContext,
@@ -778,7 +767,7 @@ extension DataManager {
                                                                    idValue: diningListDict.id,
                                                                    managedContext: managedContext)
                 //update
-                if fetchResult.isEmpty {
+                if !fetchResult.isEmpty {
                     let diningdbDict = fetchResult[0] as! DiningEntity
                     DataManager.saveToDiningCoreData(diningListDict: diningListDict,
                                                      managedObjContext: managedContext,
@@ -842,11 +831,11 @@ extension DataManager {
         if let images = diningListDict.images {
             for image in images {
                 diningInfo?.addToImagesRelation(DataManager.getImageEntity(image, context: managedObjContext))
-                DataManager.save(managedObjContext)
+                managedObjContext.saveContext()
             }
         }
         
-        DataManager.save(managedObjContext)
+        managedObjContext.saveContext()
     }
     
     static func updatePublicArts(managedContext: NSManagedObjectContext,
@@ -900,7 +889,7 @@ extension DataManager {
         publicArtsInfo?.sortcoefficient = publicArtsListDict.sortcoefficient
         publicArtsInfo?.language = Utils.getLanguage()
         
-        DataManager.save(managedObjContext)
+        managedObjContext.saveContext()
     }
     
     static func updatePublicArtsDetailsEntity(managedContext: NSManagedObjectContext,
@@ -951,7 +940,7 @@ extension DataManager {
             }
         }
         
-        DataManager.save(managedObjContext)
+        managedObjContext.saveContext()
     }
     
     static func updateParks(managedContext: NSManagedObjectContext,
@@ -993,7 +982,7 @@ extension DataManager {
         if let sortId = parksDict.sortId {
             parksInfo.sortId = sortId
         }
-        DataManager.save(managedObjContext)
+        managedObjContext.saveContext()
     }
     
     static func updateNotifications(managedContext: NSManagedObjectContext,
@@ -1036,7 +1025,7 @@ extension DataManager {
         if let sortID = notificationsDict.sortId {
             notificationInfo.sortId = sortID
         }
-        DataManager.save(managedObjContext)
+        managedObjContext.saveContext()
     }
     
     static func updateTravelList(travelList: [HomeBanner],
@@ -1094,7 +1083,7 @@ extension DataManager {
         travelListdbDict?.claimOffer = travelListDict.claimOffer
         travelListdbDict?.language = Utils.getLanguage()
         
-        DataManager.save(managedObjContext)
+        managedObjContext.saveContext()
     }
     
     static func updateTourList(nmoqTourList:[NMoQTour],
@@ -1167,11 +1156,11 @@ extension DataManager {
             if let images = tourListDict.images {
                 for image in images {
                     tourListInfo?.addToTourImagesRelation(DataManager.getImageEntity(image, context: managedObjContext))
-                    DataManager.save(managedObjContext)
+                    managedObjContext.saveContext()
                 }
             }
         }
-        DataManager.save(managedObjContext)
+        managedObjContext.saveContext()
     }
     
     static func updateNmoqPark(nmoqParkList: [NMoQPark], managedContext: NSManagedObjectContext) {
@@ -1228,11 +1217,11 @@ extension DataManager {
             if let images = nmoqParkListDict.images {
                 for image in images {
                     nmoqParkListdbDict?.addToParkImgRelation(DataManager.getImageEntity(image, context: managedObjContext))
-                    DataManager.save(managedObjContext)
+                    managedObjContext.saveContext()
                 }
             }
         }
-        DataManager.save(managedObjContext)
+        managedObjContext.saveContext()
     }
     
     static func updateNmoqParkList(nmoqParkList: [NMoQParksList], managedContext: NSManagedObjectContext) {
@@ -1290,7 +1279,7 @@ extension DataManager {
         nmoqParkListdbDict?.locationTitle =  nmoqParkListDict.locationTitle
         nmoqParkListdbDict?.language = Utils.getLanguage()
         
-        DataManager.save(managedObjContext)
+        managedObjContext.saveContext()
     }
     
     static func updateNmoqParkDetail(nmoqParkList: [NMoQParkDetail],
@@ -1345,10 +1334,10 @@ extension DataManager {
         if let images = nmoqParkListDict.images{
             for image in images {
                 nmoqParkListdbDict?.addToParkDetailImgRelation(DataManager.getImageEntity(image, context: managedObjContext))
-                DataManager.save(managedObjContext)
+                managedObjContext.saveContext()
             }
         }
-        DataManager.save(managedObjContext)
+        managedObjContext.saveContext()
     }
     
     static func updateActivityList(nmoqActivityList: [NMoQActivitiesList],
@@ -1412,10 +1401,10 @@ extension DataManager {
             for image in images {
                 activityListdbDict?.addToActivityImgRelation(DataManager.getImageEntity(image,
                                                                                         context: managedObjContext))
-                DataManager.save(managedObjContext)
+                managedObjContext.saveContext()
             }
         }
-        DataManager.save(managedObjContext)
+        managedObjContext.saveContext()
     }
     
     static func updateHomeEntity(managedContext: NSManagedObjectContext, homeList: [Home]) {
@@ -1467,7 +1456,7 @@ extension DataManager {
         homeInfo?.tourguideavailable = homeListDict.isTourguideAvailable
         homeInfo?.sortid = (Int16(homeListDict.sortId!) ?? 0)
         homeInfo?.lang = Utils.getLanguage()
-        DataManager.save(managedObjContext)
+        managedObjContext.saveContext()
     }
     
     static func updateHomeBanner(managedContext: NSManagedObjectContext,
@@ -1511,10 +1500,10 @@ extension DataManager {
         if let images = homeListDict.image{
             for image in images {
                 homeInfo?.addToBannerImageRelations(DataManager.getImageEntity(image, context: managedObjContext))
-                DataManager.save(managedObjContext)
+                managedObjContext.saveContext()
             }
         }
-        DataManager.save(managedObjContext)
+        managedObjContext.saveContext()
     }
     
     static func updateHeritage(managedContext: NSManagedObjectContext, heritageListArray: [Heritage]) {
@@ -1568,7 +1557,7 @@ extension DataManager {
         if let sortID = heritageListDict.sortid {
             heritageInfo?.listsortid = sortID
         }
-        DataManager.save(managedObjContext)
+        managedObjContext.saveContext()
     }
     
     static func updateFloorMap(managedContext: NSManagedObjectContext,
@@ -1652,11 +1641,11 @@ extension DataManager {
         if let images = tourGuideDetailDict.images {
             for image in images {
                 tourguidedbDict?.addToImagesRelation(DataManager.getImageEntity(image, context: managedObjContext))
-                DataManager.save(managedObjContext)
+                managedObjContext.saveContext()
             }
         }
         
-        DataManager.save(managedObjContext)
+        managedObjContext.saveContext()
     }
     
     static func updateExhibitionsEntity(managedContext: NSManagedObjectContext,
@@ -1730,7 +1719,7 @@ extension DataManager {
         exhibitionInfo?.detailLongitude = exhibitionDict.longitude
         exhibitionInfo?.status = exhibitionDict.status
         
-        DataManager.save(managedObjContext)
+        managedObjContext.saveContext()
     }
     
     static func updateCollectionDetailsEntity(managedContext: NSManagedObjectContext,
@@ -1784,7 +1773,7 @@ extension DataManager {
         collectiondbDict?.image = collectionDetailDict.image
         collectiondbDict?.language = Utils.getLanguage()
         
-        DataManager.save(managedObjContext)
+        managedObjContext.saveContext()
     }
     
     static func updateCollectionsEntity(managedContext: NSManagedObjectContext,
@@ -1819,7 +1808,7 @@ extension DataManager {
         collectionInfo.listImage = collectionListDict.image
         collectionInfo.museumId = collectionListDict.museumId
         collectionInfo.lang = Utils.getLanguage()
-        DataManager.save(managedObjContext)
+        managedObjContext.saveContext()
     }
     
     static func updateFacilitiesEntity(facilitiesList: [Facilities],
