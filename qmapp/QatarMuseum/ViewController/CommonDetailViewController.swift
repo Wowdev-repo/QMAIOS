@@ -771,98 +771,15 @@ class CommonDetailViewController: UIViewController,UITableViewDelegate,UITableVi
             if #available(iOS 10.0, *) {
                 let container = appDelegate!.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
-                    self.publicArtCoreDataInBackgroundThread(managedContext: managedContext)
-                }
+                    DataManager.updatePublicArtsDetailsEntity(managedContext: managedContext,
+                                                              publicArtsListArray: self.publicArtsDetailtArray)                }
             } else {
                 let managedContext = appDelegate!.managedObjectContext
                 managedContext.perform {
-                    self.publicArtCoreDataInBackgroundThread(managedContext : managedContext)
+                    DataManager.updatePublicArtsDetailsEntity(managedContext: managedContext,
+                                                              publicArtsListArray: self.publicArtsDetailtArray)
                 }
             }
-        }
-    }
-    
-    func publicArtCoreDataInBackgroundThread(managedContext: NSManagedObjectContext) {
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
-        let fetchData = DataManager.checkAddedToCoredata(entityName: "PublicArtsEntity",
-                                                         idKey: "id" ,
-                                                         idValue: publicArtsDetailtArray[0].id,
-                                                         managedContext: managedContext) as! [PublicArtsEntity]
-        if (fetchData.count > 0) {
-            let publicArtsDetailDict = publicArtsDetailtArray[0]
-            let publicArtsbDict = fetchData[0]
-            
-            //                DataManager.saveToPublicArtsCoreData(publicArtsListDict: publicArtsDetailDict,
-            //                                                     managedObjContext: managedContext,
-            //                                                     entity: publicArtsbDict)
-            
-            //update
-            publicArtsbDict.name = publicArtsDetailDict.name
-            publicArtsbDict.detaildescription = publicArtsDetailDict.description
-            publicArtsbDict.shortdescription = publicArtsDetailDict.shortdescription
-            publicArtsbDict.image = publicArtsDetailDict.image
-            publicArtsbDict.latitude = publicArtsDetailDict.latitude
-            publicArtsbDict.longitude = publicArtsDetailDict.longitude
-            publicArtsbDict.language = Utils.getLanguage()
-            
-            if(publicArtsDetailDict.images != nil) {
-                if((publicArtsDetailDict.images?.count)! > 0) {
-                    for i in 0 ... (publicArtsDetailDict.images?.count)!-1 {
-                        var publicArtsImagesEntity: ImageEntity!
-                        let publicArtsImage = NSEntityDescription.insertNewObject(forEntityName: "ImageEntity",
-                                                                                  into: managedContext) as! ImageEntity
-                        publicArtsImage.image = publicArtsDetailDict.images![i]
-                        publicArtsImage.language = Utils.getLanguage()
-                        publicArtsImagesEntity = publicArtsImage
-                        publicArtsbDict.addToPublicImagesRelation(publicArtsImagesEntity)
-                        DataManager.save(managedContext)
-                    }
-                }
-            }
-            DataManager.save(managedContext)
-        }
-        else {
-            let publicArtsDetailDict : PublicArtsDetail?
-            publicArtsDetailDict = publicArtsDetailtArray[0]
-            self.saveToCoreData(publicArtseDetailDict: publicArtsDetailDict!, managedObjContext: managedContext)
-        }
-    }
-    
-    func saveToCoreData(publicArtseDetailDict: PublicArtsDetail, managedObjContext: NSManagedObjectContext) {
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
-            let publicArtsInfo: PublicArtsEntity = NSEntityDescription.insertNewObject(forEntityName: "PublicArtsEntity",
-                                                                                       into: managedObjContext) as! PublicArtsEntity
-            publicArtsInfo.id = publicArtseDetailDict.id
-            publicArtsInfo.name = publicArtseDetailDict.name
-            publicArtsInfo.detaildescription = publicArtseDetailDict.description
-            publicArtsInfo.shortdescription = publicArtseDetailDict.shortdescription
-            publicArtsInfo.image = publicArtseDetailDict.image
-            publicArtsInfo.latitude = publicArtseDetailDict.latitude
-            publicArtsInfo.longitude = publicArtseDetailDict.longitude
-        publicArtsInfo.language = Utils.getLanguage()
-            
-            if((publicArtseDetailDict.images?.count)! > 0) {
-                for i in 0 ... (publicArtseDetailDict.images?.count)!-1 {
-                    var publicArtsImagesEntity: ImageEntity!
-                    let publicArtsImage = NSEntityDescription.insertNewObject(forEntityName: "ImageEntity", into: managedObjContext) as! ImageEntity
-                    publicArtsImage.image = publicArtseDetailDict.images![i]
-                    publicArtsImage.language = Utils.getLanguage()
-                    publicArtsImagesEntity = publicArtsImage
-                    publicArtsInfo.addToPublicImagesRelation(publicArtsImagesEntity)
-                    do {
-                        try managedObjContext.save()
-                        
-                        
-                    } catch let error as NSError {
-                        print("Could not save. \(error), \(error.userInfo)")
-                    }
-                }
-            }
-
-        do {
-            try managedObjContext.save()
-        } catch let error as NSError {
-            print("Could not save. \(error), \(error.userInfo)")
         }
     }
     

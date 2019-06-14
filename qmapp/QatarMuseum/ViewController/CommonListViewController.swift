@@ -1986,7 +1986,6 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
         let managedContext = getContext()
         do {
-//            if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
                 var parkListArray = [NMoQParksEntity]()
                 let fetchRequest =  NSFetchRequest<NSFetchRequestResult>(entityName: "NMoQParksEntity")
                 parkListArray = (try managedContext.fetch(fetchRequest) as? [NMoQParksEntity])!
@@ -2030,50 +2029,6 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
                         self.getNmoqListOfParksFromServer()//coreDataMigratio  solution
                     }
                 }
-//            } else {
-//                var parkListArray = [NMoQParksEntityAr]()
-//                let fetchRequest =  NSFetchRequest<NSFetchRequestResult>(entityName: "NMoQParksEntityAr")
-//                parkListArray = (try managedContext.fetch(fetchRequest) as? [NMoQParksEntityAr])!
-//                if (parkListArray.count > 0) {
-//                    if  (networkReachability?.isReachable)! {
-//                        DispatchQueue.global(qos: .background).async {
-//                            self.getNmoqListOfParksFromServer()
-//                        }
-//                    }
-//                    for i in 0 ... parkListArray.count-1 {
-//                        let parkListDict = parkListArray[i]
-//                        var imagesArray : [String] = []
-//                        let imagesInfoArray = (parkListDict.parkImgRelationAr?.allObjects) as! [NMoQParkImgEntityAr]
-//                        if(imagesInfoArray.count > 0) {
-//                            for i in 0 ... imagesInfoArray.count-1 {
-//                                imagesArray.append(imagesInfoArray[i].images!)
-//                            }
-//                        }
-//                        self.nmoqParks.insert(NMoQPark(title: parkListDict.title, sortId: parkListDict.sortId, nid: parkListDict.nid, images: imagesArray), at: i)
-//                    }
-//                    if(nmoqParks.count == 0){
-//                        if(self.networkReachability?.isReachable == false) {
-//                            self.showNoNetwork()
-//                        } else {
-//                            self.exbtnLoadingView.showNoDataView()
-//                        }
-//                    } else {
-//                        if self.nmoqParks.first(where: {$0.sortId != "" && $0.sortId != nil} ) != nil {
-//                            self.nmoqParks = self.nmoqParks.sorted(by: { Int16($0.sortId!)! < Int16($1.sortId!)! })
-//                        }
-//                    }
-//                    DispatchQueue.main.async{
-//                        self.exhibitionCollectionView.reloadData()
-//                    }
-//                } else{
-//                    if(self.networkReachability?.isReachable == false) {
-//                        self.showNoNetwork()
-//                    } else {
-//                        // self.loadingView.showNoDataView()
-//                        self.getNmoqListOfParksFromServer()//coreDataMigratio  solution
-//                    }
-//                }
-//            }
         } catch let error as NSError {
             print("Could not fetch. \(error), \(error.userInfo)")
         }

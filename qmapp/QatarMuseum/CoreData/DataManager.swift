@@ -899,6 +899,58 @@ extension DataManager {
         publicArtsInfo?.longitude = publicArtsListDict.longitude
         publicArtsInfo?.sortcoefficient = publicArtsListDict.sortcoefficient
         publicArtsInfo?.language = Utils.getLanguage()
+        
+        DataManager.save(managedObjContext)
+    }
+    
+    static func updatePublicArtsDetailsEntity(managedContext: NSManagedObjectContext,
+                                 publicArtsListArray:[PublicArtsDetail]?) {
+        if let publicArts = publicArtsListArray {
+            for publicArtsListDict in publicArts {
+                let fetchResult = DataManager.checkAddedToCoredata(entityName: "PublicArtsEntity",
+                                                                   idKey: "id",
+                                                                   idValue: publicArtsListDict.id,
+                                                                   managedContext: managedContext)
+                //update
+                if !fetchResult.isEmpty {
+                    let publicArtsdbDict = fetchResult[0] as! PublicArtsEntity
+                    DataManager.savePublicArtsDetailsEntity(publicArtsListDict: publicArtsListDict,
+                                                         managedObjContext: managedContext,
+                                                         entity: publicArtsdbDict)
+                } else {
+                    //save
+                    DataManager.savePublicArtsDetailsEntity(publicArtsListDict: publicArtsListDict,
+                                                         managedObjContext: managedContext,
+                                                         entity: nil)
+                }
+            }
+        }
+    }
+    
+    
+    static func savePublicArtsDetailsEntity(publicArtsListDict: PublicArtsDetail,
+                                         managedObjContext: NSManagedObjectContext,
+                                         entity: PublicArtsEntity?) {
+        var publicArtsInfo = entity
+        if entity == nil {
+            publicArtsInfo = NSEntityDescription.insertNewObject(forEntityName: "PublicArtsEntity",
+                                                                 into: managedObjContext) as? PublicArtsEntity
+        }
+        publicArtsInfo?.name = publicArtsListDict.name
+        publicArtsInfo?.image = publicArtsListDict.image
+        publicArtsInfo?.latitude =  publicArtsListDict.latitude
+        publicArtsInfo?.longitude = publicArtsListDict.longitude
+        publicArtsInfo?.language = Utils.getLanguage()
+        publicArtsInfo?.detaildescription = publicArtsListDict.description
+        publicArtsInfo?.shortdescription = publicArtsListDict.shortdescription
+        
+        if let images = publicArtsListDict.images {
+            for image in images {
+                publicArtsInfo?.addToPublicImagesRelation(DataManager.getImageEntity(image, context: managedObjContext))
+                managedObjContext.saveContext()
+            }
+        }
+        
         DataManager.save(managedObjContext)
     }
     
