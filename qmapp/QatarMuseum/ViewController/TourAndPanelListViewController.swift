@@ -448,17 +448,10 @@ class TourAndPanelListViewController: UIViewController,UITableViewDelegate,UITab
                             self.getNMoQSpecialEventList()
                         }
                     }
-                    for i in 0 ... activityListArray.count-1 {
-                        let activityListDict = activityListArray[i]
-                        var imagesArray : [String] = []
-                        let imagesInfoArray = (activityListDict.activityImgRelation?.allObjects) as! [ImageEntity]
-                        if(imagesInfoArray.count > 0) {
-                            for i in 0 ... imagesInfoArray.count-1 {
-                                imagesArray.append(imagesInfoArray[i].image!)
-                            }
-                        }
-                        self.nmoqActivityList.insert(NMoQActivitiesList(title: activityListDict.title, dayDescription: activityListDict.dayDescription, images: imagesArray, subtitle: activityListDict.subtitle, sortId: activityListDict.sortId, nid: activityListDict.nid, eventDate: activityListDict.eventDate, date: activityListDict.date, descriptioForModerator: activityListDict.descriptioForModerator, mobileLatitude: activityListDict.mobileLatitude, moderatorName: activityListDict.moderatorName, longitude: activityListDict.longitude, contactEmail: activityListDict.contactEmail, contactPhone: activityListDict.contactPhone, language: activityListDict.language), at: i)
+                    for activityListDict in activityListArray {
+                        self.nmoqActivityList.append(NMoQActivitiesList(entity: activityListDict))
                     }
+                    
                     if(nmoqActivityList.count == 0){
                         if(self.networkReachability?.isReachable == false) {
                             self.showNoNetwork()
