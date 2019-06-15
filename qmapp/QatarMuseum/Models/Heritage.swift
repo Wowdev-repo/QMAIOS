@@ -40,10 +40,11 @@ struct Heritage: ResponseObjectSerializable, ResponseCollectionSerializable {
 
     init(entity: HeritageEntity) {
         var imagesArray : [String] = []
-        let heritageImagesArray = (heritageDict.imagesRelation?.allObjects) as! [ImageEntity]
-        for info in heritageImagesArray {
-            if let image = info.image {
-                imagesArray.append(image)
+        if let heritageImagesArray = (entity.imagesRelation?.allObjects) as? [ImageEntity] {
+            for info in heritageImagesArray {
+                if let image = info.image {
+                    imagesArray.append(image)
+                }
             }
         }
         

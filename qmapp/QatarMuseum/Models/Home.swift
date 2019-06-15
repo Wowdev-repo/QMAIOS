@@ -32,6 +32,14 @@ struct Home: ResponseObjectSerializable, ResponseCollectionSerializable {
         self.isTourguideAvailable = tourguide_available
         self.sortId = sort_id
     }
+    
+    init(entity: HomeEntity) {
+        self.id = entity.id
+        self.name = entity.name
+        self.image = entity.image
+        self.isTourguideAvailable = entity.tourguideavailable
+        self.sortId = String(entity.sortid)
+    }
 }
 
 struct HomeList: ResponseObjectSerializable {

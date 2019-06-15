@@ -1754,28 +1754,25 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
         self.exbtnLoadingView.isHidden = true
         let managedContext = getContext()
         var searchstring = String()
-        var langVar : String? = nil
         if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
             searchstring = "12181"
-            langVar = "1"
         } else {
             searchstring = "12186"
-            langVar = "0"
         }
         do {
             var museumsArray = [HomeEntity]()
-            museumsArray = DataManager.checkAddedToCoredata(entityName: "HomeEntity", idKey: "lang", idValue: langVar, managedContext: managedContext) as! [HomeEntity]
-            var j:Int? = 0
+            museumsArray = DataManager.checkAddedToCoredata(entityName: "HomeEntity",
+                                                            idKey: "lang",
+                                                            idValue: Utils.getLanguage(),
+                                                            managedContext: managedContext) as! [HomeEntity]
             if (museumsArray.count > 0) {
-                for i in 0 ... museumsArray.count-1 {
-                    if let duplicateId = museumsList.first(where: {$0.id == museumsArray[i].id}) {
+                for entity in museumsArray {
+                    if let duplicateId = museumsList.first(where: {$0.id == entity.id}) {
                     } else {
-                        self.museumsList.insert(Home(id:museumsArray[i].id , name: museumsArray[i].name,image: museumsArray[i].image,
-                                                     tourguide_available: museumsArray[i].tourguideavailable, sort_id: String(museumsArray[i].sortid)),
-                                                at: j!)
-                        j = j!+1
+                        self.museumsList.append(Home(entity: entity))
                     }
                 }
+                
                 if(museumsList.count == 0){
                     if(self.networkReachability?.isReachable == false) {
                         self.showNoNetwork()

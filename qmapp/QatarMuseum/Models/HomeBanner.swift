@@ -63,6 +63,31 @@ struct HomeBanner: ResponseObjectSerializable, ResponseCollectionSerializable {
         self.claimOffer = claimOffer
         self.language = language
     }
+    
+    init(entity: HomeBannerEntity) {
+        
+        var imagesArray : [String] = []
+        if let imagesInfoArray = (entity.bannerImageRelations?.allObjects) as? [ImageEntity] {
+            for info in imagesInfoArray {
+                if let image = info.image {
+                    imagesArray.append(image)
+                }
+            }
+        }
+        
+        self.title = entity.title
+        self.fullContentID = entity.fullContentID
+        self.bannerTitle = entity.bannerTitle
+        self.bannerLink = entity.bannerLink
+        self.image = imagesArray
+        //for Travel List
+        self.introductionText = entity.introductionText
+        self.email = entity.email
+        self.contactNumber = entity.contactNumber
+        self.promotionalCode = entity.promotionalCode
+        self.claimOffer = entity.claimOffer
+        self.language = entity.language
+    }
 }
 
 struct HomeBannerList: ResponseObjectSerializable {
