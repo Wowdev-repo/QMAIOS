@@ -1244,42 +1244,45 @@ class CommonDetailViewController: UIViewController,UITableViewDelegate,UITableVi
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
         let managedContext = getContext()
         do {
-                var diningArray = [DiningEntity]()
-                let diningFetchRequest =  NSFetchRequest<NSFetchRequestResult>(entityName: "DiningEntity")
-                if(diningDetailId != nil) {
-                    diningFetchRequest.predicate = NSPredicate.init(format: "id == \(diningDetailId!)")
+            let diningArray = DataManager.checkAddedToCoredata(entityName: "DiningEntity",
+                                                           idKey: "id",
+                                                           idValue: diningDetailId!,
+                                                           managedContext: managedContext) as! [DiningEntity]
+            
+            let diningDict = diningArray[0]
+            if ((diningArray.count > 0) && (diningDict.diningdescription != nil)) {
+                var imagesArray : [String] = []
+                let diningImagesArray = (diningDict.imagesRelation?.allObjects) as! [ImageEntity]
+                
+                for images in diningImagesArray {
+                    if let image = images.image {
+                        imagesArray.append(image)
+                    }
                 }
-                diningArray = (try managedContext.fetch(diningFetchRequest) as? [DiningEntity])!
-                let diningDict = diningArray[0]
-                if ((diningArray.count > 0) && (diningDict.diningdescription != nil)) {
-                    var imagesArray : [String] = []
-                    let diningImagesArray = (diningDict.imagesRelation?.allObjects) as! [ImageEntity]
-                    if(diningImagesArray.count > 0) {
-                        for i in 0 ... diningImagesArray.count-1 {
-                            imagesArray.append(diningImagesArray[i].image!)
-                        }
-                    }
-                    self.diningDetailtArray.insert(Dining(id: diningDict.id, name: diningDict.name, location: diningDict.location, description: diningDict.diningdescription, image: diningDict.image, openingtime: diningDict.openingtime, closetime: diningDict.closetime, sortid: diningDict.sortid, museumId: nil, images: imagesArray), at: 0)
-                    if(diningDetailtArray.count == 0){
-                        if(self.networkReachability?.isReachable == false) {
-                            self.showNoNetwork()
-                        } else {
-                            self.loadingView.showNoDataView()
-                        }
-                    }
-                    self.setTopBarImage()
-                    heritageDetailTableView.reloadData()
-                } else {
+                
+                self.diningDetailtArray.append(Dining(entity: diningDict))
+                
+                if diningDetailtArray.isEmpty {
                     if(self.networkReachability?.isReachable == false) {
                         self.showNoNetwork()
                     } else {
                         self.loadingView.showNoDataView()
                     }
                 }
+                self.setTopBarImage()
+                heritageDetailTableView.reloadData()
+            } else {
+                if(self.networkReachability?.isReachable == false) {
+                    self.showNoNetwork()
+                } else {
+                    self.loadingView.showNoDataView()
+                }
+            }
         } catch let error as NSError {
             print("Could not fetch. \(error), \(error.userInfo)")
         }
     }
+    
     func setFavouritesAction(cellObj :DiningDetailTableViewCell) {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
 
@@ -1295,6 +1298,7 @@ class CommonDetailViewController: UIViewController,UITableViewDelegate,UITableVi
     func setShareAction(cellObj :DiningDetailTableViewCell) {
         
     }
+    
     func isImgArrayAvailable() -> Bool {
         if(self.diningDetailtArray.count != 0) {
             if(self.diningDetailtArray[0].images != nil) {
@@ -1306,18 +1310,6 @@ class CommonDetailViewController: UIViewController,UITableViewDelegate,UITableVi
         return false
     }
     
-//    func deleteExistingEvent(managedContext:NSManagedObjectContext, entityName : String?) -> Bool {
-//
-//        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entityName!)
-//        let deleteRequest = NSBatchDeleteRequest( fetchRequest: fetchRequest)
-//        do {
-//            try managedContext.execute(deleteRequest)
-//            return true
-//        } catch _ as NSError {
-//            return false
-//        }
-//
-//    }
     func showNodata() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
         var errorMessage: String

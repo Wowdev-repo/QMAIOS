@@ -1182,19 +1182,24 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
         let managedContext = getContext()
         do {
                 var collectionArray = [CollectionsEntity]()
-                collectionArray = DataManager.checkAddedToCoredata(entityName: "CollectionsEntity", idKey: "museumId", idValue: museumId, managedContext: managedContext) as! [CollectionsEntity]
+                collectionArray = DataManager.checkAddedToCoredata(entityName: "CollectionsEntity",
+                                                                   idKey: "museumId",
+                                                                   idValue: museumId,
+                                                                   managedContext: managedContext) as! [CollectionsEntity]
                 if (collectionArray.count > 0) {
-                    if((museumId == "63") || (museumId == "96")) {
+                    if museumId == "63" || museumId == "96" {
                         if (networkReachability?.isReachable)! {
                             DispatchQueue.global(qos: .background).async {
                                 self.getCollectionList()
                             }
                         }
                     }
-                    for i in 0 ... collectionArray.count-1 {
-                        self.collection.insert(Collection(name: collectionArray[i].listName?.replacingOccurrences(of: "<[^>]+>|&nbsp;|&|#039;", with: "", options: .regularExpression, range: nil), image: collectionArray[i].listImage, museumId: collectionArray[i].museumId), at: i)
+                    
+                    for entity in collectionArray {
+                        self.collection.append(Collection(entity: entity))
                     }
-                    if(collection.count == 0){
+                    
+                    if collection.isEmpty {
                         if(self.networkReachability?.isReachable == false) {
                             self.showNoNetwork()
                         } else {
@@ -1203,7 +1208,7 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
                     }
                     exhibitionCollectionView.reloadData()
                 }
-                else{
+                else {
                     if(self.networkReachability?.isReachable == false) {
                         self.showNoNetwork()
                     } else {
@@ -1213,18 +1218,7 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
    
         }
     }
-    func deleteExistingEntityData(managedContext:NSManagedObjectContext,entityName : String?) ->Bool? {
-        
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entityName!)
-        let deleteRequest = NSBatchDeleteRequest( fetchRequest: fetchRequest)
-        do{
-            try managedContext.execute(deleteRequest)
-            return true
-        }catch _ as NSError {
-            return false
-        }
-        
-    }
+    
     @objc func receiveCollectionListNotificationEn(notification: NSNotification) {
         if ((LocalizationLanguage.currentAppleLanguage() == ENG_LANGUAGE ) && (collection.count == 0)){
             self.fetchCollectionListFromCoredata()
@@ -1299,31 +1293,34 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
     func fetchMuseumDiningListFromCoredata() {
         let managedContext = getContext()
         do {
+            var diningArray = [DiningEntity]()
+            diningArray = DataManager.checkAddedToCoredata(entityName: "DiningEntity",
+                                                           idKey: "museumId",
+                                                           idValue: museumId,
+                                                           managedContext: managedContext) as! [DiningEntity]
             
-                var diningArray = [DiningEntity]()
-                diningArray = DataManager.checkAddedToCoredata(entityName: "DiningEntity", idKey: "museumId", idValue: museumId, managedContext: managedContext) as! [DiningEntity]
+            if !diningArray.isEmpty {
+                for dining in diningArray {
+                    self.diningListArray.append(Dining(entity: dining))
+                }
                 
-                if (diningArray.count > 0) {
-                    for i in 0 ... diningArray.count-1 {
-                        self.diningListArray.insert(Dining(id: diningArray[i].id, name: diningArray[i].name, location: diningArray[i].location, description: diningArray[i].diningdescription, image: diningArray[i].image, openingtime: diningArray[i].openingtime, closetime: diningArray[i].closetime, sortid: diningArray[i].sortid,museumId: diningArray[i].museumId, images: nil), at: i)
-                    }
-                    if(diningListArray.count == 0){
-                        if(self.networkReachability?.isReachable == false) {
-                            self.showNoNetwork()
-                        } else {
-                            self.exbtnLoadingView.showNoDataView()
-                        }
-                    }
-                    DispatchQueue.main.async{
-                        self.exhibitionCollectionView.reloadData()
-                    }
-                } else{
+                if diningListArray.isEmpty {
                     if(self.networkReachability?.isReachable == false) {
                         self.showNoNetwork()
                     } else {
-                         self.exbtnLoadingView.showNoDataView()
+                        self.exbtnLoadingView.showNoDataView()
                     }
                 }
+                DispatchQueue.main.async{
+                    self.exhibitionCollectionView.reloadData()
+                }
+            } else{
+                if(self.networkReachability?.isReachable == false) {
+                    self.showNoNetwork()
+                } else {
+                    self.exbtnLoadingView.showNoDataView()
+                }
+            }
         }
     }
     
@@ -1331,42 +1328,38 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
         let managedContext = getContext()
         do {
             var diningArray = [DiningEntity]()
-            var langVar : String? = nil
-            if (LocalizationLanguage.currentAppleLanguage() == ENG_LANGUAGE) {
-                langVar = "1"
+            
+            diningArray = DataManager.checkAddedToCoredata(entityName: "DiningEntity",
+                                                           idKey: "lang", idValue: Utils.getLanguage(),
+                                                           managedContext: managedContext) as! [DiningEntity]
+            if (diningArray.count > 0) {
+                if  (networkReachability?.isReachable)! {
+                    DispatchQueue.global(qos: .background).async {
+                        self.getDiningListFromServer()
+                    }
+                }
+                for dining in diningArray {
+                    self.diningListArray.append(Dining(entity: dining))
+                }
                 
-            } else {
-                langVar = "0"
-            }
-            diningArray = DataManager.checkAddedToCoredata(entityName: "DiningEntity", idKey: "lang", idValue: langVar, managedContext: managedContext) as! [DiningEntity]
-                if (diningArray.count > 0) {
-                    if  (networkReachability?.isReachable)! {
-                        DispatchQueue.global(qos: .background).async {
-                            self.getDiningListFromServer()
-                        }
-                    }
-                    for i in 0 ... diningArray.count-1 {
-                        self.diningListArray.insert(Dining(id: diningArray[i].id, name: diningArray[i].name, location: diningArray[i].location, description: diningArray[i].diningdescription, image: diningArray[i].image, openingtime: diningArray[i].openingtime, closetime: diningArray[i].closetime, sortid: diningArray[i].sortid,museumId: diningArray[i].museumId, images: nil), at: i)
-                        
-                    }
-                    if(diningListArray.count == 0){
-                        if(self.networkReachability?.isReachable == false) {
-                            self.showNoNetwork()
-                        } else {
-                            self.exbtnLoadingView.showNoDataView()
-                        }
-                    }
-                    DispatchQueue.main.async{
-                        self.exhibitionCollectionView.reloadData()
-                    }
-                } else {
+                if(diningListArray.count == 0){
                     if(self.networkReachability?.isReachable == false) {
                         self.showNoNetwork()
                     } else {
-                       // self.exbtnLoadingView.showNoDataView()
-                        self.getDiningListFromServer()//coreDataMigratio  solution
+                        self.exbtnLoadingView.showNoDataView()
                     }
                 }
+                DispatchQueue.main.async{
+                    self.exhibitionCollectionView.reloadData()
+                }
+            } else {
+                if(self.networkReachability?.isReachable == false) {
+                    self.showNoNetwork()
+                } else {
+                    // self.exbtnLoadingView.showNoDataView()
+                    self.getDiningListFromServer()//coreDataMigratio  solution
+                }
+            }
         } catch let error as NSError {
             print("Could not fetch. \(error), \(error.userInfo)")
             if (networkReachability?.isReachable == false) {

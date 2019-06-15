@@ -46,6 +46,15 @@ struct Collection: ResponseObjectSerializable, ResponseCollectionSerializable {
 //        self.categoryCollection = categoryCollection
         
     }
+    
+    init(entity: CollectionsEntity) {
+        self.name = entity.listName?.replacingOccurrences(of: "<[^>]+>|&nbsp;|&|#039;",
+                                                          with: "",
+                                                          options: .regularExpression,
+                                                          range: nil)
+        self.image = entity.listImage
+        self.museumId = entity.museumId
+    }
 }
 
 struct Collections: ResponseObjectSerializable {

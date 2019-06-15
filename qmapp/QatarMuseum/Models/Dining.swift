@@ -50,6 +50,19 @@ struct Dining: ResponseObjectSerializable, ResponseCollectionSerializable {
         self.museumId = museumId
         self.images = images
     }
+    
+    init(entity: DiningEntity) {
+        self.id = entity.id
+        self.name = entity.name
+        self.location = entity.location
+        self.description = entity.description
+        self.image = entity.image
+        self.openingtime = entity.openingtime
+        self.closetime = entity.closetime
+        self.sortid = entity.sortid
+        self.museumId = entity.museumId
+        self.images = entity.images
+    }
 }
 
 struct Dinings: ResponseObjectSerializable {

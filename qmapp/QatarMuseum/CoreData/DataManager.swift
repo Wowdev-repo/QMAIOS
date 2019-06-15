@@ -23,7 +23,7 @@ class DataManager {
                                      idKey:String?,
                                      idValue: String?,
                                      managedContext: NSManagedObjectContext) -> [NSManagedObject] {
-        var fetchResults : [NSManagedObject] = []
+        var fetchResults = [NSManagedObject]()
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: entityName!)
         if let key = idKey, let value = idValue {
             fetchRequest.predicate = NSPredicate.init(format: "\(key) == \(value)")
