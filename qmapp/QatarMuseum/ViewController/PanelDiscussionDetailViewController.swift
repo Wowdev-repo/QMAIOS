@@ -1232,11 +1232,11 @@ class PanelDiscussionDetailViewController: UIViewController,LoadingViewProtocol,
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         let managedContext = getContext()
         do {
-                var facilitiesDetailArray = [FacilitiesDetailEntity]()
+            var facilitiesDetailArray = [FacilitiesDetailEntity]()
             facilitiesDetailArray = DataManager.checkAddedToCoredata(entityName: "FacilitiesDetailEntity",
-                                                             idKey: "category",
-                                                             idValue: panelDetailId,
-                                                             managedContext: managedContext) as! [FacilitiesDetailEntity]
+                                                                     idKey: "category",
+                                                                     idValue: panelDetailId,
+                                                                     managedContext: managedContext) as! [FacilitiesDetailEntity]
             
             for facilities in facilitiesDetailArray {
                 self.facilitiesDetail.append(FacilitiesDetail(entity: facilities))

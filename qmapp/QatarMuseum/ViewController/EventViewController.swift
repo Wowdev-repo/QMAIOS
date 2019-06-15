@@ -681,38 +681,11 @@ class EventViewController: UIViewController,UICollectionViewDelegate,UICollectio
                                                                    managedContext: managedContext) as! [EducationEventEntity]
             
                 if (educationArray.count > 0) {
-                    for i in 0 ... educationArray.count-1 {
-                        var dateArray : [String] = []
-                        let educationInfo = educationArray[i]
-                        let educationInfoArray = (educationInfo.fieldRepeatDates?.allObjects) as! [DateEntity]
-                        for i in 0 ... educationInfoArray.count-1 {
-                            dateArray.append(educationInfoArray[i].date!)
-                        }
-                        var ageGrpArray : [String] = []
-                        let ageInfoArray = (educationInfo.ageGroupRelation?.allObjects) as! [EdAgeGroupEntity]
-                        for i in 0 ... ageInfoArray.count-1 {
-                            ageGrpArray.append(ageInfoArray[i].ageGroup!)
-                        }
-                        var topicsArray : [String] = []
-                        let topicsInfoArray = (educationInfo.assTopicRelation?.allObjects) as! [EdEventTopicsEntity]
-                        for i in 0 ... topicsInfoArray.count-1 {
-                            topicsArray.append(topicsInfoArray[i].associatedTopic!)
-                        }
-                        var startDateArray : [String] = []
-                        let startDateInfoArray = (educationInfo.startDateRelation?.allObjects) as! [DateEntity]
-                        for i in 0 ... startDateInfoArray.count-1 {
-                            startDateArray.append(startDateInfoArray[i].date!)
-                        }
-                        var endDateArray : [String] = []
-                        let endDateInfoArray = (educationInfo.endDateRelation?.allObjects) as! [DateEntity]
-                        for i in 0 ... endDateInfoArray.count-1 {
-                            endDateArray.append(endDateInfoArray[i].date!)
-                        }
-                        
-                        
-                        self.educationEventArray.insert(EducationEvent(itemId: educationArray[i].itemId, introductionText: educationArray[i].introductionText, register: educationArray[i].register, fieldRepeatDate: dateArray, title: educationArray[i].title, programType: educationArray[i].pgmType, mainDescription: educationArray[i].mainDesc, ageGroup: ageGrpArray, associatedTopics: topicsArray, museumDepartMent: educationArray[i].museumDepartMent, startDate: startDateArray, endDate: endDateArray), at: i)
+                    for educationInfo in educationArray {
+                        self.educationEventArray.append(EducationEvent(entity: educationInfo))
                     }
-                    if(self.educationEventArray.count == 0){
+                    
+                    if self.educationEventArray.isEmpty {
                         if(self.networkReachability?.isReachable == false) {
                             self.showNoNetwork()
                         } else {
@@ -738,10 +711,8 @@ class EventViewController: UIViewController,UICollectionViewDelegate,UICollectio
         _ = DataManager.fetchEvents(managedContext, for: selectedDateForEvent)
         
         do {
-//            if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
-                var educationArray = [EventEntity]()
                 let dateID = Utils.uniqueDate(selectedDateForEvent)
-            educationArray = DataManager.checkAddedToCoredata(entityName: "EventEntity",
+            let educationArray = DataManager.checkAddedToCoredata(entityName: "EventEntity",
                                                               idKey: "dateId",
                                                               idValue: dateID,
                                                               managedContext: managedContext)  as! [EventEntity]
@@ -786,8 +757,7 @@ class EventViewController: UIViewController,UICollectionViewDelegate,UICollectio
                         }
                     }
                     eventCollectionView.reloadData()
-                }
-                else{
+                } else {
                     if(self.networkReachability?.isReachable == false) {
                         self.showNoNetwork()
                     } else {

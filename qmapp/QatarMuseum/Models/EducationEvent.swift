@@ -22,9 +22,6 @@ struct EducationEvent: ResponseObjectSerializable, ResponseCollectionSerializabl
     var mainDescription: String? = nil
     
     
-    
-    
-    
     public init?(response: HTTPURLResponse, representation: AnyObject) {
         if let representation = representation as? [String: Any] {
             
@@ -61,6 +58,68 @@ struct EducationEvent: ResponseObjectSerializable, ResponseCollectionSerializabl
         self.startDate = startDate
         self.endDate = endDate
         
+    }
+    
+    
+    init(entity: EducationEventEntity) {
+        self.itemId = entity.itemId
+        self.introductionText = entity.introductionText
+        self.register = entity.register
+        self.title = entity.title
+        self.programType = entity.pgmType
+        self.mainDescription = entity.mainDesc
+        self.museumDepartMent = entity.museumDepartMent
+        
+        var dateArray = [String]()
+        if let educationInfoArray = (entity.fieldRepeatDates?.allObjects) as? [DateEntity] {
+            for info in educationInfoArray {
+                if let date = info.date {
+                    dateArray.append(date)
+                }
+            }
+        }
+        
+        var ageGrpArray = [String]()
+        if let educationInfoArray = (entity.ageGroupRelation?.allObjects) as? [EdAgeGroupEntity] {
+            for info in educationInfoArray {
+                if let ageGroup = info.ageGroup {
+                    ageGrpArray.append(ageGroup)
+                }
+            }
+        }
+        
+        var topicsArray = [String]()
+        if let educationInfoArray = (entity.fieldRepeatDates?.allObjects) as? [EdEventTopicsEntity] {
+            for info in educationInfoArray {
+                if let associatedTopic = info.associatedTopic {
+                    topicsArray.append(associatedTopic)
+                }
+            }
+        }
+        
+        var startDateArray = [String]()
+        if let educationInfoArray = (entity.startDateRelation?.allObjects) as? [DateEntity] {
+            for info in educationInfoArray {
+                if let date = info.date {
+                    startDateArray.append(date)
+                }
+            }
+        }
+        
+        var endDateArray = [String]()
+        if let educationInfoArray = (entity.endDateRelation?.allObjects) as? [DateEntity] {
+            for info in educationInfoArray {
+                if let date = info.date {
+                    endDateArray.append(date)
+                }
+            }
+        }
+        
+        self.fieldRepeatDate = dateArray
+        self.ageGroup = ageGrpArray
+        self.associatedTopics = topicsArray
+        self.startDate = startDateArray
+        self.endDate = endDateArray
     }
 }
 

@@ -891,17 +891,18 @@ class CommonDetailViewController: UIViewController,UITableViewDelegate,UITableVi
     func fetchExhibitionDetailsFromCoredata() {
         let managedContext = getContext()
         do {
-           // if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
-                var exhibitionArray = [ExhibitionsEntity]()
-                let exhibitionFetchRequest =  NSFetchRequest<NSFetchRequestResult>(entityName: "ExhibitionsEntity")
-                if(self.exhibitionId != nil) {
-                    exhibitionFetchRequest.predicate = NSPredicate.init(format: "id == \(self.exhibitionId!)")
-                }
-                exhibitionArray = (try managedContext.fetch(exhibitionFetchRequest) as? [ExhibitionsEntity])!
+            
+            let exhibitionArray = DataManager.checkAddedToCoredata(entityName: "ExhibitionsEntity",
+                                                                   idKey: "id",
+                                                                   idValue: self.exhibitionId,
+                                                                   managedContext: managedContext) as! [ExhibitionsEntity]
+           
                 let exhibitionDict = exhibitionArray[0]
-                if ((exhibitionArray.count > 0) && (exhibitionDict.detailLongDesc != nil) && (exhibitionDict.detailShortDesc != nil) ){
+                if ((exhibitionArray.count > 0)
+                    && (exhibitionDict.detailLongDesc != nil)
+                    && (exhibitionDict.detailShortDesc != nil)) {
                     
-                    self.exhibition.insert(Exhibition(id: exhibitionDict.id, name: exhibitionDict.detailName, image: nil,detailImage:exhibitionDict.detailImage, startDate: exhibitionDict.detailStartDate, endDate: exhibitionDict.detailEndDate, location: exhibitionDict.detailLocation, latitude: exhibitionDict.detailLatitude, longitude: exhibitionDict.detailLongitude, shortDescription: exhibitionDict.detailShortDesc, longDescription: exhibitionDict.detailLongDesc,museumId:nil,status: exhibitionDict.status, displayDate: exhibitionDict.dispalyDate), at: 0)
+                    self.exhibition.append(Exhibition(entity: exhibitionDict))
                     
                     if(self.exhibition.count == 0){
                         if(self.networkReachability?.isReachable == false) {

@@ -723,43 +723,41 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
     func fetchExhibitionsListFromCoredata() {
         let managedContext = getContext()
         do {
-            var exhibitionArray = [ExhibitionsEntity]()
-            var langVar : String? = nil
-            if (LocalizationLanguage.currentAppleLanguage() == ENG_LANGUAGE) {
-                langVar = "1"
-                
-            } else {
-                langVar = "0"
-            }
-            exhibitionArray = checkMultiplePredicate(entityName: "ExhibitionsEntity", idKey: "isHomeExhibition", idValue: "1", langKey: "lang", langValue: langVar, managedContext: managedContext) as! [ExhibitionsEntity]
-                if (exhibitionArray.count > 0) {
-                    if((self.networkReachability?.isReachable)!) {
-                        DispatchQueue.global(qos: .background).async {
-                            self.getExhibitionDataFromServer()
-                        }
+            
+            let exhibitionArray = checkMultiplePredicate(entityName: "ExhibitionsEntity",
+                                                         idKey: "isHomeExhibition",
+                                                         idValue: "1",
+                                                         langKey: "lang",
+                                                         langValue: Utils.getLanguage(),
+                                                         managedContext: managedContext) as! [ExhibitionsEntity]
+            if (exhibitionArray.count > 0) {
+                if((self.networkReachability?.isReachable)!) {
+                    DispatchQueue.global(qos: .background).async {
+                        self.getExhibitionDataFromServer()
+                    }
                 }
-                    for i in 0 ... exhibitionArray.count-1 {
-                        self.exhibition.insert(Exhibition(id: exhibitionArray[i].id, name: exhibitionArray[i].name, image: exhibitionArray[i].image,detailImage:nil, startDate: exhibitionArray[i].startDate, endDate: exhibitionArray[i].endDate, location: exhibitionArray[i].location, latitude: nil, longitude: nil, shortDescription: nil, longDescription: nil,museumId :exhibitionArray[i].museumId,status :exhibitionArray[i].status,displayDate :exhibitionArray[i].dispalyDate), at: i)
-                        
-                    }
-                    if(exhibition.count == 0){
-                        if(self.networkReachability?.isReachable == false) {
-                            self.showNoNetwork()
-                        } else {
-                            self.exbtnLoadingView.showNoDataView()
-                        }
-                    } 
-                    DispatchQueue.main.async{
-                        self.exhibitionCollectionView.reloadData()
-                    }
-                } else {
+                for entity in exhibitionArray {
+                    self.exhibition.append(Exhibition(entity: entity))
+                }
+                
+                if(exhibition.count == 0){
                     if(self.networkReachability?.isReachable == false) {
                         self.showNoNetwork()
                     } else {
-                        //self.exbtnLoadingView.showNoDataView()
-                        self.getExhibitionDataFromServer() //coreDataMigratio  solution
+                        self.exbtnLoadingView.showNoDataView()
                     }
                 }
+                DispatchQueue.main.async{
+                    self.exhibitionCollectionView.reloadData()
+                }
+            } else {
+                if(self.networkReachability?.isReachable == false) {
+                    self.showNoNetwork()
+                } else {
+                    //self.exbtnLoadingView.showNoDataView()
+                    self.getExhibitionDataFromServer() //coreDataMigratio  solution
+                }
+            }
         } catch let error as NSError {
             print("Could not fetch. \(error), \(error.userInfo)")
             if (networkReachability?.isReachable == false) {
@@ -771,30 +769,33 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
     func fetchMuseumExhibitionsListFromCoredata() {
         let managedContext = getContext()
         do {
-                var exhibitionArray = [ExhibitionsEntity]()
-                exhibitionArray = DataManager.checkAddedToCoredata(entityName: "ExhibitionsEntity", idKey: "museumId", idValue: museumId, managedContext: managedContext) as! [ExhibitionsEntity]
-                if (exhibitionArray.count > 0) {
-                    for i in 0 ... exhibitionArray.count-1 {
-                        self.exhibition.insert(Exhibition(id: exhibitionArray[i].id, name: exhibitionArray[i].name, image: exhibitionArray[i].image,detailImage:nil, startDate: exhibitionArray[i].startDate, endDate: exhibitionArray[i].endDate, location: exhibitionArray[i].location, latitude: nil, longitude: nil, shortDescription: nil, longDescription: nil,museumId :exhibitionArray[i].museumId,status :exhibitionArray[i].status, displayDate :exhibitionArray[i].dispalyDate), at: i)
-                        
-                    }
-                    if(exhibition.count == 0){
-                        if(self.networkReachability?.isReachable == false) {
-                            self.showNoNetwork()
-                        } else {
-                            self.exbtnLoadingView.showNoDataView()
-                        }
-                    }
-                    DispatchQueue.main.async{
-                        self.exhibitionCollectionView.reloadData()
-                    }
-                } else{
+            var exhibitionArray = [ExhibitionsEntity]()
+            exhibitionArray = DataManager.checkAddedToCoredata(entityName: "ExhibitionsEntity",
+                                                               idKey: "museumId",
+                                                               idValue: museumId,
+                                                               managedContext: managedContext) as! [ExhibitionsEntity]
+            if (exhibitionArray.count > 0) {
+                for entity in exhibitionArray {
+                    self.exhibition.append(Exhibition(entity: entity))
+                }
+                
+                if(exhibition.count == 0){
                     if(self.networkReachability?.isReachable == false) {
                         self.showNoNetwork()
                     } else {
                         self.exbtnLoadingView.showNoDataView()
                     }
                 }
+                DispatchQueue.main.async{
+                    self.exhibitionCollectionView.reloadData()
+                }
+            } else{
+                if(self.networkReachability?.isReachable == false) {
+                    self.showNoNetwork()
+                } else {
+                    self.exbtnLoadingView.showNoDataView()
+                }
+            }
         }
     }
     
@@ -1526,42 +1527,41 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
     func fetchFacilitiesDetailsFromCoredata() {
         let managedContext = getContext()
         do {
-//            if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
-                var facilitiesDetailArray = [FacilitiesDetailEntity]()
-                facilitiesDetailArray = DataManager.checkAddedToCoredata(entityName: "FacilitiesDetailEntity",
-                                                             idKey: "category",
-                                                             idValue: tourDetailId,
-                                                             managedContext: managedContext) as! [FacilitiesDetailEntity]
-                if (facilitiesDetailArray.count > 0) {
-                    for i in 0 ... facilitiesDetailArray.count-1 {
-                        var imagesArray : [String] = []
-                        let imagesInfoArray = (facilitiesDetailArray[i].facilitiesDetailRelation!.allObjects) as! [ImageEntity]
-                        if(imagesInfoArray.count > 0) {
-                            for i in 0 ... imagesInfoArray.count-1 {
-                                imagesArray.append(imagesInfoArray[i].image!)
+            var facilitiesDetailArray = [FacilitiesDetailEntity]()
+            facilitiesDetailArray = DataManager.checkAddedToCoredata(entityName: "FacilitiesDetailEntity",
+                                                                     idKey: "category",
+                                                                     idValue: tourDetailId,
+                                                                     managedContext: managedContext) as! [FacilitiesDetailEntity]
+            if (facilitiesDetailArray.count > 0) {
+                for i in 0 ... facilitiesDetailArray.count-1 {
+                    var imagesArray : [String] = []
+                    let imagesInfoArray = (facilitiesDetailArray[i].facilitiesDetailRelation!.allObjects) as! [ImageEntity]
+                        for info in imagesInfoArray {
+                            if let image = info.image {
+                                imagesArray.append(image)
                             }
                         }
-                        self.facilitiesDetail.insert(FacilitiesDetail(entity: facilitiesDetailArray[i]), at: i)
-                        
-                    }
-                    if(facilitiesDetail.count == 0){
-                        if(self.networkReachability?.isReachable == false) {
-                            self.showNoNetwork()
-                        } else {
-                            self.exbtnLoadingView.showNoDataView()
-                        }
-                    }
-                    DispatchQueue.main.async{
-                        self.exhibitionCollectionView.reloadData()
-                    }
+                    self.facilitiesDetail.insert(FacilitiesDetail(entity: facilitiesDetailArray[i]), at: i)
+                    
                 }
-                else{
+                if(facilitiesDetail.count == 0){
                     if(self.networkReachability?.isReachable == false) {
                         self.showNoNetwork()
                     } else {
                         self.exbtnLoadingView.showNoDataView()
                     }
                 }
+                DispatchQueue.main.async{
+                    self.exhibitionCollectionView.reloadData()
+                }
+            }
+            else{
+                if(self.networkReachability?.isReachable == false) {
+                    self.showNoNetwork()
+                } else {
+                    self.exbtnLoadingView.showNoDataView()
+                }
+            }
         }
     }
     //MARK: WebServiceCall
