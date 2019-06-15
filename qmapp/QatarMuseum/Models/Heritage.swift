@@ -38,17 +38,25 @@ struct Heritage: ResponseObjectSerializable, ResponseCollectionSerializable {
         }
     }
 
-    init(id:String?, name:String?, location:String?, latitude:String?, longitude:String?, image:String?, shortdescription:String?, longdescription:String?, images:[String]?, sortid:String?) {
-        self.id = id
-        self.name = name
-        self.location = location
-        self.latitude = latitude
-        self.longitude = longitude
-        self.image = image
-        self.shortdescription = shortdescription
-        self.longdescription = longdescription
-        self.images = images
-        self.sortid = sortid
+    init(entity: HeritageEntity) {
+        var imagesArray : [String] = []
+        let heritageImagesArray = (heritageDict.imagesRelation?.allObjects) as! [ImageEntity]
+        for info in heritageImagesArray {
+            if let image = info.image {
+                imagesArray.append(image)
+            }
+        }
+        
+        self.id = entity.listid
+        self.name = entity.listname
+        self.location = entity.detaillocation
+        self.latitude = entity.detaillatitude
+        self.longitude = entity.detaillongitude
+        self.image = entity.listimage
+        self.shortdescription = entity.detailshortdescription
+        self.longdescription = entity.detaillongdescription
+        self.images = imagesArray
+        self.sortid = entity.listsortid
     
     }
 }

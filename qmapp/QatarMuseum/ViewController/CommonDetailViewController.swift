@@ -717,48 +717,40 @@ class CommonDetailViewController: UIViewController,UITableViewDelegate,UITableVi
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
         let managedContext = getContext()
         do {
-                var heritageArray = [HeritageEntity]()
-                let heritageFetchRequest =  NSFetchRequest<NSFetchRequestResult>(entityName: "HeritageEntity")
-                if(heritageDetailId != nil) {
-                    heritageFetchRequest.predicate = NSPredicate.init(format: "listid == \(heritageDetailId!)")
-                    heritageArray = (try managedContext.fetch(heritageFetchRequest) as? [HeritageEntity])!
+            let heritageArray = DataManager.checkAddedToCoredata(entityName: "HeritageEntity",
+                                                                 idKey: "listid",
+                                                                 idValue: heritageDetailId,
+                                                                 managedContext: managedContext) as! [HeritageEntity]
+            
+            if (heritageArray.count > 0) {
+                let heritageDict = heritageArray[0]
+                if((heritageDict.detailshortdescription != nil) && (heritageDict.detaillongdescription != nil) ) {
+                    self.heritageDetailtArray.append(Heritage(entity: heritageDict))
                     
-                    if (heritageArray.count > 0) {
-                        let heritageDict = heritageArray[0]
-                        if((heritageDict.detailshortdescription != nil) && (heritageDict.detaillongdescription != nil) ) {
-                            var imagesArray : [String] = []
-                            let heritageImagesArray = (heritageDict.imagesRelation?.allObjects) as! [ImageEntity]
-                            if(heritageImagesArray.count > 0) {
-                                for i in 0 ... heritageImagesArray.count-1 {
-                                    imagesArray.append(heritageImagesArray[i].image!)
-                                }
-                            }
-                            self.heritageDetailtArray.insert(Heritage(id: heritageDict.listid, name: heritageDict.listname, location: heritageDict.detaillocation, latitude: heritageDict.detaillatitude, longitude: heritageDict.detaillongitude, image: heritageDict.listimage, shortdescription: heritageDict.detailshortdescription, longdescription: heritageDict.detaillongdescription, images: imagesArray, sortid: heritageDict.listsortid), at: 0)
-                            if(heritageDetailtArray.count == 0){
-                                if(self.networkReachability?.isReachable == false) {
-                                    self.showNoNetwork()
-                                } else {
-                                    self.loadingView.showNoDataView()
-                                }
-                            }
-                            self.setTopBarImage()
-                            heritageDetailTableView.reloadData()
-                        }else{
-                            if(self.networkReachability?.isReachable == false) {
-                                self.showNoNetwork()
-                            } else {
-                                self.loadingView.showNoDataView()
-                            }
-                        }
-                    }else{
+                    if(heritageDetailtArray.count == 0){
                         if(self.networkReachability?.isReachable == false) {
                             self.showNoNetwork()
                         } else {
                             self.loadingView.showNoDataView()
                         }
                     }
+                    self.setTopBarImage()
+                    heritageDetailTableView.reloadData()
+                }else{
+                    if(self.networkReachability?.isReachable == false) {
+                        self.showNoNetwork()
+                    } else {
+                        self.loadingView.showNoDataView()
+                    }
                 }
-           
+            } else {
+                if(self.networkReachability?.isReachable == false) {
+                    self.showNoNetwork()
+                } else {
+                    self.loadingView.showNoDataView()
+                }
+            }
+            
         } catch let error as NSError {
             print("Could not fetch. \(error), \(error.userInfo)")
         }

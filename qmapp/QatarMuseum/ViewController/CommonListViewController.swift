@@ -964,10 +964,16 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
         do {
             var heritageArray = [HeritageEntity]()
             if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
-                heritageArray = DataManager.checkAddedToCoredata(entityName: "HeritageEntity", idKey: "lang", idValue: "1", managedContext: managedContext) as! [HeritageEntity]
+                heritageArray = DataManager.checkAddedToCoredata(entityName: "HeritageEntity",
+                                                                 idKey: "lang",
+                                                                 idValue: "1",
+                                                                 managedContext: managedContext) as! [HeritageEntity]
 
             } else {
-                heritageArray = DataManager.checkAddedToCoredata(entityName: "HeritageEntity", idKey: "lang", idValue: "0", managedContext: managedContext) as! [HeritageEntity]
+                heritageArray = DataManager.checkAddedToCoredata(entityName: "HeritageEntity",
+                                                                 idKey: "lang",
+                                                                 idValue: "0",
+                                                                 managedContext: managedContext) as! [HeritageEntity]
 
             }
                 if (heritageArray.count > 0) {
@@ -976,11 +982,11 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
                             self.getHeritageDataFromServer()
                         }
                     }
-                    for i in 0 ... heritageArray.count-1 {
-                        
-                        self.heritageListArray.insert(Heritage(id: heritageArray[i].listid, name: heritageArray[i].listname, location: nil, latitude: nil, longitude: nil, image: heritageArray[i].listimage, shortdescription: nil, longdescription: nil,images: nil, sortid: heritageArray[i].listsortid), at: i)
-                        
+                    
+                    for heritageDict in heritageArray {
+                        self.heritageListArray.append(Heritage(entity: heritageDict))
                     }
+                    
                     if(heritageListArray.count == 0){
                         if(self.networkReachability?.isReachable == false) {
                             self.showNoNetwork()
