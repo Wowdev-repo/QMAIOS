@@ -27,13 +27,15 @@ struct CollectionDetail: ResponseObjectSerializable, ResponseCollectionSerializa
             
         }
     }
-    init(title: String?,image:String?,body: String?,nid: String?,categoryCollection: String?) {
-        self.title = title
-        self.image = image
-        self.body = body
-        self.nid = nid
-        self.categoryCollection = categoryCollection
-        
+    
+    init(entity: CollectionDetailsEntity) {
+        self.title = entity.title
+        self.image = entity.image
+        self.body = entity.body
+        self.nid = entity.nid
+        self.categoryCollection = entity.categoryCollection?.replacingOccurrences(of: "<[^>]+>|&nbsp;|&|#039;",
+                                                                                  with: "",
+                                                                                  options: .regularExpression)
     }
 }
 

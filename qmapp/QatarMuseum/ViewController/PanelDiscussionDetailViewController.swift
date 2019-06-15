@@ -1351,43 +1351,28 @@ class PanelDiscussionDetailViewController: UIViewController,LoadingViewProtocol,
     func fetchCollectionDetailsFromCoredata() {
         let managedContext = getContext()
         do {
-//            if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
-                var collectionArray = [CollectionDetailsEntity]()
-            collectionArray = DataManager.checkAddedToCoredata(entityName: "CollectionDetailsEntity",
+            if let collectionArray = DataManager.checkAddedToCoredata(entityName: "CollectionDetailsEntity",
                                                              idKey: "categoryCollection",
                                                              idValue: collectionName,
-                                                             managedContext: managedContext) as! [CollectionDetailsEntity]
-            
-                if (collectionArray.count > 0) {
-                    for i in 0 ... collectionArray.count-1 {
-                        let collectionDict = collectionArray[i]
-                        if((collectionDict.title == nil) && (collectionDict.body == nil)) {
-                            self.showNodata()
-                            
-                        } else {
-                            self.collectionDetailArray.insert(CollectionDetail(title: collectionDict.title,
-                                                                               image: collectionDict.image,
-                                                                               body: collectionDict.body,
-                                                                               nid: collectionDict.nid,
-                                                                               categoryCollection: collectionDict.categoryCollection?.replacingOccurrences(of: "<[^>]+>|&nbsp;|&|#039;", with: "", options: .regularExpression, range: nil)), at: 0)
-                        }
-                        
-                    }
-                    if(collectionDetailArray.count == 0){
-                        if(self.networkReachability?.isReachable == false) {
-                            self.showNoNetwork()
-                        } else {
-                            self.loadingView.showNoDataView()
-                        }
-                    }
-                    tableView.reloadData()
-                } else{
-                    if(self.networkReachability?.isReachable == false) {
-                        self.showNoNetwork()
+                                                             managedContext: managedContext) as? [CollectionDetailsEntity],
+                !collectionArray.isEmpty {
+                for collectionDict in collectionArray {
+                    if collectionDict.title == nil && collectionDict.body == nil {
+                        self.showNodata()
                     } else {
-                        self.loadingView.showNoDataView()
+                        self.collectionDetailArray.insert(CollectionDetail(entity: collectionDict), at: 0)
                     }
                 }
+            } else {
+                if(self.networkReachability?.isReachable == false) {
+                    self.showNoNetwork()
+                } else {
+                    self.loadingView.showNoDataView()
+                }
+            }
+            
+            
+            tableView.reloadData()
         }
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
     }

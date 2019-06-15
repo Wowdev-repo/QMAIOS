@@ -669,52 +669,13 @@ class MuseumsViewController: UIViewController,KASlideShowDelegate,TopBarProtocol
     
     func fetchMuseumLandingImagesFromCoredata() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-        let managedContext = getContext()
-        do {
-                var aboutArray = [AboutEntity]()
-                let fetchRequest =  NSFetchRequest<NSFetchRequestResult>(entityName: "AboutEntity")
-                if(museumId != nil) {
-                    fetchRequest.predicate = NSPredicate(format: "id == %@", museumId!)
-                    aboutArray = (try managedContext.fetch(fetchRequest) as? [AboutEntity])!
-                    if (aboutArray.count > 0 ){
-                        let aboutDict = aboutArray[0]
-                        var multimediaArray : [String] = []
-                        let mutimediaInfoArray = (aboutDict.multimediaRelation?.allObjects) as! [AboutMultimediaFileEntity]
-                        if(mutimediaInfoArray.count > 0) {
-                            for i in 0 ... mutimediaInfoArray.count-1 {
-                                multimediaArray.append(mutimediaInfoArray[i].image!)
-                            }
-                        }
-                        self.museumArray.insert(Museum(name: aboutDict.name,
-                                                       id: aboutDict.id,
-                                                       tourguideAvailable: nil,
-                                                       contactNumber: nil,
-                                                       contactEmail: nil,
-                                                       mobileLongtitude: nil,
-                                                       subtitle: nil,
-                                                       openingTime: nil,
-                                                       mobileDescription: nil,
-                                                       multimediaFile: multimediaArray,
-                                                       mobileLatitude: nil,
-                                                       tourGuideAvailability: nil,
-                                                       multimediaVideo: nil,
-                                                       downloadable:nil,
-                                                       eventDate:nil),
-                                                at: 0)
-                        
-                        if(museumArray.count != 0){
-                            self.setImageArray(imageArray: self.museumArray[0].multimediaFile)
-                        }
-                    } else {
-                        if (networkReachability?.isReachable)! {
-                            DispatchQueue.global(qos: .background).async {
-                                self.getMuseumDataFromServer()
-                            }
-                        }
-                    }
-                }
-        } catch let error as NSError {
-            print("Could not fetch. \(error), \(error.userInfo)")
+        self.museumArray = DataManager.fetchMuseumLandingImages(museumId!)
+        if self.museumArray.isEmpty, let reachable = networkReachability?.isReachable, reachable {
+            DispatchQueue.global(qos: .background).async {
+                self.getMuseumDataFromServer()
+            }
+        } else {
+            self.setImageArray(imageArray: self.museumArray[0].multimediaFile)
         }
     }
     
