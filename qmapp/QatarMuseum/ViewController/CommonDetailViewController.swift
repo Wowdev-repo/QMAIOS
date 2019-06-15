@@ -1252,14 +1252,6 @@ class CommonDetailViewController: UIViewController,UITableViewDelegate,UITableVi
             
             let diningDict = diningArray[0]
             if ((diningArray.count > 0) && (diningDict.diningdescription != nil)) {
-                var imagesArray : [String] = []
-                let diningImagesArray = (diningDict.imagesRelation?.allObjects) as! [ImageEntity]
-                
-                for images in diningImagesArray {
-                    if let image = images.image {
-                        imagesArray.append(image)
-                    }
-                }
                 
                 self.diningDetailtArray.append(Dining(entity: diningDict))
                 

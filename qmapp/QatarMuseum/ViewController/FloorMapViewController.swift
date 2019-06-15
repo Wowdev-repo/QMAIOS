@@ -1711,7 +1711,6 @@ class FloorMapViewController: UIViewController, GMSMapViewDelegate, HeaderViewPr
     func fetchTourGuideFromCoredata() {
         let managedContext = getContext()
         do {
-//            if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
                 var tourGuideArray = [FloorMapTourGuideEntity]()
             tourGuideArray = DataManager.checkAddedToCoredata(entityName: "FloorMapTourGuideEntity",
                                              idKey: "tourGuideId",
@@ -1719,19 +1718,8 @@ class FloorMapViewController: UIViewController, GMSMapViewDelegate, HeaderViewPr
                                              managedContext: managedContext) as! [FloorMapTourGuideEntity]
             
                 if (tourGuideArray.count > 0) {
-                    for i in 0 ... tourGuideArray.count-1 {
-                        let tourGuideDict = tourGuideArray[i] as FloorMapTourGuideEntity
-                        var imgsArray : [String] = []
-                        let imgInfoArray = (tourGuideDict.imagesRelation?.allObjects) as! [ImageEntity]
-                        if(imgInfoArray != nil) {
-                            if(imgInfoArray.count > 0) {
-                                for i in 0 ... imgInfoArray.count-1 {
-                                    imgsArray.append(imgInfoArray[i].image!)
-                                }
-                            }
-                        }
-                        
-                        self.floorMapArray.insert(TourGuideFloorMap(title: tourGuideDict.title, accessionNumber: tourGuideDict.accessionNumber, nid: tourGuideDict.nid, curatorialDescription: tourGuideDict.curatorialDescription, diam: tourGuideDict.diam, dimensions: tourGuideDict.dimensions, mainTitle: tourGuideDict.mainTitle, objectENGSummary: tourGuideDict.objectEngSummary, objectHistory: tourGuideDict.objectHistory, production: tourGuideDict.production, productionDates: tourGuideDict.productionDates, image: tourGuideDict.image, tourGuideId: tourGuideDict.tourGuideId,artifactNumber: tourGuideDict.artifactNumber, artifactPosition: tourGuideDict.artifactPosition, audioDescriptif: tourGuideDict.audioDescriptif, images: imgsArray, audioFile: tourGuideDict.audioFile, floorLevel: tourGuideDict.floorLevel, galleyNumber: tourGuideDict.galleyNumber, artistOrCreatorOrAuthor: tourGuideDict.artistOrCreatorOrAuthor, periodOrStyle: tourGuideDict.periodOrStyle, techniqueAndMaterials: tourGuideDict.techniqueAndMaterials,thumbImage: tourGuideDict.thumbImage,artifactImg: tourGuideDict.artifactImg, language: tourGuideDict.language), at: 0)
+                    for tourGuideDict in tourGuideArray {
+                        self.floorMapArray.append(TourGuideFloorMap(entity: tourGuideDict))
                     }
                     
                     if (self.floorMapArray.count > 0) {

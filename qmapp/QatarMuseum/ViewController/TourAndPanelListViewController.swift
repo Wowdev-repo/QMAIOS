@@ -547,49 +547,53 @@ class TourAndPanelListViewController: UIViewController,UITableViewDelegate,UITab
     func fetchFacilitiesListFromCoredata() {
         let managedContext = getContext()
         do {
-                var facilitiesListArray = [FacilitiesEntity]()
-                let fetchRequest =  NSFetchRequest<NSFetchRequestResult>(entityName: "FacilitiesEntity")
-                facilitiesListArray = (try managedContext.fetch(fetchRequest) as? [FacilitiesEntity])!
-                if (facilitiesListArray.count > 0) {
-                    if (networkReachability?.isReachable)! {
-                        DispatchQueue.global(qos: .background).async {
-                            self.getFacilitiesListFromServer()
+            var facilitiesListArray = [FacilitiesEntity]()
+            let fetchRequest =  NSFetchRequest<NSFetchRequestResult>(entityName: "FacilitiesEntity")
+            facilitiesListArray = (try managedContext.fetch(fetchRequest) as? [FacilitiesEntity])!
+            if (facilitiesListArray.count > 0) {
+                if (networkReachability?.isReachable)! {
+                    DispatchQueue.global(qos: .background).async {
+                        self.getFacilitiesListFromServer()
+                    }
+                }
+                for facilitiesListDict in facilitiesListArray {
+                    var imagesArray : [String] = []
+                    let imagesInfoArray = (facilitiesListDict.facilitiesImgRelation?.allObjects) as! [ImageEntity]
+                    for images in imagesInfoArray {
+                        if let image = images.image {
+                            imagesArray.append(image)
                         }
                     }
-                    for i in 0 ... facilitiesListArray.count-1 {
-                        let facilitiesListDict = facilitiesListArray[i]
-                        var imagesArray : [String] = []
-                        let imagesInfoArray = (facilitiesListDict.facilitiesImgRelation?.allObjects) as! [ImageEntity]
-                        if(imagesInfoArray.count > 0) {
-                            for i in 0 ... imagesInfoArray.count-1 {
-                                imagesArray.append(imagesInfoArray[i].image!)
-                            }
-                        }
-                        self.facilitiesList.insert(Facilities(title: facilitiesListDict.title, sortId: facilitiesListDict.sortId, nid: facilitiesListDict.nid, images: imagesArray), at: i)
-                    }
-                    if(facilitiesList.count == 0){
-                        if(self.networkReachability?.isReachable == false) {
-                            self.showNoNetwork()
-                        } else {
-                            self.loadingView.showNoDataView()
-                        }
-                    } else {
-                        if self.facilitiesList.first(where: {$0.sortId != "" && $0.sortId != nil} ) != nil {
-                            self.facilitiesList = self.facilitiesList.sorted(by: { Int16($0.sortId!)! < Int16($1.sortId!)! })
-                        }
-                    }
-                    DispatchQueue.main.async{
-                        self.collectionTableView.reloadData()
-                    }
-                } else{
+                    
+                    self.facilitiesList.append(Facilities(title: facilitiesListDict.title,
+                                                          sortId: facilitiesListDict.sortId,
+                                                          nid: facilitiesListDict.nid,
+                                                          images: imagesArray))
+                }
+                
+                if(facilitiesList.count == 0){
                     if(self.networkReachability?.isReachable == false) {
                         self.showNoNetwork()
                     } else {
-                        //self.loadingView.showNoDataView()
-                        self.getFacilitiesListFromServer()//coreDataMigratio  solution
+                        self.loadingView.showNoDataView()
+                    }
+                } else {
+                    if self.facilitiesList.first(where: {$0.sortId != "" && $0.sortId != nil} ) != nil {
+                        self.facilitiesList = self.facilitiesList.sorted(by: { Int16($0.sortId!)! < Int16($1.sortId!)! })
                     }
                 }
-
+                DispatchQueue.main.async{
+                    self.collectionTableView.reloadData()
+                }
+            } else{
+                if(self.networkReachability?.isReachable == false) {
+                    self.showNoNetwork()
+                } else {
+                    //self.loadingView.showNoDataView()
+                    self.getFacilitiesListFromServer()//coreDataMigratio  solution
+                }
+            }
+            
         } catch let error as NSError {
             DDLogError("Could not fetch. \(error), \(error.userInfo)")
         }

@@ -803,58 +803,44 @@ class PreviewContainerViewController: UIViewController,UIPageViewControllerDeleg
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         let managedContext = getContext()
         do {
-//            if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
-                var tourGuideArray = [FloorMapTourGuideEntity]()
-                tourGuideArray = DataManager.checkAddedToCoredata(entityName: "FloorMapTourGuideEntity",
-                                                      idKey: "tourGuideId",
-                                                      idValue: tourGuideId,
-                                                      managedContext: managedContext) as! [FloorMapTourGuideEntity]
-                var j:Int? = 0
-                if (tourGuideArray.count > 0) {
-                    for i in 0 ... tourGuideArray.count-1 {
-                        if let duplicateId = self.tourGuideArray.first(where: {$0.nid == tourGuideArray[i].nid}) {
-                        } else {
-                        let tourGuideDict = tourGuideArray[i]
-                        var imgsArray : [String] = []
-                        let imgInfoArray = (tourGuideDict.imagesRelation?.allObjects) as! [ImageEntity]
-                        if(imgInfoArray != nil) {
-                            if(imgInfoArray.count > 0) {
-                                for i in 0 ... imgInfoArray.count-1 {
-                                    imgsArray.append(imgInfoArray[i].image!)
-                                }
-                            }
-                        }
-                        self.tourGuideArray.insert(TourGuideFloorMap(title: tourGuideDict.title, accessionNumber: tourGuideDict.accessionNumber, nid: tourGuideDict.nid, curatorialDescription: tourGuideDict.curatorialDescription, diam: tourGuideDict.diam, dimensions: tourGuideDict.dimensions, mainTitle: tourGuideDict.mainTitle, objectENGSummary: tourGuideDict.objectEngSummary, objectHistory: tourGuideDict.objectHistory, production: tourGuideDict.production, productionDates: tourGuideDict.productionDates, image: tourGuideDict.image, tourGuideId: tourGuideDict.tourGuideId,artifactNumber: tourGuideDict.artifactNumber, artifactPosition: tourGuideDict.artifactPosition, audioDescriptif: tourGuideDict.audioDescriptif, images: imgsArray, audioFile: tourGuideDict.audioFile, floorLevel: tourGuideDict.floorLevel, galleyNumber: tourGuideDict.galleyNumber, artistOrCreatorOrAuthor: tourGuideDict.artistOrCreatorOrAuthor, periodOrStyle: tourGuideDict.periodOrStyle, techniqueAndMaterials: tourGuideDict.techniqueAndMaterials,thumbImage: tourGuideDict.thumbImage,artifactImg: tourGuideDict.artifactImg, language: tourGuideDict.language), at: j!)
-                             j = j!+1
-                        }
-                        
-                    }
-                    self.loadingView.stopLoading()
-                    self.loadingView.isHidden = true
-                    if (self.tourGuideArray.count > 0) {
-                        self.headerView.settingsButton.isHidden = false
-                        if((self.museumId == "63") || (self.museumId == "96")) {
-                            self.headerView.settingsButton.setImage(UIImage(named: "locationImg"), for: .normal)
-                            self.headerView.settingsButton.contentEdgeInsets = UIEdgeInsets(top: 9, left: 10, bottom:9, right: 10)
-                        } else {
-                            self.headerView.settingsButton.isHidden = true
-                        }
-                        self.setUpPageControl()
-                        self.showOrHidePageControlView(countValue: self.tourGuideArray.count, scrolling: false)
-                        self.showPageControlAtFirstTime()
-                    } else if (networkReachability?.isReachable)! {
-                        self.showNoData()
+            var tourGuideArray = [FloorMapTourGuideEntity]()
+            tourGuideArray = DataManager.checkAddedToCoredata(entityName: "FloorMapTourGuideEntity",
+                                                              idKey: "tourGuideId",
+                                                              idValue: tourGuideId,
+                                                              managedContext: managedContext) as! [FloorMapTourGuideEntity]
+            if (tourGuideArray.count > 0) {
+                for tourGuideDict in tourGuideArray {
+                    if self.tourGuideArray.first(where: {$0.nid == tourGuideDict.nid}) != nil {
                     } else {
-                        self.showNoNetwork()
+                        self.tourGuideArray.append(TourGuideFloorMap(entity: tourGuideDict))
                     }
-                    
-                } else if (networkReachability?.isReachable)! && self.tourGuideArray.count == 0 {
-                    self.getTourGuideDataFromServer()
+                }
+                self.loadingView.stopLoading()
+                self.loadingView.isHidden = true
+                if (self.tourGuideArray.count > 0) {
+                    self.headerView.settingsButton.isHidden = false
+                    if((self.museumId == "63") || (self.museumId == "96")) {
+                        self.headerView.settingsButton.setImage(UIImage(named: "locationImg"), for: .normal)
+                        self.headerView.settingsButton.contentEdgeInsets = UIEdgeInsets(top: 9, left: 10, bottom:9, right: 10)
+                    } else {
+                        self.headerView.settingsButton.isHidden = true
+                    }
+                    self.setUpPageControl()
+                    self.showOrHidePageControlView(countValue: self.tourGuideArray.count, scrolling: false)
+                    self.showPageControlAtFirstTime()
+                } else if (networkReachability?.isReachable)! {
+                    self.showNoData()
                 } else {
-                    self.loadingView.stopLoading()
-                    self.loadingView.isHidden = true
                     self.showNoNetwork()
                 }
+                
+            } else if (networkReachability?.isReachable)! && self.tourGuideArray.count == 0 {
+                self.getTourGuideDataFromServer()
+            } else {
+                self.loadingView.stopLoading()
+                self.loadingView.isHidden = true
+                self.showNoNetwork()
+            }
         } catch let error as NSError {
             print("Could not fetch. \(error), \(error.userInfo)")
         }
