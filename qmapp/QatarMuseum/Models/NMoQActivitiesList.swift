@@ -68,7 +68,7 @@ struct NMoQActivitiesList: ResponseObjectSerializable, ResponseCollectionSeriali
     init(entity: NMoQActivitiesEntity) {
         
         var imagesArray : [String] = []
-        if let imagesInfoArray = (activityListDict.activityImgRelation?.allObjects) as? [ImageEntity] {
+        if let imagesInfoArray = (entity.activityImgRelation?.allObjects) as? [ImageEntity] {
             for info in imagesInfoArray {
                 if let image = info.image {
                     imagesArray.append(image)

@@ -1951,10 +1951,11 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
                             self.getNmoqParkListFromServer()
                         }
                     }
-                    for i in 0 ... parkListArray.count-1 {
-                        let parkListDict = parkListArray[i]
-                        self.nmoqParkList.insert(NMoQParksList(title: parkListDict.title, parkTitle: parkListDict.parkTitle, mainDescription: parkListDict.mainDescription, parkDescription: parkListDict.parkDescription, hoursTitle: parkListDict.hoursTitle, hoursDesc: parkListDict.hoursDesc, nid: parkListDict.nid, longitude: parkListDict.longitude, latitude: parkListDict.latitude, locationTitle: parkListDict.locationTitle, language: parkListDict.language), at: i)
+                    
+                    for parkListDict in parkListArray {
+                        self.nmoqParkList.append(NMoQParksList(entity: parkListDict))
                     }
+                    
                     if(nmoqParkList.count == 0){
                         if(self.networkReachability?.isReachable == false) {
                             self.showNoNetwork()

@@ -1407,33 +1407,26 @@ class PanelDiscussionDetailViewController: UIViewController,LoadingViewProtocol,
                                                                      idValue: nid,
                                                                      managedContext: managedContext) as! [NMoQParkDetailEntity]
             
-                if (parkListArray.count > 0) {
-                    for i in 0 ... parkListArray.count-1 {
-                        let parkListDict = parkListArray[i]
-                        var imagesArray : [String] = []
-                        let imagesInfoArray = (parkListDict.parkDetailImgRelation?.allObjects) as! [ImageEntity]
-                        if(imagesInfoArray.count > 0) {
-                            for i in 0 ... imagesInfoArray.count-1 {
-                                imagesArray.append(imagesInfoArray[i].image!)
-                            }
-                        }
-                        self.nmoqParkDetailArray.insert(NMoQParkDetail(title: parkListDict.title, sortId: parkListDict.sortId, nid: parkListDict.nid, images: imagesArray, parkDesc: parkListDict.parkDesc, language: parkListDict.language), at: i)
-                    }
-                    if(nmoqParkDetailArray.count == 0){
-                        if(self.networkReachability?.isReachable == false) {
-                            self.showNoNetwork()
-                        } else {
-                            self.loadingView.showNoDataView()
-                        }
+            if (parkListArray.count > 0) {
+                for parkListDict in parkListArray {
+                    self.nmoqParkDetailArray.append(NMoQParkDetail(entity: parkListDict))
+                }
+                
+                if(nmoqParkDetailArray.count == 0){
+                    if(self.networkReachability?.isReachable == false) {
+                        self.showNoNetwork()
                     } else {
-                        if self.nmoqParkDetailArray.first(where: {$0.sortId != "" && $0.sortId != nil} ) != nil {
-                            self.nmoqParkDetailArray = self.nmoqParkDetailArray.sorted(by: { Int16($0.sortId!)! < Int16($1.sortId!)! })
-                        }
+                        self.loadingView.showNoDataView()
                     }
-                    DispatchQueue.main.async{
-                        self.tableView.reloadData()
+                } else {
+                    if self.nmoqParkDetailArray.first(where: {$0.sortId != "" && $0.sortId != nil} ) != nil {
+                        self.nmoqParkDetailArray = self.nmoqParkDetailArray.sorted(by: { Int16($0.sortId!)! < Int16($1.sortId!)! })
                     }
-                } else{
+                }
+                DispatchQueue.main.async{
+                    self.tableView.reloadData()
+                }
+            } else{
                     if(self.networkReachability?.isReachable == false) {
                         self.showNoNetwork()
                     } else {

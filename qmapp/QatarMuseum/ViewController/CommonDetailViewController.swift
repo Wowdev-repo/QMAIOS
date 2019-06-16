@@ -1111,24 +1111,16 @@ class CommonDetailViewController: UIViewController,UITableViewDelegate,UITableVi
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
         let managedContext = getContext()
         do {
-//            if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
                 var parkListArray = [NMoQParkDetailEntity]()
                 parkListArray = DataManager.checkAddedToCoredata(entityName: "NMoQParkDetailEntity",
                                                      idKey: "nid",
                                                      idValue: parkDetailId,
                                                      managedContext: managedContext) as! [NMoQParkDetailEntity]
                 if (parkListArray.count > 0) {
-                    for i in 0 ... parkListArray.count-1 {
-                        let parkListDict = parkListArray[i]
-                        var imagesArray : [String] = []
-                        let imagesInfoArray = (parkListDict.parkDetailImgRelation?.allObjects) as! [ImageEntity]
-                        if(imagesInfoArray.count > 0) {
-                            for i in 0 ... imagesInfoArray.count-1 {
-                                imagesArray.append(imagesInfoArray[i].image!)
-                            }
-                        }
-                        self.nmoqParkDetailArray.insert(NMoQParkDetail(title: parkListDict.title, sortId: parkListDict.sortId, nid: parkListDict.nid, images: imagesArray, parkDesc: parkListDict.parkDesc, language: parkListDict.language), at: i)
+                    for parkListDict in parkListArray {
+                        self.nmoqParkDetailArray.append(NMoQParkDetail(entity: parkListDict))
                     }
+                    
                     if(nmoqParkDetailArray.count == 0){
                         if(self.networkReachability?.isReachable == false) {
                             self.showNoNetwork()
