@@ -1437,42 +1437,35 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
     func fetchTourDetailsFromCoredata() {
         let managedContext = getContext()
         do {
-//            if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
-                var tourDetailArray = [NmoqTourDetailEntity]()
-                tourDetailArray = DataManager.checkAddedToCoredata(entityName: "NmoqTourDetailEntity",
-                                                       idKey: "nmoqEvent",
-                                                       idValue: tourDetailId,
-                                                       managedContext: managedContext) as! [NmoqTourDetailEntity]
-                if (tourDetailArray.count > 0) {
-                    for i in 0 ... tourDetailArray.count-1 {
-                        var imagesArray : [String] = []
-                        let imagesInfoArray = (tourDetailArray[i].nmoqTourDetailImgBannerRelation?.allObjects) as! [ImageEntity]
-                        if(imagesInfoArray.count > 0) {
-                            for i in 0 ... imagesInfoArray.count-1 {
-                                imagesArray.append(imagesInfoArray[i].image!)
-                            }
-                        }
-                        
-                        self.nmoqTourDetail.insert(NMoQTourDetail(title: tourDetailArray[i].title, imageBanner: imagesArray, date: tourDetailArray[i].date, nmoqEvent: tourDetailArray[i].nmoqEvent, register: tourDetailArray[i].register, contactEmail: tourDetailArray[i].contactEmail, contactPhone: tourDetailArray[i].contactPhone, mobileLatitude: tourDetailArray[i].mobileLatitude, longitude: tourDetailArray[i].longitude, sortId: tourDetailArray[i].sort_id, body: tourDetailArray[i].body, registered: tourDetailArray[i].registered, nid: tourDetailArray[i].nid,seatsRemaining: tourDetailArray[i].seatsRemaining, language: tourDetailArray[i].language), at: i)
-                    }
-                    if(nmoqTourDetail.count == 0){
-                        if(self.networkReachability?.isReachable == false) {
-                            self.showNoNetwork()
-                        } else {
-                            self.exbtnLoadingView.showNoDataView()
-                        }
-                    }
-                    DispatchQueue.main.async{
-                        self.exhibitionCollectionView.reloadData()
-                    }
+            var tourDetailArray = [NmoqTourDetailEntity]()
+            tourDetailArray = DataManager.checkAddedToCoredata(entityName: "NmoqTourDetailEntity",
+                                                               idKey: "nmoqEvent",
+                                                               idValue: tourDetailId,
+                                                               managedContext: managedContext) as! [NmoqTourDetailEntity]
+            if (tourDetailArray.count > 0) {
+                
+                for entity in tourDetailArray {
+                    self.nmoqTourDetail.append(NMoQTourDetail(entity: entity))
                 }
-                else{
+                
+                if(nmoqTourDetail.count == 0){
                     if(self.networkReachability?.isReachable == false) {
                         self.showNoNetwork()
                     } else {
                         self.exbtnLoadingView.showNoDataView()
                     }
                 }
+                DispatchQueue.main.async{
+                    self.exhibitionCollectionView.reloadData()
+                }
+            }
+            else{
+                if(self.networkReachability?.isReachable == false) {
+                    self.showNoNetwork()
+                } else {
+                    self.exbtnLoadingView.showNoDataView()
+                }
+            }
         }
     }
     //MARK: Facilities SecondaryList ServiceCall
@@ -1993,17 +1986,11 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
                             self.getNmoqListOfParksFromServer()
                         }
                     }
-                    for i in 0 ... parkListArray.count-1 {
-                        let parkListDict = parkListArray[i]
-                        var imagesArray : [String] = []
-                        let imagesInfoArray = (parkListDict.parkImgRelation?.allObjects) as! [ImageEntity]
-                        if(imagesInfoArray.count > 0) {
-                            for i in 0 ... imagesInfoArray.count-1 {
-                                imagesArray.append(imagesInfoArray[i].image!)
-                            }
-                        }
-                        self.nmoqParks.insert(NMoQPark(title: parkListDict.title, sortId: parkListDict.sortId, nid: parkListDict.nid, images: imagesArray, language: parkListDict.language), at: i)
+                    
+                    for parkListDict in parkListArray {
+                        self.nmoqParks.append(NMoQPark(entity: parkListDict))
                     }
+                    
                     if(nmoqParks.count == 0){
                         if(self.networkReachability?.isReachable == false) {
                             self.showNoNetwork()

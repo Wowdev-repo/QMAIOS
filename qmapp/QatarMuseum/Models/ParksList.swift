@@ -122,6 +122,24 @@ struct NMoQPark: ResponseObjectSerializable, ResponseCollectionSerializable {
         self.nid = nid
         self.language = language
     }
+    
+    init(entity: NMoQParksEntity) {
+        
+        var imagesArray : [String] = []
+        if let imagesInfoArray = (entity.parkImgRelation?.allObjects) as? [ImageEntity] {
+            for info in imagesInfoArray {
+                if let image = info.image {
+                    imagesArray.append(image)
+                }
+            }
+        }
+        
+        self.title = entity.title
+        self.images = imagesArray
+        self.sortId = entity.sortId
+        self.nid = entity.nid
+        self.language = entity.language
+    }
 }
 
 struct NMoQParks: ResponseObjectSerializable {

@@ -44,24 +44,34 @@ struct NMoQTourDetail: ResponseObjectSerializable, ResponseCollectionSerializabl
         }
     }
     
-    init (title:String?, imageBanner: [String]?, date: String?, nmoqEvent: String?, register: String?, contactEmail: String?, contactPhone: String?, mobileLatitude: String?, longitude: String?, sortId: String?, body: String?, registered: String?, nid: String?, seatsRemaining: String?,language: String?) {
-            self.title = title
-            self.imageBanner = imageBanner
-            self.date = date
-            self.nmoqEvent = nmoqEvent
-            self.register = register
-            self.contactEmail = contactEmail
-            self.contactPhone = contactPhone
-            self.mobileLatitude = mobileLatitude
-            self.longitude = longitude
-            self.sortId = sortId
-            self.body = body
-            self.registered = registered
-            self.nid = nid
-            self.seatsRemaining = seatsRemaining
-        self.language = language
-
+    init(entity: NmoqTourDetailEntity) {
+        
+        var imagesArray : [String] = []
+        if let imagesInfoArray = (entity.nmoqTourDetailImgBannerRelation?.allObjects) as? [ImageEntity] {
+            for info in imagesInfoArray {
+                if let image = info.image {
+                    imagesArray.append(image)
+                }
+            }
         }
+        
+        self.title = entity.title
+        self.imageBanner = imagesArray
+        self.date = entity.date
+        self.nmoqEvent = entity.nmoqEvent
+        self.register = entity.register
+        self.contactEmail = entity.contactEmail
+        self.contactPhone = entity.contactPhone
+        self.mobileLatitude = entity.mobileLatitude
+        self.longitude = entity.longitude
+        self.sortId = entity.sort_id
+        self.body = entity.body
+        self.registered = entity.registered
+        self.nid = entity.nid
+        self.seatsRemaining = entity.seatsRemaining
+        self.language = entity.language
+        
+    }
 }
 
 struct NMoQTourDetailList: ResponseObjectSerializable {
