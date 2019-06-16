@@ -146,10 +146,10 @@ class NotificationsViewController: UIViewController,UITableViewDelegate,UITableV
                 listArray = (try managedContext.fetch(notificationsFetchRequest) as? [NotificationsEntity])!
                 
                 if (listArray.count > 0) {
-                    for i in 0 ... listArray.count-1 {
-                        self.notificationArray.insert(Notification(title: listArray[i].title,
-                                                                   sortId: listArray[i].sortId,
-                                                                   language: listArray[i].language), at: i)
+                    for entity in listArray {
+                        self.notificationArray.append(Notification(title: entity.title,
+                                                                   sortId: entity.sortId,
+                                                                   language: entity.language))
                         
                     }
                     if(notificationArray.count == 0){

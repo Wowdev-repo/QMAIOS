@@ -1083,11 +1083,11 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
                             self.getPublicArtsListDataFromServer()
                         }
                     }
-                    for i in 0 ... publicArtsArray.count-1 {
-                        
-                        self.publicArtsListArray.insert(PublicArtsList(id: publicArtsArray[i].id, name: publicArtsArray[i].name, latitude: publicArtsArray[i].latitude, longitude: publicArtsArray[i].longitude, image: publicArtsArray[i].image, sortcoefficient: publicArtsArray[i].sortcoefficient, language: publicArtsArray[i].language), at: i)
-                        
+                    
+                    for publicArtsDict in publicArtsArray {
+                        self.publicArtsListArray.append(PublicArtsList(entity: publicArtsDict))
                     }
+                    
                     if(publicArtsListArray.count == 0){
                         if(self.networkReachability?.isReachable == false) {
                             self.showNoNetwork()

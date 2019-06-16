@@ -788,15 +788,7 @@ class CommonDetailViewController: UIViewController,UITableViewDelegate,UITableVi
                     if (publicArtsArray.count > 0) {
                         let publicArtsDict = publicArtsArray[0]
                         if((publicArtsDict.detaildescription != nil) && (publicArtsDict.shortdescription != nil) ) {
-                            
-                            var imagesArray : [String] = []
-                            let publicArtsImagesArray = (publicArtsDict.publicImagesRelation?.allObjects) as! [ImageEntity]
-                            if(publicArtsImagesArray.count > 0) {
-                                for i in 0 ... publicArtsImagesArray.count-1 {
-                                    imagesArray.append(publicArtsImagesArray[i].image!)
-                                }
-                            }
-                            self.publicArtsDetailtArray.insert(PublicArtsDetail(id:publicArtsDict.id , name:publicArtsDict.name, description: publicArtsDict.detaildescription, shortdescription: publicArtsDict.shortdescription, image: publicArtsDict.image, images: imagesArray,longitude: publicArtsDict.longitude, latitude: publicArtsDict.latitude, language: publicArtsDict.language), at: 0)
+                            self.publicArtsDetailtArray.append(PublicArtsDetail(entity: publicArtsDict))
                             
                             if(publicArtsDetailtArray.count == 0){
                                 if(self.networkReachability?.isReachable == false) {
@@ -999,12 +991,12 @@ class CommonDetailViewController: UIViewController,UITableViewDelegate,UITableVi
                             self.getParksDataFromServer()
                         }
                     }
-                    for i in 0 ... parksArray.count-1 {
-                        self.parksListArray.insert(ParksList(title: parksArray[i].title,
-                                                             description: parksArray[i].parksDescription,
-                                                             sortId: parksArray[i].sortId,
-                                                             image: parksArray[i].image,
-                                                             language: parksArray[i].language), at: i)
+                    for entity in parksArray {
+                        self.parksListArray.append(ParksList(title: entity.title,
+                                                             description: entity.parksDescription,
+                                                             sortId: entity.sortId,
+                                                             image: entity.image,
+                                                             language: entity.language))
                         
                     }
                     if(parksListArray.count == 0){

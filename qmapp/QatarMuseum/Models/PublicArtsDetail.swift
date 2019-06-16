@@ -32,24 +32,25 @@ struct PublicArtsDetail: ResponseObjectSerializable, ResponseCollectionSerializa
         }
     }
     
-    init(id:String?,
-         name:String?,
-         description:String?,
-         shortdescription:String?,
-         image:String?,
-         images:[String]?,
-         longitude:String?,
-         latitude:String?,
-         language: String? ) {
-        self.id = id
-        self.name = name
-        self.description = description
-        self.shortdescription = id
-        self.image = image
-        self.images = images
-        self.longitude = longitude
-        self.latitude = latitude
-        self.language = language
+    init(entity: PublicArtsEntity) {
+        var imagesArray : [String] = []
+        if let imagesInfoArray = (entity.publicImagesRelation?.allObjects) as? [ImageEntity] {
+            for info in imagesInfoArray {
+                if let image = info.image {
+                    imagesArray.append(image)
+                }
+            }
+        }
+        
+        self.id = entity.id
+        self.name = entity.name
+        self.description = entity.detaildescription
+        self.shortdescription = entity.shortdescription
+        self.image = entity.image
+        self.images = imagesArray
+        self.longitude = entity.longitude
+        self.latitude = entity.latitude
+        self.language = entity.language
     }
 }
 

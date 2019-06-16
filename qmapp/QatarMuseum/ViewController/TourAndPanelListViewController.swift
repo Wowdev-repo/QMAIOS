@@ -339,10 +339,11 @@ class TourAndPanelListViewController: UIViewController,UITableViewDelegate,UITab
     func fetchTourInfoFromCoredata(isTourGuide:Bool) {
         let managedContext = getContext()
         do {
-                var tourListArray = [NMoQTourListEntity]()
-                let fetchRequest =  NSFetchRequest<NSFetchRequestResult>(entityName: "NMoQTourListEntity")
-                fetchRequest.predicate = NSPredicate.init(format: "isTourGuide == \(isTourGuide)")
-                tourListArray = (try managedContext.fetch(fetchRequest) as? [NMoQTourListEntity])!
+            
+            var tourListArray = DataManager.checkAddedToCoredata(entityName: "NMoQTourListEntity",
+                                                                idKey: "isTourGuide",
+                                                                idValue: "\(isTourGuide)",
+                                                                managedContext: managedContext) as! [NMoQTourListEntity]
                 if (tourListArray.count > 0) {
                     if  (networkReachability?.isReachable)! {
                         DispatchQueue.global(qos: .background).async {
@@ -350,17 +351,10 @@ class TourAndPanelListViewController: UIViewController,UITableViewDelegate,UITab
                         }
                     }
                     tourListArray.sort(by: {$0.sortId < $1.sortId})
-                    for i in 0 ... tourListArray.count-1 {
-                        let tourListDict = tourListArray[i]
-                        var imagesArray : [String] = []
-                        let imagesInfoArray = (tourListDict.tourImagesRelation?.allObjects) as! [ImageEntity]
-                        if(imagesInfoArray.count > 0) {
-                            for i in 0 ... imagesInfoArray.count-1 {
-                                imagesArray.append(imagesInfoArray[i].image!)
-                            }
-                        }
-                        self.nmoqTourList.insert(NMoQTour(title: tourListArray[i].title, dayDescription: tourListArray[i].dayDescription, images: imagesArray, subtitle: tourListArray[i].subtitle, sortId: String(tourListArray[i].sortId), nid: tourListArray[i].nid, eventDate: tourListArray[i].eventDate, date: tourListArray[i].dateString, descriptioForModerator: tourListArray[i].descriptioForModerator, mobileLatitude: tourListArray[i].mobileLatitude, moderatorName: tourListArray[i].moderatorName, longitude: tourListArray[i].longitude, contactEmail: tourListArray[i].contactEmail, contactPhone: tourListArray[i].contactPhone,language: tourListArray[i].language), at: i)
+                    for tourListDict in tourListArray {
+                        self.nmoqTourList.append(NMoQTour(entity: tourListDict))
                     }
+                    
                     if(nmoqTourList.count == 0){
                         if(self.networkReachability?.isReachable == false) {
                             self.showNoNetwork()
@@ -671,8 +665,8 @@ class TourAndPanelListViewController: UIViewController,UITableViewDelegate,UITab
                             self.getTravelList()
                         }
                     }
-                    for i in 0 ... travelListArray.count-1 {
-                        self.travelList.insert(HomeBanner(title: travelListArray[i].title, fullContentID: travelListArray[i].fullContentID, bannerTitle: travelListArray[i].bannerTitle, bannerLink: travelListArray[i].bannerLink, image: nil, introductionText: travelListArray[i].introductionText, email: travelListArray[i].email, contactNumber: travelListArray[i].contactNumber, promotionalCode: travelListArray[i].promotionalCode, claimOffer: travelListArray[i].claimOffer, language: travelListArray[i].language), at: i)
+                    for entity in travelListArray {
+                        self.travelList.append(HomeBanner(travelEntity: entity))
                     }
                     if(travelList.count == 0){
                         if(self.networkReachability?.isReachable == false) {

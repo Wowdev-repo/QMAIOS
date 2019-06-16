@@ -47,23 +47,33 @@ struct NMoQTour: ResponseObjectSerializable, ResponseCollectionSerializable {
         }
     }
     
-    init (title:String?, dayDescription: String?, images: [String]?, subtitle: String?,sortId:String?, nid: String?, eventDate: String?, date: String?, descriptioForModerator: String?, mobileLatitude: String?,moderatorName:String?, longitude: String?, contactEmail: String?, contactPhone: String?, language: String?) {
-            self.title = title
-            self.dayDescription = dayDescription
-            self.images = images
-            self.subtitle = subtitle
-            self.sortId = sortId
-            self.nid = nid
-            self.eventDate = eventDate
-            self.date = date
-            self.descriptioForModerator = descriptioForModerator
-            self.mobileLatitude = mobileLatitude
-            self.moderatorName = moderatorName
-            self.longitude = longitude
-            self.contactEmail = contactEmail
-            self.contactPhone = contactPhone
-        self.language = language
+    init(entity: NMoQTourListEntity) {
+        
+        var imagesArray : [String] = []
+        if let imagesInfoArray = (entity.tourImagesRelation?.allObjects) as? [ImageEntity] {
+            for info in imagesInfoArray {
+                if let image = info.image {
+                    imagesArray.append(image)
+                }
+            }
         }
+        
+        self.title = entity.title
+        self.dayDescription = entity.dayDescription
+        self.images = imagesArray
+        self.subtitle = entity.subtitle
+        self.sortId = String(entity.sortId)
+        self.nid = entity.nid
+        self.eventDate = entity.eventDate
+        self.date = entity.dateString
+        self.descriptioForModerator = entity.descriptioForModerator
+        self.mobileLatitude = entity.mobileLatitude
+        self.moderatorName = entity.moderatorName
+        self.longitude = entity.longitude
+        self.contactEmail = entity.contactEmail
+        self.contactPhone = entity.contactPhone
+        self.language = entity.language
+    }
 }
 
 struct NMoQTourList: ResponseObjectSerializable {
