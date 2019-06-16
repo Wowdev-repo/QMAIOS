@@ -1631,24 +1631,8 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
                             self.getTourGuideDataFromServer()
                         }
                     }
-                    for i in 0 ... tourGuideArray.count-1 {
-                        
-                        var multimediaArray : [String] = []
-                        let tourguideInfo = tourGuideArray[i]
-                        let tourGuideInfoArray = (tourguideInfo.tourGuideMultimediaRelation?.allObjects) as! [TourGuideMultimediaEntity]
-                        if(tourGuideInfoArray.count > 0) {
-                            for i in 0 ... tourGuideInfoArray.count-1 {
-                                multimediaArray.append(tourGuideInfoArray[i].multimediaFile!)
-                            }
-                        }
-                        
-                        self.miaTourDataFullArray.insert(TourGuide(title: tourGuideArray[i].title,
-                                                                   tourGuideDescription: tourGuideArray[i].tourGuideDescription,
-                                                                   multimediaFile: multimediaArray,
-                                                                   museumsEntity: tourGuideArray[i].museumsEntity,
-                                                                   nid: tourGuideArray[i].nid,
-                                                                   language: tourGuideArray[i].language),
-                                                         at: i)
+                    for tourguideInfo in tourGuideArray {
+                        self.miaTourDataFullArray.append(TourGuide(entity: tourguideInfo))
                     }
                     DispatchQueue.main.async {
                         self.exhibitionCollectionView.reloadData()

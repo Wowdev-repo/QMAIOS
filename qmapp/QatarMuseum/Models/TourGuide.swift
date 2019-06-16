@@ -26,17 +26,23 @@ struct TourGuide: ResponseObjectSerializable, ResponseCollectionSerializable {
         }
     }
     
-    init(title:String?, tourGuideDescription: String?,
-         multimediaFile: [String]?,
-         museumsEntity: String?,
-         nid:String?,
-         language: String?) {
-        self.title = title
-        self.tourGuideDescription = tourGuideDescription
-        self.multimediaFile = multimediaFile
-        self.museumsEntity = museumsEntity
-        self.nid = nid
-        self.language = language
+    init(entity: TourGuideEntity) {
+        
+        var imagesArray : [String] = []
+        if let imagesInfoArray = (entity.tourGuideMultimediaRelation?.allObjects) as? [ImageEntity] {
+            for info in imagesInfoArray {
+                if let image = info.image {
+                    imagesArray.append(image)
+                }
+            }
+        }
+        
+        self.title = entity.title
+        self.tourGuideDescription = entity.tourGuideDescription
+        self.multimediaFile = imagesArray
+        self.museumsEntity = entity.museumsEntity
+        self.nid = entity.nid
+        self.language = entity.language
     }
 }
 
