@@ -19,6 +19,7 @@ struct FacilitiesDetail: ResponseObjectSerializable, ResponseCollectionSerializa
     var category: String? = nil
     var latitude: String? = nil
     var locationTitle: String? = nil
+    var language: String?
     
     public init?(response: HTTPURLResponse, representation: AnyObject) {
         if let representation = representation as? [String: Any] {
@@ -33,22 +34,57 @@ struct FacilitiesDetail: ResponseObjectSerializable, ResponseCollectionSerializa
             self.category = representation["category"] as? String
             self.latitude = representation["latitude "] as? String
             self.locationTitle = representation["location title"] as? String
+            self.language = representation["language"] as? String
         }
     }
     
-    init (title:String?, images: [String]?,subtitle: String?, facilitiesDes: String? , timing: String?,titleTiming: String?, nid: String?, longtitude: String?,category:String?,  latitude: String?, locationTitle: String?) {
-        self.title = title
-        self.images = images
-        self.subtitle = subtitle
-        self.facilitiesDes = facilitiesDes
-        self.timing = timing
-        self.titleTiming = titleTiming
-        self.nid = nid
-        self.longtitude = longtitude
-        self.category = category
-        self.latitude = latitude
-        self.locationTitle = locationTitle
-
+//    init (title:String?,
+//          images: [String]?,
+//          subtitle: String?,
+//          facilitiesDes: String?,
+//          timing: String?,
+//          titleTiming: String?,
+//          nid: String?,
+//          longtitude: String?,
+//          category:String?,
+//          latitude: String?,
+//          locationTitle: String?,
+//          language: String?) {
+//        self.title = title
+//        self.images = images
+//        self.subtitle = subtitle
+//        self.facilitiesDes = facilitiesDes
+//        self.timing = timing
+//        self.titleTiming = titleTiming
+//        self.nid = nid
+//        self.longtitude = longtitude
+//        self.category = category
+//        self.latitude = latitude
+//        self.locationTitle = locationTitle
+//        self.language = language
+//    }
+    
+//    Init using FacilitiesDetailEntity
+    init(entity: FacilitiesDetailEntity) {
+        
+        var imagesArray : [String] = []
+        let imagesInfoArray = (entity.facilitiesDetailRelation!.allObjects) as! [ImageEntity]
+        for imagesInfo in imagesInfoArray {
+            imagesArray.append(imagesInfo.image!)
+        }
+        
+        self.title = entity.title
+        self.images = imagesArray
+        self.subtitle = entity.subtitle
+        self.facilitiesDes = entity.facilitiesDes
+        self.timing = entity.timing
+        self.titleTiming = entity.titleTiming
+        self.nid = entity.nid
+        self.longtitude = entity.longtitude
+        self.category = entity.category
+        self.latitude = entity.latitude
+        self.locationTitle = entity.locationTitle
+        self.language = entity.language
     }
 }
 
@@ -57,7 +93,8 @@ struct FacilitiesDetailData: ResponseObjectSerializable {
     
     public init?(response: HTTPURLResponse, representation: AnyObject) {
         if let data = representation as? [[String: Any]] {
-            self.facilitiesDetail = FacilitiesDetail.collection(response: response, representation: data as AnyObject)
+            self.facilitiesDetail = FacilitiesDetail.collection(response: response,
+                                                                representation: data as AnyObject)
         }
     }
 }

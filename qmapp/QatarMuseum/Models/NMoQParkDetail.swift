@@ -14,6 +14,7 @@ struct NMoQParkDetail: ResponseObjectSerializable, ResponseCollectionSerializabl
     var sortId: String? = nil
     var title: String? = nil
     var parkDesc: String? = nil
+    var language: String?
 
     public init?(response: HTTPURLResponse, representation: AnyObject) {
         if let representation = representation as? [String: Any] {
@@ -22,15 +23,17 @@ struct NMoQParkDetail: ResponseObjectSerializable, ResponseCollectionSerializabl
             self.sortId = representation["sort_id"] as? String
             self.title = representation["title"] as? String
             self.parkDesc = representation["Description"] as? String
+            self.language = representation["language"] as? String
         }
     }
     
-    init (title:String?, sortId: String?, nid: String?, images: [String]?, parkDesc: String?) {
+    init (title:String?, sortId: String?, nid: String?, images: [String]?, parkDesc: String?, language: String?) {
         self.title = title
         self.sortId = sortId
         self.nid = nid
         self.images = images
         self.parkDesc = parkDesc
+        self.language = language
     }
 }
 

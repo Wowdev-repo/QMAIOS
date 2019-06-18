@@ -974,11 +974,11 @@ class HomeViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         } else {
             langVar = "0"
         }
-        fetchData = checkAddedToCoredata(entityName: "HomeEntity", idKey: "lang", idValue: langVar, managedContext: managedContext) as! [HomeEntity]
+        fetchData = DataManager.checkAddedToCoredata(entityName: "HomeEntity", idKey: "lang", idValue: langVar, managedContext: managedContext) as! [HomeEntity]
             if (fetchData.count > 0) {
                 for i in 0 ... (homeList?.count)!-1 {
                     let homeListDict = homeList![i]
-                    let fetchResult = checkAddedToCoredata(entityName: "HomeEntity", idKey: "id", idValue: homeList![i].id, managedContext: managedContext)
+                    let fetchResult = DataManager.checkAddedToCoredata(entityName: "HomeEntity", idKey: "id", idValue: homeList![i].id, managedContext: managedContext)
                     //update
                     if(fetchResult.count != 0) {
                         let homedbDict = fetchResult[0] as! HomeEntity
@@ -1044,7 +1044,7 @@ class HomeViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                 } else {
                     langVar = "0"
                 }
-                homeArray = checkAddedToCoredata(entityName: "HomeEntity", idKey: "lang", idValue: langVar, managedContext: managedContext) as! [HomeEntity]
+                homeArray = DataManager.checkAddedToCoredata(entityName: "HomeEntity", idKey: "lang", idValue: langVar, managedContext: managedContext) as! [HomeEntity]
                 var j:Int? = 0
             if (homeArray.count > 0) {
                 if((self.networkReachability?.isReachable)!) {
@@ -1123,6 +1123,7 @@ class HomeViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             }
         }
     }
+    
     func userEventCoreDataInBackgroundThread(managedContext: NSManagedObjectContext) {
         if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
             if (userEventList.count > 0) {
@@ -1160,13 +1161,17 @@ class HomeViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             }
         }
     }
+    
     func homeBannerCoreDataInBackgroundThread(managedContext: NSManagedObjectContext) {
-        if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
-            let fetchData = checkAddedToCoredata(entityName: "HomeBannerEntity", idKey: "fullContentID", idValue: nil, managedContext: managedContext) as! [HomeBannerEntity]
+            let fetchData = DataManager.checkAddedToCoredata(entityName: "HomeBannerEntity",
+                                                 idKey: "fullContentID",
+                                                 idValue: nil,
+                                                 managedContext: managedContext) as! [HomeBannerEntity]
             let homeListDict = homeBannerList[0]
             if (fetchData.count > 0) {
                 
-                let isDeleted = self.deleteExistingEvent(managedContext: managedContext, entityName: "HomeBannerEntity")
+                let isDeleted = self.deleteExistingEvent(managedContext: managedContext,
+                                                         entityName: "HomeBannerEntity")
                 if(isDeleted == true) {
                     self.saveHomeBannerToCoreData(homeListDict: homeListDict, managedObjContext: managedContext)
                 }
@@ -1175,37 +1180,26 @@ class HomeViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                         //save
                         self.saveHomeBannerToCoreData(homeListDict: homeListDict, managedObjContext: managedContext)
                     }
-        } else {
-            let fetchData = checkAddedToCoredata(entityName: "HomeBannerEntityAr", idKey: "fullContentID", idValue: nil, managedContext: managedContext) as! [HomeBannerEntityAr]
-            let homeListDict = homeBannerList[0]
-            if (fetchData.count > 0) {
-                
-                let isDeleted = self.deleteExistingEvent(managedContext: managedContext, entityName: "HomeBannerEntityAr")
-                if(isDeleted == true) {
-                    self.saveHomeBannerToCoreData(homeListDict: homeListDict, managedObjContext: managedContext)
-                }
-                
-            } else {
-                //save
-                self.saveHomeBannerToCoreData(homeListDict: homeListDict, managedObjContext: managedContext)
-            }
-        }
     }
+    
     func saveHomeBannerToCoreData(homeListDict: HomeBanner, managedObjContext: NSManagedObjectContext) {
-        if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
-            let homeInfo: HomeBannerEntity = NSEntityDescription.insertNewObject(forEntityName: "HomeBannerEntity", into: managedObjContext) as! HomeBannerEntity
+//        if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
+            let homeInfo: HomeBannerEntity = NSEntityDescription.insertNewObject(forEntityName: "HomeBannerEntity",
+                                                                                 into: managedObjContext) as! HomeBannerEntity
             homeInfo.title = homeListDict.title
             homeInfo.fullContentID = homeListDict.fullContentID
             homeInfo.bannerTitle = homeListDict.bannerTitle
             homeInfo.bannerLink = homeListDict.bannerLink
+        homeInfo.language = Utils.getLanguage()
             
             if(homeListDict.image != nil){
                 if((homeListDict.image?.count)! > 0) {
                     for i in 0 ... (homeListDict.image?.count)!-1 {
-                        var bannerImage: HomeBannerImageEntity
-                        let bannerImgaeArray: HomeBannerImageEntity = NSEntityDescription.insertNewObject(forEntityName: "HomeBannerImageEntity", into: managedObjContext) as! HomeBannerImageEntity
+                        var bannerImage: ImageEntity
+                        let bannerImgaeArray = NSEntityDescription.insertNewObject(forEntityName: "ImageEntity",
+                                                                                   into: managedObjContext) as! ImageEntity
                         bannerImgaeArray.image = homeListDict.image![i]
-                        
+                        bannerImgaeArray.language = Utils.getLanguage()
                         bannerImage = bannerImgaeArray
                         homeInfo.addToBannerImageRelations(bannerImage)
                         do {
@@ -1221,42 +1215,42 @@ class HomeViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             } catch let error as NSError {
                 print("Could not save. \(error), \(error.userInfo)")
             }
-        } else {
-            let homeInfo: HomeBannerEntityAr = NSEntityDescription.insertNewObject(forEntityName: "HomeBannerEntityAr", into: managedObjContext) as! HomeBannerEntityAr
-            homeInfo.title = homeListDict.title
-            homeInfo.fullContentID = homeListDict.fullContentID
-            homeInfo.bannerTitle = homeListDict.bannerTitle
-            homeInfo.bannerLink = homeListDict.bannerLink
-            
-            if(homeListDict.image != nil){
-                if((homeListDict.image?.count)! > 0) {
-                    for i in 0 ... (homeListDict.image?.count)!-1 {
-                        var bannerImage: HomeBannerImageEntityAr
-                        let bannerImgaeArray: HomeBannerImageEntityAr = NSEntityDescription.insertNewObject(forEntityName: "HomeBannerImageEntityAr", into: managedObjContext) as! HomeBannerImageEntityAr
-                        bannerImgaeArray.image = homeListDict.image![i]
-                        
-                        bannerImage = bannerImgaeArray
-                        homeInfo.addToBannerImageRelationsAr(bannerImage)
-                        do {
-                            try managedObjContext.save()
-                        } catch let error as NSError {
-                            print("Could not save. \(error), \(error.userInfo)")
-                        }
-                    }
-                }
-            }
-            do {
-                try managedObjContext.save()
-            } catch let error as NSError {
-                print("Could not save. \(error), \(error.userInfo)")
-            }
-        }
+//        } else {
+//            let homeInfo: HomeBannerEntityAr = NSEntityDescription.insertNewObject(forEntityName: "HomeBannerEntityAr", into: managedObjContext) as! HomeBannerEntityAr
+//            homeInfo.title = homeListDict.title
+//            homeInfo.fullContentID = homeListDict.fullContentID
+//            homeInfo.bannerTitle = homeListDict.bannerTitle
+//            homeInfo.bannerLink = homeListDict.bannerLink
+//
+//            if(homeListDict.image != nil){
+//                if((homeListDict.image?.count)! > 0) {
+//                    for i in 0 ... (homeListDict.image?.count)!-1 {
+//                        var bannerImage: HomeBannerImageEntityAr
+//                        let bannerImgaeArray: HomeBannerImageEntityAr = NSEntityDescription.insertNewObject(forEntityName: "HomeBannerImageEntityAr", into: managedObjContext) as! HomeBannerImageEntityAr
+//                        bannerImgaeArray.image = homeListDict.image![i]
+//
+//                        bannerImage = bannerImgaeArray
+//                        homeInfo.addToBannerImageRelationsAr(bannerImage)
+//                        do {
+//                            try managedObjContext.save()
+//                        } catch let error as NSError {
+//                            print("Could not save. \(error), \(error.userInfo)")
+//                        }
+//                    }
+//                }
+//            }
+//            do {
+//                try managedObjContext.save()
+//            } catch let error as NSError {
+//                print("Could not save. \(error), \(error.userInfo)")
+//            }
+//        }
 
     }
     func fetchHomeBannerInfoFromCoredata() {
         let managedContext = getContext()
         do {
-            if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
+//            if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
                 var homeArray = [HomeBannerEntity]()
                 let homeFetchRequest =  NSFetchRequest<NSFetchRequestResult>(entityName: "HomeBannerEntity")
                 homeArray = (try managedContext.fetch(homeFetchRequest) as? [HomeBannerEntity])!
@@ -1264,13 +1258,13 @@ class HomeViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                     for i in 0 ... homeArray.count-1 {
                         let homeBannerDict = homeArray[i]
                         var imagesArray : [String] = []
-                        let imagesInfoArray = (homeBannerDict.bannerImageRelations?.allObjects) as! [HomeBannerImageEntity]
+                        let imagesInfoArray = (homeBannerDict.bannerImageRelations?.allObjects) as! [ImageEntity]
                         if(imagesInfoArray.count > 0) {
                             for i in 0 ... imagesInfoArray.count-1 {
                                 imagesArray.append(imagesInfoArray[i].image!)
                             }
                         }
-                        self.homeBannerList.insert(HomeBanner(title: homeArray[i].title, fullContentID: homeArray[i].fullContentID, bannerTitle: homeArray[i].bannerTitle, bannerLink: homeArray[i].bannerLink,image: imagesArray, introductionText: nil, email: nil, contactNumber: nil, promotionalCode: nil, claimOffer: nil), at: i)
+                        self.homeBannerList.insert(HomeBanner(title: homeArray[i].title, fullContentID: homeArray[i].fullContentID, bannerTitle: homeArray[i].bannerTitle, bannerLink: homeArray[i].bannerLink,image: imagesArray, introductionText: nil, email: nil, contactNumber: nil, promotionalCode: nil, claimOffer: nil, language: homeArray[i].language), at: i)
                         
                     }
 //                    if(self.homeList.count == 0){
@@ -1280,31 +1274,31 @@ class HomeViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                 } else{
                     //self.showNoNetwork()
                 }
-            } else {
-                var homeArray = [HomeBannerEntityAr]()
-                let homeFetchRequest =  NSFetchRequest<NSFetchRequestResult>(entityName: "HomeBannerEntityAr")
-                homeArray = (try managedContext.fetch(homeFetchRequest) as? [HomeBannerEntityAr])!
-                if (homeArray.count > 0) {
-                    for i in 0 ... homeArray.count-1 {
-                        let homeBannerDict = homeArray[i]
-                        var imagesArray : [String] = []
-                        let imagesInfoArray = (homeBannerDict.bannerImageRelationsAr?.allObjects) as! [HomeBannerImageEntityAr]
-                        if(imagesInfoArray.count > 0) {
-                            for i in 0 ... imagesInfoArray.count-1 {
-                                imagesArray.append(imagesInfoArray[i].image!)
-                            }
-                        }
-                        self.homeBannerList.insert(HomeBanner(title: homeArray[i].title, fullContentID: homeArray[i].fullContentID, bannerTitle: homeArray[i].bannerTitle, bannerLink: homeArray[i].bannerLink,image: imagesArray, introductionText: nil, email: nil, contactNumber: nil, promotionalCode: nil, claimOffer: nil), at: i)
-                        
-                    }
-                    if(self.homeList.count == 0){
-                       // self.showNoNetwork()
-                    }
-                    self.homeTableView.reloadData()
-                } else{
-                    //self.showNoNetwork()
-                }
-            }
+//            } else {
+//                var homeArray = [HomeBannerEntityAr]()
+//                let homeFetchRequest =  NSFetchRequest<NSFetchRequestResult>(entityName: "HomeBannerEntityAr")
+//                homeArray = (try managedContext.fetch(homeFetchRequest) as? [HomeBannerEntityAr])!
+//                if (homeArray.count > 0) {
+//                    for i in 0 ... homeArray.count-1 {
+//                        let homeBannerDict = homeArray[i]
+//                        var imagesArray : [String] = []
+//                        let imagesInfoArray = (homeBannerDict.bannerImageRelationsAr?.allObjects) as! [HomeBannerImageEntityAr]
+//                        if(imagesInfoArray.count > 0) {
+//                            for i in 0 ... imagesInfoArray.count-1 {
+//                                imagesArray.append(imagesInfoArray[i].image!)
+//                            }
+//                        }
+//                        self.homeBannerList.insert(HomeBanner(title: homeArray[i].title, fullContentID: homeArray[i].fullContentID, bannerTitle: homeArray[i].bannerTitle, bannerLink: homeArray[i].bannerLink,image: imagesArray, introductionText: nil, email: nil, contactNumber: nil, promotionalCode: nil, claimOffer: nil), at: i)
+//
+//                    }
+//                    if(self.homeList.count == 0){
+//                       // self.showNoNetwork()
+//                    }
+//                    self.homeTableView.reloadData()
+//                } else{
+//                    //self.showNoNetwork()
+//                }
+//            }
         } catch let error as NSError {
             print("Could not fetch. \(error), \(error.userInfo)")
         }
@@ -1323,16 +1317,6 @@ class HomeViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             return false
         }
         
-    }
-    
-    func checkAddedToCoredata(entityName: String?, idKey:String?, idValue: String?, managedContext: NSManagedObjectContext) -> [NSManagedObject] {
-        var fetchResults : [NSManagedObject] = []
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: entityName!)
-        if (idValue != nil) {
-            fetchRequest.predicate = NSPredicate(format: "\(idKey!) == %@", idValue!)
-        }
-        fetchResults = try! managedContext.fetch(fetchRequest)
-        return fetchResults
     }
     
     func showNodata() {

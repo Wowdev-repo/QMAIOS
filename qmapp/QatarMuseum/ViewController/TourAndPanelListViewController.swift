@@ -330,12 +330,17 @@ class TourAndPanelListViewController: UIViewController,UITableViewDelegate,UITab
     }
     
     func tourListCoreDataInBackgroundThread(nmoqTourList:[NMoQTour]?,managedContext: NSManagedObjectContext,isTourGuide:Bool) {
-        if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
-            let fetchData = checkAddedToCoredata(entityName: "NMoQTourListEntity", idKey: "nid", idValue: nil, managedContext: managedContext) as! [NMoQTourListEntity]
+            let fetchData = DataManager.checkAddedToCoredata(entityName: "NMoQTourListEntity",
+                                                 idKey: "nid",
+                                                 idValue: nil,
+                                                 managedContext: managedContext) as! [NMoQTourListEntity]
             if (fetchData.count > 0) {
                 for i in 0 ... (nmoqTourList?.count)!-1 {
                     let tourListDict = nmoqTourList![i]
-                    let fetchResult = checkAddedToCoredata(entityName: "NMoQTourListEntity", idKey: "nid", idValue: tourListDict.nid, managedContext: managedContext)
+                    let fetchResult = DataManager.checkAddedToCoredata(entityName: "NMoQTourListEntity",
+                                                           idKey: "nid",
+                                                           idValue: tourListDict.nid,
+                                                           managedContext: managedContext)
                     //update
                     if(fetchResult.count != 0) {
                         let tourListdbDict = fetchResult[0] as! NMoQTourListEntity
@@ -345,6 +350,7 @@ class TourAndPanelListViewController: UIViewController,UITableViewDelegate,UITab
                         tourListdbDict.sortId = Int16(tourListDict.sortId!)!
                         tourListdbDict.nid =  tourListDict.nid
                         tourListdbDict.eventDate = tourListDict.eventDate
+                        tourListdbDict.language = Utils.getLanguage()
                         
                         //eventlist
                         tourListdbDict.dateString = tourListDict.date
@@ -359,10 +365,10 @@ class TourAndPanelListViewController: UIViewController,UITableViewDelegate,UITab
                         if(tourListDict.images != nil){
                             if((tourListDict.images?.count)! > 0) {
                                 for i in 0 ... (tourListDict.images?.count)!-1 {
-                                    var tourImage: NMoqTourImagesEntity!
-                                    let tourImgaeArray: NMoqTourImagesEntity = NSEntityDescription.insertNewObject(forEntityName: "NMoqTourImagesEntity", into: managedContext) as! NMoqTourImagesEntity
+                                    var tourImage: ImageEntity!
+                                    let tourImgaeArray = NSEntityDescription.insertNewObject(forEntityName: "ImageEntity", into: managedContext) as! ImageEntity
                                     tourImgaeArray.image = tourListDict.images?[i]
-                                    
+                                    tourImgaeArray.language = Utils.getLanguage()
                                     tourImage = tourImgaeArray
                                     tourListdbDict.addToTourImagesRelation(tourImage)
                                     do {
@@ -392,73 +398,12 @@ class TourAndPanelListViewController: UIViewController,UITableViewDelegate,UITab
                     self.saveTourListToCoreData(tourListDict: tourListDict!, managedObjContext: managedContext, isTourGuide: isTourGuide)
                 }
             }
-        } else {
-            let fetchData = checkAddedToCoredata(entityName: "NMoQTourListEntityAr", idKey: "nid", idValue: nil, managedContext: managedContext) as! [NMoQTourListEntityAr]
-            if (fetchData.count > 0) {
-                for i in 0 ... (nmoqTourList?.count)!-1 {
-                    let tourListDict = nmoqTourList![i]
-                    let fetchResult = checkAddedToCoredata(entityName: "NMoQTourListEntityAr", idKey: "nid", idValue: tourListDict.nid, managedContext: managedContext)
-                    //update
-                    if(fetchResult.count != 0) {
-                        let tourListdbDict = fetchResult[0] as! NMoQTourListEntityAr
-                        tourListdbDict.title = tourListDict.title
-                        tourListdbDict.dayDescription = tourListDict.dayDescription
-                        tourListdbDict.subtitle =  tourListDict.subtitle
-                        tourListdbDict.sortId = Int16(tourListDict.sortId!)!
-                        tourListdbDict.nid =  tourListDict.nid
-                        tourListdbDict.eventDate = tourListDict.eventDate
-                        
-                        //eventlist
-                        tourListdbDict.dateString = tourListDict.date
-                        tourListdbDict.descriptioForModerator = tourListDict.descriptioForModerator
-                        tourListdbDict.mobileLatitude = tourListDict.mobileLatitude
-                        tourListdbDict.moderatorName = tourListDict.moderatorName
-                        tourListdbDict.longitude = tourListDict.longitude
-                        tourListdbDict.contactEmail = tourListDict.contactEmail
-                        tourListdbDict.contactPhone = tourListDict.contactPhone
-                        tourListdbDict.isTourGuide = isTourGuide
-                        
-                        if(tourListDict.images != nil){
-                            if((tourListDict.images?.count)! > 0) {
-                                for i in 0 ... (tourListDict.images?.count)!-1 {
-                                    var tourImage: NMoqTourImagesEntityAr!
-                                    let tourImgaeArray: NMoqTourImagesEntityAr = NSEntityDescription.insertNewObject(forEntityName: "NMoqTourImagesEntityAr", into: managedContext) as! NMoqTourImagesEntityAr
-                                    tourImgaeArray.image = tourListDict.images?[i]
-                                    
-                                    tourImage = tourImgaeArray
-                                    tourListdbDict.addToTourImagesRelationAr(tourImage)
-                                    do {
-                                        try managedContext.save()
-                                    } catch let error as NSError {
-                                        print("Could not save. \(error), \(error.userInfo)")
-                                    }
-                                }
-                            }
-                        }
-                        
-                        do{
-                            try managedContext.save()
-                        }
-                        catch{
-                            print(error)
-                        }
-                    } else {
-                        //save
-                        self.saveTourListToCoreData(tourListDict: tourListDict, managedObjContext: managedContext, isTourGuide: isTourGuide)
-                    }
-                }
-            } else {
-                for i in 0 ... (nmoqTourList?.count)!-1 {
-                    let tourListDict : NMoQTour?
-                    tourListDict = nmoqTourList?[i]
-                    self.saveTourListToCoreData(tourListDict: tourListDict!, managedObjContext: managedContext, isTourGuide: isTourGuide)
-                }
-            }
-        }
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
     }
-    func saveTourListToCoreData(tourListDict: NMoQTour, managedObjContext: NSManagedObjectContext,isTourGuide:Bool) {
-        if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
+    
+    func saveTourListToCoreData(tourListDict: NMoQTour,
+                                managedObjContext: NSManagedObjectContext,
+                                isTourGuide:Bool) {
             let tourListInfo: NMoQTourListEntity = NSEntityDescription.insertNewObject(forEntityName: "NMoQTourListEntity", into: managedObjContext) as! NMoQTourListEntity
             tourListInfo.title = tourListDict.title
             tourListInfo.dayDescription = tourListDict.dayDescription
@@ -476,13 +421,15 @@ class TourAndPanelListViewController: UIViewController,UITableViewDelegate,UITab
             tourListInfo.contactEmail = tourListDict.contactEmail
             tourListInfo.contactPhone = tourListDict.contactPhone
             tourListInfo.isTourGuide = isTourGuide
+        tourListInfo.language = Utils.getLanguage()
+        
             if(tourListDict.images != nil){
                 if((tourListDict.images?.count)! > 0) {
                     for i in 0 ... (tourListDict.images?.count)!-1 {
-                        var tourImage: NMoqTourImagesEntity!
-                        let tourImgaeArray: NMoqTourImagesEntity = NSEntityDescription.insertNewObject(forEntityName: "NMoqTourImagesEntity", into: managedObjContext) as! NMoqTourImagesEntity
+                        var tourImage: ImageEntity!
+                        let tourImgaeArray = NSEntityDescription.insertNewObject(forEntityName: "ImageEntity", into: managedObjContext) as! ImageEntity
                         tourImgaeArray.image = tourListDict.images?[i]
-                        
+                        tourImgaeArray.language = Utils.getLanguage()
                         tourImage = tourImgaeArray
                         tourListInfo.addToTourImagesRelation(tourImage)
                         do {
@@ -493,42 +440,6 @@ class TourAndPanelListViewController: UIViewController,UITableViewDelegate,UITab
                     }
                 }
             }
-        } else {
-            let tourListInfo: NMoQTourListEntityAr = NSEntityDescription.insertNewObject(forEntityName: "NMoQTourListEntityAr", into: managedObjContext) as! NMoQTourListEntityAr
-            tourListInfo.title = tourListDict.title
-            tourListInfo.dayDescription = tourListDict.dayDescription
-            tourListInfo.subtitle = tourListDict.subtitle
-            tourListInfo.sortId = Int16(tourListDict.sortId!)!
-            tourListInfo.nid = tourListDict.nid
-            tourListInfo.eventDate = tourListDict.eventDate
-            
-            //specialEvent
-            tourListInfo.dateString = tourListDict.date
-            tourListInfo.descriptioForModerator = tourListDict.descriptioForModerator
-            tourListInfo.mobileLatitude = tourListDict.mobileLatitude
-            tourListInfo.moderatorName = tourListDict.moderatorName
-            tourListInfo.longitude = tourListDict.longitude
-            tourListInfo.contactEmail = tourListDict.contactEmail
-            tourListInfo.contactPhone = tourListDict.contactPhone
-            tourListInfo.isTourGuide = isTourGuide
-            if(tourListDict.images != nil){
-                if((tourListDict.images?.count)! > 0) {
-                    for i in 0 ... (tourListDict.images?.count)!-1 {
-                        var tourImage: NMoqTourImagesEntityAr!
-                        let tourImgaeArray: NMoqTourImagesEntityAr = NSEntityDescription.insertNewObject(forEntityName: "NMoqTourImagesEntityAr", into: managedObjContext) as! NMoqTourImagesEntityAr
-                        tourImgaeArray.image = tourListDict.images?[i]
-                        
-                        tourImage = tourImgaeArray
-                        tourListInfo.addToTourImagesRelationAr(tourImage)
-                        do {
-                            try managedObjContext.save()
-                        } catch let error as NSError {
-                            print("Could not save. \(error), \(error.userInfo)")
-                        }
-                    }
-                }
-            }
-        }
         do {
             try managedObjContext.save()
         } catch let error as NSError {
@@ -538,7 +449,6 @@ class TourAndPanelListViewController: UIViewController,UITableViewDelegate,UITab
     func fetchTourInfoFromCoredata(isTourGuide:Bool) {
         let managedContext = getContext()
         do {
-            if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
                 var tourListArray = [NMoQTourListEntity]()
                 let fetchRequest =  NSFetchRequest<NSFetchRequestResult>(entityName: "NMoQTourListEntity")
                 fetchRequest.predicate = NSPredicate.init(format: "isTourGuide == \(isTourGuide)")
@@ -553,13 +463,13 @@ class TourAndPanelListViewController: UIViewController,UITableViewDelegate,UITab
                     for i in 0 ... tourListArray.count-1 {
                         let tourListDict = tourListArray[i]
                         var imagesArray : [String] = []
-                        let imagesInfoArray = (tourListDict.tourImagesRelation?.allObjects) as! [NMoqTourImagesEntity]
+                        let imagesInfoArray = (tourListDict.tourImagesRelation?.allObjects) as! [ImageEntity]
                         if(imagesInfoArray.count > 0) {
                             for i in 0 ... imagesInfoArray.count-1 {
                                 imagesArray.append(imagesInfoArray[i].image!)
                             }
                         }
-                        self.nmoqTourList.insert(NMoQTour(title: tourListArray[i].title, dayDescription: tourListArray[i].dayDescription, images: imagesArray, subtitle: tourListArray[i].subtitle, sortId: String(tourListArray[i].sortId), nid: tourListArray[i].nid, eventDate: tourListArray[i].eventDate, date: tourListArray[i].dateString, descriptioForModerator: tourListArray[i].descriptioForModerator, mobileLatitude: tourListArray[i].mobileLatitude, moderatorName: tourListArray[i].moderatorName, longitude: tourListArray[i].longitude, contactEmail: tourListArray[i].contactEmail, contactPhone: tourListArray[i].contactPhone), at: i)
+                        self.nmoqTourList.insert(NMoQTour(title: tourListArray[i].title, dayDescription: tourListArray[i].dayDescription, images: imagesArray, subtitle: tourListArray[i].subtitle, sortId: String(tourListArray[i].sortId), nid: tourListArray[i].nid, eventDate: tourListArray[i].eventDate, date: tourListArray[i].dateString, descriptioForModerator: tourListArray[i].descriptioForModerator, mobileLatitude: tourListArray[i].mobileLatitude, moderatorName: tourListArray[i].moderatorName, longitude: tourListArray[i].longitude, contactEmail: tourListArray[i].contactEmail, contactPhone: tourListArray[i].contactPhone,language: tourListArray[i].language), at: i)
                     }
                     if(nmoqTourList.count == 0){
                         if(self.networkReachability?.isReachable == false) {
@@ -579,48 +489,6 @@ class TourAndPanelListViewController: UIViewController,UITableViewDelegate,UITab
                         self.getNMoQTourList() //coreDataMigratio  solution
                     }
                 }
-            } else {
-                var tourListArray = [NMoQTourListEntityAr]()
-                let fetchRequest =  NSFetchRequest<NSFetchRequestResult>(entityName: "NMoQTourListEntityAr")
-                fetchRequest.predicate = NSPredicate.init(format: "isTourGuide == \(isTourGuide)")
-                tourListArray = (try managedContext.fetch(fetchRequest) as? [NMoQTourListEntityAr])!
-                if (tourListArray.count > 0) {
-                    if  (networkReachability?.isReachable)! {
-                        DispatchQueue.global(qos: .background).async {
-                            self.getNMoQTourList()
-                        }
-                    }
-                    tourListArray.sort(by: {$0.sortId < $1.sortId})
-                    for i in 0 ... tourListArray.count-1 {
-                        let tourListDict = tourListArray[i]
-                        var imagesArray : [String] = []
-                        let imagesInfoArray = (tourListDict.tourImagesRelationAr?.allObjects) as! [NMoqTourImagesEntityAr]
-                        if(imagesInfoArray.count > 0) {
-                            for i in 0 ... imagesInfoArray.count-1 {
-                                imagesArray.append(imagesInfoArray[i].image!)
-                            }
-                        }
-                        self.nmoqTourList.insert(NMoQTour(title: tourListArray[i].title, dayDescription: tourListArray[i].dayDescription, images: imagesArray, subtitle: tourListArray[i].subtitle, sortId: String(tourListArray[i].sortId), nid: tourListArray[i].nid, eventDate: tourListArray[i].eventDate, date: tourListArray[i].dateString, descriptioForModerator: tourListArray[i].descriptioForModerator, mobileLatitude: tourListArray[i].mobileLatitude, moderatorName: tourListArray[i].moderatorName, longitude: tourListArray[i].longitude, contactEmail: tourListArray[i].contactEmail, contactPhone: tourListArray[i].contactPhone), at: i)
-                    }
-                    if(nmoqTourList.count == 0){
-                        if(self.networkReachability?.isReachable == false) {
-                            self.showNoNetwork()
-                        } else {
-                            self.loadingView.showNoDataView()
-                        }
-                    }
-                    DispatchQueue.main.async{
-                        self.collectionTableView.reloadData()
-                    }
-                } else{
-                    if(self.networkReachability?.isReachable == false) {
-                        self.showNoNetwork()
-                    } else {
-                        //self.loadingView.showNoDataView()
-                        self.getNMoQTourList() //coreDataMigratio  solution
-                    }
-                }
-            }
         } catch let error as NSError {
             print("Could not fetch. \(error), \(error.userInfo)")
         }
@@ -675,12 +543,14 @@ class TourAndPanelListViewController: UIViewController,UITableViewDelegate,UITab
     }
     
     func activityListCoreDataInBackgroundThread(nmoqActivityList:[NMoQActivitiesList]?,managedContext: NSManagedObjectContext) {
-        if (LocalizationLanguage.currentAppleLanguage() == ENG_LANGUAGE) {
-            let fetchData = checkAddedToCoredata(entityName: "NMoQActivitiesEntity", idKey: "nid", idValue: nil, managedContext: managedContext) as! [NMoQActivitiesEntity]
+            let fetchData = DataManager.checkAddedToCoredata(entityName: "NMoQActivitiesEntity",
+                                                 idKey: "nid",
+                                                 idValue: nil,
+                                                 managedContext: managedContext) as! [NMoQActivitiesEntity]
             if (fetchData.count > 0) {
                 for i in 0 ... (nmoqActivityList?.count)!-1 {
                     let nmoqActivityListDict = nmoqActivityList![i]
-                    let fetchResult = checkAddedToCoredata(entityName: "NMoQActivitiesEntity", idKey: "nid", idValue: nmoqActivityListDict.nid, managedContext: managedContext)
+                    let fetchResult = DataManager.checkAddedToCoredata(entityName: "NMoQActivitiesEntity", idKey: "nid", idValue: nmoqActivityListDict.nid, managedContext: managedContext)
                     //update
                     if(fetchResult.count != 0) {
                         let activityListdbDict = fetchResult[0] as! NMoQActivitiesEntity
@@ -698,15 +568,16 @@ class TourAndPanelListViewController: UIViewController,UITableViewDelegate,UITab
                         activityListdbDict.longitude = nmoqActivityListDict.longitude
                         activityListdbDict.contactEmail = nmoqActivityListDict.contactEmail
                         activityListdbDict.contactPhone = nmoqActivityListDict.contactPhone
+                        activityListdbDict.language = Utils.getLanguage()
                         
                         
                         if(nmoqActivityListDict.images != nil){
                             if((nmoqActivityListDict.images?.count)! > 0) {
                                 for i in 0 ... (nmoqActivityListDict.images?.count)!-1 {
-                                    var activityImage: NMoqActivityImgEntity!
-                                    let activityImgaeArray: NMoqActivityImgEntity = NSEntityDescription.insertNewObject(forEntityName: "NMoqActivityImgEntity", into: managedContext) as! NMoqActivityImgEntity
-                                    activityImgaeArray.images = nmoqActivityListDict.images![i]
-                                    
+                                    var activityImage: ImageEntity!
+                                    let activityImgaeArray = NSEntityDescription.insertNewObject(forEntityName: "ImageEntity", into: managedContext) as! ImageEntity
+                                    activityImgaeArray.image = nmoqActivityListDict.images![i]
+                                    activityImgaeArray.language = Utils.getLanguage()
                                     activityImage = activityImgaeArray
                                     activityListdbDict.addToActivityImgRelation(activityImage)
                                     do {
@@ -738,73 +609,10 @@ class TourAndPanelListViewController: UIViewController,UITableViewDelegate,UITab
                 }
                 NotificationCenter.default.post(name: NSNotification.Name(nmoqActivityListNotificationEn), object: self)
             }
-        } else {
-            let fetchData = checkAddedToCoredata(entityName: "NMoQActivitiesEntityAr", idKey: "nid", idValue: nil, managedContext: managedContext) as! [NMoQActivitiesEntityAr]
-            if (fetchData.count > 0) {
-                for i in 0 ... (nmoqActivityList?.count)!-1 {
-                    let nmoqActivityListDict = nmoqActivityList![i]
-                    let fetchResult = checkAddedToCoredata(entityName: "NMoQActivitiesEntityAr", idKey: "nid", idValue: nmoqActivityListDict.nid, managedContext: managedContext)
-                    //update
-                    if(fetchResult.count != 0) {
-                        let activityListdbDict = fetchResult[0] as! NMoQActivitiesEntityAr
-                        activityListdbDict.title = nmoqActivityListDict.title
-                        activityListdbDict.dayDescription = nmoqActivityListDict.dayDescription
-                        activityListdbDict.subtitle =  nmoqActivityListDict.subtitle
-                        activityListdbDict.sortId = nmoqActivityListDict.sortId
-                        activityListdbDict.nid =  nmoqActivityListDict.nid
-                        activityListdbDict.eventDate = nmoqActivityListDict.eventDate
-                        //eventlist
-                        activityListdbDict.date = nmoqActivityListDict.date
-                        activityListdbDict.descriptioForModerator = nmoqActivityListDict.descriptioForModerator
-                        activityListdbDict.mobileLatitude = nmoqActivityListDict.mobileLatitude
-                        activityListdbDict.moderatorName = nmoqActivityListDict.moderatorName
-                        activityListdbDict.longitude = nmoqActivityListDict.longitude
-                        activityListdbDict.contactEmail = nmoqActivityListDict.contactEmail
-                        activityListdbDict.contactPhone = nmoqActivityListDict.contactPhone
-                        
-                        
-                        if(nmoqActivityListDict.images != nil){
-                            if((nmoqActivityListDict.images?.count)! > 0) {
-                                for i in 0 ... (nmoqActivityListDict.images?.count)!-1 {
-                                    var activityImage: NMoqActivityImgEntityAr!
-                                    let activityImgaeArray: NMoqActivityImgEntityAr = NSEntityDescription.insertNewObject(forEntityName: "NMoqActivityImgEntityAr", into: managedContext) as! NMoqActivityImgEntityAr
-                                    activityImgaeArray.images = nmoqActivityListDict.images![i]
-                                    
-                                    activityImage = activityImgaeArray
-                                    activityListdbDict.addToActivityImgRelationAr(activityImage)
-                                    do {
-                                        try managedContext.save()
-                                    } catch let error as NSError {
-                                        print("Could not save. \(error), \(error.userInfo)")
-                                    }
-                                }
-                            }
-                        }
-                        
-                        do{
-                            try managedContext.save()
-                        }
-                        catch{
-                            print(error)
-                        }
-                    } else {
-                        //save
-                        self.saveActivityListToCoreData(activityListDict: nmoqActivityListDict, managedObjContext: managedContext)
-                    }
-                }
-                NotificationCenter.default.post(name: NSNotification.Name(nmoqActivityListNotificationAr), object: self)
-            } else {
-                for i in 0 ... (nmoqActivityList?.count)!-1 {
-                    let activityListDict : NMoQActivitiesList?
-                    activityListDict = nmoqActivityList?[i]
-                    self.saveActivityListToCoreData(activityListDict: activityListDict!, managedObjContext: managedContext)
-                }
-                NotificationCenter.default.post(name: NSNotification.Name(nmoqActivityListNotificationAr), object: self)
-            }
-        }
     }
-    func saveActivityListToCoreData(activityListDict: NMoQActivitiesList, managedObjContext: NSManagedObjectContext) {
-        if (LocalizationLanguage.currentAppleLanguage() == ENG_LANGUAGE) {
+    
+    func saveActivityListToCoreData(activityListDict: NMoQActivitiesList,
+                                    managedObjContext: NSManagedObjectContext) {
             let activityListdbDict: NMoQActivitiesEntity = NSEntityDescription.insertNewObject(forEntityName: "NMoQActivitiesEntity", into: managedObjContext) as! NMoQActivitiesEntity
             activityListdbDict.title = activityListDict.title
             activityListdbDict.dayDescription = activityListDict.dayDescription
@@ -820,15 +628,15 @@ class TourAndPanelListViewController: UIViewController,UITableViewDelegate,UITab
             activityListdbDict.longitude = activityListDict.longitude
             activityListdbDict.contactEmail = activityListDict.contactEmail
             activityListdbDict.contactPhone = activityListDict.contactPhone
-            
+        activityListdbDict.language = Utils.getLanguage()
             
             if(activityListDict.images != nil){
                 if((activityListDict.images?.count)! > 0) {
                     for i in 0 ... (activityListDict.images?.count)!-1 {
-                        var activityImage: NMoqActivityImgEntity!
-                        let activityImgaeArray: NMoqActivityImgEntity = NSEntityDescription.insertNewObject(forEntityName: "NMoqActivityImgEntity", into: managedObjContext) as! NMoqActivityImgEntity
-                        activityImgaeArray.images = activityListDict.images![i]
-                        
+                        var activityImage: ImageEntity!
+                        let activityImgaeArray = NSEntityDescription.insertNewObject(forEntityName: "ImageEntity", into: managedObjContext) as! ImageEntity
+                        activityImgaeArray.image = activityListDict.images![i]
+                        activityImgaeArray.language = Utils.getLanguage()
                         activityImage = activityImgaeArray
                         activityListdbDict.addToActivityImgRelation(activityImage)
                         do {
@@ -839,51 +647,16 @@ class TourAndPanelListViewController: UIViewController,UITableViewDelegate,UITab
                     }
                 }
             }
-        } else {
-            let activityListdbDict: NMoQActivitiesEntityAr = NSEntityDescription.insertNewObject(forEntityName: "NMoQActivitiesEntityAr", into: managedObjContext) as! NMoQActivitiesEntityAr
-            activityListdbDict.title = activityListDict.title
-            activityListdbDict.dayDescription = activityListDict.dayDescription
-            activityListdbDict.subtitle =  activityListDict.subtitle
-            activityListdbDict.sortId = activityListDict.sortId
-            activityListdbDict.nid =  activityListDict.nid
-            activityListdbDict.eventDate = activityListDict.eventDate
-            activityListdbDict.date = activityListDict.date
-            activityListdbDict.descriptioForModerator = activityListDict.descriptioForModerator
-            activityListdbDict.mobileLatitude = activityListDict.mobileLatitude
-            activityListdbDict.moderatorName = activityListDict.moderatorName
-            activityListdbDict.longitude = activityListDict.longitude
-            activityListdbDict.contactEmail = activityListDict.contactEmail
-            activityListdbDict.contactPhone = activityListDict.contactPhone
-            
-            
-            if(activityListDict.images != nil){
-                if((activityListDict.images?.count)! > 0) {
-                    for i in 0 ... (activityListDict.images?.count)!-1 {
-                        var activityImage: NMoqActivityImgEntityAr!
-                        let activityImgaeArray: NMoqActivityImgEntityAr = NSEntityDescription.insertNewObject(forEntityName: "NMoqActivityImgEntityAr", into: managedObjContext) as! NMoqActivityImgEntityAr
-                        activityImgaeArray.images = activityListDict.images![i]
-                        
-                        activityImage = activityImgaeArray
-                        activityListdbDict.addToActivityImgRelationAr(activityImage)
-                        do {
-                            try managedObjContext.save()
-                        } catch let error as NSError {
-                            print("Could not save. \(error), \(error.userInfo)")
-                        }
-                    }
-                }
-            }
-        }
         do {
             try managedObjContext.save()
         } catch let error as NSError {
             print("Could not save. \(error), \(error.userInfo)")
         }
     }
+    
     func fetchActivityListFromCoredata() {
         let managedContext = getContext()
         do {
-            if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
                 var activityListArray = [NMoQActivitiesEntity]()
                 let fetchRequest =  NSFetchRequest<NSFetchRequestResult>(entityName: "NMoQActivitiesEntity")
                 activityListArray = (try managedContext.fetch(fetchRequest) as? [NMoQActivitiesEntity])!
@@ -896,13 +669,13 @@ class TourAndPanelListViewController: UIViewController,UITableViewDelegate,UITab
                     for i in 0 ... activityListArray.count-1 {
                         let activityListDict = activityListArray[i]
                         var imagesArray : [String] = []
-                        let imagesInfoArray = (activityListDict.activityImgRelation?.allObjects) as! [NMoqActivityImgEntity]
+                        let imagesInfoArray = (activityListDict.activityImgRelation?.allObjects) as! [ImageEntity]
                         if(imagesInfoArray.count > 0) {
                             for i in 0 ... imagesInfoArray.count-1 {
-                                imagesArray.append(imagesInfoArray[i].images!)
+                                imagesArray.append(imagesInfoArray[i].image!)
                             }
                         }
-                        self.nmoqActivityList.insert(NMoQActivitiesList(title: activityListDict.title, dayDescription: activityListDict.dayDescription, images: imagesArray, subtitle: activityListDict.subtitle, sortId: activityListDict.sortId, nid: activityListDict.nid, eventDate: activityListDict.eventDate, date: activityListDict.date, descriptioForModerator: activityListDict.descriptioForModerator, mobileLatitude: activityListDict.mobileLatitude, moderatorName: activityListDict.moderatorName, longitude: activityListDict.longitude, contactEmail: activityListDict.contactEmail, contactPhone: activityListDict.contactPhone), at: i)
+                        self.nmoqActivityList.insert(NMoQActivitiesList(title: activityListDict.title, dayDescription: activityListDict.dayDescription, images: imagesArray, subtitle: activityListDict.subtitle, sortId: activityListDict.sortId, nid: activityListDict.nid, eventDate: activityListDict.eventDate, date: activityListDict.date, descriptioForModerator: activityListDict.descriptioForModerator, mobileLatitude: activityListDict.mobileLatitude, moderatorName: activityListDict.moderatorName, longitude: activityListDict.longitude, contactEmail: activityListDict.contactEmail, contactPhone: activityListDict.contactPhone, language: activityListDict.language), at: i)
                     }
                     if(nmoqActivityList.count == 0){
                         if(self.networkReachability?.isReachable == false) {
@@ -926,50 +699,6 @@ class TourAndPanelListViewController: UIViewController,UITableViewDelegate,UITab
                         self.getNMoQSpecialEventList()//coreDataMigratio  solution
                     }
                 }
-            } else {
-                var activityListArray = [NMoQActivitiesEntityAr]()
-                let fetchRequest =  NSFetchRequest<NSFetchRequestResult>(entityName: "NMoQActivitiesEntityAr")
-                activityListArray = (try managedContext.fetch(fetchRequest) as? [NMoQActivitiesEntityAr])!
-                if (activityListArray.count > 0) {
-                    if  (networkReachability?.isReachable)! {
-                        DispatchQueue.global(qos: .background).async {
-                            self.getNMoQSpecialEventList()
-                        }
-                    }
-                    for i in 0 ... activityListArray.count-1 {
-                        let activityListDict = activityListArray[i]
-                        var imagesArray : [String] = []
-                        let imagesInfoArray = (activityListDict.activityImgRelationAr!.allObjects) as! [NMoqActivityImgEntityAr]
-                        if(imagesInfoArray.count > 0) {
-                            for i in 0 ... imagesInfoArray.count-1 {
-                                imagesArray.append(imagesInfoArray[i].images!)
-                            }
-                        }
-                        self.nmoqActivityList.insert(NMoQActivitiesList(title: activityListDict.title, dayDescription: activityListDict.dayDescription, images: imagesArray, subtitle: activityListDict.subtitle, sortId: activityListDict.sortId, nid: activityListDict.nid, eventDate: activityListDict.eventDate, date: activityListDict.date, descriptioForModerator: activityListDict.descriptioForModerator, mobileLatitude: activityListDict.mobileLatitude, moderatorName: activityListDict.moderatorName, longitude: activityListDict.longitude, contactEmail: activityListDict.contactEmail, contactPhone: activityListDict.contactPhone), at: i)
-                    }
-                    if(nmoqActivityList.count == 0){
-                        if(self.networkReachability?.isReachable == false) {
-                            self.showNoNetwork()
-                        } else {
-                            self.loadingView.showNoDataView()
-                        }
-                    } else {
-                        if self.nmoqActivityList.first(where: {$0.sortId != "" && $0.sortId != nil} ) != nil {
-                            self.nmoqActivityList = self.nmoqActivityList.sorted(by: { Int16($0.sortId!)! < Int16($1.sortId!)! })
-                        }
-                    }
-                    DispatchQueue.main.async{
-                        self.collectionTableView.reloadData()
-                    }
-                } else{
-                    if(self.networkReachability?.isReachable == false) {
-                        self.showNoNetwork()
-                    } else {
-                        //self.loadingView.showNoDataView()
-                        self.getNMoQSpecialEventList()//coreDataMigratio  solution
-                    }
-                }
-            }
         } catch let error as NSError {
             print("Could not fetch. \(error), \(error.userInfo)")
         }
@@ -1026,27 +755,34 @@ class TourAndPanelListViewController: UIViewController,UITableViewDelegate,UITab
             DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         }
     }
-    func facilitiesListCoreDataInBackgroundThread(facilitiesList:[Facilities]?,managedContext: NSManagedObjectContext) {
-        if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
-            let fetchData = checkAddedToCoredata(entityName: "FacilitiesEntity", idKey: "nid", idValue: nil, managedContext: managedContext) as! [FacilitiesEntity]
+    func facilitiesListCoreDataInBackgroundThread(facilitiesList:[Facilities]?,
+                                                  managedContext: NSManagedObjectContext) {
+//        if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
+            let fetchData = DataManager.checkAddedToCoredata(entityName: "FacilitiesEntity",
+                                                 idKey: "nid",
+                                                 idValue: nil,
+                                                 managedContext: managedContext) as! [FacilitiesEntity]
             if (fetchData.count > 0) {
                 for i in 0 ... (facilitiesList?.count)!-1 {
                     let facilitiesListDict = facilitiesList![i]
-                    let fetchResult = checkAddedToCoredata(entityName: "FacilitiesEntity", idKey: "nid", idValue: facilitiesListDict.nid, managedContext: managedContext)
+                    let fetchResult = DataManager.checkAddedToCoredata(entityName: "FacilitiesEntity",
+                                                           idKey: "nid",
+                                                           idValue: facilitiesListDict.nid,
+                                                           managedContext: managedContext)
                     //update
                     if(fetchResult.count != 0) {
                         let facilitiesListdbDict = fetchResult[0] as! FacilitiesEntity
                         facilitiesListdbDict.title = facilitiesListDict.title
                         facilitiesListdbDict.sortId = facilitiesListDict.sortId
                         facilitiesListdbDict.nid =  facilitiesListDict.nid
+                        facilitiesListdbDict.language = Utils.getLanguage()
                         
                         if(facilitiesListDict.images != nil){
                             if((facilitiesListDict.images?.count)! > 0) {
                                 for i in 0 ... (facilitiesListDict.images?.count)!-1 {
-                                    var facilitiesImage: FacilitiesImgEntity!
-                                    let facilitiesImgaeArray: FacilitiesImgEntity = NSEntityDescription.insertNewObject(forEntityName: "FacilitiesImgEntity", into: managedContext) as! FacilitiesImgEntity
-                                    facilitiesImgaeArray.images = facilitiesListDict.images![i]
-                                    
+                                    var facilitiesImage: ImageEntity!
+                                    let facilitiesImgaeArray = NSEntityDescription.insertNewObject(forEntityName: "ImageEntity", into: managedContext) as! ImageEntity
+                                    facilitiesImgaeArray.image = facilitiesListDict.images![i]
                                     facilitiesImage = facilitiesImgaeArray
                                     facilitiesListdbDict.addToFacilitiesImgRelation(facilitiesImage)
                                     do {
@@ -1076,72 +812,23 @@ class TourAndPanelListViewController: UIViewController,UITableViewDelegate,UITab
                     self.saveFacilitiesListToCoreData(facilitiesListDict: facilitiesListDict!, managedObjContext: managedContext)
                 }
             }
-        } else {
-            let fetchData = checkAddedToCoredata(entityName: "FacilitiesEntityAr", idKey: "nid", idValue: nil, managedContext: managedContext) as! [FacilitiesEntityAr]
-            if (fetchData.count > 0) {
-                for i in 0 ... (facilitiesList?.count)!-1 {
-                    let facilitiesListDict = facilitiesList![i]
-                    let fetchResult = checkAddedToCoredata(entityName: "FacilitiesEntityAr", idKey: "nid", idValue: facilitiesListDict.nid, managedContext: managedContext)
-                    //update
-                    if(fetchResult.count != 0) {
-                        let facilitiesListdbDict = fetchResult[0] as! FacilitiesEntityAr
-                        facilitiesListdbDict.title = facilitiesListDict.title
-                        facilitiesListdbDict.sortId = facilitiesListDict.sortId
-                        facilitiesListdbDict.nid =  facilitiesListDict.nid
-                        
-                        if(facilitiesListDict.images != nil){
-                            if((facilitiesListDict.images?.count)! > 0) {
-                                for i in 0 ... (facilitiesListDict.images?.count)!-1 {
-                                    var facilitiesImage: FacilitiesImgEntityAr!
-                                    let facilitiesImgaeArray: FacilitiesImgEntityAr = NSEntityDescription.insertNewObject(forEntityName: "FacilitiesImgEntityAr", into: managedContext) as! FacilitiesImgEntityAr
-                                    facilitiesImgaeArray.images = facilitiesListDict.images?[i]
-                                    
-                                    facilitiesImage = facilitiesImgaeArray
-                                    facilitiesListdbDict.addToFacilitiesImgRelationAr(facilitiesImage)
-                                    do {
-                                        try managedContext.save()
-                                    } catch let error as NSError {
-                                        print("Could not save. \(error), \(error.userInfo)")
-                                    }
-                                }
-                            }
-                        }
-                        
-                        do{
-                            try managedContext.save()
-                        }
-                        catch{
-                            print(error)
-                        }
-                    } else {
-                        //save
-                        self.saveFacilitiesListToCoreData(facilitiesListDict: facilitiesListDict, managedObjContext: managedContext)
-                    }
-                }
-            } else {
-                for i in 0 ... (facilitiesList?.count)!-1 {
-                    let facilitiesListDict : Facilities?
-                    facilitiesListDict = facilitiesList![i]
-                    self.saveFacilitiesListToCoreData(facilitiesListDict: facilitiesListDict!, managedObjContext: managedContext)
-                }
-            }
-        }
+
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
     }
     func saveFacilitiesListToCoreData(facilitiesListDict: Facilities, managedObjContext: NSManagedObjectContext) {
-        if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
+//        if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
             let facilitiesListInfo: FacilitiesEntity = NSEntityDescription.insertNewObject(forEntityName: "FacilitiesEntity", into: managedObjContext) as! FacilitiesEntity
             facilitiesListInfo.title = facilitiesListDict.title
             facilitiesListInfo.sortId = facilitiesListDict.sortId
             facilitiesListInfo.nid = facilitiesListDict.nid
+        facilitiesListInfo.language = Utils.getLanguage()
             
             if(facilitiesListDict.images != nil){
                 if((facilitiesListDict.images?.count)! > 0) {
                     for i in 0 ... (facilitiesListDict.images?.count)!-1 {
-                        var facilitiesImage: FacilitiesImgEntity!
-                        let facilitiesImgaeArray: FacilitiesImgEntity = NSEntityDescription.insertNewObject(forEntityName: "FacilitiesImgEntity", into: managedObjContext) as! FacilitiesImgEntity
-                        facilitiesImgaeArray.images = facilitiesListDict.images![i]
-                        
+                        var facilitiesImage: ImageEntity!
+                        let facilitiesImgaeArray = NSEntityDescription.insertNewObject(forEntityName: "ImageEntity", into: managedObjContext) as! ImageEntity
+                        facilitiesImgaeArray.image = facilitiesListDict.images![i]
                         facilitiesImage = facilitiesImgaeArray
                         facilitiesListInfo.addToFacilitiesImgRelation(facilitiesImage)
                         do {
@@ -1152,30 +839,30 @@ class TourAndPanelListViewController: UIViewController,UITableViewDelegate,UITab
                     }
                 }
             }
-        } else {
-            let facilitiesListInfo: FacilitiesEntityAr = NSEntityDescription.insertNewObject(forEntityName: "FacilitiesEntityAr", into: managedObjContext) as! FacilitiesEntityAr
-            facilitiesListInfo.title = facilitiesListDict.title
-            facilitiesListInfo.sortId = facilitiesListDict.sortId
-            facilitiesListInfo.nid =  facilitiesListDict.nid
-            
-            if(facilitiesListDict.images != nil){
-                if((facilitiesListDict.images?.count)! > 0) {
-                    for i in 0 ... (facilitiesListDict.images?.count)!-1 {
-                        var facilitiesImage: FacilitiesImgEntityAr!
-                        let facilitiesImgaeArray: FacilitiesImgEntityAr = NSEntityDescription.insertNewObject(forEntityName: "FacilitiesImgEntityAr", into: managedObjContext) as! FacilitiesImgEntityAr
-                        facilitiesImgaeArray.images = facilitiesListDict.images?[i]
-                        
-                        facilitiesImage = facilitiesImgaeArray
-                        facilitiesListInfo.addToFacilitiesImgRelationAr(facilitiesImage)
-                        do {
-                            try managedObjContext.save()
-                        } catch let error as NSError {
-                            print("Could not save. \(error), \(error.userInfo)")
-                        }
-                    }
-                }
-            }
-        }
+//        } else {
+//            let facilitiesListInfo: FacilitiesEntityAr = NSEntityDescription.insertNewObject(forEntityName: "FacilitiesEntityAr", into: managedObjContext) as! FacilitiesEntityAr
+//            facilitiesListInfo.title = facilitiesListDict.title
+//            facilitiesListInfo.sortId = facilitiesListDict.sortId
+//            facilitiesListInfo.nid =  facilitiesListDict.nid
+//
+//            if(facilitiesListDict.images != nil){
+//                if((facilitiesListDict.images?.count)! > 0) {
+//                    for i in 0 ... (facilitiesListDict.images?.count)!-1 {
+//                        var facilitiesImage: FacilitiesImgEntityAr!
+//                        let facilitiesImgaeArray: FacilitiesImgEntityAr = NSEntityDescription.insertNewObject(forEntityName: "FacilitiesImgEntityAr", into: managedObjContext) as! FacilitiesImgEntityAr
+//                        facilitiesImgaeArray.images = facilitiesListDict.images?[i]
+//
+//                        facilitiesImage = facilitiesImgaeArray
+//                        facilitiesListInfo.addToFacilitiesImgRelationAr(facilitiesImage)
+//                        do {
+//                            try managedObjContext.save()
+//                        } catch let error as NSError {
+//                            print("Could not save. \(error), \(error.userInfo)")
+//                        }
+//                    }
+//                }
+//            }
+//        }
         do {
             try managedObjContext.save()
         } catch let error as NSError {
@@ -1188,7 +875,7 @@ class TourAndPanelListViewController: UIViewController,UITableViewDelegate,UITab
     func fetchFacilitiesListFromCoredata() {
         let managedContext = getContext()
         do {
-            if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
+//            if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
                 var facilitiesListArray = [FacilitiesEntity]()
                 let fetchRequest =  NSFetchRequest<NSFetchRequestResult>(entityName: "FacilitiesEntity")
                 facilitiesListArray = (try managedContext.fetch(fetchRequest) as? [FacilitiesEntity])!
@@ -1201,10 +888,10 @@ class TourAndPanelListViewController: UIViewController,UITableViewDelegate,UITab
                     for i in 0 ... facilitiesListArray.count-1 {
                         let facilitiesListDict = facilitiesListArray[i]
                         var imagesArray : [String] = []
-                        let imagesInfoArray = (facilitiesListDict.facilitiesImgRelation?.allObjects) as! [FacilitiesImgEntity]
+                        let imagesInfoArray = (facilitiesListDict.facilitiesImgRelation?.allObjects) as! [ImageEntity]
                         if(imagesInfoArray.count > 0) {
                             for i in 0 ... imagesInfoArray.count-1 {
-                                imagesArray.append(imagesInfoArray[i].images!)
+                                imagesArray.append(imagesInfoArray[i].image!)
                             }
                         }
                         self.facilitiesList.insert(Facilities(title: facilitiesListDict.title, sortId: facilitiesListDict.sortId, nid: facilitiesListDict.nid, images: imagesArray), at: i)
@@ -1231,65 +918,55 @@ class TourAndPanelListViewController: UIViewController,UITableViewDelegate,UITab
                         self.getFacilitiesListFromServer()//coreDataMigratio  solution
                     }
                 }
-            } else {
-                var facilitiesListArray = [FacilitiesEntityAr]()
-                let fetchRequest =  NSFetchRequest<NSFetchRequestResult>(entityName: "FacilitiesEntityAr")
-                //fetchRequest.predicate = NSPredicate.init(format: "isTourGuide == \(isTourGuide)")
-                facilitiesListArray = (try managedContext.fetch(fetchRequest) as? [FacilitiesEntityAr])!
-                if (facilitiesListArray.count > 0) {
-                    if (networkReachability?.isReachable)! {
-                        DispatchQueue.global(qos: .background).async {
-                            self.getFacilitiesListFromServer()
-                        }
-                    }
-                    for i in 0 ... facilitiesListArray.count-1 {
-                        let facilitiesListDict = facilitiesListArray[i]
-                        var imagesArray : [String] = []
-                        let imagesInfoArray = (facilitiesListDict.facilitiesImgRelationAr?.allObjects) as! [FacilitiesImgEntityAr]
-                        if(imagesInfoArray.count > 0) {
-                            for i in 0 ... imagesInfoArray.count-1 {
-                                imagesArray.append(imagesInfoArray[i].images!)
-                            }
-                        }
-                         self.facilitiesList.insert(Facilities(title: facilitiesListDict.title, sortId: facilitiesListDict.sortId, nid: facilitiesListDict.nid, images: imagesArray), at: i)
-                    }
-                    if(facilitiesList.count == 0){
-                        if(self.networkReachability?.isReachable == false) {
-                            self.showNoNetwork()
-                        } else {
-                            self.loadingView.showNoDataView()
-                        }
-                    } else {
-                        if self.facilitiesList.first(where: {$0.sortId != "" && $0.sortId != nil} ) != nil {
-                            self.facilitiesList = self.facilitiesList.sorted(by: { Int16($0.sortId!)! < Int16($1.sortId!)! })
-                        }
-                    }
-                    DispatchQueue.main.async{
-                        self.collectionTableView.reloadData()
-                    }
-                } else{
-                    if(self.networkReachability?.isReachable == false) {
-                        self.showNoNetwork()
-                    } else {
-                        //self.loadingView.showNoDataView()
-                        self.getFacilitiesListFromServer()//coreDataMigratio  solution
-                    }
-                }
-            }
+//            } else {
+//                var facilitiesListArray = [FacilitiesEntityAr]()
+//                let fetchRequest =  NSFetchRequest<NSFetchRequestResult>(entityName: "FacilitiesEntityAr")
+//                //fetchRequest.predicate = NSPredicate.init(format: "isTourGuide == \(isTourGuide)")
+//                facilitiesListArray = (try managedContext.fetch(fetchRequest) as? [FacilitiesEntityAr])!
+//                if (facilitiesListArray.count > 0) {
+//                    if (networkReachability?.isReachable)! {
+//                        DispatchQueue.global(qos: .background).async {
+//                            self.getFacilitiesListFromServer()
+//                        }
+//                    }
+//                    for i in 0 ... facilitiesListArray.count-1 {
+//                        let facilitiesListDict = facilitiesListArray[i]
+//                        var imagesArray : [String] = []
+//                        let imagesInfoArray = (facilitiesListDict.facilitiesImgRelationAr?.allObjects) as! [FacilitiesImgEntityAr]
+//                        if(imagesInfoArray.count > 0) {
+//                            for i in 0 ... imagesInfoArray.count-1 {
+//                                imagesArray.append(imagesInfoArray[i].images!)
+//                            }
+//                        }
+//                         self.facilitiesList.insert(Facilities(title: facilitiesListDict.title, sortId: facilitiesListDict.sortId, nid: facilitiesListDict.nid, images: imagesArray), at: i)
+//                    }
+//                    if(facilitiesList.count == 0){
+//                        if(self.networkReachability?.isReachable == false) {
+//                            self.showNoNetwork()
+//                        } else {
+//                            self.loadingView.showNoDataView()
+//                        }
+//                    } else {
+//                        if self.facilitiesList.first(where: {$0.sortId != "" && $0.sortId != nil} ) != nil {
+//                            self.facilitiesList = self.facilitiesList.sorted(by: { Int16($0.sortId!)! < Int16($1.sortId!)! })
+//                        }
+//                    }
+//                    DispatchQueue.main.async{
+//                        self.collectionTableView.reloadData()
+//                    }
+//                } else{
+//                    if(self.networkReachability?.isReachable == false) {
+//                        self.showNoNetwork()
+//                    } else {
+//                        //self.loadingView.showNoDataView()
+//                        self.getFacilitiesListFromServer()//coreDataMigratio  solution
+//                    }
+//                }
+//            }
         } catch let error as NSError {
             DDLogError("Could not fetch. \(error), \(error.userInfo)")
         }
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-    }
-    
-    func checkAddedToCoredata(entityName: String?, idKey:String?, idValue: String?, managedContext: NSManagedObjectContext) -> [NSManagedObject] {
-        var fetchResults : [NSManagedObject] = []
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: entityName!)
-        if (idValue != nil) {
-            fetchRequest.predicate = NSPredicate(format: "\(idKey!) == %@", idValue!)
-        }
-        fetchResults = try! managedContext.fetch(fetchRequest)
-        return fetchResults
     }
     
     func recordScreenView() {
@@ -1352,12 +1029,12 @@ class TourAndPanelListViewController: UIViewController,UITableViewDelegate,UITab
     }
     
     func travelListCoreDataInBackgroundThread(travelList:[HomeBanner]?,managedContext: NSManagedObjectContext) {
-        if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
-            let fetchData = checkAddedToCoredata(entityName: "NMoQTravelListEntity", idKey: "fullContentID", idValue: nil, managedContext: managedContext) as! [NMoQTravelListEntity]
+//        if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
+            let fetchData = DataManager.checkAddedToCoredata(entityName: "NMoQTravelListEntity", idKey: "fullContentID", idValue: nil, managedContext: managedContext) as! [NMoQTravelListEntity]
             if (fetchData.count > 0) {
                 for i in 0 ... (travelList?.count)!-1 {
                     let travelListDict = travelList![i]
-                    let fetchResult = checkAddedToCoredata(entityName: "NMoQTravelListEntity", idKey: "fullContentID", idValue: travelListDict.fullContentID, managedContext: managedContext)
+                    let fetchResult = DataManager.checkAddedToCoredata(entityName: "NMoQTravelListEntity", idKey: "fullContentID", idValue: travelListDict.fullContentID, managedContext: managedContext)
                     //update
                     if(fetchResult.count != 0) {
                         let travelListdbDict = fetchResult[0] as! NMoQTravelListEntity
@@ -1371,6 +1048,7 @@ class TourAndPanelListViewController: UIViewController,UITableViewDelegate,UITab
                         travelListdbDict.contactNumber = travelListDict.contactNumber
                         travelListdbDict.promotionalCode =  travelListDict.promotionalCode
                         travelListdbDict.claimOffer = travelListDict.claimOffer
+                        travelListdbDict.language = Utils.getLanguage()
                         
                         do{
                             try managedContext.save()
@@ -1390,48 +1068,9 @@ class TourAndPanelListViewController: UIViewController,UITableViewDelegate,UITab
                     self.saveTrevelListToCoreData(travelListDict: travelListDict!, managedObjContext: managedContext)
                 }
             }
-        } else {
-            let fetchData = checkAddedToCoredata(entityName: "NMoQTravelListEntityAr", idKey: "fullContentID", idValue: nil, managedContext: managedContext) as! [NMoQTravelListEntityAr]
-            if (fetchData.count > 0) {
-                for i in 0 ... (travelList?.count)!-1 {
-                    let travelListDict = travelList![i]
-                    let fetchResult = checkAddedToCoredata(entityName: "NMoQTravelListEntityAr", idKey: "fullContentID", idValue: travelListDict.fullContentID, managedContext: managedContext)
-                    //update
-                    if(fetchResult.count != 0) {
-                        let travelListdbDict = fetchResult[0] as! NMoQTravelListEntityAr
-                        travelListdbDict.title = travelListDict.title
-                        travelListdbDict.fullContentID = travelListDict.fullContentID
-                        travelListdbDict.bannerTitle =  travelListDict.bannerTitle
-                        travelListdbDict.bannerLink = travelListDict.bannerLink
-                        travelListdbDict.introductionText =  travelListDict.introductionText
-                        travelListdbDict.email = travelListDict.email
-                        
-                        travelListdbDict.contactNumber = travelListDict.contactNumber
-                        travelListdbDict.promotionalCode =  travelListDict.promotionalCode
-                        travelListdbDict.claimOffer = travelListDict.claimOffer
-                        
-                        do{
-                            try managedContext.save()
-                        }
-                        catch{
-                            print(error)
-                        }
-                    } else {
-                        //save
-                        self.saveTrevelListToCoreData(travelListDict: travelListDict, managedObjContext: managedContext)
-                    }
-                }
-            } else {
-                for i in 0 ... (travelList?.count)!-1 {
-                    let travelListDict : HomeBanner?
-                    travelListDict = travelList?[i]
-                    self.saveTrevelListToCoreData(travelListDict: travelListDict!, managedObjContext: managedContext)
-                }
-            }
-        }
     }
     func saveTrevelListToCoreData(travelListDict: HomeBanner, managedObjContext: NSManagedObjectContext) {
-        if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
+//        if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
             let travelListdbDict: NMoQTravelListEntity = NSEntityDescription.insertNewObject(forEntityName: "NMoQTravelListEntity", into: managedObjContext) as! NMoQTravelListEntity
             travelListdbDict.title = travelListDict.title
             travelListdbDict.fullContentID = travelListDict.fullContentID
@@ -1442,18 +1081,8 @@ class TourAndPanelListViewController: UIViewController,UITableViewDelegate,UITab
             travelListdbDict.contactNumber = travelListDict.contactNumber
             travelListdbDict.promotionalCode =  travelListDict.promotionalCode
             travelListdbDict.claimOffer = travelListDict.claimOffer
-        } else {
-            let travelListdbDict: NMoQTravelListEntityAr = NSEntityDescription.insertNewObject(forEntityName: "NMoQTravelListEntityAr", into: managedObjContext) as! NMoQTravelListEntityAr
-            travelListdbDict.title = travelListDict.title
-            travelListdbDict.fullContentID = travelListDict.fullContentID
-            travelListdbDict.bannerTitle =  travelListDict.bannerTitle
-            travelListdbDict.bannerLink = travelListDict.bannerLink
-            travelListdbDict.introductionText =  travelListDict.introductionText
-            travelListdbDict.email = travelListDict.email
-            travelListdbDict.contactNumber = travelListDict.contactNumber
-            travelListdbDict.promotionalCode =  travelListDict.promotionalCode
-            travelListdbDict.claimOffer = travelListDict.claimOffer
-        }
+        travelListdbDict.language = Utils.getLanguage()
+        
         do {
             try managedObjContext.save()
         } catch let error as NSError {
@@ -1463,7 +1092,7 @@ class TourAndPanelListViewController: UIViewController,UITableViewDelegate,UITab
     func fetchTravelInfoFromCoredata() {
         let managedContext = getContext()
         do {
-            if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
+//            if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
                 var travelListArray = [NMoQTravelListEntity]()
                 let fetchRequest =  NSFetchRequest<NSFetchRequestResult>(entityName: "NMoQTravelListEntity")
                 travelListArray = (try managedContext.fetch(fetchRequest) as? [NMoQTravelListEntity])!
@@ -1474,7 +1103,7 @@ class TourAndPanelListViewController: UIViewController,UITableViewDelegate,UITab
                         }
                     }
                     for i in 0 ... travelListArray.count-1 {
-                        self.travelList.insert(HomeBanner(title: travelListArray[i].title, fullContentID: travelListArray[i].fullContentID, bannerTitle: travelListArray[i].bannerTitle, bannerLink: travelListArray[i].bannerLink, image: nil, introductionText: travelListArray[i].introductionText, email: travelListArray[i].email, contactNumber: travelListArray[i].contactNumber, promotionalCode: travelListArray[i].promotionalCode, claimOffer: travelListArray[i].claimOffer), at: i)
+                        self.travelList.insert(HomeBanner(title: travelListArray[i].title, fullContentID: travelListArray[i].fullContentID, bannerTitle: travelListArray[i].bannerTitle, bannerLink: travelListArray[i].bannerLink, image: nil, introductionText: travelListArray[i].introductionText, email: travelListArray[i].email, contactNumber: travelListArray[i].contactNumber, promotionalCode: travelListArray[i].promotionalCode, claimOffer: travelListArray[i].claimOffer, language: travelListArray[i].language), at: i)
                     }
                     if(travelList.count == 0){
                         if(self.networkReachability?.isReachable == false) {
@@ -1500,45 +1129,45 @@ class TourAndPanelListViewController: UIViewController,UITableViewDelegate,UITab
                         self.getTravelList()//coreDataMigratio  solution
                     }
                 }
-            } else {
-                var travelListArray = [NMoQTravelListEntityAr]()
-                let fetchRequest =  NSFetchRequest<NSFetchRequestResult>(entityName: "NMoQTravelListEntityAr")
-                travelListArray = (try managedContext.fetch(fetchRequest) as? [NMoQTravelListEntityAr])!
-                if (travelListArray.count > 0) {
-                    if (networkReachability?.isReachable)! {
-                        DispatchQueue.global(qos: .background).async {
-                            self.getTravelList()
-                        }
-                    }
-
-                    for i in 0 ... travelListArray.count-1 {
-                        self.travelList.insert(HomeBanner(title: travelListArray[i].title, fullContentID: travelListArray[i].fullContentID, bannerTitle: travelListArray[i].bannerTitle, bannerLink: travelListArray[i].bannerLink, image: nil, introductionText: travelListArray[i].introductionText, email: travelListArray[i].email, contactNumber: travelListArray[i].contactNumber, promotionalCode: travelListArray[i].promotionalCode, claimOffer: travelListArray[i].claimOffer), at: i)
-                    }
-                    if(travelList.count == 0){
-                        if(self.networkReachability?.isReachable == false) {
-                            self.showNoNetwork()
-                        } else {
-                            self.loadingView.showNoDataView()
-                        }
-                    } else {
-                        if(bannerId != nil) {
-                            if let arrayOffset = self.travelList.index(where: {$0.fullContentID == bannerId}) {
-                                self.travelList.remove(at: arrayOffset)
-                            }
-                        }
-                    }
-                    DispatchQueue.main.async{
-                        self.collectionTableView.reloadData()
-                    }
-                } else{
-                    if(self.networkReachability?.isReachable == false) {
-                        self.showNoNetwork()
-                    } else {
-                        //self.loadingView.showNoDataView()
-                        self.getTravelList()//coreDataMigratio  solution
-                    }
-                }
-            }
+//            } else {
+//                var travelListArray = [NMoQTravelListEntityAr]()
+//                let fetchRequest =  NSFetchRequest<NSFetchRequestResult>(entityName: "NMoQTravelListEntityAr")
+//                travelListArray = (try managedContext.fetch(fetchRequest) as? [NMoQTravelListEntityAr])!
+//                if (travelListArray.count > 0) {
+//                    if (networkReachability?.isReachable)! {
+//                        DispatchQueue.global(qos: .background).async {
+//                            self.getTravelList()
+//                        }
+//                    }
+//
+//                    for i in 0 ... travelListArray.count-1 {
+//                        self.travelList.insert(HomeBanner(title: travelListArray[i].title, fullContentID: travelListArray[i].fullContentID, bannerTitle: travelListArray[i].bannerTitle, bannerLink: travelListArray[i].bannerLink, image: nil, introductionText: travelListArray[i].introductionText, email: travelListArray[i].email, contactNumber: travelListArray[i].contactNumber, promotionalCode: travelListArray[i].promotionalCode, claimOffer: travelListArray[i].claimOffer), at: i)
+//                    }
+//                    if(travelList.count == 0){
+//                        if(self.networkReachability?.isReachable == false) {
+//                            self.showNoNetwork()
+//                        } else {
+//                            self.loadingView.showNoDataView()
+//                        }
+//                    } else {
+//                        if(bannerId != nil) {
+//                            if let arrayOffset = self.travelList.index(where: {$0.fullContentID == bannerId}) {
+//                                self.travelList.remove(at: arrayOffset)
+//                            }
+//                        }
+//                    }
+//                    DispatchQueue.main.async{
+//                        self.collectionTableView.reloadData()
+//                    }
+//                } else{
+//                    if(self.networkReachability?.isReachable == false) {
+//                        self.showNoNetwork()
+//                    } else {
+//                        //self.loadingView.showNoDataView()
+//                        self.getTravelList()//coreDataMigratio  solution
+//                    }
+//                }
+//            }
         } catch let error as NSError {
             print("Could not fetch. \(error), \(error.userInfo)")
         }
