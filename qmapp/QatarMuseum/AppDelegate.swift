@@ -799,12 +799,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             }
     }
     
-    func getParksDataFromServer(lang:String?) {
-        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.ParksList(lang ?? ENG_LANGUAGE)).responseObject { (response: DataResponse<ParksLists>) -> Void in
+    func getParksDataFromServer(lang: String) {
+        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.ParksList(lang)).responseObject { (response: DataResponse<ParksLists>) -> Void in
             switch response.result {
             case .success(let data):
                 if let parkList = data.parkList {
-                    self.saveOrUpdateParksCoredata(parksListArray: parkList)
+                    self.saveOrUpdateParksCoredata(parksListArray: parkList,
+                                                   language: lang)
                 }
             case .failure(let error):
                 print(error.localizedDescription)
@@ -813,26 +814,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
     
     //MARK: Coredata Method
-    func saveOrUpdateParksCoredata(parksListArray:[ParksList]) {
+    func saveOrUpdateParksCoredata(parksListArray:[ParksList], language: String) {
         if parksListArray.count > 0 {
             if #available(iOS 10.0, *) {
                 let container = CoreDataManager.shared.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
                     DataManager.updateParks(managedContext : managedContext,
-                                            parksListArray: parksListArray)
+                                            parksListArray: parksListArray,
+                                            language: Utils.getLanguageCode(language))
                 }
             } else {
                 let managedContext = appDelegate!.managedObjectContext
                 managedContext.perform {
                     DataManager.updateParks(managedContext : managedContext,
-                                            parksListArray: parksListArray)
+                                            parksListArray: parksListArray,
+                                            language: Utils.getLanguageCode(language))
                 }
             }
         }
     }
     
-    func getFacilitiesListFromServer(lang:String?)
-    {
+    func getFacilitiesListFromServer(lang:String?) {
         _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.FacilitiesList(lang ?? ENG_LANGUAGE)).responseObject { (response: DataResponse<FacilitiesData>) -> Void in
             switch response.result {
             case .success(let data):
@@ -900,13 +902,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         }
     }
     
-    func getNmoqListOfParksFromServer(lang:String?) {
-        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.GetNmoqListParks(lang ?? ENG_LANGUAGE)).responseObject { (response: DataResponse<NMoQParks>) -> Void in
+    func getNmoqListOfParksFromServer(lang: String) {
+        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.GetNmoqListParks(lang)).responseObject { (response: DataResponse<NMoQParks>) -> Void in
             switch response.result {
             case .success(let data):
                 if(data.nmoqParks != nil) {
                     if let nmoqParks = data.nmoqParks {
-                        self.saveOrUpdateNmoqParksCoredata(nmoqParkList: nmoqParks)
+                        self.saveOrUpdateNmoqParksCoredata(nmoqParkList: nmoqParks, language: lang)
                     }
                 }
                 
@@ -917,19 +919,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
     
     //MARK: NMoq List of Parks Coredata Method
-    func saveOrUpdateNmoqParksCoredata(nmoqParkList:[NMoQPark]) {
+    func saveOrUpdateNmoqParksCoredata(nmoqParkList:[NMoQPark], language: String) {
         if !nmoqParkList.isEmpty {
             if #available(iOS 10.0, *) {
                 let container = CoreDataManager.shared.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
                     DataManager.updateNmoqPark(nmoqParkList: nmoqParkList,
-                                               managedContext : managedContext)
+                                               managedContext : managedContext, language: Utils.getLanguageCode(language))
                 }
             } else {
                 let managedContext = appDelegate!.managedObjectContext
                 managedContext.perform {
                     DataManager.updateNmoqPark(nmoqParkList: nmoqParkList,
-                                               managedContext : managedContext)
+                                               managedContext : managedContext, language: Utils.getLanguageCode(language))
                 }
             }
         }

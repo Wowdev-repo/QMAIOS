@@ -965,13 +965,15 @@ class CommonDetailViewController: UIViewController,UITableViewDelegate,UITableVi
                 let container = appDelegate!.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
                     DataManager.updateParks(managedContext: managedContext,
-                                                         parksListArray: parksListArray)
+                                                         parksListArray: parksListArray,
+                                                         language: Utils.getLanguage())
                 }
             } else {
                 let managedContext = appDelegate!.managedObjectContext
                 managedContext.perform {
                     DataManager.updateParks(managedContext : managedContext,
-                                                         parksListArray: parksListArray)
+                                                         parksListArray: parksListArray,
+                                                         language: Utils.getLanguage())
                 }
             }
         }

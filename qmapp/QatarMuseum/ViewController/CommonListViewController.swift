@@ -1906,13 +1906,15 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
                 let container = appDelegate!.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
                     DataManager.updateNmoqPark(nmoqParkList: nmoqParkList,
-                                               managedContext: managedContext)
+                                               managedContext: managedContext,
+                                               language: Utils.getLanguage())
                 }
             } else {
                 let managedContext = appDelegate!.managedObjectContext
                 managedContext.perform {
                     DataManager.updateNmoqPark(nmoqParkList: nmoqParkList,
-                                               managedContext : managedContext)
+                                               managedContext : managedContext,
+                                               language: Utils.getLanguage())
                 }
             }
         }
@@ -1964,9 +1966,12 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
         let managedContext = getContext()
         do {
-                var parkListArray = [NMoQParksEntity]()
-                let fetchRequest =  NSFetchRequest<NSFetchRequestResult>(entityName: "NMoQParksEntity")
-                parkListArray = (try managedContext.fetch(fetchRequest) as? [NMoQParksEntity])!
+            
+            
+            let parkListArray = DataManager.checkAddedToCoredata(entityName: "NMoQParksEntity",
+                                             idKey: "language",
+                                             idValue: Utils.getLanguage(),
+                                             managedContext: managedContext) as! [NMoQParksEntity]
                 
                 if (parkListArray.count > 0) {
                     if  (networkReachability?.isReachable)! {
