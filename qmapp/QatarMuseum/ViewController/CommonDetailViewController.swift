@@ -699,162 +699,58 @@ class CommonDetailViewController: UIViewController,UITableViewDelegate,UITableVi
             if #available(iOS 10.0, *) {
                 let container = appDelegate!.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
-                    self.heritageCoreDataInBackgroundThread(managedContext: managedContext)
+                    DataManager.updateHeritage(managedContext : managedContext,
+                                               heritageListArray: self.heritageDetailtArray)
                 }
             } else {
                 let managedContext = appDelegate!.managedObjectContext
                 managedContext.perform {
-                    self.heritageCoreDataInBackgroundThread(managedContext : managedContext)
+                    DataManager.updateHeritage(managedContext : managedContext,
+                                               heritageListArray: self.heritageDetailtArray)
                 }
             }
         }
     }
     
-    func heritageCoreDataInBackgroundThread(managedContext: NSManagedObjectContext) {
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
-            let fetchData = DataManager.checkAddedToCoredata(entityName: "HeritageEntity", idKey: "listid" , idValue: heritageDetailtArray[0].id, managedContext: managedContext) as! [HeritageEntity]
-           if (fetchData.count > 0) {
-                let heritageDetailDict = heritageDetailtArray[0]
-            
-                //update
-                let heritagedbDict = fetchData[0]
-            
-                heritagedbDict.listname = heritageDetailDict.name
-                heritagedbDict.listimage = heritageDetailDict.image
-                heritagedbDict.listsortid =  heritageDetailDict.sortid
-                heritagedbDict.detaillocation = heritageDetailDict.location
-                heritagedbDict.detailshortdescription = heritageDetailDict.shortdescription
-                heritagedbDict.detaillongdescription =  heritageDetailDict.longdescription
-                heritagedbDict.detaillatitude =  heritageDetailDict.latitude
-                heritagedbDict.detaillongitude = heritageDetailDict.longitude
-                if (LocalizationLanguage.currentAppleLanguage() == ENG_LANGUAGE) {
-                    heritagedbDict.lang =  "1"
-                } else {
-                    heritagedbDict.lang =  "0"
-                }
-            
-            if((heritageDetailDict.images?.count)! > 0) {
-                for i in 0 ... (heritageDetailDict.images?.count)!-1 {
-                    var heritageImagesEntity: ImageEntity!
-                    let heritageImage = NSEntityDescription.insertNewObject(forEntityName: "ImageEntity",
-                                                                            into: managedContext) as! ImageEntity
-                    heritageImage.image = heritageDetailDict.images![i]
-                    
-                    heritageImagesEntity = heritageImage
-                    heritagedbDict.addToImagesRelation(heritageImagesEntity)
-                    do {
-                        try managedContext.save()
-                        
-                        
-                    } catch let error as NSError {
-                        print("Could not save. \(error), \(error.userInfo)")
-                    }
-                }
-            }
-            
-                do{
-                    try managedContext.save()
-                }
-                catch{
-                    print(error)
-                }
-           } else {
-            let heritageListDict : Heritage?
-            heritageListDict = heritageDetailtArray[0]
-            self.saveToCoreData(heritageDetailDict: heritageListDict!, managedObjContext: managedContext)
-            }
-    }
     
-    func saveToCoreData(heritageDetailDict: Heritage, managedObjContext: NSManagedObjectContext) {
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
-            let heritageInfo: HeritageEntity = NSEntityDescription.insertNewObject(forEntityName: "HeritageEntity", into: managedObjContext) as! HeritageEntity
-            heritageInfo.listid = heritageDetailDict.id
-            heritageInfo.listname = heritageDetailDict.name
-            
-            heritageInfo.listimage = heritageDetailDict.image
-            heritageInfo.detaillocation = heritageDetailDict.location
-            heritageInfo.detailshortdescription = heritageDetailDict.shortdescription
-            heritageInfo.detaillongdescription =  heritageDetailDict.longdescription
-            heritageInfo.detaillatitude =  heritageDetailDict.latitude
-            heritageInfo.detaillongitude = heritageDetailDict.longitude
-            if (LocalizationLanguage.currentAppleLanguage() == ENG_LANGUAGE) {
-                heritageInfo.lang =  "1"
-            } else {
-                heritageInfo.lang =  "0"
-            }
-            if(heritageDetailDict.sortid != nil) {
-                heritageInfo.listsortid = heritageDetailDict.sortid
-            }
-            
-            if((heritageDetailDict.images?.count)! > 0) {
-                for i in 0 ... (heritageDetailDict.images?.count)!-1 {
-                    var heritageImagesEntity: ImageEntity!
-                    let heritageImage = NSEntityDescription.insertNewObject(forEntityName: "ImageEntity",
-                                                                            into: managedObjContext) as! ImageEntity
-                    heritageImage.image = heritageDetailDict.images![i]
-                    heritageImagesEntity = heritageImage
-                    heritageInfo.addToImagesRelation(heritageImagesEntity)
-                    do {
-                        try managedObjContext.save()
-                        
-                        
-                    } catch let error as NSError {
-                        print("Could not save. \(error), \(error.userInfo)")
-                    }
-                }
-            }
-        do {
-            try managedObjContext.save()
-        } catch let error as NSError {
-            print("Could not save. \(error), \(error.userInfo)")
-        }
-    }
     func fetchHeritageDetailsFromCoredata() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
         let managedContext = getContext()
         do {
-                var heritageArray = [HeritageEntity]()
-                let heritageFetchRequest =  NSFetchRequest<NSFetchRequestResult>(entityName: "HeritageEntity")
-                if(heritageDetailId != nil) {
-                    heritageFetchRequest.predicate = NSPredicate.init(format: "listid == \(heritageDetailId!)")
-                    heritageArray = (try managedContext.fetch(heritageFetchRequest) as? [HeritageEntity])!
+            let heritageArray = DataManager.checkAddedToCoredata(entityName: "HeritageEntity",
+                                                                 idKey: "listid",
+                                                                 idValue: heritageDetailId,
+                                                                 managedContext: managedContext) as! [HeritageEntity]
+            
+            if (heritageArray.count > 0) {
+                let heritageDict = heritageArray[0]
+                if((heritageDict.detailshortdescription != nil) && (heritageDict.detaillongdescription != nil) ) {
+                    self.heritageDetailtArray.append(Heritage(entity: heritageDict))
                     
-                    if (heritageArray.count > 0) {
-                        let heritageDict = heritageArray[0]
-                        if((heritageDict.detailshortdescription != nil) && (heritageDict.detaillongdescription != nil) ) {
-                            var imagesArray : [String] = []
-                            let heritageImagesArray = (heritageDict.imagesRelation?.allObjects) as! [ImageEntity]
-                            if(heritageImagesArray.count > 0) {
-                                for i in 0 ... heritageImagesArray.count-1 {
-                                    imagesArray.append(heritageImagesArray[i].image!)
-                                }
-                            }
-                            self.heritageDetailtArray.insert(Heritage(id: heritageDict.listid, name: heritageDict.listname, location: heritageDict.detaillocation, latitude: heritageDict.detaillatitude, longitude: heritageDict.detaillongitude, image: heritageDict.listimage, shortdescription: heritageDict.detailshortdescription, longdescription: heritageDict.detaillongdescription, images: imagesArray, sortid: heritageDict.listsortid), at: 0)
-                            if(heritageDetailtArray.count == 0){
-                                if(self.networkReachability?.isReachable == false) {
-                                    self.showNoNetwork()
-                                } else {
-                                    self.loadingView.showNoDataView()
-                                }
-                            }
-                            self.setTopBarImage()
-                            heritageDetailTableView.reloadData()
-                        }else{
-                            if(self.networkReachability?.isReachable == false) {
-                                self.showNoNetwork()
-                            } else {
-                                self.loadingView.showNoDataView()
-                            }
-                        }
-                    }else{
+                    if(heritageDetailtArray.count == 0){
                         if(self.networkReachability?.isReachable == false) {
                             self.showNoNetwork()
                         } else {
                             self.loadingView.showNoDataView()
                         }
                     }
+                    self.setTopBarImage()
+                    heritageDetailTableView.reloadData()
+                }else{
+                    if(self.networkReachability?.isReachable == false) {
+                        self.showNoNetwork()
+                    } else {
+                        self.loadingView.showNoDataView()
+                    }
                 }
-           
+            } else {
+                if(self.networkReachability?.isReachable == false) {
+                    self.showNoNetwork()
+                } else {
+                    self.loadingView.showNoDataView()
+                }
+            }
+            
         } catch let error as NSError {
             print("Could not fetch. \(error), \(error.userInfo)")
         }
@@ -867,98 +763,15 @@ class CommonDetailViewController: UIViewController,UITableViewDelegate,UITableVi
             if #available(iOS 10.0, *) {
                 let container = appDelegate!.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
-                    self.publicArtCoreDataInBackgroundThread(managedContext: managedContext)
-                }
+                    DataManager.updatePublicArtsDetailsEntity(managedContext: managedContext,
+                                                              publicArtsListArray: self.publicArtsDetailtArray)                }
             } else {
                 let managedContext = appDelegate!.managedObjectContext
                 managedContext.perform {
-                    self.publicArtCoreDataInBackgroundThread(managedContext : managedContext)
+                    DataManager.updatePublicArtsDetailsEntity(managedContext: managedContext,
+                                                              publicArtsListArray: self.publicArtsDetailtArray)
                 }
             }
-        }
-    }
-    
-    func publicArtCoreDataInBackgroundThread(managedContext: NSManagedObjectContext) {
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
-        let fetchData = DataManager.checkAddedToCoredata(entityName: "PublicArtsEntity",
-                                                         idKey: "id" ,
-                                                         idValue: publicArtsDetailtArray[0].id,
-                                                         managedContext: managedContext) as! [PublicArtsEntity]
-        if (fetchData.count > 0) {
-            let publicArtsDetailDict = publicArtsDetailtArray[0]
-            let publicArtsbDict = fetchData[0]
-            
-            //                DataManager.saveToPublicArtsCoreData(publicArtsListDict: publicArtsDetailDict,
-            //                                                     managedObjContext: managedContext,
-            //                                                     entity: publicArtsbDict)
-            
-            //update
-            publicArtsbDict.name = publicArtsDetailDict.name
-            publicArtsbDict.detaildescription = publicArtsDetailDict.description
-            publicArtsbDict.shortdescription = publicArtsDetailDict.shortdescription
-            publicArtsbDict.image = publicArtsDetailDict.image
-            publicArtsbDict.latitude = publicArtsDetailDict.latitude
-            publicArtsbDict.longitude = publicArtsDetailDict.longitude
-            publicArtsbDict.language = Utils.getLanguage()
-            
-            if(publicArtsDetailDict.images != nil) {
-                if((publicArtsDetailDict.images?.count)! > 0) {
-                    for i in 0 ... (publicArtsDetailDict.images?.count)!-1 {
-                        var publicArtsImagesEntity: ImageEntity!
-                        let publicArtsImage = NSEntityDescription.insertNewObject(forEntityName: "ImageEntity",
-                                                                                  into: managedContext) as! ImageEntity
-                        publicArtsImage.image = publicArtsDetailDict.images![i]
-                        publicArtsImage.language = Utils.getLanguage()
-                        publicArtsImagesEntity = publicArtsImage
-                        publicArtsbDict.addToPublicImagesRelation(publicArtsImagesEntity)
-                        DataManager.save(managedContext)
-                    }
-                }
-            }
-            DataManager.save(managedContext)
-        }
-        else {
-            let publicArtsDetailDict : PublicArtsDetail?
-            publicArtsDetailDict = publicArtsDetailtArray[0]
-            self.saveToCoreData(publicArtseDetailDict: publicArtsDetailDict!, managedObjContext: managedContext)
-        }
-    }
-    
-    func saveToCoreData(publicArtseDetailDict: PublicArtsDetail, managedObjContext: NSManagedObjectContext) {
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
-            let publicArtsInfo: PublicArtsEntity = NSEntityDescription.insertNewObject(forEntityName: "PublicArtsEntity",
-                                                                                       into: managedObjContext) as! PublicArtsEntity
-            publicArtsInfo.id = publicArtseDetailDict.id
-            publicArtsInfo.name = publicArtseDetailDict.name
-            publicArtsInfo.detaildescription = publicArtseDetailDict.description
-            publicArtsInfo.shortdescription = publicArtseDetailDict.shortdescription
-            publicArtsInfo.image = publicArtseDetailDict.image
-            publicArtsInfo.latitude = publicArtseDetailDict.latitude
-            publicArtsInfo.longitude = publicArtseDetailDict.longitude
-        publicArtsInfo.language = Utils.getLanguage()
-            
-            if((publicArtseDetailDict.images?.count)! > 0) {
-                for i in 0 ... (publicArtseDetailDict.images?.count)!-1 {
-                    var publicArtsImagesEntity: ImageEntity!
-                    let publicArtsImage = NSEntityDescription.insertNewObject(forEntityName: "ImageEntity", into: managedObjContext) as! ImageEntity
-                    publicArtsImage.image = publicArtseDetailDict.images![i]
-                    publicArtsImage.language = Utils.getLanguage()
-                    publicArtsImagesEntity = publicArtsImage
-                    publicArtsInfo.addToPublicImagesRelation(publicArtsImagesEntity)
-                    do {
-                        try managedObjContext.save()
-                        
-                        
-                    } catch let error as NSError {
-                        print("Could not save. \(error), \(error.userInfo)")
-                    }
-                }
-            }
-
-        do {
-            try managedObjContext.save()
-        } catch let error as NSError {
-            print("Could not save. \(error), \(error.userInfo)")
         }
     }
     
@@ -975,15 +788,7 @@ class CommonDetailViewController: UIViewController,UITableViewDelegate,UITableVi
                     if (publicArtsArray.count > 0) {
                         let publicArtsDict = publicArtsArray[0]
                         if((publicArtsDict.detaildescription != nil) && (publicArtsDict.shortdescription != nil) ) {
-                            
-                            var imagesArray : [String] = []
-                            let publicArtsImagesArray = (publicArtsDict.publicImagesRelation?.allObjects) as! [ImageEntity]
-                            if(publicArtsImagesArray.count > 0) {
-                                for i in 0 ... publicArtsImagesArray.count-1 {
-                                    imagesArray.append(publicArtsImagesArray[i].image!)
-                                }
-                            }
-                            self.publicArtsDetailtArray.insert(PublicArtsDetail(id:publicArtsDict.id , name:publicArtsDict.name, description: publicArtsDict.detaildescription, shortdescription: publicArtsDict.shortdescription, image: publicArtsDict.image, images: imagesArray,longitude: publicArtsDict.longitude, latitude: publicArtsDict.latitude, language: publicArtsDict.language), at: 0)
+                            self.publicArtsDetailtArray.append(PublicArtsDetail(entity: publicArtsDict))
                             
                             if(publicArtsDetailtArray.count == 0){
                                 if(self.networkReachability?.isReachable == false) {
@@ -1047,98 +852,41 @@ class CommonDetailViewController: UIViewController,UITableViewDelegate,UITableVi
     //MARK: Coredata Method
     func saveOrUpdateExhibitionsCoredata() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-        if (exhibition.count > 0) {
+        if !self.exhibition.isEmpty {
             let appDelegate =  UIApplication.shared.delegate as? AppDelegate
             if #available(iOS 10.0, *) {
                 let container = appDelegate!.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
-                    self.exhibitionCoreDataInBackgroundThread(managedContext: managedContext)
+                    DataManager.updateExhibitionsEntity(managedContext : managedContext,
+                                                        exhibition: self.exhibition,
+                                                        isHomeExhibition:"0")
                 }
             } else {
                 let managedContext = appDelegate!.managedObjectContext
                 managedContext.perform {
-                    self.exhibitionCoreDataInBackgroundThread(managedContext : managedContext)
+                    DataManager.updateExhibitionsEntity(managedContext: managedContext,
+                                                        exhibition: self.exhibition,
+                                                        isHomeExhibition: "0")
                 }
             }
         }
     }
-    func exhibitionCoreDataInBackgroundThread(managedContext: NSManagedObjectContext) {
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-            let fetchData = DataManager.checkAddedToCoredata(entityName: "ExhibitionsEntity", idKey: "id" , idValue: exhibition[0].id, managedContext: managedContext) as! [ExhibitionsEntity]
-            if (fetchData.count > 0) {
-                let exhibitionDetailDict = exhibition[0]
-                
-                //update
-                let exhibitiondbDict = fetchData[0]
-                exhibitiondbDict.detailName = exhibitionDetailDict.name
-                exhibitiondbDict.detailImage = exhibitionDetailDict.detailImage
-                exhibitiondbDict.detailStartDate =  exhibitionDetailDict.startDate
-                exhibitiondbDict.detailEndDate = exhibitionDetailDict.endDate
-                exhibitiondbDict.detailShortDesc = exhibitionDetailDict.shortDescription
-                exhibitiondbDict.detailLongDesc =  exhibitionDetailDict.longDescription
-                exhibitiondbDict.detailLocation =  exhibitionDetailDict.location
-                exhibitiondbDict.detailLatitude = exhibitionDetailDict.latitude
-                exhibitiondbDict.detailLongitude = exhibitionDetailDict.longitude
-                exhibitiondbDict.status = exhibitionDetailDict.status
-                if (LocalizationLanguage.currentAppleLanguage() == ENG_LANGUAGE) {
-                    exhibitiondbDict.lang =  "1"
-                } else {
-                    exhibitiondbDict.lang =  "0"
-                }
-                do{
-                    try managedContext.save()
-                }
-                catch{
-                    print(error)
-                }
-            }
-            else {
-                let exhibitionListDict : Exhibition?
-                exhibitionListDict = exhibition[0]
-                self.saveExhibitionToCoreData(exhibitionDetailDict: exhibitionListDict!, managedObjContext: managedContext)
-            }
-    }
-    func saveExhibitionToCoreData(exhibitionDetailDict: Exhibition, managedObjContext: NSManagedObjectContext) {
-       // if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
-            let exhibitionInfo: ExhibitionsEntity = NSEntityDescription.insertNewObject(forEntityName: "ExhibitionsEntity", into: managedObjContext) as! ExhibitionsEntity
-            exhibitionInfo.id = exhibitionDetailDict.id
-            exhibitionInfo.detailName = exhibitionDetailDict.name
-            exhibitionInfo.detailImage = exhibitionDetailDict.detailImage
-            exhibitionInfo.detailStartDate = exhibitionDetailDict.startDate
-            exhibitionInfo.detailEndDate = exhibitionDetailDict.endDate
-            exhibitionInfo.detailShortDesc =  exhibitionDetailDict.shortDescription
-            exhibitionInfo.detailLongDesc =  exhibitionDetailDict.longDescription
-            exhibitionInfo.detailLocation = exhibitionDetailDict.location
-            exhibitionInfo.detailLatitude =  exhibitionDetailDict.latitude
-            exhibitionInfo.detailLongitude = exhibitionDetailDict.longitude
-            exhibitionInfo.status = exhibitionDetailDict.status
-            if (LocalizationLanguage.currentAppleLanguage() == ENG_LANGUAGE) {
-                exhibitionInfo.lang =  "1"
-            } else {
-                exhibitionInfo.lang =  "0"
-            }
-        do {
-            try managedObjContext.save()
-            
-            
-        } catch let error as NSError {
-            print("Could not save. \(error), \(error.userInfo)")
-        }
-    }
+    
     func fetchExhibitionDetailsFromCoredata() {
         let managedContext = getContext()
         do {
-           // if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
-                var exhibitionArray = [ExhibitionsEntity]()
-                let exhibitionFetchRequest =  NSFetchRequest<NSFetchRequestResult>(entityName: "ExhibitionsEntity")
-                if(self.exhibitionId != nil) {
-                    exhibitionFetchRequest.predicate = NSPredicate.init(format: "id == \(self.exhibitionId!)")
-                }
-                exhibitionArray = (try managedContext.fetch(exhibitionFetchRequest) as? [ExhibitionsEntity])!
+            
+            let exhibitionArray = DataManager.checkAddedToCoredata(entityName: "ExhibitionsEntity",
+                                                                   idKey: "id",
+                                                                   idValue: self.exhibitionId,
+                                                                   managedContext: managedContext) as! [ExhibitionsEntity]
+           
                 let exhibitionDict = exhibitionArray[0]
-                if ((exhibitionArray.count > 0) && (exhibitionDict.detailLongDesc != nil) && (exhibitionDict.detailShortDesc != nil) ){
+                if ((exhibitionArray.count > 0)
+                    && (exhibitionDict.detailLongDesc != nil)
+                    && (exhibitionDict.detailShortDesc != nil)) {
                     
-                    self.exhibition.insert(Exhibition(id: exhibitionDict.id, name: exhibitionDict.detailName, image: nil,detailImage:exhibitionDict.detailImage, startDate: exhibitionDict.detailStartDate, endDate: exhibitionDict.detailEndDate, location: exhibitionDict.detailLocation, latitude: exhibitionDict.detailLatitude, longitude: exhibitionDict.detailLongitude, shortDescription: exhibitionDict.detailShortDesc, longDescription: exhibitionDict.detailLongDesc,museumId:nil,status: exhibitionDict.status, displayDate: exhibitionDict.dispalyDate), at: 0)
+                    self.exhibition.append(Exhibition(entity: exhibitionDict))
                     
                     if(self.exhibition.count == 0){
                         if(self.networkReachability?.isReachable == false) {
@@ -1184,7 +932,10 @@ class CommonDetailViewController: UIViewController,UITableViewDelegate,UITableVi
                     }
                 }
                 if (self.parksListArray.count > 0)  {
-                    self.saveOrUpdateParksCoredata(parksListArray: data.parkList)
+                    if let parkList = data.parkList {
+                        self.saveOrUpdateParksCoredata(parksListArray: parkList)
+                    }
+                    
                         self.setTopBarImage()
                 }
                 
@@ -1206,66 +957,23 @@ class CommonDetailViewController: UIViewController,UITableViewDelegate,UITableVi
         }
     }
     //MARK: Coredata Method
-    func saveOrUpdateParksCoredata(parksListArray:[ParksList]? ) {
+    func saveOrUpdateParksCoredata(parksListArray: [ParksList] ) {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
-        if (parksListArray!.count > 0) {
+        if !parksListArray.isEmpty {
             let appDelegate =  UIApplication.shared.delegate as? AppDelegate
             if #available(iOS 10.0, *) {
                 let container = appDelegate!.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
-                    self.parksCoreDataInBackgroundThread(managedContext: managedContext, parksListArray: parksListArray)
+                    DataManager.updateParks(managedContext: managedContext,
+                                                         parksListArray: parksListArray)
                 }
             } else {
                 let managedContext = appDelegate!.managedObjectContext
                 managedContext.perform {
-                    self.parksCoreDataInBackgroundThread(managedContext : managedContext, parksListArray: parksListArray)
+                    DataManager.updateParks(managedContext : managedContext,
+                                                         parksListArray: parksListArray)
                 }
             }
-        }
-    }
-    func parksCoreDataInBackgroundThread(managedContext: NSManagedObjectContext,parksListArray:[ParksList]?) {
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
-            let fetchData = DataManager.checkAddedToCoredata(entityName: "ParksEntity",
-                                                 idKey: nil,
-                                                 idValue: nil,
-                                                 managedContext: managedContext) as! [ParksEntity]
-            if (fetchData.count > 0) {
-                let isDeleted = self.deleteExistingEvent(managedContext: managedContext,
-                                                         entityName: "ParksEntity")
-                if(isDeleted == true) {
-                    for i in 0 ... parksListArray!.count-1 {
-                        let parksDict : ParksList?
-                        parksDict = parksListArray![i]
-                        self.saveParksToCoreData(parksDict: parksDict!,
-                                                 managedObjContext: managedContext)
-                    }
-                }
-            }
-            else {
-                for i in 0 ... parksListArray!.count-1 {
-                    let parksDict : ParksList?
-                    parksDict = parksListArray![i]
-                    self.saveParksToCoreData(parksDict: parksDict!, managedObjContext: managedContext)
-                    
-                }
-            }
-    }
-    func saveParksToCoreData(parksDict: ParksList, managedObjContext: NSManagedObjectContext) {
-            let parksInfo: ParksEntity = NSEntityDescription.insertNewObject(forEntityName: "ParksEntity", into: managedObjContext) as! ParksEntity
-            parksInfo.title = parksDict.title
-            parksInfo.parksDescription = parksDict.description
-            parksInfo.image = parksDict.image
-        parksInfo.language = Utils.getLanguage()
-        
-            if(parksDict.sortId != nil) {
-                parksInfo.sortId = parksDict.sortId
-            }
-        do {
-            try managedObjContext.save()
-            
-            
-        } catch let error as NSError {
-            print("Could not save. \(error), \(error.userInfo)")
         }
     }
     
@@ -1283,12 +991,12 @@ class CommonDetailViewController: UIViewController,UITableViewDelegate,UITableVi
                             self.getParksDataFromServer()
                         }
                     }
-                    for i in 0 ... parksArray.count-1 {
-                        self.parksListArray.insert(ParksList(title: parksArray[i].title,
-                                                             description: parksArray[i].parksDescription,
-                                                             sortId: parksArray[i].sortId,
-                                                             image: parksArray[i].image,
-                                                             language: parksArray[i].language), at: i)
+                    for entity in parksArray {
+                        self.parksListArray.append(ParksList(title: entity.title,
+                                                             description: entity.parksDescription,
+                                                             sortId: entity.sortId,
+                                                             image: entity.image,
+                                                             language: entity.language))
                         
                     }
                     if(parksListArray.count == 0){
@@ -1370,165 +1078,41 @@ class CommonDetailViewController: UIViewController,UITableViewDelegate,UITableVi
         
     }
     //MARK: NMoq Playground Parks Detail Coredata Method
-    func saveOrUpdateNmoqParkDetailCoredata(nmoqParkList: [NMoQParkDetail]?) {
+    func saveOrUpdateNmoqParkDetailCoredata(nmoqParkList: [NMoQParkDetail]) {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
-        if ((nmoqParkList?.count)! > 0) {
+        if !nmoqParkList.isEmpty {
             let appDelegate =  UIApplication.shared.delegate as? AppDelegate
             if #available(iOS 10.0, *) {
                 let container = appDelegate!.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
-                    self.nmoqParkDetailCoreDataInBackgroundThread(nmoqParkList: nmoqParkList, managedContext: managedContext)
+                    DataManager.updateNmoqParkDetail(nmoqParkList: nmoqParkList,
+                                                                  managedContext: managedContext)
                 }
             } else {
                 let managedContext = appDelegate!.managedObjectContext
                 managedContext.perform {
-                    self.nmoqParkDetailCoreDataInBackgroundThread(nmoqParkList: nmoqParkList, managedContext : managedContext)
+                    DataManager.updateNmoqParkDetail(nmoqParkList: nmoqParkList,
+                                                                  managedContext : managedContext)
                 }
             }
         }
     }
-    func nmoqParkDetailCoreDataInBackgroundThread(nmoqParkList: [NMoQParkDetail]?,
-                                                  managedContext: NSManagedObjectContext) {
-            DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
-            let fetchData = DataManager.checkAddedToCoredata(entityName: "NMoQParkDetailEntity",
-                                                 idKey: "nid",
-                                                 idValue: nil,
-                                                 managedContext: managedContext) as! [NMoQParkDetailEntity]
-            if (fetchData.count > 0) {
-                for i in 0 ... (nmoqParkList?.count)!-1 {
-                    let nmoqParkListDict = nmoqParkList![i]
-                    let fetchResult = DataManager.checkAddedToCoredata(entityName: "NMoQParkDetailEntity",
-                                                           idKey: "nid",
-                                                           idValue: nmoqParkListDict.nid,
-                                                           managedContext: managedContext)
-                    //update
-                    if(fetchResult.count != 0) {
-                        let nmoqParkListdbDict = fetchResult[0] as! NMoQParkDetailEntity
-                        nmoqParkListdbDict.title = nmoqParkListDict.title
-                        nmoqParkListdbDict.nid =  nmoqParkListDict.nid
-                        nmoqParkListdbDict.sortId =  nmoqParkListDict.sortId
-                        nmoqParkListdbDict.parkDesc =  nmoqParkListDict.parkDesc
-                        
-                        if(nmoqParkListDict.images != nil){
-                            if((nmoqParkListDict.images?.count)! > 0) {
-                                for i in 0 ... (nmoqParkListDict.images?.count)!-1 {
-                                    var parkListImage: ImageEntity!
-                                    let parkListImageArray = NSEntityDescription.insertNewObject(forEntityName: "ImageEntity", into: managedContext) as! ImageEntity
-                                    parkListImageArray.image = nmoqParkListDict.images![i]
-                                    
-                                    parkListImage = parkListImageArray
-                                    nmoqParkListdbDict.addToParkDetailImgRelation(parkListImage)
-                                    do {
-                                        try managedContext.save()
-                                    } catch let error as NSError {
-                                        print("Could not save. \(error), \(error.userInfo)")
-                                    }
-                                }
-                            }
-                        }
-                        
-                        do{
-                            try managedContext.save()
-                        }
-                        catch{
-                            print(error)
-                        }
-                    } else {
-                        //save
-                        self.saveNMoQParkDetailToCoreData(nmoqParkListDict: nmoqParkListDict, managedObjContext: managedContext)
-                    }
-                }
-                NotificationCenter.default.post(name: NSNotification.Name(nmoqParkDetailNotificationEn), object: self)
-            } else {
-                for i in 0 ... (nmoqParkList?.count)!-1 {
-                    let nmoqParkListDict : NMoQParkDetail?
-                    nmoqParkListDict = nmoqParkList?[i]
-                    self.saveNMoQParkDetailToCoreData(nmoqParkListDict: nmoqParkListDict!, managedObjContext: managedContext)
-                }
-                NotificationCenter.default.post(name: NSNotification.Name(nmoqParkDetailNotificationEn), object: self)
-            }
-    }
-    func saveNMoQParkDetailToCoreData(nmoqParkListDict: NMoQParkDetail, managedObjContext: NSManagedObjectContext) {
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
-//        if (LocalizationLanguage.currentAppleLanguage() == ENG_LANGUAGE) {
-            let nmoqParkListdbDict: NMoQParkDetailEntity = NSEntityDescription.insertNewObject(forEntityName: "NMoQParkDetailEntity", into: managedObjContext) as! NMoQParkDetailEntity
-            nmoqParkListdbDict.title = nmoqParkListDict.title
-            nmoqParkListdbDict.nid =  nmoqParkListDict.nid
-            nmoqParkListdbDict.sortId =  nmoqParkListDict.sortId
-            nmoqParkListdbDict.parkDesc =  nmoqParkListDict.parkDesc
-            nmoqParkListdbDict.language = Utils.getLanguage()
-        
-            if(nmoqParkListDict.images != nil){
-                if((nmoqParkListDict.images?.count)! > 0) {
-                    for i in 0 ... (nmoqParkListDict.images?.count)!-1 {
-                        var parkListImage: ImageEntity!
-                        let parkListImageArray = NSEntityDescription.insertNewObject(forEntityName: "ImageEntity", into: managedObjContext) as! ImageEntity
-                        parkListImageArray.image = nmoqParkListDict.images![i]
-                        parkListImageArray.language = Utils.getLanguage()
-                        parkListImage = parkListImageArray
-                        nmoqParkListdbDict.addToParkDetailImgRelation(parkListImage)
-                        do {
-                            try managedObjContext.save()
-                        } catch let error as NSError {
-                            print("Could not save. \(error), \(error.userInfo)")
-                        }
-                    }
-                }
-            }
-//        } else {
-//            let nmoqParkListdbDict: NMoQParkDetailEntityAr = NSEntityDescription.insertNewObject(forEntityName: "NMoQParkDetailEntityAr", into: managedObjContext) as! NMoQParkDetailEntityAr
-//            nmoqParkListdbDict.title = nmoqParkListDict.title
-//            nmoqParkListdbDict.nid =  nmoqParkListDict.nid
-//            nmoqParkListdbDict.sortId =  nmoqParkListDict.sortId
-//            nmoqParkListdbDict.parkDesc =  nmoqParkListDict.parkDesc
-//
-//            if(nmoqParkListDict.images != nil){
-//                if((nmoqParkListDict.images?.count)! > 0) {
-//                    for i in 0 ... (nmoqParkListDict.images?.count)!-1 {
-//                        var parkListImage: NMoQParkDetailImgEntityAr!
-//                        let parkListImageArray: NMoQParkDetailImgEntityAr = NSEntityDescription.insertNewObject(forEntityName: "NMoQParkDetailImgEntityAr", into: managedObjContext) as! NMoQParkDetailImgEntityAr
-//                        parkListImageArray.images = nmoqParkListDict.images![i]
-//
-//                        parkListImage = parkListImageArray
-//                        nmoqParkListdbDict.addToParkDetailImgRelationAr(parkListImage)
-//                        do {
-//                            try managedObjContext.save()
-//                        } catch let error as NSError {
-//                            print("Could not save. \(error), \(error.userInfo)")
-//                        }
-//                    }
-//                }
-//            }
-//        }
-        do {
-            try managedObjContext.save()
-        } catch let error as NSError {
-            print("Could not save. \(error), \(error.userInfo)")
-        }
-    }
+    
     
     func fetchNMoQParkDetailFromCoredata() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
         let managedContext = getContext()
         do {
-//            if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
                 var parkListArray = [NMoQParkDetailEntity]()
                 parkListArray = DataManager.checkAddedToCoredata(entityName: "NMoQParkDetailEntity",
                                                      idKey: "nid",
                                                      idValue: parkDetailId,
                                                      managedContext: managedContext) as! [NMoQParkDetailEntity]
                 if (parkListArray.count > 0) {
-                    for i in 0 ... parkListArray.count-1 {
-                        let parkListDict = parkListArray[i]
-                        var imagesArray : [String] = []
-                        let imagesInfoArray = (parkListDict.parkDetailImgRelation?.allObjects) as! [ImageEntity]
-                        if(imagesInfoArray.count > 0) {
-                            for i in 0 ... imagesInfoArray.count-1 {
-                                imagesArray.append(imagesInfoArray[i].image!)
-                            }
-                        }
-                        self.nmoqParkDetailArray.insert(NMoQParkDetail(title: parkListDict.title, sortId: parkListDict.sortId, nid: parkListDict.nid, images: imagesArray, parkDesc: parkListDict.parkDesc, language: parkListDict.language), at: i)
+                    for parkListDict in parkListArray {
+                        self.nmoqParkDetailArray.append(NMoQParkDetail(entity: parkListDict))
                     }
+                    
                     if(nmoqParkDetailArray.count == 0){
                         if(self.networkReachability?.isReachable == false) {
                             self.showNoNetwork()
@@ -1622,7 +1206,6 @@ class CommonDetailViewController: UIViewController,UITableViewDelegate,UITableVi
         let diningDetailDict = diningDetailtArray[0]
             if (fetchData.count > 0) {
                 let diningdbDict = fetchData[0]
-
                 DataManager.saveToDiningCoreData(diningListDict: diningDetailDict,
                                                  managedObjContext: managedContext,
                                                  entity: diningdbDict)
@@ -1633,87 +1216,42 @@ class CommonDetailViewController: UIViewController,UITableViewDelegate,UITableVi
                                                  entity: nil)
             }
     }
-    func saveDiningDetailToCoreData(diningDetailDict: Dining, managedObjContext: NSManagedObjectContext) {
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
-            let diningInfo: DiningEntity = NSEntityDescription.insertNewObject(forEntityName: "DiningEntity", into: managedObjContext) as! DiningEntity
-            diningInfo.id = diningDetailDict.id
-            diningInfo.name = diningDetailDict.name
-            diningInfo.image = diningDetailDict.image
-            diningInfo.diningdescription = diningDetailDict.description
-            diningInfo.closetime = diningDetailDict.closetime
-            diningInfo.openingtime =  diningDetailDict.openingtime
-            diningInfo.location =  diningDetailDict.location
-            if (LocalizationLanguage.currentAppleLanguage() == ENG_LANGUAGE) {
-                diningInfo.lang =  "1"
-            } else {
-                diningInfo.lang =  "0"
-            }
-            if((diningDetailDict.images?.count)! > 0) {
-                for i in 0 ... (diningDetailDict.images?.count)!-1 {
-                    var diningImagesEntity: ImageEntity!
-                    let diningImage = NSEntityDescription.insertNewObject(forEntityName: "ImageEntity", into: managedObjContext) as! ImageEntity
-                    diningImage.image = diningDetailDict.images![i]
-                    
-                    diningImagesEntity = diningImage
-                    diningInfo.addToImagesRelation(diningImagesEntity)
-                    do {
-                        try managedObjContext.save()
-                    } catch let error as NSError {
-                        print("Could not save. \(error), \(error.userInfo)")
-                    }
-                    
-                }
-            }
-            if(diningDetailDict.sortid != nil) {
-                diningInfo.sortid = diningDetailDict.sortid
-            }
-        do {
-            try managedObjContext.save()
-            
-        } catch let error as NSError {
-            print("Could not save. \(error), \(error.userInfo)")
-        }
-    }
+    
     func fetchDiningDetailsFromCoredata() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
         let managedContext = getContext()
         do {
-                var diningArray = [DiningEntity]()
-                let diningFetchRequest =  NSFetchRequest<NSFetchRequestResult>(entityName: "DiningEntity")
-                if(diningDetailId != nil) {
-                    diningFetchRequest.predicate = NSPredicate.init(format: "id == \(diningDetailId!)")
-                }
-                diningArray = (try managedContext.fetch(diningFetchRequest) as? [DiningEntity])!
-                let diningDict = diningArray[0]
-                if ((diningArray.count > 0) && (diningDict.diningdescription != nil)) {
-                    var imagesArray : [String] = []
-                    let diningImagesArray = (diningDict.imagesRelation?.allObjects) as! [ImageEntity]
-                    if(diningImagesArray.count > 0) {
-                        for i in 0 ... diningImagesArray.count-1 {
-                            imagesArray.append(diningImagesArray[i].image!)
-                        }
-                    }
-                    self.diningDetailtArray.insert(Dining(id: diningDict.id, name: diningDict.name, location: diningDict.location, description: diningDict.diningdescription, image: diningDict.image, openingtime: diningDict.openingtime, closetime: diningDict.closetime, sortid: diningDict.sortid, museumId: nil, images: imagesArray), at: 0)
-                    if(diningDetailtArray.count == 0){
-                        if(self.networkReachability?.isReachable == false) {
-                            self.showNoNetwork()
-                        } else {
-                            self.loadingView.showNoDataView()
-                        }
-                    }
-                    self.setTopBarImage()
-                    heritageDetailTableView.reloadData()
-                } else {
+            let diningArray = DataManager.checkAddedToCoredata(entityName: "DiningEntity",
+                                                           idKey: "id",
+                                                           idValue: diningDetailId!,
+                                                           managedContext: managedContext) as! [DiningEntity]
+            
+            let diningDict = diningArray[0]
+            if ((diningArray.count > 0) && (diningDict.diningdescription != nil)) {
+                
+                self.diningDetailtArray.append(Dining(entity: diningDict))
+                
+                if diningDetailtArray.isEmpty {
                     if(self.networkReachability?.isReachable == false) {
                         self.showNoNetwork()
                     } else {
                         self.loadingView.showNoDataView()
                     }
                 }
+                self.setTopBarImage()
+                heritageDetailTableView.reloadData()
+            } else {
+                if(self.networkReachability?.isReachable == false) {
+                    self.showNoNetwork()
+                } else {
+                    self.loadingView.showNoDataView()
+                }
+            }
         } catch let error as NSError {
             print("Could not fetch. \(error), \(error.userInfo)")
         }
     }
+    
     func setFavouritesAction(cellObj :DiningDetailTableViewCell) {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
 
@@ -1729,6 +1267,7 @@ class CommonDetailViewController: UIViewController,UITableViewDelegate,UITableVi
     func setShareAction(cellObj :DiningDetailTableViewCell) {
         
     }
+    
     func isImgArrayAvailable() -> Bool {
         if(self.diningDetailtArray.count != 0) {
             if(self.diningDetailtArray[0].images != nil) {
@@ -1740,18 +1279,6 @@ class CommonDetailViewController: UIViewController,UITableViewDelegate,UITableVi
         return false
     }
     
-    func deleteExistingEvent(managedContext:NSManagedObjectContext,entityName : String?) ->Bool? {
-        
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entityName!)
-        let deleteRequest = NSBatchDeleteRequest( fetchRequest: fetchRequest)
-        do{
-            try managedContext.execute(deleteRequest)
-            return true
-        }catch let error as NSError {
-            return false
-        }
-        
-    }
     func showNodata() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
         var errorMessage: String

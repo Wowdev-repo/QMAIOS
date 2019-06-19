@@ -284,7 +284,7 @@ class ProfileViewController: UIViewController,HeaderViewProtocol,comingSoonPopUp
 
                         if((UserDefaults.standard.value(forKey: "acceptOrDecline") as? String != nil) && (UserDefaults.standard.value(forKey: "acceptOrDecline") as? String != "")) {
                             let managedContext = getContext()
-                            self.deleteExistingEvent(managedContext: managedContext, entityName: "RegisteredEventListEntity")
+                            DataManager.delete(managedContext: managedContext, entityName: "RegisteredEventListEntity")
                         }
                         
                         if let presenter = self.presentingViewController as? CulturePassViewController {

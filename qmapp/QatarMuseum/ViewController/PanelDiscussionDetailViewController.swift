@@ -38,7 +38,7 @@ class PanelDiscussionDetailViewController: UIViewController,LoadingViewProtocol,
     var completedEntityReg : NMoQEntityRegistration?
     var userEventList: [NMoQUserEventList]! = []
     var facilitiesDetail = [FacilitiesDetail]()
-    var collectionDetailArray: [CollectionDetail]! = []
+    var collectionDetailArray: [CollectionDetail] = []
     var nmoqParkDetailArray: [NMoQParkDetail]! = []
     var popupView : ComingSoonPopUp = ComingSoonPopUp()
     var selectedRow : Int?
@@ -638,12 +638,7 @@ class PanelDiscussionDetailViewController: UIViewController,LoadingViewProtocol,
                     userEventInfo.eventId = tourEntity.nid
                     userEventInfo.regId = registrationId
                     userEventInfo.seats = selectedCount
-                    do{
-                        try managedContext.save()
-                    }
-                    catch{
-                        print(error)
-                    }
+                    managedContext.saveContext()
             }
         }
     }
@@ -1237,11 +1232,11 @@ class PanelDiscussionDetailViewController: UIViewController,LoadingViewProtocol,
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         let managedContext = getContext()
         do {
-                var facilitiesDetailArray = [FacilitiesDetailEntity]()
+            var facilitiesDetailArray = [FacilitiesDetailEntity]()
             facilitiesDetailArray = DataManager.checkAddedToCoredata(entityName: "FacilitiesDetailEntity",
-                                                             idKey: "category",
-                                                             idValue: panelDetailId,
-                                                             managedContext: managedContext) as! [FacilitiesDetailEntity]
+                                                                     idKey: "category",
+                                                                     idValue: panelDetailId,
+                                                                     managedContext: managedContext) as! [FacilitiesDetailEntity]
             
             for facilities in facilitiesDetailArray {
                 self.facilitiesDetail.append(FacilitiesDetail(entity: facilities))
@@ -1267,7 +1262,7 @@ class PanelDiscussionDetailViewController: UIViewController,LoadingViewProtocol,
         _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.CollectionDetail(["category": collectionName!])).responseObject { (response: DataResponse<CollectionDetails>) -> Void in
             switch response.result {
             case .success(let data):
-                self.collectionDetailArray = data.collectionDetails
+                self.collectionDetailArray = data.collectionDetails ?? []
                 self.saveOrUpdateCollectionDetailCoredata()
                 self.tableView.reloadData()
                 self.loadingView.stopLoading()
@@ -1335,237 +1330,73 @@ class PanelDiscussionDetailViewController: UIViewController,LoadingViewProtocol,
             if #available(iOS 10.0, *) {
                 let container = appDelegate!.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
-                    self.collectionDetailCoreDataInBackgroundThread(managedContext: managedContext)
+                    DataManager.updateCollectionDetailsEntity(managedContext: managedContext,
+                                                                    collectionDetailArray: self.collectionDetailArray,
+                                                                    collectionName: self.collectionName)
                 }
             } else {
                 let managedContext = appDelegate!.managedObjectContext
                 managedContext.perform {
-                    self.collectionDetailCoreDataInBackgroundThread(managedContext : managedContext)
+                    DataManager.updateCollectionDetailsEntity(managedContext : managedContext,
+                                                                    collectionDetailArray: self.collectionDetailArray,
+                                                                    collectionName: self.collectionName)
                 }
             }
             DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         }
     }
     
-    func collectionDetailCoreDataInBackgroundThread(managedContext: NSManagedObjectContext) {
-        
-        if let fetchData = DataManager.checkAddedToCoredata(entityName: "CollectionDetailsEntity",
-                                                            idKey: "categoryCollection",
-                                                            idValue: collectionName,
-                                                            managedContext: managedContext) as? [CollectionDetailsEntity],
-            !fetchData.isEmpty {
-            for collectionDetailDict in collectionDetailArray {
-                if let fetchData = DataManager.checkAddedToCoredata(entityName: "CollectionDetailsEntity",
-                                                                    idKey: "nid",
-                                                                    idValue: collectionDetailDict.nid,
-                                                                    managedContext: managedContext) as? [CollectionDetailsEntity],
-                    !fetchData.isEmpty {
-                    let collectiondbDict = fetchData[0]
-                    collectiondbDict.title = collectionDetailDict.title
-                    collectiondbDict.body = collectionDetailDict.body
-                    collectiondbDict.categoryCollection =  collectionDetailDict.categoryCollection?.replacingOccurrences(of: "<[^>]+>|&nbsp;|&|#039;", with: "", options: .regularExpression, range: nil)
-                    collectiondbDict.nid = collectionDetailDict.nid
-                    collectiondbDict.image = collectionDetailDict.image
-                    collectiondbDict.language = Utils.getLanguage()
-                    
-                    do {
-                        try managedContext.save()
-                    }
-                    catch{
-                        print(error)
-                    }
-                    
-                } else {
-                    self.collectionDetailSaveToCoreData(collectionDetailDict: collectionDetailDict, managedObjContext: managedContext)
-                }
-            }
-            
-        } else {
-            for collectionDetailDict in collectionDetailArray {
-                self.collectionDetailSaveToCoreData(collectionDetailDict: collectionDetailDict,
-                                                    managedObjContext: managedContext)
-            }
-        }
-    }
     
-    func collectionDetailSaveToCoreData(collectionDetailDict: CollectionDetail, managedObjContext: NSManagedObjectContext) {
-            let collectiondbDict: CollectionDetailsEntity = NSEntityDescription.insertNewObject(forEntityName: "CollectionDetailsEntity", into: managedObjContext) as! CollectionDetailsEntity
-            collectiondbDict.title = collectionDetailDict.title
-            collectiondbDict.body = collectionDetailDict.body
-            collectiondbDict.nid = collectionDetailDict.nid
-            collectiondbDict.categoryCollection =  collectionDetailDict.categoryCollection?.replacingOccurrences(of: "<[^>]+>|&nbsp;|&|#039;", with: "", options: .regularExpression, range: nil)
-            collectiondbDict.image = collectionDetailDict.image
-        collectiondbDict.language = Utils.getLanguage()
-        
-        do {
-            try managedObjContext.save()
-            
-            
-        } catch let error as NSError {
-            print("Could not save. \(error), \(error.userInfo)")
-        }
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-    }
     
     func fetchCollectionDetailsFromCoredata() {
         let managedContext = getContext()
         do {
-//            if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
-                var collectionArray = [CollectionDetailsEntity]()
-            collectionArray = DataManager.checkAddedToCoredata(entityName: "CollectionDetailsEntity",
+            if let collectionArray = DataManager.checkAddedToCoredata(entityName: "CollectionDetailsEntity",
                                                              idKey: "categoryCollection",
                                                              idValue: collectionName,
-                                                             managedContext: managedContext) as! [CollectionDetailsEntity]
-            
-                if (collectionArray.count > 0) {
-                    for i in 0 ... collectionArray.count-1 {
-                        let collectionDict = collectionArray[i]
-                        if((collectionDict.title == nil) && (collectionDict.body == nil)) {
-                            self.showNodata()
-                            
-                        } else {
-                            self.collectionDetailArray.insert(CollectionDetail(title: collectionDict.title,
-                                                                               image: collectionDict.image,
-                                                                               body: collectionDict.body,
-                                                                               nid: collectionDict.nid,
-                                                                               categoryCollection: collectionDict.categoryCollection?.replacingOccurrences(of: "<[^>]+>|&nbsp;|&|#039;", with: "", options: .regularExpression, range: nil)), at: 0)
-                        }
-                        
-                    }
-                    if(collectionDetailArray.count == 0){
-                        if(self.networkReachability?.isReachable == false) {
-                            self.showNoNetwork()
-                        } else {
-                            self.loadingView.showNoDataView()
-                        }
-                    }
-                    tableView.reloadData()
-                } else{
-                    if(self.networkReachability?.isReachable == false) {
-                        self.showNoNetwork()
+                                                             managedContext: managedContext) as? [CollectionDetailsEntity],
+                !collectionArray.isEmpty {
+                for collectionDict in collectionArray {
+                    if collectionDict.title == nil && collectionDict.body == nil {
+                        self.showNodata()
                     } else {
-                        self.loadingView.showNoDataView()
+                        self.collectionDetailArray.insert(CollectionDetail(entity: collectionDict), at: 0)
                     }
                 }
+            } else {
+                if(self.networkReachability?.isReachable == false) {
+                    self.showNoNetwork()
+                } else {
+                    self.loadingView.showNoDataView()
+                }
+            }
+            
+            
+            tableView.reloadData()
         }
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
     }
+    
     //MARK: NMoq Playground Parks Detail Coredata Method
-    func saveOrUpdateNmoqParkDetailCoredata(nmoqParkList: [NMoQParkDetail]?) {
-        if ((nmoqParkList?.count)! > 0) {
+    func saveOrUpdateNmoqParkDetailCoredata(nmoqParkList: [NMoQParkDetail]) {
+        if !nmoqParkList.isEmpty {
             let appDelegate =  UIApplication.shared.delegate as? AppDelegate
             if #available(iOS 10.0, *) {
                 let container = appDelegate!.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
-                    self.nmoqParkDetailCoreDataInBackgroundThread(nmoqParkList: nmoqParkList, managedContext: managedContext)
+                    DataManager.updateNmoqParkDetail(nmoqParkList: nmoqParkList,
+                                                     managedContext: managedContext)
                 }
             } else {
                 let managedContext = appDelegate!.managedObjectContext
                 managedContext.perform {
-                    self.nmoqParkDetailCoreDataInBackgroundThread(nmoqParkList: nmoqParkList, managedContext : managedContext)
-                }
+                    DataManager.updateNmoqParkDetail(nmoqParkList: nmoqParkList,
+                                                     managedContext: managedContext)                }
             }
         }
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
     }
     
-    func nmoqParkDetailCoreDataInBackgroundThread(nmoqParkList: [NMoQParkDetail]?,
-                                                  managedContext: NSManagedObjectContext) {
-        let fetchData = DataManager.checkAddedToCoredata(entityName: "NMoQParkDetailEntity",
-                                                                 idKey: "nid",
-                                                                 idValue: nil,
-                                                                 managedContext: managedContext) as! [NMoQParkDetailEntity]
-        
-            if (fetchData.count > 0) {
-                for i in 0 ... (nmoqParkList?.count)!-1 {
-                    let nmoqParkListDict = nmoqParkList![i]
-                    let fetchResult = DataManager.checkAddedToCoredata(entityName: "NMoQParkDetailEntity",
-                                                                             idKey: "nid",
-                                                                             idValue: nmoqParkListDict.nid,
-                                                                             managedContext: managedContext)
-                    
-                    //update
-                    if(fetchResult.count != 0) {
-                        let nmoqParkListdbDict = fetchResult[0] as! NMoQParkDetailEntity
-                        nmoqParkListdbDict.title = nmoqParkListDict.title
-                        nmoqParkListdbDict.nid =  nmoqParkListDict.nid
-                        nmoqParkListdbDict.sortId =  nmoqParkListDict.sortId
-                        nmoqParkListdbDict.parkDesc =  nmoqParkListDict.parkDesc
-                        nmoqParkListdbDict.language = Utils.getLanguage()
-                        
-                        if(nmoqParkListDict.images != nil){
-                            if((nmoqParkListDict.images?.count)! > 0) {
-                                for i in 0 ... (nmoqParkListDict.images?.count)!-1 {
-                                    var parkListImage: ImageEntity!
-                                    let parkListImageArray = NSEntityDescription.insertNewObject(forEntityName: "ImageEntity", into: managedContext) as! ImageEntity
-                                    parkListImageArray.image = nmoqParkListDict.images![i]
-                                    parkListImageArray.language = Utils.getLanguage()
-                                    parkListImage = parkListImageArray
-                                    nmoqParkListdbDict.addToParkDetailImgRelation(parkListImage)
-                                    do {
-                                        try managedContext.save()
-                                    } catch let error as NSError {
-                                        print("Could not save. \(error), \(error.userInfo)")
-                                    }
-                                }
-                            }
-                        }
-                        
-                        do{
-                            try managedContext.save()
-                        }
-                        catch{
-                            print(error)
-                        }
-                    } else {
-                        //save
-                        self.saveNMoQParkDetailToCoreData(nmoqParkListDict: nmoqParkListDict, managedObjContext: managedContext)
-                    }
-                }
-                NotificationCenter.default.post(name: NSNotification.Name(nmoqParkDetailNotificationEn), object: self)
-            } else {
-                for i in 0 ... (nmoqParkList?.count)!-1 {
-                    let nmoqParkListDict : NMoQParkDetail?
-                    nmoqParkListDict = nmoqParkList?[i]
-                    self.saveNMoQParkDetailToCoreData(nmoqParkListDict: nmoqParkListDict!, managedObjContext: managedContext)
-                }
-                NotificationCenter.default.post(name: NSNotification.Name(nmoqParkDetailNotificationEn), object: self)
-            }
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-    }
-    
-    func saveNMoQParkDetailToCoreData(nmoqParkListDict: NMoQParkDetail, managedObjContext: NSManagedObjectContext) {
-            let nmoqParkListdbDict: NMoQParkDetailEntity = NSEntityDescription.insertNewObject(forEntityName: "NMoQParkDetailEntity", into: managedObjContext) as! NMoQParkDetailEntity
-            nmoqParkListdbDict.title = nmoqParkListDict.title
-            nmoqParkListdbDict.nid =  nmoqParkListDict.nid
-            nmoqParkListdbDict.sortId =  nmoqParkListDict.sortId
-            nmoqParkListdbDict.parkDesc =  nmoqParkListDict.parkDesc
-        nmoqParkListdbDict.language = Utils.getLanguage()
-            
-            if(nmoqParkListDict.images != nil){
-                if((nmoqParkListDict.images?.count)! > 0) {
-                    for i in 0 ... (nmoqParkListDict.images?.count)!-1 {
-                        var parkListImage: ImageEntity!
-                        let parkListImageArray = NSEntityDescription.insertNewObject(forEntityName: "ImageEntity", into: managedObjContext) as! ImageEntity
-                        parkListImageArray.image = nmoqParkListDict.images![i]
-                        parkListImageArray.language = Utils.getLanguage()
-                        parkListImage = parkListImageArray
-                        nmoqParkListdbDict.addToParkDetailImgRelation(parkListImage)
-                        do {
-                            try managedObjContext.save()
-                        } catch let error as NSError {
-                            print("Could not save. \(error), \(error.userInfo)")
-                        }
-                    }
-                }
-            }
-        do {
-            try managedObjContext.save()
-        } catch let error as NSError {
-            DDLogError("Could not save. \(error), \(error.userInfo)")
-        }
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-    }
     
     func fetchNMoQParkDetailFromCoredata() {
         let managedContext = getContext()
@@ -1576,33 +1407,26 @@ class PanelDiscussionDetailViewController: UIViewController,LoadingViewProtocol,
                                                                      idValue: nid,
                                                                      managedContext: managedContext) as! [NMoQParkDetailEntity]
             
-                if (parkListArray.count > 0) {
-                    for i in 0 ... parkListArray.count-1 {
-                        let parkListDict = parkListArray[i]
-                        var imagesArray : [String] = []
-                        let imagesInfoArray = (parkListDict.parkDetailImgRelation?.allObjects) as! [ImageEntity]
-                        if(imagesInfoArray.count > 0) {
-                            for i in 0 ... imagesInfoArray.count-1 {
-                                imagesArray.append(imagesInfoArray[i].image!)
-                            }
-                        }
-                        self.nmoqParkDetailArray.insert(NMoQParkDetail(title: parkListDict.title, sortId: parkListDict.sortId, nid: parkListDict.nid, images: imagesArray, parkDesc: parkListDict.parkDesc, language: parkListDict.language), at: i)
-                    }
-                    if(nmoqParkDetailArray.count == 0){
-                        if(self.networkReachability?.isReachable == false) {
-                            self.showNoNetwork()
-                        } else {
-                            self.loadingView.showNoDataView()
-                        }
+            if (parkListArray.count > 0) {
+                for parkListDict in parkListArray {
+                    self.nmoqParkDetailArray.append(NMoQParkDetail(entity: parkListDict))
+                }
+                
+                if(nmoqParkDetailArray.count == 0){
+                    if(self.networkReachability?.isReachable == false) {
+                        self.showNoNetwork()
                     } else {
-                        if self.nmoqParkDetailArray.first(where: {$0.sortId != "" && $0.sortId != nil} ) != nil {
-                            self.nmoqParkDetailArray = self.nmoqParkDetailArray.sorted(by: { Int16($0.sortId!)! < Int16($1.sortId!)! })
-                        }
+                        self.loadingView.showNoDataView()
                     }
-                    DispatchQueue.main.async{
-                        self.tableView.reloadData()
+                } else {
+                    if self.nmoqParkDetailArray.first(where: {$0.sortId != "" && $0.sortId != nil} ) != nil {
+                        self.nmoqParkDetailArray = self.nmoqParkDetailArray.sorted(by: { Int16($0.sortId!)! < Int16($1.sortId!)! })
                     }
-                } else{
+                }
+                DispatchQueue.main.async{
+                    self.tableView.reloadData()
+                }
+            } else{
                     if(self.networkReachability?.isReachable == false) {
                         self.showNoNetwork()
                     } else {

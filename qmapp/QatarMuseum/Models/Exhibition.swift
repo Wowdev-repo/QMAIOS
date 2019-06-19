@@ -44,21 +44,21 @@ struct Exhibition: ResponseObjectSerializable, ResponseCollectionSerializable {
             self.displayDate  = representation["Display_date"] as? String
         }
     }
-    init(id:String?, name:String?, image:String?,detailImage:String?, startDate:String?, endDate:String?, location:String?, latitude:String?, longitude:String?, shortDescription:String?, longDescription:String?, museumId : String?, status : String?, displayDate : String?) {
-        self.id = id
-        self.name = name
-        self.image = image
-        self.detailImage = detailImage
-        self.startDate = startDate
-        self.endDate = endDate
-        self.location = location
-        self.latitude = latitude
-        self.longitude = longitude
-        self.shortDescription = shortDescription
-        self.longDescription = longDescription
-        self.museumId = museumId
-        self.status = status
-        self.displayDate = displayDate
+    
+    init(entity: ExhibitionsEntity) {
+        self.id = entity.id
+        self.name = entity.name
+        self.image = entity.image
+        self.detailImage = entity.detailImage
+        self.startDate = entity.startDate
+        self.endDate = entity.endDate
+        self.location = entity.location
+        self.museumId = entity.museumId
+        self.status = entity.status
+        self.displayDate = entity.dispalyDate
+        self.latitude = entity.detailLatitude
+        self.longitude = entity.detailLongitude
+        self.displayDate = entity.dispalyDate
     }
 }
 

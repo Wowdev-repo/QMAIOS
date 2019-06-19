@@ -40,7 +40,7 @@ class CulturePassViewController: UIViewController, HeaderViewProtocol, comingSoo
     var loginArray : LoginData?
     var userInfoArray : UserInfoData?
     let networkReachability = NetworkReachabilityManager()
-    var userEventList: [NMoQUserEventList]! = []
+    var userEventList: [NMoQUserEventList] = []
     
     let keychain = KeychainSwift()
     
@@ -459,7 +459,7 @@ class CulturePassViewController: UIViewController, HeaderViewProtocol, comingSoo
             _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.NMoQEventListUserRegistration(["user_id" : userId])).responseObject { (response: DataResponse<NMoQUserEventListValues>) -> Void in
                 switch response.result {
                 case .success(let data):
-                    self.userEventList = data.eventList
+                    self.userEventList = data.eventList ?? []
                     self.saveOrUpdateEventReistratedCoredata()
                 case .failure( _):
                     self.loginPopUpView.removeFromSuperview()
@@ -491,25 +491,8 @@ class CulturePassViewController: UIViewController, HeaderViewProtocol, comingSoo
         }
     }
     func userEventCoreDataInBackgroundThread(managedContext: NSManagedObjectContext) {
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-        if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
-            if (userEventList.count > 0) {
-                for i in 0 ... userEventList.count-1 {
-                    let userEventInfo: RegisteredEventListEntity = NSEntityDescription.insertNewObject(forEntityName: "RegisteredEventListEntity", into: managedContext) as! RegisteredEventListEntity
-                    let userEventListDict = userEventList[i]
-                    userEventInfo.title = userEventListDict.title
-                    userEventInfo.eventId = userEventListDict.eventID
-                    userEventInfo.regId = userEventListDict.regID
-                    userEventInfo.seats = userEventListDict.seats
-                    do{
-                        try managedContext.save()
-                    }
-                    catch{
-                        print(error)
-                    }
-                }
-            }
-        }
+        DataManager.saveRegisteredEventListEntity(managedContext : managedContext,
+                                                  list: self.userEventList)
     }
     func recordScreenView() {
         let screenClass = String(describing: type(of: self))

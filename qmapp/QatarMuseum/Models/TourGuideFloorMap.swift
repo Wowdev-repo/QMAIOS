@@ -73,36 +73,47 @@ struct TourGuideFloorMap: ResponseObjectSerializable, ResponseCollectionSerializ
             
         }
     }
-    init(title:String?,accessionNumber:String?,nid:String?,curatorialDescription:String?,diam:String?,dimensions:String?,mainTitle:String?,objectENGSummary:String?,objectHistory:String?,production:String?,productionDates:String?,image:String?,tourGuideId:String?,artifactNumber:String?,artifactPosition:String?,audioDescriptif:String?,images:[String]?,audioFile:String?,floorLevel:String?,galleyNumber:String?,artistOrCreatorOrAuthor:String?,periodOrStyle:String?,techniqueAndMaterials:String?,thumbImage:String?,artifactImg : Data?, language: String?) {
-        self.title = title
-        self.accessionNumber = accessionNumber
-        self.nid = nid
-        self.curatorialDescription = curatorialDescription
-        self.diam = diam
-        self.dimensions = dimensions
-        self.mainTitle = mainTitle
-        self.objectENGSummary = objectENGSummary
-        self.objectHistory = objectHistory
+    
+    
+    init(entity: FloorMapTourGuideEntity) {
+        var imgsArray : [String] = []
+        if let imgInfoArray = (entity.imagesRelation?.allObjects) as? [ImageEntity] {
+            for info in imgInfoArray {
+                if let image = info.image {
+                    imgsArray.append(image)
+                }
+            }
+        }
         
-        self.production = production
-        self.productionDates = productionDates
-        self.image = image
-        self.tourGuideId = tourGuideId //
-        self.artifactNumber = artifactNumber
-        self.artifactPosition = artifactPosition
-        self.audioDescriptif = audioDescriptif
-        self.images = images
-        self.audioFile = audioFile
-        self.floorLevel = floorLevel
-        self.galleyNumber = galleyNumber
-        self.artistOrCreatorOrAuthor = artistOrCreatorOrAuthor
+        self.title = entity.title
+        self.accessionNumber = entity.accessionNumber
+        self.nid = entity.nid
+        self.curatorialDescription = entity.curatorialDescription
+        self.diam = entity.diam
+        self.dimensions = entity.dimensions
+        self.mainTitle = entity.mainTitle
+        self.objectENGSummary = entity.objectEngSummary
+        self.objectHistory = entity.objectHistory
         
-        self.periodOrStyle = periodOrStyle
-        self.techniqueAndMaterials = techniqueAndMaterials
-        self.thumbImage = thumbImage
-        self.artifactImg = artifactImg
-        self.language = language
+        self.production = entity.production
+        self.productionDates = entity.productionDates
+        self.image = entity.image
+        self.tourGuideId = entity.tourGuideId //
+        self.artifactNumber = entity.artifactNumber
+        self.artifactPosition = entity.artifactPosition
+        self.audioDescriptif = entity.audioDescriptif
+        self.images = imgsArray
+        self.audioFile = entity.audioFile
+        self.floorLevel = entity.floorLevel
+        self.galleyNumber = entity.galleyNumber
+        self.artistOrCreatorOrAuthor = entity.artistOrCreatorOrAuthor
         
+        self.periodOrStyle = entity.periodOrStyle
+        self.techniqueAndMaterials = entity.techniqueAndMaterials
+        self.thumbImage = entity.thumbImage
+        self.artifactImg = entity.artifactImg
+        self.language = entity.language
+
     }
 }
 

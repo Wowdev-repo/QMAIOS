@@ -223,7 +223,10 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
                     }
                 }
                 if(self.exhibition.count > 0) {
-                    self.saveOrUpdateExhibitionsCoredata(exhibition: data.exhibitions, isHomeExhibition: "1")
+                    if let exhibitions = data.exhibitions {
+                        self.saveOrUpdateExhibitionsCoredata(exhibition: exhibitions,
+                                                             isHomeExhibition: "1")
+                    }
                 }
             case .failure( _):
                 if(self.exhibition.count == 0) {
@@ -242,7 +245,10 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
             switch response.result {
             case .success(let data):
                 self.exhibition = data.exhibitions
-                self.saveOrUpdateExhibitionsCoredata(exhibition: data.exhibitions, isHomeExhibition: "0")
+                if let exhibitions = data.exhibitions {
+                    self.saveOrUpdateExhibitionsCoredata(exhibition: exhibitions,
+                                                         isHomeExhibition: "0")
+                }
                 self.exhibitionCollectionView.reloadData()
                 self.exbtnLoadingView.stopLoading()
                 self.exbtnLoadingView.isHidden = true
@@ -692,138 +698,66 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
     }
     
     //MARK: Coredata Method
-    func saveOrUpdateExhibitionsCoredata(exhibition:[Exhibition]?,isHomeExhibition : String?) {
-        if ((exhibition?.count)! > 0) {
+    func saveOrUpdateExhibitionsCoredata(exhibition:[Exhibition] ,isHomeExhibition : String?) {
+        if !exhibition.isEmpty {
             let appDelegate =  UIApplication.shared.delegate as? AppDelegate
             if #available(iOS 10.0, *) {
                 let container = appDelegate!.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
-                    self.coreDataInBackgroundThread(managedContext: managedContext, exhibition: exhibition,isHomeExhibition :isHomeExhibition)
+                    DataManager.updateExhibitionsEntity(managedContext: managedContext,
+                                                    exhibition: exhibition,
+                                                    isHomeExhibition :isHomeExhibition)
                 }
             } else {
                 let managedContext = appDelegate!.managedObjectContext
                 managedContext.perform {
-                    self.coreDataInBackgroundThread(managedContext : managedContext, exhibition: exhibition,isHomeExhibition :isHomeExhibition)
+                    DataManager.updateExhibitionsEntity(managedContext : managedContext,
+                                                    exhibition: exhibition,
+                                                    isHomeExhibition :isHomeExhibition)
                 }
             }
         }
     }
     
-    func coreDataInBackgroundThread(managedContext: NSManagedObjectContext,exhibition:[Exhibition]?,isHomeExhibition : String?) {
-        var fetchData = [ExhibitionsEntity]()
-        var langVar : String? = nil
-        if (LocalizationLanguage.currentAppleLanguage() == ENG_LANGUAGE) {
-            langVar = "1"
-            
-        } else {
-            langVar = "0"
-        }
-             fetchData = DataManager.checkAddedToCoredata(entityName: "ExhibitionsEntity", idKey: "lang", idValue: langVar, managedContext: managedContext) as! [ExhibitionsEntity]
-            if (fetchData.count > 0) {
-                for i in 0 ... self.exhibition.count-1 {
-                    let exhibitionsListDict = self.exhibition[i]
-                    let fetchResult = DataManager.checkAddedToCoredata(entityName: "ExhibitionsEntity", idKey: "id", idValue: self.exhibition[i].id, managedContext: managedContext)
-                    //update
-                    if(fetchResult.count != 0) {
-                        let exhibitionsdbDict = fetchResult[0] as! ExhibitionsEntity
-                        exhibitionsdbDict.name = exhibitionsListDict.name
-                        exhibitionsdbDict.image = exhibitionsListDict.image
-                        exhibitionsdbDict.startDate =  exhibitionsListDict.startDate
-                        exhibitionsdbDict.endDate = exhibitionsListDict.endDate
-                        exhibitionsdbDict.location =  exhibitionsListDict.location
-                        exhibitionsdbDict.museumId = exhibitionsListDict.museumId
-                        exhibitionsdbDict.status = exhibitionsListDict.status
-                        exhibitionsdbDict.isHomeExhibition = isHomeExhibition
-                        exhibitionsdbDict.lang = langVar
-                        do {
-                            try managedContext.save()
-                        }
-                        catch {
-                            print(error)
-                        }
-                    } else {
-                        //save
-                        self.saveToCoreData(exhibitionDict: exhibitionsListDict, managedObjContext: managedContext, exhibition: exhibition,isHomeExhibition :isHomeExhibition)
-                    }
-                }//for
-            } else {
-                for i in 0 ... self.exhibition.count-1 {
-                    let exhibitionListDict : Exhibition?
-                    exhibitionListDict = self.exhibition[i]
-                    self.saveToCoreData(exhibitionDict: exhibitionListDict!, managedObjContext: managedContext, exhibition: exhibition,isHomeExhibition :isHomeExhibition)
-                }
-            }
-    }
-    
-    func saveToCoreData(exhibitionDict: Exhibition, managedObjContext: NSManagedObjectContext,exhibition:[Exhibition]?,isHomeExhibition : String?) {
-        //if ((LocalizationLanguage.currentAppleLanguage()) == "en") {
-        var langVar : String? = nil
-        if (LocalizationLanguage.currentAppleLanguage() == ENG_LANGUAGE) {
-            langVar = "1"
-            
-        } else {
-            langVar = "0"
-        }
-            let exhibitionInfo: ExhibitionsEntity = NSEntityDescription.insertNewObject(forEntityName: "ExhibitionsEntity", into: managedObjContext) as! ExhibitionsEntity
-            
-            exhibitionInfo.id = exhibitionDict.id
-            exhibitionInfo.name = exhibitionDict.name
-            exhibitionInfo.image = exhibitionDict.image
-            exhibitionInfo.startDate =  exhibitionDict.startDate
-            exhibitionInfo.endDate = exhibitionDict.endDate
-            exhibitionInfo.location =  exhibitionDict.location
-            exhibitionInfo.museumId =  exhibitionDict.museumId
-            exhibitionInfo.status =  exhibitionDict.status
-            exhibitionInfo.isHomeExhibition =  isHomeExhibition
-            exhibitionInfo.lang = langVar
-        do {
-            try managedObjContext.save()
-            
-        } catch let error as NSError {
-            print("Could not save. \(error), \(error.userInfo)")
-        }
-    }
     
     func fetchExhibitionsListFromCoredata() {
         let managedContext = getContext()
         do {
-            var exhibitionArray = [ExhibitionsEntity]()
-            var langVar : String? = nil
-            if (LocalizationLanguage.currentAppleLanguage() == ENG_LANGUAGE) {
-                langVar = "1"
-                
-            } else {
-                langVar = "0"
-            }
-            exhibitionArray = checkMultiplePredicate(entityName: "ExhibitionsEntity", idKey: "isHomeExhibition", idValue: "1", langKey: "lang", langValue: langVar, managedContext: managedContext) as! [ExhibitionsEntity]
-                if (exhibitionArray.count > 0) {
-                    if((self.networkReachability?.isReachable)!) {
-                        DispatchQueue.global(qos: .background).async {
-                            self.getExhibitionDataFromServer()
-                        }
+            
+            let exhibitionArray = checkMultiplePredicate(entityName: "ExhibitionsEntity",
+                                                         idKey: "isHomeExhibition",
+                                                         idValue: "1",
+                                                         langKey: "lang",
+                                                         langValue: Utils.getLanguage(),
+                                                         managedContext: managedContext) as! [ExhibitionsEntity]
+            if (exhibitionArray.count > 0) {
+                if((self.networkReachability?.isReachable)!) {
+                    DispatchQueue.global(qos: .background).async {
+                        self.getExhibitionDataFromServer()
+                    }
                 }
-                    for i in 0 ... exhibitionArray.count-1 {
-                        self.exhibition.insert(Exhibition(id: exhibitionArray[i].id, name: exhibitionArray[i].name, image: exhibitionArray[i].image,detailImage:nil, startDate: exhibitionArray[i].startDate, endDate: exhibitionArray[i].endDate, location: exhibitionArray[i].location, latitude: nil, longitude: nil, shortDescription: nil, longDescription: nil,museumId :exhibitionArray[i].museumId,status :exhibitionArray[i].status,displayDate :exhibitionArray[i].dispalyDate), at: i)
-                        
-                    }
-                    if(exhibition.count == 0){
-                        if(self.networkReachability?.isReachable == false) {
-                            self.showNoNetwork()
-                        } else {
-                            self.exbtnLoadingView.showNoDataView()
-                        }
-                    } 
-                    DispatchQueue.main.async{
-                        self.exhibitionCollectionView.reloadData()
-                    }
-                } else {
+                for entity in exhibitionArray {
+                    self.exhibition.append(Exhibition(entity: entity))
+                }
+                
+                if(exhibition.count == 0){
                     if(self.networkReachability?.isReachable == false) {
                         self.showNoNetwork()
                     } else {
-                        //self.exbtnLoadingView.showNoDataView()
-                        self.getExhibitionDataFromServer() //coreDataMigratio  solution
+                        self.exbtnLoadingView.showNoDataView()
                     }
                 }
+                DispatchQueue.main.async{
+                    self.exhibitionCollectionView.reloadData()
+                }
+            } else {
+                if(self.networkReachability?.isReachable == false) {
+                    self.showNoNetwork()
+                } else {
+                    //self.exbtnLoadingView.showNoDataView()
+                    self.getExhibitionDataFromServer() //coreDataMigratio  solution
+                }
+            }
         } catch let error as NSError {
             print("Could not fetch. \(error), \(error.userInfo)")
             if (networkReachability?.isReachable == false) {
@@ -835,30 +769,33 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
     func fetchMuseumExhibitionsListFromCoredata() {
         let managedContext = getContext()
         do {
-                var exhibitionArray = [ExhibitionsEntity]()
-                exhibitionArray = DataManager.checkAddedToCoredata(entityName: "ExhibitionsEntity", idKey: "museumId", idValue: museumId, managedContext: managedContext) as! [ExhibitionsEntity]
-                if (exhibitionArray.count > 0) {
-                    for i in 0 ... exhibitionArray.count-1 {
-                        self.exhibition.insert(Exhibition(id: exhibitionArray[i].id, name: exhibitionArray[i].name, image: exhibitionArray[i].image,detailImage:nil, startDate: exhibitionArray[i].startDate, endDate: exhibitionArray[i].endDate, location: exhibitionArray[i].location, latitude: nil, longitude: nil, shortDescription: nil, longDescription: nil,museumId :exhibitionArray[i].museumId,status :exhibitionArray[i].status, displayDate :exhibitionArray[i].dispalyDate), at: i)
-                        
-                    }
-                    if(exhibition.count == 0){
-                        if(self.networkReachability?.isReachable == false) {
-                            self.showNoNetwork()
-                        } else {
-                            self.exbtnLoadingView.showNoDataView()
-                        }
-                    }
-                    DispatchQueue.main.async{
-                        self.exhibitionCollectionView.reloadData()
-                    }
-                } else{
+            var exhibitionArray = [ExhibitionsEntity]()
+            exhibitionArray = DataManager.checkAddedToCoredata(entityName: "ExhibitionsEntity",
+                                                               idKey: "museumId",
+                                                               idValue: museumId,
+                                                               managedContext: managedContext) as! [ExhibitionsEntity]
+            if (exhibitionArray.count > 0) {
+                for entity in exhibitionArray {
+                    self.exhibition.append(Exhibition(entity: entity))
+                }
+                
+                if(exhibition.count == 0){
                     if(self.networkReachability?.isReachable == false) {
                         self.showNoNetwork()
                     } else {
                         self.exbtnLoadingView.showNoDataView()
                     }
                 }
+                DispatchQueue.main.async{
+                    self.exhibitionCollectionView.reloadData()
+                }
+            } else{
+                if(self.networkReachability?.isReachable == false) {
+                    self.showNoNetwork()
+                } else {
+                    self.exbtnLoadingView.showNoDataView()
+                }
+            }
         }
     }
     
@@ -988,7 +925,9 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
                     }
                 }
                 if(self.heritageListArray.count > 0) {
-                    self.saveOrUpdateHeritageCoredata(heritageListArray: data.heritage)
+                    if let heritage = data.heritage {
+                        self.saveOrUpdateHeritageCoredata(heritageListArray: heritage)
+                    }
                 }
             case .failure( _):
                 if(self.heritageListArray.count == 0) {
@@ -1001,85 +940,22 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
         }
     }
     //MARK: Coredata Method
-    func saveOrUpdateHeritageCoredata(heritageListArray:[Heritage]?) {
-        if ((heritageListArray?.count)! > 0) {
+    func saveOrUpdateHeritageCoredata(heritageListArray: [Heritage]) {
+        if !heritageListArray.isEmpty {
             let appDelegate =  UIApplication.shared.delegate as? AppDelegate
             if #available(iOS 10.0, *) {
                 let container = appDelegate!.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
-                    self.coreDataInBackgroundThread(managedContext: managedContext, heritageListArray: heritageListArray)
+                    DataManager.updateHeritage(managedContext: managedContext,
+                                               heritageListArray: heritageListArray)
                 }
             } else {
                 let managedContext = appDelegate!.managedObjectContext
                 managedContext.perform {
-                    self.coreDataInBackgroundThread(managedContext : managedContext, heritageListArray: heritageListArray)
+                    DataManager.updateHeritage(managedContext : managedContext,
+                                               heritageListArray: heritageListArray)
                 }
             }
-        }
-    }
-    func coreDataInBackgroundThread(managedContext: NSManagedObjectContext,heritageListArray:[Heritage]?) {
-        var fetchData = [HeritageEntity]()
-        if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
-             fetchData = DataManager.checkAddedToCoredata(entityName: "HeritageEntity", idKey: "lang", idValue: "1", managedContext: managedContext) as! [HeritageEntity]
-        } else {
-            fetchData = DataManager.checkAddedToCoredata(entityName: "HeritageEntity", idKey: "lang", idValue: "0", managedContext: managedContext) as! [HeritageEntity]
-        }
-            if (fetchData.count > 0) {
-                for i in 0 ... (heritageListArray?.count)!-1 {
-                    let heritageListDict = heritageListArray![i]
-                    let fetchResult = DataManager.checkAddedToCoredata(entityName: "HeritageEntity", idKey: "listid", idValue: heritageListArray![i].id, managedContext: managedContext)
-                    //update
-                    if(fetchResult.count != 0) {
-                        let heritagedbDict = fetchResult[0] as! HeritageEntity
-                        heritagedbDict.listname = heritageListDict.name
-                        heritagedbDict.listimage = heritageListDict.image
-                        heritagedbDict.listsortid =  heritageListDict.sortid
-                        if (LocalizationLanguage.currentAppleLanguage() == ENG_LANGUAGE) {
-                            heritagedbDict.lang =  "1"
-                        } else {
-                            heritagedbDict.lang =  "0"
-                        }
-                        do{
-                            try managedContext.save()
-                        }
-                        catch{
-                            print(error)
-                        }
-                    } else {
-                        //save
-                        self.saveToCoreData(heritageListDict: heritageListDict, managedObjContext: managedContext)
-                        
-                    }
-                }
-            } else {
-                for i in 0 ... (heritageListArray?.count)!-1 {
-                    let heritageListDict : Heritage?
-                    heritageListDict = heritageListArray?[i]
-                    self.saveToCoreData(heritageListDict: heritageListDict!, managedObjContext: managedContext)
-                }
-            }
-        
-       
-    }
-    
-    func saveToCoreData(heritageListDict: Heritage, managedObjContext: NSManagedObjectContext) {
-        //if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
-            let heritageInfo: HeritageEntity = NSEntityDescription.insertNewObject(forEntityName: "HeritageEntity", into: managedObjContext) as! HeritageEntity
-            heritageInfo.listid = heritageListDict.id
-            heritageInfo.listname = heritageListDict.name
-            heritageInfo.listimage = heritageListDict.image
-            if (LocalizationLanguage.currentAppleLanguage() == ENG_LANGUAGE) {
-                heritageInfo.lang =  "1"
-            } else {
-                heritageInfo.lang =  "0"
-            }
-            if(heritageListDict.sortid != nil) {
-                heritageInfo.listsortid = heritageListDict.sortid
-            }
-        do {
-            try managedObjContext.save()
-        } catch let error as NSError {
-            print("Could not save. \(error), \(error.userInfo)")
         }
     }
     
@@ -1088,10 +964,16 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
         do {
             var heritageArray = [HeritageEntity]()
             if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
-                heritageArray = DataManager.checkAddedToCoredata(entityName: "HeritageEntity", idKey: "lang", idValue: "1", managedContext: managedContext) as! [HeritageEntity]
+                heritageArray = DataManager.checkAddedToCoredata(entityName: "HeritageEntity",
+                                                                 idKey: "lang",
+                                                                 idValue: "1",
+                                                                 managedContext: managedContext) as! [HeritageEntity]
 
             } else {
-                heritageArray = DataManager.checkAddedToCoredata(entityName: "HeritageEntity", idKey: "lang", idValue: "0", managedContext: managedContext) as! [HeritageEntity]
+                heritageArray = DataManager.checkAddedToCoredata(entityName: "HeritageEntity",
+                                                                 idKey: "lang",
+                                                                 idValue: "0",
+                                                                 managedContext: managedContext) as! [HeritageEntity]
 
             }
                 if (heritageArray.count > 0) {
@@ -1100,11 +982,11 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
                             self.getHeritageDataFromServer()
                         }
                     }
-                    for i in 0 ... heritageArray.count-1 {
-                        
-                        self.heritageListArray.insert(Heritage(id: heritageArray[i].listid, name: heritageArray[i].listname, location: nil, latitude: nil, longitude: nil, image: heritageArray[i].listimage, shortdescription: nil, longdescription: nil,images: nil, sortid: heritageArray[i].listsortid), at: i)
-                        
+                    
+                    for heritageDict in heritageArray {
+                        self.heritageListArray.append(Heritage(entity: heritageDict))
                     }
+                    
                     if(heritageListArray.count == 0){
                         if(self.networkReachability?.isReachable == false) {
                             self.showNoNetwork()
@@ -1201,11 +1083,11 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
                             self.getPublicArtsListDataFromServer()
                         }
                     }
-                    for i in 0 ... publicArtsArray.count-1 {
-                        
-                        self.publicArtsListArray.insert(PublicArtsList(id: publicArtsArray[i].id, name: publicArtsArray[i].name, latitude: publicArtsArray[i].latitude, longitude: publicArtsArray[i].longitude, image: publicArtsArray[i].image, sortcoefficient: publicArtsArray[i].sortcoefficient, language: publicArtsArray[i].language), at: i)
-                        
+                    
+                    for publicArtsDict in publicArtsArray {
+                        self.publicArtsListArray.append(PublicArtsList(entity: publicArtsDict))
                     }
+                    
                     if(publicArtsListArray.count == 0){
                         if(self.networkReachability?.isReachable == false) {
                             self.showNoNetwork()
@@ -1262,7 +1144,9 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
                     self.exbtnLoadingView.showNoDataView()
                 }else {
                     self.exhibitionCollectionView.reloadData()
-                    self.saveOrUpdateCollectionCoredata(collection: data.collections)
+                    if let collections = data.collections {
+                        self.saveOrUpdateCollectionCoredata(collection: collections)
+                    }
                 }
                 
             case .failure( _):
@@ -1281,86 +1165,48 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
         }
     }
     //MARK: CollectionList Coredata Method
-    func saveOrUpdateCollectionCoredata(collection: [Collection]?) {
-        if ((collection?.count)! > 0) {
+    func saveOrUpdateCollectionCoredata(collection: [Collection]) {
+        if !collection.isEmpty {
             let appDelegate =  UIApplication.shared.delegate as? AppDelegate
             if #available(iOS 10.0, *) {
                 let container = appDelegate!.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
-                    self.coreDataInBackgroundThread(managedContext: managedContext, collection: collection!)
+                    DataManager.updateCollectionsEntity(managedContext: managedContext,
+                                                 collection: collection)
                 }
             } else {
                 let managedContext = appDelegate!.managedObjectContext
                 managedContext.perform {
-                    self.coreDataInBackgroundThread(managedContext : managedContext, collection: collection!)
+                    DataManager.updateCollectionsEntity(managedContext : managedContext,
+                                                 collection: collection)
                 }
             }
         }
     }
-    func coreDataInBackgroundThread(managedContext: NSManagedObjectContext,collection: [Collection]?) {
-        var fetchData = [CollectionsEntity]()
-        var langVar : String? = nil
-        if (LocalizationLanguage.currentAppleLanguage() == ENG_LANGUAGE) {
-            langVar = "1"
-            
-        } else {
-            langVar = "0"
-        }
-            fetchData = DataManager.checkAddedToCoredata(entityName: "CollectionsEntity", idKey: "lang", idValue: langVar, managedContext: managedContext) as! [CollectionsEntity]
-            if (fetchData.count > 0) {
-                let isDeleted = self.deleteExistingEntityData(managedContext: managedContext, entityName: "CollectionsEntity")
-                if(isDeleted == true) {
-                    for i in 0 ... (collection?.count)!-1 {
-                        let collectionListDict : Collection?
-                        collectionListDict = collection?[i]
-                        self.saveToCoreData(collectionListDict: collectionListDict!, managedObjContext: managedContext)
-                    }
-                }
-            }
-            else {
-                for i in 0 ... (collection?.count)!-1 {
-                    let collectionListDict : Collection?
-                    collectionListDict = collection?[i]
-                    self.saveToCoreData(collectionListDict: collectionListDict!, managedObjContext: managedContext)
-                }
-            }
-    }
-    func saveToCoreData(collectionListDict: Collection, managedObjContext: NSManagedObjectContext) {
-        var langVar : String? = nil
-        if (LocalizationLanguage.currentAppleLanguage() == ENG_LANGUAGE) {
-            langVar = "1"
-            
-        } else {
-            langVar = "0"
-        }
-            let collectionInfo: CollectionsEntity = NSEntityDescription.insertNewObject(forEntityName: "CollectionsEntity", into: managedObjContext) as! CollectionsEntity
-            collectionInfo.listName = collectionListDict.name?.replacingOccurrences(of: "<[^>]+>|&nbsp;", with: "", options: .regularExpression, range: nil)
-            collectionInfo.listImage = collectionListDict.image
-            collectionInfo.museumId = collectionListDict.museumId
-            collectionInfo.lang = langVar
-        do {
-            try managedObjContext.save()
-        } catch let error as NSError {
-            print("Could not save. \(error), \(error.userInfo)")
-        }
-    }
+    
+    
     func fetchCollectionListFromCoredata() {
         let managedContext = getContext()
         do {
                 var collectionArray = [CollectionsEntity]()
-                collectionArray = DataManager.checkAddedToCoredata(entityName: "CollectionsEntity", idKey: "museumId", idValue: museumId, managedContext: managedContext) as! [CollectionsEntity]
+                collectionArray = DataManager.checkAddedToCoredata(entityName: "CollectionsEntity",
+                                                                   idKey: "museumId",
+                                                                   idValue: museumId,
+                                                                   managedContext: managedContext) as! [CollectionsEntity]
                 if (collectionArray.count > 0) {
-                    if((museumId == "63") || (museumId == "96")) {
+                    if museumId == "63" || museumId == "96" {
                         if (networkReachability?.isReachable)! {
                             DispatchQueue.global(qos: .background).async {
                                 self.getCollectionList()
                             }
                         }
                     }
-                    for i in 0 ... collectionArray.count-1 {
-                        self.collection.insert(Collection(name: collectionArray[i].listName?.replacingOccurrences(of: "<[^>]+>|&nbsp;|&|#039;", with: "", options: .regularExpression, range: nil), image: collectionArray[i].listImage, museumId: collectionArray[i].museumId), at: i)
+                    
+                    for entity in collectionArray {
+                        self.collection.append(Collection(entity: entity))
                     }
-                    if(collection.count == 0){
+                    
+                    if collection.isEmpty {
                         if(self.networkReachability?.isReachable == false) {
                             self.showNoNetwork()
                         } else {
@@ -1369,7 +1215,7 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
                     }
                     exhibitionCollectionView.reloadData()
                 }
-                else{
+                else {
                     if(self.networkReachability?.isReachable == false) {
                         self.showNoNetwork()
                     } else {
@@ -1379,18 +1225,7 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
    
         }
     }
-    func deleteExistingEntityData(managedContext:NSManagedObjectContext,entityName : String?) ->Bool? {
-        
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entityName!)
-        let deleteRequest = NSBatchDeleteRequest( fetchRequest: fetchRequest)
-        do{
-            try managedContext.execute(deleteRequest)
-            return true
-        }catch _ as NSError {
-            return false
-        }
-        
-    }
+    
     @objc func receiveCollectionListNotificationEn(notification: NSNotification) {
         if ((LocalizationLanguage.currentAppleLanguage() == ENG_LANGUAGE ) && (collection.count == 0)){
             self.fetchCollectionListFromCoredata()
@@ -1465,31 +1300,34 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
     func fetchMuseumDiningListFromCoredata() {
         let managedContext = getContext()
         do {
+            var diningArray = [DiningEntity]()
+            diningArray = DataManager.checkAddedToCoredata(entityName: "DiningEntity",
+                                                           idKey: "museumId",
+                                                           idValue: museumId,
+                                                           managedContext: managedContext) as! [DiningEntity]
             
-                var diningArray = [DiningEntity]()
-                diningArray = DataManager.checkAddedToCoredata(entityName: "DiningEntity", idKey: "museumId", idValue: museumId, managedContext: managedContext) as! [DiningEntity]
+            if !diningArray.isEmpty {
+                for dining in diningArray {
+                    self.diningListArray.append(Dining(entity: dining))
+                }
                 
-                if (diningArray.count > 0) {
-                    for i in 0 ... diningArray.count-1 {
-                        self.diningListArray.insert(Dining(id: diningArray[i].id, name: diningArray[i].name, location: diningArray[i].location, description: diningArray[i].diningdescription, image: diningArray[i].image, openingtime: diningArray[i].openingtime, closetime: diningArray[i].closetime, sortid: diningArray[i].sortid,museumId: diningArray[i].museumId, images: nil), at: i)
-                    }
-                    if(diningListArray.count == 0){
-                        if(self.networkReachability?.isReachable == false) {
-                            self.showNoNetwork()
-                        } else {
-                            self.exbtnLoadingView.showNoDataView()
-                        }
-                    }
-                    DispatchQueue.main.async{
-                        self.exhibitionCollectionView.reloadData()
-                    }
-                } else{
+                if diningListArray.isEmpty {
                     if(self.networkReachability?.isReachable == false) {
                         self.showNoNetwork()
                     } else {
-                         self.exbtnLoadingView.showNoDataView()
+                        self.exbtnLoadingView.showNoDataView()
                     }
                 }
+                DispatchQueue.main.async{
+                    self.exhibitionCollectionView.reloadData()
+                }
+            } else{
+                if(self.networkReachability?.isReachable == false) {
+                    self.showNoNetwork()
+                } else {
+                    self.exbtnLoadingView.showNoDataView()
+                }
+            }
         }
     }
     
@@ -1497,42 +1335,38 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
         let managedContext = getContext()
         do {
             var diningArray = [DiningEntity]()
-            var langVar : String? = nil
-            if (LocalizationLanguage.currentAppleLanguage() == ENG_LANGUAGE) {
-                langVar = "1"
+            
+            diningArray = DataManager.checkAddedToCoredata(entityName: "DiningEntity",
+                                                           idKey: "lang", idValue: Utils.getLanguage(),
+                                                           managedContext: managedContext) as! [DiningEntity]
+            if (diningArray.count > 0) {
+                if  (networkReachability?.isReachable)! {
+                    DispatchQueue.global(qos: .background).async {
+                        self.getDiningListFromServer()
+                    }
+                }
+                for dining in diningArray {
+                    self.diningListArray.append(Dining(entity: dining))
+                }
                 
-            } else {
-                langVar = "0"
-            }
-            diningArray = DataManager.checkAddedToCoredata(entityName: "DiningEntity", idKey: "lang", idValue: langVar, managedContext: managedContext) as! [DiningEntity]
-                if (diningArray.count > 0) {
-                    if  (networkReachability?.isReachable)! {
-                        DispatchQueue.global(qos: .background).async {
-                            self.getDiningListFromServer()
-                        }
-                    }
-                    for i in 0 ... diningArray.count-1 {
-                        self.diningListArray.insert(Dining(id: diningArray[i].id, name: diningArray[i].name, location: diningArray[i].location, description: diningArray[i].diningdescription, image: diningArray[i].image, openingtime: diningArray[i].openingtime, closetime: diningArray[i].closetime, sortid: diningArray[i].sortid,museumId: diningArray[i].museumId, images: nil), at: i)
-                        
-                    }
-                    if(diningListArray.count == 0){
-                        if(self.networkReachability?.isReachable == false) {
-                            self.showNoNetwork()
-                        } else {
-                            self.exbtnLoadingView.showNoDataView()
-                        }
-                    }
-                    DispatchQueue.main.async{
-                        self.exhibitionCollectionView.reloadData()
-                    }
-                } else {
+                if(diningListArray.count == 0){
                     if(self.networkReachability?.isReachable == false) {
                         self.showNoNetwork()
                     } else {
-                       // self.exbtnLoadingView.showNoDataView()
-                        self.getDiningListFromServer()//coreDataMigratio  solution
+                        self.exbtnLoadingView.showNoDataView()
                     }
                 }
+                DispatchQueue.main.async{
+                    self.exhibitionCollectionView.reloadData()
+                }
+            } else {
+                if(self.networkReachability?.isReachable == false) {
+                    self.showNoNetwork()
+                } else {
+                    // self.exbtnLoadingView.showNoDataView()
+                    self.getDiningListFromServer()//coreDataMigratio  solution
+                }
+            }
         } catch let error as NSError {
             print("Could not fetch. \(error), \(error.userInfo)")
             if (networkReachability?.isReachable == false) {
@@ -1603,42 +1437,35 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
     func fetchTourDetailsFromCoredata() {
         let managedContext = getContext()
         do {
-//            if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
-                var tourDetailArray = [NmoqTourDetailEntity]()
-                tourDetailArray = DataManager.checkAddedToCoredata(entityName: "NmoqTourDetailEntity",
-                                                       idKey: "nmoqEvent",
-                                                       idValue: tourDetailId,
-                                                       managedContext: managedContext) as! [NmoqTourDetailEntity]
-                if (tourDetailArray.count > 0) {
-                    for i in 0 ... tourDetailArray.count-1 {
-                        var imagesArray : [String] = []
-                        let imagesInfoArray = (tourDetailArray[i].nmoqTourDetailImgBannerRelation?.allObjects) as! [ImageEntity]
-                        if(imagesInfoArray.count > 0) {
-                            for i in 0 ... imagesInfoArray.count-1 {
-                                imagesArray.append(imagesInfoArray[i].image!)
-                            }
-                        }
-                        
-                        self.nmoqTourDetail.insert(NMoQTourDetail(title: tourDetailArray[i].title, imageBanner: imagesArray, date: tourDetailArray[i].date, nmoqEvent: tourDetailArray[i].nmoqEvent, register: tourDetailArray[i].register, contactEmail: tourDetailArray[i].contactEmail, contactPhone: tourDetailArray[i].contactPhone, mobileLatitude: tourDetailArray[i].mobileLatitude, longitude: tourDetailArray[i].longitude, sortId: tourDetailArray[i].sort_id, body: tourDetailArray[i].body, registered: tourDetailArray[i].registered, nid: tourDetailArray[i].nid,seatsRemaining: tourDetailArray[i].seatsRemaining, language: tourDetailArray[i].language), at: i)
-                    }
-                    if(nmoqTourDetail.count == 0){
-                        if(self.networkReachability?.isReachable == false) {
-                            self.showNoNetwork()
-                        } else {
-                            self.exbtnLoadingView.showNoDataView()
-                        }
-                    }
-                    DispatchQueue.main.async{
-                        self.exhibitionCollectionView.reloadData()
-                    }
+            var tourDetailArray = [NmoqTourDetailEntity]()
+            tourDetailArray = DataManager.checkAddedToCoredata(entityName: "NmoqTourDetailEntity",
+                                                               idKey: "nmoqEvent",
+                                                               idValue: tourDetailId,
+                                                               managedContext: managedContext) as! [NmoqTourDetailEntity]
+            if (tourDetailArray.count > 0) {
+                
+                for entity in tourDetailArray {
+                    self.nmoqTourDetail.append(NMoQTourDetail(entity: entity))
                 }
-                else{
+                
+                if(nmoqTourDetail.count == 0){
                     if(self.networkReachability?.isReachable == false) {
                         self.showNoNetwork()
                     } else {
                         self.exbtnLoadingView.showNoDataView()
                     }
                 }
+                DispatchQueue.main.async{
+                    self.exhibitionCollectionView.reloadData()
+                }
+            }
+            else{
+                if(self.networkReachability?.isReachable == false) {
+                    self.showNoNetwork()
+                } else {
+                    self.exbtnLoadingView.showNoDataView()
+                }
+            }
         }
     }
     //MARK: Facilities SecondaryList ServiceCall
@@ -1699,42 +1526,41 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
     func fetchFacilitiesDetailsFromCoredata() {
         let managedContext = getContext()
         do {
-//            if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
-                var facilitiesDetailArray = [FacilitiesDetailEntity]()
-                facilitiesDetailArray = DataManager.checkAddedToCoredata(entityName: "FacilitiesDetailEntity",
-                                                             idKey: "category",
-                                                             idValue: tourDetailId,
-                                                             managedContext: managedContext) as! [FacilitiesDetailEntity]
-                if (facilitiesDetailArray.count > 0) {
-                    for i in 0 ... facilitiesDetailArray.count-1 {
-                        var imagesArray : [String] = []
-                        let imagesInfoArray = (facilitiesDetailArray[i].facilitiesDetailRelation!.allObjects) as! [ImageEntity]
-                        if(imagesInfoArray.count > 0) {
-                            for i in 0 ... imagesInfoArray.count-1 {
-                                imagesArray.append(imagesInfoArray[i].image!)
+            var facilitiesDetailArray = [FacilitiesDetailEntity]()
+            facilitiesDetailArray = DataManager.checkAddedToCoredata(entityName: "FacilitiesDetailEntity",
+                                                                     idKey: "category",
+                                                                     idValue: tourDetailId,
+                                                                     managedContext: managedContext) as! [FacilitiesDetailEntity]
+            if (facilitiesDetailArray.count > 0) {
+                for i in 0 ... facilitiesDetailArray.count-1 {
+                    var imagesArray : [String] = []
+                    let imagesInfoArray = (facilitiesDetailArray[i].facilitiesDetailRelation!.allObjects) as! [ImageEntity]
+                        for info in imagesInfoArray {
+                            if let image = info.image {
+                                imagesArray.append(image)
                             }
                         }
-                        self.facilitiesDetail.insert(FacilitiesDetail(entity: facilitiesDetailArray[i]), at: i)
-                        
-                    }
-                    if(facilitiesDetail.count == 0){
-                        if(self.networkReachability?.isReachable == false) {
-                            self.showNoNetwork()
-                        } else {
-                            self.exbtnLoadingView.showNoDataView()
-                        }
-                    }
-                    DispatchQueue.main.async{
-                        self.exhibitionCollectionView.reloadData()
-                    }
+                    self.facilitiesDetail.insert(FacilitiesDetail(entity: facilitiesDetailArray[i]), at: i)
+                    
                 }
-                else{
+                if(facilitiesDetail.count == 0){
                     if(self.networkReachability?.isReachable == false) {
                         self.showNoNetwork()
                     } else {
                         self.exbtnLoadingView.showNoDataView()
                     }
                 }
+                DispatchQueue.main.async{
+                    self.exhibitionCollectionView.reloadData()
+                }
+            }
+            else{
+                if(self.networkReachability?.isReachable == false) {
+                    self.showNoNetwork()
+                } else {
+                    self.exbtnLoadingView.showNoDataView()
+                }
+            }
         }
     }
     //MARK: WebServiceCall
@@ -1887,7 +1713,9 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
                     if let arrayOffset = self.museumsList.index(where: {$0.id == searchstring}) {
                         self.museumsList.remove(at: arrayOffset)
                     }
-                    self.saveOrUpdateMuseumsCoredata(museumsList: data.homeList)
+                    if let homeList = data.homeList {
+                        self.saveOrUpdateMuseumsCoredata(museumsList: homeList)
+                    }
                 }
             case .failure(let error):
                 print("error")
@@ -1895,121 +1723,49 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
         }
     }
     //MARK: Coredata Method
-    func saveOrUpdateMuseumsCoredata(museumsList:[Home]?) {
-        if ((museumsList?.count)! > 0) {
+    func saveOrUpdateMuseumsCoredata(museumsList: [Home]) {
+        if !museumsList.isEmpty {
             let appDelegate =  UIApplication.shared.delegate as? AppDelegate
             if #available(iOS 10.0, *) {
                 let container = appDelegate!.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
-                    self.tourGuideCoreDataInBackgroundThread(managedContext: managedContext, museumsList: museumsList)
+                    DataManager.updateHomeEntity(managedContext: managedContext, homeList: museumsList)
                 }
             } else {
                 let managedContext = appDelegate!.managedObjectContext
                 managedContext.perform {
-                    self.tourGuideCoreDataInBackgroundThread(managedContext : managedContext, museumsList: museumsList)
+                    DataManager.updateHomeEntity(managedContext: managedContext, homeList: museumsList)
                 }
             }
             DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
 
         }
     }
-    func tourGuideCoreDataInBackgroundThread(managedContext: NSManagedObjectContext,museumsList:[Home]?) {
-        var fetchData = [HomeEntity]()
-        var langVar : String? = nil
-        if (LocalizationLanguage.currentAppleLanguage() == ENG_LANGUAGE) {
-            langVar = "1"
-            
-        } else {
-            langVar = "0"
-        }
-        fetchData = DataManager.checkAddedToCoredata(entityName: "HomeEntity", idKey: "lang", idValue: langVar, managedContext: managedContext) as! [HomeEntity]
-        if (fetchData.count > 0) {
-            for i in 0 ... (museumsList?.count)!-1 {
-                let museumListDict = museumsList![i]
-                let fetchResult = DataManager.checkAddedToCoredata(entityName: "HomeEntity", idKey: "id", idValue: museumsList![i].id, managedContext: managedContext)
-                //update
-                if(fetchResult.count != 0) {
-                    let museumsdbDict = fetchResult[0] as! HomeEntity
-                    
-                    museumsdbDict.name = museumListDict.name
-                    museumsdbDict.image = museumListDict.image
-                    museumsdbDict.sortid =  (Int16(museumListDict.sortId!) ?? 0)
-                    museumsdbDict.tourguideavailable = museumListDict.isTourguideAvailable
-                    museumsdbDict.lang = langVar
-                    
-                    do{
-                        try managedContext.save()
-                    }
-                    catch{
-                        print(error)
-                    }
-                }
-                else {
-                    //save
-                    self.saveToTourGuideCoreData(museumsListDict: museumListDict, managedObjContext: managedContext)
-                    
-                }
-            }
-        }
-        else {
-            for i in 0 ... (museumsList?.count)!-1 {
-                let museumsListDict : Home?
-                museumsListDict = museumsList?[i]
-                self.saveToTourGuideCoreData(museumsListDict: museumsListDict!, managedObjContext: managedContext)
-                
-            }
-        }
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-    }
-    func saveToTourGuideCoreData(museumsListDict: Home, managedObjContext: NSManagedObjectContext) {
-        var langVar : String? = nil
-        if (LocalizationLanguage.currentAppleLanguage() == ENG_LANGUAGE) {
-            langVar = "1"
-            
-        } else {
-            langVar = "0"
-        }
-        let museumsInfo: HomeEntity = NSEntityDescription.insertNewObject(forEntityName: "HomeEntity", into: managedObjContext) as! HomeEntity
-        museumsInfo.id = museumsListDict.id
-        museumsInfo.name = museumsListDict.name
-        museumsInfo.image = museumsListDict.image
-        museumsInfo.tourguideavailable = museumsListDict.isTourguideAvailable
-        museumsInfo.image = museumsListDict.image
-        museumsInfo.sortid = (Int16(museumsListDict.sortId!) ?? 0)
-        museumsInfo.lang = langVar
-        do {
-            try managedObjContext.save()
-        } catch let error as NSError {
-            DDLogError("Could not save. \(error), \(error.userInfo)")
-        }
-    }
+    
     func fetchMuseumsInfoFromCoredata() {
         self.exbtnLoadingView.stopLoading()
         self.exbtnLoadingView.isHidden = true
         let managedContext = getContext()
         var searchstring = String()
-        var langVar : String? = nil
         if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
             searchstring = "12181"
-            langVar = "1"
         } else {
             searchstring = "12186"
-            langVar = "0"
         }
         do {
             var museumsArray = [HomeEntity]()
-            museumsArray = DataManager.checkAddedToCoredata(entityName: "HomeEntity", idKey: "lang", idValue: langVar, managedContext: managedContext) as! [HomeEntity]
-            var j:Int? = 0
+            museumsArray = DataManager.checkAddedToCoredata(entityName: "HomeEntity",
+                                                            idKey: "lang",
+                                                            idValue: Utils.getLanguage(),
+                                                            managedContext: managedContext) as! [HomeEntity]
             if (museumsArray.count > 0) {
-                for i in 0 ... museumsArray.count-1 {
-                    if let duplicateId = museumsList.first(where: {$0.id == museumsArray[i].id}) {
+                for entity in museumsArray {
+                    if let duplicateId = museumsList.first(where: {$0.id == entity.id}) {
                     } else {
-                        self.museumsList.insert(Home(id:museumsArray[i].id , name: museumsArray[i].name,image: museumsArray[i].image,
-                                                     tourguide_available: museumsArray[i].tourguideavailable, sort_id: String(museumsArray[i].sortid)),
-                                                at: j!)
-                        j = j!+1
+                        self.museumsList.append(Home(entity: entity))
                     }
                 }
+                
                 if(museumsList.count == 0){
                     if(self.networkReachability?.isReachable == false) {
                         self.showNoNetwork()
@@ -2084,7 +1840,9 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
                     }
                 }
                 if(self.nmoqParkList.count > 0) {
-                    self.saveOrUpdateNmoqParkListCoredata(nmoqParkList: data.nmoqParkList)
+                    if let nmoqParkList = data.nmoqParkList {
+                        self.saveOrUpdateNmoqParkListCoredata(nmoqParkList: nmoqParkList)
+                    }
                 }
             case .failure( _):
                 if(self.nmoqParkList.count == 0) {
@@ -2113,7 +1871,9 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
                     }
                 }
                 if(self.nmoqParks.count > 0) {
-                    self.saveOrUpdateNmoqParksCoredata(nmoqParkList: data.nmoqParks)
+                    if let nmoqParks = data.nmoqParks {
+                        self.saveOrUpdateNmoqParksCoredata(nmoqParkList: nmoqParks)
+                    }
                 }
                 
             case .failure( _):
@@ -2128,226 +1888,53 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
     }
     
     //MARK: NMoqPark List Coredata Method
-    func saveOrUpdateNmoqParkListCoredata(nmoqParkList:[NMoQParksList]?) {
+    func saveOrUpdateNmoqParkListCoredata(nmoqParkList: [NMoQParksList]) {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
-        if ((nmoqParkList?.count)! > 0) {
+        if !nmoqParkList.isEmpty {
             let appDelegate =  UIApplication.shared.delegate as? AppDelegate
             if #available(iOS 10.0, *) {
                 let container = appDelegate!.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
-                    self.nmoqParkListCoreDataInBackgroundThread(nmoqParkList: nmoqParkList, managedContext: managedContext)
+                    DataManager.updateNmoqParkList(nmoqParkList: nmoqParkList,
+                                                   managedContext: managedContext)
                 }
             } else {
                 let managedContext = appDelegate!.managedObjectContext
                 managedContext.perform {
-                    self.nmoqParkListCoreDataInBackgroundThread(nmoqParkList: nmoqParkList, managedContext : managedContext)
+                    DataManager.updateNmoqParkList(nmoqParkList: nmoqParkList,
+                                                   managedContext : managedContext)
                 }
             }
         }
     }
-    func nmoqParkListCoreDataInBackgroundThread(nmoqParkList:[NMoQParksList]?,managedContext: NSManagedObjectContext) {
-//        if (LocalizationLanguage.currentAppleLanguage() == ENG_LANGUAGE) {
-            let fetchData = DataManager.checkAddedToCoredata(entityName: "NMoQParkListEntity", idKey: "nid", idValue: nil, managedContext: managedContext) as! [NMoQParkListEntity]
-            if (fetchData.count > 0) {
-                for i in 0 ... (nmoqParkList?.count)!-1 {
-                    let nmoqParkListDict = nmoqParkList![i]
-                    let fetchResult = DataManager.checkAddedToCoredata(entityName: "NMoQParkListEntity", idKey: "nid", idValue: nmoqParkListDict.nid, managedContext: managedContext)
-                    //update
-                    if(fetchResult.count != 0) {
-                        let nmoqParkListdbDict = fetchResult[0] as! NMoQParkListEntity
-                        nmoqParkListdbDict.title = nmoqParkListDict.title
-                        nmoqParkListdbDict.parkTitle = nmoqParkListDict.parkTitle
-                        nmoqParkListdbDict.mainDescription = nmoqParkListDict.mainDescription
-                        nmoqParkListdbDict.parkDescription =  nmoqParkListDict.parkDescription
-                        nmoqParkListdbDict.hoursTitle = nmoqParkListDict.hoursTitle
-                        nmoqParkListdbDict.hoursDesc = nmoqParkListDict.hoursDesc
-                        nmoqParkListdbDict.nid =  nmoqParkListDict.nid
-                        nmoqParkListdbDict.longitude = nmoqParkListDict.longitude
-                        nmoqParkListdbDict.latitude = nmoqParkListDict.latitude
-                        nmoqParkListdbDict.locationTitle =  nmoqParkListDict.locationTitle
-                        nmoqParkListdbDict.language = Utils.getLanguage()
-                        
-                        do{
-                            try managedContext.save()
-                        }
-                        catch{
-                            print(error)
-                        }
-                    } else {
-                        //save
-                        self.saveNmoqParkListToCoreData(nmoqParkListDict: nmoqParkListDict, managedObjContext: managedContext)
-                    }
-                }
-                NotificationCenter.default.post(name: NSNotification.Name(facilitiesListNotificationEn), object: self)
-            } else {
-                for i in 0 ... (nmoqParkList?.count)!-1 {
-                    let nmoqParkListDict : NMoQParksList?
-                    nmoqParkListDict = nmoqParkList?[i]
-                    self.saveNmoqParkListToCoreData(nmoqParkListDict: nmoqParkListDict!, managedObjContext: managedContext)
-                }
-                NotificationCenter.default.post(name: NSNotification.Name(facilitiesListNotificationEn), object: self)
-            }
-    }
-    func saveNmoqParkListToCoreData(nmoqParkListDict: NMoQParksList, managedObjContext: NSManagedObjectContext) {
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
-//        if (LocalizationLanguage.currentAppleLanguage() == ENG_LANGUAGE) {
-            let nmoqParkListdbDict: NMoQParkListEntity = NSEntityDescription.insertNewObject(forEntityName: "NMoQParkListEntity", into: managedObjContext) as! NMoQParkListEntity
-            nmoqParkListdbDict.title = nmoqParkListDict.title
-            nmoqParkListdbDict.parkTitle = nmoqParkListDict.parkTitle
-            nmoqParkListdbDict.mainDescription = nmoqParkListDict.mainDescription
-            nmoqParkListdbDict.parkDescription =  nmoqParkListDict.parkDescription
-            nmoqParkListdbDict.hoursTitle = nmoqParkListDict.hoursTitle
-            nmoqParkListdbDict.hoursDesc = nmoqParkListDict.hoursDesc
-            nmoqParkListdbDict.nid =  nmoqParkListDict.nid
-            nmoqParkListdbDict.longitude = nmoqParkListDict.longitude
-            nmoqParkListdbDict.latitude = nmoqParkListDict.latitude
-            nmoqParkListdbDict.locationTitle =  nmoqParkListDict.locationTitle
-        nmoqParkListdbDict.language = Utils.getLanguage()
-        
-        do {
-            try managedObjContext.save()
-        } catch let error as NSError {
-            print("Could not save. \(error), \(error.userInfo)")
-        }
-    }
+    
     
     //MARK: NMoq List of Parks Coredata Method
-    func saveOrUpdateNmoqParksCoredata(nmoqParkList:[NMoQPark]?) {
+    func saveOrUpdateNmoqParksCoredata(nmoqParkList: [NMoQPark]) {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
-        if ((nmoqParkList?.count)! > 0) {
+        if !nmoqParkList.isEmpty {
             let appDelegate =  UIApplication.shared.delegate as? AppDelegate
             if #available(iOS 10.0, *) {
                 let container = appDelegate!.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
-                    self.nmoqParkCoreDataInBackgroundThread(nmoqParkList: nmoqParkList, managedContext: managedContext)
+                    DataManager.updateNmoqPark(nmoqParkList: nmoqParkList,
+                                               managedContext: managedContext)
                 }
             } else {
                 let managedContext = appDelegate!.managedObjectContext
                 managedContext.perform {
-                    self.nmoqParkCoreDataInBackgroundThread(nmoqParkList: nmoqParkList, managedContext : managedContext)
+                    DataManager.updateNmoqPark(nmoqParkList: nmoqParkList,
+                                               managedContext : managedContext)
                 }
             }
         }
     }
     
-    func nmoqParkCoreDataInBackgroundThread(nmoqParkList:[NMoQPark]?,managedContext: NSManagedObjectContext) {
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
-//        if (LocalizationLanguage.currentAppleLanguage() == ENG_LANGUAGE) {
-            let fetchData = DataManager.checkAddedToCoredata(entityName: "NMoQParksEntity", idKey: "nid", idValue: nil, managedContext: managedContext) as! [NMoQParksEntity]
-            if (fetchData.count > 0) {
-                for i in 0 ... (nmoqParkList?.count)!-1 {
-                    let nmoqParkListDict = nmoqParkList![i]
-                    let fetchResult = DataManager.checkAddedToCoredata(entityName: "NMoQParksEntity", idKey: "nid", idValue: nmoqParkListDict.nid, managedContext: managedContext)
-                    //update
-                    if(fetchResult.count != 0) {
-                        let nmoqParkListdbDict = fetchResult[0] as! NMoQParksEntity
-                        nmoqParkListdbDict.title = nmoqParkListDict.title
-                        nmoqParkListdbDict.nid =  nmoqParkListDict.nid
-                        nmoqParkListdbDict.sortId =  nmoqParkListDict.sortId
-                        nmoqParkListdbDict.language = Utils.getLanguage()
-                        
-                        if(nmoqParkListDict.images != nil){
-                            if((nmoqParkListDict.images?.count)! > 0) {
-                                for i in 0 ... (nmoqParkListDict.images?.count)!-1 {
-                                    var parkListImage: ImageEntity!
-                                    let parkListImageArray = NSEntityDescription.insertNewObject(forEntityName: "ImageEntity", into: managedContext) as! ImageEntity
-                                    parkListImageArray.image = nmoqParkListDict.images![i]
-                                    parkListImageArray.language = Utils.getLanguage()
-                                    parkListImage = parkListImageArray
-                                    nmoqParkListdbDict.addToParkImgRelation(parkListImage)
-                                    do {
-                                        try managedContext.save()
-                                    } catch let error as NSError {
-                                        print("Could not save. \(error), \(error.userInfo)")
-                                    }
-                                }
-                            }
-                        }
-                        
-                        do{
-                            try managedContext.save()
-                        }
-                        catch{
-                            print(error)
-                        }
-                    } else {
-                        //save
-                        self.saveNmoqParkToCoreData(nmoqParkListDict: nmoqParkListDict, managedObjContext: managedContext)
-                    }
-                }
-                NotificationCenter.default.post(name: NSNotification.Name(nmoqParkNotificationEn), object: self)
-            } else {
-                for i in 0 ... (nmoqParkList?.count)!-1 {
-                    let nmoqParkListDict : NMoQPark?
-                    nmoqParkListDict = nmoqParkList?[i]
-                    self.saveNmoqParkToCoreData(nmoqParkListDict: nmoqParkListDict!, managedObjContext: managedContext)
-                }
-                NotificationCenter.default.post(name: NSNotification.Name(nmoqParkNotificationEn), object: self)
-            }
-    }
-    
-    func saveNmoqParkToCoreData(nmoqParkListDict: NMoQPark, managedObjContext: NSManagedObjectContext) {
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
-//        if (LocalizationLanguage.currentAppleLanguage() == ENG_LANGUAGE) {
-            let nmoqParkListdbDict: NMoQParksEntity = NSEntityDescription.insertNewObject(forEntityName: "NMoQParksEntity", into: managedObjContext) as! NMoQParksEntity
-            nmoqParkListdbDict.title = nmoqParkListDict.title
-            nmoqParkListdbDict.nid =  nmoqParkListDict.nid
-            nmoqParkListdbDict.sortId =  nmoqParkListDict.sortId
-         nmoqParkListdbDict.language = Utils.getLanguage()
-            
-            if(nmoqParkListDict.images != nil){
-                if((nmoqParkListDict.images?.count)! > 0) {
-                    for i in 0 ... (nmoqParkListDict.images?.count)!-1 {
-                        var parkListImage: ImageEntity!
-                        let parkListImageArray = NSEntityDescription.insertNewObject(forEntityName: "ImageEntity", into: managedObjContext) as! ImageEntity
-                        parkListImageArray.image = nmoqParkListDict.images![i]
-                        parkListImageArray.language = Utils.getLanguage()
-                        parkListImage = parkListImageArray
-                        nmoqParkListdbDict.addToParkImgRelation(parkListImage)
-                        do {
-                            try managedObjContext.save()
-                        } catch let error as NSError {
-                            print("Could not save. \(error), \(error.userInfo)")
-                        }
-                    }
-                }
-            }
-//        } else {
-//            let nmoqParkListdbDict: NMoQParksEntityAr = NSEntityDescription.insertNewObject(forEntityName: "NMoQParksEntityAr", into: managedObjContext) as! NMoQParksEntityAr
-//            nmoqParkListdbDict.title = nmoqParkListDict.title
-//            nmoqParkListdbDict.nid =  nmoqParkListDict.nid
-//            nmoqParkListdbDict.sortId =  nmoqParkListDict.sortId
-//
-//            if(nmoqParkListDict.images != nil){
-//                if((nmoqParkListDict.images?.count)! > 0) {
-//                    for i in 0 ... (nmoqParkListDict.images?.count)!-1 {
-//                        var parkListImage: NMoQParkImgEntityAr!
-//                        let parkListImageArray: NMoQParkImgEntityAr = NSEntityDescription.insertNewObject(forEntityName: "NMoQParkImgEntityAr", into: managedObjContext) as! NMoQParkImgEntityAr
-//                        parkListImageArray.images = nmoqParkListDict.images![i]
-//
-//                        parkListImage = parkListImageArray
-//                        nmoqParkListdbDict.addToParkImgRelationAr(parkListImage)
-//                        do {
-//                            try managedObjContext.save()
-//                        } catch let error as NSError {
-//                            print("Could not save. \(error), \(error.userInfo)")
-//                        }
-//                    }
-//                }
-//            }
-//        }
-        do {
-            try managedObjContext.save()
-        } catch let error as NSError {
-            print("Could not save. \(error), \(error.userInfo)")
-        }
-    }
     
     func fetchNmoqParkListFromCoredata() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
         let managedContext = getContext()
         do {
-//            if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
                 var parkListArray = [NMoQParkListEntity]()
                 let fetchRequest =  NSFetchRequest<NSFetchRequestResult>(entityName: "NMoQParkListEntity")
                 parkListArray = (try managedContext.fetch(fetchRequest) as? [NMoQParkListEntity])!
@@ -2357,10 +1944,11 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
                             self.getNmoqParkListFromServer()
                         }
                     }
-                    for i in 0 ... parkListArray.count-1 {
-                        let parkListDict = parkListArray[i]
-                        self.nmoqParkList.insert(NMoQParksList(title: parkListDict.title, parkTitle: parkListDict.parkTitle, mainDescription: parkListDict.mainDescription, parkDescription: parkListDict.parkDescription, hoursTitle: parkListDict.hoursTitle, hoursDesc: parkListDict.hoursDesc, nid: parkListDict.nid, longitude: parkListDict.longitude, latitude: parkListDict.latitude, locationTitle: parkListDict.locationTitle, language: parkListDict.language), at: i)
+                    
+                    for parkListDict in parkListArray {
+                        self.nmoqParkList.append(NMoQParksList(entity: parkListDict))
                     }
+                    
                     if(nmoqParkList.count == 0){
                         if(self.networkReachability?.isReachable == false) {
                             self.showNoNetwork()
@@ -2379,39 +1967,6 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
                         self.getNmoqParkListFromServer()//coreDataMigratio  solution
                     }
                 }
-//            } else {
-//                var parkListArray = [NMoQParkListEntityAr]()
-//                let fetchRequest =  NSFetchRequest<NSFetchRequestResult>(entityName: "NMoQParkListEntityAr")
-//                parkListArray = (try managedContext.fetch(fetchRequest) as? [NMoQParkListEntityAr])!
-//                if (parkListArray.count > 0) {
-//                    if  (networkReachability?.isReachable)! {
-//                        DispatchQueue.global(qos: .background).async {
-//                            self.getNmoqParkListFromServer()
-//                        }
-//                    }
-//                    for i in 0 ... parkListArray.count-1 {
-//                        let parkListDict = parkListArray[i]
-//                        self.nmoqParkList.insert(NMoQParksList(title: parkListDict.title,parkTitle: parkListDict.parkTitle, mainDescription: parkListDict.mainDescription, parkDescription: parkListDict.parkDescription, hoursTitle: parkListDict.hoursTitle, hoursDesc: parkListDict.hoursDesc, nid: parkListDict.nid, longitude: parkListDict.longitude, latitude: parkListDict.latitude, locationTitle: parkListDict.locationTitle), at: i)
-//                    }
-//                    if(nmoqParkList.count == 0){
-//                        if(self.networkReachability?.isReachable == false) {
-//                            self.showNoNetwork()
-//                        } else {
-//                            self.exbtnLoadingView.showNoDataView()
-//                        }
-//                    } else {
-//                        self.exhibitionHeaderView.headerTitle.text = self.nmoqParkList[0].title?.replacingOccurrences(of: "<[^>]+>|&nbsp;", with: "", options: .regularExpression, range: nil).uppercased()
-//                    }
-//                    exhibitionCollectionView.reloadData()
-//                } else{
-//                    if(self.networkReachability?.isReachable == false) {
-//                        self.showNoNetwork()
-//                    } else {
-//                        //self.loadingView.showNoDataView()
-//                        self.getNmoqParkListFromServer()//coreDataMigratio  solution
-//                    }
-//                }
-//            }
         } catch let error as NSError {
             print("Could not fetch. \(error), \(error.userInfo)")
         }
@@ -2421,7 +1976,6 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
         let managedContext = getContext()
         do {
-//            if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
                 var parkListArray = [NMoQParksEntity]()
                 let fetchRequest =  NSFetchRequest<NSFetchRequestResult>(entityName: "NMoQParksEntity")
                 parkListArray = (try managedContext.fetch(fetchRequest) as? [NMoQParksEntity])!
@@ -2432,17 +1986,11 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
                             self.getNmoqListOfParksFromServer()
                         }
                     }
-                    for i in 0 ... parkListArray.count-1 {
-                        let parkListDict = parkListArray[i]
-                        var imagesArray : [String] = []
-                        let imagesInfoArray = (parkListDict.parkImgRelation?.allObjects) as! [ImageEntity]
-                        if(imagesInfoArray.count > 0) {
-                            for i in 0 ... imagesInfoArray.count-1 {
-                                imagesArray.append(imagesInfoArray[i].image!)
-                            }
-                        }
-                        self.nmoqParks.insert(NMoQPark(title: parkListDict.title, sortId: parkListDict.sortId, nid: parkListDict.nid, images: imagesArray, language: parkListDict.language), at: i)
+                    
+                    for parkListDict in parkListArray {
+                        self.nmoqParks.append(NMoQPark(entity: parkListDict))
                     }
+                    
                     if(nmoqParks.count == 0){
                         if(self.networkReachability?.isReachable == false) {
                             self.showNoNetwork()
@@ -2465,50 +2013,6 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
                         self.getNmoqListOfParksFromServer()//coreDataMigratio  solution
                     }
                 }
-//            } else {
-//                var parkListArray = [NMoQParksEntityAr]()
-//                let fetchRequest =  NSFetchRequest<NSFetchRequestResult>(entityName: "NMoQParksEntityAr")
-//                parkListArray = (try managedContext.fetch(fetchRequest) as? [NMoQParksEntityAr])!
-//                if (parkListArray.count > 0) {
-//                    if  (networkReachability?.isReachable)! {
-//                        DispatchQueue.global(qos: .background).async {
-//                            self.getNmoqListOfParksFromServer()
-//                        }
-//                    }
-//                    for i in 0 ... parkListArray.count-1 {
-//                        let parkListDict = parkListArray[i]
-//                        var imagesArray : [String] = []
-//                        let imagesInfoArray = (parkListDict.parkImgRelationAr?.allObjects) as! [NMoQParkImgEntityAr]
-//                        if(imagesInfoArray.count > 0) {
-//                            for i in 0 ... imagesInfoArray.count-1 {
-//                                imagesArray.append(imagesInfoArray[i].images!)
-//                            }
-//                        }
-//                        self.nmoqParks.insert(NMoQPark(title: parkListDict.title, sortId: parkListDict.sortId, nid: parkListDict.nid, images: imagesArray), at: i)
-//                    }
-//                    if(nmoqParks.count == 0){
-//                        if(self.networkReachability?.isReachable == false) {
-//                            self.showNoNetwork()
-//                        } else {
-//                            self.exbtnLoadingView.showNoDataView()
-//                        }
-//                    } else {
-//                        if self.nmoqParks.first(where: {$0.sortId != "" && $0.sortId != nil} ) != nil {
-//                            self.nmoqParks = self.nmoqParks.sorted(by: { Int16($0.sortId!)! < Int16($1.sortId!)! })
-//                        }
-//                    }
-//                    DispatchQueue.main.async{
-//                        self.exhibitionCollectionView.reloadData()
-//                    }
-//                } else{
-//                    if(self.networkReachability?.isReachable == false) {
-//                        self.showNoNetwork()
-//                    } else {
-//                        // self.loadingView.showNoDataView()
-//                        self.getNmoqListOfParksFromServer()//coreDataMigratio  solution
-//                    }
-//                }
-//            }
         } catch let error as NSError {
             print("Could not fetch. \(error), \(error.userInfo)")
         }

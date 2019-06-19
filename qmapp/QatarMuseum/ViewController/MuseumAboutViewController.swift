@@ -567,37 +567,40 @@ class MuseumAboutViewController: UIViewController,UITableViewDelegate,UITableVie
                             }
                         }
                         let aboutDict = aboutArray[0]
-                        var descriptionArray : [String] = []
-                        let aboutInfoArray = (aboutDict.mobileDescRelation?.allObjects) as! [AboutDescriptionEntity]
-                        
-                         if(aboutInfoArray.count > 0) {
-                            for _ in 0 ... aboutInfoArray.count-1 {
+                        var descriptionArray = [String]()
+
+                        if let aboutInfoArray = (aboutDict.mobileDescRelation?.allObjects) as? [AboutDescriptionEntity] {
+                            for _ in aboutInfoArray {
                                 descriptionArray.append("")
                             }
-                            for i in 0 ... aboutInfoArray.count-1 {
-                                descriptionArray.remove(at: Int(aboutInfoArray[i].id))
-                        descriptionArray.insert(aboutInfoArray[i].mobileDesc!, at: Int(aboutInfoArray[i].id))
-                                
+                            for info in aboutInfoArray {
+                                descriptionArray.remove(at: Int(info.id))
+                                if let mobileDesc = info.mobileDesc {
+                                    descriptionArray.insert(mobileDesc, at: Int(info.id))
+                                }
                             }
-
                         }
-                        var multimediaArray : [String] = []
-                        let mutimediaInfoArray = (aboutDict.multimediaRelation?.allObjects) as! [AboutMultimediaFileEntity]
-                        if(mutimediaInfoArray.count > 0) {
-                            for i in 0 ... mutimediaInfoArray.count-1 {
-                                multimediaArray.append(mutimediaInfoArray[i].image!)
+                        
+                        var multimediaArray = [String]()
+                        if let mutimediaInfoArray = (aboutDict.multimediaRelation?.allObjects) as? [AboutMultimediaFileEntity] {
+                            for info in mutimediaInfoArray {
+                                if let image = info.image {
+                                    multimediaArray.append(image)
+                                }
                             }
                         }
                         
                         var downloadArray : [String] = []
-                        let downloadInfoArray = (aboutDict.downloadLinkRelation?.allObjects) as! [AboutDownloadLinkEntity]
-                        if(downloadInfoArray.count > 0) {
-                            for i in 0 ... downloadInfoArray.count-1 {
-                                downloadArray.append(downloadInfoArray[i].downloadLink!)
+                        if let downloadInfoArray = (aboutDict.downloadLinkRelation?.allObjects) as? [AboutDownloadLinkEntity] {
+                            for info in downloadInfoArray {
+                                if let downloadLink = info.downloadLink {
+                                    downloadArray.append(downloadLink)
+                                }
                             }
                         }
-                        var nmoqTime : String? = nil
-                        var aboutTime : String? = nil
+                        
+                        var nmoqTime: String?
+                        var aboutTime: String? = nil
                         if(pageNameString == PageName2.museumAbout) {
                             aboutTime = aboutDict.openingTime!
                         } else if (pageNameString == PageName2.museumEvent){

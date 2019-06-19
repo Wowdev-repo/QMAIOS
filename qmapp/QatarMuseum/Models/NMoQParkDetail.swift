@@ -35,6 +35,24 @@ struct NMoQParkDetail: ResponseObjectSerializable, ResponseCollectionSerializabl
         self.parkDesc = parkDesc
         self.language = language
     }
+    
+    init(entity: NMoQParkDetailEntity) {
+        var imagesArray : [String] = []
+        if let imagesInfoArray = (entity.parkDetailImgRelation?.allObjects) as? [ImageEntity] {
+            for info in imagesInfoArray {
+                if let image = info.image {
+                    imagesArray.append(image)
+                }
+            }
+        }
+        
+        self.title = entity.title
+        self.sortId = entity.sortId
+        self.nid = entity.nid
+        self.images = imagesArray
+        self.parkDesc = entity.parkDesc
+        self.language = entity.language
+    }
 }
 
 struct NMoQParksDetail: ResponseObjectSerializable {

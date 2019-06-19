@@ -55,19 +55,20 @@ struct Museum: ResponseObjectSerializable, ResponseCollectionSerializable {
         }
     }
   
-    init(name:String?, id: String?,
-         tourguideAvailable:String?,
-         contactNumber:String?,
-         contactEmail:String?,
-         mobileLongtitude:String?,
-         subtitle:String?,
-         openingTime:String?,
-         mobileDescription:[String]?,
-         multimediaFile:[String]?,
-         mobileLatitude:String?,
-         tourGuideAvailability:String?,
-         multimediaVideo:[String]?,
-         downloadable:[String]?,eventDate:String?) {
+    init(name:String?, id: String? = nil,
+         tourguideAvailable:String? = nil,
+         contactNumber:String? = nil,
+         contactEmail:String? = nil,
+         mobileLongtitude:String? = nil,
+         subtitle:String? = nil,
+         openingTime:String? = nil,
+         mobileDescription:[String]? = nil,
+         multimediaFile:[String]? = nil,
+         mobileLatitude:String? = nil,
+         tourGuideAvailability:String? = nil,
+         multimediaVideo:[String]? = nil,
+         downloadable:[String]? = nil,
+         eventDate:String? = nil) {
             self.name = name
             self.id = id
             self.tourguideAvailable = tourguideAvailable
@@ -83,6 +84,58 @@ struct Museum: ResponseObjectSerializable, ResponseCollectionSerializable {
             self.multimediaVideo = multimediaVideo
             self.downloadable = downloadable
             self.eventDate = eventDate
+    }
+    
+    init(entity: AboutEntity) {
+        self.name = entity.name
+        self.id = entity.id
+        self.tourguideAvailable = entity.tourguideAvailable
+        self.contactNumber = entity.contactNumber
+        self.contactEmail = entity.contactEmail
+        self.mobileLongtitude = entity.mobileLongtitude
+        self.subtitle = entity.subtitle
+        self.openingTime = entity.openingTime
+        self.mobileLatitude = entity.mobileLatitude
+        self.tourGuideAvailability = entity.tourGuideAvailability
+        
+//        self.multimediaVideo = entity.multimediaVideo
+//        self.downloadable = entity.downloadable
+//        self.eventDate = entity.eventDate
+        
+        
+        if let aboutInfoArray = (entity.mobileDescRelation?.allObjects) as? [AboutDescriptionEntity] {
+            var descriptionArray = [String]()
+            for _ in aboutInfoArray {
+                descriptionArray.append("")
+            }
+            for info in aboutInfoArray {
+                descriptionArray.remove(at: Int(info.id))
+                if let mobileDesc = info.mobileDesc {
+                    descriptionArray.insert(mobileDesc, at: Int(info.id))
+                }
+            }
+            self.mobileDescription = descriptionArray
+        }
+        
+        if let mutimediaInfoArray = (entity.multimediaRelation?.allObjects) as? [AboutMultimediaFileEntity] {
+            var multimediaArray = [String]()
+            for info in mutimediaInfoArray {
+                if let image = info.image {
+                    multimediaArray.append(image)
+                }
+            }
+            self.multimediaFile = multimediaArray
+        }
+        
+        
+        var downloadArray : [String] = []
+        let downloadInfoArray = (entity.downloadLinkRelation?.allObjects) as! [AboutDownloadLinkEntity]
+        if(downloadInfoArray.count > 0) {
+            for i in 0 ... downloadInfoArray.count-1 {
+                downloadArray.append(downloadInfoArray[i].downloadLink!)
+            }
+        }
+        
     }
 }
 

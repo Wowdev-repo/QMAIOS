@@ -31,15 +31,14 @@ struct PublicArtsList: ResponseObjectSerializable, ResponseCollectionSerializabl
             
         }
     }
-    init(id: String?, name: String?, latitude:String?, longitude:String?,image:String?,sortcoefficient:String?, language: String?) {
-        self.id = id
-        self.name = name
-        self.longitude = longitude
-        self.latitude = latitude
-        self.image = image
-        self.sortcoefficient = sortcoefficient
-        self.language = language
-        
+    
+    init(entity: PublicArtsEntity) {
+        self.id = entity.id
+        self.name = entity.name
+        self.image = entity.image
+        self.longitude = entity.longitude
+        self.latitude = entity.latitude
+        self.language = entity.language
     }
 }
 

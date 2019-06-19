@@ -73,18 +73,19 @@ struct NMoQParksList: ResponseObjectSerializable, ResponseCollectionSerializable
             //self.nmoqParks = representation["nmoq_parks"] as? [String]
         }
     }
-    init(title:String?, parkTitle:String?,mainDescription:String?, parkDescription: String?, hoursTitle: String?,hoursDesc:String?, nid:String?, longitude: String?, latitude: String?, locationTitle: String?, language: String?) {
-        self.title = title
-        self.parkTitle = parkTitle
-        self.mainDescription = mainDescription
-        self.parkDescription = parkDescription
-        self.hoursTitle = hoursTitle
-        self.hoursDesc = hoursDesc
-        self.nid = nid
-        self.longitude = longitude
-        self.latitude = latitude
-        self.locationTitle = locationTitle
-        self.language = language
+    
+    init(entity: NMoQParkListEntity) {
+        self.title = entity.title
+        self.parkTitle = entity.parkTitle
+        self.mainDescription = entity.mainDescription
+        self.parkDescription = entity.parkDescription
+        self.hoursTitle = entity.hoursTitle
+        self.hoursDesc = entity.hoursDesc
+        self.nid = entity.nid
+        self.longitude = entity.longitude
+        self.latitude = entity.latitude
+        self.locationTitle = entity.locationTitle
+        self.language = entity.language
     }
 }
 struct NmoqParksLists: ResponseObjectSerializable {
@@ -120,6 +121,24 @@ struct NMoQPark: ResponseObjectSerializable, ResponseCollectionSerializable {
         self.sortId = sortId
         self.nid = nid
         self.language = language
+    }
+    
+    init(entity: NMoQParksEntity) {
+        
+        var imagesArray : [String] = []
+        if let imagesInfoArray = (entity.parkImgRelation?.allObjects) as? [ImageEntity] {
+            for info in imagesInfoArray {
+                if let image = info.image {
+                    imagesArray.append(image)
+                }
+            }
+        }
+        
+        self.title = entity.title
+        self.images = imagesArray
+        self.sortId = entity.sortId
+        self.nid = entity.nid
+        self.language = entity.language
     }
 }
 

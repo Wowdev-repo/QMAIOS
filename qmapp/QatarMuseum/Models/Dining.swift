@@ -38,17 +38,28 @@ struct Dining: ResponseObjectSerializable, ResponseCollectionSerializable {
             self.images = representation["images"] as? [String]
         }
     }
-    init(id:String?, name: String?, location:String?, description:String?, image:String?, openingtime:String?, closetime:String?, sortid:String?, museumId:String?, images:[String]?) {
-        self.id = id
-        self.name = name
-        self.location = location
-        self.description = description
-        self.image = image
-        self.openingtime = openingtime
-        self.closetime = closetime
-        self.sortid = sortid
-        self.museumId = museumId
-        self.images = images
+    
+    init(entity: DiningEntity) {
+        
+        var imagesArray : [String] = []
+        let diningImagesArray = (entity.imagesRelation?.allObjects) as! [ImageEntity]
+        
+        for images in diningImagesArray {
+            if let image = images.image {
+                imagesArray.append(image)
+            }
+        }
+        
+        self.id = entity.id
+        self.name = entity.name
+        self.location = entity.location
+        self.description = entity.description
+        self.image = entity.image
+        self.openingtime = entity.openingtime
+        self.closetime = entity.closetime
+        self.sortid = entity.sortid
+        self.museumId = entity.museumId
+        self.images = imagesArray
     }
 }
 

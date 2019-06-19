@@ -39,29 +39,43 @@ struct HomeBanner: ResponseObjectSerializable, ResponseCollectionSerializable {
         }
     }
     
-    init (title:String?,
-          fullContentID: String?,
-          bannerTitle: String?,
-          bannerLink: String?,
-          image: [String]?,
-          introductionText:String?,
-          email: String?,
-          contactNumber: String?,
-          promotionalCode: String?,
-          claimOffer: String?,
-          language: String?) {
-        self.title = title
-        self.fullContentID = fullContentID
-        self.bannerTitle = bannerTitle
-        self.bannerLink = bannerLink
-        self.image = image
+    init(entity: HomeBannerEntity) {
+        
+        var imagesArray : [String] = []
+        if let imagesInfoArray = (entity.bannerImageRelations?.allObjects) as? [ImageEntity] {
+            for info in imagesInfoArray {
+                if let image = info.image {
+                    imagesArray.append(image)
+                }
+            }
+        }
+        
+        self.title = entity.title
+        self.fullContentID = entity.fullContentID
+        self.bannerTitle = entity.bannerTitle
+        self.bannerLink = entity.bannerLink
+        self.image = imagesArray
         //for Travel List
-        self.introductionText = introductionText
-        self.email = email
-        self.contactNumber = contactNumber
-        self.promotionalCode = promotionalCode
-        self.claimOffer = claimOffer
-        self.language = language
+        self.introductionText = entity.introductionText
+        self.email = entity.email
+        self.contactNumber = entity.contactNumber
+        self.promotionalCode = entity.promotionalCode
+        self.claimOffer = entity.claimOffer
+        self.language = entity.language
+    }
+    
+    init(travelEntity: NMoQTravelListEntity) {
+        self.title = travelEntity.title
+        self.fullContentID = travelEntity.fullContentID
+        self.bannerTitle = travelEntity.bannerTitle
+        self.bannerLink = travelEntity.bannerLink
+        //for Travel List
+        self.introductionText = travelEntity.introductionText
+        self.email = travelEntity.email
+        self.contactNumber = travelEntity.contactNumber
+        self.promotionalCode = travelEntity.promotionalCode
+        self.claimOffer = travelEntity.claimOffer
+        self.language = travelEntity.language
     }
 }
 

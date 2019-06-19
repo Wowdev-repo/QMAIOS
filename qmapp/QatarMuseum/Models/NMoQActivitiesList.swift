@@ -63,6 +63,34 @@ struct NMoQActivitiesList: ResponseObjectSerializable, ResponseCollectionSeriali
         self.contactPhone = contactPhone
         self.language = language
     }
+    
+        
+    init(entity: NMoQActivitiesEntity) {
+        
+        var imagesArray : [String] = []
+        if let imagesInfoArray = (entity.activityImgRelation?.allObjects) as? [ImageEntity] {
+            for info in imagesInfoArray {
+                if let image = info.image {
+                    imagesArray.append(image)
+                }
+            }
+        }
+        self.title = entity.title
+        self.dayDescription = entity.dayDescription
+        self.images = imagesArray
+        self.subtitle = entity.subtitle
+        self.sortId = entity.sortId
+        self.nid = entity.nid
+        self.eventDate = entity.eventDate
+        self.date = entity.date
+        self.descriptioForModerator = entity.descriptioForModerator
+        self.mobileLatitude = entity.mobileLatitude
+        self.moderatorName = entity.moderatorName
+        self.longitude = entity.longitude
+        self.contactEmail = entity.contactEmail
+        self.contactPhone = entity.contactPhone
+        self.language = entity.language
+    }
 }
 
 struct NMoQActivitiesListData: ResponseObjectSerializable {
