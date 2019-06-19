@@ -446,15 +446,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     
     
     //MARK: MIA TourGuide WebServiceCall
-    func getMiaTourGuideDataFromServer(museumId:String?,lang:String?) {
+    func getMiaTourGuideDataFromServer(museumId:String?,
+                                       lang:String) {
         let queue = DispatchQueue(label: "MiaTourThread", qos: .background, attributes: .concurrent)
-        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.MuseumTourGuide(lang!,["museum_id": museumId!])).responseObject(queue:queue) { (response: DataResponse<TourGuides>) -> Void in
+        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.MuseumTourGuide(lang,["museum_id": museumId!])).responseObject(queue:queue) { (response: DataResponse<TourGuides>) -> Void in
             switch response.result {
             case .success(let data):
                 if(data.tourGuide != nil) {
                     if((data.tourGuide?.count)! > 0) {
                         DispatchQueue.main.async{
-                            self.saveOrUpdateTourGuideCoredata(miaTourDataFullArray: data.tourGuide, museumId: museumId, lang: lang)
+                            self.saveOrUpdateTourGuideCoredata(miaTourDataFullArray: data.tourGuide,
+                                                               museumId: museumId,
+                                                               lang: lang)
                         }
                     }
                 }
@@ -464,7 +467,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         }
     }
     //MARK: Coredata Method
-    func saveOrUpdateTourGuideCoredata(miaTourDataFullArray:[TourGuide]?,museumId: String?,lang:String?) {
+    func saveOrUpdateTourGuideCoredata(miaTourDataFullArray:[TourGuide]?,museumId: String?, lang:String) {
         if ((miaTourDataFullArray?.count)! > 0) {
             if #available(iOS 10.0, *) {
                 let container = CoreDataManager.shared.persistentContainer
@@ -472,7 +475,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                     if let array = miaTourDataFullArray {
                         DataManager.updateTourGuide(managedContext: managedContext,
                                                     miaTourDataFullArray: array,
-                                                    museumID: museumId)
+                                                    museumID: museumId, language: lang)
                     }
                 }
             } else {
@@ -481,7 +484,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                     if let array = miaTourDataFullArray {
                         DataManager.updateTourGuide(managedContext: managedContext,
                                                     miaTourDataFullArray: array,
-                                                    museumID: museumId)
+                                                    museumID: museumId, language: lang)
                     }
                 }
             }
@@ -685,14 +688,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
     
     //MARK: PublicArtsList WebServiceCall
-    func getPublicArtsListDataFromServer(lang: String?) {
+    func getPublicArtsListDataFromServer(lang: String) {
         let queue = DispatchQueue(label: "PublicArtsListThread", qos: .background, attributes: .concurrent)
-        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.PublicArtsList(lang!)).responseObject(queue: queue) { (response: DataResponse<PublicArtsLists>) -> Void in
+        _ = CPSessionManager.sharedInstance.apiManager()?
+            .request(QatarMuseumRouter.PublicArtsList(lang))
+            .responseObject(queue: queue) { (response: DataResponse<PublicArtsLists>) -> Void in
             switch response.result {
             case .success(let data):
                 if(data.publicArtsList != nil) {
                     if((data.publicArtsList?.count)! > 0) {
-                        self.saveOrUpdatePublicArtsCoredata(publicArtsListArray: data.publicArtsList, lang: lang)
+                        self.saveOrUpdatePublicArtsCoredata(publicArtsListArray: data.publicArtsList,
+                                                            lang: lang)
                     }
                 }
                 
@@ -703,19 +709,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
     
     //MARK: PublicArtsList Coredata Method
-    func saveOrUpdatePublicArtsCoredata(publicArtsListArray:[PublicArtsList]?,lang: String?) {
+    func saveOrUpdatePublicArtsCoredata(publicArtsListArray:[PublicArtsList]?,
+                                        lang: String) {
         if ((publicArtsListArray?.count)! > 0) {
             if #available(iOS 10.0, *) {
                 let container = CoreDataManager.shared.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
                     DataManager.updatePublicArts(managedContext : managedContext,
-                                                 publicArtsListArray: publicArtsListArray)
+                                                 publicArtsListArray: publicArtsListArray,
+                                                 language: Utils.getLanguageCode(lang))
                 }
             } else {
                 let managedContext = self.managedObjectContext
                 managedContext.perform {
                     DataManager.updatePublicArts(managedContext : managedContext,
-                                                 publicArtsListArray: publicArtsListArray)
+                                                 publicArtsListArray: publicArtsListArray,
+                                                 language: Utils.getLanguageCode(lang))
                 }
             }
         }

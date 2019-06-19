@@ -1038,7 +1038,8 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
                     }
                 }
                 if(self.publicArtsListArray.count > 0) {
-                    self.saveOrUpdatePublicArtsCoredata(publicArtsListArray: data.publicArtsList, lang: LocalizationLanguage.currentAppleLanguage())
+                    self.saveOrUpdatePublicArtsCoredata(publicArtsListArray: data.publicArtsList,
+                                                        lang: LocalizationLanguage.currentAppleLanguage())
                 }
             case .failure( _):
                 if(self.publicArtsListArray.count == 0) {
@@ -1051,20 +1052,20 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
         }
     }
     //MARK: Coredata Method
-    func saveOrUpdatePublicArtsCoredata(publicArtsListArray:[PublicArtsList]?,lang: String?) {
+    func saveOrUpdatePublicArtsCoredata(publicArtsListArray:[PublicArtsList]?, lang: String) {
         if ((publicArtsListArray?.count)! > 0) {
             let appDelegate =  UIApplication.shared.delegate as? AppDelegate
             if #available(iOS 10.0, *) {
                 let container = appDelegate!.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
                     DataManager.updatePublicArts(managedContext: managedContext,
-                                                 publicArtsListArray: publicArtsListArray)
+                                                 publicArtsListArray: publicArtsListArray, language: Utils.getLanguageCode(lang))
                 }
             } else {
                 let managedContext = appDelegate!.managedObjectContext
                 managedContext.perform {
                     DataManager.updatePublicArts(managedContext : managedContext,
-                                                 publicArtsListArray: publicArtsListArray)
+                                                 publicArtsListArray: publicArtsListArray, language: Utils.getLanguageCode(lang))
                 }
             }
         }
@@ -1073,10 +1074,12 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
     func fetchPublicArtsListFromCoredata() {
         let managedContext = getContext()
         do {
-//            if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
-                var publicArtsArray = [PublicArtsEntity]()
-                let publicArtsFetchRequest =  NSFetchRequest<NSFetchRequestResult>(entityName: "PublicArtsEntity")
-                publicArtsArray = (try managedContext.fetch(publicArtsFetchRequest) as? [PublicArtsEntity])!
+            
+            
+            let publicArtsArray = DataManager.checkAddedToCoredata(entityName: "PublicArtsEntity",
+                                                               idKey: "language",
+                                                               idValue: Utils.getLanguage(),
+                                                               managedContext: managedContext) as! [PublicArtsEntity]
                 if (publicArtsArray.count > 0) {
                     if  (networkReachability?.isReachable)! {
                         DispatchQueue.global(qos: .background).async {
@@ -1604,14 +1607,14 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
                 container.performBackgroundTask() {(managedContext) in
                     DataManager.updateTourGuide(managedContext: managedContext,
                                                     miaTourDataFullArray: self.miaTourDataFullArray,
-                                                    museumID: self.museumId)
+                                                    museumID: self.museumId, language: Utils.getLanguage())
                 }
             } else {
                 let managedContext = appDelegate!.managedObjectContext
                 managedContext.perform {
                     DataManager.updateTourGuide(managedContext : managedContext,
                                                     miaTourDataFullArray: self.miaTourDataFullArray,
-                                                    museumID: self.museumId)
+                                                    museumID: self.museumId, language: Utils.getLanguage())
                 }
             }
         }
@@ -1620,7 +1623,6 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
     func fetchTourGuideListFromCoredata() {
         let managedContext = getContext()
         do {
-//            if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
                 var tourGuideArray = [TourGuideEntity]()
                 tourGuideArray = DataManager.checkAddedToCoredata(entityName: "TourGuideEntity",
                                                       idKey: "museumsEntity",

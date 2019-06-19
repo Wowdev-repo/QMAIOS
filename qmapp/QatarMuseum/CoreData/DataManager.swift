@@ -546,7 +546,7 @@ extension DataManager {
     
     static func updateTourGuide(managedContext: NSManagedObjectContext,
                          miaTourDataFullArray: [TourGuide],
-                         museumID: String?) {
+                         museumID: String?, language: String) {
         let fetchData = checkAddedToCoredata(entityName: "TourGuideEntity",
                                              idKey: "museumsEntity",
                                              idValue: museumID,
@@ -562,13 +562,15 @@ extension DataManager {
                     let tourguidedbDict = fetchResult[0] as! TourGuideEntity
                     DataManager.saveTourGuide(tourguideListDict: tourGuideListDict,
                                               managedObjContext: managedContext,
-                                              entity: tourguidedbDict)
+                                              entity: tourguidedbDict,
+                                              language: language)
                 }
                 else {
                     //save
                     DataManager.saveTourGuide(tourguideListDict: tourGuideListDict,
                                               managedObjContext: managedContext,
-                                              entity: nil)
+                                              entity: nil,
+                                              language: language)
                     
                 }
             }
@@ -577,7 +579,8 @@ extension DataManager {
             for tourGuideListDict in miaTourDataFullArray {
                 DataManager.saveTourGuide(tourguideListDict: tourGuideListDict,
                                           managedObjContext: managedContext,
-                                          entity: nil)
+                                          entity: nil,
+                                          language: language)
                 
             }
         }
@@ -668,7 +671,7 @@ extension DataManager {
     ///   - entity: TourGuideEntity, nil will create new entity and save to core data
     static func saveTourGuide(tourguideListDict: TourGuide,
                        managedObjContext: NSManagedObjectContext,
-                       entity: TourGuideEntity?) {
+                       entity: TourGuideEntity?, language: String) {
         var tourGuideInfo = entity
         if entity == nil {
             tourGuideInfo = NSEntityDescription.insertNewObject(forEntityName: "TourGuideEntity",
@@ -678,14 +681,14 @@ extension DataManager {
         tourGuideInfo?.tourGuideDescription = tourguideListDict.tourGuideDescription
         tourGuideInfo?.museumsEntity = tourguideListDict.museumsEntity
         tourGuideInfo?.nid = tourguideListDict.nid
-        tourGuideInfo?.language = Utils.getLanguage()
+        tourGuideInfo?.language = language
         
         if let multimediaFiles = tourguideListDict.multimediaFile {
             for file in multimediaFiles {
                 var multimediaEntity: TourGuideMultimediaEntity!
                 let multimediaArray: TourGuideMultimediaEntity = NSEntityDescription.insertNewObject(forEntityName: "TourGuideMultimediaEntity", into: managedObjContext) as! TourGuideMultimediaEntity
                 multimediaArray.multimediaFile = file
-                multimediaArray.language = Utils.getLanguage()
+                multimediaArray.language = language
                 multimediaEntity = multimediaArray
                 tourGuideInfo?.addToTourGuideMultimediaRelation(multimediaEntity)
                 managedObjContext.saveContext()
@@ -786,7 +789,8 @@ extension DataManager {
     }
     
     static func updatePublicArts(managedContext: NSManagedObjectContext,
-                                 publicArtsListArray:[PublicArtsList]?) {
+                                 publicArtsListArray:[PublicArtsList]?,
+                                 language: String) {
         let fetchData = DataManager.checkAddedToCoredata(entityName: "PublicArtsEntity",
                                                          idKey: "id",
                                                          idValue: nil,
@@ -802,12 +806,12 @@ extension DataManager {
                     let publicArtsdbDict = fetchResult[0] as! PublicArtsEntity
                     DataManager.saveToPublicArtsCoreData(publicArtsListDict: publicArtsListDict,
                                                          managedObjContext: managedContext,
-                                                         entity: publicArtsdbDict)
+                                                         entity: publicArtsdbDict, language: language)
                 } else {
                     //save
                     DataManager.saveToPublicArtsCoreData(publicArtsListDict: publicArtsListDict,
                                                          managedObjContext: managedContext,
-                                                         entity: nil)
+                                                         entity: nil, language: language)
                 }
             }
         } else {
@@ -815,7 +819,7 @@ extension DataManager {
                 for publicArtsListDict in publicArts {
                     DataManager.saveToPublicArtsCoreData(publicArtsListDict: publicArtsListDict,
                                                          managedObjContext: managedContext,
-                                                         entity: nil)
+                                                         entity: nil, language: language)
                 }
             }
         }
@@ -823,7 +827,8 @@ extension DataManager {
     
     static func saveToPublicArtsCoreData(publicArtsListDict: PublicArtsList,
                                          managedObjContext: NSManagedObjectContext,
-                                         entity: PublicArtsEntity?) {
+                                         entity: PublicArtsEntity?,
+                                         language: String) {
         var publicArtsInfo = entity
         if entity == nil {
             publicArtsInfo = NSEntityDescription.insertNewObject(forEntityName: "PublicArtsEntity",
@@ -834,7 +839,7 @@ extension DataManager {
         publicArtsInfo?.latitude =  publicArtsListDict.latitude
         publicArtsInfo?.longitude = publicArtsListDict.longitude
         publicArtsInfo?.sortcoefficient = publicArtsListDict.sortcoefficient
-        publicArtsInfo?.language = Utils.getLanguage()
+        publicArtsInfo?.language = language
         
         managedObjContext.saveContext()
     }
