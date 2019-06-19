@@ -11,7 +11,7 @@ import CocoaLumberjack
 let APPLE_LANGUAGE_KEY = "AppleLanguages"
 class LocalizationLanguage {
     /// get current Apple language
-    class func currentAppleLanguage() -> String{
+    class func currentAppleLanguage() -> String {
         
         let userdef = UserDefaults.standard
         let langArray = userdef.object(forKey: APPLE_LANGUAGE_KEY) as! NSArray

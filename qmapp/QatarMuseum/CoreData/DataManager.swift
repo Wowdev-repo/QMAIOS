@@ -696,11 +696,12 @@ extension DataManager {
     }
     
     static func updateDinings(managedContext: NSManagedObjectContext,
-                              diningListArray : [Dining]?) {
+                              diningListArray : [Dining]?,
+                              language: String) {
         var fetchData = [DiningEntity]()
         fetchData = DataManager.checkAddedToCoredata(entityName: "DiningEntity",
                                                      idKey: "lang",
-                                                     idValue: Utils.getLanguage(),
+                                                     idValue: Utils.getLanguageCode(language),
                                                      managedContext: managedContext) as! [DiningEntity]
         if let diningList = diningListArray, !fetchData.isEmpty {
             for diningListDict in diningList {
@@ -713,19 +714,22 @@ extension DataManager {
                     let diningdbDict = fetchResult[0] as! DiningEntity
                     DataManager.saveToDiningCoreData(diningListDict: diningListDict,
                                                      managedObjContext: managedContext,
-                                                     entity: diningdbDict)
+                                                     entity: diningdbDict,
+                                                     language: Utils.getLanguageCode(language))
                 } else {
                     //save
                     DataManager.saveToDiningCoreData(diningListDict: diningListDict,
                                                      managedObjContext: managedContext,
-                                                     entity: nil)
+                                                     entity: nil,
+                                                     language: Utils.getLanguageCode(language))
                 }
             }
         } else if let diningList = diningListArray {
             for diningListDict in diningList {
                 DataManager.saveToDiningCoreData(diningListDict: diningListDict,
                                                  managedObjContext: managedContext,
-                                                 entity: nil)
+                                                 entity: nil,
+                                                 language: Utils.getLanguageCode(language))
             }
         }
     }
@@ -738,7 +742,8 @@ extension DataManager {
     ///   - entity: DiningEntity, nil will create new entity
     static func saveToDiningCoreData(diningListDict: Dining,
                               managedObjContext: NSManagedObjectContext,
-                              entity: DiningEntity?) {
+                              entity: DiningEntity?,
+                              language: String) {
         var diningInfo: DiningEntity?
         if entity == nil {
             diningInfo = NSEntityDescription.insertNewObject(forEntityName: "DiningEntity",
@@ -752,7 +757,7 @@ extension DataManager {
             diningInfo?.sortid = sortID
         }
         diningInfo?.museumId = diningListDict.museumId
-        diningInfo?.lang = Utils.getLanguage()
+        diningInfo?.lang = language //Utils.getLanguageCode(language)
         
         if let description = diningListDict.description {
             diningInfo?.diningdescription = description

@@ -847,7 +847,7 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
                 }
             } else if (exhibitionsPageNameString == ExhbitionPageName.museumCollectionsList){
                 if(fromHome == true) {
-                    appDelegate?.getDiningListFromServer(lang: LocalizationLanguage.currentAppleLanguage())
+                    appDelegate?.getDiningListFromServer(language: LocalizationLanguage.currentAppleLanguage())
                 } else {
                     self.getMuseumDiningListFromServer()
                 }
@@ -1253,7 +1253,8 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
                     }
                 }
                 if(self.diningListArray.count > 0) {
-                    self.saveOrUpdateDiningCoredata(diningListArray: data.dinings, lang: LocalizationLanguage.currentAppleLanguage())
+                    self.saveOrUpdateDiningCoredata(diningListArray: data.dinings,
+                                                    lang: LocalizationLanguage.currentAppleLanguage())
                 }
             case .failure( _):
                 if(self.diningListArray.count == 0) {
@@ -1278,20 +1279,21 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
         }
     }
     //MARK: Dining Coredata Method
-    func saveOrUpdateDiningCoredata(diningListArray : [Dining]?,lang: String?) {
+    func saveOrUpdateDiningCoredata(diningListArray : [Dining]?, lang: String) {
         if ((diningListArray?.count)! > 0) {
             let appDelegate =  UIApplication.shared.delegate as? AppDelegate
             if #available(iOS 10.0, *) {
                 let container = appDelegate?.persistentContainer
                 container?.performBackgroundTask() {(managedContext) in
                     DataManager.updateDinings(managedContext: managedContext,
-                                                          diningListArray: diningListArray!)
+                                                          diningListArray: diningListArray!,
+                                                          language: lang)
                 }
             } else {
                 let managedContext = appDelegate?.managedObjectContext
                 managedContext?.perform {
                     DataManager.updateDinings(managedContext : managedContext!,
-                                                          diningListArray: diningListArray!)
+                                                          diningListArray: diningListArray!, language: lang)
                 }
             }
         }

@@ -1208,12 +1208,14 @@ class CommonDetailViewController: UIViewController,UITableViewDelegate,UITableVi
                 let diningdbDict = fetchData[0]
                 DataManager.saveToDiningCoreData(diningListDict: diningDetailDict,
                                                  managedObjContext: managedContext,
-                                                 entity: diningdbDict)
+                                                 entity: diningdbDict,
+                                                 language: Utils.getLanguage())
                 
             } else {
                 DataManager.saveToDiningCoreData(diningListDict: diningDetailDict,
                                                  managedObjContext: managedContext,
-                                                 entity: nil)
+                                                 entity: nil,
+                                                 language: Utils.getLanguage())
             }
     }
     

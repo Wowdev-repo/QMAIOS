@@ -97,8 +97,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             self.getTravelList(lang: AR_LANGUAGE)
             self.getNMoQSpecialEventList(lang: ENG_LANGUAGE)
             self.getNMoQSpecialEventList(lang: AR_LANGUAGE)
-            self.getDiningListFromServer(lang: ENG_LANGUAGE)
-            self.getDiningListFromServer(lang: AR_LANGUAGE)
+            self.getDiningListFromServer(language: ENG_LANGUAGE)
+            self.getDiningListFromServer(language: AR_LANGUAGE)
             self.getPublicArtsListDataFromServer(lang: ENG_LANGUAGE)
             self.getPublicArtsListDataFromServer(lang: AR_LANGUAGE)
             self.getCollectionList(museumId: "63", lang: ENG_LANGUAGE)
@@ -647,15 +647,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
     
     //MARK: DiningList WebServiceCall
-    func getDiningListFromServer(lang: String?)
-    {
+    func getDiningListFromServer(language: String) {
         let queue = DispatchQueue(label: "DiningListThread", qos: .background, attributes: .concurrent)
-        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.DiningList(lang!)).responseObject(queue: queue) { (response: DataResponse<Dinings>) -> Void in
+        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.DiningList(language)).responseObject(queue: queue) { (response: DataResponse<Dinings>) -> Void in
             switch response.result {
             case .success(let data):
                 if(data.dinings != nil) {
                     if((data.dinings?.count)! > 0) {
-                        self.saveOrUpdateDiningCoredata(diningListArray: data.dinings, lang: lang)
+                        self.saveOrUpdateDiningCoredata(diningListArray: data.dinings, lang: language)
                     }
                 }
                 
@@ -665,19 +664,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         }
     }
     //MARK: Dining Coredata Method
-    func saveOrUpdateDiningCoredata(diningListArray : [Dining]?,lang: String?) {
+    func saveOrUpdateDiningCoredata(diningListArray : [Dining]?, lang: String) {
         if ((diningListArray?.count)! > 0) {
             if #available(iOS 10.0, *) {
                 let container = CoreDataManager.shared.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
                     DataManager.updateDinings(managedContext: managedContext,
-                                              diningListArray: diningListArray!)
+                                              diningListArray: diningListArray!,
+                                              language: lang)
                 }
             } else {
                 let managedContext = self.managedObjectContext
                 managedContext.perform {
                     DataManager.updateDinings(managedContext: managedContext,
-                                              diningListArray: diningListArray!)
+                                              diningListArray: diningListArray!,
+                                              language: lang)
                 }
             }
         }
