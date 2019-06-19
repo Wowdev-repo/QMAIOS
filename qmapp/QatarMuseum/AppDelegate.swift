@@ -732,15 +732,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     
     
     //MARK: Webservice call
-    func getCollectionList(museumId:String?,lang: String?) {
+    func getCollectionList(museumId:String?, lang: String) {
         let queue = DispatchQueue(label: "CollectionListThread", qos: .background, attributes: .concurrent)
-        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.CollectionList(lang!,["museum_id": museumId ?? 0])).responseObject(queue: queue) { (response: DataResponse<Collections>) -> Void in
+        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.CollectionList(lang, ["museum_id": museumId ?? 0])).responseObject(queue: queue) { (response: DataResponse<Collections>) -> Void in
             switch response.result {
             case .success(let data):
                 if(data.collections != nil) {
                     if let collections = data.collections {
                         self.saveOrUpdateCollectionCoredata(collection: collections,
-                                                            museumId: museumId)
+                                                            museumId: museumId, language: lang)
                     }
                 }
                 
@@ -752,21 +752,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
     //MARK: Coredata Method
     func saveOrUpdateCollectionCoredata(collection: [Collection],
-                                        museumId:String?) {
+                                        museumId:String?, language: String) {
         if !collection.isEmpty {
             if #available(iOS 10.0, *) {
                 let container = CoreDataManager.shared.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
                     self.collectionsListCoreDataInBackgroundThread(managedContext : managedContext,
                                                                    collection: collection,
-                                                                   museumId: museumId)
+                                                                   museumId: museumId, code: language)
                 }
             } else {
                 let managedContext = self.managedObjectContext
                 managedContext.perform {
                     self.collectionsListCoreDataInBackgroundThread(managedContext : managedContext,
                                                                    collection: collection,
-                                                                   museumId: museumId)
+                                                                   museumId: museumId, code: language)
                 }
             }
         }
@@ -774,7 +774,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     
     func collectionsListCoreDataInBackgroundThread(managedContext: NSManagedObjectContext,
                                                    collection: [Collection],
-                                                   museumId:String?) {
+                                                   museumId:String?, code: String) {
         let fetchData = DataManager.checkAddedToCoredata(entityName: "CollectionsEntity",
                                                          idKey: "museumId",
                                                          idValue: nil,
@@ -785,7 +785,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 if(isDeleted == true) {
                     for collectionListDict in collection {
                         DataManager.saveCollectionsEntity(collectionListDict: collectionListDict,
-                                                          managedObjContext: managedContext)
+                                                          managedObjContext: managedContext,
+                                                          language: Utils.getLanguageCode(code))
                     }
                 }
                 NotificationCenter.default.post(name: NSNotification.Name(collectionsListNotificationEn), object: self)
@@ -793,7 +794,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             else {
                 for collectionListDict in collection {
                     DataManager.saveCollectionsEntity(collectionListDict: collectionListDict,
-                                                      managedObjContext: managedContext)
+                                                      managedObjContext: managedContext,
+                                                      language: Utils.getLanguageCode(code))
                 }
                 NotificationCenter.default.post(name: NSNotification.Name(collectionsListNotificationEn), object: self)
             }

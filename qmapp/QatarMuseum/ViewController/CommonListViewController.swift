@@ -1148,7 +1148,8 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
                 }else {
                     self.exhibitionCollectionView.reloadData()
                     if let collections = data.collections {
-                        self.saveOrUpdateCollectionCoredata(collection: collections)
+                        self.saveOrUpdateCollectionCoredata(collection: collections,
+                                                            language: LocalizationLanguage.currentAppleLanguage())
                     }
                 }
                 
@@ -1168,20 +1169,20 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
         }
     }
     //MARK: CollectionList Coredata Method
-    func saveOrUpdateCollectionCoredata(collection: [Collection]) {
+    func saveOrUpdateCollectionCoredata(collection: [Collection], language: String) {
         if !collection.isEmpty {
             let appDelegate =  UIApplication.shared.delegate as? AppDelegate
             if #available(iOS 10.0, *) {
                 let container = appDelegate!.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
                     DataManager.updateCollectionsEntity(managedContext: managedContext,
-                                                 collection: collection)
+                                                 collection: collection, language: Utils.getLanguageCode(language))
                 }
             } else {
                 let managedContext = appDelegate!.managedObjectContext
                 managedContext.perform {
                     DataManager.updateCollectionsEntity(managedContext : managedContext,
-                                                 collection: collection)
+                                                 collection: collection, language: Utils.getLanguageCode(language))
                 }
             }
         }

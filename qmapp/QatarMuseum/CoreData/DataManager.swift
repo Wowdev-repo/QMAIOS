@@ -1736,28 +1736,28 @@ extension DataManager {
     }
     
     static func updateCollectionsEntity(managedContext: NSManagedObjectContext,
-                                        collection: [Collection]) {
+                                        collection: [Collection], language: String) {
         let fetchData = DataManager.checkAddedToCoredata(entityName: "CollectionsEntity",
                                                          idKey: "lang",
-                                                         idValue: Utils.getLanguage(),
+                                                         idValue: language,
                                                          managedContext: managedContext) as! [CollectionsEntity]
         if (fetchData.count > 0) {
             if DataManager.delete(managedContext: managedContext, entityName: "CollectionsEntity") {
                 for collectionListDict in collection {
                     DataManager.saveCollectionsEntity(collectionListDict: collectionListDict,
-                                               managedObjContext: managedContext)
+                                                      managedObjContext: managedContext, language: language)
                 }
             }
         } else {
             for collectionListDict in collection {
                 DataManager.saveCollectionsEntity(collectionListDict: collectionListDict,
-                                           managedObjContext: managedContext)
+                                                  managedObjContext: managedContext, language: language)
             }
         }
     }
     
     static func saveCollectionsEntity(collectionListDict: Collection,
-                               managedObjContext: NSManagedObjectContext) {
+                                      managedObjContext: NSManagedObjectContext, language: String) {
         let collectionInfo: CollectionsEntity = NSEntityDescription.insertNewObject(forEntityName: "CollectionsEntity",
                                                                                     into: managedObjContext) as! CollectionsEntity
         collectionInfo.listName = collectionListDict.name?.replacingOccurrences(of: "<[^>]+>|&nbsp;",
@@ -1766,7 +1766,7 @@ extension DataManager {
                                                                                 range: nil)
         collectionInfo.listImage = collectionListDict.image
         collectionInfo.museumId = collectionListDict.museumId
-        collectionInfo.lang = Utils.getLanguage()
+        collectionInfo.lang = language
         managedObjContext.saveContext()
     }
     
