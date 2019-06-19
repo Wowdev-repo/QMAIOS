@@ -752,22 +752,23 @@ class HomeViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     func settingsButtonPressed() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
         self.performSegue(withIdentifier: "homeToSettingsSegue", sender: self)
-        let aboutUrlString = "https://inq-online.com/"
-        if let aboutUrl = URL(string: aboutUrlString) {
-            // show alert to choose app
-            if UIApplication.shared.canOpenURL(aboutUrl as URL) {
-                let webViewVc:WebViewController = self.storyboard?.instantiateViewController(withIdentifier: "webViewId") as! WebViewController
-                webViewVc.webViewUrl = aboutUrl
-                webViewVc.titleString = NSLocalizedString("WEBVIEW_TITLE", comment: "WEBVIEW_TITLE  in the Webview")
-                self.present(webViewVc, animated: false, completion: nil)
-            }
-            
-            Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
-                AnalyticsParameterItemID: FirebaseAnalyticsEvents.tapped_button_item,
-                AnalyticsParameterItemName: "giftShopButtonPressed_from_Home_Menu",
-                AnalyticsParameterContentType: aboutUrlString
-                ])
-        }
+        //        FIXME: Below code loads webview rather than the settings page
+//                let aboutUrlString = "https://inq-online.com/"
+//        if let aboutUrl = URL(string: aboutUrlString) {
+//            // show alert to choose app
+//            if UIApplication.shared.canOpenURL(aboutUrl as URL) {
+//                let webViewVc:WebViewController = self.storyboard?.instantiateViewController(withIdentifier: "webViewId") as! WebViewController
+//                webViewVc.webViewUrl = aboutUrl
+//                webViewVc.titleString = NSLocalizedString("WEBVIEW_TITLE", comment: "WEBVIEW_TITLE  in the Webview")
+//                self.present(webViewVc, animated: false, completion: nil)
+//            }
+//
+//            Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
+//                AnalyticsParameterItemID: FirebaseAnalyticsEvents.tapped_button_item,
+//                AnalyticsParameterItemName: "giftShopButtonPressed_from_Home_Menu",
+//                AnalyticsParameterContentType: aboutUrlString
+//                ])
+//        }
     }
     
 //    func settingsButtonPressed() {
