@@ -233,4 +233,132 @@ Each of the paragraphs of these Terms operates separately. If any court or relev
 """
         
     }
+    
+    struct contentRegister {
+        static let en = """
+
+CULTURE PASS MEMBERSHIP PROGRAM INFORMATION
+CULTURE PASS BASIC
+
+Discounts in Qatar Museums cafés, restaurants, gift shops, IN-Q Online store and Cass Art Qatar.
+
+Exclusive member’s monthly newsletter.
+
+Attendance at one CP workshop and one CP tour annually.
+
+ANNUAL MEMBERSHIP OF CULTURE PASS IS FREE OF CHARGE
+CULTURE PASS PLUS
+
+Free admissions to all QM museums and galleries.
+
+Discounts in QM cafés, restaurants, gift shops, IN-Q Online store and Cass Art Qatar, as well as partners’ workshops and master classes.
+
+Exclusive member’s monthly newsletter.
+
+Special invites to all CP tours, workshops and master classes, with unlimited attendance.
+
+Special invites to exclusive members only events organized by our partners.
+
+ANNUAL MEMBERSHIP OF CULTURE PASS PLUS IS QAR 200
+CULTURE PASS FAMILY
+
+Free admissions to all Qatar Museums (QM) museums and galleries.
+
+Discounts in QM cafés, restaurants, gift shops, IN-Q Online store and Cass Art Qatar, as well as partners’ workshops and master classes.
+
+Exclusive member’s monthly newsletter.
+
+Special invites to all CP tours, workshops and master classes, with unlimited attendance.
+
+Special invites to exclusive members only events organized by our partners.
+
+ANNUAL MEMBERSHIP OF CULTURE PASS FAMILY IS QAR 350 FOR 2 PARENTS AND UP TO 4 CHILDREN UNDER 16 YEARS OF AGE.
+
+ADDITIONAL CHILDREN CAN BE ADDED FOR QAR 50 EACH, UP TO 8 CHILDREN IN TOTAL.
+MEMBERSHIP USAGE
+
+Culture Pass Plus and Culture Pass Family are annual subscriptions valid for 12 months from the date of purchase.
+Culture Pass memberships are non-transferable and non-refundable.
+Membership privileges are only available upon presentation of a valid Culture Pass membership card.
+All Culture Pass and Culture Pass Plus members have a membership card. For Culture Pass Family memberships, only the two adults on the account will have membership cards, in the name of the main account holder. Children in Culture Pass Family memberships do not have membership cards.
+Reproduction of Culture Pass membership cards in any form is prohibited.
+Members’ privileges are valid only for the named person on the membership card or the named family members on the member’s account.
+Qatar Museums reserves the right to amend or discontinue benefits without prior notice to members.
+Qatar Museums may modify Culture Pass membership subscriptions with prior notice to members and in doing so will honor existing subscriptions through to their expiration.
+Qatar Museums may revoke membership and/or refuse access to venues without reason.
+LOST MEMBERSHIP CARDS
+
+Members are entitled to up to two replacement cards if their membership card is lost. A fee of QAR 50 applies for each subsequent replacement card.
+PERSONAL DATA
+
+Qatar Museums will not keep any identification records associated to accounts. The information
+provided by members for registration purposes will only be used by Qatar Museums for the
+administration of your membership and for planning, research and marketing purposes. Qatar
+Museums will not disclose, sell, distribute, share or pass on personal information to any third
+party.
+
+
+"""
+        
+        static let ar = """
+معلومات برنامج عضوية بطاقتك إلى الثقافة
+بطاقتك إلى الثقافة الأساسية
+
+تمنحك عضوية بطاقتك إلى الثقافة مزايا التمتع بخصومات في مقاهي، ومطاعم، ومتاجر هدايا متاحف قطر، والمتجر الإلكتروني لإن-كيو، ومتجر كاس آرت قطر.
+
+نشرة إعلامية شهرية حصرية للأعضاء.
+
+حضور ورشة عمل وجولة مجانية واحدة كل سنة.
+
+العضوية السنوية لبطاقتك إلى الثقافة هي مجانية
+بطاقتك إلى الثقافة المميزة
+
+دخول مجاني إلى جميع متاحف ومعارض متاحف قطر.
+
+التمتع بخصومات في مقاهي، ومطاعم، ومتاجر هدايا متاحف قطر، والمتجر الإلكتروني لإن-كيو، ومتجر كاس آرت قطر، بالإضافة إلى الدروس المجتمعية للشركاء، ودورس الطهي.
+
+نشرة إعلامية شهرية حصرية للأعضاء.
+
+دعوات خاصة لجميع الجولات، وورش العمل، ودورس الطهي، مع حضور غير محدود.
+
+دعوات خاصة لفعاليات حصرية فقط للأعضاء والتي ينظمها شركاؤنا.
+
+العضوية السنوية لبطاقتك إلى الثقافة المميزة هي 200 ريال قطري
+بطاقتك إلى الثقافة العائلية
+
+دخول مجاني إلى جميع متاحف ومعارض متاحف قطر.
+
+التمتع بخصومات في مقاهي، ومطاعم، ومتاجر هدايا متاحف قطر، والمتجر الإلكتروني لإن-كيو، ومتجر كاس آرت قطر، بالإضافة إلى الدروس المجتمعية للشركاء، ودورس الطهي.
+
+نشرة إعلامية شهرية حصرية للأعضاء.
+
+دعوات خاصة لجميع الجولات، وورش العمل، ودورس الطهي، مع حضور غير محدود.
+
+دعوات خاصة لفعاليات حصرية فقط للأعضاء والتي ينظمها شركاؤنا.
+
+العضوية السنوية لبطاقتك إلى الثقافة العائلية هي 350 ريال قطري للوالدين ولغاية 4 أطفال دون سن 16 عامًا.
+
+يمكن إضافة أطفال إضافيين مقابل 50 ريال قطري لكل طفل، بحد أقصى 8 أطفال.
+أحكام وشروط عضوية بطاقتك إلى الثقافة
+
+استخدام العضوية
+
+برنامج بطاقتك إلى الثقافة المميزة، وبطاقتك إلى الثقافة العائلية هي عبارة عن اشتراكات سنوية صالحة لمدة 12 شهرًا من تاريخ الشراء.
+ عضوية برنامج بطاقتك إلى الثقافة غير قابلة للتحويل، وغير قابلة للاسترداد.
+ لا تٌقدم امتيازات العضوية إلا عند تقديم بطاقة عضوية سارية المفعول.
+ جميع أعضاء برنامج بطاقتك إلى الثقافة، وبطاقتك إلى الثقافة المميزة لديهم بطاقة عضوية. أما بالنسبة لعضوية برنامج بطاقتك إلى الثقافة العائلية، فلن يكون لدى الشخصين البالغين في الحساب سوى بطاقات عضوية واحدة باسم صاحب الحساب الرئيس. حيث أن الأطفال في برنامج بطاقتك إلى الثقافة العائلية ليست لديهم بطاقات عضوية.
+يحظر إعادة إنتاج بطاقات عضوية برنامج بطاقتك إلى الثقافة بأي شكل من الأشكال.
+امتيازات الأعضاء صالحة فقط للشخص المذكور اسمه على بطاقة العضوية، أو أفراد الأسرة المعينين على حساب العضو.
+تحتفظ متاحف قطر بالحق في تعديل أو وقف المزايا دون إشعار مسبق للأعضاء.
+قد تقوم متاحف قطر بتعديل اشتراكات عضوية برنامج بطاقتك إلى الثقافة مع إشعار مسبق للأعضاء، وبذلك ستحتفظ الاشتراكات السارية بصلاحيتها في تلك الحالة وحتى تاريخ انتهاء الصلاحية.
+قد تلغي متاحف قطر العضوية و / أو ترفض الدخول إلى بعض الأماكن دون سبب.
+فقدان بطاقة العضوية
+
+يحق للأعضاء الحصول على بطاقة بديلة مرتين، إذا فقدت بطاقة عضويتهم. ويتم تطبيق رسوم بقيمة 50 ريال قطري على كل بطاقة بديلة لاحقة.
+البيانات الشخصية
+
+لن تحتفظ متاحف قطر بأي سجلات تعريف مرتبطة بالحسابات. ولن يتم استخدام المعلومات المقدمة من الأعضاء إلا لأغراض التسجيل فقط بواسطة متاحف قطر لإدارة عضويتك، ولأغراض التخطيط، والبحوث، والتسويق. ولن تقوم متاحف قطر بالإفصاح عن المعلومات الشخصية أو بيعها أو توزيعها أو مشاركتها أو نقلها إلى أي طرف آخر.
+"""
+        
+    }
 }

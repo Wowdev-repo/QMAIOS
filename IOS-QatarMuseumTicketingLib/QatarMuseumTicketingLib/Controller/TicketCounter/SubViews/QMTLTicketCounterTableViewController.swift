@@ -510,7 +510,13 @@ class QMTLTicketCounterTableViewController: UITableViewController,TicketPickerVi
         cell.ticketCounterTableViewCellDelegate = self
         // Configure the cell...
         
-        //cell.containerView?.layer.cornerRadius = 10.0
+        if (indexPath.row == 0){
+            cell.containerView?.layer.cornerRadius = 10.0
+        }
+        else{
+            cell.containerView?.layer.cornerRadius = 0
+        }
+        
         cell.ticketCountBtn.layer.cornerRadius = 10.0
         cell.roundViewOne?.layer.cornerRadius = 10.0
         cell.roundViewTwo?.layer.cornerRadius = 10.0
@@ -566,10 +572,10 @@ class QMTLTicketCounterTableViewController: UITableViewController,TicketPickerVi
             cell.ticketCountBtn.titleLabel?.textColor = UIColor.white
             cell.ticketCountBtn.isEnabled = true
         }else{
-            cell.priceTypeNameLbl.textColor = UIColor.lightGray
-            cell.unitPriceLbl.textColor = UIColor.lightGray
-            cell.totalAmountLbl.textColor = UIColor.lightGray
-            cell.ticketCountBtn.titleLabel?.textColor = UIColor.lightGray
+            cell.priceTypeNameLbl.textColor = UIColor.black
+            cell.unitPriceLbl.textColor = UIColor.black
+            cell.totalAmountLbl.textColor = UIColor.black
+            cell.ticketCountBtn.titleLabel?.textColor = UIColor.white
             cell.ticketCountBtn.isEnabled = false
         }
         

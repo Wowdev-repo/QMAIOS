@@ -82,6 +82,7 @@ class UserInfoTableViewController: UITableViewController,UITextFieldDelegate,QMT
     //MARK:- View Defaults
     override func viewDidLoad() {
         super.viewDidLoad()
+        UserDefaults.standard.set("REGISTER", forKey: "SCREEN") //setObject
         self.navigationItem.setHidesBackButton(true, animated:false)
         self.navigationItem.title = ""
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
@@ -325,7 +326,7 @@ class UserInfoTableViewController: UITableViewController,UITextFieldDelegate,QMT
         let titleObj = resultObj["title"].dictionaryValue
 
         let title = titleObj["shortName"]?.stringValue
-        let nationality = resultObj["info2"].stringValue
+        let nationality = resultObj["info1"].stringValue
         //let isSubscridedStr = resultObj["info3"].stringValue
         let country = resultObj["info4"].stringValue
         let userName = credentialObj[QMTLConstants.PersonKeys.username]?.stringValue

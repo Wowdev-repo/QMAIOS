@@ -33,11 +33,25 @@ class TermsAndConditionViewController: UIViewController,QMTLTabViewControllerDel
         tANDcContainerView.layer.cornerRadius = 10.0
         
         if ((QMTLLocalizationLanguage.currentAppleLanguage()) == "en") {
-            contentTxtView.text = TandCcontent.content.en
-            contentTxtView.textAlignment = .left
+            
+            if (( UserDefaults.standard.string(forKey: "SCREEN")) == "TICKET"){
+                contentTxtView.text = TandCcontent.content.en
+                contentTxtView.textAlignment = .left
+            }
+            else{
+                contentTxtView.text = TandCcontent.contentRegister.en
+                contentTxtView.textAlignment = .left
+            }
+          
         }else{
-            contentTxtView.text = TandCcontent.content.ar
-            contentTxtView.textAlignment = .right
+            if (( UserDefaults.standard.string(forKey: "SCREEN")) == "TICKET"){
+                contentTxtView.text = TandCcontent.content.ar
+                contentTxtView.textAlignment = .right
+            }
+            else{
+                contentTxtView.text = TandCcontent.contentRegister.ar
+                contentTxtView.textAlignment = .right
+            }
         }
         
         // Do any additional setup after loading the view.

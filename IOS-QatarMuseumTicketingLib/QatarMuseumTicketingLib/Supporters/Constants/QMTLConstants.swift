@@ -139,6 +139,12 @@ struct QMTLConstants {
         
     }
     
+    //FONTS:-
+    struct App {
+    static let regularFont = NSLocalizedString("AppRegularFont", comment: "")
+    static let boldFont = NSLocalizedString("AppBoldFont", comment: "")
+    }
+    
     //MARK:-
     struct commonRequestKeys {
         static let language = "Language"

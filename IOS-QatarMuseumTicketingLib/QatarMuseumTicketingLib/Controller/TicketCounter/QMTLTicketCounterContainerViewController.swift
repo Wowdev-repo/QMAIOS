@@ -68,6 +68,7 @@ class QMTLTicketCounterContainerViewController: UIViewController,UICollectionVie
     
     @IBOutlet weak var errinfoLbl : UILabel!
     @IBOutlet weak var headerLblView : UILabel!
+    //@IBOutlet weak var dateLblView: UILabel!
     @IBOutlet weak var infoLbl1 : UILabel!
     @IBOutlet weak var infoLbl2 : UILabel!
     
@@ -90,6 +91,7 @@ class QMTLTicketCounterContainerViewController: UIViewController,UICollectionVie
         if #available(iOS 11.0, *) {
             self.additionalSafeAreaInsets.top = CGFloat(additionalSafeAreaInset)
         }
+        self.infoLbl1.font = UIFont.appBoldFontWith(size: 17)
         
         apiServices.delegateForAPIServiceResponse = self
         apiServices.delegateForConnectionError = self
@@ -563,8 +565,9 @@ class QMTLTicketCounterContainerViewController: UIViewController,UICollectionVie
             
             divisionListPagerView.isHidden = false
             headerLblView.isHidden = true
-            
+            //dateLblView.isHidden = true
             headerLblView.text = ""
+            //dateLblView.text = ""
             
             break
         case 1:
@@ -589,8 +592,12 @@ class QMTLTicketCounterContainerViewController: UIViewController,UICollectionVie
             
             divisionListPagerView.isHidden = true
             headerLblView.isHidden = false
-            
+            //dateLblView.isHidden = false
+   
             headerLblView.text = getLocalizedStr(str: divisionsList[divisionSelectedIndex].name)
+            
+            //set date to date label
+            setUpSelectedDate(dateObj: QMTLSingleton.sharedInstance.ticketInfo.date)
             
             break
         case 2:
@@ -618,6 +625,10 @@ class QMTLTicketCounterContainerViewController: UIViewController,UICollectionVie
             
             headerLblView.text = ""
             
+            //dateLblView.isHidden = true
+            
+            //dateLblView.text = ""
+            
             break
         default:
             break
@@ -628,6 +639,15 @@ class QMTLTicketCounterContainerViewController: UIViewController,UICollectionVie
         divisionListPagerView.layoutIfNeeded()
         infoView.layoutIfNeeded()
         subViewListCollectionView.layoutIfNeeded()
+    }
+    //MARK:-
+    func setUpSelectedDate(dateObj : Date){
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd MMMM yyyy"
+        
+        let pickedDateString = formatter.string(from: dateObj)
+        print("pickedDateString = \(pickedDateString)")
+        //dateLblView.text = pickedDateString
     }
     
     //MARK:- FSPagerView
@@ -891,6 +911,9 @@ class QMTLTicketCounterContainerViewController: UIViewController,UICollectionVie
         
         errinfoLbl.text = getLocalizedStr(str: errinfoLbl.text!)
         headerLblView.text = getLocalizedStr(str: headerLblView.text!)
+        
+        setUpSelectedDate(dateObj: QMTLSingleton.sharedInstance.ticketInfo.date)
+        //headerLblView.text = getLocalizedStr(str: headerLblView.text!)
         infoLbl1.text = getLocalizedStr(str: infoLbl1.text!)
         infoLbl2.text = getLocalizedStr(str: infoLbl2.text!)
         

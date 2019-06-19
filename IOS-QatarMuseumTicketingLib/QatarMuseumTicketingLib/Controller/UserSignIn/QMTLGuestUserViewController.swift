@@ -50,7 +50,10 @@ class QMTLGuestUserViewController: UIViewController,QMTLSignInUserViewController
     
     //MARK:- Controller Defaults
     override func viewDidLoad() {
+        
         super.viewDidLoad()
+        UserDefaults.standard.set("TICKET", forKey: "SCREEN") //setObject
+
         self.navigationItem.setHidesBackButton(true, animated:false)
         self.navigationItem.title = ""
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
