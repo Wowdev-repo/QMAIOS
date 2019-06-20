@@ -225,10 +225,6 @@ class HeritageDetailCell: UITableViewCell {
                 }
             }
         }
-        
-        
-        
-        
         sundayTimeLabel.text = aboutData.openingTime
         contactLabel.text = aboutData.contactEmail
         titleLabel.font = UIFont.closeButtonFont

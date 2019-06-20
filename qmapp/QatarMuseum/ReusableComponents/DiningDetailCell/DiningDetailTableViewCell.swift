@@ -8,6 +8,7 @@
 
 import UIKit
 import CocoaLumberjack
+import MapKit
 
 class DiningDetailTableViewCell: UITableViewCell,UITextViewDelegate {
     @IBOutlet weak var titleLabel: UILabel!
@@ -23,7 +24,8 @@ class DiningDetailTableViewCell: UITableViewCell,UITextViewDelegate {
     @IBOutlet weak var locationButton: UIButton!
     @IBOutlet weak var favoriteBtnViewHeight: NSLayoutConstraint!
     @IBOutlet weak var pageControl: UIPageControl!
-
+    @IBOutlet weak var mapView: MKMapView!
+    
     var favBtnTapAction : (()->())?
     var shareBtnTapAction : (()->())?
     var locationButtonAction: (() -> ())?
@@ -60,7 +62,7 @@ class DiningDetailTableViewCell: UITableViewCell,UITextViewDelegate {
         locationButton.titleLabel?.font = UIFont.sideMenuLabelFont
         let mapRedirectionMessage = NSLocalizedString("MAP_REDIRECTION_MESSAGE",
                                                       comment: "MAP_REDIRECTION_MESSAGE in the Dining detail")
-        locationButton.setTitle(mapRedirectionMessage, for: .normal)
+        //locationButton.setTitle(mapRedirectionMessage, for: .normal)
         locationFirstLabel.text = diningDetail.location
         //For HyperLink in textview
         /*
@@ -93,6 +95,45 @@ class DiningDetailTableViewCell: UITableViewCell,UITextViewDelegate {
         self.visitMIAText.textAlignment = .center
  */
         titleDescriptionLabel.textAlignment = .center
+        
+        
+        var latitudeString  = String()
+        var longitudeString = String()
+        var latitude : Double?
+        var longitude : Double?
+        
+        if (diningDetail.latitude != nil && diningDetail.latitude != "" && diningDetail.longitude != nil && diningDetail.longitude != "") {
+            latitudeString = diningDetail.latitude!
+            longitudeString = diningDetail.longitude!
+            if latitudeString != "0° 0\' 0\" N" && longitudeString != "0° 0\' 0\" E" {
+                
+                if let lat : Double = Double(latitudeString) {
+                    latitude = lat
+                }
+                if let long : Double = Double(longitudeString) {
+                    longitude = long
+                }
+                if longitude == nil || latitude == nil {
+                    latitude = convertDMSToDDCoordinate(latLongString: latitudeString)
+                    longitude = convertDMSToDDCoordinate(latLongString: longitudeString)
+                }
+                let location = CLLocationCoordinate2D(latitude: latitude!,
+                                                      longitude: longitude!)
+                
+                // 2
+                let span = MKCoordinateSpanMake(0.05, 0.05)
+                let region = MKCoordinateRegion(center: location, span: span)
+                mapView.setRegion(region, animated: true)
+                // let viewRegion = MKCoordinateRegionMakeWithDistance(location, 0.05, 0.05)
+                //mapView.setRegion(viewRegion, animated: false)
+                //3
+                let annotation = MKPointAnnotation()
+                annotation.coordinate = location
+                //annotation.title = aboutData.name
+                annotation.subtitle = diningDetail.name
+                mapView.addAnnotation(annotation)
+            }
+        }
        
 
     }
