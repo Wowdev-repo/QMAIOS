@@ -94,7 +94,7 @@ class ComingSoonPopUp: UIView {
     }
     func loadTourGuidePopup() {
         titleLabel.text = NSLocalizedString("COMINGSOON_TITLE", comment: "COMINGSOON_TITLE Label in the Popup")
-        messageLabel.text = NSLocalizedString("COMINGSOON_MESSAGE", comment: "COMINGSOON_MESSAGE Label in the Popup") + "\n" + NSLocalizedString("TOUR_GUIDE_COMINGSOON", comment: "TOUR_GUIDE_COMINGSOON Label in the Popup")
+        messageLabel.text = NSLocalizedString("COMINGSOON_MESSAGE", comment: "COMINGSOON_MESSAGE Label in the Popup") + "\n\n" + NSLocalizedString("TOUR_GUIDE_COMINGSOON", comment: "TOUR_GUIDE_COMINGSOON Label in the Popup")
         stayTunedLabel.text = NSLocalizedString("COMINGSOON_STAY_TUNED", comment: "COMINGSOON_STAY_TUNED Label in the Popup")
         let buttonTitle = NSLocalizedString("CLOSEBUTTON_TITLE", comment: "CLOSEBUTTON_TITLE Label in the Popup")
         closeButton.setTitle(buttonTitle, for: .normal)

@@ -511,12 +511,12 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
         } else if (exhibitionsPageNameString == ExhbitionPageName.tourGuideList) {
             if (indexPath.row != 0) {
                 if (museumsList != nil) {
-                    if(((museumsList[indexPath.row - 1].id) == "63") || ((museumsList[indexPath.row - 1].id) == "96") || ((museumsList[indexPath.row - 1].id) == "61") || ((museumsList[indexPath.row - 1].id) == "635") || ((museumsList[indexPath.row - 1].id) == "66") || ((museumsList[indexPath.row - 1].id) == "638")) {
+                    if(((museumsList[indexPath.row - 1].id) == "63") || ((museumsList[indexPath.row - 1].id) == "96") || /*((museumsList[indexPath.row - 1].id) == "61") || ((museumsList[indexPath.row - 1].id) == "635") ||*/ ((museumsList[indexPath.row - 1].id) == "66") || ((museumsList[indexPath.row - 1].id) == "638")) {
                         loadMiaTour(currentRow: indexPath.row - 1)
                         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
                         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), Museum ID: \(String(describing: museumsList[indexPath.row].id))")
                     } else {
-                        addComingSoonPopup()
+                        addComingSoonPopup(isTourGuide: true)
                     }
                     
                     Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
@@ -574,12 +574,16 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
         view.window!.layer.add(transition, forKey: kCATransition)
         self.present(collectionDetailView, animated: false, completion: nil)
     }
-    func addComingSoonPopup() {
+    func addComingSoonPopup(isTourGuide: Bool = false) {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
 
         let viewFrame : CGRect = self.view.frame
         popupView.frame = viewFrame
-        popupView.loadPopup()
+        if isTourGuide {
+            popupView.loadTourGuidePopup()
+        }else {
+            popupView.loadPopup()
+        }
         self.view.addSubview(popupView)
     }
     func loadHeritageDetail(heritageListId: String) {
