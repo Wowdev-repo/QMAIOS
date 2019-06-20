@@ -71,10 +71,22 @@ class MuseumListViewController: UIViewController,UITableViewDelegate, UITableVie
         let cell = tableView.dequeueReusableCell(withIdentifier: "museumListCell", for: indexPath)
         cell.textLabel?.text = self.getLocalizedStr(str: museumArrayList[indexPath.row].name)
         if UIDevice.current.screenType == .iPhones_5_5s_5c_SE {
+            
+             if ((QMTLLocalizationLanguage.currentAppleLanguage()) == "en") {
             cell.textLabel?.font = UIFont.init(name: "DINNextLTPro-Regular", size: 12)
+            }
+             else{
+               cell.textLabel?.font = UIFont.init(name: "DINNextLTArabic-Regular", size: 12)
+            }
         }
         else {
-            cell.textLabel?.font = UIFont.init(name: "DINNextLTPro-Regular", size: 15)
+            
+            if ((QMTLLocalizationLanguage.currentAppleLanguage()) == "en") {
+                cell.textLabel?.font = UIFont.init(name: "DINNextLTPro-Regular", size: 15)
+            }
+            else{
+                cell.textLabel?.font = UIFont.init(name: "DINNextLTArabic-Regular", size: 15)
+            }
         }
         if QMTLLocalizationLanguage.currentAppleLanguage() == QMTLConstants.Language.AR_LANGUAGE {
             cell.textLabel?.textAlignment = .right

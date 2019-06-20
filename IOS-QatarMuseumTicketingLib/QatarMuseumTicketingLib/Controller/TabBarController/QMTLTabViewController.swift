@@ -52,13 +52,17 @@ class QMTLTabViewController: UITabBarController, TopTabBarViewDelegate {
         }
         
         QMTLSingleton.sharedInstance.initialViewControllerToCall = UserDefaults.standard.string(forKey: QMTLConstants.viewController.initialViewControllerKey) ?? ""
-        
         setupToolBar()
+        
         setupUserDetail()
         openInitialViewController()
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated) // No need for semicolon
+        setupGlobalAppearance()
+    }
     override func viewWillDisappear(_ animated: Bool) {
         QMTLSingleton.sharedInstance.ticketInfo.prices.removeAll()
         
@@ -67,6 +71,21 @@ class QMTLTabViewController: UITabBarController, TopTabBarViewDelegate {
         KingfisherManager.shared.cache.cleanExpiredDiskCache()
     }
     
+    // MARK: - Appearance.
+    func setupGlobalAppearance(){
+        //global Appearance settings
+        let customFont = UIFont.appRegularFontWith(size: 17)
+        UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: customFont], for: .normal)
+        UITextField.appearance().substituteFontName = QMTLConstants.App.regularFont
+        UILabel.appearance().substituteFontName = QMTLConstants.App.regularFont
+        UILabel.appearance().substituteFontNameBold = QMTLConstants.App.boldFont
+        QMTLTabViewController.applyToUIButton();
+    }
+
+    static func applyToUIButton(a: UIButton = UIButton.appearance()) {
+        a.titleLabelFont = UIFont(name: QMTLConstants.App.regularFont, size:20.0)
+        // other UIButton customizations
+    }
     func setupToolBar(){
         
         self.navigationController?.setNavigationBarHidden(true, animated: false)
