@@ -954,12 +954,12 @@ class HomeViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             if #available(iOS 10.0, *) {
                 let container = appDelegate!.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
-                    DataManager.updateHomeEntity(managedContext: managedContext, homeList: homeList)
+                    DataManager.updateHomeEntity(managedContext: managedContext, homeList: homeList, language: Utils.getLanguage())
                 }
             } else {
                 let managedContext = appDelegate!.managedObjectContext
                 managedContext.perform {
-                    DataManager.updateHomeEntity(managedContext: managedContext, homeList: homeList)
+                    DataManager.updateHomeEntity(managedContext: managedContext, homeList: homeList, language: Utils.getLanguage())
                 }
             }
         }

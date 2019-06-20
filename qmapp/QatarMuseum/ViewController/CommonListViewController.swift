@@ -1703,7 +1703,8 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
                         self.museumsList.remove(at: arrayOffset)
                     }
                     if let homeList = data.homeList {
-                        self.saveOrUpdateMuseumsCoredata(museumsList: homeList)
+                        self.saveOrUpdateMuseumsCoredata(museumsList: homeList,
+                                                         language: LocalizationLanguage.currentAppleLanguage())
                     }
                 }
             case .failure(let error):
@@ -1712,18 +1713,22 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
         }
     }
     //MARK: Coredata Method
-    func saveOrUpdateMuseumsCoredata(museumsList: [Home]) {
+    func saveOrUpdateMuseumsCoredata(museumsList: [Home], language: String) {
         if !museumsList.isEmpty {
             let appDelegate =  UIApplication.shared.delegate as? AppDelegate
             if #available(iOS 10.0, *) {
                 let container = appDelegate!.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
-                    DataManager.updateHomeEntity(managedContext: managedContext, homeList: museumsList)
+                    DataManager.updateHomeEntity(managedContext: managedContext,
+                                                 homeList: museumsList,
+                                                 language: Utils.getLanguageCode(language))
                 }
             } else {
                 let managedContext = appDelegate!.managedObjectContext
                 managedContext.perform {
-                    DataManager.updateHomeEntity(managedContext: managedContext, homeList: museumsList)
+                    DataManager.updateHomeEntity(managedContext: managedContext,
+                                                 homeList: museumsList,
+                                                 language: Utils.getLanguageCode(language))
                 }
             }
             DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")

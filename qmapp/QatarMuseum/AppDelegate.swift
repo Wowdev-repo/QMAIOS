@@ -412,14 +412,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     
     
     //MARK: Home Service call
-    func getHomeList(lang: String?) {
+    func getHomeList(lang: String) {
         let queue = DispatchQueue(label: "HomeThread", qos: .background, attributes: .concurrent)
-        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.HomeList(lang!)).responseObject(queue:queue) { (response: DataResponse<HomeList>) -> Void in
+        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.HomeList(lang)).responseObject(queue:queue) { (response: DataResponse<HomeList>) -> Void in
             switch response.result {
             case .success(let data):
                 if let homeList = data.homeList {
                         DispatchQueue.main.async{
-                            self.saveOrUpdateHomeCoredata(homeList: homeList)
+                            self.saveOrUpdateHomeCoredata(homeList: homeList,
+                                                          language: lang)
                     }
                 }
             case .failure( _):
@@ -428,17 +429,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         }
     }
     //MARK: Home Coredata Method
-    func saveOrUpdateHomeCoredata(homeList: [Home]) {
+    func saveOrUpdateHomeCoredata(homeList: [Home],
+                                  language: String ) {
         if !homeList.isEmpty {
             if #available(iOS 10.0, *) {
                 let container = CoreDataManager.shared.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
-                    DataManager.updateHomeEntity(managedContext: managedContext, homeList: homeList)
+                    DataManager.updateHomeEntity(managedContext: managedContext,
+                                                 homeList: homeList,
+                                                 language: Utils.getLanguageCode(language))
                 }
             } else {
                 let managedContext = self.managedObjectContext
                 managedContext.perform {
-                    DataManager.updateHomeEntity(managedContext: managedContext, homeList: homeList)
+                    DataManager.updateHomeEntity(managedContext: managedContext,
+                                                 homeList: homeList,
+                                                 language: Utils.getLanguageCode(language))
                 }
             }
         }

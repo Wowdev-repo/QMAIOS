@@ -202,7 +202,7 @@ extension DataManager {
     ///   - managedContext: NSManagedObjectContext
     static func storeEvents(events: [EducationEvent],
                             for date: Date,
-                            managedContext: NSManagedObjectContext) {
+                            managedContext: NSManagedObjectContext, language: String) {
         let dateID = Utils.uniqueDate(date)
         let fetchData = checkAddedToCoredata(entityName: "EventEntity",
                                              idKey: "dateId",
@@ -221,12 +221,14 @@ extension DataManager {
                     if isDeleted {
                         self.saveEventToCoreData(educationEventDict: educationDict,
                                                  dateId: dateID,
-                                                 managedObjContext: managedContext)
+                                                 managedObjContext: managedContext,
+                                                 language: language)
                     }
                 } else {
                     self.saveEventToCoreData(educationEventDict: educationDict,
                                              dateId: dateID,
-                                             managedObjContext: managedContext)
+                                             managedObjContext: managedContext,
+                                             language: language)
                 }
             }
             
@@ -234,14 +236,16 @@ extension DataManager {
             for educationEvent in events {
                 self.saveEventToCoreData(educationEventDict: educationEvent,
                                          dateId: dateID,
-                                         managedObjContext: managedContext)
+                                         managedObjContext: managedContext,
+                                         language: language)
             }
         }
     }
     
     static func saveEventToCoreData(educationEventDict: EducationEvent,
                                     dateId: String?,
-                                    managedObjContext: NSManagedObjectContext) {
+                                    managedObjContext: NSManagedObjectContext,
+                                    language: String) {
         let edducationInfo: EventEntity = NSEntityDescription.insertNewObject(forEntityName: "EventEntity",
                                                                               into: managedObjContext) as! EventEntity
         edducationInfo.dateId = dateId
@@ -252,7 +256,7 @@ extension DataManager {
         edducationInfo.pgmType = educationEventDict.programType
         edducationInfo.museumDepartMent = educationEventDict.museumDepartMent
         edducationInfo.mainDesc = educationEventDict.mainDescription
-        edducationInfo.language = Utils.getLanguage()
+        edducationInfo.language = language
         
         //Date
         if(educationEventDict.fieldRepeatDate != nil){
@@ -1363,7 +1367,9 @@ extension DataManager {
         managedObjContext.saveContext()
     }
     
-    static func updateHomeEntity(managedContext: NSManagedObjectContext, homeList: [Home]) {
+    static func updateHomeEntity(managedContext: NSManagedObjectContext,
+                                 homeList: [Home],
+                                 language: String) {
         var fetchData = [HomeEntity]()
         
         fetchData = DataManager.checkAddedToCoredata(entityName: "HomeEntity",
@@ -1381,26 +1387,30 @@ extension DataManager {
                     let homedbDict = fetchResult[0] as! HomeEntity
                     DataManager.saveHomeEntity(homeListDict: homeListDict,
                                         managedObjContext: managedContext,
-                                        entity: homedbDict)
+                                        entity: homedbDict,
+                                        language: language)
                 } else {
                     //save
                     DataManager.saveHomeEntity(homeListDict: homeListDict,
                                         managedObjContext: managedContext,
-                                        entity: nil)
+                                        entity: nil,
+                                        language: language)
                 }
             }
         } else {
             for homeListDict in homeList {
                 DataManager.saveHomeEntity(homeListDict: homeListDict,
                                     managedObjContext: managedContext,
-                                    entity: nil)
+                                    entity: nil,
+                                    language: language)
             }
         }
     }
     
     static func saveHomeEntity(homeListDict: Home,
                         managedObjContext: NSManagedObjectContext,
-                        entity: HomeEntity?) {
+                        entity: HomeEntity?,
+                        language: String) {
         var homeInfo = entity
         if entity == nil {
             homeInfo = NSEntityDescription.insertNewObject(forEntityName: "HomeEntity",
@@ -1411,7 +1421,7 @@ extension DataManager {
         homeInfo?.image = homeListDict.image
         homeInfo?.tourguideavailable = homeListDict.isTourguideAvailable
         homeInfo?.sortid = (Int16(homeListDict.sortId!) ?? 0)
-        homeInfo?.lang = Utils.getLanguage()
+        homeInfo?.lang = language
         managedObjContext.saveContext()
     }
     

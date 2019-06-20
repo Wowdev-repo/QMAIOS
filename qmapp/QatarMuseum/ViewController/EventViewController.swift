@@ -653,14 +653,16 @@ class EventViewController: UIViewController,UICollectionViewDelegate,UICollectio
                 container.performBackgroundTask() { managedContext in
                     DataManager.storeEvents(events: self.educationEventArray,
                                             for: self.selectedDateForEvent,
-                                            managedContext: managedContext)
+                                            managedContext: managedContext,
+                                            language: Utils.getLanguage())
                 }
             } else {
                 let managedContext = appDelegate!.managedObjectContext
                 managedContext.perform {
                     DataManager.storeEvents(events: self.educationEventArray,
                                             for: self.selectedDateForEvent,
-                                            managedContext: managedContext)
+                                            managedContext: managedContext,
+                                            language: Utils.getLanguage())
                 }
             }
         }
