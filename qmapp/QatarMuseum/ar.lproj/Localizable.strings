@@ -26,7 +26,8 @@
 "EXHIBITIONS_LABEL" = "المعارض";
 "EVENTS_LABEL" = "الفعاليات";
 "EDUCATION_LABEL" = "التعليم";
-"TOURGUIDE_LABEL" = "الدليل السياحي";
+"AUDIOGUIDE_LABEL" = "الدليل الصوتي";
+"TOURGUIDE_LABEL" = "الدليل الصوتي";
 "HERITAGESITES_LABEL" = "المواقع التراثية";
 "PUBLIC_ARTS_LABEL" = "الفنون العامة";
 "PARKS_LABEL" = "الحدائق";

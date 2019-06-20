@@ -26,6 +26,7 @@
 "EXHIBITIONS_LABEL" = "Exhibitions";
 "EVENTS_LABEL" = "Events";
 "EDUCATION_LABEL" = "Education";
+"AUDIOGUIDE_LABEL" = "Audio Guide";
 "TOURGUIDE_LABEL" = "Tour Guide";
 "HERITAGESITES_LABEL" = "Heritage Sites";
 "PUBLIC_ARTS_LABEL" = "Public Arts";
@@ -34,7 +35,7 @@
 "GIFTSHOP_LABEL" = "Gift Shop";
 "SIDEMENU_SETTINGS_LABEL" = "Settings";
 "COMINGSOON_TITLE" = "Coming Soon";
-"COMINGSOON_MESSAGE" = "We are working  hard to bring the details at the tip of your fingers. ";
+"COMINGSOON_MESSAGE" = "We are working  hard to bring the details at the tip of your fingers.";
 "COMINGSOON_STAY_TUNED" = "Stay Tuned.";
 "TOUR_GUIDE_COMINGSOON" = "The floor maps and object details for this museum will be available soon.";
 "CLOSEBUTTON_TITLE" = "Close";

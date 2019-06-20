@@ -59,7 +59,9 @@ class MuseumsViewController: UIViewController,KASlideShowDelegate,TopBarProtocol
         }
         museumsSlideView.imagesContentMode = .scaleAspectFill
         let aboutName = NSLocalizedString("ABOUT", comment: "ABOUT  in the Museum")
-        let tourGuideName = NSLocalizedString("TOURGUIDE_LABEL", comment: "TOURGUIDE_LABEL  in the Museum page")
+        let tourGuideName = ((museumId == "63") || (museumId == "96")) ?
+            NSLocalizedString("TOURGUIDE_LABEL", comment: "TOURGUIDE_LABEL  in the MIA Museum page") :
+            NSLocalizedString("AUDIOGUIDE_LABEL", comment: "AUDIOGUIDE_LABEL  in the NMoQ Museum page")
         let exhibitionsName = NSLocalizedString("EXHIBITIONS_LABEL", comment: "EXHIBITIONS_LABEL  in the Museum page")
         let collectionsName = NSLocalizedString("COLLECTIONS_TITLE", comment: "COLLECTIONS_TITLE  in the Museum page")
         //let experienceName = NSLocalizedString("EXPERIENCE_TITLE", comment: "EXPERIENCE_TITLE  in the Museum page")
@@ -266,7 +268,7 @@ class MuseumsViewController: UIViewController,KASlideShowDelegate,TopBarProtocol
         } else {
             if((itemName == "About") && (museumId == "66") || (itemName == "عن") && (museumId == "638")) {
                 museumsCell.itemButton.contentEdgeInsets = UIEdgeInsets(top: 15, left: 8, bottom: 15, right: 6)
-            }else if((itemName == "Tour Guide") || (itemName == "الدليل السياحي") || (itemName == "Highlights Tour")) {
+            }else if((itemName == "Audio Guide") || (itemName == "الدليل الصوتي") || (itemName == "Highlights Tour")) {
                 museumsCell.itemButton.contentEdgeInsets = UIEdgeInsets(top: 10, left: 9, bottom: 10, right: 9)
             }
             else if((itemName == "Exhibitions") || (itemName == "المعارض")) {
@@ -372,7 +374,7 @@ class MuseumsViewController: UIViewController,KASlideShowDelegate,TopBarProtocol
                         ])
                     
                     self.present(heritageDtlView, animated: false, completion: nil)
-            } else if ((selectedItem == "Tour Guide") || (selectedItem == "الدليل السياحي")){
+            } else if ((selectedItem == "Audio Guide") || (selectedItem == "الدليل الصوتي")){
                 if((museumId == "63") || (museumId == "96") || (museumId == "66") || (museumId == "638")) {
                         let tourGuideView =  self.storyboard?.instantiateViewController(withIdentifier: "exhibitionViewId") as! CommonListViewController
                         tourGuideView.exhibitionsPageNameString = ExhbitionPageName.miaTourGuideList
@@ -712,7 +714,7 @@ class MuseumsViewController: UIViewController,KASlideShowDelegate,TopBarProtocol
             }
         } else if (segue.identifier == "museumsToCommonListSegue") {
             let commonList = segue.destination as! CommonListViewController
-            if ((selectedItemName == "Tour Guide") || (selectedItemName == "الدليل السياحي")){
+            if ((selectedItemName == "Audio Guide") || (selectedItemName == "الدليل الصوتي")){
                     commonList.exhibitionsPageNameString = ExhbitionPageName.miaTourGuideList
                     commonList.museumId = museumId!
             } else if ((selectedItemName == "Exhibitions") || (selectedItemName == "المعارض")){

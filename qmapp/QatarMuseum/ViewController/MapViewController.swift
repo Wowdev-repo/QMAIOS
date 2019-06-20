@@ -41,6 +41,7 @@ class MapViewController: UIViewController, HeaderViewProtocol, MKMapViewDelegate
             locationManager.startUpdatingLocation()
 //        }
         loadMapData()
+        setupUI()
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -180,8 +181,16 @@ class MapViewController: UIViewController, HeaderViewProtocol, MKMapViewDelegate
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+}
 
-    
-
+extension MapViewController {
+    func setupUI() {
+        
+        if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
+            headerView.headerBackButton.setImage(UIImage(named: "back_buttonX1"), for: .normal)
+        }
+        else {
+            headerView.headerBackButton.setImage(UIImage(named: "back_mirrorX1"), for: .normal)
+        }
+    }
 }
