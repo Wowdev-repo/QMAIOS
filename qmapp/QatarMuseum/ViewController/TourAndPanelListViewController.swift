@@ -323,14 +323,16 @@ class TourAndPanelListViewController: UIViewController,UITableViewDelegate,UITab
                 container.performBackgroundTask() {(managedContext) in
                     DataManager.updateTourList(nmoqTourList: nmoqTourList,
                                                             managedContext: managedContext,
-                                                            isTourGuide: isTourGuide)
+                                                            isTourGuide: isTourGuide,
+                                                            language: Utils.getLanguage())
                 }
             } else {
                 let managedContext = appDelegate!.managedObjectContext
                 managedContext.perform {
                     DataManager.updateTourList(nmoqTourList: nmoqTourList,
                                                             managedContext : managedContext,
-                                                            isTourGuide: isTourGuide)
+                                                            isTourGuide: isTourGuide,
+                                                            language: Utils.getLanguage())
                 }
             }
         }
@@ -419,13 +421,15 @@ class TourAndPanelListViewController: UIViewController,UITableViewDelegate,UITab
                 let container = appDelegate!.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
                     DataManager.updateActivityList(nmoqActivityList: nmoqActivityList,
-                                                                managedContext: managedContext)
+                                                                managedContext: managedContext,
+                                                                language: Utils.getLanguage())
                 }
             } else {
                 let managedContext = appDelegate!.managedObjectContext
                 managedContext.perform {
                     DataManager.updateActivityList(nmoqActivityList: nmoqActivityList,
-                                                                managedContext : managedContext)
+                                                                managedContext : managedContext,
+                                                                language: Utils.getLanguage())
                 }
             }
         }
@@ -645,13 +649,15 @@ class TourAndPanelListViewController: UIViewController,UITableViewDelegate,UITab
                 let container = appDelegate!.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
                     DataManager.updateTravelList(travelList: travelList,
-                                                 managedContext: managedContext)
+                                                 managedContext: managedContext,
+                                                 language: Utils.getLanguage())
                 }
             } else {
                 let managedContext = appDelegate!.managedObjectContext
                 managedContext.perform {
                     DataManager.updateTravelList(travelList: travelList,
-                                                 managedContext : managedContext)
+                                                 managedContext : managedContext,
+                                                 language: Utils.getLanguage())
                 }
             }
         }

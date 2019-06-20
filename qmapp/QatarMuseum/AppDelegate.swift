@@ -26,7 +26,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     var tourGuideId : String? = ""
     
     
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    func application(_ application: UIApplication,
+                     didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         setupQMLogger()
 //        DDLogVerbose("Did select settings action")
@@ -339,14 +340,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     
     
     //MARK: HeritageList WebServiceCall
-    func getHeritageDataFromServer(lang: String?) {
+    func getHeritageDataFromServer(lang: String) {
         let queue = DispatchQueue(label: "HeritageThread", qos: .background, attributes: .concurrent)
-        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.HeritageList(lang!)).responseObject(queue: queue) { (response: DataResponse<Heritages>) -> Void in
+        _ = CPSessionManager.sharedInstance.apiManager()?
+            .request(QatarMuseumRouter.HeritageList(lang))
+            .responseObject(queue: queue) { (response: DataResponse<Heritages>) -> Void in
             switch response.result {
             case .success(let data):
                 if let heritage = data.heritage{
                         DispatchQueue.main.async{
-                            self.saveOrUpdateHeritageCoredata(heritageListArray: heritage)
+                            self.saveOrUpdateHeritageCoredata(heritageListArray: heritage,
+                                                              language: lang)
                         }
                 }
             case .failure(let error):
@@ -355,33 +359,39 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         }
     }
     //MARK: Coredata Method
-    func saveOrUpdateHeritageCoredata(heritageListArray: [Heritage]) {
+    func saveOrUpdateHeritageCoredata(heritageListArray: [Heritage],
+                                      language: String) {
         if !heritageListArray.isEmpty {
             if #available(iOS 10.0, *) {
                 let container = CoreDataManager.shared.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
                     DataManager.updateHeritage(managedContext : managedContext,
-                                               heritageListArray: heritageListArray)
+                                               heritageListArray: heritageListArray,
+                                               language: Utils.getLanguageCode(language))
                 }
             } else {
                 let managedContext = self.managedObjectContext
                 managedContext.perform {
                     DataManager.updateHeritage(managedContext : managedContext,
-                                               heritageListArray: heritageListArray)
+                                               heritageListArray: heritageListArray,
+                                               language: Utils.getLanguageCode(language))
                 }
             }
         }
     }
 
     //MARK: Exhibitions Service call
-    func getExhibitionDataFromServer(lang: String?) {
+    func getExhibitionDataFromServer(lang: String) {
         let queue = DispatchQueue(label: "ExhibitionThread", qos: .background, attributes: .concurrent)
-        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.ExhibitionList(lang!)).responseObject(queue: queue) { (response: DataResponse<Exhibitions>) -> Void in
+        _ = CPSessionManager.sharedInstance.apiManager()?
+            .request(QatarMuseumRouter.ExhibitionList(lang))
+            .responseObject(queue: queue) { (response: DataResponse<Exhibitions>) -> Void in
             switch response.result {
             case .success(let data):
                 if(data.exhibitions != nil) {
                     if let exhibitions = data.exhibitions {
-                        self.saveOrUpdateExhibitionsCoredata(exhibition: exhibitions)
+                        self.saveOrUpdateExhibitionsCoredata(exhibition: exhibitions,
+                                                             language: lang)
                     }
                 }
             case .failure( _):
@@ -390,20 +400,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         }
     }
     //MARK: Exhibitions Coredata Method
-    func saveOrUpdateExhibitionsCoredata(exhibition: [Exhibition]) {
+    func saveOrUpdateExhibitionsCoredata(exhibition: [Exhibition], language: String) {
         if !exhibition.isEmpty {
             if #available(iOS 10.0, *) {
                 let container = CoreDataManager.shared.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
                     DataManager.updateExhibitionsEntity(managedContext: managedContext,
                                                         exhibition: exhibition,
-                                                        isHomeExhibition: "0")                }
+                                                        isHomeExhibition: "0",
+                                                        language: Utils.getLanguageCode(language))
+                }
             } else {
                 let managedContext = self.managedObjectContext
                 managedContext.perform {
                     DataManager.updateExhibitionsEntity(managedContext: managedContext,
                                                         exhibition: exhibition,
-                                                        isHomeExhibition: "0")
+                                                        isHomeExhibition: "0",
+                                                        language: Utils.getLanguageCode(language))
                     
                 }
             }
@@ -473,7 +486,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         }
     }
     //MARK: Coredata Method
-    func saveOrUpdateTourGuideCoredata(miaTourDataFullArray:[TourGuide]?,museumId: String?, lang:String) {
+    func saveOrUpdateTourGuideCoredata(miaTourDataFullArray:[TourGuide]?,
+                                       museumId: String?,
+                                       lang:String) {
         if ((miaTourDataFullArray?.count)! > 0) {
             if #available(iOS 10.0, *) {
                 let container = CoreDataManager.shared.persistentContainer
@@ -481,7 +496,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                     if let array = miaTourDataFullArray {
                         DataManager.updateTourGuide(managedContext: managedContext,
                                                     miaTourDataFullArray: array,
-                                                    museumID: museumId, language: lang)
+                                                    museumID: museumId,
+                                                    language: lang)
                     }
                 }
             } else {
@@ -490,7 +506,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                     if let array = miaTourDataFullArray {
                         DataManager.updateTourGuide(managedContext: managedContext,
                                                     miaTourDataFullArray: array,
-                                                    museumID: museumId, language: lang)
+                                                    museumID: museumId,
+                                                    language: lang)
                     }
                 }
             }
@@ -499,43 +516,50 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     
     
     //MARK: NMoQ ABoutEvent Webservice
-    func getNmoQAboutDetailsFromServer(museumId:String?,lang: String?) {
+    func getNmoQAboutDetailsFromServer(museumId:String?,lang: String) {
         let queue = DispatchQueue(label: "NmoQAboutThread", qos: .background, attributes: .concurrent)
         if(museumId != nil) {
             
-            _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.GetNMoQAboutEvent(lang!,["nid": museumId!])).responseObject(queue: queue) { (response: DataResponse<Museums>) -> Void in
-                switch response.result {
-                case .success(let data):
-                    if(data.museum != nil) {
-                        if((data.museum?.count)! > 0) {
-                            DispatchQueue.main.async{
-                                self.saveOrUpdateAboutCoredata(aboutDetailtArray: data.museum, lang: lang)
+            _ = CPSessionManager.sharedInstance.apiManager()?
+                .request(QatarMuseumRouter.GetNMoQAboutEvent(lang,
+                                                             ["nid": museumId!]))
+                .responseObject(queue: queue) { (response: DataResponse<Museums>) -> Void in
+                    switch response.result {
+                    case .success(let data):
+                        if(data.museum != nil) {
+                            if((data.museum?.count)! > 0) {
+                                DispatchQueue.main.async{
+                                    self.saveOrUpdateAboutCoredata(aboutDetailtArray: data.museum,
+                                                                   lang: lang)
+                                }
                             }
                         }
+                        
+                    case .failure( _):
+                        print("error")
                     }
-                    
-                case .failure( _):
-                    print("error")
-                }
             }
         }
     }
     //MARK: About CoreData
-    func saveOrUpdateAboutCoredata(aboutDetailtArray:[Museum]?, lang: String?) {
+    func saveOrUpdateAboutCoredata(aboutDetailtArray:[Museum]?,
+                                   lang: String) {
         if ((aboutDetailtArray?.count)! > 0) {
             if #available(iOS 10.0, *) {
                 let container = CoreDataManager.shared.persistentContainer
                 container.performBackgroundTask() { managedContext in
                     DataManager.saveAboutDetails(managedContext: managedContext,
                                                  aboutDetailtArray: aboutDetailtArray,
-                                                 fromHomeBanner: false)
+                                                 fromHomeBanner: false,
+                                                 language: Utils.getLanguageCode(lang))
                 }
             } else {
                 let managedContext = self.managedObjectContext
                 managedContext.perform {
                     DataManager.saveAboutDetails(managedContext: managedContext,
                                                  aboutDetailtArray: aboutDetailtArray,
-                                                 fromHomeBanner: false)
+                                                 fromHomeBanner: false,
+                                                 language: Utils.getLanguageCode(lang))
                 }
             }
         }
@@ -543,16 +567,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     
    
     //MARK: NMoQ Tour ListService call
-    func getNMoQTourList(lang: String?) {
+    func getNMoQTourList(lang: String) {
         let queue = DispatchQueue(label: "NMoQTourListThread", qos: .background, attributes: .concurrent)
-        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.GetNMoQTourList(lang!)).responseObject(queue:queue) { (response: DataResponse<NMoQTourList>) -> Void in
+        _ = CPSessionManager.sharedInstance.apiManager()?
+            .request(QatarMuseumRouter.GetNMoQTourList(lang))
+            .responseObject(queue:queue) { (response: DataResponse<NMoQTourList>) -> Void in
             switch response.result {
             case .success(let data):
                 if(data.nmoqTourList != nil) {
                     if let nmoqTourList = data.nmoqTourList {
                         DispatchQueue.main.async{
                             self.saveOrUpdateTourListCoredata(nmoqTourList: nmoqTourList,
-                                                              isTourGuide: true)
+                                                              isTourGuide: true, language: lang)
                         }
                     }
                 }
@@ -564,21 +590,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
     
     //MARK: Tour List Coredata Method
-    func saveOrUpdateTourListCoredata(nmoqTourList: [NMoQTour], isTourGuide:Bool) {
+    func saveOrUpdateTourListCoredata(nmoqTourList: [NMoQTour], isTourGuide: Bool, language: String) {
         if !nmoqTourList.isEmpty {
             if #available(iOS 10.0, *) {
                 let container = CoreDataManager.shared.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
                     DataManager.updateTourList(nmoqTourList: nmoqTourList,
                                                managedContext: managedContext,
-                                               isTourGuide: isTourGuide)
+                                               isTourGuide: isTourGuide,
+                                               language: Utils.getLanguageCode(language))
                 }
             } else {
                 let managedContext = self.managedObjectContext
                 managedContext.perform {
                     DataManager.updateTourList(nmoqTourList: nmoqTourList,
                                                managedContext: managedContext,
-                                               isTourGuide: isTourGuide)
+                                               isTourGuide: isTourGuide,
+                                               language: Utils.getLanguageCode(language))
                 }
             }
         }
@@ -586,14 +614,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     
     
     //MARK: NMoQ TravelList Service Call
-    func getTravelList(lang: String?) {
+    func getTravelList(lang: String) {
         let queue = DispatchQueue(label: "NMoQTravelListThread", qos: .background, attributes: .concurrent)
-        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.GetNMoQTravelList(lang!)).responseObject(queue:queue) { (response: DataResponse<HomeBannerList>) -> Void in
+        _ = CPSessionManager.sharedInstance.apiManager()?
+            .request(QatarMuseumRouter.GetNMoQTravelList(lang))
+            .responseObject(queue:queue) { (response: DataResponse<HomeBannerList>) -> Void in
             switch response.result {
             case .success(let data):
                 if(data.homeBannerList != nil) {
                     if let homeBannerList = data.homeBannerList {
-                        self.saveOrUpdateTravelListCoredata(travelList: homeBannerList)
+                        self.saveOrUpdateTravelListCoredata(travelList: homeBannerList,
+                                                            language: lang)
                     }
                 }
                 
@@ -603,32 +634,38 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         }
     }
     //MARK: Travel List Coredata
-    func saveOrUpdateTravelListCoredata(travelList: [HomeBanner]) {
+    func saveOrUpdateTravelListCoredata(travelList: [HomeBanner],
+                                        language: String) {
         if travelList.count > 0 {
             if #available(iOS 10.0, *) {
                 let container = CoreDataManager.shared.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
                     DataManager.updateTravelList(travelList: travelList,
-                                                 managedContext : managedContext)
+                                                 managedContext : managedContext,
+                                                 language: Utils.getLanguageCode(language))
                 }
             } else {
                 let managedContext = self.managedObjectContext
                 managedContext.perform {
                     DataManager.updateTravelList(travelList: travelList,
-                                                 managedContext : managedContext)
+                                                 managedContext : managedContext,
+                                                 language: Utils.getLanguageCode(language))
                 }
             }
         }
     }
     
     //MARK: NMoQSpecialEvent Lst APi
-    func getNMoQSpecialEventList(lang:String?) {
+    func getNMoQSpecialEventList(lang: String) {
         let queue = DispatchQueue(label: "NMoQSpecialEventListThread", qos: .background, attributes: .concurrent)
-        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.GetNMoQSpecialEventList(lang!)).responseObject(queue:queue) { (response: DataResponse<NMoQActivitiesListData>) -> Void in
+        _ = CPSessionManager.sharedInstance.apiManager()?
+            .request(QatarMuseumRouter.GetNMoQSpecialEventList(lang))
+            .responseObject(queue:queue) { (response: DataResponse<NMoQActivitiesListData>) -> Void in
             switch response.result {
             case .success(let data):
                 if let nmoqActivitiesList = data.nmoqActivitiesList {
-                    self.saveOrUpdateActivityListCoredata(nmoqActivityList: nmoqActivitiesList )
+                    self.saveOrUpdateActivityListCoredata(nmoqActivityList: nmoqActivitiesList,
+                                                          language: lang)
                 }
                 
             case .failure( _):
@@ -637,19 +674,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         }
     }
     //MARK: ActivityList Coredata Method
-    func saveOrUpdateActivityListCoredata(nmoqActivityList: [NMoQActivitiesList]) {
+    func saveOrUpdateActivityListCoredata(nmoqActivityList: [NMoQActivitiesList], language: String) {
         if !nmoqActivityList.isEmpty {
             if #available(iOS 10.0, *) {
                 let container = CoreDataManager.shared.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
                     DataManager.updateActivityList(nmoqActivityList: nmoqActivityList,
-                                                   managedContext : managedContext)
+                                                   managedContext : managedContext,
+                                                   language: Utils.getLanguageCode(language))
                 }
             } else {
                 let managedContext = self.managedObjectContext
                 managedContext.perform {
                     DataManager.updateActivityList(nmoqActivityList: nmoqActivityList,
-                                                   managedContext : managedContext)
+                                                   managedContext : managedContext,
+                                                   language: Utils.getLanguageCode(language))
                 }
             }
         }
@@ -881,13 +920,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
     
     
-    func getNmoqParkListFromServer(lang:String?) {
-        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.GetNmoqParkList(lang ?? ENG_LANGUAGE)).responseObject { (response: DataResponse<NmoqParksLists>) -> Void in
+    func getNmoqParkListFromServer(lang: String) {
+        _ = CPSessionManager.sharedInstance.apiManager()?
+            .request(QatarMuseumRouter.GetNmoqParkList(lang))
+            .responseObject { (response: DataResponse<NmoqParksLists>) -> Void in
             switch response.result {
             case .success(let data):
                 if(data.nmoqParkList != nil) {
                     if let nmoqParkList = data.nmoqParkList {
-                        self.saveOrUpdateNmoqParkListCoredata(nmoqParkList: nmoqParkList)
+                        self.saveOrUpdateNmoqParkListCoredata(nmoqParkList: nmoqParkList,
+                                                              language: lang)
                     }
                 }
                 
@@ -898,19 +940,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
     
     //MARK: NmoqPark List Coredata Method
-    func saveOrUpdateNmoqParkListCoredata(nmoqParkList: [NMoQParksList]) {
+    func saveOrUpdateNmoqParkListCoredata(nmoqParkList: [NMoQParksList],
+                                          language: String) {
         if !nmoqParkList.isEmpty {
             if #available(iOS 10.0, *) {
                 let container = CoreDataManager.shared.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
                     DataManager.updateNmoqParkList(nmoqParkList: nmoqParkList,
-                                                   managedContext : managedContext)
+                                                   managedContext : managedContext,
+                                                   language: Utils.getLanguageCode(language))
                 }
             } else {
                 let managedContext = appDelegate!.managedObjectContext
                 managedContext.perform {
                     DataManager.updateNmoqParkList(nmoqParkList: nmoqParkList,
-                                                   managedContext : managedContext)
+                                                   managedContext : managedContext,
+                                                   language: Utils.getLanguageCode(language))
                 }
             }
         }

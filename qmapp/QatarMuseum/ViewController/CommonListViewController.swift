@@ -702,7 +702,7 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
     }
     
     //MARK: Coredata Method
-    func saveOrUpdateExhibitionsCoredata(exhibition:[Exhibition] ,isHomeExhibition : String?) {
+    func saveOrUpdateExhibitionsCoredata(exhibition:[Exhibition], isHomeExhibition : String?) {
         if !exhibition.isEmpty {
             let appDelegate =  UIApplication.shared.delegate as? AppDelegate
             if #available(iOS 10.0, *) {
@@ -710,14 +710,16 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
                 container.performBackgroundTask() {(managedContext) in
                     DataManager.updateExhibitionsEntity(managedContext: managedContext,
                                                     exhibition: exhibition,
-                                                    isHomeExhibition :isHomeExhibition)
+                                                    isHomeExhibition :isHomeExhibition,
+                                                    language: Utils.getLanguage())
                 }
             } else {
                 let managedContext = appDelegate!.managedObjectContext
                 managedContext.perform {
                     DataManager.updateExhibitionsEntity(managedContext : managedContext,
                                                     exhibition: exhibition,
-                                                    isHomeExhibition :isHomeExhibition)
+                                                    isHomeExhibition :isHomeExhibition,
+                                                    language: Utils.getLanguage())
                 }
             }
         }
@@ -951,13 +953,15 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
                 let container = appDelegate!.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
                     DataManager.updateHeritage(managedContext: managedContext,
-                                               heritageListArray: heritageListArray)
+                                               heritageListArray: heritageListArray,
+                                               language: Utils.getLanguage())
                 }
             } else {
                 let managedContext = appDelegate!.managedObjectContext
                 managedContext.perform {
                     DataManager.updateHeritage(managedContext : managedContext,
-                                               heritageListArray: heritageListArray)
+                                               heritageListArray: heritageListArray,
+                                               language: Utils.getLanguage())
                 }
             }
         }
@@ -1894,13 +1898,15 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
                 let container = appDelegate!.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
                     DataManager.updateNmoqParkList(nmoqParkList: nmoqParkList,
-                                                   managedContext: managedContext)
+                                                   managedContext: managedContext,
+                                                   language: Utils.getLanguage())
                 }
             } else {
                 let managedContext = appDelegate!.managedObjectContext
                 managedContext.perform {
                     DataManager.updateNmoqParkList(nmoqParkList: nmoqParkList,
-                                                   managedContext : managedContext)
+                                                   managedContext : managedContext,
+                                                   language: Utils.getLanguage())
                 }
             }
         }
