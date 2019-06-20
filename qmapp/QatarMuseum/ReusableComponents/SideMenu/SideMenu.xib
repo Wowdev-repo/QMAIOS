@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -63,13 +63,13 @@
                             <rect key="frame" x="250" y="93" width="125" height="76"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Education" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lD4-Uq-zbl">
-                                    <rect key="frame" x="30.666666666666682" y="55" width="63.666666666666657" height="15"/>
+                                    <rect key="frame" x="28.666666666666686" y="55" width="67.666666666666671" height="17.666666666666671"/>
                                     <fontDescription key="fontDescription" name="DINNextLTPro-Regular" family="DIN Next LT Pro" pointSize="15"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kaN-0B-93b">
-                                    <rect key="frame" x="44" y="0.0" width="38" height="46"/>
+                                    <rect key="frame" x="43.666666666666686" y="0.0" width="38" height="46"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="38" id="3ED-o8-dQo"/>
                                         <constraint firstAttribute="height" constant="46" id="HBz-LG-pkz"/>
@@ -93,7 +93,7 @@
                             <rect key="frame" x="125" y="93" width="125" height="76"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yfG-03-lfe">
-                                    <rect key="frame" x="40.666666666666657" y="3" width="45" height="43"/>
+                                    <rect key="frame" x="40" y="3" width="45" height="43"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="45" id="O53-GB-att"/>
                                         <constraint firstAttribute="height" constant="43" id="pKU-sX-fgK"/>
@@ -104,7 +104,7 @@
                                     </connections>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Events" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v6w-WF-slS">
-                                    <rect key="frame" x="41" y="55" width="43.333333333333343" height="15"/>
+                                    <rect key="frame" x="40" y="55" width="45.333333333333343" height="17.666666666666671"/>
                                     <fontDescription key="fontDescription" name="DINNextLTPro-Regular" family="DIN Next LT Pro" pointSize="15"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
@@ -123,7 +123,7 @@
                             <rect key="frame" x="0.0" y="93" width="125" height="76"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fvv-iW-IyB">
-                                    <rect key="frame" x="40.666666666666664" y="0.0" width="44.999999999999993" height="45"/>
+                                    <rect key="frame" x="40" y="0.0" width="45" height="45"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="45" id="ruN-N4-NgE"/>
                                         <constraint firstAttribute="width" constant="45" id="vIp-x0-Ej5"/>
@@ -134,7 +134,7 @@
                                     </connections>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Exhibitions" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zl8-oq-Dq8">
-                                    <rect key="frame" x="27" y="54" width="71.333333333333329" height="15"/>
+                                    <rect key="frame" x="25.666666666666664" y="54" width="73.666666666666686" height="17.666666666666671"/>
                                     <fontDescription key="fontDescription" name="DINNextLTPro-Regular" family="DIN Next LT Pro" pointSize="15"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
@@ -161,13 +161,13 @@
                             <rect key="frame" x="133.66666666666666" y="212" width="120.66666666666666" height="76"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Heritage Sites" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jSi-bv-KX3">
-                                    <rect key="frame" x="14.666666666666686" y="71.666666666666686" width="91.666666666666671" height="15"/>
+                                    <rect key="frame" x="13.333333333333343" y="71.666666666666686" width="94.333333333333329" height="17.666666666666671"/>
                                     <fontDescription key="fontDescription" name="DINNextLTPro-Regular" family="DIN Next LT Pro" pointSize="15"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kdd-Ej-bLd">
-                                    <rect key="frame" x="39.333333333333343" y="13.666666666666657" width="43" height="49"/>
+                                    <rect key="frame" x="39" y="13.666666666666657" width="43" height="49"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="43" id="hdq-T3-w1u"/>
                                         <constraint firstAttribute="height" constant="49" id="rCf-B6-CbV"/>
@@ -191,7 +191,7 @@
                             <rect key="frame" x="254.33333333333334" y="216" width="120.66666666666666" height="76"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fJY-cb-1vB">
-                                    <rect key="frame" x="40.999999999999972" y="16.333333333333343" width="40" height="43"/>
+                                    <rect key="frame" x="40.333333333333343" y="16.666666666666657" width="40" height="43"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="43" id="L40-Ez-UDu"/>
                                         <constraint firstAttribute="width" constant="40" id="sB8-fl-gZ4"/>
@@ -202,7 +202,7 @@
                                     </connections>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Public Arts" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o94-Nx-0nR">
-                                    <rect key="frame" x="24.999999999999972" y="68.333333333333314" width="71" height="15"/>
+                                    <rect key="frame" x="23.999999999999972" y="68.666666666666686" width="73" height="17.666666666666671"/>
                                     <fontDescription key="fontDescription" name="DINNextLTPro-Regular" family="DIN Next LT Pro" pointSize="15"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
@@ -222,7 +222,7 @@
                             <rect key="frame" x="245.66666666666666" y="329" width="122.66666666666666" height="76"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RYF-xL-VUQ">
-                                    <rect key="frame" x="41.000000000000028" y="17.666666666666686" width="47" height="49"/>
+                                    <rect key="frame" x="40.666666666666657" y="17.666666666666686" width="47" height="49"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="47" id="JRH-BQ-Swn"/>
                                         <constraint firstAttribute="height" constant="49" id="pp1-dS-C5i"/>
@@ -233,7 +233,7 @@
                                     </connections>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Parks" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N3x-M3-MY3">
-                                    <rect key="frame" x="42.666666666666657" y="75.666666666666686" width="37.666666666666657" height="15"/>
+                                    <rect key="frame" x="42.333333333333343" y="75.666666666666686" width="37.666666666666657" height="17.666666666666671"/>
                                     <fontDescription key="fontDescription" name="DINNextLTPro-Regular" family="DIN Next LT Pro" pointSize="15"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
@@ -249,10 +249,10 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WrI-Eb-hUF">
-                            <rect key="frame" x="0.0" y="335" width="123" height="76"/>
+                            <rect key="frame" x="0.0" y="335" width="122.66666666666667" height="76"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0rg-Jx-tIC">
-                                    <rect key="frame" x="35.666666666666664" y="17.666666666666686" width="51.999999999999993" height="41"/>
+                                    <rect key="frame" x="35.333333333333336" y="17.666666666666686" width="52.000000000000007" height="41"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="41" id="BTL-8Q-w8P"/>
                                         <constraint firstAttribute="width" constant="52" id="tUa-1j-kPs"/>
@@ -263,7 +263,7 @@
                                     </connections>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dining" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZgD-kd-Ifi">
-                                    <rect key="frame" x="41" y="67.666666666666686" width="41.333333333333343" height="15"/>
+                                    <rect key="frame" x="40" y="67.666666666666686" width="42.666666666666657" height="17.666666666666671"/>
                                     <fontDescription key="fontDescription" name="DINNextLTPro-Regular" family="DIN Next LT Pro" pointSize="15"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
@@ -286,7 +286,7 @@
                             </constraints>
                         </imageView>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kBp-9l-3rx">
-                            <rect key="frame" x="289" y="442.33333333333331" width="81" height="67"/>
+                            <rect key="frame" x="289" y="442" width="81" height="67"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dLY-wQ-k4t">
                                     <rect key="frame" x="20.666666666666686" y="11" width="40" height="45"/>
@@ -301,7 +301,7 @@
                                     </connections>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Settings" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lxy-GW-Auq">
-                                    <rect key="frame" x="14.000000000000004" y="47" width="53.333333333333343" height="15"/>
+                                    <rect key="frame" x="13.000000000000004" y="47" width="55.333333333333343" height="17.666666666666671"/>
                                     <fontDescription key="fontDescription" name="DINNextLTPro-Regular" family="DIN Next LT Pro" pointSize="15"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
@@ -340,7 +340,7 @@
                                     </connections>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tour Guide" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FHG-nm-rxu">
-                                    <rect key="frame" x="25" y="69" width="70.666666666666671" height="15"/>
+                                    <rect key="frame" x="23.666666666666664" y="69" width="73.333333333333343" height="17.666666666666671"/>
                                     <fontDescription key="fontDescription" name="DINNextLTPro-Regular" family="DIN Next LT Pro" pointSize="15"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
@@ -357,10 +357,10 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AQg-Br-r6j">
-                            <rect key="frame" x="123" y="335" width="122.66666666666669" height="76"/>
+                            <rect key="frame" x="122.66666666666669" y="335" width="123" height="76"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dit-Jr-29x">
-                                    <rect key="frame" x="39" y="17.666666666666686" width="45" height="41"/>
+                                    <rect key="frame" x="38.999999999999986" y="17.666666666666686" width="45" height="41"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="45" id="pxX-NP-gI9"/>
                                         <constraint firstAttribute="height" constant="41" id="zDq-sG-DMe"/>
@@ -371,7 +371,7 @@
                                     </connections>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gift Shop" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5kq-vu-1pU">
-                                    <rect key="frame" x="32" y="67.666666666666686" width="59" height="15"/>
+                                    <rect key="frame" x="29.666666666666668" y="67.666666666666686" width="63.666666666666657" height="17.666666666666671"/>
                                     <fontDescription key="fontDescription" name="DINNextLTPro-Regular" family="DIN Next LT Pro" pointSize="15"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>

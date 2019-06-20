@@ -8,6 +8,7 @@
 
 import UIKit
 import CocoaLumberjack
+import MapKit
 
 class HeritageDetailCell: UITableViewCell {
     @IBOutlet weak var favoriteButton: UIButton!
@@ -40,6 +41,8 @@ class HeritageDetailCell: UITableViewCell {
     @IBOutlet weak var favoriteBtnViewHeight: NSLayoutConstraint!
     @IBOutlet weak var pageControl: UIPageControl!
 
+    @IBOutlet weak var mapView: MKMapView!
+    
     var favBtnTapAction : (()->())?
     var shareBtnTapAction : (()->())?
     var locationButtonTapAction : (()->())?
@@ -85,8 +88,8 @@ class HeritageDetailCell: UITableViewCell {
         openingTimeLine.isHidden = true
         contactLine.isHidden = true
         locationLine.isHidden = false
-        locationTotalBottomConstraint.isActive = true
-        locationTotalBottomConstraint.constant = 40
+       // locationTotalBottomConstraint.isActive = true
+       // locationTotalBottomConstraint.constant = 40
         locationTotalTopConstraint.isActive = true
         locationTotalTopConstraint.constant = 40
         
@@ -110,8 +113,43 @@ class HeritageDetailCell: UITableViewCell {
         
         let mapRedirectionMessage = NSLocalizedString("MAP_REDIRECTION_MESSAGE",
                                                       comment: "MAP_REDIRECTION_MESSAGE in the Dining detail")
-        locationButton.setTitle(mapRedirectionMessage, for: .normal)
+       // locationButton.setTitle(mapRedirectionMessage, for: .normal)
         
+        
+        var latitudeString  = String()
+        var longitudeString = String()
+        var latitude : Double?
+        var longitude : Double?
+        
+        if (heritageDetail.latitude != nil && heritageDetail.latitude != "" && heritageDetail.longitude != nil && heritageDetail.longitude != "") {
+            latitudeString = heritageDetail.latitude!
+            longitudeString = heritageDetail.longitude!
+            if latitudeString != "0° 0\' 0\" N" && longitudeString != "0° 0\' 0\" E" {
+                
+                if let lat : Double = Double(latitudeString) {
+                    latitude = lat
+                }
+                if let long : Double = Double(longitudeString) {
+                    longitude = long
+                }
+                
+                let location = CLLocationCoordinate2D(latitude: latitude ?? 0.0,
+                                                      longitude: longitude ?? 0.0)
+                
+                // 2
+                let span = MKCoordinateSpanMake(0.05, 0.05)
+                let region = MKCoordinateRegion(center: location, span: span)
+                mapView.setRegion(region, animated: true)
+                // let viewRegion = MKCoordinateRegionMakeWithDistance(location, 0.05, 0.05)
+                //mapView.setRegion(viewRegion, animated: false)
+                //3
+                let annotation = MKPointAnnotation()
+                annotation.coordinate = location
+                //annotation.title = aboutData.name
+                annotation.subtitle = heritageDetail.name
+                mapView.addAnnotation(annotation)
+            }
+        }
         
     }
     
