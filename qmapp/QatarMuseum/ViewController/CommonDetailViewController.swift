@@ -361,12 +361,102 @@ class CommonDetailViewController: UIViewController,UITableViewDelegate,UITableVi
                 self.loadLocationInMap(currentRow: indexPath.row)
             }
             parkCell.setParksCellValues(parksList: parksListArray[indexPath.row], currentRow: indexPath.row)
+            
+            
+            
+            var latitudeString  = String()
+            var longitudeString = String()
+            var latitude : Double?
+            var longitude : Double?
+            if ((pageNameString == PageName.heritageDetail) && (heritageDetailtArray[indexPath.row].latitude != nil) && (heritageDetailtArray[indexPath.row].longitude != nil)) {
+                latitudeString = heritageDetailtArray[indexPath.row].latitude!
+                longitudeString = heritageDetailtArray[indexPath.row].longitude!
+            }
+            else if ((pageNameString == PageName.publicArtsDetail) && (publicArtsDetailtArray[indexPath.row].latitude != nil) && (publicArtsDetailtArray[indexPath.row].longitude != nil))
+            {
+                latitudeString = publicArtsDetailtArray[indexPath.row].latitude!
+                longitudeString = publicArtsDetailtArray[indexPath.row].longitude!
+            }
+            else if (( pageNameString == PageName.exhibitionDetail) && ( self.fromHome == true) && (exhibition[indexPath.row].latitude != nil) && (exhibition[indexPath.row].longitude != nil)) {
+                latitudeString = exhibition[indexPath.row].latitude!
+                longitudeString = exhibition[indexPath.row].longitude!
+            } else if ( pageNameString == PageName.SideMenuPark) {
+                // showLocationErrorPopup()
+            } else if (( pageNameString == PageName.DiningDetail) && (diningDetailtArray[indexPath.row].latitude != nil) && (diningDetailtArray[indexPath.row].longitude != nil)) {
+                latitudeString = diningDetailtArray[indexPath.row].latitude!
+                longitudeString = diningDetailtArray[indexPath.row].longitude!
+            }
+            if latitudeString != nil && longitudeString != nil && latitudeString != "" && longitudeString != ""{
+                if ((pageNameString == PageName.publicArtsDetail) || (pageNameString == PageName.DiningDetail))  {
+                    if let lat : Double = Double(latitudeString) {
+                        latitude = lat
+                    }
+                    if let long : Double = Double(longitudeString) {
+                        longitude = long
+                    }
+                    
+                } else {
+                    latitude = convertDMSToDDCoordinate(latLongString: latitudeString)
+                    longitude = convertDMSToDDCoordinate(latLongString: longitudeString)
+                }
+            }
+            
+            parkCell.setLocationOnMap(lat:latitude ?? 0.0,long:longitude ?? 0.0)
+            
+            
+            
+            
+ 
+            
+            
             return parkCell
         } else if(pageNameString == PageName.NMoQPark){
             let parkCell = tableView.dequeueReusableCell(withIdentifier: "parkCellId", for: indexPath) as! ParkTableViewCell
             parkCell.titleLineView.isHidden = false
             parkCell.imageViewHeight.constant = 0
             parkCell.setNmoqParkDetailValues(parkDetails: nmoqParkDetailArray[indexPath.row])
+            
+            
+            var latitudeString  = String()
+            var longitudeString = String()
+            var latitude : Double?
+            var longitude : Double?
+            if ((pageNameString == PageName.heritageDetail) && (heritageDetailtArray[indexPath.row].latitude != nil) && (heritageDetailtArray[indexPath.row].longitude != nil)) {
+                latitudeString = heritageDetailtArray[indexPath.row].latitude!
+                longitudeString = heritageDetailtArray[indexPath.row].longitude!
+            }
+            else if ((pageNameString == PageName.publicArtsDetail) && (publicArtsDetailtArray[indexPath.row].latitude != nil) && (publicArtsDetailtArray[indexPath.row].longitude != nil))
+            {
+                latitudeString = publicArtsDetailtArray[indexPath.row].latitude!
+                longitudeString = publicArtsDetailtArray[indexPath.row].longitude!
+            }
+            else if (( pageNameString == PageName.exhibitionDetail) && ( self.fromHome == true) && (exhibition[indexPath.row].latitude != nil) && (exhibition[indexPath.row].longitude != nil)) {
+                latitudeString = exhibition[indexPath.row].latitude!
+                longitudeString = exhibition[indexPath.row].longitude!
+            } else if ( pageNameString == PageName.SideMenuPark) {
+                // showLocationErrorPopup()
+            } else if (( pageNameString == PageName.DiningDetail) && (diningDetailtArray[indexPath.row].latitude != nil) && (diningDetailtArray[indexPath.row].longitude != nil)) {
+                latitudeString = diningDetailtArray[indexPath.row].latitude!
+                longitudeString = diningDetailtArray[indexPath.row].longitude!
+            }
+            if latitudeString != nil && longitudeString != nil && latitudeString != "" && longitudeString != ""{
+                if ((pageNameString == PageName.publicArtsDetail) || (pageNameString == PageName.DiningDetail))  {
+                    if let lat : Double = Double(latitudeString) {
+                        latitude = lat
+                    }
+                    if let long : Double = Double(longitudeString) {
+                        longitude = long
+                    }
+                    
+                } else {
+                    latitude = convertDMSToDDCoordinate(latLongString: latitudeString)
+                    longitude = convertDMSToDDCoordinate(latLongString: longitudeString)
+                }
+            }
+            
+            parkCell.setLocationOnMap(lat:latitude ?? 0.0,long:longitude ?? 0.0)
+            
+            
             return parkCell
         } else if(pageNameString == PageName.DiningDetail){
             let diningCell = tableView.dequeueReusableCell(withIdentifier: "diningDetailCellId", for: indexPath) as! DiningDetailTableViewCell

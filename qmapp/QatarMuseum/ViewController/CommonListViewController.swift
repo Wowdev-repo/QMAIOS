@@ -458,7 +458,7 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
                 ])
         } else if (exhibitionsPageNameString == ExhbitionPageName.publicArtsList) {
             DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
-            loadPublicArtsDetail(idValue: publicArtsListArray[indexPath.row].id!)
+            loadPublicArtsDetail(idValue: publicArtsListArray[indexPath.row].id ?? "")
             Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
                 AnalyticsParameterItemID: FirebaseAnalyticsEvents.tapped_publicart_detail,
                 AnalyticsParameterItemName: exhibitionsPageNameString ?? "",
