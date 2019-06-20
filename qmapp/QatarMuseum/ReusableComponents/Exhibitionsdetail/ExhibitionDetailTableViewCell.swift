@@ -39,20 +39,20 @@ class ExhibitionDetailTableViewCell: UITableViewCell {
         super.awakeFromNib()
         setupCellUI()
     }
-
+    
     func setupCellUI() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-
-//        titleLabel.textAlignment = .center
-//        descriptionLabel.textAlignment = .center
-//        detailSecondLabel.textAlignment = .center
-//        exhibitionTimingTitle.textAlignment = .center
-//        exbtnDateLabel.textAlignment = .center
-//        exbtnTimeLabel.textAlignment = .center
-//        locationsTitle.textAlignment = .center
-//        locationLabel.textAlignment = .center
-//        contactTitle.textAlignment = .center
-//        contactDescriptionLabel.textAlignment = .center
+        
+        //        titleLabel.textAlignment = .center
+        //        descriptionLabel.textAlignment = .center
+        //        detailSecondLabel.textAlignment = .center
+        //        exhibitionTimingTitle.textAlignment = .center
+        //        exbtnDateLabel.textAlignment = .center
+        //        exbtnTimeLabel.textAlignment = .center
+        //        locationsTitle.textAlignment = .center
+        //        locationLabel.textAlignment = .center
+        //        contactTitle.textAlignment = .center
+        //        contactDescriptionLabel.textAlignment = .center
         
         
         titleLabel.font = UIFont.settingsUpdateLabelFont
@@ -75,13 +75,13 @@ class ExhibitionDetailTableViewCell: UITableViewCell {
     
     func setHomeExhibitionDetail(exhibition: Exhibition) {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-
+        
         titleLabel.text = exhibition.name?.uppercased()
         descriptionLabel?.text = exhibition.shortDescription?.replacingOccurrences(of: "&nbsp;", with: " ", options: .regularExpression, range: nil)
         detailSecondLabel.text = exhibition.longDescription?.replacingOccurrences(of: "&nbsp;", with: " ", options: .regularExpression, range: nil)
         exbtnDateLabel.text = ""
         exbtnTimeLabel.text = exhibition.startDate!.replacingOccurrences(of: "<[^>]+>|&|#039;", with: "", options: .regularExpression, range: nil) + "\n" + exhibition.endDate!.replacingOccurrences(of: "<[^>]+>|&|#039;", with: "", options: .regularExpression, range: nil)
-//        locationLabel.text = exhibition.location?.uppercased()
+        //        locationLabel.text = exhibition.location?.uppercased()
         centerImgHeight.constant = 0
         centerImageView.isHidden = true
         exhibitionTimingTitle.text = NSLocalizedString("EXHIBITION_TIME_TITLE",
@@ -91,7 +91,7 @@ class ExhibitionDetailTableViewCell: UITableViewCell {
         contactTitle.text = NSLocalizedString("CONTACT_TITLE",
                                               comment: "CONTACT_TITLE in the Exhibition detail")
         //let mapRedirectionMessage = NSLocalizedString("MAP_REDIRECTION_MESSAGE",
-//                                                      comment: "MAP_REDIRECTION_MESSAGE in the Dining detail")
+        //                                                      comment: "MAP_REDIRECTION_MESSAGE in the Dining detail")
         //locationButton.setTitle(mapRedirectionMessage, for: .normal)
         contactDescriptionLabel.text = "nmoq@qm.org.qa"
         
@@ -107,29 +107,32 @@ class ExhibitionDetailTableViewCell: UITableViewCell {
             latitudeString = exhibition.latitude!
             longitudeString = exhibition.longitude!
             if latitudeString != "0° 0\' 0\" N" && longitudeString != "0° 0\' 0\" E" {
-            
-            if let lat : Double = Double(latitudeString) {
-                latitude = lat
-            }
-            if let long : Double = Double(longitudeString) {
-                longitude = long
-            }
-            
-            let location = CLLocationCoordinate2D(latitude: latitude!,
-                                                  longitude: longitude!)
-            
-            // 2
-            let span = MKCoordinateSpanMake(0.05, 0.05)
-            let region = MKCoordinateRegion(center: location, span: span)
-            mapView.setRegion(region, animated: true)
-            // let viewRegion = MKCoordinateRegionMakeWithDistance(location, 0.05, 0.05)
-            //mapView.setRegion(viewRegion, animated: false)
-            //3
-            let annotation = MKPointAnnotation()
-            annotation.coordinate = location
-            //annotation.title = aboutData.name
-            annotation.subtitle = exhibition.name
-            mapView.addAnnotation(annotation)
+                
+                if let lat : Double = Double(latitudeString) {
+                    latitude = lat
+                }
+                if let long : Double = Double(longitudeString) {
+                    longitude = long
+                }
+                if longitude == nil || latitude == nil {
+                    latitude = convertDMSToDDCoordinate(latLongString: latitudeString)
+                    longitude = convertDMSToDDCoordinate(latLongString: longitudeString)
+                }
+                let location = CLLocationCoordinate2D(latitude: latitude!,
+                                                      longitude: longitude!)
+                
+                // 2
+                let span = MKCoordinateSpanMake(0.05, 0.05)
+                let region = MKCoordinateRegion(center: location, span: span)
+                mapView.setRegion(region, animated: true)
+                // let viewRegion = MKCoordinateRegionMakeWithDistance(location, 0.05, 0.05)
+                //mapView.setRegion(viewRegion, animated: false)
+                //3
+                let annotation = MKPointAnnotation()
+                annotation.coordinate = location
+                //annotation.title = aboutData.name
+                annotation.subtitle = exhibition.name
+                mapView.addAnnotation(annotation)
             }
         }
         
@@ -140,7 +143,7 @@ class ExhibitionDetailTableViewCell: UITableViewCell {
     
     func setMuseumExhibitionDetail() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-
+        
         titleLabel.text = "Powder And Damask"
         descriptionLabel?.text = "This exhibition showcases Islamic arms and armour from the private collection of Fadel Al Mansoori. Including both edged weapons and firearms, the objects on display range from the 17th to the 19th century, and were produced primarily in greater Turkey, Iran and India. \n Powder and Damask explores the art of craftsmanship which reached unrewcedented levels in these regions under the ottoman, Safavid and Mughal empires, and consideres these objects not only as weapons but as works of art."
         detailSecondLabel.text = "without degrading their functionality, arms and armour in Islamic lands became an art that found its place in the hands of sultans, high-ranking commanders and elite members of society."
@@ -157,7 +160,7 @@ class ExhibitionDetailTableViewCell: UITableViewCell {
         // Configure the view for the selected state
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
     }
-
+    
     @IBAction func didTapFavouriteButton(_ sender: UIButton) {
         self.favoriteButton.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
         favBtnTapAction?()

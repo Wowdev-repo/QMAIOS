@@ -308,7 +308,10 @@ class MuseumAboutCell: UITableViewCell,iCarouselDelegate,iCarouselDataSource,UIT
             if let long : Double = Double(longitudeString) {
                 longitude = long
             }
-            
+            if longitude == nil || latitude == nil {
+                latitude = convertDMSToDDCoordinate(latLongString: latitudeString)
+                longitude = convertDMSToDDCoordinate(latLongString: longitudeString)
+            }
             let location = CLLocationCoordinate2D(latitude: latitude!,
                                                   longitude: longitude!)
             

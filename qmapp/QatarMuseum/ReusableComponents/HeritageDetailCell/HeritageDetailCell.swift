@@ -40,7 +40,7 @@ class HeritageDetailCell: UITableViewCell {
     @IBOutlet weak var locationButton: UIButton!
     @IBOutlet weak var favoriteBtnViewHeight: NSLayoutConstraint!
     @IBOutlet weak var pageControl: UIPageControl!
-
+    
     @IBOutlet weak var mapView: MKMapView!
     
     var favBtnTapAction : (()->())?
@@ -51,7 +51,7 @@ class HeritageDetailCell: UITableViewCell {
         super.awakeFromNib()
         setUi()
         pageControl.isHidden = true
-       // setPublicArtsDetailCellData()
+        // setPublicArtsDetailCellData()
         //setHeritageDetailCellData()
     }
     
@@ -88,8 +88,8 @@ class HeritageDetailCell: UITableViewCell {
         openingTimeLine.isHidden = true
         contactLine.isHidden = true
         locationLine.isHidden = false
-       // locationTotalBottomConstraint.isActive = true
-       // locationTotalBottomConstraint.constant = 40
+        // locationTotalBottomConstraint.isActive = true
+        // locationTotalBottomConstraint.constant = 40
         locationTotalTopConstraint.isActive = true
         locationTotalTopConstraint.constant = 40
         
@@ -106,14 +106,14 @@ class HeritageDetailCell: UITableViewCell {
         locationTitleLabel.text = NSLocalizedString("LOCATION_TITLE",
                                                     comment: "LOCATION_TITLE in the Heritage detail")
         /* Hide bcz no opening time  and contectattribute in api*/
-      /*  openingTimeTitleLabel.text = NSLocalizedString("OPENING_TIME_TITLE",
-                                                    comment: "OPENING_TIME_TITLE in the Heritage detail")
-        contactTitleLabel.text = NSLocalizedString("CONTACT_TITLE",
-                                                       comment: "CONTACT_TITLE in the Heritage detail") */
+        /*  openingTimeTitleLabel.text = NSLocalizedString("OPENING_TIME_TITLE",
+         comment: "OPENING_TIME_TITLE in the Heritage detail")
+         contactTitleLabel.text = NSLocalizedString("CONTACT_TITLE",
+         comment: "CONTACT_TITLE in the Heritage detail") */
         
         let mapRedirectionMessage = NSLocalizedString("MAP_REDIRECTION_MESSAGE",
                                                       comment: "MAP_REDIRECTION_MESSAGE in the Dining detail")
-       // locationButton.setTitle(mapRedirectionMessage, for: .normal)
+        // locationButton.setTitle(mapRedirectionMessage, for: .normal)
         
         
         var latitudeString  = String()
@@ -132,7 +132,10 @@ class HeritageDetailCell: UITableViewCell {
                 if let long : Double = Double(longitudeString) {
                     longitude = long
                 }
-                
+                if longitude == nil || latitude == nil {
+                    latitude = convertDMSToDDCoordinate(latLongString: latitudeString)
+                    longitude = convertDMSToDDCoordinate(latLongString: longitudeString)
+                }
                 let location = CLLocationCoordinate2D(latitude: latitude ?? 0.0,
                                                       longitude: longitude ?? 0.0)
                 
@@ -175,7 +178,7 @@ class HeritageDetailCell: UITableViewCell {
         titleBottomOnlyConstraint.constant = 20//
         locationTotalTopConstraint.isActive = true
         locationTotalTopConstraint.constant = 40
-         locationTotalBottomConstraint.isActive = true
+        locationTotalBottomConstraint.isActive = true
         locationTotalBottomConstraint.constant = 40
         
         titleDescriptionLabel.text = publicArsDetail.description?.replacingOccurrences(of: "<[^>]+>|&nbsp;|&|#039;", with: "", options: .regularExpression, range: nil)
@@ -269,7 +272,7 @@ class HeritageDetailCell: UITableViewCell {
                             self.shareBtnTapAction?()
         })
     }
-   
+    
     @IBAction func didTapLocationButton(_ sender: UIButton) {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         self.locationButton.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
@@ -288,8 +291,8 @@ class HeritageDetailCell: UITableViewCell {
     }
     func replaceString(originalString : String, expression: String)->String? {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-       let result = originalString.replacingOccurrences(of: expression, with: "", options: .regularExpression, range: nil)
+        let result = originalString.replacingOccurrences(of: expression, with: "", options: .regularExpression, range: nil)
         return result
     }
-
+    
 }
