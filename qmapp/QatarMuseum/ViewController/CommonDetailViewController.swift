@@ -462,18 +462,29 @@ class CommonDetailViewController: UIViewController,UITableViewDelegate,UITableVi
                 latitude = convertDMSToDDCoordinate(latLongString: latitudeString)
                 longitude = convertDMSToDDCoordinate(latLongString: longitudeString)
             }
-            if (UIApplication.shared.canOpenURL(URL(string:"comgooglemaps://")!)) {
-                if #available(iOS 10.0, *) {
-                    UIApplication.shared.open(URL(string:"comgooglemaps://?center=\(latitude!),\(longitude!)&zoom=14&views=traffic&q=\(latitude!),\(longitude!)")!, options: [:], completionHandler: nil)
-                } else {
-                    UIApplication.shared.openURL(URL(string:"comgooglemaps://?center=\(latitude!),\(longitude!)&zoom=14&views=traffic&q=\(latitude!),\(longitude!)")!)
-                }
-            } else if ((latitude != nil) && (longitude != nil)) {
-                let locationUrl = URL(string: "https://maps.google.com/?q=\(latitude!),\(longitude!)")!
-                UIApplication.shared.openURL(locationUrl)
-            } else {
-                showLocationErrorPopup()
-            }
+            let mapDetailView = self.storyboard?.instantiateViewController(withIdentifier: "mapViewId") as! MapViewController
+            mapDetailView.latitudeString = String(latitude ?? 0.0)
+            mapDetailView.longiudeString = String(longitude ?? 0.0)
+//            mapDetailView.destination = destination
+            let transition = CATransition()
+            transition.duration = 0.3
+            transition.type = kCATransitionFade
+            transition.timingFunction = CAMediaTimingFunction(name:kCAMediaTimingFunctionEaseInEaseOut)
+            view.window!.layer.add(transition, forKey: kCATransition)
+            self.present(mapDetailView, animated: false, completion: nil)
+            
+//            if (UIApplication.shared.canOpenURL(URL(string:"comgooglemaps://")!)) {
+//                if #available(iOS 10.0, *) {
+//                    UIApplication.shared.open(URL(string:"comgooglemaps://?center=\(latitude!),\(longitude!)&zoom=14&views=traffic&q=\(latitude!),\(longitude!)")!, options: [:], completionHandler: nil)
+//                } else {
+//                    UIApplication.shared.openURL(URL(string:"comgooglemaps://?center=\(latitude!),\(longitude!)&zoom=14&views=traffic&q=\(latitude!),\(longitude!)")!)
+//                }
+//            } else if ((latitude != nil) && (longitude != nil)) {
+//                let locationUrl = URL(string: "https://maps.google.com/?q=\(latitude!),\(longitude!)")!
+//                UIApplication.shared.openURL(locationUrl)
+//            } else {
+//                showLocationErrorPopup()
+//            }
         } else {
             showLocationErrorPopup()
         }
