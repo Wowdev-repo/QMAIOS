@@ -8,6 +8,7 @@
 
 import UIKit
 import CocoaLumberjack
+import MapKit
 
 class ExhibitionDetailTableViewCell: UITableViewCell {
     @IBOutlet weak var favoriteButton: UIButton!
@@ -26,7 +27,9 @@ class ExhibitionDetailTableViewCell: UITableViewCell {
     @IBOutlet weak var locationButton: UIButton!
     @IBOutlet weak var centerImgHeight: NSLayoutConstraint!
     @IBOutlet weak var favoriteBtnViewHeight: NSLayoutConstraint!
-
+    
+    @IBOutlet weak var mapView: MKMapView!
+    
     var favBtnTapAction : (()->())?
     var shareBtnTapAction : (()->())?
     var locationButtonAction: (() -> ())?
@@ -87,10 +90,52 @@ class ExhibitionDetailTableViewCell: UITableViewCell {
                                                 comment: "LOCATION_TITLE in the Exhibition detail")
         contactTitle.text = NSLocalizedString("CONTACT_TITLE",
                                               comment: "CONTACT_TITLE in the Exhibition detail")
-        let mapRedirectionMessage = NSLocalizedString("MAP_REDIRECTION_MESSAGE",
-                                                      comment: "MAP_REDIRECTION_MESSAGE in the Dining detail")
-        locationButton.setTitle(mapRedirectionMessage, for: .normal)
+        //let mapRedirectionMessage = NSLocalizedString("MAP_REDIRECTION_MESSAGE",
+//                                                      comment: "MAP_REDIRECTION_MESSAGE in the Dining detail")
+        //locationButton.setTitle(mapRedirectionMessage, for: .normal)
         contactDescriptionLabel.text = "nmoq@qm.org.qa"
+        
+        
+        
+        
+        var latitudeString  = String()
+        var longitudeString = String()
+        var latitude : Double?
+        var longitude : Double?
+        
+        if (exhibition.latitude != nil && exhibition.latitude != "" && exhibition.longitude != nil && exhibition.longitude != "") {
+            latitudeString = exhibition.latitude!
+            longitudeString = exhibition.longitude!
+            if latitudeString != "0° 0\' 0\" N" && longitudeString != "0° 0\' 0\" E" {
+            
+            if let lat : Double = Double(latitudeString) {
+                latitude = lat
+            }
+            if let long : Double = Double(longitudeString) {
+                longitude = long
+            }
+            
+            let location = CLLocationCoordinate2D(latitude: latitude!,
+                                                  longitude: longitude!)
+            
+            // 2
+            let span = MKCoordinateSpanMake(0.05, 0.05)
+            let region = MKCoordinateRegion(center: location, span: span)
+            mapView.setRegion(region, animated: true)
+            // let viewRegion = MKCoordinateRegionMakeWithDistance(location, 0.05, 0.05)
+            //mapView.setRegion(viewRegion, animated: false)
+            //3
+            let annotation = MKPointAnnotation()
+            annotation.coordinate = location
+            //annotation.title = aboutData.name
+            annotation.subtitle = exhibition.name
+            mapView.addAnnotation(annotation)
+            }
+        }
+        
+        
+        
+        
     }
     
     func setMuseumExhibitionDetail() {
