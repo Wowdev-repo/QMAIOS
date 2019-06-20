@@ -965,13 +965,15 @@ class CommonDetailViewController: UIViewController,UITableViewDelegate,UITableVi
                 let container = appDelegate!.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
                     DataManager.updateParks(managedContext: managedContext,
-                                                         parksListArray: parksListArray)
+                                                         parksListArray: parksListArray,
+                                                         language: Utils.getLanguage())
                 }
             } else {
                 let managedContext = appDelegate!.managedObjectContext
                 managedContext.perform {
                     DataManager.updateParks(managedContext : managedContext,
-                                                         parksListArray: parksListArray)
+                                                         parksListArray: parksListArray,
+                                                         language: Utils.getLanguage())
                 }
             }
         }
@@ -1208,12 +1210,14 @@ class CommonDetailViewController: UIViewController,UITableViewDelegate,UITableVi
                 let diningdbDict = fetchData[0]
                 DataManager.saveToDiningCoreData(diningListDict: diningDetailDict,
                                                  managedObjContext: managedContext,
-                                                 entity: diningdbDict)
+                                                 entity: diningdbDict,
+                                                 language: Utils.getLanguage())
                 
             } else {
                 DataManager.saveToDiningCoreData(diningListDict: diningDetailDict,
                                                  managedObjContext: managedContext,
-                                                 entity: nil)
+                                                 entity: nil,
+                                                 language: Utils.getLanguage())
             }
     }
     

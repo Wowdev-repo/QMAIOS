@@ -782,8 +782,11 @@ class PanelDiscussionDetailViewController: UIViewController,LoadingViewProtocol,
                 let fetchRequest =  NSFetchRequest<NSFetchRequestResult>(entityName: "RegisteredEventListEntity")
                 eventArray = (try managedContext.fetch(fetchRequest) as? [RegisteredEventListEntity])!
                 if (eventArray.count > 0) {
-                    for i in 0 ... eventArray.count-1 {
-                        self.userEventList.insert(NMoQUserEventList(title: eventArray[i].title, eventID: eventArray[i].eventId, regID: eventArray[i].regId,seats: eventArray[i].seats), at: i)
+                    for event in eventArray {
+                        self.userEventList.append(NMoQUserEventList(title: event.title,
+                                                                    eventID: event.eventId,
+                                                                    regID: event.regId,
+                                                                    seats: event.seats))
                         
                     }
                 }

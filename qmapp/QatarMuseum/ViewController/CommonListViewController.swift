@@ -847,7 +847,7 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
                 }
             } else if (exhibitionsPageNameString == ExhbitionPageName.museumCollectionsList){
                 if(fromHome == true) {
-                    appDelegate?.getDiningListFromServer(lang: LocalizationLanguage.currentAppleLanguage())
+                    appDelegate?.getDiningListFromServer(language: LocalizationLanguage.currentAppleLanguage())
                 } else {
                     self.getMuseumDiningListFromServer()
                 }
@@ -1038,7 +1038,8 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
                     }
                 }
                 if(self.publicArtsListArray.count > 0) {
-                    self.saveOrUpdatePublicArtsCoredata(publicArtsListArray: data.publicArtsList, lang: LocalizationLanguage.currentAppleLanguage())
+                    self.saveOrUpdatePublicArtsCoredata(publicArtsListArray: data.publicArtsList,
+                                                        lang: LocalizationLanguage.currentAppleLanguage())
                 }
             case .failure( _):
                 if(self.publicArtsListArray.count == 0) {
@@ -1051,20 +1052,20 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
         }
     }
     //MARK: Coredata Method
-    func saveOrUpdatePublicArtsCoredata(publicArtsListArray:[PublicArtsList]?,lang: String?) {
+    func saveOrUpdatePublicArtsCoredata(publicArtsListArray:[PublicArtsList]?, lang: String) {
         if ((publicArtsListArray?.count)! > 0) {
             let appDelegate =  UIApplication.shared.delegate as? AppDelegate
             if #available(iOS 10.0, *) {
                 let container = appDelegate!.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
                     DataManager.updatePublicArts(managedContext: managedContext,
-                                                 publicArtsListArray: publicArtsListArray)
+                                                 publicArtsListArray: publicArtsListArray, language: Utils.getLanguageCode(lang))
                 }
             } else {
                 let managedContext = appDelegate!.managedObjectContext
                 managedContext.perform {
                     DataManager.updatePublicArts(managedContext : managedContext,
-                                                 publicArtsListArray: publicArtsListArray)
+                                                 publicArtsListArray: publicArtsListArray, language: Utils.getLanguageCode(lang))
                 }
             }
         }
@@ -1073,10 +1074,12 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
     func fetchPublicArtsListFromCoredata() {
         let managedContext = getContext()
         do {
-//            if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
-                var publicArtsArray = [PublicArtsEntity]()
-                let publicArtsFetchRequest =  NSFetchRequest<NSFetchRequestResult>(entityName: "PublicArtsEntity")
-                publicArtsArray = (try managedContext.fetch(publicArtsFetchRequest) as? [PublicArtsEntity])!
+            
+            
+            let publicArtsArray = DataManager.checkAddedToCoredata(entityName: "PublicArtsEntity",
+                                                               idKey: "language",
+                                                               idValue: Utils.getLanguage(),
+                                                               managedContext: managedContext) as! [PublicArtsEntity]
                 if (publicArtsArray.count > 0) {
                     if  (networkReachability?.isReachable)! {
                         DispatchQueue.global(qos: .background).async {
@@ -1145,7 +1148,8 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
                 }else {
                     self.exhibitionCollectionView.reloadData()
                     if let collections = data.collections {
-                        self.saveOrUpdateCollectionCoredata(collection: collections)
+                        self.saveOrUpdateCollectionCoredata(collection: collections,
+                                                            language: LocalizationLanguage.currentAppleLanguage())
                     }
                 }
                 
@@ -1165,20 +1169,20 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
         }
     }
     //MARK: CollectionList Coredata Method
-    func saveOrUpdateCollectionCoredata(collection: [Collection]) {
+    func saveOrUpdateCollectionCoredata(collection: [Collection], language: String) {
         if !collection.isEmpty {
             let appDelegate =  UIApplication.shared.delegate as? AppDelegate
             if #available(iOS 10.0, *) {
                 let container = appDelegate!.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
                     DataManager.updateCollectionsEntity(managedContext: managedContext,
-                                                 collection: collection)
+                                                 collection: collection, language: Utils.getLanguageCode(language))
                 }
             } else {
                 let managedContext = appDelegate!.managedObjectContext
                 managedContext.perform {
                     DataManager.updateCollectionsEntity(managedContext : managedContext,
-                                                 collection: collection)
+                                                 collection: collection, language: Utils.getLanguageCode(language))
                 }
             }
         }
@@ -1253,7 +1257,8 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
                     }
                 }
                 if(self.diningListArray.count > 0) {
-                    self.saveOrUpdateDiningCoredata(diningListArray: data.dinings, lang: LocalizationLanguage.currentAppleLanguage())
+                    self.saveOrUpdateDiningCoredata(diningListArray: data.dinings,
+                                                    lang: LocalizationLanguage.currentAppleLanguage())
                 }
             case .failure( _):
                 if(self.diningListArray.count == 0) {
@@ -1278,20 +1283,21 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
         }
     }
     //MARK: Dining Coredata Method
-    func saveOrUpdateDiningCoredata(diningListArray : [Dining]?,lang: String?) {
+    func saveOrUpdateDiningCoredata(diningListArray : [Dining]?, lang: String) {
         if ((diningListArray?.count)! > 0) {
             let appDelegate =  UIApplication.shared.delegate as? AppDelegate
             if #available(iOS 10.0, *) {
                 let container = appDelegate?.persistentContainer
                 container?.performBackgroundTask() {(managedContext) in
                     DataManager.updateDinings(managedContext: managedContext,
-                                                          diningListArray: diningListArray!)
+                                                          diningListArray: diningListArray!,
+                                                          language: lang)
                 }
             } else {
                 let managedContext = appDelegate?.managedObjectContext
                 managedContext?.perform {
                     DataManager.updateDinings(managedContext : managedContext!,
-                                                          diningListArray: diningListArray!)
+                                                          diningListArray: diningListArray!, language: lang)
                 }
             }
         }
@@ -1602,14 +1608,14 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
                 container.performBackgroundTask() {(managedContext) in
                     DataManager.updateTourGuide(managedContext: managedContext,
                                                     miaTourDataFullArray: self.miaTourDataFullArray,
-                                                    museumID: self.museumId)
+                                                    museumID: self.museumId, language: Utils.getLanguage())
                 }
             } else {
                 let managedContext = appDelegate!.managedObjectContext
                 managedContext.perform {
                     DataManager.updateTourGuide(managedContext : managedContext,
                                                     miaTourDataFullArray: self.miaTourDataFullArray,
-                                                    museumID: self.museumId)
+                                                    museumID: self.museumId, language: Utils.getLanguage())
                 }
             }
         }
@@ -1618,7 +1624,6 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
     func fetchTourGuideListFromCoredata() {
         let managedContext = getContext()
         do {
-//            if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
                 var tourGuideArray = [TourGuideEntity]()
                 tourGuideArray = DataManager.checkAddedToCoredata(entityName: "TourGuideEntity",
                                                       idKey: "museumsEntity",
@@ -1631,24 +1636,8 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
                             self.getTourGuideDataFromServer()
                         }
                     }
-                    for i in 0 ... tourGuideArray.count-1 {
-                        
-                        var multimediaArray : [String] = []
-                        let tourguideInfo = tourGuideArray[i]
-                        let tourGuideInfoArray = (tourguideInfo.tourGuideMultimediaRelation?.allObjects) as! [TourGuideMultimediaEntity]
-                        if(tourGuideInfoArray.count > 0) {
-                            for i in 0 ... tourGuideInfoArray.count-1 {
-                                multimediaArray.append(tourGuideInfoArray[i].multimediaFile!)
-                            }
-                        }
-                        
-                        self.miaTourDataFullArray.insert(TourGuide(title: tourGuideArray[i].title,
-                                                                   tourGuideDescription: tourGuideArray[i].tourGuideDescription,
-                                                                   multimediaFile: multimediaArray,
-                                                                   museumsEntity: tourGuideArray[i].museumsEntity,
-                                                                   nid: tourGuideArray[i].nid,
-                                                                   language: tourGuideArray[i].language),
-                                                         at: i)
+                    for tourguideInfo in tourGuideArray {
+                        self.miaTourDataFullArray.append(TourGuide(entity: tourguideInfo))
                     }
                     DispatchQueue.main.async {
                         self.exhibitionCollectionView.reloadData()
@@ -1714,7 +1703,8 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
                         self.museumsList.remove(at: arrayOffset)
                     }
                     if let homeList = data.homeList {
-                        self.saveOrUpdateMuseumsCoredata(museumsList: homeList)
+                        self.saveOrUpdateMuseumsCoredata(museumsList: homeList,
+                                                         language: LocalizationLanguage.currentAppleLanguage())
                     }
                 }
             case .failure(let error):
@@ -1723,18 +1713,22 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
         }
     }
     //MARK: Coredata Method
-    func saveOrUpdateMuseumsCoredata(museumsList: [Home]) {
+    func saveOrUpdateMuseumsCoredata(museumsList: [Home], language: String) {
         if !museumsList.isEmpty {
             let appDelegate =  UIApplication.shared.delegate as? AppDelegate
             if #available(iOS 10.0, *) {
                 let container = appDelegate!.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
-                    DataManager.updateHomeEntity(managedContext: managedContext, homeList: museumsList)
+                    DataManager.updateHomeEntity(managedContext: managedContext,
+                                                 homeList: museumsList,
+                                                 language: Utils.getLanguageCode(language))
                 }
             } else {
                 let managedContext = appDelegate!.managedObjectContext
                 managedContext.perform {
-                    DataManager.updateHomeEntity(managedContext: managedContext, homeList: museumsList)
+                    DataManager.updateHomeEntity(managedContext: managedContext,
+                                                 homeList: museumsList,
+                                                 language: Utils.getLanguageCode(language))
                 }
             }
             DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
@@ -1918,13 +1912,15 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
                 let container = appDelegate!.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
                     DataManager.updateNmoqPark(nmoqParkList: nmoqParkList,
-                                               managedContext: managedContext)
+                                               managedContext: managedContext,
+                                               language: Utils.getLanguage())
                 }
             } else {
                 let managedContext = appDelegate!.managedObjectContext
                 managedContext.perform {
                     DataManager.updateNmoqPark(nmoqParkList: nmoqParkList,
-                                               managedContext : managedContext)
+                                               managedContext : managedContext,
+                                               language: Utils.getLanguage())
                 }
             }
         }
@@ -1976,9 +1972,12 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
         let managedContext = getContext()
         do {
-                var parkListArray = [NMoQParksEntity]()
-                let fetchRequest =  NSFetchRequest<NSFetchRequestResult>(entityName: "NMoQParksEntity")
-                parkListArray = (try managedContext.fetch(fetchRequest) as? [NMoQParksEntity])!
+            
+            
+            let parkListArray = DataManager.checkAddedToCoredata(entityName: "NMoQParksEntity",
+                                             idKey: "language",
+                                             idValue: Utils.getLanguage(),
+                                             managedContext: managedContext) as! [NMoQParksEntity]
                 
                 if (parkListArray.count > 0) {
                     if  (networkReachability?.isReachable)! {

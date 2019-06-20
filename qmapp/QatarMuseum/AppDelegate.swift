@@ -97,8 +97,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             self.getTravelList(lang: AR_LANGUAGE)
             self.getNMoQSpecialEventList(lang: ENG_LANGUAGE)
             self.getNMoQSpecialEventList(lang: AR_LANGUAGE)
-            self.getDiningListFromServer(lang: ENG_LANGUAGE)
-            self.getDiningListFromServer(lang: AR_LANGUAGE)
+            self.getDiningListFromServer(language: ENG_LANGUAGE)
+            self.getDiningListFromServer(language: AR_LANGUAGE)
             self.getPublicArtsListDataFromServer(lang: ENG_LANGUAGE)
             self.getPublicArtsListDataFromServer(lang: AR_LANGUAGE)
             self.getCollectionList(museumId: "63", lang: ENG_LANGUAGE)
@@ -412,14 +412,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     
     
     //MARK: Home Service call
-    func getHomeList(lang: String?) {
+    func getHomeList(lang: String) {
         let queue = DispatchQueue(label: "HomeThread", qos: .background, attributes: .concurrent)
-        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.HomeList(lang!)).responseObject(queue:queue) { (response: DataResponse<HomeList>) -> Void in
+        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.HomeList(lang)).responseObject(queue:queue) { (response: DataResponse<HomeList>) -> Void in
             switch response.result {
             case .success(let data):
                 if let homeList = data.homeList {
                         DispatchQueue.main.async{
-                            self.saveOrUpdateHomeCoredata(homeList: homeList)
+                            self.saveOrUpdateHomeCoredata(homeList: homeList,
+                                                          language: lang)
                     }
                 }
             case .failure( _):
@@ -428,17 +429,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         }
     }
     //MARK: Home Coredata Method
-    func saveOrUpdateHomeCoredata(homeList: [Home]) {
+    func saveOrUpdateHomeCoredata(homeList: [Home],
+                                  language: String ) {
         if !homeList.isEmpty {
             if #available(iOS 10.0, *) {
                 let container = CoreDataManager.shared.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
-                    DataManager.updateHomeEntity(managedContext: managedContext, homeList: homeList)
+                    DataManager.updateHomeEntity(managedContext: managedContext,
+                                                 homeList: homeList,
+                                                 language: Utils.getLanguageCode(language))
                 }
             } else {
                 let managedContext = self.managedObjectContext
                 managedContext.perform {
-                    DataManager.updateHomeEntity(managedContext: managedContext, homeList: homeList)
+                    DataManager.updateHomeEntity(managedContext: managedContext,
+                                                 homeList: homeList,
+                                                 language: Utils.getLanguageCode(language))
                 }
             }
         }
@@ -446,15 +452,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     
     
     //MARK: MIA TourGuide WebServiceCall
-    func getMiaTourGuideDataFromServer(museumId:String?,lang:String?) {
+    func getMiaTourGuideDataFromServer(museumId:String?,
+                                       lang:String) {
         let queue = DispatchQueue(label: "MiaTourThread", qos: .background, attributes: .concurrent)
-        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.MuseumTourGuide(lang!,["museum_id": museumId!])).responseObject(queue:queue) { (response: DataResponse<TourGuides>) -> Void in
+        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.MuseumTourGuide(lang,["museum_id": museumId!])).responseObject(queue:queue) { (response: DataResponse<TourGuides>) -> Void in
             switch response.result {
             case .success(let data):
                 if(data.tourGuide != nil) {
                     if((data.tourGuide?.count)! > 0) {
                         DispatchQueue.main.async{
-                            self.saveOrUpdateTourGuideCoredata(miaTourDataFullArray: data.tourGuide, museumId: museumId, lang: lang)
+                            self.saveOrUpdateTourGuideCoredata(miaTourDataFullArray: data.tourGuide,
+                                                               museumId: museumId,
+                                                               lang: lang)
                         }
                     }
                 }
@@ -464,7 +473,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         }
     }
     //MARK: Coredata Method
-    func saveOrUpdateTourGuideCoredata(miaTourDataFullArray:[TourGuide]?,museumId: String?,lang:String?) {
+    func saveOrUpdateTourGuideCoredata(miaTourDataFullArray:[TourGuide]?,museumId: String?, lang:String) {
         if ((miaTourDataFullArray?.count)! > 0) {
             if #available(iOS 10.0, *) {
                 let container = CoreDataManager.shared.persistentContainer
@@ -472,7 +481,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                     if let array = miaTourDataFullArray {
                         DataManager.updateTourGuide(managedContext: managedContext,
                                                     miaTourDataFullArray: array,
-                                                    museumID: museumId)
+                                                    museumID: museumId, language: lang)
                     }
                 }
             } else {
@@ -481,7 +490,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                     if let array = miaTourDataFullArray {
                         DataManager.updateTourGuide(managedContext: managedContext,
                                                     miaTourDataFullArray: array,
-                                                    museumID: museumId)
+                                                    museumID: museumId, language: lang)
                     }
                 }
             }
@@ -647,15 +656,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
     
     //MARK: DiningList WebServiceCall
-    func getDiningListFromServer(lang: String?)
-    {
+    func getDiningListFromServer(language: String) {
         let queue = DispatchQueue(label: "DiningListThread", qos: .background, attributes: .concurrent)
-        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.DiningList(lang!)).responseObject(queue: queue) { (response: DataResponse<Dinings>) -> Void in
+        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.DiningList(language)).responseObject(queue: queue) { (response: DataResponse<Dinings>) -> Void in
             switch response.result {
             case .success(let data):
                 if(data.dinings != nil) {
                     if((data.dinings?.count)! > 0) {
-                        self.saveOrUpdateDiningCoredata(diningListArray: data.dinings, lang: lang)
+                        self.saveOrUpdateDiningCoredata(diningListArray: data.dinings, lang: language)
                     }
                 }
                 
@@ -665,33 +673,38 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         }
     }
     //MARK: Dining Coredata Method
-    func saveOrUpdateDiningCoredata(diningListArray : [Dining]?,lang: String?) {
+    func saveOrUpdateDiningCoredata(diningListArray : [Dining]?, lang: String) {
         if ((diningListArray?.count)! > 0) {
             if #available(iOS 10.0, *) {
                 let container = CoreDataManager.shared.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
                     DataManager.updateDinings(managedContext: managedContext,
-                                              diningListArray: diningListArray!)
+                                              diningListArray: diningListArray!,
+                                              language: lang)
                 }
             } else {
                 let managedContext = self.managedObjectContext
                 managedContext.perform {
                     DataManager.updateDinings(managedContext: managedContext,
-                                              diningListArray: diningListArray!)
+                                              diningListArray: diningListArray!,
+                                              language: lang)
                 }
             }
         }
     }
     
     //MARK: PublicArtsList WebServiceCall
-    func getPublicArtsListDataFromServer(lang: String?) {
+    func getPublicArtsListDataFromServer(lang: String) {
         let queue = DispatchQueue(label: "PublicArtsListThread", qos: .background, attributes: .concurrent)
-        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.PublicArtsList(lang!)).responseObject(queue: queue) { (response: DataResponse<PublicArtsLists>) -> Void in
+        _ = CPSessionManager.sharedInstance.apiManager()?
+            .request(QatarMuseumRouter.PublicArtsList(lang))
+            .responseObject(queue: queue) { (response: DataResponse<PublicArtsLists>) -> Void in
             switch response.result {
             case .success(let data):
                 if(data.publicArtsList != nil) {
                     if((data.publicArtsList?.count)! > 0) {
-                        self.saveOrUpdatePublicArtsCoredata(publicArtsListArray: data.publicArtsList, lang: lang)
+                        self.saveOrUpdatePublicArtsCoredata(publicArtsListArray: data.publicArtsList,
+                                                            lang: lang)
                     }
                 }
                 
@@ -702,19 +715,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
     
     //MARK: PublicArtsList Coredata Method
-    func saveOrUpdatePublicArtsCoredata(publicArtsListArray:[PublicArtsList]?,lang: String?) {
+    func saveOrUpdatePublicArtsCoredata(publicArtsListArray:[PublicArtsList]?,
+                                        lang: String) {
         if ((publicArtsListArray?.count)! > 0) {
             if #available(iOS 10.0, *) {
                 let container = CoreDataManager.shared.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
                     DataManager.updatePublicArts(managedContext : managedContext,
-                                                 publicArtsListArray: publicArtsListArray)
+                                                 publicArtsListArray: publicArtsListArray,
+                                                 language: Utils.getLanguageCode(lang))
                 }
             } else {
                 let managedContext = self.managedObjectContext
                 managedContext.perform {
                     DataManager.updatePublicArts(managedContext : managedContext,
-                                                 publicArtsListArray: publicArtsListArray)
+                                                 publicArtsListArray: publicArtsListArray,
+                                                 language: Utils.getLanguageCode(lang))
                 }
             }
         }
@@ -722,15 +738,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     
     
     //MARK: Webservice call
-    func getCollectionList(museumId:String?,lang: String?) {
+    func getCollectionList(museumId:String?, lang: String) {
         let queue = DispatchQueue(label: "CollectionListThread", qos: .background, attributes: .concurrent)
-        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.CollectionList(lang!,["museum_id": museumId ?? 0])).responseObject(queue: queue) { (response: DataResponse<Collections>) -> Void in
+        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.CollectionList(lang, ["museum_id": museumId ?? 0])).responseObject(queue: queue) { (response: DataResponse<Collections>) -> Void in
             switch response.result {
             case .success(let data):
                 if(data.collections != nil) {
                     if let collections = data.collections {
                         self.saveOrUpdateCollectionCoredata(collection: collections,
-                                                            museumId: museumId)
+                                                            museumId: museumId, language: lang)
                     }
                 }
                 
@@ -742,21 +758,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
     //MARK: Coredata Method
     func saveOrUpdateCollectionCoredata(collection: [Collection],
-                                        museumId:String?) {
+                                        museumId:String?, language: String) {
         if !collection.isEmpty {
             if #available(iOS 10.0, *) {
                 let container = CoreDataManager.shared.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
                     self.collectionsListCoreDataInBackgroundThread(managedContext : managedContext,
                                                                    collection: collection,
-                                                                   museumId: museumId)
+                                                                   museumId: museumId, code: language)
                 }
             } else {
                 let managedContext = self.managedObjectContext
                 managedContext.perform {
                     self.collectionsListCoreDataInBackgroundThread(managedContext : managedContext,
                                                                    collection: collection,
-                                                                   museumId: museumId)
+                                                                   museumId: museumId, code: language)
                 }
             }
         }
@@ -764,7 +780,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     
     func collectionsListCoreDataInBackgroundThread(managedContext: NSManagedObjectContext,
                                                    collection: [Collection],
-                                                   museumId:String?) {
+                                                   museumId:String?, code: String) {
         let fetchData = DataManager.checkAddedToCoredata(entityName: "CollectionsEntity",
                                                          idKey: "museumId",
                                                          idValue: nil,
@@ -775,7 +791,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 if(isDeleted == true) {
                     for collectionListDict in collection {
                         DataManager.saveCollectionsEntity(collectionListDict: collectionListDict,
-                                                          managedObjContext: managedContext)
+                                                          managedObjContext: managedContext,
+                                                          language: Utils.getLanguageCode(code))
                     }
                 }
                 NotificationCenter.default.post(name: NSNotification.Name(collectionsListNotificationEn), object: self)
@@ -783,18 +800,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             else {
                 for collectionListDict in collection {
                     DataManager.saveCollectionsEntity(collectionListDict: collectionListDict,
-                                                      managedObjContext: managedContext)
+                                                      managedObjContext: managedContext,
+                                                      language: Utils.getLanguageCode(code))
                 }
                 NotificationCenter.default.post(name: NSNotification.Name(collectionsListNotificationEn), object: self)
             }
     }
     
-    func getParksDataFromServer(lang:String?) {
-        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.ParksList(lang ?? ENG_LANGUAGE)).responseObject { (response: DataResponse<ParksLists>) -> Void in
+    func getParksDataFromServer(lang: String) {
+        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.ParksList(lang)).responseObject { (response: DataResponse<ParksLists>) -> Void in
             switch response.result {
             case .success(let data):
                 if let parkList = data.parkList {
-                    self.saveOrUpdateParksCoredata(parksListArray: parkList)
+                    self.saveOrUpdateParksCoredata(parksListArray: parkList,
+                                                   language: lang)
                 }
             case .failure(let error):
                 print(error.localizedDescription)
@@ -803,31 +822,35 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
     
     //MARK: Coredata Method
-    func saveOrUpdateParksCoredata(parksListArray:[ParksList]) {
+    func saveOrUpdateParksCoredata(parksListArray:[ParksList], language: String) {
         if parksListArray.count > 0 {
             if #available(iOS 10.0, *) {
                 let container = CoreDataManager.shared.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
                     DataManager.updateParks(managedContext : managedContext,
-                                            parksListArray: parksListArray)
+                                            parksListArray: parksListArray,
+                                            language: Utils.getLanguageCode(language))
                 }
             } else {
                 let managedContext = appDelegate!.managedObjectContext
                 managedContext.perform {
                     DataManager.updateParks(managedContext : managedContext,
-                                            parksListArray: parksListArray)
+                                            parksListArray: parksListArray,
+                                            language: Utils.getLanguageCode(language))
                 }
             }
         }
     }
     
-    func getFacilitiesListFromServer(lang:String?)
-    {
-        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.FacilitiesList(lang ?? ENG_LANGUAGE)).responseObject { (response: DataResponse<FacilitiesData>) -> Void in
+    func getFacilitiesListFromServer(lang: String) {
+        _ = CPSessionManager.sharedInstance.apiManager()?
+            .request(QatarMuseumRouter.FacilitiesList(lang))
+            .responseObject { (response: DataResponse<FacilitiesData>) -> Void in
             switch response.result {
             case .success(let data):
                     if let facilitiesList = data.facilitiesList {
-                        self.saveOrUpdateFacilitiesListCoredata(facilitiesList: facilitiesList)
+                        self.saveOrUpdateFacilitiesListCoredata(facilitiesList: facilitiesList,
+                                                                language: lang)
                     }
                 
             case .failure( _):
@@ -836,19 +859,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         }
     }
     //MARK: Facilities List Coredata Method
-    func saveOrUpdateFacilitiesListCoredata(facilitiesList: [Facilities]) {
+    func saveOrUpdateFacilitiesListCoredata(facilitiesList: [Facilities],
+                                            language: String) {
         if !facilitiesList.isEmpty {
             if #available(iOS 10.0, *) {
                 let container = CoreDataManager.shared.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
                     DataManager.updateFacilitiesEntity(facilitiesList: facilitiesList,
-                                                       managedContext : managedContext)
+                                                       managedContext : managedContext,
+                                                       language: Utils.getLanguageCode(language))
                 }
             } else {
                 let managedContext = appDelegate!.managedObjectContext
                 managedContext.perform {
                     DataManager.updateFacilitiesEntity(facilitiesList: facilitiesList,
-                                                       managedContext : managedContext)
+                                                       managedContext : managedContext,
+                                                       language: Utils.getLanguageCode(language))
                 }
             }
         }
@@ -890,13 +916,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         }
     }
     
-    func getNmoqListOfParksFromServer(lang:String?) {
-        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.GetNmoqListParks(lang ?? ENG_LANGUAGE)).responseObject { (response: DataResponse<NMoQParks>) -> Void in
+    func getNmoqListOfParksFromServer(lang: String) {
+        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.GetNmoqListParks(lang)).responseObject { (response: DataResponse<NMoQParks>) -> Void in
             switch response.result {
             case .success(let data):
                 if(data.nmoqParks != nil) {
                     if let nmoqParks = data.nmoqParks {
-                        self.saveOrUpdateNmoqParksCoredata(nmoqParkList: nmoqParks)
+                        self.saveOrUpdateNmoqParksCoredata(nmoqParkList: nmoqParks, language: lang)
                     }
                 }
                 
@@ -907,19 +933,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
     
     //MARK: NMoq List of Parks Coredata Method
-    func saveOrUpdateNmoqParksCoredata(nmoqParkList:[NMoQPark]) {
+    func saveOrUpdateNmoqParksCoredata(nmoqParkList:[NMoQPark], language: String) {
         if !nmoqParkList.isEmpty {
             if #available(iOS 10.0, *) {
                 let container = CoreDataManager.shared.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
                     DataManager.updateNmoqPark(nmoqParkList: nmoqParkList,
-                                               managedContext : managedContext)
+                                               managedContext : managedContext, language: Utils.getLanguageCode(language))
                 }
             } else {
                 let managedContext = appDelegate!.managedObjectContext
                 managedContext.perform {
                     DataManager.updateNmoqPark(nmoqParkList: nmoqParkList,
-                                               managedContext : managedContext)
+                                               managedContext : managedContext, language: Utils.getLanguageCode(language))
                 }
             }
         }

@@ -244,7 +244,14 @@ class CommonListCell: UITableViewCell {
     func setFacilitiesListData(facilitiesListData: Facilities?) {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         dateLabel.font = UIFont.homeTitleFont
-        dateLabel.text = facilitiesListData!.title!.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil).replacingOccurrences(of: "&amp;", with: "&", options: .regularExpression, range: nil)
+        dateLabel.text = facilitiesListData!.title!.replacingOccurrences(of: "<[^>]+>",
+                                                                         with: "",
+                                                                         options: .regularExpression,
+                                                                         range: nil)
+            .replacingOccurrences(of: "&amp;",
+                                  with: "&",
+                                  options: .regularExpression,
+                                  range: nil)
         titleLabel.isHidden = true
         dateLabel.isHidden = false
         fullDateLabel.isHidden = true

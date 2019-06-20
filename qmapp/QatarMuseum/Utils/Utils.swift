@@ -10,6 +10,14 @@ import Foundation
 
 class Utils {
     
+    
+    static func getLanguageCode(_ code: String) -> String {
+        if code == ENG_LANGUAGE {
+            return "1"
+        }
+        return "0"
+    }
+    
     /// Get language string
     ///
     /// - Returns: String, 1 for English and 0 for arabic
