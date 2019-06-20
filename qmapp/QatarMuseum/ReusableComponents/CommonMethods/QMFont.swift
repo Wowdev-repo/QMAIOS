@@ -149,6 +149,14 @@ extension UIFont {
             return UIFont.init(name: "DINNextLTArabic-Regular", size:21)!
         }
     }
+    
+    static var buyTicketFont: UIFont {
+        if ((LocalizationLanguage.currentAppleLanguage()) == "en") {
+            return UIFont.init(name: "DINNextLTPro-Bold", size: 17)!
+        } else{
+            return UIFont.init(name: "DINNextLTArabic-Bold", size:18)!
+        }
+    }
     static var diningHeaderFont: UIFont {
         if ((LocalizationLanguage.currentAppleLanguage()) == "en") {
             return UIFont.init(name: "DINNextLTPro-Regular", size: 23)!
@@ -163,6 +171,7 @@ extension UIFont {
             return UIFont.init(name: "DINNextLTArabic-Regular", size:30)!
         }
     }
+
     static var tourGuidesFont: UIFont {
         if ((LocalizationLanguage.currentAppleLanguage()) == "en") {
             return UIFont.init(name: "DINNextLTPro-Bold", size: 34)!
