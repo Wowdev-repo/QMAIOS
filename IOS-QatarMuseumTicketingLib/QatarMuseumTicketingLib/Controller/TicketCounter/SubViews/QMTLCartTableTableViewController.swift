@@ -76,7 +76,7 @@ class QMTLCartTableTableViewController: UITableViewController, APIServiceRespons
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        
+         print("print viewwillapper------------- 1")
         setupViews()
     }
     

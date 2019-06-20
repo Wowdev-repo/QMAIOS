@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="fxe-Y9-CVp">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="fxe-Y9-CVp">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -700,7 +700,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Booking not opened for this museum" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HNb-Bs-TF3">
-                                <rect key="frame" x="25.5" y="243.5" width="269" height="17"/>
+                                <rect key="frame" x="19" y="242" width="282" height="20"/>
                                 <fontDescription key="fontDescription" name="DINNextLTPro-Regular" family="DIN Next LT Pro" pointSize="17"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -824,7 +824,7 @@
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="When would you like to visit the museum?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IZ3-wx-Kgb">
-                                        <rect key="frame" x="57.5" y="51" width="205" height="34"/>
+                                        <rect key="frame" x="57.5" y="51" width="205" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="205" id="wxS-hA-bBg"/>
                                         </constraints>
@@ -833,7 +833,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="When would you like to visit the museum?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2to-dJ-k6E">
-                                        <rect key="frame" x="10" y="90" width="300" height="45"/>
+                                        <rect key="frame" x="20" y="96" width="280" height="45"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="45" id="J0V-fn-c7u"/>
                                         </constraints>
@@ -848,8 +848,8 @@
                                     <constraint firstItem="doT-fO-0uR" firstAttribute="leading" secondItem="rHJ-bh-D7f" secondAttribute="leading" id="867-2d-f6T"/>
                                     <constraint firstAttribute="height" constant="150" id="JG3-RC-dfL"/>
                                     <constraint firstItem="2to-dJ-k6E" firstAttribute="top" secondItem="IZ3-wx-Kgb" secondAttribute="bottom" constant="5" id="OOI-3y-141"/>
-                                    <constraint firstItem="2to-dJ-k6E" firstAttribute="leading" secondItem="rHJ-bh-D7f" secondAttribute="leading" constant="10" id="fpf-0D-ITX"/>
-                                    <constraint firstAttribute="trailing" secondItem="2to-dJ-k6E" secondAttribute="trailing" constant="10" id="h4b-lC-akq"/>
+                                    <constraint firstItem="2to-dJ-k6E" firstAttribute="leading" secondItem="rHJ-bh-D7f" secondAttribute="leading" constant="20" id="fpf-0D-ITX"/>
+                                    <constraint firstAttribute="trailing" secondItem="2to-dJ-k6E" secondAttribute="trailing" constant="20" id="h4b-lC-akq"/>
                                     <constraint firstAttribute="trailing" secondItem="doT-fO-0uR" secondAttribute="trailing" id="jce-iI-Xgb"/>
                                     <constraint firstItem="IZ3-wx-Kgb" firstAttribute="centerX" secondItem="rHJ-bh-D7f" secondAttribute="centerX" id="nUf-cU-TYX"/>
                                     <constraint firstItem="IZ3-wx-Kgb" firstAttribute="top" secondItem="doT-fO-0uR" secondAttribute="bottom" constant="6" id="pqs-uP-5d6"/>
@@ -2068,7 +2068,7 @@
                                 <constraint firstAttribute="trailing" secondItem="ah8-Yf-zzC" secondAttribute="trailing" constant="10" id="wMa-6C-Jz3"/>
                             </constraints>
                         </view>
-                        <view key="tableFooterView" contentMode="scaleToFill" id="fYf-Fn-3gp">
+                        <view key="tableFooterView" contentMode="scaleToFill" misplaced="YES" id="fYf-Fn-3gp">
                             <rect key="frame" x="0.0" y="391" width="320" height="33"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
@@ -4288,13 +4288,13 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Logout" width="22.5" height="19"/>
-        <image name="Membership" width="15.5" height="22.5"/>
+        <image name="Logout" width="22" height="19"/>
+        <image name="Membership" width="15" height="22"/>
         <image name="MuseumThumbnail.png" width="100" height="100"/>
         <image name="MyProfile" width="16" height="23"/>
         <image name="MyVisit" width="19" height="19"/>
         <image name="Plus.png" width="39" height="39"/>
-        <image name="RightArrow.png" width="409.60000610351562" height="409.60000610351562"/>
+        <image name="RightArrow.png" width="512" height="512"/>
         <image name="Seperator" width="330" height="1"/>
         <image name="close_shadow.png" width="93" height="93"/>
         <image name="culturepass_back.jpeg" width="438" height="711"/>
@@ -4302,7 +4302,7 @@
         <image name="leftarrowmuseum.png" width="128" height="128"/>
         <image name="membershipThumbnailSmall.png" width="67" height="48"/>
         <image name="rightarrowmuseum.png" width="128" height="128"/>
-        <image name="unchecked.png" width="48" height="48"/>
+        <image name="unchecked.png" width="64" height="64"/>
         <image name="yes.png" width="67" height="54"/>
     </resources>
     <inferredMetricsTieBreakers>

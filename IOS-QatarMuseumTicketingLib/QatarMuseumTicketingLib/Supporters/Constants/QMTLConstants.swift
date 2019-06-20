@@ -46,9 +46,9 @@ struct QMTLConstants {
     //MARK:-
     struct GantnerAPI {
         //Production
-        static let baseURL = "https://tickets.qm.org.qa"
+        //static let baseURL = "https://tickets.qm.org.qa"
         //staging
-        //static let baseURL = "https://testtickets.qm.org.qa"
+        static let baseURL = "https://testtickets.qm.org.qa"
         static let baseURLTest = "\(GantnerAPI.baseURL)/Json/"
         static let baseImgURLTest = "\(GantnerAPI.baseURL)/WebShopImageService.svc/"
         
@@ -141,6 +141,14 @@ struct QMTLConstants {
     
     //FONTS:-
     struct App {
+//        "AppRegularFont" = "DINNextLTPro-Regular";
+//        "AppBoldFont" = "DINNextLTPro-Bold";
+    static let regularFontEn = "DINNextLTPro-Regular"
+    static let boldFontEn = "DINNextLTPro-Bold";
+        
+    static let regularFontAr = "DINNextLTArabic-Regular"
+    static let boldFontAr = "DINNextLTArabic-Bold"
+        
     static let regularFont = NSLocalizedString("AppRegularFont", comment: "")
     static let boldFont = NSLocalizedString("AppBoldFont", comment: "")
     }

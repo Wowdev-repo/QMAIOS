@@ -74,17 +74,33 @@ class QMTLTabViewController: UITabBarController, TopTabBarViewDelegate {
     // MARK: - Appearance.
     func setupGlobalAppearance(){
         //global Appearance settings
-        let customFont = UIFont.appRegularFontWith(size: 17)
-        UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: customFont], for: .normal)
-        UITextField.appearance().substituteFontName = QMTLConstants.App.regularFont
-        UILabel.appearance().substituteFontName = QMTLConstants.App.regularFont
-        UILabel.appearance().substituteFontNameBold = QMTLConstants.App.boldFont
-        QMTLTabViewController.applyToUIButton();
+        if ((QMTLLocalizationLanguage.currentAppleLanguage()) == "en") {
+            let customFont = UIFont(name: QMTLConstants.App.regularFontEn, size: 17)!
+            UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: customFont], for: .normal)
+            UITextField.appearance().substituteFontName = QMTLConstants.App.regularFontEn
+            UILabel.appearance().substituteFontName = QMTLConstants.App.regularFontEn
+            UILabel.appearance().substituteFontNameBold = QMTLConstants.App.boldFontEn
+            QMTLTabViewController.applyToUIButton();
+        }
+        else{
+            let customFont = UIFont(name: QMTLConstants.App.regularFontAr, size: 17)!
+            UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: customFont], for: .normal)
+            UITextField.appearance().substituteFontName = QMTLConstants.App.regularFontAr
+            UILabel.appearance().substituteFontName = QMTLConstants.App.regularFontAr
+            UILabel.appearance().substituteFontNameBold = QMTLConstants.App.boldFontAr
+            QMTLTabViewController.applyToUIButton();
+        }
+       
     }
 
     static func applyToUIButton(a: UIButton = UIButton.appearance()) {
-        a.titleLabelFont = UIFont(name: QMTLConstants.App.regularFont, size:20.0)
+        if ((QMTLLocalizationLanguage.currentAppleLanguage()) == "en") {
+        a.titleLabelFont = UIFont(name: QMTLConstants.App.regularFontEn, size:17.0)
         // other UIButton customizations
+        }
+        else{
+            a.titleLabelFont = UIFont(name: QMTLConstants.App.regularFontAr, size:17.0)
+        }
     }
     func setupToolBar(){
         

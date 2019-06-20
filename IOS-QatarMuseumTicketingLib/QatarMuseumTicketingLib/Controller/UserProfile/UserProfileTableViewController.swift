@@ -24,7 +24,7 @@ class UserProfileTableViewController: UITableViewController,QMTLTabViewControlle
     var subscribedArr = [Subscription]()
     var subscriptionArticleArr = [SubscriptionArticle]()
     
-    
+    var cartTableViewController = QMTLCartTableTableViewController()
     var findSubscriptionArticleResponseJsonValue : JSON = []
     var findSubscriptionResponseJsonValue : JSON = []
     
@@ -341,7 +341,7 @@ class UserProfileTableViewController: UITableViewController,QMTLTabViewControlle
             self.performSegue(withIdentifier: QMTLConstants.Segue.segueUserInfoTableViewController, sender: nil)
         }else if indexPath.row == 3 {
             
-            let refreshAlert = UIAlertController(title: getLocalizedStr(str: "Log out"), message: getLocalizedStr(str: "Are you sure you want to log out?"), preferredStyle: UIAlertController.Style.alert)
+            let refreshAlert = UIAlertController(title: getLocalizedStr(str: "Log Oxut"), message: getLocalizedStr(str: "Are you sure you want to log out?"), preferredStyle: UIAlertController.Style.alert)
             
             refreshAlert.addAction(UIAlertAction(title: getLocalizedStr(str: "Ok"), style: .default, handler: { (action: UIAlertAction!) in
                 
@@ -439,16 +439,23 @@ class UserProfileTableViewController: UITableViewController,QMTLTabViewControlle
         
         if !QMTLSingleton.sharedInstance.userInfo.isLoggedIn {
             tabViewController.dismiss(animated: true, completion: nil)
+            NSLog("Back button 1");
         }else if QMTLSingleton.sharedInstance.initialViewControllerToCall != "" {
             
             if QMTLSingleton.sharedInstance.initialViewControllerToCall == QMTLConstants.viewController.UserProfileTableViewController {
                 tabViewController.dismiss(animated: true, completion: nil)
+                NSLog("Back button 2");
             }else{
                 tabViewController.selectedIndex = 0
+                NSLog("Back button 3");
+                
+//                cartTableViewController = storyboard!.instantiateViewController(withIdentifier: QMTLConstants.StoryboardControllerID.cartTableViewController) as! QMTLCartTableTableViewController
+//                cartTableViewController.qmtlCartTableTableViewControllerDelegate = self as? QMTLCartTableTableViewControllerDelegate
             }
             
         }else{
             tabViewController.dismiss(animated: true, completion: nil)
+            NSLog("Back button 4");
         }
         
         
