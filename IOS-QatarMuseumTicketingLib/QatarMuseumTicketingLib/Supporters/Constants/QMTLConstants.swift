@@ -46,9 +46,9 @@ struct QMTLConstants {
     //MARK:-
     struct GantnerAPI {
         //Production
-        //static let baseURL = "https://tickets.qm.org.qa"
+        static let baseURL = "https://tickets.qm.org.qa"
         //staging
-        static let baseURL = "https://testtickets.qm.org.qa"
+        //static let baseURL = "https://testtickets.qm.org.qa"
         static let baseURLTest = "\(GantnerAPI.baseURL)/Json/"
         static let baseImgURLTest = "\(GantnerAPI.baseURL)/WebShopImageService.svc/"
         
