@@ -1781,7 +1781,8 @@ extension DataManager {
     }
     
     static func updateFacilitiesEntity(facilitiesList: [Facilities],
-                                managedContext: NSManagedObjectContext) {
+                                       managedContext: NSManagedObjectContext,
+                                       language: String) {
         let fetchData = DataManager.checkAddedToCoredata(entityName: "FacilitiesEntity",
                                                          idKey: "nid",
                                                          idValue: nil,
@@ -1797,26 +1798,30 @@ extension DataManager {
                     let facilitiesListdbDict = fetchResult[0] as! FacilitiesEntity
                     DataManager.saveFacilitiesEntity(facilitiesListDict: facilitiesListDict,
                                               managedObjContext: managedContext,
-                                              entity: facilitiesListdbDict)
+                                              entity: facilitiesListdbDict,
+                                              language: language)
                 } else {
                     //save
                     DataManager.saveFacilitiesEntity(facilitiesListDict: facilitiesListDict,
                                               managedObjContext: managedContext,
-                                              entity: nil)
+                                              entity: nil,
+                                              language: language)
                 }
             }
         } else {
             for facilitiesListDict in facilitiesList {
                 DataManager.saveFacilitiesEntity(facilitiesListDict: facilitiesListDict,
                                           managedObjContext: managedContext,
-                                          entity: nil)
+                                          entity: nil,
+                                          language: language)
             }
         }
     }
     
     static func saveFacilitiesEntity(facilitiesListDict: Facilities,
                               managedObjContext: NSManagedObjectContext,
-                              entity: FacilitiesEntity?) {
+                              entity: FacilitiesEntity?,
+                              language: String) {
         var facilitiesListInfo = entity
         if entity == nil {
             facilitiesListInfo = NSEntityDescription.insertNewObject(forEntityName: "FacilitiesEntity",
@@ -1825,7 +1830,7 @@ extension DataManager {
         facilitiesListInfo?.title = facilitiesListDict.title
         facilitiesListInfo?.sortId = facilitiesListDict.sortId
         facilitiesListInfo?.nid = facilitiesListDict.nid
-        facilitiesListInfo?.language = Utils.getLanguage()
+        facilitiesListInfo?.language = language
         
         if let images = facilitiesListDict.images {
             for image in images {

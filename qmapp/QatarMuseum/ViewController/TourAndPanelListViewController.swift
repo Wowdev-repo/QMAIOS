@@ -88,7 +88,8 @@ class TourAndPanelListViewController: UIViewController,UITableViewDelegate,UITab
 //                }
 //            }
         }  else if (pageNameString == NMoQPageName.Facilities) {
-            headerView.headerTitle.text = NSLocalizedString("FACILITIES", comment: "FACILITIES Label in the Facilities page page").uppercased()
+            headerView.headerTitle.text = NSLocalizedString("FACILITIES",
+                                                            comment: "FACILITIES Label in the Facilities page page").uppercased()
             NotificationCenter.default.addObserver(self, selector: #selector(TourAndPanelListViewController.receiveFacilitiesListNotificationEn(notification:)), name: NSNotification.Name(facilitiesListNotificationEn), object: nil)
             NotificationCenter.default.addObserver(self, selector: #selector(TourAndPanelListViewController.receiveFacilitiesListNotificationAr(notification:)), name: NSNotification.Name(facilitiesListNotificationAr), object: nil)
             fetchFacilitiesListFromCoredata()
@@ -493,7 +494,8 @@ class TourAndPanelListViewController: UIViewController,UITableViewDelegate,UITab
                 }
                 if(self.facilitiesList.count > 0) {
                     if let facilitiesList = data.facilitiesList {
-                        self.saveOrUpdateFacilitiesListCoredata(facilitiesList: facilitiesList)
+                        self.saveOrUpdateFacilitiesListCoredata(facilitiesList: facilitiesList,
+                                                                language: LocalizationLanguage.currentAppleLanguage())
                     }
                 }
             case .failure( _):
@@ -509,20 +511,23 @@ class TourAndPanelListViewController: UIViewController,UITableViewDelegate,UITab
         }
     }
     //MARK: Facilities List Coredata Method
-    func saveOrUpdateFacilitiesListCoredata(facilitiesList: [Facilities]) {
+    func saveOrUpdateFacilitiesListCoredata(facilitiesList: [Facilities],
+                                            language: String) {
         if !facilitiesList.isEmpty {
             let appDelegate =  UIApplication.shared.delegate as? AppDelegate
             if #available(iOS 10.0, *) {
                 let container = appDelegate!.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
                     DataManager.updateFacilitiesEntity(facilitiesList: facilitiesList,
-                                                       managedContext: managedContext)
+                                                       managedContext: managedContext,
+                                                       language: Utils.getLanguageCode(language))
                 }
             } else {
                 let managedContext = appDelegate!.managedObjectContext
                 managedContext.perform {
                     DataManager.updateFacilitiesEntity(facilitiesList: facilitiesList,
-                                                       managedContext : managedContext)
+                                                       managedContext : managedContext,
+                                                       language: Utils.getLanguageCode(language))
                 }
             }
             DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
@@ -534,9 +539,11 @@ class TourAndPanelListViewController: UIViewController,UITableViewDelegate,UITab
     func fetchFacilitiesListFromCoredata() {
         let managedContext = getContext()
         do {
-            var facilitiesListArray = [FacilitiesEntity]()
-            let fetchRequest =  NSFetchRequest<NSFetchRequestResult>(entityName: "FacilitiesEntity")
-            facilitiesListArray = (try managedContext.fetch(fetchRequest) as? [FacilitiesEntity])!
+            
+            let facilitiesListArray = DataManager.checkAddedToCoredata(entityName: "FacilitiesEntity",
+                                                                       idKey: "language",
+                                                                       idValue: Utils.getLanguage(),
+                                                                       managedContext: managedContext) as! [FacilitiesEntity]
             if (facilitiesListArray.count > 0) {
                 if (networkReachability?.isReachable)! {
                     DispatchQueue.global(qos: .background).async {

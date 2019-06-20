@@ -842,12 +842,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         }
     }
     
-    func getFacilitiesListFromServer(lang:String?) {
-        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.FacilitiesList(lang ?? ENG_LANGUAGE)).responseObject { (response: DataResponse<FacilitiesData>) -> Void in
+    func getFacilitiesListFromServer(lang: String) {
+        _ = CPSessionManager.sharedInstance.apiManager()?
+            .request(QatarMuseumRouter.FacilitiesList(lang))
+            .responseObject { (response: DataResponse<FacilitiesData>) -> Void in
             switch response.result {
             case .success(let data):
                     if let facilitiesList = data.facilitiesList {
-                        self.saveOrUpdateFacilitiesListCoredata(facilitiesList: facilitiesList)
+                        self.saveOrUpdateFacilitiesListCoredata(facilitiesList: facilitiesList,
+                                                                language: lang)
                     }
                 
             case .failure( _):
@@ -856,19 +859,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         }
     }
     //MARK: Facilities List Coredata Method
-    func saveOrUpdateFacilitiesListCoredata(facilitiesList: [Facilities]) {
+    func saveOrUpdateFacilitiesListCoredata(facilitiesList: [Facilities],
+                                            language: String) {
         if !facilitiesList.isEmpty {
             if #available(iOS 10.0, *) {
                 let container = CoreDataManager.shared.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
                     DataManager.updateFacilitiesEntity(facilitiesList: facilitiesList,
-                                                       managedContext : managedContext)
+                                                       managedContext : managedContext,
+                                                       language: Utils.getLanguageCode(language))
                 }
             } else {
                 let managedContext = appDelegate!.managedObjectContext
                 managedContext.perform {
                     DataManager.updateFacilitiesEntity(facilitiesList: facilitiesList,
-                                                       managedContext : managedContext)
+                                                       managedContext : managedContext,
+                                                       language: Utils.getLanguageCode(language))
                 }
             }
         }
