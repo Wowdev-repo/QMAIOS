@@ -1499,7 +1499,9 @@ extension DataManager {
         managedObjContext.saveContext()
     }
     
-    static func updateHeritage(managedContext: NSManagedObjectContext, heritageListArray: [Heritage], language: String) {
+    static func updateHeritage(managedContext: NSManagedObjectContext,
+                               heritageListArray: [Heritage],
+                               language: String) {
         let fetchData = DataManager.checkAddedToCoredata(entityName: "HeritageEntity",
                                                          idKey: "lang",
                                                          idValue: language,
@@ -1647,7 +1649,7 @@ extension DataManager {
                                  language: String) {
         let fetchData = DataManager.checkAddedToCoredata(entityName: "ExhibitionsEntity",
                                                          idKey: "lang",
-                                                         idValue: Utils.getLanguage(),
+                                                         idValue: language,
                                                          managedContext: managedContext) as! [ExhibitionsEntity]
         if (fetchData.count > 0) {
             for exhibitionsListDict in exhibition {
