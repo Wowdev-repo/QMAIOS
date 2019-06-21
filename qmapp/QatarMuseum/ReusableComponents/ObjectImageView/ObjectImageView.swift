@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import CocoaLumberjack
+
 
 protocol ObjectImageViewProtocol {
     func dismissImagePopUpView()

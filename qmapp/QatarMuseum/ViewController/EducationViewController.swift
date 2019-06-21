@@ -12,7 +12,7 @@ import Crashlytics
 import Firebase
 import UIKit
 import YouTubePlayer
-import CocoaLumberjack
+
 
 class EducationViewController: UIViewController,AVPlayerViewControllerDelegate,HeaderViewProtocol {
     @IBOutlet weak var headerView: CommonHeaderView!

@@ -6,7 +6,7 @@
 //  Copyright © 2018 Exalture. All rights reserved.
 //
 
-import CocoaLumberjack
+
 import Kingfisher
 import UIKit
 

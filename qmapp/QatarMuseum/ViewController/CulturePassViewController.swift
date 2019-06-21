@@ -6,13 +6,13 @@
 //  Copyright © 2018 Exalture. All rights reserved.
 //
 
-import Alamofire
-import CoreData
+
+
 import Crashlytics
 import Firebase
 import UIKit
 import KeychainSwift
-import CocoaLumberjack
+
 
 class CulturePassViewController: UIViewController, HeaderViewProtocol, comingSoonPopUpProtocol,LoginPopUpProtocol,UITextFieldDelegate {
     @IBOutlet weak var headerView: CommonHeaderView!

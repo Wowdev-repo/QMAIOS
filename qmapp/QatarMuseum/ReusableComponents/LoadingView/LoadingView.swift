@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import CocoaLumberjack
+
 @objc protocol LoadingViewProtocol {
     func tryAgainButtonPressed()
 }

@@ -9,7 +9,7 @@
 import MapKit
 import UIKit
 import CoreLocation
-import CocoaLumberjack
+
 import Firebase
 
 class MapViewController: UIViewController, HeaderViewProtocol, MKMapViewDelegate, CLLocationManagerDelegate {

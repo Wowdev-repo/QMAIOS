@@ -28,7 +28,7 @@
 		1BE526D42107470700C8CD51 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BE526D32107470700C8CD51 /* Config.swift */; };
 		1BE526D72107896600C8CD51 /* Exhibition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BE526D62107896600C8CD51 /* Exhibition.swift */; };
 		1E63D51322BC9F3E00E2E1A5 /* PanelDiscussionDetailViewController+Tableview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E63D51222BC9F3E00E2E1A5 /* PanelDiscussionDetailViewController+Tableview.swift */; };
-		1E87D19B22BCDB5F00F1C96F /* PanelDiscussionDetailViewController+Extend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E87D19A22BCDB5F00F1C96F /* PanelDiscussionDetailViewController+Extend.swift */; };
+		1E87D19B22BCDB5F00F1C96F /* PanelDiscussionDetailViewController+WebServices&Coredata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E87D19A22BCDB5F00F1C96F /* PanelDiscussionDetailViewController+WebServices&Coredata.swift */; };
 		49504224226311EC00F320EF /* CPSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49504223226311EC00F320EF /* CPSessionManager.swift */; };
 		495FA4A722639DE4006B228F /* qmcert.cer in Resources */ = {isa = PBXBuildFile; fileRef = 49504222226311B000F320EF /* qmcert.cer */; };
 		496DF32A225B08EF00BD8BD1 /* CPLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4929CA0B22377CDA001C42C8 /* CPLogger.swift */; };
@@ -262,7 +262,7 @@
 		1BE526D32107470700C8CD51 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		1BE526D62107896600C8CD51 /* Exhibition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exhibition.swift; sourceTree = "<group>"; };
 		1E63D51222BC9F3E00E2E1A5 /* PanelDiscussionDetailViewController+Tableview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PanelDiscussionDetailViewController+Tableview.swift"; sourceTree = "<group>"; };
-		1E87D19A22BCDB5F00F1C96F /* PanelDiscussionDetailViewController+Extend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PanelDiscussionDetailViewController+Extend.swift"; sourceTree = "<group>"; };
+		1E87D19A22BCDB5F00F1C96F /* PanelDiscussionDetailViewController+WebServices&Coredata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PanelDiscussionDetailViewController+WebServices&Coredata.swift"; sourceTree = "<group>"; };
 		49273F602185A74800D3057A /* QatarMuseums.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = QatarMuseums.entitlements; sourceTree = "<group>"; };
 		4929CA0B22377CDA001C42C8 /* CPLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPLogger.swift; sourceTree = "<group>"; };
 		4929CA0D2238C369001C42C8 /* libz.1.2.5.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.1.2.5.tbd; path = usr/lib/libz.1.2.5.tbd; sourceTree = SDKROOT; };
@@ -645,7 +645,7 @@
 			isa = PBXGroup;
 			children = (
 				B8DB500521B2A36E00C5DD10 /* PanelDiscussionDetailViewController.swift */,
-				1E87D19A22BCDB5F00F1C96F /* PanelDiscussionDetailViewController+Extend.swift */,
+				1E87D19A22BCDB5F00F1C96F /* PanelDiscussionDetailViewController+WebServices&Coredata.swift */,
 				1E63D51222BC9F3E00E2E1A5 /* PanelDiscussionDetailViewController+Tableview.swift */,
 			);
 			path = Controller;
@@ -1646,7 +1646,7 @@
 				B8E2C01020C7E9E900F3CE41 /* ComingSoonPopUp.swift in Sources */,
 				B8B54D6E20FF516B00B21348 /* CollectionDetailCell.swift in Sources */,
 				B8ADA8AD2164CD4100127F9A /* PreviewContainerViewController.swift in Sources */,
-				1E87D19B22BCDB5F00F1C96F /* PanelDiscussionDetailViewController+Extend.swift in Sources */,
+				1E87D19B22BCDB5F00F1C96F /* PanelDiscussionDetailViewController+WebServices&Coredata.swift in Sources */,
 				B8294CE720CBF265002AFF72 /* FSCalendarCalculator.m in Sources */,
 				B8294CED20CBF265002AFF72 /* NSString+Category.m in Sources */,
 				B8D1228D20C8EE8600772507 /* WebViewController.swift in Sources */,

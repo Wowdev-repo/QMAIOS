@@ -7,9 +7,9 @@
 //
 
 import Foundation
-import CocoaLumberjack
+
 import SSZipArchive
-import CocoaLumberjack
+
 
 public var fileLogger: DDFileLogger = DDFileLogger()
 

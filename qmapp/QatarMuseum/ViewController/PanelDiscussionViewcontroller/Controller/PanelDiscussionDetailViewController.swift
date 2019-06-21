@@ -6,15 +6,13 @@
 //  Copyright © 2018 Wakralab. All rights reserved.
 //
 
-import Alamofire
-import CoreData
+
 import EventKit
 import MapKit
 import MessageUI
 import Firebase
 import UIKit
 import KeychainSwift
-import CocoaLumberjack
 
 enum NMoQPanelPage {
     case PanelDetailPage
@@ -24,7 +22,7 @@ enum NMoQPanelPage {
     case CollectionDetail
 }
 class PanelDiscussionDetailViewController: UIViewController,LoadingViewProtocol,HeaderViewProtocol,comingSoonPopUpProtocol,DeclinePopupProtocol, MFMailComposeViewControllerDelegate,UIPickerViewDelegate,UIPickerViewDataSource,UIGestureRecognizerDelegate,EventPopUpProtocol {
-
+    
     @IBOutlet weak var panelDetailTableView: UITableView!
     @IBOutlet weak var loadingView: LoadingView!
     @IBOutlet weak var headerView: CommonHeaderView!
@@ -61,7 +59,7 @@ class PanelDiscussionDetailViewController: UIViewController,LoadingViewProtocol,
     
     override func viewDidLoad() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-
+        
         super.viewDidLoad()
         DispatchQueue.main.async{
             self.registerCell()
@@ -69,7 +67,7 @@ class PanelDiscussionDetailViewController: UIViewController,LoadingViewProtocol,
         setupUI()
         self.recordScreenView()
     }
-
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
@@ -113,7 +111,7 @@ class PanelDiscussionDetailViewController: UIViewController,LoadingViewProtocol,
         }
         
     }
-   
+    
     func loadLocationMap( mobileLatitude: String?, mobileLongitude: String? ) {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), Latitude:\(String(describing: mobileLatitude)), Longitude:\(String(describing: mobileLongitude))")
         if (mobileLatitude != nil && mobileLatitude != "" && mobileLongitude != nil && mobileLongitude != "") {
@@ -156,16 +154,16 @@ class PanelDiscussionDetailViewController: UIViewController,LoadingViewProtocol,
                 if((timeArray?.count)! != 3) {
                     self.loadNoEndTimePopup()
                 }else {
-   //                 if(userEventList.count == 0) {
-                        addPickerView()
-//                    } else {
-//                        let haveConflict = checkConflictWithAlreadyRegisteredEvent(currentRow: currentRow)
-//                        if((haveConflict == false) || (haveConflict == nil)) {
-//                            addPickerView()
-//                        } else {
-//                            loadAlreadyRegisteredPopup()
-//                        }
-//                    }
+                    //                 if(userEventList.count == 0) {
+                    addPickerView()
+                    //                    } else {
+                    //                        let haveConflict = checkConflictWithAlreadyRegisteredEvent(currentRow: currentRow)
+                    //                        if((haveConflict == false) || (haveConflict == nil)) {
+                    //                            addPickerView()
+                    //                        } else {
+                    //                            loadAlreadyRegisteredPopup()
+                    //                        }
+                    //                    }
                 }
             } else {
                 loadConfirmationPopup()
@@ -299,76 +297,76 @@ class PanelDiscussionDetailViewController: UIViewController,LoadingViewProtocol,
         let time = getTimeStamp(currentRow: currentRow)
         if (time.startTime != nil && time.endTime != nil) {
             
-         if((nmoqTourDetail[currentRow].nid != nil) && (keychain.get(UserProfileInfo.user_id)) != nil) && ((keychain.get(UserProfileInfo.user_firstname) != nil) && (keychain.get(UserProfileInfo.user_lastname) != nil)) {
-        let entityId = nmoqTourDetail[currentRow].nid
-        let userId = keychain.get(UserProfileInfo.user_id)!
-        let firstName = (keychain.get(UserProfileInfo.user_firstname))!
-        let lastName = (keychain.get(UserProfileInfo.user_lastname))!
-        let fieldConfirmAttendance =
-            [
-                "und":[[
-                    "value": "1"
-                    ]]
-        ]
-        let fieldNumberOfAttendees =
-            [
-                "und":[[
-                    "value": "2"
-                    ]]
-        ]
-        let fieldFirstName =
-            [
-                "und":[[
-                    "value": firstName,
-                    "safe_value": firstName
-                    ]]
-        ]
-        let fieldNmoqLastName =
-            [
-                "und":[[
-                    "value": lastName,
-                    "safe_value": lastName
-                    ]]
-        ]
-        let fieldMembershipNumber =
-            [
-                "und":[[
-                    "value": "144386",
-                    
-                    ]]
-        ]
-        let fieldQmaEduRegDate =
-            [
-                "und":[[
-                    "value": time.startTime!,
-                    "value2": time.endTime!,
-                    "timezone": "Asia/Qatar",
-                    "offset": "10800",
-                    "offset2": "10800",
-                    "timezone_db": "Asia/Qatar",
-                    "date_type": "datestamp"
-                    
-                    ]]
-        ]
-        let timestamp = Int(NSDate().timeIntervalSince1970)
-        let timestampInString = String(timestamp)
-            _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.NMoQEntityRegistration(["type" : "nmoq_event_registration","entity_id": entityId!,"entity_type" :"node","user_uid": userId,"count": selectedCount!,"author_uid": userId,"state": "pending","created": timestampInString,"updated": timestampInString,"field_confirm_attendance" :fieldConfirmAttendance,"field_number_of_attendees" : fieldNumberOfAttendees, "field_first_name_": fieldFirstName,"field_nmoq_last_name" : fieldNmoqLastName,"field_membership_number": fieldMembershipNumber,"field_qma_edu_reg_date":fieldQmaEduRegDate])).responseObject { (response: DataResponse<NMoQEntityRegistration>) -> Void in
-                switch response.result {
-                case .success(let data):
-                    self.entityRegistration = data
-                    self.newRegistrationId = self.entityRegistration?.registrationId
-                    self.setEntityRegistrationAsComplete(currentRow: currentRow, timestamp: timestampInString, selectedCell: selectedCell)
-                case .failure( _):
-                    self.loadingView.stopLoading()
-                    self.loadingView.isHidden = true
-                    
+            if((nmoqTourDetail[currentRow].nid != nil) && (keychain.get(UserProfileInfo.user_id)) != nil) && ((keychain.get(UserProfileInfo.user_firstname) != nil) && (keychain.get(UserProfileInfo.user_lastname) != nil)) {
+                let entityId = nmoqTourDetail[currentRow].nid
+                let userId = keychain.get(UserProfileInfo.user_id)!
+                let firstName = (keychain.get(UserProfileInfo.user_firstname))!
+                let lastName = (keychain.get(UserProfileInfo.user_lastname))!
+                let fieldConfirmAttendance =
+                    [
+                        "und":[[
+                            "value": "1"
+                            ]]
+                ]
+                let fieldNumberOfAttendees =
+                    [
+                        "und":[[
+                            "value": "2"
+                            ]]
+                ]
+                let fieldFirstName =
+                    [
+                        "und":[[
+                            "value": firstName,
+                            "safe_value": firstName
+                            ]]
+                ]
+                let fieldNmoqLastName =
+                    [
+                        "und":[[
+                            "value": lastName,
+                            "safe_value": lastName
+                            ]]
+                ]
+                let fieldMembershipNumber =
+                    [
+                        "und":[[
+                            "value": "144386",
+                            
+                            ]]
+                ]
+                let fieldQmaEduRegDate =
+                    [
+                        "und":[[
+                            "value": time.startTime!,
+                            "value2": time.endTime!,
+                            "timezone": "Asia/Qatar",
+                            "offset": "10800",
+                            "offset2": "10800",
+                            "timezone_db": "Asia/Qatar",
+                            "date_type": "datestamp"
+                            
+                            ]]
+                ]
+                let timestamp = Int(NSDate().timeIntervalSince1970)
+                let timestampInString = String(timestamp)
+                _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.NMoQEntityRegistration(["type" : "nmoq_event_registration","entity_id": entityId!,"entity_type" :"node","user_uid": userId,"count": selectedCount!,"author_uid": userId,"state": "pending","created": timestampInString,"updated": timestampInString,"field_confirm_attendance" :fieldConfirmAttendance,"field_number_of_attendees" : fieldNumberOfAttendees, "field_first_name_": fieldFirstName,"field_nmoq_last_name" : fieldNmoqLastName,"field_membership_number": fieldMembershipNumber,"field_qma_edu_reg_date":fieldQmaEduRegDate])).responseObject { (response: DataResponse<NMoQEntityRegistration>) -> Void in
+                    switch response.result {
+                    case .success(let data):
+                        self.entityRegistration = data
+                        self.newRegistrationId = self.entityRegistration?.registrationId
+                        self.setEntityRegistrationAsComplete(currentRow: currentRow, timestamp: timestampInString, selectedCell: selectedCell)
+                    case .failure( _):
+                        self.loadingView.stopLoading()
+                        self.loadingView.isHidden = true
+                        
+                    }
                 }
+            } else {
+                self.loadingView.stopLoading()
+                self.loadingView.isHidden = true
             }
-         } else {
-            self.loadingView.stopLoading()
-            self.loadingView.isHidden = true
-            }
-    }
+        }
         
     }
     func setEntityRegistrationAsComplete(currentRow: Int, timestamp: String,selectedCell: myCustomPanelCell?) {
@@ -376,79 +374,79 @@ class PanelDiscussionDetailViewController: UIViewController,LoadingViewProtocol,
         if((newRegistrationId != nil) && (nmoqTourDetail[currentRow].nid != nil) && (keychain.get(UserProfileInfo.user_id) != nil) && (keychain.get(UserProfileInfo.user_firstname) != nil) && (keychain.get(UserProfileInfo.user_lastname) != nil)) {
             let time = getTimeStamp(currentRow: currentRow)
             if (time.startTime != nil && time.endTime != nil) {
-            let regId = newRegistrationId
-            let entityId = nmoqTourDetail[currentRow].nid
-            let userId = keychain.get(UserProfileInfo.user_id)!
-            let firstName = (keychain.get(UserProfileInfo.user_firstname) != nil)
-            let lastName = (keychain.get(UserProfileInfo.user_lastname) != nil)
-            let fieldConfirmAttendance =
-                [
-                    "und":[[
-                        "value": "1"
-                        ]]
-            ]
-            let fieldNumberOfAttendees =
-                [
-                    "und":[[
-                        "value": "2"
-                        ]]
-            ]
-            let fieldFirstName =
-                [
-                    "und":[[
-                        "value": firstName,
-                        "safe_value": firstName
-                        ]]
-            ]
-            let fieldNmoqLastName =
-                [
-                    "und":[[
-                        "value": lastName,
-                        "safe_value": lastName
-                        ]]
-            ]
-            let fieldMembershipNumber =
-                [
-                    "und":[[
-                        "value": "144386",
-
-                        ]]
-            ]
-            let fieldQmaEduRegDate =
-                [
-                    "und":[[
-                        "value": time.startTime!,
-                        "value2": time.endTime!,
-                        "timezone": "Asia/Qatar",
-                        "offset": "10800",
-                        "offset2": "10800",
-                        "timezone_db": "Asia/Qatar",
-                        "date_type": "datestamp"
-
-                        ]]
-            ]
+                let regId = newRegistrationId
+                let entityId = nmoqTourDetail[currentRow].nid
+                let userId = keychain.get(UserProfileInfo.user_id)!
+                let firstName = (keychain.get(UserProfileInfo.user_firstname) != nil)
+                let lastName = (keychain.get(UserProfileInfo.user_lastname) != nil)
+                let fieldConfirmAttendance =
+                    [
+                        "und":[[
+                            "value": "1"
+                            ]]
+                ]
+                let fieldNumberOfAttendees =
+                    [
+                        "und":[[
+                            "value": "2"
+                            ]]
+                ]
+                let fieldFirstName =
+                    [
+                        "und":[[
+                            "value": firstName,
+                            "safe_value": firstName
+                            ]]
+                ]
+                let fieldNmoqLastName =
+                    [
+                        "und":[[
+                            "value": lastName,
+                            "safe_value": lastName
+                            ]]
+                ]
+                let fieldMembershipNumber =
+                    [
+                        "und":[[
+                            "value": "144386",
+                            
+                            ]]
+                ]
+                let fieldQmaEduRegDate =
+                    [
+                        "und":[[
+                            "value": time.startTime!,
+                            "value2": time.endTime!,
+                            "timezone": "Asia/Qatar",
+                            "offset": "10800",
+                            "offset2": "10800",
+                            "timezone_db": "Asia/Qatar",
+                            "date_type": "datestamp"
+                            
+                            ]]
+                ]
                 _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.SetUserRegistrationComplete(regId!,["registration_id": regId!,"type" : "nmoq_event_registration","entity_id": entityId!,"entity_type" :"node","user_uid": userId,"count": selectedCount!,"author_uid": userId,"state": "complete","created": timestamp,"updated": timestamp,"field_confirm_attendance" :fieldConfirmAttendance,"field_number_of_attendees" : fieldNumberOfAttendees, "field_first_name_": fieldFirstName,"field_nmoq_last_name" : fieldNmoqLastName,"field_membership_number": fieldMembershipNumber,"field_qma_edu_reg_date":fieldQmaEduRegDate])).responseObject { (response: DataResponse<NMoQEntityRegistration>) -> Void in
-                switch response.result {
-                case .success(let data):
-                    self.loadingView.stopLoading()
-                    self.loadingView.isHidden = true
-                    self.completedEntityReg = data
-                    self.userEventList.append(NMoQUserEventList(title: self.panelTitle, eventID: self.completedEntityReg?.entityId, regID: self.completedEntityReg?.registrationId,seats:self.selectedCount))
-                    self.saveOrUpdateEventReistratedCoredata(tourEntity: self.nmoqTourDetail[currentRow], registrationId: self.completedEntityReg?.registrationId)
-                    self.loadAddToCalendarPopup()
+                    switch response.result {
+                    case .success(let data):
+                        self.loadingView.stopLoading()
+                        self.loadingView.isHidden = true
+                        self.completedEntityReg = data
+                        self.userEventList.append(NMoQUserEventList(title: self.panelTitle, eventID: self.completedEntityReg?.entityId, regID: self.completedEntityReg?.registrationId,seats:self.selectedCount))
+                        self.saveOrUpdateEventReistratedCoredata(tourEntity: self.nmoqTourDetail[currentRow], registrationId: self.completedEntityReg?.registrationId)
+                        self.loadAddToCalendarPopup()
                     //self.setRegistrationSwitchOn(selectedCell: selectedCell)
-                case .failure( _):
-                    self.loadingView.stopLoading()
-                    self.loadingView.isHidden = true
-
+                    case .failure( _):
+                        self.loadingView.stopLoading()
+                        self.loadingView.isHidden = true
+                        
+                    }
                 }
             }
-        }
         } else {
             self.loadingView.stopLoading()
             self.loadingView.isHidden = true
         }
-
+        
     }
     func setEntityUnRegistration(currentRow: Int,selectedCell: myCustomPanelCell?) {
         var regId : String? = nil
@@ -462,7 +460,7 @@ class PanelDiscussionDetailViewController: UIViewController,LoadingViewProtocol,
             }
         }
         if((regId != nil) && ((keychain.get(UserProfileInfo.user_password) != nil))  && (keychain.get(UserProfileInfo.user_dispaly_name) != nil)) {
-           // let regId = nmoqTourDetail[currentRow].nid
+            // let regId = nmoqTourDetail[currentRow].nid
             let userName = (keychain.get(UserProfileInfo.user_dispaly_name))!
             let pwd = (keychain.get(UserProfileInfo.user_password))! 
             
@@ -510,21 +508,21 @@ class PanelDiscussionDetailViewController: UIViewController,LoadingViewProtocol,
     func userEventCoreDataInBackgroundThread(managedContext: NSManagedObjectContext,tourEntity: NMoQTourDetail,registrationId: String?) {
         if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
             if (userEventList.count > 0) {
-                    let userEventInfo: RegisteredEventListEntity = NSEntityDescription.insertNewObject(forEntityName: "RegisteredEventListEntity", into: managedContext) as! RegisteredEventListEntity
-                    userEventInfo.title = tourEntity.title
-                    userEventInfo.eventId = tourEntity.nid
-                    userEventInfo.regId = registrationId
-                    userEventInfo.seats = selectedCount
-                    managedContext.saveContext()
+                let userEventInfo: RegisteredEventListEntity = NSEntityDescription.insertNewObject(forEntityName: "RegisteredEventListEntity", into: managedContext) as! RegisteredEventListEntity
+                userEventInfo.title = tourEntity.title
+                userEventInfo.eventId = tourEntity.nid
+                userEventInfo.regId = registrationId
+                userEventInfo.seats = selectedCount
+                managedContext.saveContext()
             }
         }
     }
     
-   
+    
     func calculateToursOverlap(times : [[String : String]]) -> Bool? {
         
         let dateFormat = "MM-dd-yyyy HH:mm" //Z is for zone
-
+        
         if #available(iOS 10.0, *) {
             var intervals = [DateInterval]()
             // Loop through date ranges to convert them to date intervals
@@ -609,8 +607,8 @@ class PanelDiscussionDetailViewController: UIViewController,LoadingViewProtocol,
                 conflictIdArray = nmoqTourDetail
                 conflictIdArray.remove(at: i)
                 break
-                }
             }
+        }
         
         for i  in 0 ... userEventList.count-1 {
             if let idArray = conflictIdArray.first(where: {$0.nid == userEventList[i].eventID}) {
@@ -622,7 +620,7 @@ class PanelDiscussionDetailViewController: UIViewController,LoadingViewProtocol,
             }
         }
         return nil
-            
+        
         
     }
     func setTimeArray(selectedEvent: [NMoQTourDetail])-> Bool? {
@@ -642,10 +640,10 @@ class PanelDiscussionDetailViewController: UIViewController,LoadingViewProtocol,
             }
         }
         
-            let haveConflict = calculateToursOverlap(times: times)
-            return haveConflict
+        let haveConflict = calculateToursOverlap(times: times)
+        return haveConflict
     }
-
+    
     func fetchUserEventListFromCoredata() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         if (userEventList.count > 0) {
@@ -687,7 +685,7 @@ class PanelDiscussionDetailViewController: UIViewController,LoadingViewProtocol,
             }
         }
     }
-
+    
     func deleteExistingEvent(managedContext:NSManagedObjectContext,registrationId: String?)  {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "RegisteredEventListEntity")
         fetchRequest.predicate = NSPredicate.init(format: "\("regId") == \(registrationId!)")
@@ -751,7 +749,7 @@ class PanelDiscussionDetailViewController: UIViewController,LoadingViewProtocol,
             self.popupView.removeFromSuperview()
         }
         self.popupView.removeFromSuperview()
-
+        
     }
     func loadConfirmationPopup() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
@@ -803,7 +801,7 @@ class PanelDiscussionDetailViewController: UIViewController,LoadingViewProtocol,
             self.showSendMailErrorAlert()
         }
     }
-   
+    
     func configuredMailComposeViewController(emailId:String) -> MFMailComposeViewController {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         let mailComposerVC = MFMailComposeViewController()
@@ -827,19 +825,19 @@ class PanelDiscussionDetailViewController: UIViewController,LoadingViewProtocol,
         }
         sendMailErrorAlert.addAction(okAction)
         self.present(sendMailErrorAlert, animated: true, completion: nil)
-
+        
     }
     
     // MARK: MFMailComposeViewControllerDelegate Method
     func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         controller.dismiss(animated: true, completion: nil)
     }
-
+    
     
     func dialNumber(number : String) {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         let phoneNumber = number.replacingOccurrences(of: " ", with: "")
-
+        
         if let url = URL(string: "tel://\(String(phoneNumber))"),
             UIApplication.shared.canOpenURL(url) {
             if #available(iOS 10, *) {
@@ -868,7 +866,7 @@ class PanelDiscussionDetailViewController: UIViewController,LoadingViewProtocol,
         picker.delegate = self
         picker.dataSource = self
         overlayView.isHidden = false
- 
+        
         toolBar.frame = CGRect(x: 0, y: picker.frame.origin.y, width: self.view.frame.width, height: 100)
         toolBar.barStyle = UIBarStyle.default
         toolBar.isTranslucent = true
@@ -1040,7 +1038,7 @@ class PanelDiscussionDetailViewController: UIViewController,LoadingViewProtocol,
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         addToCalendarPopup  = EventPopupView(frame: self.view.frame)
         addToCalendarPopup.eventPopupDelegate = self
-
+        
         addToCalendarPopup.eventTitle.text = NSLocalizedString("PERMISSION_TITLE", comment: "PERMISSION_TITLE  in the popup view")
         addToCalendarPopup.eventDescription.text = NSLocalizedString("CALENDAR_PERMISSION", comment: "CALENDAR_PERMISSION  in the popup view")
         addToCalendarPopup.addToCalendarButton.setTitle(NSLocalizedString("SIDEMENU_SETTINGS_LABEL", comment: "SIDEMENU_SETTINGS_LABEL  in the popup view"), for: .normal)
@@ -1055,9 +1053,6 @@ class PanelDiscussionDetailViewController: UIViewController,LoadingViewProtocol,
                 switch response.result {
                 case .success(let data):
                     self.facilitiesDetail = data.facilitiesDetail ?? []
-                    //                    if self.nmoqTourDetail.first(where: {$0.sortId != "" && $0.sortId != nil} ) != nil {
-                    //                        self.nmoqTourDetail = self.nmoqTourDetail.sorted(by: { Int16($0.sortId!)! < Int16($1.sortId!)! })
-                    //                    }
                     self.panelDetailTableView.reloadData()
                     if(self.nmoqTourDetail.count == 0) {
                         let noResultMsg = NSLocalizedString("NO_RESULT_MESSAGE",
@@ -1097,7 +1092,7 @@ class PanelDiscussionDetailViewController: UIViewController,LoadingViewProtocol,
         } else {
             Analytics.setScreenName(NMOQ_FACILITIES_DETAIL, screenClass: screenClass)
         }
-    
+        
     }
     @objc func receiveNmoqParkDetailNotificationEn(notification: NSNotification) {
         if ((LocalizationLanguage.currentAppleLanguage() == ENG_LANGUAGE ) && (nmoqParkDetailArray.count == 0)){

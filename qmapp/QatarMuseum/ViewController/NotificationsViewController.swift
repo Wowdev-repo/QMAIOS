@@ -6,11 +6,11 @@
 //  Copyright © 2018 Exalture. All rights reserved.
 //
 
-import CoreData
+
 import Crashlytics
 import Firebase
 import UIKit
-import CocoaLumberjack
+
 
 class NotificationsViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,HeaderViewProtocol {
     @IBOutlet weak var notificationsTableView: UITableView!

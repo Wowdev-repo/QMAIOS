@@ -9,7 +9,7 @@ import AVFoundation
 import AVKit
 import Crashlytics
 import UIKit
-import CocoaLumberjack
+
 
 protocol MapDetailProtocol
 {

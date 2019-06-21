@@ -6,16 +6,16 @@
 //  Copyright © 2018 Exalture. All rights reserved.
 //
 
-import Alamofire
+
 import AVFoundation
 import AVKit
 import Crashlytics
-import CoreData
+
 import Firebase
 import GoogleMaps
 import Kingfisher
 import UIKit
-import CocoaLumberjack
+
 
 enum levelNumber{
     case one

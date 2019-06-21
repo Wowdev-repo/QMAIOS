@@ -6,13 +6,13 @@
 //  Copyright © 2018 Exalture. All rights reserved.
 //
 
-import Alamofire
-import CoreData
+
+
 import Crashlytics
 import EventKit
 import Firebase
 import UIKit
-import CocoaLumberjack
+
 
 class EventViewController: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource, HeaderViewProtocol,FSCalendarDelegate,FSCalendarDataSource,UICollectionViewDelegateFlowLayout,EventPopUpProtocol,UIViewControllerTransitioningDelegate,UIGestureRecognizerDelegate,comingSoonPopUpProtocol,LoadingViewProtocol {
     

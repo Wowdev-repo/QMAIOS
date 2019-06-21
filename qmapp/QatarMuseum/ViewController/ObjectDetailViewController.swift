@@ -10,7 +10,7 @@ import AVKit
 import Crashlytics
 import Firebase
 import UIKit
-import CocoaLumberjack
+
 
 class ObjectDetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate {
     @IBOutlet weak var objectTableView: UITableView!

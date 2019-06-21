@@ -8,7 +8,7 @@
 
 import UIKit
 import MapKit
-import CocoaLumberjack
+
 
 class myCustomPanelCell: UITableViewCell,UITextViewDelegate {
     @IBOutlet weak var topImg: UIImageView!

@@ -6,14 +6,14 @@
 //  Copyright © 2018 Exalture. All rights reserved.
 //
 
-import Alamofire
-import CoreData
+
+
 import Crashlytics
 import Firebase
 import Kingfisher
 import UIKit
 import KeychainSwift
-import CocoaLumberjack
+
 
 class ProfileViewController: UIViewController,HeaderViewProtocol,comingSoonPopUpProtocol {
     @IBOutlet weak var headerView: CommonHeaderView!

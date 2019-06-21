@@ -11,7 +11,7 @@ import AVKit
 import Crashlytics
 import Firebase
 import UIKit
-import CocoaLumberjack
+
 
 class PreviewContentViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate {
     @IBOutlet weak var accessNumberLabel: UILabel!

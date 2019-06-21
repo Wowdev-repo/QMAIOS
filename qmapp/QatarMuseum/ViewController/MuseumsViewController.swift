@@ -6,13 +6,13 @@
 //  Copyright © 2018 Exalture. All rights reserved.
 //
 
-import Alamofire
-import CoreData
+
+
 import Crashlytics
 import Firebase
 import Kingfisher
 import UIKit
-import CocoaLumberjack
+
 class MuseumsViewController: UIViewController,KASlideShowDelegate,TopBarProtocol,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,comingSoonPopUpProtocol {
     
     @IBOutlet weak var museumsTopbar: TopBarView!

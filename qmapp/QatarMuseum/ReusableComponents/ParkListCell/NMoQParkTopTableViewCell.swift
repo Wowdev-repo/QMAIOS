@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import CocoaLumberjack
+
 
 class NMoQParkTopTableViewCell: UITableViewCell {
     @IBOutlet weak var topCellLabel: UILabel!

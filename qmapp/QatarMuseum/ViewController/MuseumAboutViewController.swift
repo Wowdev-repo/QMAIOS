@@ -8,15 +8,15 @@
 
 
 
-import Alamofire
+
 import AVFoundation
 import AVKit
-import CoreData
+
 import Firebase
 import  MapKit
 import MessageUI
 import UIKit
-import CocoaLumberjack
+
 
 enum PageName2{
     case museumAbout

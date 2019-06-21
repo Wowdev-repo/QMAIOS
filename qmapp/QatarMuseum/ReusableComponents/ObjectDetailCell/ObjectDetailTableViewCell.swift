@@ -9,7 +9,7 @@
 import AVFoundation
 import AVKit
 import UIKit
-import CocoaLumberjack
+
 
 class ObjectDetailTableViewCell: UITableViewCell,UITextViewDelegate,MapDetailProtocol {
     @IBOutlet weak var titleLabel: UILabel!

@@ -8,7 +8,7 @@
 
 import MapKit
 import UIKit
-import CocoaLumberjack
+
 
 class ParkListTableViewCell: UITableViewCell {
 

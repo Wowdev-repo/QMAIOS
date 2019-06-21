@@ -6,12 +6,12 @@
 //  Copyright © 2018 Wakralab. All rights reserved.
 //
 
-import Alamofire
+
 import AVFoundation
 import AVKit
 import GoogleMaps
 import GooglePlaces
-import CocoaLumberjack
+
 import Firebase
 
 import UIKit

@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import CocoaLumberjack
+
 
 class NotificationsTableViewCell: UITableViewCell {
 

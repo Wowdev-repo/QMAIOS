@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import CocoaLumberjack
+
 
 class MiaCollectionReusableView: UITableViewCell {
     @IBOutlet weak var miaTourGuideText: UILabel!

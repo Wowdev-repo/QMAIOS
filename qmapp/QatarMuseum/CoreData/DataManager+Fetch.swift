@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import CoreData
+
 
 //Fetch functions
 extension DataManager {

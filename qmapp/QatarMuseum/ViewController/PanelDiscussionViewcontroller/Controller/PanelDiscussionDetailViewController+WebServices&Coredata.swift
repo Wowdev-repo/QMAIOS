@@ -7,6 +7,8 @@
 //
 
 import Foundation
+
+
 extension PanelDiscussionDetailViewController {
     
     //MARK: Coredata Method

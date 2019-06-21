@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import CocoaLumberjack
+
 
 class ArtifactNumberPadCell: UICollectionViewCell {
     @IBOutlet weak var innerView: UIView!

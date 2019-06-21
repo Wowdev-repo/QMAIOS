@@ -6,9 +6,9 @@
 //  Copyright © 2018 Exalture. All rights reserved.
 //
 
-import Alamofire
-import CocoaLumberjack
-import CoreData
+
+
+
 import Firebase
 import MessageUI
 import UIKit

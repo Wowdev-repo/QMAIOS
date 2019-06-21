@@ -7,8 +7,8 @@
 //
 
 import Foundation
-import Alamofire
-import CocoaLumberjack
+
+
 
 public class QatarMuseumError : NSObject {
     var code: Int
