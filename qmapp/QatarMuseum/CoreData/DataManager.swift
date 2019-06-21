@@ -566,7 +566,7 @@ extension DataManager {
                                                                    idValue: tourGuideListDict.nid,
                                                                    managedContext: managedContext)
                 //update
-                if fetchResult.isEmpty {
+                if !fetchResult.isEmpty {
                     let tourguidedbDict = fetchResult[0] as! TourGuideEntity
                     DataManager.saveTourGuide(tourguideListDict: tourGuideListDict,
                                               managedObjContext: managedContext,
@@ -955,7 +955,7 @@ extension DataManager {
                                                          idKey: "sortId",
                                                          idValue: nil,
                                                          managedContext: managedContext) as! [NotificationsEntity]
-        if (fetchData.count > 0) {
+        if !fetchData.isEmpty {
             for notificationDict in notifications {
                 let fetchResult = DataManager.checkAddedToCoredata(entityName: "NotificationsEntity",
                                                                    idKey: "sortId",
@@ -1006,7 +1006,7 @@ extension DataManager {
                                                                    idValue: travelListDict.fullContentID,
                                                                    managedContext: managedContext)
                 //update
-                if(fetchResult.count != 0) {
+                if !fetchResult.isEmpty {
                     let travelListdbDict = fetchResult[0] as! NMoQTravelListEntity
                     DataManager.saveTravelList(travelListDict: travelListDict,
                                         managedObjContext: managedContext,
@@ -1070,7 +1070,7 @@ extension DataManager {
                                                                    idValue: tourListDict.nid,
                                                                    managedContext: managedContext)
                 //update
-                if(fetchResult.count != 0) {
+                if !fetchResult.isEmpty {
                     let tourListdbDict = fetchResult[0] as! NMoQTourListEntity
                     DataManager.saveTourList(tourListDict: tourListDict,
                                       managedObjContext: managedContext,
@@ -1149,7 +1149,7 @@ extension DataManager {
                                                                    idValue: nmoqParkListDict.nid,
                                                                    managedContext: managedContext)
                 //update
-                if(fetchResult.count != 0) {
+                if !fetchResult.isEmpty {
                     let nmoqParkListdbDict = fetchResult[0] as! NMoQParksEntity
                     DataManager.saveNmoqParks(nmoqParkListDict: nmoqParkListDict,
                                        managedObjContext: managedContext,
@@ -1212,7 +1212,7 @@ extension DataManager {
                                                                    idValue: nmoqParkListDict.nid,
                                                                    managedContext: managedContext)
                 //update
-                if(fetchResult.count != 0) {
+                if !fetchResult.isEmpty {
                     let nmoqParkListdbDict = fetchResult[0] as! NMoQParkListEntity
                     DataManager.saveNmoqParkList(nmoqParkListDict: nmoqParkListDict,
                                           managedObjContext: managedContext,
@@ -1275,7 +1275,7 @@ extension DataManager {
                                                                    idValue: nmoqParkListDict.nid,
                                                                    managedContext: managedContext)
                 //update
-                if(fetchResult.count != 0) {
+                if !fetchResult.isEmpty {
                     let nmoqParkListdbDict = fetchResult[0] as! NMoQParkDetailEntity
                     DataManager.saveNMoQParkDetail(nmoqParkListDict: nmoqParkListDict,
                                             managedObjContext: managedContext,
@@ -1333,7 +1333,7 @@ extension DataManager {
                                                                    idValue: nmoqActivityListDict.nid,
                                                                    managedContext: managedContext)
                 //update
-                if(fetchResult.count != 0) {
+                if !fetchResult.isEmpty {
                     let activityListdbDict = fetchResult[0] as! NMoQActivitiesEntity
                     DataManager.saveActivityList(activityListDict: nmoqActivityListDict,
                                           managedObjContext: managedContext,
@@ -1410,7 +1410,7 @@ extension DataManager {
                                                                    idValue: homeListDict.id,
                                                                    managedContext: managedContext)
                 //update
-                if(fetchResult.count != 0) {
+                if !fetchResult.isEmpty {
                     let homedbDict = fetchResult[0] as! HomeEntity
                     DataManager.saveHomeEntity(homeListDict: homeListDict,
                                         managedObjContext: managedContext,
@@ -1459,7 +1459,7 @@ extension DataManager {
                                                          idValue: nil,
                                                          managedContext: managedContext) as! [HomeBannerEntity]
         let homeListDict = list[0]
-        if (fetchData.count > 0) {
+        if !fetchData.isEmpty {
             if DataManager.delete(managedContext: managedContext,
                                   entityName: "HomeBannerEntity") {
                 DataManager.saveHomeBannerT(homeListDict: homeListDict,
@@ -1514,7 +1514,7 @@ extension DataManager {
                                                                    idValue: heritageListDict.id,
                                                                    managedContext: managedContext)
                 //update
-                if(fetchResult.count != 0) {
+                if !fetchResult.isEmpty {
                     let heritagedbDict = fetchResult[0] as! HeritageEntity
                     DataManager.saveTHeritage(heritageListDict: heritageListDict,
                                               managedObjContext: managedContext,
@@ -1571,8 +1571,7 @@ extension DataManager {
                                                                        idValue: tourGuideDeatilDict.nid,
                                                                        managedContext: managedContext) as! [FloorMapTourGuideEntity]
                     
-                    if(fetchResult.count != 0) {
-                        
+                    if !fetchResult.isEmpty {
                         //update
                         let tourguidedbDict = fetchResult[0]
                         DataManager.saveFloorMapTourGuide(tourGuideDetailDict: tourGuideDeatilDict,
@@ -1656,10 +1655,10 @@ extension DataManager {
                 let fetchResult = DataManager.checkAddedToCoredata(entityName: "ExhibitionsEntity",
                                                                    idKey: "id",
                                                                    idValue: exhibitionsListDict.id,
-                                                                   managedContext: managedContext)
+                                                                   managedContext: managedContext) as! [ExhibitionsEntity]
                 //update
-                if(fetchResult.count != 0) {
-                    let exhibitionsdbDict = fetchResult[0] as! ExhibitionsEntity
+                if !fetchResult.isEmpty {
+                    let exhibitionsdbDict = fetchResult[0]
                     DataManager.saveExhibitionsEntity(exhibitionDict: exhibitionsListDict,
                                                managedObjContext: managedContext,
                                                isHomeExhibition :isHomeExhibition,
@@ -1784,7 +1783,7 @@ extension DataManager {
                                                          idKey: "lang",
                                                          idValue: language,
                                                          managedContext: managedContext) as! [CollectionsEntity]
-        if (fetchData.count > 0) {
+        if !fetchData.isEmpty {
             if DataManager.delete(managedContext: managedContext, entityName: "CollectionsEntity") {
                 for collectionListDict in collection {
                     DataManager.saveCollectionsEntity(collectionListDict: collectionListDict,
@@ -1827,7 +1826,7 @@ extension DataManager {
                                                                    idValue: facilitiesListDict.nid,
                                                                    managedContext: managedContext)
                 //update
-                if(fetchResult.count != 0) {
+                if !fetchResult.isEmpty {
                     let facilitiesListdbDict = fetchResult[0] as! FacilitiesEntity
                     DataManager.saveFacilitiesEntity(facilitiesListDict: facilitiesListDict,
                                               managedObjContext: managedContext,

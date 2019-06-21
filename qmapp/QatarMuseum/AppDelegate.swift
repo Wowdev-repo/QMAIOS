@@ -497,7 +497,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                         DataManager.updateTourGuide(managedContext: managedContext,
                                                     miaTourDataFullArray: array,
                                                     museumID: museumId,
-                                                    language: lang)
+                                                    language: Utils.getLanguageCode(lang))
                     }
                 }
             } else {
@@ -507,7 +507,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                         DataManager.updateTourGuide(managedContext: managedContext,
                                                     miaTourDataFullArray: array,
                                                     museumID: museumId,
-                                                    language: lang)
+                                                    language: Utils.getLanguageCode(lang))
                     }
                 }
             }

@@ -1579,7 +1579,9 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
     }
     //MARK: WebServiceCall
     func getTourGuideDataFromServer() {
-        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.MuseumTourGuide(LocalizationLanguage.currentAppleLanguage(),["museum_id": museumId ?? 0])).responseObject { (response: DataResponse<TourGuides>) -> Void in
+        _ = CPSessionManager.sharedInstance.apiManager()?
+            .request(QatarMuseumRouter.MuseumTourGuide(LocalizationLanguage.currentAppleLanguage(), ["museum_id": museumId ?? 0]))
+            .responseObject { (response: DataResponse<TourGuides>) -> Void in
             switch response.result {
             case .success(let data):
                 if(self.miaTourDataFullArray.count == 0) {
@@ -1616,14 +1618,16 @@ class CommonListViewController: UIViewController,UITableViewDelegate,UITableView
                 container.performBackgroundTask() {(managedContext) in
                     DataManager.updateTourGuide(managedContext: managedContext,
                                                     miaTourDataFullArray: self.miaTourDataFullArray,
-                                                    museumID: self.museumId, language: Utils.getLanguage())
+                                                    museumID: self.museumId,
+                                                    language: Utils.getLanguage())
                 }
             } else {
                 let managedContext = appDelegate!.managedObjectContext
                 managedContext.perform {
                     DataManager.updateTourGuide(managedContext : managedContext,
                                                     miaTourDataFullArray: self.miaTourDataFullArray,
-                                                    museumID: self.museumId, language: Utils.getLanguage())
+                                                    museumID: self.museumId,
+                                                    language: Utils.getLanguage())
                 }
             }
         }
