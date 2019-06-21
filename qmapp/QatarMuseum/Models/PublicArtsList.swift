@@ -17,6 +17,7 @@ struct PublicArtsList: ResponseObjectSerializable, ResponseCollectionSerializabl
     var sortcoefficient: String? = nil
     var isFavourite : Bool = false
     var language: String?
+    var generateId : Any?
     
     public init?(response: HTTPURLResponse, representation: AnyObject) {
         if let representation = representation as? [String: Any] {
@@ -28,6 +29,7 @@ struct PublicArtsList: ResponseObjectSerializable, ResponseCollectionSerializabl
             self.areaofwork = representation["Area of Work"] as? NSArray
             self.sortcoefficient = representation["sort coefficient"] as? String
             self.language = representation["language"] as? String
+            self.generateId = representation["ID"] as Any
             
         }
     }

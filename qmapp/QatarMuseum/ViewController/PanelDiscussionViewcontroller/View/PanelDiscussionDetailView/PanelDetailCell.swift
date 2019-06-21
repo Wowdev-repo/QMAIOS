@@ -10,9 +10,8 @@ import UIKit
 import MapKit
 import CocoaLumberjack
 
-class PanelDetailCell: UITableViewCell,UITextViewDelegate {
+class myCustomPanelCell: UITableViewCell,UITextViewDelegate {
     @IBOutlet weak var topImg: UIImageView!
-    
     @IBOutlet weak var topTitle: UILabel!
     @IBOutlet weak var topDescription: UITextView!
     @IBOutlet weak var secondImg: UIImageView!
@@ -32,7 +31,6 @@ class PanelDetailCell: UITableViewCell,UITextViewDelegate {
     @IBOutlet weak var mapOverlayView: UIView!
     @IBOutlet weak var descriptionLeftConstraint: NSLayoutConstraint!
     @IBOutlet weak var contactTitleLine: UILabel!
-    @IBOutlet weak var switchTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var switchBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var registerButton: UIButton!
     @IBOutlet weak var numbOfRservationsLabel: UILabel!
@@ -360,5 +358,4 @@ class PanelDetailCell: UITableViewCell,UITextViewDelegate {
         self.callPhone?()
     }
 }
-
 

@@ -192,7 +192,7 @@ class MuseumAboutViewController: UIViewController,UITableViewDelegate,UITableVie
                 self.downloadButtonAction()
             }
             heritageCell.loadEmailComposer = {
-                self.openEmail(email:self.aboutDetailtArray[indexPath.row].contactEmail ?? "nmoq@qm.org.qa")
+                self.openEmail(email:self.aboutDetailtArray[indexPath.row].contactEmail ?? "info@mia.org.qa")
             }
             heritageCell.callPhone = {
                 self.dialNumber(number: self.aboutDetailtArray[indexPath.row].contactNumber ?? "+974 4402 8202")
@@ -208,7 +208,7 @@ class MuseumAboutViewController: UIViewController,UITableViewDelegate,UITableVie
                 self.downloadButtonAction()
             }
             heritageCell.loadEmailComposer = {
-                self.openEmail(email:self.aboutDetailtArray[indexPath.row].contactEmail ?? "nmoq@qm.org.qa")
+                self.openEmail(email:self.aboutDetailtArray[indexPath.row].contactEmail ?? "info@mia.org.qa")
             }
             heritageCell.callPhone = {
                 self.dialNumber(number: self.aboutDetailtArray[indexPath.row].contactNumber ?? "+974 4402 8202")
@@ -224,7 +224,7 @@ class MuseumAboutViewController: UIViewController,UITableViewDelegate,UITableVie
                 self.claimOfferButtonAction(offerLink: self.travelDetail?.claimOffer)
             }
             heritageCell.loadEmailComposer = {
-                self.openEmail(email:self.travelDetail?.email ?? "nmoq@qm.org.qa")
+                self.openEmail(email:self.travelDetail?.email ?? "info@mia.org.qa")
             }
             heritageCell.callPhone = {
                 self.dialNumber(number: self.travelDetail?.contactNumber ?? "+974 4402 8202")

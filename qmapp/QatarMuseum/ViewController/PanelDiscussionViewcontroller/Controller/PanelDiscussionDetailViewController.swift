@@ -23,9 +23,9 @@ enum NMoQPanelPage {
     case PlayGroundPark
     case CollectionDetail
 }
-class PanelDiscussionDetailViewController: UIViewController,LoadingViewProtocol,UITableViewDelegate,UITableViewDataSource,HeaderViewProtocol,comingSoonPopUpProtocol,DeclinePopupProtocol, MFMailComposeViewControllerDelegate,UIPickerViewDelegate,UIPickerViewDataSource,UIGestureRecognizerDelegate,EventPopUpProtocol {
+class PanelDiscussionDetailViewController: UIViewController,LoadingViewProtocol,HeaderViewProtocol,comingSoonPopUpProtocol,DeclinePopupProtocol, MFMailComposeViewControllerDelegate,UIPickerViewDelegate,UIPickerViewDataSource,UIGestureRecognizerDelegate,EventPopUpProtocol {
 
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var panelDetailTableView: UITableView!
     @IBOutlet weak var loadingView: LoadingView!
     @IBOutlet weak var headerView: CommonHeaderView!
     @IBOutlet weak var overlayView: UIView!
@@ -43,7 +43,7 @@ class PanelDiscussionDetailViewController: UIViewController,LoadingViewProtocol,
     var popupView : ComingSoonPopUp = ComingSoonPopUp()
     var selectedRow : Int?
     var unRegisterPopupView : AcceptDeclinePopup = AcceptDeclinePopup()
-    var selectedPanelCell : PanelDetailCell?
+    var selectedPanelCell : myCustomPanelCell?
     var newRegistrationId : String? = nil
     var picker = UIPickerView()
     let toolBar = UIToolbar()
@@ -63,7 +63,9 @@ class PanelDiscussionDetailViewController: UIViewController,LoadingViewProtocol,
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
 
         super.viewDidLoad()
-        registerCell()
+        DispatchQueue.main.async{
+            self.registerCell()
+        }
         setupUI()
         self.recordScreenView()
     }
@@ -111,132 +113,7 @@ class PanelDiscussionDetailViewController: UIViewController,LoadingViewProtocol,
         }
         
     }
-    func registerCell() {
-        self.tableView.register(UINib(nibName: "PanelDetailView", bundle: nil), forCellReuseIdentifier: "panelCellID")
-        self.tableView.register(UINib(nibName: "CollectionDetailView", bundle: nil), forCellReuseIdentifier: "collectionCellId")
-    }
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if(pageNameString == NMoQPanelPage.PanelDetailPage) {
-            if(nmoqTourDetail[selectedRow!] != nil) {
-                return 1
-            }
-        } else if(pageNameString == NMoQPanelPage.TourDetailPage){
-            //return nmoqTourDetail.count
-            if(nmoqTourDetail[selectedRow!] != nil) {
-                return 1
-            }
-        } else if(pageNameString == NMoQPanelPage.FacilitiesDetailPage){
-            if(facilitiesDetail.count  > 0) {
-                return 1
-            }
-        } else if(pageNameString == NMoQPanelPage.CollectionDetail) {
-            return collectionDetailArray.count
-        } else if(pageNameString == NMoQPanelPage.PlayGroundPark) {
-            return nmoqParkDetailArray.count
-        }
-        return 0
-    }
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        loadingView.stopLoading()
-        loadingView.isHidden = true
-        let cell = tableView.dequeueReusableCell(withIdentifier: "panelCellID", for: indexPath) as! PanelDetailCell
-        cell.selectionStyle = .none
-        if(pageNameString == NMoQPanelPage.PanelDetailPage) {
-            //cell.setPanelDetailCellContent(panelDetailData: nmoqSpecialEventDetail[indexPath.row])
-            cell.setTourSecondDetailCellContent(tourDetailData: nmoqTourDetail[self.selectedRow!], userEventList: userEventList, fromTour: false)
-            //cell.topDescription.textAlignment = .left
-            //cell.descriptionLeftConstraint.constant = 30
-            cell.registerOrUnRegisterAction = {
-                () in
-                self.selectedPanelCell = cell
-                self.currentPanelRow = indexPath.row
-                 self.reisterOrUnregisterTapAction(currentRow: indexPath.row, selectedCell: cell)
-            }
-            cell.loadMapView = {
-                () in
-//                self.loadLocationMap(tourDetail: self.nmoqTourDetail[indexPath.row])
-                self.loadLocationMap(mobileLatitude: self.nmoqTourDetail[indexPath.row].mobileLatitude, mobileLongitude: self.nmoqTourDetail[indexPath.row].longitude)
-            }
-            
-            cell.loadEmailComposer = {
-                self.openEmail(email:self.nmoqTourDetail[indexPath.row].contactEmail ?? "nmoq@qm.org.qa")
-            }
-            cell.callPhone = {
-                self.dialNumber(number: self.nmoqTourDetail[indexPath.row].contactPhone ?? "+974 4402 8202")
-            }
-            
-        } else if (pageNameString == NMoQPanelPage.TourDetailPage){
-            cell.setTourSecondDetailCellContent(tourDetailData: nmoqTourDetail[self.selectedRow!], userEventList: userEventList, fromTour: true)
-//            cell.topDescription.textAlignment = .left
-//            cell.descriptionLeftConstraint.constant = 30
-            cell.registerOrUnRegisterAction = {
-                () in
-                self.selectedPanelCell = cell
-                self.currentPanelRow = self.selectedRow
-                self.reisterOrUnregisterTapAction(currentRow: self.selectedRow!, selectedCell: cell)
-            }
-            cell.loadMapView = {
-                () in
-                //self.loadLocationMap(tourDetail: self.nmoqTourDetail[self.selectedRow!])
-                self.loadLocationMap(mobileLatitude: self.nmoqTourDetail[self.selectedRow!].mobileLatitude, mobileLongitude: self.nmoqTourDetail[self.selectedRow!].longitude)
-            }
-            
-            cell.loadEmailComposer = {
-                self.openEmail(email:self.nmoqTourDetail[indexPath.row].contactEmail ?? "nmoq@qm.org.qa")
-            }
-            cell.callPhone = {
-                self.dialNumber(number: self.nmoqTourDetail[indexPath.row].contactPhone ?? "+974 4402 8202")
-            }
-        } else if(pageNameString == NMoQPanelPage.FacilitiesDetailPage) {
-            if(fromCafeOrDining!) {
-                cell.setFacilitiesDetailData(facilitiesDetailData: facilitiesDetail[selectedRow!])
-                cell.loadMapView = {
-                    () in
-                    //self.loadLocationMap(tourDetail: self.facilitiesDetail![self.selectedRow!])
-                    self.loadLocationMap(mobileLatitude: self.facilitiesDetail[self.selectedRow!].latitude, mobileLongitude: self.facilitiesDetail[self.selectedRow!].longtitude)
-                }
-            } else {
-                cell.setFacilitiesDetailData(facilitiesDetailData: facilitiesDetail[indexPath.row])
-                cell.loadMapView = {
-                    () in
-                    //self.loadLocationMap(tourDetail: self.facilitiesDetail![indexPath.row])
-                    self.loadLocationMap(mobileLatitude: self.facilitiesDetail[indexPath.row].latitude, mobileLongitude: self.facilitiesDetail[indexPath.row].longtitude)
-                }
-            }
-           
-        } else if(pageNameString == NMoQPanelPage.CollectionDetail) {
-            let collectionCell = tableView.dequeueReusableCell(withIdentifier: "collectionCellId", for: indexPath) as! CollectionDetailCell
-            collectionCell.favouriteHeight.constant = 0
-            collectionCell.favouriteView.isHidden = true
-            collectionCell.shareView.isHidden = true
-            collectionCell.favouriteButton.isHidden = true
-            collectionCell.shareButton.isHidden = true
-            collectionCell.selectionStyle = .none
-            collectionCell.favouriteButtonAction = {
-                () in
-            }
-            collectionCell.shareButtonAction = {
-                () in
-            }
-            collectionCell.setCollectionCellValues(collectionValues: collectionDetailArray[indexPath.row], currentRow: indexPath.row)
-            return collectionCell
-        } else {
-            let collectionCell = tableView.dequeueReusableCell(withIdentifier: "collectionCellId", for: indexPath) as! CollectionDetailCell
-            collectionCell.selectionStyle = .none
-            collectionCell.setParkPlayGroundValues(parkPlaygroundDetails: nmoqParkDetailArray[indexPath.row])
-            return collectionCell
-        }
-        
-        return cell
-    }
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if(pageNameString == NMoQPanelPage.PanelDetailPage) {
-            return UITableViewAutomaticDimension
-        } else {
-            return UITableViewAutomaticDimension
-        }
-    }
-
+   
     func loadLocationMap( mobileLatitude: String?, mobileLongitude: String? ) {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), Latitude:\(String(describing: mobileLatitude)), Longitude:\(String(describing: mobileLongitude))")
         if (mobileLatitude != nil && mobileLatitude != "" && mobileLongitude != nil && mobileLongitude != "") {
@@ -270,7 +147,7 @@ class PanelDiscussionDetailViewController: UIViewController,LoadingViewProtocol,
             showLocationErrorPopup()
         }
     }
-    func reisterOrUnregisterTapAction(currentRow: Int,selectedCell : PanelDetailCell?) {
+    func reisterOrUnregisterTapAction(currentRow: Int,selectedCell : myCustomPanelCell?) {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         if (networkReachability?.isReachable)! {
             if (selectedCell?.registerButton.tag == 0) {
@@ -360,7 +237,7 @@ class PanelDiscussionDetailViewController: UIViewController,LoadingViewProtocol,
                 switch response.result {
                 case .success(let data):
                     self.nmoqSpecialEventDetail = data.nmoqTourList
-                    self.tableView.reloadData()
+                    self.panelDetailTableView.reloadData()
                     if(self.nmoqSpecialEventDetail.count == 0) {
                         let noResultMsg = NSLocalizedString("NO_RESULT_MESSAGE",
                                                             comment: "Setting the content of the alert")
@@ -391,7 +268,7 @@ class PanelDiscussionDetailViewController: UIViewController,LoadingViewProtocol,
                 case .success(let data):
                     self.nmoqTourDetail = data.nmoqTourDetailList
                     //self.saveOrUpdateHomeCoredata()
-                    self.tableView.reloadData()
+                    self.panelDetailTableView.reloadData()
                     if(self.nmoqTourDetail.count == 0) {
                         let noResultMsg = NSLocalizedString("NO_RESULT_MESSAGE",
                                                             comment: "Setting the content of the alert")
@@ -417,7 +294,7 @@ class PanelDiscussionDetailViewController: UIViewController,LoadingViewProtocol,
     }
     
     //MARK: EntityRegistration API
-    func getEntityRegistrationFromServer(currentRow: Int,selectedCell: PanelDetailCell?) {
+    func getEntityRegistrationFromServer(currentRow: Int,selectedCell: myCustomPanelCell?) {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         let time = getTimeStamp(currentRow: currentRow)
         if (time.startTime != nil && time.endTime != nil) {
@@ -494,7 +371,7 @@ class PanelDiscussionDetailViewController: UIViewController,LoadingViewProtocol,
     }
         
     }
-    func setEntityRegistrationAsComplete(currentRow: Int, timestamp: String,selectedCell: PanelDetailCell?) {
+    func setEntityRegistrationAsComplete(currentRow: Int, timestamp: String,selectedCell: myCustomPanelCell?) {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         if((newRegistrationId != nil) && (nmoqTourDetail[currentRow].nid != nil) && (keychain.get(UserProfileInfo.user_id) != nil) && (keychain.get(UserProfileInfo.user_firstname) != nil) && (keychain.get(UserProfileInfo.user_lastname) != nil)) {
             let time = getTimeStamp(currentRow: currentRow)
@@ -573,7 +450,7 @@ class PanelDiscussionDetailViewController: UIViewController,LoadingViewProtocol,
         }
 
     }
-    func setEntityUnRegistration(currentRow: Int,selectedCell: PanelDetailCell?) {
+    func setEntityUnRegistration(currentRow: Int,selectedCell: myCustomPanelCell?) {
         var regId : String? = nil
         if (newRegistrationId != nil) {
             regId = newRegistrationId
@@ -1181,7 +1058,7 @@ class PanelDiscussionDetailViewController: UIViewController,LoadingViewProtocol,
                     //                    if self.nmoqTourDetail.first(where: {$0.sortId != "" && $0.sortId != nil} ) != nil {
                     //                        self.nmoqTourDetail = self.nmoqTourDetail.sorted(by: { Int16($0.sortId!)! < Int16($1.sortId!)! })
                     //                    }
-                    self.tableView.reloadData()
+                    self.panelDetailTableView.reloadData()
                     if(self.nmoqTourDetail.count == 0) {
                         let noResultMsg = NSLocalizedString("NO_RESULT_MESSAGE",
                                                             comment: "Setting the content of the alert")
@@ -1207,238 +1084,7 @@ class PanelDiscussionDetailViewController: UIViewController,LoadingViewProtocol,
         }
         
     }
-    //MARK: Coredata Method
-    func saveOrUpdateFacilitiesDetailCoredata() {
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-        if (facilitiesDetail.count > 0) {
-            let appDelegate =  UIApplication.shared.delegate as? AppDelegate
-            if #available(iOS 10.0, *) {
-                let container = appDelegate!.persistentContainer
-                container.performBackgroundTask() {(managedContext) in
-                    DataManager.updateFacilitiesDetails(managedContext : managedContext,
-                                                        category: self.panelDetailId,
-                                                        facilities: self.facilitiesDetail)
-                }
-            } else {
-                let managedContext = appDelegate!.managedObjectContext
-                managedContext.perform {
-                    DataManager.updateFacilitiesDetails(managedContext : managedContext,
-                                                        category: self.panelDetailId,
-                                                        facilities: self.facilitiesDetail)
-                }
-            }
-        }
-    }
     
-    
-    func fetchFacilitiesDetailsFromCoredata() {
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-        let managedContext = getContext()
-        do {
-            var facilitiesDetailArray = [FacilitiesDetailEntity]()
-            facilitiesDetailArray = DataManager.checkAddedToCoredata(entityName: "FacilitiesDetailEntity",
-                                                                     idKey: "category",
-                                                                     idValue: panelDetailId,
-                                                                     managedContext: managedContext) as! [FacilitiesDetailEntity]
-            
-            for facilities in facilitiesDetailArray {
-                self.facilitiesDetail.append(FacilitiesDetail(entity: facilities))
-            }
-            
-            if facilitiesDetail.isEmpty {
-                if(self.networkReachability?.isReachable == false) {
-                    self.showNoNetwork()
-                } else {
-                    self.loadingView.showNoDataView()
-                }
-            }
-            
-            DispatchQueue.main.async{
-                self.tableView.reloadData()
-            }
-            
-        }
-    }
-    //MARK: WebServiceCall
-    func getCollectioDetailsFromServer() {
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.CollectionDetail(["category": collectionName!])).responseObject { (response: DataResponse<CollectionDetails>) -> Void in
-            switch response.result {
-            case .success(let data):
-                self.collectionDetailArray = data.collectionDetails ?? []
-                self.saveOrUpdateCollectionDetailCoredata()
-                self.tableView.reloadData()
-                self.loadingView.stopLoading()
-                self.loadingView.isHidden = true
-                if (self.collectionDetailArray.count == 0) {
-                    self.loadingView.stopLoading()
-                    self.loadingView.noDataView.isHidden = false
-                    self.loadingView.isHidden = false
-                    self.loadingView.showNoDataView()
-                }
-            case .failure( _):
-                var errorMessage: String
-                errorMessage = String(format: NSLocalizedString("NO_RESULT_MESSAGE",
-                                                                comment: "Setting the content of the alert"))
-                self.loadingView.stopLoading()
-                self.loadingView.noDataView.isHidden = false
-                self.loadingView.isHidden = false
-                self.loadingView.showNoDataView()
-                self.loadingView.noDataLabel.text = errorMessage
-            }
-        }
-    }
-    
-    func getNMoQParkDetailFromServer() {
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-        if (nid != nil) {
-            _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.GetNMoQPlaygroundDetail(LocalizationLanguage.currentAppleLanguage(), ["nid": nid!])).responseObject { (response: DataResponse<NMoQParksDetail>) -> Void in
-                switch response.result {
-                case .success(let data):
-                    self.nmoqParkDetailArray = data.nmoqParksDetail
-                    if (self.nmoqParkDetailArray.count > 0) {
-                        if self.nmoqParkDetailArray.first(where: {$0.sortId != "" && $0.sortId != nil} ) != nil {
-                            self.nmoqParkDetailArray = self.nmoqParkDetailArray.sorted(by: { Int16($0.sortId!)! < Int16($1.sortId!)! })
-                        }
-                    }
-                    //self.saveOrUpdateNmoqParkDetailCoredata(nmoqParkList: data.nmoqParksDetail)
-                    self.tableView.reloadData()
-                    self.loadingView.stopLoading()
-                    self.loadingView.isHidden = true
-                    if (self.nmoqParkDetailArray.count == 0) {
-                        self.loadingView.stopLoading()
-                        self.loadingView.noDataView.isHidden = false
-                        self.loadingView.isHidden = false
-                        self.loadingView.showNoDataView()
-                    }
-                    
-                case .failure( _):
-                    var errorMessage: String
-                    errorMessage = String(format: NSLocalizedString("NO_RESULT_MESSAGE",
-                                                                    comment: "Setting the content of the alert"))
-                    self.loadingView.stopLoading()
-                    self.loadingView.noDataView.isHidden = false
-                    self.loadingView.isHidden = false
-                    self.loadingView.showNoDataView()
-                    self.loadingView.noDataLabel.text = errorMessage
-                }
-            }
-        }
-        
-    }
-    //MARK: CollectionDetail Coredata Method
-    func saveOrUpdateCollectionDetailCoredata() {
-        if (collectionDetailArray.count > 0) {
-            let appDelegate =  UIApplication.shared.delegate as? AppDelegate
-            if #available(iOS 10.0, *) {
-                let container = appDelegate!.persistentContainer
-                container.performBackgroundTask() {(managedContext) in
-                    DataManager.updateCollectionDetailsEntity(managedContext: managedContext,
-                                                                    collectionDetailArray: self.collectionDetailArray,
-                                                                    collectionName: self.collectionName)
-                }
-            } else {
-                let managedContext = appDelegate!.managedObjectContext
-                managedContext.perform {
-                    DataManager.updateCollectionDetailsEntity(managedContext : managedContext,
-                                                                    collectionDetailArray: self.collectionDetailArray,
-                                                                    collectionName: self.collectionName)
-                }
-            }
-            DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-        }
-    }
-    
-    
-    
-    func fetchCollectionDetailsFromCoredata() {
-        let managedContext = getContext()
-        do {
-            if let collectionArray = DataManager.checkAddedToCoredata(entityName: "CollectionDetailsEntity",
-                                                             idKey: "categoryCollection",
-                                                             idValue: collectionName,
-                                                             managedContext: managedContext) as? [CollectionDetailsEntity],
-                !collectionArray.isEmpty {
-                for collectionDict in collectionArray {
-                    if collectionDict.title == nil && collectionDict.body == nil {
-                        self.showNodata()
-                    } else {
-                        self.collectionDetailArray.insert(CollectionDetail(entity: collectionDict), at: 0)
-                    }
-                }
-            } else {
-                if(self.networkReachability?.isReachable == false) {
-                    self.showNoNetwork()
-                } else {
-                    self.loadingView.showNoDataView()
-                }
-            }
-            
-            
-            tableView.reloadData()
-        }
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-    }
-    
-    //MARK: NMoq Playground Parks Detail Coredata Method
-    func saveOrUpdateNmoqParkDetailCoredata(nmoqParkList: [NMoQParkDetail]) {
-        if !nmoqParkList.isEmpty {
-            let appDelegate =  UIApplication.shared.delegate as? AppDelegate
-            if #available(iOS 10.0, *) {
-                let container = appDelegate!.persistentContainer
-                container.performBackgroundTask() {(managedContext) in
-                    DataManager.updateNmoqParkDetail(nmoqParkList: nmoqParkList,
-                                                     managedContext: managedContext)
-                }
-            } else {
-                let managedContext = appDelegate!.managedObjectContext
-                managedContext.perform {
-                    DataManager.updateNmoqParkDetail(nmoqParkList: nmoqParkList,
-                                                     managedContext: managedContext)                }
-            }
-        }
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-    }
-    
-    
-    func fetchNMoQParkDetailFromCoredata() {
-        let managedContext = getContext()
-        do {
-                var parkListArray = [NMoQParkDetailEntity]()
-            parkListArray = DataManager.checkAddedToCoredata(entityName: "NMoQParkDetailEntity",
-                                                                     idKey: "nid",
-                                                                     idValue: nid,
-                                                                     managedContext: managedContext) as! [NMoQParkDetailEntity]
-            
-            if (parkListArray.count > 0) {
-                for parkListDict in parkListArray {
-                    self.nmoqParkDetailArray.append(NMoQParkDetail(entity: parkListDict))
-                }
-                
-                if(nmoqParkDetailArray.count == 0){
-                    if(self.networkReachability?.isReachable == false) {
-                        self.showNoNetwork()
-                    } else {
-                        self.loadingView.showNoDataView()
-                    }
-                } else {
-                    if self.nmoqParkDetailArray.first(where: {$0.sortId != "" && $0.sortId != nil} ) != nil {
-                        self.nmoqParkDetailArray = self.nmoqParkDetailArray.sorted(by: { Int16($0.sortId!)! < Int16($1.sortId!)! })
-                    }
-                }
-                DispatchQueue.main.async{
-                    self.tableView.reloadData()
-                }
-            } else{
-                    if(self.networkReachability?.isReachable == false) {
-                        self.showNoNetwork()
-                    } else {
-                        self.loadingView.showNoDataView()
-                    }
-                }
-        }
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-    }
     
     func recordScreenView() {
         let screenClass = String(describing: type(of: self))

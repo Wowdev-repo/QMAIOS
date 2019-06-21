@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ru4-0J-FCz">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ru4-0J-FCz">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment version="2320" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -79,7 +79,6 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Nx-fH-Bt9">
                                         <rect key="frame" x="108.66666666666669" y="0.0" width="99.333333333333314" height="97"/>
                                         <subviews>
-
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gift Shop" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GLU-5R-3S2">
                                                 <rect key="frame" x="25.999999999999986" y="63" width="47" height="18"/>
                                                 <constraints>
@@ -114,9 +113,8 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wb0-R0-nMT">
                                         <rect key="frame" x="207.99999999999997" y="0.0" width="99.666666666666657" height="97"/>
                                         <subviews>
-
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Culture Pass" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7ZM-f1-ri1">
-                                                <rect key="frame" x="16.666666666666657" y="63" width="66" height="18"/>
+                                                <rect key="frame" x="14" y="63" width="71.333333333333329" height="18"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="18" id="AaS-wy-nVK"/>
                                                 </constraints>
@@ -149,7 +147,6 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mw4-mq-YUm">
                                         <rect key="frame" x="307.66666666666669" y="0.0" width="99.333333333333314" height="97"/>
                                         <subviews>
-
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="More" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FGd-h4-nh5">
                                                 <rect key="frame" x="36.666666666666629" y="63" width="26" height="18"/>
                                                 <constraints>
@@ -489,7 +486,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="EVENTS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TWB-Sh-j4n">
-                                        <rect key="frame" x="166.66666666666666" y="308.66666666666669" width="81" height="29"/>
+                                        <rect key="frame" x="163.66666666666666" y="308.66666666666669" width="87" height="29"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="29" id="guL-0K-jjs"/>
                                         </constraints>
@@ -1538,7 +1535,6 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="u4a-l5-knv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-
             <point key="canvasLocation" x="7701.449275362319" y="59.510869565217398"/>
         </scene>
         <!--Dining Detail View Controller-->
@@ -1842,15 +1838,15 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fLs-aV-Rgq">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="157"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="157"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TOUR GUIDES" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wvM-rU-LBj">
-                                                    <rect key="frame" x="85.333333333333329" y="20" width="204.33333333333337" height="34"/>
+                                                    <rect key="frame" x="105.00000000000001" y="20" width="204.33333333333337" height="34"/>
                                                     <fontDescription key="fontDescription" name="DINNextLTPro-Bold" family="DIN Next LT Pro" pointSize="34"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" editable="NO" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M5m-HF-9dd">
-                                                    <rect key="frame" x="12" y="54" width="351" height="99"/>
+                                                    <rect key="frame" x="12" y="54" width="390" height="99"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <fontDescription key="fontDescription" name="DINNextLTPro-Regular" family="DIN Next LT Pro" pointSize="18"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -2096,7 +2092,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6tM-6j-Xve">
-                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="96"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="414" height="96"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="notificationX1" translatesAutoresizingMaskIntoConstraints="NO" id="Ne4-SG-IPq">
                                                             <rect key="frame" x="20" y="35.666666666666664" width="20" height="25"/>
@@ -2106,13 +2102,13 @@
                                                             </constraints>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M9l-PM-ATY">
-                                                            <rect key="frame" x="65" y="48" width="256" height="0.0"/>
+                                                            <rect key="frame" x="65" y="48" width="295" height="0.0"/>
                                                             <fontDescription key="fontDescription" name="DINNextLTPro-Light" family="DIN Next LT Pro" pointSize="18"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Eb4-y1-Jq9">
-                                                            <rect key="frame" x="325" y="23" width="50" height="50"/>
+                                                            <rect key="frame" x="364" y="23" width="50" height="50"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="50" id="XOH-hX-Fih"/>
                                                                 <constraint firstAttribute="height" constant="50" id="uNC-w5-xhq"/>
@@ -2126,7 +2122,7 @@
                                                             </connections>
                                                         </button>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GVe-0b-Nyv">
-                                                            <rect key="frame" x="0.0" y="94" width="375" height="1"/>
+                                                            <rect key="frame" x="0.0" y="94" width="414" height="1"/>
                                                             <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="1" id="VJJ-Rc-RJZ"/>
@@ -2809,7 +2805,6 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="English" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GNb-GM-rQW">
-
                                         <rect key="frame" x="122.66666666666669" y="57.666666666666657" width="52" height="16"/>
                                         <fontDescription key="fontDescription" name="DINNextLTPro-Regular" family="DIN Next LT Pro" pointSize="16"/>
                                         <nil key="textColor"/>
@@ -5471,12 +5466,12 @@
                         <outlet property="headerView" destination="T1S-8X-1eP" id="3gp-3S-4eM"/>
                         <outlet property="loadingView" destination="RYz-sf-Eke" id="mim-tR-eZo"/>
                         <outlet property="overlayView" destination="vad-ah-1pF" id="QIC-fu-KsS"/>
-                        <outlet property="tableView" destination="Vdp-OO-e6L" id="LIk-Go-BcO"/>
+                        <outlet property="panelDetailTableView" destination="Vdp-OO-e6L" id="LIk-Go-BcO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="R3B-cW-D7X" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1758" y="2119"/>
+            <point key="canvasLocation" x="961" y="2374"/>
         </scene>
         <!--Common List View Controller-->
         <scene sceneID="7rW-gk-kcf">
@@ -6340,41 +6335,41 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Audio CircleX1" width="279" height="279"/>
-        <image name="MIA_AboutX1" width="243" height="279"/>
-        <image name="closeX1" width="279" height="279"/>
-        <image name="close_greyX1" width="279" height="279"/>
-        <image name="culture_passX1" width="351" height="279"/>
+        <image name="Audio CircleX1" width="93" height="93"/>
+        <image name="MIA_AboutX1" width="81" height="93"/>
+        <image name="closeX1" width="93" height="93"/>
+        <image name="close_greyX1" width="93" height="93"/>
+        <image name="culture_passX1" width="117" height="93"/>
         <image name="culturepass_back" width="414" height="736"/>
         <image name="culturepass_card" width="414" height="736"/>
-        <image name="down_arrowX2" width="279" height="162"/>
+        <image name="down_arrowX2" width="139.5" height="81"/>
         <image name="download_icon" width="150" height="139"/>
         <image name="fastforward" width="16" height="16"/>
-        <image name="fullscreen" width="72" height="72"/>
+        <image name="fullscreen" width="24" height="24"/>
         <image name="fullscreen_disable" width="16" height="16"/>
-        <image name="gift_shopX1" width="306" height="279"/>
-        <image name="heart_emptyX1" width="303" height="279"/>
-        <image name="moreX1" width="303" height="279"/>
+        <image name="gift_shopX1" width="102" height="93"/>
+        <image name="heart_emptyX1" width="101" height="93"/>
+        <image name="moreX1" width="101" height="93"/>
         <image name="nextImg" width="2000" height="2000"/>
-        <image name="notificationX1" width="243" height="279"/>
-        <image name="number_padX1" width="204" height="279"/>
-        <image name="pause" width="144" height="144"/>
-        <image name="pip" width="72" height="72"/>
+        <image name="notificationX1" width="81" height="93"/>
+        <image name="number_padX1" width="68" height="93"/>
+        <image name="pause" width="48" height="48"/>
+        <image name="pip" width="24" height="24"/>
         <image name="placeholder_video" width="299" height="199"/>
-        <image name="play" width="144" height="144"/>
-        <image name="play_blackX1" width="279" height="279"/>
+        <image name="play" width="48" height="48"/>
+        <image name="play_blackX1" width="93" height="93"/>
         <image name="play_button" width="93" height="93"/>
-        <image name="playhead" width="72" height="72"/>
+        <image name="playhead" width="24" height="24"/>
         <image name="previousImg" width="2000" height="2000"/>
-        <image name="profile_editX1" width="258" height="279"/>
+        <image name="profile_editX1" width="86" height="93"/>
         <image name="profile_pic_round" width="112" height="112"/>
-        <image name="restaurantX1" width="360" height="279"/>
-        <image name="rewind" width="144" height="144"/>
-        <image name="shareX1" width="246" height="279"/>
-        <image name="skipBackward" width="96" height="96"/>
-        <image name="skipForward" width="96" height="96"/>
-        <image name="unselected" width="120" height="120"/>
-        <image name="up_arrowX2" width="279" height="162"/>
+        <image name="restaurantX1" width="120" height="93"/>
+        <image name="rewind" width="48" height="48"/>
+        <image name="shareX1" width="82" height="93"/>
+        <image name="skipBackward" width="32" height="32"/>
+        <image name="skipForward" width="32" height="32"/>
+        <image name="unselected" width="40" height="40"/>
+        <image name="up_arrowX2" width="93" height="54"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="q5d-pS-Wk4"/>

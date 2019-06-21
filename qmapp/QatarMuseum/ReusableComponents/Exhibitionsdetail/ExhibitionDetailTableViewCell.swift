@@ -93,7 +93,7 @@ class ExhibitionDetailTableViewCell: UITableViewCell {
         //let mapRedirectionMessage = NSLocalizedString("MAP_REDIRECTION_MESSAGE",
         //                                                      comment: "MAP_REDIRECTION_MESSAGE in the Dining detail")
         //locationButton.setTitle(mapRedirectionMessage, for: .normal)
-        contactDescriptionLabel.text = "nmoq@qm.org.qa"
+        contactDescriptionLabel.text = "info@mia.org.qa"
         
         
         
