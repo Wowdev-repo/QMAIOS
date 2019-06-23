@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import CocoaLumberjack
+
 
 class MuseumBottomCell: UICollectionViewCell {
     

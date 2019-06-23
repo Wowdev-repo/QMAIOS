@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import CocoaLumberjack
+
 
 class CulturePassCardBackViewController: UIViewController {
     @IBOutlet weak var tapToFlipButton: UIButton!

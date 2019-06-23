@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import CocoaLumberjack
+
 import MapKit
 
 class HeritageDetailCell: UITableViewCell {

@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import CocoaLumberjack
+
 @objc protocol HeaderViewProtocol
 {
     func headerCloseButtonPressed()

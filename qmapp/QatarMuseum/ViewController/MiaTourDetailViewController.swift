@@ -5,12 +5,12 @@
 //  Created by Exalture on 17/07/18.
 //  Copyright © 2018 Exalture. All rights reserved.
 //
-import Alamofire
+
 import Crashlytics
 import Firebase
 import Kingfisher
 import UIKit
-import CocoaLumberjack
+
 
 class MiaTourDetailViewController: UIViewController, HeaderViewProtocol, comingSoonPopUpProtocol, KASlideShowDelegate {
     @IBOutlet weak var tourGuideDescription: UITextView!

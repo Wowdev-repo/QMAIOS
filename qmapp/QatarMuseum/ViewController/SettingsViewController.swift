@@ -10,7 +10,7 @@ import Crashlytics
 import Firebase
 import UIKit
 import MessageUI
-import CocoaLumberjack
+
 
 class SettingsViewController: UIViewController,HeaderViewProtocol,EventPopUpProtocol, MFMailComposeViewControllerDelegate {
 

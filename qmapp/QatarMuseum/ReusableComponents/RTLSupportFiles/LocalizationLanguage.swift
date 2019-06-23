@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import CocoaLumberjack
+
 let APPLE_LANGUAGE_KEY = "AppleLanguages"
 class LocalizationLanguage {
     /// get current Apple language

@@ -6,12 +6,12 @@
 //  Copyright © 2018 Wakralab. All rights reserved.
 //
 
-import Alamofire
-import CoreData
+
+
 import Crashlytics
 import Firebase
 import UIKit
-import CocoaLumberjack
+
 
 class PreviewContainerViewController: UIViewController,UIPageViewControllerDelegate,UIPageViewControllerDataSource,HeaderViewProtocol,UIGestureRecognizerDelegate,LoadingViewProtocol {
     @IBOutlet weak var loadingView: LoadingView!

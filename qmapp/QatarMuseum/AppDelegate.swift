@@ -5,15 +5,19 @@
 //  Created by Exalture on 06/06/18.
 //  Copyright © 2018 Exalture. All rights reserved.
 //
-import Alamofire
-import CoreData
+
+
 import Firebase
 import GoogleMaps
 import GooglePlaces
 import Kingfisher
 import UIKit
 import UserNotifications
-import CocoaLumberjack
+
+@_exported import CoreData 
+@_exported import Alamofire
+@_exported import CocoaLumberjack
+
 var tokenValue : String? = nil
 
 var languageKey = 1

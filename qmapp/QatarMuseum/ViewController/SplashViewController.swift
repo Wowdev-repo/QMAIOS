@@ -8,7 +8,7 @@
 
 import Crashlytics
 import UIKit
-import CocoaLumberjack
+
 import Firebase
 
 class SplashViewController: UIViewController {

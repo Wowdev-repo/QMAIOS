@@ -6,9 +6,9 @@
 //  Copyright © 2018 Exalture. All rights reserved.
 //
 
-import Alamofire
+
 import Foundation
-import CocoaLumberjack
+
 
 enum QatarMuseumRouter: URLRequestConvertible {
     case ExhibitionList(String)

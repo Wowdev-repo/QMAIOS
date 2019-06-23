@@ -6,12 +6,12 @@
 //  Copyright © 2018 Exalture. All rights reserved.
 //
 
-import Alamofire
-import CoreData
+
+
 import UIKit
 import Firebase
 import KeychainSwift
-import CocoaLumberjack
+
 
 enum HomePageName {
     case diningList

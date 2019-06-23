@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import CocoaLumberjack
+
 
 class CollectionDetailCell: UITableViewCell {
     @IBOutlet weak var firstTitle: UILabel!

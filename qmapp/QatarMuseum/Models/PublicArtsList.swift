@@ -18,6 +18,7 @@ struct PublicArtsList: ResponseObjectSerializable, ResponseCollectionSerializabl
     var isFavourite : Bool = false
     var language: String?
     
+    
     public init?(response: HTTPURLResponse, representation: AnyObject) {
         if let representation = representation as? [String: Any] {
             self.id = representation["ID"] as? String

@@ -9,7 +9,7 @@
 import Crashlytics
 import Firebase
 import UIKit
-import CocoaLumberjack
+
 
 class FilterViewController: UIViewController,HeaderViewProtocol,UIPickerViewDelegate,UIPickerViewDataSource,UITextFieldDelegate {
     @IBOutlet weak var institutionTitleLabel: UILabel!

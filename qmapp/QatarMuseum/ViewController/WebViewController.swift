@@ -6,11 +6,11 @@
 //  Copyright © 2018 Exalture. All rights reserved.
 //
 
-import Alamofire
+
 import UIKit
 import WebKit
 import Crashlytics
-import CocoaLumberjack
+
 import Firebase
 class WebViewController: UIViewController,UIWebViewDelegate,LoadingViewProtocol {
     @IBOutlet weak var titleLabel: UILabel!

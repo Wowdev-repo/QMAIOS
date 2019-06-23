@@ -7,9 +7,9 @@
 //
 
 import Foundation
-import Alamofire
-import CoreData
-import CocoaLumberjack
+
+
+
 import Firebase
 
 var heritageListNotificationEn = "heritageListNotificationEn"

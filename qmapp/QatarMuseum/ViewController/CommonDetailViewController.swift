@@ -6,9 +6,9 @@
 //  Copyright © 2018 Exalture. All rights reserved.
 //
 
-import Alamofire
-import CocoaLumberjack
-import CoreData
+
+
+
 import Firebase
 import MessageUI
 import UIKit
@@ -52,6 +52,7 @@ class CommonDetailViewController: UIViewController,UITableViewDelegate,UITableVi
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
         setupUIContents()
         registerCells()
+        print(publicArtsDetailId)
         if ((pageNameString == PageName.heritageDetail) && (heritageDetailId != nil)) {
             if  (networkReachability?.isReachable)! {
                 getHeritageDetailsFromServer()
@@ -335,7 +336,7 @@ class CommonDetailViewController: UIViewController,UITableViewDelegate,UITableVi
                 self.loadLocationInMap(currentRow: indexPath.row)
             }
             cell.loadEmailComposer = {
-                self.openEmail(email:"nmoq@qm.org.qa")
+                self.openEmail(email:"info@mia.org.qa")
             }
             return cell
         } else if(pageNameString == PageName.SideMenuPark){

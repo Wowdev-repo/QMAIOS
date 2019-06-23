@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import CocoaLumberjack
+
 extension UIApplication {
     class func isRTL() -> Bool{
         return UIApplication.shared.userInterfaceLayoutDirection == .rightToLeft

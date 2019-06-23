@@ -9,7 +9,7 @@
 import Firebase
 import UIKit
 import KeychainSwift
-import CocoaLumberjack
+
 
 class CulturePassCardViewController: UIViewController {
     

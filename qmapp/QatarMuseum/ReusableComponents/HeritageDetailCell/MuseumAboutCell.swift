@@ -11,7 +11,7 @@ import AVKit
 import UIKit
 import MapKit
 import YouTubePlayer
-import CocoaLumberjack
+
 
 class MuseumAboutCell: UITableViewCell,iCarouselDelegate,iCarouselDataSource,UITextViewDelegate {
     @IBOutlet weak var favoriteButton: UIButton!
