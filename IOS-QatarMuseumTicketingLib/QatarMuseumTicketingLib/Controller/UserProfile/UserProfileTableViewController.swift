@@ -341,7 +341,7 @@ class UserProfileTableViewController: UITableViewController,QMTLTabViewControlle
             self.performSegue(withIdentifier: QMTLConstants.Segue.segueUserInfoTableViewController, sender: nil)
         }else if indexPath.row == 3 {
             
-            let refreshAlert = UIAlertController(title: getLocalizedStr(str: "Log Oxut"), message: getLocalizedStr(str: "Are you sure you want to log out?"), preferredStyle: UIAlertController.Style.alert)
+            let refreshAlert = UIAlertController(title: getLocalizedStr(str: "Log Out"), message: getLocalizedStr(str: "Are you sure you want to log out?"), preferredStyle: UIAlertController.Style.alert)
             
             refreshAlert.addAction(UIAlertAction(title: getLocalizedStr(str: "Ok"), style: .default, handler: { (action: UIAlertAction!) in
                 

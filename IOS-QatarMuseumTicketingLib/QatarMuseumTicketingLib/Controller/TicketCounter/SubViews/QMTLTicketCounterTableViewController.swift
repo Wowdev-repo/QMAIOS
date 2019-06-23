@@ -513,6 +513,9 @@ class QMTLTicketCounterTableViewController: UITableViewController,TicketPickerVi
         if (indexPath.row == 0){
             cell.containerView?.layer.cornerRadius = 10.0
         }
+        else if (indexPath.row == prices.count-1){
+            cell.containerView?.layer.cornerRadius = 10.0
+        }
         else{
             cell.containerView?.layer.cornerRadius = 0
         }
