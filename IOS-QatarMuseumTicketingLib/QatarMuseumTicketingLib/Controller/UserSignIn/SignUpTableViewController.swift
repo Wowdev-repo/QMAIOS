@@ -97,7 +97,7 @@ class SignUpTableViewController: UITableViewController, UITextFieldDelegate,QMTL
         toastStyle.messageColor = .white
         toastStyle.backgroundColor = .darkGray
         
-        QMTLSingleton.sharedInstance.userInfo.subscriptionArticle = nil
+        //QMTLSingleton.sharedInstance.userInfo.subscriptionArticle = nil
         
         setupView()
         
@@ -138,6 +138,7 @@ class SignUpTableViewController: UITableViewController, UITextFieldDelegate,QMTL
         tabViewController.bottomBtn.setTitle(getLocalizedStr(str: "Save") , for: .normal)
         tabViewController.topTabBarView.myProfileBtn.isHidden = true
         
+        print ("subscribed obj is",QMTLSingleton.sharedInstance.userInfo.subscriptionArticle?.name as Any);
         
         if let subscribedObj = QMTLSingleton.sharedInstance.userInfo.subscriptionArticle {
             
@@ -414,7 +415,14 @@ class SignUpTableViewController: UITableViewController, UITextFieldDelegate,QMTL
     }
     
     @objc func membershipViewTapAction(sender: UITapGestureRecognizer? = nil) {
-            self.performSegue(withIdentifier: QMTLConstants.Segue.segueCulturePassTableViewController, sender: nil)
+            //self.performSegue(withIdentifier: QMTLConstants.Segue.segueCulturePassTableViewController, sender: nil)
+        for vc in (self.navigationController?.viewControllers ?? []) {
+            print("view controller presented is ",vc);
+            if vc is CulturePassTableViewController {
+                _ = self.navigationController?.popToViewController(vc, animated: true)
+                break
+            }
+        }
     }
     
     func callSavePerson(){
@@ -472,7 +480,15 @@ class SignUpTableViewController: UITableViewController, UITextFieldDelegate,QMTL
     
     func backBtnSelected() {
         print("Guest page backBtnSelected")
-        self.navigationController?.popViewController(animated: false)
+        //self.navigationController?.popViewController(animated: false)
+        for vc in (self.navigationController?.viewControllers ?? []) {
+            print("view controller presented is ",vc);
+            if vc is CulturePassTableViewController {
+                _ = self.navigationController?.popToViewController(vc, animated: true)
+                break
+            }
+        }
+        //self.dismiss(animated: false, completion: nil);
     }
     
     func bottomBtnAction() {

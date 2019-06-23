@@ -422,7 +422,9 @@ class UserProfileTableViewController: UITableViewController,QMTLTabViewControlle
         QMTLSingleton.sharedInstance.userInfo.password = ""
         QMTLSingleton.sharedInstance.userInfo.isLoggedIn = false
         QMTLSingleton.sharedInstance.userInfo.isSubscribed = false
-        
+        QMTLSingleton.sharedInstance.userInfo.currentSubscribtion.name = ""
+        QMTLSingleton.sharedInstance.userInfo.currentSubscribtion.id = ""
+        //QMTLSingleton.sharedInstance.userInfo.currentSubscribtion.endDateTime = nil
         self.keychain.set("", forKey: QMTLConstants.UserValues.username)
         self.keychain.set("", forKey: QMTLConstants.UserValues.password)
         self.keychain.set("", forKey: QMTLConstants.UserValues.personId)

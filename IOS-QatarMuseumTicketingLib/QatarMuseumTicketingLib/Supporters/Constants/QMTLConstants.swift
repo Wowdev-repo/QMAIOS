@@ -576,6 +576,8 @@ struct QMTLConstants {
         static let segueQMTLGuestUserViewController = "SegueQMTLGuestUserViewController"
         static let segueQMTLSignInUserViewController = "SegueQMTLSignInUserViewController"
         static let segueCulturePassTableViewController = "SegueCulturePassTableViewController"
+        static let segueCulturePassList = "culturePassListSegue"
+        static let signupFromCardSegue = "signupFromCardSegue"
         static let segueQMTLSignInUserViewControllerFromProfile = "SegueQMTLSignInUserViewControllerFromProfile"
         static let segueQMTLTicketSuccessfullViewController = "SegueQMTLTicketSuccessfullViewController"
         static let segueUserInfoTableViewController = "SegueUserInfoTableViewController"

@@ -193,7 +193,7 @@ class QMTLGuestUserViewController: UIViewController,QMTLSignInUserViewController
     }
     
     @IBAction func signUpBtnAction(_ sender: Any){
-        self.performSegue(withIdentifier: QMTLConstants.Segue.segueSignUpTableViewController, sender: sender)
+        self.performSegue(withIdentifier: QMTLConstants.Segue.segueCulturePassList, sender: sender)
     }
     
     @IBAction func continueBtnAction(_ sender: Any){

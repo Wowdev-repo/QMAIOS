@@ -23,6 +23,7 @@ class CulturePassTableViewController: UITableViewController,QMTLTabViewControlle
     var findSubscriptionArticleResponseJsonValue : JSON = []
     
     var isFromSignUpPage = false
+    var isFromLoginPage = false
     
     //MARK:- IBOutlet
     
@@ -280,8 +281,11 @@ class CulturePassTableViewController: UITableViewController,QMTLTabViewControlle
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let subscriptionArticle = subscriptionArticleArr[indexPath.row]
-        
-        if isFromSignUpPage{
+        if isFromLoginPage{
+            QMTLSingleton.sharedInstance.userInfo.subscriptionArticle = subscriptionArticle
+            self.performSegue(withIdentifier: QMTLConstants.Segue.signupFromCardSegue, sender: nil)
+        }
+        else if isFromSignUpPage{
             if QMTLSingleton.sharedInstance.userInfo.isLoggedIn {
                 print("sign up")
                 navToCartPage(subscriptionArticle: subscriptionArticle)
@@ -533,15 +537,24 @@ class CulturePassTableViewController: UITableViewController,QMTLTabViewControlle
     
     func backBtnSelected() {
         
-        if isFromSignUpPage{
-            
+//        if isFromLoginPage{
+//            print ("in back1");
+//            for vc in (self.navigationController?.viewControllers ?? []) {
+//                 print ("in back1",vc);
+//                if vc is QMTLSignInUserViewController {
+//                    _ = self.navigationController?.popToViewController(vc, animated: true)
+//                    break
+//                }
+//            }
+//        }
+//        else
+            if isFromSignUpPage{
+             print ("in back2");
             let allControllers = self.navigationController?.viewControllers
-            
             let controllerToPop = allControllers?[(allControllers?.count)! - 3]
-            self.navigationController?.popToViewController(controllerToPop!, animated: false)
-            
-            
+            self.navigationController?.popToViewController(controllerToPop!, animated: false) 
         }else{
+             print ("in back3");
             self.navigationController?.popViewController(animated: false)
         }
         

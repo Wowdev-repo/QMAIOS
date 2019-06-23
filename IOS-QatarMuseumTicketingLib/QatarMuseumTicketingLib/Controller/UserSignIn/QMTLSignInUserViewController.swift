@@ -330,15 +330,22 @@ class QMTLSignInUserViewController: UIViewController, UITextFieldDelegate, APISe
         
     }
     
-    /*
-    // MARK: - Navigation
+    
+     //MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+     //In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+         //Pass the selected object to the new view controller.
+        print ("sing up segue prepare");
+        if segue.identifier == QMTLConstants.Segue.segueCulturePassList{
+            print ("sing up segue prepare segueCulturePassList");
+            let culturePassTableViewController:CulturePassTableViewController = segue.destination as! CulturePassTableViewController
+            culturePassTableViewController.isFromLoginPage = true
+            
+        }
     }
-    */
+    
     
     //MARK:- Localization
     
