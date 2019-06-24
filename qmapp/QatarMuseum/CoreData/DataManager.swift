@@ -807,19 +807,19 @@ extension DataManager {
     static func updatePublicArts(managedContext: NSManagedObjectContext,
                                  publicArtsListArray:[PublicArtsList]?,
                                  language: String) {
-        let fetchData = DataManager.checkAddedToCoredata(entityName: "PublicArtsEntity",
-                                                         idKey: "id",
-                                                         idValue: nil,
-                                                         managedContext: managedContext) as! [PublicArtsEntity]
-        if let publicArts = publicArtsListArray, !fetchData.isEmpty {
+//        let fetchData = DataManager.checkAddedToCoredata(entityName: "PublicArtsEntity",
+//                                                         idKey: "id",
+//                                                         idValue: nil,
+//                                                         managedContext: managedContext) as! [PublicArtsEntity]
+        if let publicArts = publicArtsListArray {
             for publicArtsListDict in publicArts {
                 let fetchResult = DataManager.checkAddedToCoredata(entityName: "PublicArtsEntity",
                                                                    idKey: "id",
                                                                    idValue: publicArtsListDict.id,
-                                                                   managedContext: managedContext)
+                                                                   managedContext: managedContext) as! [PublicArtsEntity]
                 //update
                 if !fetchResult.isEmpty {
-                    let publicArtsdbDict = fetchResult[0] as! PublicArtsEntity
+                    let publicArtsdbDict = fetchResult[0]
                     DataManager.saveToPublicArtsCoreData(publicArtsListDict: publicArtsListDict,
                                                          managedObjContext: managedContext,
                                                          entity: publicArtsdbDict, language: language)
@@ -830,15 +830,16 @@ extension DataManager {
                                                          entity: nil, language: language)
                 }
             }
-        } else {
-            if let publicArts = publicArtsListArray {
-                for publicArtsListDict in publicArts {
-                    DataManager.saveToPublicArtsCoreData(publicArtsListDict: publicArtsListDict,
-                                                         managedObjContext: managedContext,
-                                                         entity: nil, language: language)
-                }
-            }
         }
+//        } else {
+//            if let publicArts = publicArtsListArray {
+//                for publicArtsListDict in publicArts {
+//                    DataManager.saveToPublicArtsCoreData(publicArtsListDict: publicArtsListDict,
+//                                                         managedObjContext: managedContext,
+//                                                         entity: nil, language: language)
+//                }
+//            }
+//        }
     }
     
     static func saveToPublicArtsCoreData(publicArtsListDict: PublicArtsList,
@@ -850,6 +851,7 @@ extension DataManager {
             publicArtsInfo = NSEntityDescription.insertNewObject(forEntityName: "PublicArtsEntity",
                                                                  into: managedObjContext) as? PublicArtsEntity
         }
+        publicArtsInfo?.id = publicArtsListDict.id
         publicArtsInfo?.name = publicArtsListDict.name
         publicArtsInfo?.image = publicArtsListDict.image
         publicArtsInfo?.latitude =  publicArtsListDict.latitude

@@ -36,7 +36,7 @@ class HeritageDetailCell: UITableViewCell {
     @IBOutlet weak var locationFirstLabel: UILabel!
     @IBOutlet weak var subTitleHeight: NSLayoutConstraint!
     @IBOutlet weak var locationTotalTopConstraint: NSLayoutConstraint!
-    @IBOutlet weak var locationTotalBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var locationTotalBottomConstraint: NSLayoutConstraint?
     @IBOutlet weak var locationButton: UIButton!
     @IBOutlet weak var favoriteBtnViewHeight: NSLayoutConstraint!
     @IBOutlet weak var pageControl: UIPageControl!
@@ -178,8 +178,8 @@ class HeritageDetailCell: UITableViewCell {
         titleBottomOnlyConstraint.constant = 20//
         locationTotalTopConstraint.isActive = true
         locationTotalTopConstraint.constant = 40
-        locationTotalBottomConstraint.isActive = true
-        locationTotalBottomConstraint.constant = 40
+        locationTotalBottomConstraint?.isActive = true
+        locationTotalBottomConstraint?.constant = 40
         
         titleDescriptionLabel.text = publicArsDetail.description?.replacingOccurrences(of: "<[^>]+>|&nbsp;|&|#039;", with: "", options: .regularExpression, range: nil)
         midTitleDescriptionLabel.text = publicArsDetail.shortdescription?.replacingOccurrences(of: "<[^>]+>|&nbsp;|&|#039;", with: "", options: .regularExpression, range: nil)
@@ -195,7 +195,7 @@ class HeritageDetailCell: UITableViewCell {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         titleBottomOnlyConstraint.isActive = false
         locationTotalTopConstraint.isActive = false
-        locationTotalBottomConstraint.isActive = false
+        locationTotalBottomConstraint?.isActive = false
         middleTitleLabel.isHidden = false
         midTitleDescriptionLabel.isHidden = false
         middleLabelLine.isHidden = false
