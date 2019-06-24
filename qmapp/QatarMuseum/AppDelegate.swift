@@ -13,13 +13,11 @@ import GooglePlaces
 import Kingfisher
 import UIKit
 import UserNotifications
-
 @_exported import CoreData 
 @_exported import Alamofire
 @_exported import CocoaLumberjack
 
 var tokenValue : String? = nil
-
 var languageKey = 1
 
 @UIApplicationMain
