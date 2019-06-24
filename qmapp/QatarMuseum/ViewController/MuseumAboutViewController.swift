@@ -534,14 +534,16 @@ class MuseumAboutViewController: UIViewController,UITableViewDelegate,UITableVie
                 container.performBackgroundTask() { managedContext in
                     DataManager.saveAboutDetails(managedContext: managedContext,
                                                  aboutDetailtArray: aboutDetailtArray,
-                                                 fromHomeBanner: false)
+                                                 fromHomeBanner: false,
+                                                 language: Utils.getLanguage())
                 }
             } else {
                 let managedContext = appDelegate!.managedObjectContext
                 managedContext.perform {
                     DataManager.saveAboutDetails(managedContext: managedContext,
                                                  aboutDetailtArray: aboutDetailtArray,
-                                                 fromHomeBanner: false)
+                                                 fromHomeBanner: false,
+                                                 language: Utils.getLanguage())
                 }
             }
         }

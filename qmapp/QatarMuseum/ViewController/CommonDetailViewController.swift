@@ -802,13 +802,15 @@ class CommonDetailViewController: UIViewController,UITableViewDelegate,UITableVi
                 let container = appDelegate!.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
                     DataManager.updateHeritage(managedContext : managedContext,
-                                               heritageListArray: self.heritageDetailtArray)
+                                               heritageListArray: self.heritageDetailtArray,
+                                               language: Utils.getLanguage())
                 }
             } else {
                 let managedContext = appDelegate!.managedObjectContext
                 managedContext.perform {
                     DataManager.updateHeritage(managedContext : managedContext,
-                                               heritageListArray: self.heritageDetailtArray)
+                                               heritageListArray: self.heritageDetailtArray,
+                                               language: Utils.getLanguage())
                 }
             }
         }
@@ -961,14 +963,16 @@ class CommonDetailViewController: UIViewController,UITableViewDelegate,UITableVi
                 container.performBackgroundTask() {(managedContext) in
                     DataManager.updateExhibitionsEntity(managedContext : managedContext,
                                                         exhibition: self.exhibition,
-                                                        isHomeExhibition:"0")
+                                                        isHomeExhibition:"0",
+                                                        language: Utils.getLanguage())
                 }
             } else {
                 let managedContext = appDelegate!.managedObjectContext
                 managedContext.perform {
                     DataManager.updateExhibitionsEntity(managedContext: managedContext,
                                                         exhibition: self.exhibition,
-                                                        isHomeExhibition: "0")
+                                                        isHomeExhibition: "0",
+                                                        language: Utils.getLanguage())
                 }
             }
         }

@@ -101,7 +101,8 @@ extension DataManager {
     
     static func saveAboutDetails(managedContext: NSManagedObjectContext,
                                  aboutDetailtArray: [Museum]?,
-                                 fromHomeBanner: Bool) {
+                                 fromHomeBanner: Bool,
+                                 language: String) {
         if let aboutDetailDict = aboutDetailtArray?.first {
             let fetchData = checkAddedToCoredata(entityName: "AboutEntity",
                                                  idKey: "id" ,
@@ -114,19 +115,22 @@ extension DataManager {
                     _ = self.delete(managedContext: managedContext, entityName: "AboutDownloadLinkEntity")
                     self.saveToCoreData(aboutDetailDict: aboutDetailDict,
                                         managedObjContext: managedContext,
-                                        fromHomeBanner: fromHomeBanner)
+                                        fromHomeBanner: fromHomeBanner,
+                                        language: language)
                 }
             } else {
                 self.saveToCoreData(aboutDetailDict: aboutDetailDict,
                                     managedObjContext: managedContext,
-                                    fromHomeBanner: fromHomeBanner)
+                                    fromHomeBanner: fromHomeBanner,
+                                    language: language)
             }
         }
     }
     
     static func saveToCoreData(aboutDetailDict: Museum,
                                managedObjContext: NSManagedObjectContext,
-                               fromHomeBanner: Bool) {
+                               fromHomeBanner: Bool,
+                               language: String) {
         let aboutdbDict: AboutEntity = NSEntityDescription.insertNewObject(forEntityName: "AboutEntity",
                                                                            into: managedObjContext) as! AboutEntity
         
@@ -137,7 +141,7 @@ extension DataManager {
         aboutdbDict.contactEmail = aboutDetailDict.contactEmail
         aboutdbDict.mobileLongtitude = aboutDetailDict.mobileLongtitude
         aboutdbDict.subtitle = aboutDetailDict.subtitle
-        aboutdbDict.language = Utils.getLanguage()
+        aboutdbDict.language = language
         
         if !fromHomeBanner {
             aboutdbDict.openingTime = aboutDetailDict.openingTime
@@ -562,7 +566,7 @@ extension DataManager {
                                                                    idValue: tourGuideListDict.nid,
                                                                    managedContext: managedContext)
                 //update
-                if fetchResult.isEmpty {
+                if !fetchResult.isEmpty {
                     let tourguidedbDict = fetchResult[0] as! TourGuideEntity
                     DataManager.saveTourGuide(tourguideListDict: tourGuideListDict,
                                               managedObjContext: managedContext,
@@ -951,7 +955,7 @@ extension DataManager {
                                                          idKey: "sortId",
                                                          idValue: nil,
                                                          managedContext: managedContext) as! [NotificationsEntity]
-        if (fetchData.count > 0) {
+        if !fetchData.isEmpty {
             for notificationDict in notifications {
                 let fetchResult = DataManager.checkAddedToCoredata(entityName: "NotificationsEntity",
                                                                    idKey: "sortId",
@@ -989,7 +993,8 @@ extension DataManager {
     }
     
     static func updateTravelList(travelList: [HomeBanner],
-                          managedContext: NSManagedObjectContext) {
+                                 managedContext: NSManagedObjectContext,
+                                 language: String) {
         let fetchData = DataManager.checkAddedToCoredata(entityName: "NMoQTravelListEntity",
                                                          idKey: "fullContentID",
                                                          idValue: nil,
@@ -1001,30 +1006,34 @@ extension DataManager {
                                                                    idValue: travelListDict.fullContentID,
                                                                    managedContext: managedContext)
                 //update
-                if(fetchResult.count != 0) {
+                if !fetchResult.isEmpty {
                     let travelListdbDict = fetchResult[0] as! NMoQTravelListEntity
                     DataManager.saveTravelList(travelListDict: travelListDict,
                                         managedObjContext: managedContext,
-                                        entity: travelListdbDict)
+                                        entity: travelListdbDict,
+                                        language: language)
                 } else {
                     //save
                     DataManager.saveTravelList(travelListDict: travelListDict,
                                         managedObjContext: managedContext,
-                                        entity: nil)
+                                        entity: nil,
+                                        language: language)
                 }
             }
         } else {
             for travelListDict in travelList {
                 DataManager.saveTravelList(travelListDict: travelListDict,
                                     managedObjContext: managedContext,
-                                    entity: nil)
+                                    entity: nil,
+                                    language: language)
             }
         }
     }
     
     static func saveTravelList(travelListDict: HomeBanner,
                         managedObjContext: NSManagedObjectContext,
-                        entity: NMoQTravelListEntity?) {
+                        entity: NMoQTravelListEntity?,
+                        language: String) {
         
         var travelListdbDict = entity
         
@@ -1041,14 +1050,15 @@ extension DataManager {
         travelListdbDict?.contactNumber = travelListDict.contactNumber
         travelListdbDict?.promotionalCode =  travelListDict.promotionalCode
         travelListdbDict?.claimOffer = travelListDict.claimOffer
-        travelListdbDict?.language = Utils.getLanguage()
+        travelListdbDict?.language = language
         
         managedObjContext.saveContext()
     }
     
     static func updateTourList(nmoqTourList:[NMoQTour],
                         managedContext: NSManagedObjectContext,
-                        isTourGuide:Bool) {
+                        isTourGuide:Bool,
+                        language: String) {
         let fetchData = DataManager.checkAddedToCoredata(entityName: "NMoQTourListEntity",
                                                          idKey: "nid",
                                                          idValue: nil,
@@ -1060,18 +1070,20 @@ extension DataManager {
                                                                    idValue: tourListDict.nid,
                                                                    managedContext: managedContext)
                 //update
-                if(fetchResult.count != 0) {
+                if !fetchResult.isEmpty {
                     let tourListdbDict = fetchResult[0] as! NMoQTourListEntity
                     DataManager.saveTourList(tourListDict: tourListDict,
                                       managedObjContext: managedContext,
                                       isTourGuide: isTourGuide,
-                                      entity: tourListdbDict)
+                                      entity: tourListdbDict,
+                                      language: language)
                 } else {
                     //save
                     DataManager.saveTourList(tourListDict: tourListDict,
                                       managedObjContext: managedContext,
                                       isTourGuide: isTourGuide,
-                                      entity: nil)
+                                      entity: nil,
+                                      language: language)
                 }
             }
         } else {
@@ -1079,7 +1091,8 @@ extension DataManager {
                 DataManager.saveTourList(tourListDict: tourListDict,
                                   managedObjContext: managedContext,
                                   isTourGuide: isTourGuide,
-                                  entity: nil)
+                                  entity: nil,
+                                  language: language)
             }
         }
     }
@@ -1087,7 +1100,8 @@ extension DataManager {
     static func saveTourList(tourListDict: NMoQTour,
                       managedObjContext: NSManagedObjectContext,
                       isTourGuide: Bool,
-                      entity: NMoQTourListEntity?) {
+                      entity: NMoQTourListEntity?,
+                      language: String) {
         var tourListInfo = entity
         if entity == nil {
             tourListInfo = NSEntityDescription.insertNewObject(forEntityName: "NMoQTourListEntity",
@@ -1110,7 +1124,7 @@ extension DataManager {
         tourListInfo?.contactEmail = tourListDict.contactEmail
         tourListInfo?.contactPhone = tourListDict.contactPhone
         tourListInfo?.isTourGuide = isTourGuide
-        tourListInfo?.language = Utils.getLanguage()
+        tourListInfo?.language = language
         
         if(tourListDict.images != nil){
             if let images = tourListDict.images {
@@ -1135,7 +1149,7 @@ extension DataManager {
                                                                    idValue: nmoqParkListDict.nid,
                                                                    managedContext: managedContext)
                 //update
-                if(fetchResult.count != 0) {
+                if !fetchResult.isEmpty {
                     let nmoqParkListdbDict = fetchResult[0] as! NMoQParksEntity
                     DataManager.saveNmoqParks(nmoqParkListDict: nmoqParkListDict,
                                        managedObjContext: managedContext,
@@ -1184,7 +1198,9 @@ extension DataManager {
         managedObjContext.saveContext()
     }
     
-    static func updateNmoqParkList(nmoqParkList: [NMoQParksList], managedContext: NSManagedObjectContext) {
+    static func updateNmoqParkList(nmoqParkList: [NMoQParksList],
+                                   managedContext: NSManagedObjectContext,
+                                   language: String) {
         let fetchData = DataManager.checkAddedToCoredata(entityName: "NMoQParkListEntity",
                                                          idKey: "nid",
                                                          idValue: nil,
@@ -1196,16 +1212,18 @@ extension DataManager {
                                                                    idValue: nmoqParkListDict.nid,
                                                                    managedContext: managedContext)
                 //update
-                if(fetchResult.count != 0) {
+                if !fetchResult.isEmpty {
                     let nmoqParkListdbDict = fetchResult[0] as! NMoQParkListEntity
                     DataManager.saveNmoqParkList(nmoqParkListDict: nmoqParkListDict,
                                           managedObjContext: managedContext,
-                                          entity: nmoqParkListdbDict)
+                                          entity: nmoqParkListdbDict,
+                                          language: language)
                 } else {
                     //save
                     DataManager.saveNmoqParkList(nmoqParkListDict: nmoqParkListDict,
                                           managedObjContext: managedContext,
-                                          entity: nil)
+                                          entity: nil,
+                                          language: language)
                 }
             }
             NotificationCenter.default.post(name: NSNotification.Name(facilitiesListNotificationEn), object: self)
@@ -1213,7 +1231,8 @@ extension DataManager {
             for nmoqParkListDict in nmoqParkList {
                 DataManager.saveNmoqParkList(nmoqParkListDict: nmoqParkListDict,
                                       managedObjContext: managedContext,
-                                      entity: nil)
+                                      entity: nil,
+                                      language: language)
             }
             NotificationCenter.default.post(name: NSNotification.Name(facilitiesListNotificationEn), object: self)
         }
@@ -1221,7 +1240,8 @@ extension DataManager {
     
     static func saveNmoqParkList(nmoqParkListDict: NMoQParksList,
                           managedObjContext: NSManagedObjectContext,
-                          entity: NMoQParkListEntity?) {
+                          entity: NMoQParkListEntity?,
+                          language: String) {
         var nmoqParkListdbDict = entity
         if entity == nil {
             nmoqParkListdbDict = NSEntityDescription.insertNewObject(forEntityName: "NMoQParkListEntity",
@@ -1237,7 +1257,7 @@ extension DataManager {
         nmoqParkListdbDict?.longitude = nmoqParkListDict.longitude
         nmoqParkListdbDict?.latitude = nmoqParkListDict.latitude
         nmoqParkListdbDict?.locationTitle =  nmoqParkListDict.locationTitle
-        nmoqParkListdbDict?.language = Utils.getLanguage()
+        nmoqParkListdbDict?.language = language
         
         managedObjContext.saveContext()
     }
@@ -1255,7 +1275,7 @@ extension DataManager {
                                                                    idValue: nmoqParkListDict.nid,
                                                                    managedContext: managedContext)
                 //update
-                if(fetchResult.count != 0) {
+                if !fetchResult.isEmpty {
                     let nmoqParkListdbDict = fetchResult[0] as! NMoQParkDetailEntity
                     DataManager.saveNMoQParkDetail(nmoqParkListDict: nmoqParkListDict,
                                             managedObjContext: managedContext,
@@ -1301,7 +1321,7 @@ extension DataManager {
     }
     
     static func updateActivityList(nmoqActivityList: [NMoQActivitiesList],
-                            managedContext: NSManagedObjectContext) {
+                                   managedContext: NSManagedObjectContext, language: String) {
         let fetchData = DataManager.checkAddedToCoredata(entityName: "NMoQActivitiesEntity",
                                                          idKey: "nid",
                                                          idValue: nil,
@@ -1313,14 +1333,18 @@ extension DataManager {
                                                                    idValue: nmoqActivityListDict.nid,
                                                                    managedContext: managedContext)
                 //update
-                if(fetchResult.count != 0) {
+                if !fetchResult.isEmpty {
                     let activityListdbDict = fetchResult[0] as! NMoQActivitiesEntity
                     DataManager.saveActivityList(activityListDict: nmoqActivityListDict,
                                           managedObjContext: managedContext,
-                                          entity: activityListdbDict)
+                                          entity: activityListdbDict,
+                                          language: language)
                 } else {
                     //save
-                    DataManager.saveActivityList(activityListDict: nmoqActivityListDict, managedObjContext: managedContext, entity: nil)
+                    DataManager.saveActivityList(activityListDict: nmoqActivityListDict,
+                                                 managedObjContext: managedContext,
+                                                 entity: nil,
+                                                 language: language)
                 }
             }
             NotificationCenter.default.post(name: NSNotification.Name(nmoqActivityListNotificationEn), object: self)
@@ -1328,14 +1352,17 @@ extension DataManager {
             for activitiesListDict in nmoqActivityList {
                 DataManager.saveActivityList(activityListDict: activitiesListDict,
                                       managedObjContext: managedContext,
-                                      entity: nil)
+                                      entity: nil,
+                                      language: language)
             }
             NotificationCenter.default.post(name: NSNotification.Name(nmoqActivityListNotificationEn), object: self)
         }
     }
     
     static func saveActivityList(activityListDict: NMoQActivitiesList,
-                          managedObjContext: NSManagedObjectContext, entity: NMoQActivitiesEntity?) {
+                          managedObjContext: NSManagedObjectContext,
+                          entity: NMoQActivitiesEntity?,
+                          language: String) {
         var activityListdbDict = entity
         if entity == nil {
             activityListdbDict = NSEntityDescription.insertNewObject(forEntityName: "NMoQActivitiesEntity",
@@ -1355,7 +1382,7 @@ extension DataManager {
         activityListdbDict?.longitude = activityListDict.longitude
         activityListdbDict?.contactEmail = activityListDict.contactEmail
         activityListdbDict?.contactPhone = activityListDict.contactPhone
-        activityListdbDict?.language = Utils.getLanguage()
+        activityListdbDict?.language = language
         
         if let images = activityListDict.images {
             for image in images {
@@ -1374,7 +1401,7 @@ extension DataManager {
         
         fetchData = DataManager.checkAddedToCoredata(entityName: "HomeEntity",
                                                      idKey: "lang",
-                                                     idValue: Utils.getLanguage(),
+                                                     idValue: language,
                                                      managedContext: managedContext) as! [HomeEntity]
         if (fetchData.count > 0) {
             for homeListDict in homeList {
@@ -1383,7 +1410,7 @@ extension DataManager {
                                                                    idValue: homeListDict.id,
                                                                    managedContext: managedContext)
                 //update
-                if(fetchResult.count != 0) {
+                if !fetchResult.isEmpty {
                     let homedbDict = fetchResult[0] as! HomeEntity
                     DataManager.saveHomeEntity(homeListDict: homeListDict,
                                         managedObjContext: managedContext,
@@ -1432,7 +1459,7 @@ extension DataManager {
                                                          idValue: nil,
                                                          managedContext: managedContext) as! [HomeBannerEntity]
         let homeListDict = list[0]
-        if (fetchData.count > 0) {
+        if !fetchData.isEmpty {
             if DataManager.delete(managedContext: managedContext,
                                   entityName: "HomeBannerEntity") {
                 DataManager.saveHomeBannerT(homeListDict: homeListDict,
@@ -1472,10 +1499,12 @@ extension DataManager {
         managedObjContext.saveContext()
     }
     
-    static func updateHeritage(managedContext: NSManagedObjectContext, heritageListArray: [Heritage]) {
+    static func updateHeritage(managedContext: NSManagedObjectContext,
+                               heritageListArray: [Heritage],
+                               language: String) {
         let fetchData = DataManager.checkAddedToCoredata(entityName: "HeritageEntity",
                                                          idKey: "lang",
-                                                         idValue: Utils.getLanguage(),
+                                                         idValue: language,
                                                          managedContext: managedContext) as! [HeritageEntity]
         
         if (fetchData.count > 0) {
@@ -1485,16 +1514,16 @@ extension DataManager {
                                                                    idValue: heritageListDict.id,
                                                                    managedContext: managedContext)
                 //update
-                if(fetchResult.count != 0) {
+                if !fetchResult.isEmpty {
                     let heritagedbDict = fetchResult[0] as! HeritageEntity
                     DataManager.saveTHeritage(heritageListDict: heritageListDict,
                                               managedObjContext: managedContext,
-                                              entity: heritagedbDict)
+                                              entity: heritagedbDict, language: language)
                 } else {
                     //save
                     DataManager.saveTHeritage(heritageListDict: heritageListDict,
                                               managedObjContext: managedContext,
-                                              entity: nil)
+                                              entity: nil, language: language)
                     
                 }
             }
@@ -1502,14 +1531,14 @@ extension DataManager {
             for heritageListDict in heritageListArray {
                 DataManager.saveTHeritage(heritageListDict: heritageListDict,
                                           managedObjContext: managedContext,
-                                          entity: nil)
+                                          entity: nil, language: language)
             }
         }
     }
     
     static func saveTHeritage(heritageListDict: Heritage,
                        managedObjContext: NSManagedObjectContext,
-                       entity: HeritageEntity?) {
+                       entity: HeritageEntity?, language: String) {
         
         var heritageInfo = entity
         if entity == nil {
@@ -1519,7 +1548,7 @@ extension DataManager {
         heritageInfo?.listid = heritageListDict.id
         heritageInfo?.listname = heritageListDict.name
         heritageInfo?.listimage = heritageListDict.image
-        heritageInfo?.lang = Utils.getLanguage()
+        heritageInfo?.lang = language
         if let sortID = heritageListDict.sortid {
             heritageInfo?.listsortid = sortID
         }
@@ -1542,8 +1571,7 @@ extension DataManager {
                                                                        idValue: tourGuideDeatilDict.nid,
                                                                        managedContext: managedContext) as! [FloorMapTourGuideEntity]
                     
-                    if(fetchResult.count != 0) {
-                        
+                    if !fetchResult.isEmpty {
                         //update
                         let tourguidedbDict = fetchResult[0]
                         DataManager.saveFloorMapTourGuide(tourGuideDetailDict: tourGuideDeatilDict,
@@ -1616,30 +1644,33 @@ extension DataManager {
     
     static func updateExhibitionsEntity(managedContext: NSManagedObjectContext,
                                  exhibition: [Exhibition],
-                                 isHomeExhibition : String?) {
+                                 isHomeExhibition : String?,
+                                 language: String) {
         let fetchData = DataManager.checkAddedToCoredata(entityName: "ExhibitionsEntity",
                                                          idKey: "lang",
-                                                         idValue: Utils.getLanguage(),
+                                                         idValue: language,
                                                          managedContext: managedContext) as! [ExhibitionsEntity]
         if (fetchData.count > 0) {
             for exhibitionsListDict in exhibition {
                 let fetchResult = DataManager.checkAddedToCoredata(entityName: "ExhibitionsEntity",
                                                                    idKey: "id",
                                                                    idValue: exhibitionsListDict.id,
-                                                                   managedContext: managedContext)
+                                                                   managedContext: managedContext) as! [ExhibitionsEntity]
                 //update
-                if(fetchResult.count != 0) {
-                    let exhibitionsdbDict = fetchResult[0] as! ExhibitionsEntity
+                if !fetchResult.isEmpty {
+                    let exhibitionsdbDict = fetchResult[0]
                     DataManager.saveExhibitionsEntity(exhibitionDict: exhibitionsListDict,
                                                managedObjContext: managedContext,
                                                isHomeExhibition :isHomeExhibition,
-                                               entity: exhibitionsdbDict)
+                                               entity: exhibitionsdbDict,
+                                               language: language)
                 } else {
                     //save
                     DataManager.saveExhibitionsEntity(exhibitionDict: exhibitionsListDict,
                                                managedObjContext: managedContext,
                                                isHomeExhibition :isHomeExhibition,
-                                               entity: nil)
+                                               entity: nil,
+                                               language: language)
                 }
             }//for
         } else {
@@ -1647,7 +1678,8 @@ extension DataManager {
                 DataManager.saveExhibitionsEntity(exhibitionDict: exhibitionListDict,
                                            managedObjContext: managedContext,
                                            isHomeExhibition :isHomeExhibition,
-                                           entity:  nil)
+                                           entity:  nil,
+                                           language: language)
             }
         }
     }
@@ -1655,7 +1687,7 @@ extension DataManager {
     static func saveExhibitionsEntity(exhibitionDict: Exhibition,
                                managedObjContext: NSManagedObjectContext,
                                isHomeExhibition : String?,
-                               entity: ExhibitionsEntity?) {
+                               entity: ExhibitionsEntity?, language: String) {
         
         var exhibitionInfo = entity
         if entity == nil {
@@ -1672,7 +1704,7 @@ extension DataManager {
         exhibitionInfo?.museumId =  exhibitionDict.museumId
         exhibitionInfo?.status =  exhibitionDict.status
         exhibitionInfo?.isHomeExhibition =  isHomeExhibition
-        exhibitionInfo?.lang = Utils.getLanguage()
+        exhibitionInfo?.lang = language
         
         exhibitionInfo?.detailName = exhibitionDict.name
         exhibitionInfo?.detailImage = exhibitionDict.detailImage
@@ -1751,7 +1783,7 @@ extension DataManager {
                                                          idKey: "lang",
                                                          idValue: language,
                                                          managedContext: managedContext) as! [CollectionsEntity]
-        if (fetchData.count > 0) {
+        if !fetchData.isEmpty {
             if DataManager.delete(managedContext: managedContext, entityName: "CollectionsEntity") {
                 for collectionListDict in collection {
                     DataManager.saveCollectionsEntity(collectionListDict: collectionListDict,
@@ -1794,7 +1826,7 @@ extension DataManager {
                                                                    idValue: facilitiesListDict.nid,
                                                                    managedContext: managedContext)
                 //update
-                if(fetchResult.count != 0) {
+                if !fetchResult.isEmpty {
                     let facilitiesListdbDict = fetchResult[0] as! FacilitiesEntity
                     DataManager.saveFacilitiesEntity(facilitiesListDict: facilitiesListDict,
                                               managedObjContext: managedContext,

@@ -630,7 +630,9 @@ class MuseumsViewController: UIViewController,KASlideShowDelegate,TopBarProtocol
     //MARK: WebServiceCall
     func getMuseumDataFromServer() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.LandingPageMuseums(["nid": museumId ?? 0])).responseObject { (response: DataResponse<Museums>) -> Void in
+        _ = CPSessionManager.sharedInstance.apiManager()?
+            .request(QatarMuseumRouter.LandingPageMuseums(["nid": museumId ?? 0]))
+            .responseObject { (response: DataResponse<Museums>) -> Void in
             switch response.result {
             case .success(let data):
                 if(self.museumArray.count == 0) {
@@ -656,14 +658,16 @@ class MuseumsViewController: UIViewController,KASlideShowDelegate,TopBarProtocol
                 container.performBackgroundTask() {(managedContext) in
                     DataManager.saveAboutDetails(managedContext: managedContext,
                                           aboutDetailtArray: aboutDetailtArray,
-                                          fromHomeBanner: self.fromHomeBanner)
+                                          fromHomeBanner: self.fromHomeBanner,
+                                          language: Utils.getLanguage())
                 }
             } else {
                 let managedContext = appDelegate!.managedObjectContext
                 managedContext.perform {
                     DataManager.saveAboutDetails(managedContext : managedContext,
                                           aboutDetailtArray: aboutDetailtArray,
-                                          fromHomeBanner: self.fromHomeBanner)
+                                          fromHomeBanner: self.fromHomeBanner,
+                                          language: Utils.getLanguage())
                 }
             }
         }
