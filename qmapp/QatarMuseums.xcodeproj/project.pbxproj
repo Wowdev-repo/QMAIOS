@@ -29,6 +29,7 @@
 		1BE526D72107896600C8CD51 /* Exhibition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BE526D62107896600C8CD51 /* Exhibition.swift */; };
 		1E63D51322BC9F3E00E2E1A5 /* PanelDiscussionDetailViewController+Tableview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E63D51222BC9F3E00E2E1A5 /* PanelDiscussionDetailViewController+Tableview.swift */; };
 		1E87D19B22BCDB5F00F1C96F /* PanelDiscussionDetailViewController+WebServices&Coredata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E87D19A22BCDB5F00F1C96F /* PanelDiscussionDetailViewController+WebServices&Coredata.swift */; };
+		1EECB2EA22C08BC000A0AB6B /* HomeViewController+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EECB2E922C08BC000A0AB6B /* HomeViewController+TableView.swift */; };
 		49504224226311EC00F320EF /* CPSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49504223226311EC00F320EF /* CPSessionManager.swift */; };
 		495FA4A722639DE4006B228F /* qmcert.cer in Resources */ = {isa = PBXBuildFile; fileRef = 49504222226311B000F320EF /* qmcert.cer */; };
 		496DF32A225B08EF00BD8BD1 /* CPLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4929CA0B22377CDA001C42C8 /* CPLogger.swift */; };
@@ -263,6 +264,7 @@
 		1BE526D62107896600C8CD51 /* Exhibition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exhibition.swift; sourceTree = "<group>"; };
 		1E63D51222BC9F3E00E2E1A5 /* PanelDiscussionDetailViewController+Tableview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PanelDiscussionDetailViewController+Tableview.swift"; sourceTree = "<group>"; };
 		1E87D19A22BCDB5F00F1C96F /* PanelDiscussionDetailViewController+WebServices&Coredata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PanelDiscussionDetailViewController+WebServices&Coredata.swift"; sourceTree = "<group>"; };
+		1EECB2E922C08BC000A0AB6B /* HomeViewController+TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeViewController+TableView.swift"; sourceTree = "<group>"; };
 		49273F602185A74800D3057A /* QatarMuseums.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = QatarMuseums.entitlements; sourceTree = "<group>"; };
 		4929CA0B22377CDA001C42C8 /* CPLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPLogger.swift; sourceTree = "<group>"; };
 		4929CA0D2238C369001C42C8 /* libz.1.2.5.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.1.2.5.tbd; path = usr/lib/libz.1.2.5.tbd; sourceTree = SDKROOT; };
@@ -659,6 +661,31 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		1EECB2E622C08AF800A0AB6B /* HomeViewController */ = {
+			isa = PBXGroup;
+			children = (
+				1EECB2E822C08B2800A0AB6B /* View */,
+				1EECB2E722C08B1B00A0AB6B /* Controller */,
+			);
+			path = HomeViewController;
+			sourceTree = "<group>";
+		};
+		1EECB2E722C08B1B00A0AB6B /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				B80DC08B20C798BA00E28034 /* HomeViewController.swift */,
+				1EECB2E922C08BC000A0AB6B /* HomeViewController+TableView.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		1EECB2E822C08B2800A0AB6B /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		7989B881720353361A2FCB1C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -803,8 +830,8 @@
 		B80DC08620C792FE00E28034 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				1EECB2E622C08AF800A0AB6B /* HomeViewController */,
 				B8EAB7B320CA420100C001B2 /* FSCalendarVC */,
-				B80DC08B20C798BA00E28034 /* HomeViewController.swift */,
 				B8D1228C20C8EE8600772507 /* WebViewController.swift */,
 				B8DC40A820C9A5760044134D /* EventViewController.swift */,
 				B8BA80B420CCDDA3007E880A /* ProfileViewController.swift */,
@@ -1598,6 +1625,7 @@
 				B8BBF459211C1AC000352706 /* ParksList.swift in Sources */,
 				B8294CEE20CBF265002AFF72 /* FSCalendarScopeHandle.m in Sources */,
 				B811FBCC2103811400960246 /* QMColours.swift in Sources */,
+				1EECB2EA22C08BC000A0AB6B /* HomeViewController+TableView.swift in Sources */,
 				B8F3A940212728EE005360AD /* CommonStrings.swift in Sources */,
 				1E63D51322BC9F3E00E2E1A5 /* PanelDiscussionDetailViewController+Tableview.swift in Sources */,
 				B80B76AA218AD6AC00190967 /* AcceptDeclinePopup.swift in Sources */,

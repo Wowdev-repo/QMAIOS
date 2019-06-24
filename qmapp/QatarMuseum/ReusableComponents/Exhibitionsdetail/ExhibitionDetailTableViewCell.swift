@@ -29,11 +29,13 @@ class ExhibitionDetailTableViewCell: UITableViewCell {
     @IBOutlet weak var favoriteBtnViewHeight: NSLayoutConstraint!
     
     @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var phoneNumberLbl: UnderlinedLabel!
     
     var favBtnTapAction : (()->())?
     var shareBtnTapAction : (()->())?
     var locationButtonAction: (() -> ())?
     var loadEmailComposer : (()->())?
+    var loadPhoneNumber : (()->())?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -71,6 +73,10 @@ class ExhibitionDetailTableViewCell: UITableViewCell {
         let emailTap = UITapGestureRecognizer(target: self, action: #selector(emailTapFunction))
         contactDescriptionLabel.isUserInteractionEnabled = true
         contactDescriptionLabel.addGestureRecognizer(emailTap)
+        
+        let phoneTap = UITapGestureRecognizer(target: self, action: #selector(phoneTapFunction))
+        phoneNumberLbl.isUserInteractionEnabled = true
+        phoneNumberLbl.addGestureRecognizer(phoneTap)
     }
     
     func setHomeExhibitionDetail(exhibition: Exhibition) {
@@ -93,10 +99,8 @@ class ExhibitionDetailTableViewCell: UITableViewCell {
         //let mapRedirectionMessage = NSLocalizedString("MAP_REDIRECTION_MESSAGE",
         //                                                      comment: "MAP_REDIRECTION_MESSAGE in the Dining detail")
         //locationButton.setTitle(mapRedirectionMessage, for: .normal)
-        contactDescriptionLabel.text = "info@mia.org.qa"
-        
-        
-        
+        contactDescriptionLabel.text = exhibition.mail ?? "info@mia.org.qa"
+        phoneNumberLbl.text = exhibition.phone ?? "+974 4402 8202"
         
         var latitudeString  = String()
         var longitudeString = String()
@@ -197,6 +201,12 @@ class ExhibitionDetailTableViewCell: UITableViewCell {
         
         print("email label tapped ...")
         self.loadEmailComposer?()
+    }
+    
+    @objc func phoneTapFunction(sender:UITapGestureRecognizer) {
+        
+        print("phone label tapped ...")
+        self.loadPhoneNumber?()
     }
     
 }
