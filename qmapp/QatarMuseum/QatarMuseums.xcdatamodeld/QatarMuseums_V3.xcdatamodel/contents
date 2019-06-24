@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14490.98" systemVersion="18F132" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14490.99" systemVersion="18F132" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="AboutDescriptionEntity" representedClassName="AboutDescriptionEntity" syncable="YES" codeGenerationType="class">
         <attribute name="id" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="language" optional="YES" attributeType="String" syncable="YES"/>
@@ -133,8 +133,10 @@
         <attribute name="isHomeExhibition" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="lang" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="location" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="mail" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="museumId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="phone" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="startDate" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="status" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
@@ -376,13 +378,14 @@
         <element name="EventAgeGroupEntity" positionX="-27" positionY="135" width="128" height="90"/>
         <element name="EventEntity" positionX="-18" positionY="153" width="128" height="270"/>
         <element name="EventTopicsEntity" positionX="9" positionY="171" width="128" height="30"/>
-        <element name="ExhibitionsEntity" positionX="-54" positionY="108" width="128" height="345"/>
+        <element name="ExhibitionsEntity" positionX="-54" positionY="108" width="128" height="375"/>
         <element name="FacilitiesDetailEntity" positionX="27" positionY="171" width="128" height="225"/>
         <element name="FacilitiesEntity" positionX="-9" positionY="252" width="128" height="120"/>
         <element name="FloorMapTourGuideEntity" positionX="-9" positionY="135" width="128" height="435"/>
         <element name="HeritageEntity" positionX="-63" positionY="27" width="128" height="210"/>
         <element name="HomeBannerEntity" positionX="-9" positionY="135" width="128" height="210"/>
         <element name="HomeEntity" positionX="-63" positionY="-18" width="128" height="135"/>
+        <element name="ImageEntity" positionX="-9" positionY="135" width="128" height="75"/>
         <element name="NMoQActivitiesEntity" positionX="9" positionY="153" width="128" height="270"/>
         <element name="NMoQParkDetailEntity" positionX="9" positionY="153" width="128" height="135"/>
         <element name="NMoQParkListEntity" positionX="-9" positionY="135" width="128" height="210"/>
@@ -396,6 +399,5 @@
         <element name="RegisteredEventListEntity" positionX="-9" positionY="135" width="128" height="120"/>
         <element name="TourGuideEntity" positionX="-9" positionY="135" width="128" height="135"/>
         <element name="TourGuideMultimediaEntity" positionX="9" positionY="153" width="128" height="90"/>
-        <element name="ImageEntity" positionX="-9" positionY="135" width="128" height="75"/>
     </elements>
 </model>

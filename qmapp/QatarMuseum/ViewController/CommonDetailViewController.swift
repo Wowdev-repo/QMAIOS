@@ -336,8 +336,13 @@ class CommonDetailViewController: UIViewController,UITableViewDelegate,UITableVi
                 self.loadLocationInMap(currentRow: indexPath.row)
             }
             cell.loadEmailComposer = {
-                self.openEmail(email:"info@mia.org.qa")
+                self.openEmail(email:self.exhibition[indexPath.row].mail ?? "info@mia.org.qa")
             }
+            cell.loadPhoneNumber = {
+                self.dialNumber(number: self.exhibition[indexPath.row].phone ?? "+974 4402 8202")
+            }
+           
+            
             return cell
         } else if(pageNameString == PageName.SideMenuPark){
             let parkCell = tableView.dequeueReusableCell(withIdentifier: "parkCellId", for: indexPath) as! ParkTableViewCell
@@ -1471,6 +1476,25 @@ class CommonDetailViewController: UIViewController,UITableViewDelegate,UITableVi
             self.showSendMailErrorAlert()
         }
     }
+    
+    func dialNumber(number : String) {
+        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
+        let phoneNumber = number.replacingOccurrences(of: " ", with: "")
+        
+        if let url = URL(string: "tel://\(String(phoneNumber))"),
+            UIApplication.shared.canOpenURL(url) {
+            if #available(iOS 10, *) {
+                UIApplication.shared.open(url, options: [:], completionHandler:nil)
+            } else {
+                UIApplication.shared.openURL(url)
+            }
+        } else {
+            // add error message here
+            
+            print("Error in calling phone ...")
+        }
+    }
+    
     func configuredMailComposeViewController(emailId:String) -> MFMailComposeViewController {
         let mailComposerVC = MFMailComposeViewController()
         mailComposerVC.mailComposeDelegate = self // Extremely important to set the --mailComposeDelegate-- property, NOT the --delegate-- property

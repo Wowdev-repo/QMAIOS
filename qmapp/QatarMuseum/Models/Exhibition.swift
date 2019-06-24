@@ -25,6 +25,8 @@ struct Exhibition: ResponseObjectSerializable, ResponseCollectionSerializable {
     var longDescription: String? = nil
     var isFavourite : Bool = false
     var status : String? = nil
+    var mail : String? = nil
+    var phone : String? = nil
 
     public init?(response: HTTPURLResponse, representation: AnyObject) {
         if let representation = representation as? [String: Any] {
@@ -42,6 +44,8 @@ struct Exhibition: ResponseObjectSerializable, ResponseCollectionSerializable {
             self.museumId  = representation["museum_id"] as? String
             self.status  = representation["Status"] as? String
             self.displayDate  = representation["Display_date"] as? String
+            self.phone = representation["contact_number"] as? String
+            self.mail = representation["contact_email"] as? String
         }
     }
     
@@ -59,6 +63,8 @@ struct Exhibition: ResponseObjectSerializable, ResponseCollectionSerializable {
         self.latitude = entity.detailLatitude
         self.longitude = entity.detailLongitude
         self.displayDate = entity.dispalyDate
+        self.mail = entity.mail
+        self.phone = entity.phone
     }
 }
 
