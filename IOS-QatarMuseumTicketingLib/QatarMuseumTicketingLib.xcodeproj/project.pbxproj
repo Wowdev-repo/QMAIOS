@@ -42,6 +42,7 @@
 		24221B0A2281FDFF0038C545 /* FSCalendarCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 24221AE62281FDFF0038C545 /* FSCalendarCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		24221B0B2281FDFF0038C545 /* FSCalendarTransitionCoordinator.m in Sources */ = {isa = PBXBuildFile; fileRef = 24221AE72281FDFF0038C545 /* FSCalendarTransitionCoordinator.m */; };
 		24221B0D2281FDFF0038C545 /* FSCalendarAppearance.m in Sources */ = {isa = PBXBuildFile; fileRef = 24221AE92281FDFF0038C545 /* FSCalendarAppearance.m */; };
+		4982416422C0D2B30027B2AA /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4982416322C0D2B30027B2AA /* Extensions.swift */; };
 		5B03C6AE224A86D80064DE2D /* SignUpTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B03C6AD224A86D80064DE2D /* SignUpTableViewController.swift */; };
 		5B050D132230229400BCC071 /* TicketInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B050D122230229400BCC071 /* TicketInfo.swift */; };
 		5B1EB76C226BE11100351F3D /* CulturePassCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1EB76A226BE11100351F3D /* CulturePassCardViewController.swift */; };
@@ -174,6 +175,7 @@
 		24221AE82281FDFF0038C545 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		24221AE92281FDFF0038C545 /* FSCalendarAppearance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSCalendarAppearance.m; sourceTree = "<group>"; };
 		2A371E6AB18C81AD8429A3EB /* Pods_QatarMuseumTicketingLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_QatarMuseumTicketingLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4982416322C0D2B30027B2AA /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		5B03C6AD224A86D80064DE2D /* SignUpTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpTableViewController.swift; sourceTree = "<group>"; };
 		5B050D122230229400BCC071 /* TicketInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketInfo.swift; sourceTree = "<group>"; };
 		5B1EB76A226BE11100351F3D /* CulturePassCardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CulturePassCardViewController.swift; sourceTree = "<group>"; };
@@ -324,6 +326,14 @@
 				24221AE92281FDFF0038C545 /* FSCalendarAppearance.m */,
 			);
 			path = FSCalendar;
+			sourceTree = "<group>";
+		};
+		4982416222C0D2B30027B2AA /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				4982416322C0D2B30027B2AA /* Extensions.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		4F6DBC2A8574BF4793B647B9 /* Pods */ = {
@@ -700,6 +710,7 @@
 		5BF5B63F222416FB006E6D61 /* Supporters */ = {
 			isa = PBXGroup;
 			children = (
+				4982416222C0D2B30027B2AA /* Extensions */,
 				24221AC52281FDFF0038C545 /* FSCalendar */,
 				5BD109C6226F2BF8000FB37A /* TandCcontent */,
 				5BBEF053225871E4009116BD /* Localization */,
@@ -1019,6 +1030,7 @@
 				5BF0D53022439D7600827DAA /* LockBasket.swift in Sources */,
 				5B248DC42255CB6900BE7845 /* CountryList.swift in Sources */,
 				24221AFB2281FDFF0038C545 /* FSCalendarScopeHandle.m in Sources */,
+				4982416422C0D2B30027B2AA /* Extensions.swift in Sources */,
 				5BB5D67C22660EB300678150 /* TermsAndConditionViewController.swift in Sources */,
 				5B9888EC2226736700CE1E5A /* QMTLCalendarViewController.swift in Sources */,
 				5BF5B645222416FB006E6D61 /* QMTLConstants.swift in Sources */,
