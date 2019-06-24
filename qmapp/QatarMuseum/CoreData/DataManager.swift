@@ -1731,12 +1731,12 @@ extension DataManager {
     static func updateCollectionDetailsEntity(managedContext: NSManagedObjectContext,
                                               collectionDetailArray: [CollectionDetail],
                                               collectionName: String?) {
-        
-        if let fetchData = DataManager.checkAddedToCoredata(entityName: "CollectionDetailsEntity",
-                                                            idKey: "categoryCollection",
-                                                            idValue: collectionName,
-                                                            managedContext: managedContext) as? [CollectionDetailsEntity],
-            !fetchData.isEmpty {
+//
+//        if let fetchData = DataManager.checkAddedToCoredata(entityName: "CollectionDetailsEntity",
+//                                                            idKey: "categoryCollection",
+//                                                            idValue: collectionName,
+//                                                            managedContext: managedContext) as? [CollectionDetailsEntity],
+//            !fetchData.isEmpty {
             for collectionDetailDict in collectionDetailArray {
                 if let fetchData = DataManager.checkAddedToCoredata(entityName: "CollectionDetailsEntity",
                                                                     idKey: "nid",
@@ -1755,13 +1755,13 @@ extension DataManager {
                 }
             }
             
-        } else {
-            for collectionDetailDict in collectionDetailArray {
-                DataManager.saveCollectionDetailsEntity(collectionDetailDict: collectionDetailDict,
-                                                 managedObjContext: managedContext,
-                                                 entity: nil)
-            }
-        }
+//        } else {
+//            for collectionDetailDict in collectionDetailArray {
+//                DataManager.saveCollectionDetailsEntity(collectionDetailDict: collectionDetailDict,
+//                                                 managedObjContext: managedContext,
+//                                                 entity: nil)
+//            }
+//        }
     }
     
     static func saveCollectionDetailsEntity(collectionDetailDict: CollectionDetail,
