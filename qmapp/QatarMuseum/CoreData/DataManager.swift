@@ -24,11 +24,19 @@ class DataManager {
                                      idValue: String?,
                                      managedContext: NSManagedObjectContext) -> [NSManagedObject] {
         var fetchResults = [NSManagedObject]()
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: entityName!)
-        if let key = idKey, let value = idValue {
+        if let key = idKey, let value = idValue , let entity = entityName {
+            let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: entity)
             fetchRequest.predicate = NSPredicate.init(format: "\(key) == \(value)")
+            
+            do {
+                fetchResults = try managedContext.fetch(fetchRequest)
+            } catch let error as NSError {
+                debugPrint(error.localizedDescription)
+            }
         }
-        fetchResults = try! managedContext.fetch(fetchRequest)
+        
+        
+        
         return fetchResults
     }
     
