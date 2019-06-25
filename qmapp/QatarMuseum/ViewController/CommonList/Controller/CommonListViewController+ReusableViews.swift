@@ -68,11 +68,11 @@ extension CommonListViewController {
         var errorMessage: String
         errorMessage = String(format: NSLocalizedString("NO_RESULT_MESSAGE",
                                                         comment: "Setting the content of the alert"))
-        self.exbtnLoadingView.stopLoading()
-        self.exbtnLoadingView.noDataView.isHidden = false
-        self.exbtnLoadingView.isHidden = false
-        self.exbtnLoadingView.showNoDataView()
-        self.exbtnLoadingView.noDataLabel.text = errorMessage
+        self.commonListLoadingView.stopLoading()
+        self.commonListLoadingView.noDataView.isHidden = false
+        self.commonListLoadingView.isHidden = false
+        self.commonListLoadingView.showNoDataView()
+        self.commonListLoadingView.noDataLabel.text = errorMessage
     }
     //MARK: LoadingView Delegate
     func tryAgainButtonPressed() {
@@ -112,10 +112,10 @@ extension CommonListViewController {
         }
     }
     func showNoNetwork() {
-        self.exbtnLoadingView.stopLoading()
-        self.exbtnLoadingView.noDataView.isHidden = false
-        self.exbtnLoadingView.isHidden = false
-        self.exbtnLoadingView.showNoNetworkView()
+        self.commonListLoadingView.stopLoading()
+        self.commonListLoadingView.noDataView.isHidden = false
+        self.commonListLoadingView.isHidden = false
+        self.commonListLoadingView.showNoNetworkView()
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
     }
 }

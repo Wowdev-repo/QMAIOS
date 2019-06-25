@@ -57,10 +57,10 @@ extension CommonListViewController {
                     if(self.networkReachability?.isReachable == false) {
                         self.showNoNetwork()
                     } else {
-                        self.exbtnLoadingView.showNoDataView()
+                        self.commonListLoadingView.showNoDataView()
                     }
                 }
-                exhibitionCollectionView.reloadData()
+                commonListTableView.reloadData()
             }
             else {
                 if(self.networkReachability?.isReachable == false) {
@@ -81,12 +81,12 @@ extension CommonListViewController {
             case .success(let data):
                 if(self.diningListArray.count == 0) {
                     self.diningListArray = data.dinings
-                    self.exhibitionCollectionView.reloadData()
+                    self.commonListTableView.reloadData()
                     if(self.diningListArray.count == 0) {
-                        self.exbtnLoadingView.stopLoading()
-                        self.exbtnLoadingView.noDataView.isHidden = false
-                        self.exbtnLoadingView.isHidden = false
-                        self.exbtnLoadingView.showNoDataView()
+                        self.commonListLoadingView.stopLoading()
+                        self.commonListLoadingView.noDataView.isHidden = false
+                        self.commonListLoadingView.isHidden = false
+                        self.commonListLoadingView.showNoDataView()
                     }
                 }
                 if(self.diningListArray.count > 0) {
@@ -95,10 +95,10 @@ extension CommonListViewController {
                 }
             case .failure( _):
                 if(self.diningListArray.count == 0) {
-                    self.exbtnLoadingView.stopLoading()
-                    self.exbtnLoadingView.noDataView.isHidden = false
-                    self.exbtnLoadingView.isHidden = false
-                    self.exbtnLoadingView.showNoDataView()
+                    self.commonListLoadingView.stopLoading()
+                    self.commonListLoadingView.noDataView.isHidden = false
+                    self.commonListLoadingView.isHidden = false
+                    self.commonListLoadingView.showNoDataView()
                 }
             }
         }
@@ -154,17 +154,17 @@ extension CommonListViewController {
                     if(self.networkReachability?.isReachable == false) {
                         self.showNoNetwork()
                     } else {
-                        self.exbtnLoadingView.showNoDataView()
+                        self.commonListLoadingView.showNoDataView()
                     }
                 }
                 DispatchQueue.main.async{
-                    self.exhibitionCollectionView.reloadData()
+                    self.commonListTableView.reloadData()
                 }
             } else{
                 if(self.networkReachability?.isReachable == false) {
                     self.showNoNetwork()
                 } else {
-                    self.exbtnLoadingView.showNoDataView()
+                    self.commonListLoadingView.showNoDataView()
                 }
             }
         }
@@ -192,11 +192,11 @@ extension CommonListViewController {
                     if(self.networkReachability?.isReachable == false) {
                         self.showNoNetwork()
                     } else {
-                        self.exbtnLoadingView.showNoDataView()
+                        self.commonListLoadingView.showNoDataView()
                     }
                 }
                 DispatchQueue.main.async{
-                    self.exhibitionCollectionView.reloadData()
+                    self.commonListTableView.reloadData()
                 }
             } else {
                 if(self.networkReachability?.isReachable == false) {
@@ -224,15 +224,15 @@ extension CommonListViewController {
                     if self.nmoqTourDetail.first(where: {$0.sortId != "" && $0.sortId != nil} ) != nil {
                         self.nmoqTourDetail = self.nmoqTourDetail.sorted(by: { Int16($0.sortId!)! < Int16($1.sortId!)! })
                     }
-                    self.exhibitionCollectionView.reloadData()
+                    self.commonListTableView.reloadData()
                     if(self.nmoqTourDetail.count == 0) {
                         let noResultMsg = NSLocalizedString("NO_RESULT_MESSAGE",
                                                             comment: "Setting the content of the alert")
-                        self.exbtnLoadingView.stopLoading()
-                        self.exbtnLoadingView.noDataView.isHidden = false
-                        self.exbtnLoadingView.isHidden = false
-                        self.exbtnLoadingView.showNoDataView()
-                        self.exbtnLoadingView.noDataLabel.text = noResultMsg
+                        self.commonListLoadingView.stopLoading()
+                        self.commonListLoadingView.noDataView.isHidden = false
+                        self.commonListLoadingView.isHidden = false
+                        self.commonListLoadingView.showNoDataView()
+                        self.commonListLoadingView.noDataLabel.text = noResultMsg
                     } else {
                         self.saveOrUpdateTourDetailCoredata()
                     }
@@ -240,11 +240,11 @@ extension CommonListViewController {
                     var errorMessage: String
                     errorMessage = String(format: NSLocalizedString("NO_RESULT_MESSAGE",
                                                                     comment: "Setting the content of the alert"))
-                    self.exbtnLoadingView.stopLoading()
-                    self.exbtnLoadingView.noDataView.isHidden = false
-                    self.exbtnLoadingView.isHidden = false
-                    self.exbtnLoadingView.showNoDataView()
-                    self.exbtnLoadingView.noDataLabel.text = errorMessage
+                    self.commonListLoadingView.stopLoading()
+                    self.commonListLoadingView.noDataView.isHidden = false
+                    self.commonListLoadingView.isHidden = false
+                    self.commonListLoadingView.showNoDataView()
+                    self.commonListLoadingView.noDataLabel.text = errorMessage
                 }
             }
         }
@@ -291,18 +291,18 @@ extension CommonListViewController {
                     if(self.networkReachability?.isReachable == false) {
                         self.showNoNetwork()
                     } else {
-                        self.exbtnLoadingView.showNoDataView()
+                        self.commonListLoadingView.showNoDataView()
                     }
                 }
                 DispatchQueue.main.async{
-                    self.exhibitionCollectionView.reloadData()
+                    self.commonListTableView.reloadData()
                 }
             }
             else{
                 if(self.networkReachability?.isReachable == false) {
                     self.showNoNetwork()
                 } else {
-                    self.exbtnLoadingView.showNoDataView()
+                    self.commonListLoadingView.showNoDataView()
                 }
             }
         }
@@ -314,15 +314,15 @@ extension CommonListViewController {
                 switch response.result {
                 case .success(let data):
                     self.facilitiesDetail = data.facilitiesDetail
-                    self.exhibitionCollectionView.reloadData()
+                    self.commonListTableView.reloadData()
                     if(self.nmoqTourDetail.count == 0) {
                         let noResultMsg = NSLocalizedString("NO_RESULT_MESSAGE",
                                                             comment: "Setting the content of the alert")
-                        self.exbtnLoadingView.stopLoading()
-                        self.exbtnLoadingView.noDataView.isHidden = false
-                        self.exbtnLoadingView.isHidden = false
-                        self.exbtnLoadingView.showNoDataView()
-                        self.exbtnLoadingView.noDataLabel.text = noResultMsg
+                        self.commonListLoadingView.stopLoading()
+                        self.commonListLoadingView.noDataView.isHidden = false
+                        self.commonListLoadingView.isHidden = false
+                        self.commonListLoadingView.showNoDataView()
+                        self.commonListLoadingView.noDataLabel.text = noResultMsg
                     } else {
                         self.saveOrUpdateFacilitiesDetailCoredata()
                     }
@@ -330,11 +330,11 @@ extension CommonListViewController {
                     var errorMessage: String
                     errorMessage = String(format: NSLocalizedString("NO_RESULT_MESSAGE",
                                                                     comment: "Setting the content of the alert"))
-                    self.exbtnLoadingView.stopLoading()
-                    self.exbtnLoadingView.noDataView.isHidden = false
-                    self.exbtnLoadingView.isHidden = false
-                    self.exbtnLoadingView.showNoDataView()
-                    self.exbtnLoadingView.noDataLabel.text = errorMessage
+                    self.commonListLoadingView.stopLoading()
+                    self.commonListLoadingView.noDataView.isHidden = false
+                    self.commonListLoadingView.isHidden = false
+                    self.commonListLoadingView.showNoDataView()
+                    self.commonListLoadingView.noDataLabel.text = errorMessage
                 }
             }
         }
@@ -386,18 +386,18 @@ extension CommonListViewController {
                     if(self.networkReachability?.isReachable == false) {
                         self.showNoNetwork()
                     } else {
-                        self.exbtnLoadingView.showNoDataView()
+                        self.commonListLoadingView.showNoDataView()
                     }
                 }
                 DispatchQueue.main.async{
-                    self.exhibitionCollectionView.reloadData()
+                    self.commonListTableView.reloadData()
                 }
             }
             else{
                 if(self.networkReachability?.isReachable == false) {
                     self.showNoNetwork()
                 } else {
-                    self.exbtnLoadingView.showNoDataView()
+                    self.commonListLoadingView.showNoDataView()
                 }
             }
         }
@@ -411,13 +411,13 @@ extension CommonListViewController {
                 case .success(let data):
                     if(self.miaTourDataFullArray.count == 0) {
                         self.miaTourDataFullArray = data.tourGuide!
-                        self.exhibitionCollectionView.reloadData()
+                        self.commonListTableView.reloadData()
                         //if no result after api call
                         if(self.miaTourDataFullArray.count == 0) {
-                            self.exbtnLoadingView.stopLoading()
-                            self.exbtnLoadingView.noDataView.isHidden = false
-                            self.exbtnLoadingView.isHidden = false
-                            self.exbtnLoadingView.showNoDataView()
+                            self.commonListLoadingView.stopLoading()
+                            self.commonListLoadingView.noDataView.isHidden = false
+                            self.commonListLoadingView.isHidden = false
+                            self.commonListLoadingView.showNoDataView()
                         }
                     }
                     if(self.miaTourDataFullArray.count > 0) {
@@ -425,10 +425,10 @@ extension CommonListViewController {
                     }
                 case .failure(let error):
                     if(self.miaTourDataFullArray.count == 0) {
-                        self.exbtnLoadingView.stopLoading()
-                        self.exbtnLoadingView.noDataView.isHidden = false
-                        self.exbtnLoadingView.isHidden = false
-                        self.exbtnLoadingView.showNoDataView()
+                        self.commonListLoadingView.stopLoading()
+                        self.commonListLoadingView.noDataView.isHidden = false
+                        self.commonListLoadingView.isHidden = false
+                        self.commonListLoadingView.showNoDataView()
                     }
                 }
         }
@@ -477,13 +477,13 @@ extension CommonListViewController {
                     self.miaTourDataFullArray.append(TourGuide(entity: tourguideInfo))
                 }
                 DispatchQueue.main.async {
-                    self.exhibitionCollectionView.reloadData()
+                    self.commonListTableView.reloadData()
                 }
                 if(miaTourDataFullArray.count == 0){
                     if(self.networkReachability?.isReachable == false) {
                         self.showNoNetwork()
                     } else {
-                        self.exbtnLoadingView.showNoDataView()
+                        self.commonListLoadingView.showNoDataView()
                     }
                 }
                 
@@ -531,7 +531,7 @@ extension CommonListViewController {
                     if let arrayOffset = self.museumsList.index(where: {$0.id == searchstring}) {
                         self.museumsList.remove(at: arrayOffset)
                     }
-                    self.exhibitionCollectionView.reloadData()
+                    self.commonListTableView.reloadData()
                 }
                 if(self.museumsList.count > 0) {
                     
@@ -574,8 +574,8 @@ extension CommonListViewController {
     }
     
     func fetchMuseumsInfoFromCoredata() {
-        self.exbtnLoadingView.stopLoading()
-        self.exbtnLoadingView.isHidden = true
+        self.commonListLoadingView.stopLoading()
+        self.commonListLoadingView.isHidden = true
         let managedContext = getContext()
         var searchstring = String()
         if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
@@ -601,7 +601,7 @@ extension CommonListViewController {
                     if(self.networkReachability?.isReachable == false) {
                         self.showNoNetwork()
                     } else {
-                        self.exbtnLoadingView.showNoDataView()
+                        self.commonListLoadingView.showNoDataView()
                     }
                 } else {
                     //Removed Exhibition from Tour List
@@ -609,13 +609,13 @@ extension CommonListViewController {
                         self.museumsList.remove(at: arrayOffset)
                     }
                 }
-                exhibitionCollectionView.reloadData()
+                commonListTableView.reloadData()
             }
             else{
                 if(self.networkReachability?.isReachable == false) {
                     self.showNoNetwork()
                 } else {
-                    self.exbtnLoadingView.showNoDataView()
+                    self.commonListLoadingView.showNoDataView()
                 }
             }
             
@@ -646,14 +646,14 @@ extension CommonListViewController {
                 if(self.nmoqParkList.count == 0) {
                     self.nmoqParkList = data.nmoqParkList
                     if(self.nmoqParkList.count > 0) {
-                        self.exhibitionHeaderView.headerTitle.text = self.nmoqParkList[0].title?.replacingOccurrences(of: "<[^>]+>|&nbsp;", with: "", options: .regularExpression, range: nil).uppercased()
+                        self.commonListHeaderView.headerTitle.text = self.nmoqParkList[0].title?.replacingOccurrences(of: "<[^>]+>|&nbsp;", with: "", options: .regularExpression, range: nil).uppercased()
                     }
-                    self.exhibitionCollectionView.reloadData()
+                    self.commonListTableView.reloadData()
                     if(self.nmoqParkList.count == 0) {
-                        self.exbtnLoadingView.stopLoading()
-                        self.exbtnLoadingView.noDataView.isHidden = false
-                        self.exbtnLoadingView.isHidden = false
-                        self.exbtnLoadingView.showNoDataView()
+                        self.commonListLoadingView.stopLoading()
+                        self.commonListLoadingView.noDataView.isHidden = false
+                        self.commonListLoadingView.isHidden = false
+                        self.commonListLoadingView.showNoDataView()
                     }
                 }
                 if(self.nmoqParkList.count > 0) {
@@ -663,10 +663,10 @@ extension CommonListViewController {
                 }
             case .failure( _):
                 if(self.nmoqParkList.count == 0) {
-                    self.exbtnLoadingView.stopLoading()
-                    self.exbtnLoadingView.noDataView.isHidden = false
-                    self.exbtnLoadingView.isHidden = false
-                    self.exbtnLoadingView.showNoDataView()
+                    self.commonListLoadingView.stopLoading()
+                    self.commonListLoadingView.noDataView.isHidden = false
+                    self.commonListLoadingView.isHidden = false
+                    self.commonListLoadingView.showNoDataView()
                 }
             }
         }
@@ -679,12 +679,12 @@ extension CommonListViewController {
             case .success(let data):
                 if(self.nmoqParks.count == 0) {
                     self.nmoqParks = data.nmoqParks
-                    self.exhibitionCollectionView.reloadData()
+                    self.commonListTableView.reloadData()
                     if(self.nmoqParks.count == 0) {
-                        self.exbtnLoadingView.stopLoading()
-                        self.exbtnLoadingView.noDataView.isHidden = false
-                        self.exbtnLoadingView.isHidden = false
-                        self.exbtnLoadingView.showNoDataView()
+                        self.commonListLoadingView.stopLoading()
+                        self.commonListLoadingView.noDataView.isHidden = false
+                        self.commonListLoadingView.isHidden = false
+                        self.commonListLoadingView.showNoDataView()
                     }
                 }
                 if(self.nmoqParks.count > 0) {
@@ -695,10 +695,10 @@ extension CommonListViewController {
                 
             case .failure( _):
                 if(self.nmoqParks.count == 0) {
-                    self.exbtnLoadingView.stopLoading()
-                    self.exbtnLoadingView.noDataView.isHidden = false
-                    self.exbtnLoadingView.isHidden = false
-                    self.exbtnLoadingView.showNoDataView()
+                    self.commonListLoadingView.stopLoading()
+                    self.commonListLoadingView.noDataView.isHidden = false
+                    self.commonListLoadingView.isHidden = false
+                    self.commonListLoadingView.showNoDataView()
                 }
             }
         }
@@ -774,12 +774,12 @@ extension CommonListViewController {
                     if(self.networkReachability?.isReachable == false) {
                         self.showNoNetwork()
                     } else {
-                        self.exbtnLoadingView.showNoDataView()
+                        self.commonListLoadingView.showNoDataView()
                     }
                 } else {
-                    self.exhibitionHeaderView.headerTitle.text = self.nmoqParkList[0].title?.replacingOccurrences(of: "<[^>]+>|&nbsp;", with: "", options: .regularExpression, range: nil).uppercased()
+                    self.commonListHeaderView.headerTitle.text = self.nmoqParkList[0].title?.replacingOccurrences(of: "<[^>]+>|&nbsp;", with: "", options: .regularExpression, range: nil).uppercased()
                 }
-                exhibitionCollectionView.reloadData()
+                commonListTableView.reloadData()
             } else{
                 if(self.networkReachability?.isReachable == false) {
                     self.showNoNetwork()
@@ -819,7 +819,7 @@ extension CommonListViewController {
                     if(self.networkReachability?.isReachable == false) {
                         self.showNoNetwork()
                     } else {
-                        self.exbtnLoadingView.showNoDataView()
+                        self.commonListLoadingView.showNoDataView()
                     }
                 } else {
                     if self.nmoqParks.first(where: {$0.sortId != "" && $0.sortId != nil} ) != nil {
@@ -827,7 +827,7 @@ extension CommonListViewController {
                     }
                 }
                 DispatchQueue.main.async{
-                    self.exhibitionCollectionView.reloadData()
+                    self.commonListTableView.reloadData()
                 }
             } else{
                 if(self.networkReachability?.isReachable == false) {
@@ -849,12 +849,12 @@ extension CommonListViewController {
             case .success(let data):
                 if(self.exhibition.count == 0) {
                     self.exhibition = data.exhibitions
-                    self.exhibitionCollectionView.reloadData()
+                    self.commonListTableView.reloadData()
                     if(self.exhibition.count == 0) {
-                        self.exbtnLoadingView.stopLoading()
-                        self.exbtnLoadingView.noDataView.isHidden = false
-                        self.exbtnLoadingView.isHidden = false
-                        self.exbtnLoadingView.showNoDataView()
+                        self.commonListLoadingView.stopLoading()
+                        self.commonListLoadingView.noDataView.isHidden = false
+                        self.commonListLoadingView.isHidden = false
+                        self.commonListLoadingView.showNoDataView()
                     }
                 }
                 if(self.exhibition.count > 0) {
@@ -865,10 +865,10 @@ extension CommonListViewController {
                 }
             case .failure( _):
                 if(self.exhibition.count == 0) {
-                    self.exbtnLoadingView.stopLoading()
-                    self.exbtnLoadingView.noDataView.isHidden = false
-                    self.exbtnLoadingView.isHidden = false
-                    self.exbtnLoadingView.showNoDataView()
+                    self.commonListLoadingView.stopLoading()
+                    self.commonListLoadingView.noDataView.isHidden = false
+                    self.commonListLoadingView.isHidden = false
+                    self.commonListLoadingView.showNoDataView()
                 }
             }
         }
@@ -884,14 +884,14 @@ extension CommonListViewController {
                     self.saveOrUpdateExhibitionsCoredata(exhibition: exhibitions,
                                                          isHomeExhibition: "0")
                 }
-                self.exhibitionCollectionView.reloadData()
-                self.exbtnLoadingView.stopLoading()
-                self.exbtnLoadingView.isHidden = true
+                self.commonListTableView.reloadData()
+                self.commonListLoadingView.stopLoading()
+                self.commonListLoadingView.isHidden = true
                 if (self.exhibition.count == 0) {
-                    self.exbtnLoadingView.stopLoading()
-                    self.exbtnLoadingView.noDataView.isHidden = false
-                    self.exbtnLoadingView.isHidden = false
-                    self.exbtnLoadingView.showNoDataView()
+                    self.commonListLoadingView.stopLoading()
+                    self.commonListLoadingView.noDataView.isHidden = false
+                    self.commonListLoadingView.isHidden = false
+                    self.commonListLoadingView.showNoDataView()
                 }
             case .failure(let error):
                 if let unhandledError = handleError(viewController: self, errorType: error as! BackendError) {
@@ -958,11 +958,11 @@ extension CommonListViewController {
                     if(self.networkReachability?.isReachable == false) {
                         self.showNoNetwork()
                     } else {
-                        self.exbtnLoadingView.showNoDataView()
+                        self.commonListLoadingView.showNoDataView()
                     }
                 }
                 DispatchQueue.main.async{
-                    self.exhibitionCollectionView.reloadData()
+                    self.commonListTableView.reloadData()
                 }
             } else {
                 if(self.networkReachability?.isReachable == false) {
@@ -997,17 +997,17 @@ extension CommonListViewController {
                     if(self.networkReachability?.isReachable == false) {
                         self.showNoNetwork()
                     } else {
-                        self.exbtnLoadingView.showNoDataView()
+                        self.commonListLoadingView.showNoDataView()
                     }
                 }
                 DispatchQueue.main.async{
-                    self.exhibitionCollectionView.reloadData()
+                    self.commonListTableView.reloadData()
                 }
             } else{
                 if(self.networkReachability?.isReachable == false) {
                     self.showNoNetwork()
                 } else {
-                    self.exbtnLoadingView.showNoDataView()
+                    self.commonListLoadingView.showNoDataView()
                 }
             }
         }
@@ -1033,21 +1033,21 @@ extension CommonListViewController {
                 if((self.museumId == "63") && (self.museumId == "96")) {
                     if(self.collection.count == 0) {
                         self.collection = data.collections!
-                        self.exbtnLoadingView.stopLoading()
-                        self.exbtnLoadingView.isHidden = true
+                        self.commonListLoadingView.stopLoading()
+                        self.commonListLoadingView.isHidden = true
                     }
                 } else {
                     self.collection = data.collections!
-                    self.exbtnLoadingView.stopLoading()
-                    self.exbtnLoadingView.isHidden = true
+                    self.commonListLoadingView.stopLoading()
+                    self.commonListLoadingView.isHidden = true
                 }
                 if(self.collection.count == 0) {
-                    self.exbtnLoadingView.stopLoading()
-                    self.exbtnLoadingView.noDataView.isHidden = false
-                    self.exbtnLoadingView.isHidden = false
-                    self.exbtnLoadingView.showNoDataView()
+                    self.commonListLoadingView.stopLoading()
+                    self.commonListLoadingView.noDataView.isHidden = false
+                    self.commonListLoadingView.isHidden = false
+                    self.commonListLoadingView.showNoDataView()
                 }else {
-                    self.exhibitionCollectionView.reloadData()
+                    self.commonListTableView.reloadData()
                     if let collections = data.collections {
                         self.saveOrUpdateCollectionCoredata(collection: collections,
                                                             language: LocalizationLanguage.currentAppleLanguage())
@@ -1060,11 +1060,11 @@ extension CommonListViewController {
                     var errorMessage: String
                     errorMessage = String(format: NSLocalizedString("NO_RESULT_MESSAGE",
                                                                     comment: "Setting the content of the alert"))
-                    self.exbtnLoadingView.stopLoading()
-                    self.exbtnLoadingView.noDataView.isHidden = false
-                    self.exbtnLoadingView.isHidden = false
-                    self.exbtnLoadingView.showNoDataView()
-                    self.exbtnLoadingView.noDataLabel.text = errorMessage
+                    self.commonListLoadingView.stopLoading()
+                    self.commonListLoadingView.noDataView.isHidden = false
+                    self.commonListLoadingView.isHidden = false
+                    self.commonListLoadingView.showNoDataView()
+                    self.commonListLoadingView.noDataLabel.text = errorMessage
                 }
             }
         }
@@ -1078,12 +1078,12 @@ extension CommonListViewController {
             case .success(let data):
                 if(self.publicArtsListArray.count == 0) {
                     self.publicArtsListArray = data.publicArtsList
-                    self.exhibitionCollectionView.reloadData()
+                    self.commonListTableView.reloadData()
                     if(self.publicArtsListArray.count == 0) {
-                        self.exbtnLoadingView.stopLoading()
-                        self.exbtnLoadingView.noDataView.isHidden = false
-                        self.exbtnLoadingView.isHidden = false
-                        self.exbtnLoadingView.showNoDataView()
+                        self.commonListLoadingView.stopLoading()
+                        self.commonListLoadingView.noDataView.isHidden = false
+                        self.commonListLoadingView.isHidden = false
+                        self.commonListLoadingView.showNoDataView()
                     }
                 }
                 if(self.publicArtsListArray.count > 0) {
@@ -1092,10 +1092,10 @@ extension CommonListViewController {
                 }
             case .failure( _):
                 if(self.publicArtsListArray.count == 0) {
-                    self.exbtnLoadingView.stopLoading()
-                    self.exbtnLoadingView.noDataView.isHidden = false
-                    self.exbtnLoadingView.isHidden = false
-                    self.exbtnLoadingView.showNoDataView()
+                    self.commonListLoadingView.stopLoading()
+                    self.commonListLoadingView.noDataView.isHidden = false
+                    self.commonListLoadingView.isHidden = false
+                    self.commonListLoadingView.showNoDataView()
                 }
             }
         }
@@ -1144,10 +1144,10 @@ extension CommonListViewController {
                     if(self.networkReachability?.isReachable == false) {
                         self.showNoNetwork()
                     } else {
-                        self.exbtnLoadingView.showNoDataView()
+                        self.commonListLoadingView.showNoDataView()
                     }
                 }
-                exhibitionCollectionView.reloadData()
+                commonListTableView.reloadData()
             }
             else{
                 if(self.networkReachability?.isReachable == false) {
@@ -1171,12 +1171,12 @@ extension CommonListViewController {
             case .success(let data):
                 if(self.heritageListArray.count == 0) {
                     self.heritageListArray = data.heritage
-                    self.exhibitionCollectionView.reloadData()
+                    self.commonListTableView.reloadData()
                     if(self.heritageListArray.count == 0) {
-                        self.exbtnLoadingView.stopLoading()
-                        self.exbtnLoadingView.noDataView.isHidden = false
-                        self.exbtnLoadingView.isHidden = false
-                        self.exbtnLoadingView.showNoDataView()
+                        self.commonListLoadingView.stopLoading()
+                        self.commonListLoadingView.noDataView.isHidden = false
+                        self.commonListLoadingView.isHidden = false
+                        self.commonListLoadingView.showNoDataView()
                     }
                 }
                 if(self.heritageListArray.count > 0) {
@@ -1186,10 +1186,10 @@ extension CommonListViewController {
                 }
             case .failure( _):
                 if(self.heritageListArray.count == 0) {
-                    self.exbtnLoadingView.stopLoading()
-                    self.exbtnLoadingView.noDataView.isHidden = false
-                    self.exbtnLoadingView.isHidden = false
-                    self.exbtnLoadingView.showNoDataView()
+                    self.commonListLoadingView.stopLoading()
+                    self.commonListLoadingView.noDataView.isHidden = false
+                    self.commonListLoadingView.isHidden = false
+                    self.commonListLoadingView.showNoDataView()
                 }
             }
         }
@@ -1248,11 +1248,11 @@ extension CommonListViewController {
                     if(self.networkReachability?.isReachable == false) {
                         self.showNoNetwork()
                     } else {
-                        self.exbtnLoadingView.showNoDataView()
+                        self.commonListLoadingView.showNoDataView()
                     }
                 }
                 DispatchQueue.main.async{
-                    self.exhibitionCollectionView.reloadData()
+                    self.commonListTableView.reloadData()
                 }
             } else {
                 if(self.networkReachability?.isReachable == false) {

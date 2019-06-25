@@ -22,7 +22,7 @@ enum PageName{
     case DiningDetail
 }
 class CommonDetailViewController: UIViewController {
-    @IBOutlet weak var heritageDetailTableView: UITableView!
+    @IBOutlet weak var commonDetailTableView: UITableView!
     @IBOutlet weak var loadingView: LoadingView!
     
     let imageView = UIImageView()
@@ -103,16 +103,16 @@ class CommonDetailViewController: UIViewController {
         setTopBarImage()
     }
     func registerCells() {
-        self.heritageDetailTableView.register(UINib(nibName: "HeritageDetailView", bundle: nil), forCellReuseIdentifier: "heritageDetailCellId")
-        self.heritageDetailTableView.register(UINib(nibName: "ExhibitionDetailView", bundle: nil), forCellReuseIdentifier: "exhibitionDetailCellId")
-        self.heritageDetailTableView.register(UINib(nibName: "ParkTableCellXib", bundle: nil), forCellReuseIdentifier: "parkCellId")
-        self.heritageDetailTableView.register(UINib(nibName: "CollectionDetailView", bundle: nil), forCellReuseIdentifier: "collectionCellId")
-        self.heritageDetailTableView.register(UINib(nibName: "DiningDetailCellView", bundle: nil), forCellReuseIdentifier: "diningDetailCellId")
+        self.commonDetailTableView.register(UINib(nibName: "HeritageDetailView", bundle: nil), forCellReuseIdentifier: "heritageDetailCellId")
+        self.commonDetailTableView.register(UINib(nibName: "ExhibitionDetailView", bundle: nil), forCellReuseIdentifier: "exhibitionDetailCellId")
+        self.commonDetailTableView.register(UINib(nibName: "ParkTableCellXib", bundle: nil), forCellReuseIdentifier: "parkCellId")
+        self.commonDetailTableView.register(UINib(nibName: "CollectionDetailView", bundle: nil), forCellReuseIdentifier: "collectionCellId")
+        self.commonDetailTableView.register(UINib(nibName: "DiningDetailCellView", bundle: nil), forCellReuseIdentifier: "diningDetailCellId")
     }
     func setTopBarImage() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
-        heritageDetailTableView.estimatedRowHeight = 50
-        heritageDetailTableView.contentInset = UIEdgeInsetsMake(300, 0, 0, 0)
+        commonDetailTableView.estimatedRowHeight = 50
+        commonDetailTableView.contentInset = UIEdgeInsetsMake(300, 0, 0, 0)
         
         imageView.frame = CGRect(x: 0, y:20, width: UIScreen.main.bounds.size.width, height: 300)
         imageView.image = UIImage(named: "default_imageX2")

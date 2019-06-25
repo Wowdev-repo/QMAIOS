@@ -49,10 +49,10 @@ extension CommonListViewController: UITableViewDelegate,UITableViewDataSource, U
         }
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        exbtnLoadingView.stopLoading()
-        exbtnLoadingView.isHidden = true
+        commonListLoadingView.stopLoading()
+        commonListLoadingView.isHidden = true
         if ((exhibitionsPageNameString == ExhbitionPageName.homeExhibition) || (exhibitionsPageNameString == ExhbitionPageName.museumExhibition)) {
-            let exhibitionCell = exhibitionCollectionView.dequeueReusableCell(withIdentifier: "commonListCellId", for: indexPath) as! CommonListCell
+            let exhibitionCell = commonListTableView.dequeueReusableCell(withIdentifier: "commonListCellId", for: indexPath) as! CommonListCell
             exhibitionCell.setExhibitionCellValues(exhibition: exhibition[indexPath.row])
             exhibitionCell.exhibitionCellItemBtnTapAction = {
                 () in
@@ -62,27 +62,27 @@ extension CommonListViewController: UITableViewDelegate,UITableViewDataSource, U
             
             return exhibitionCell
         } else if (exhibitionsPageNameString == ExhbitionPageName.heritageList) {
-            let heritageCell = exhibitionCollectionView.dequeueReusableCell(withIdentifier: "commonListCellId", for: indexPath) as! CommonListCell
+            let heritageCell = commonListTableView.dequeueReusableCell(withIdentifier: "commonListCellId", for: indexPath) as! CommonListCell
             heritageCell.setHeritageListCellValues(heritageList: heritageListArray[indexPath.row])
             return heritageCell
         } else if (exhibitionsPageNameString == ExhbitionPageName.publicArtsList) {
-            let publicArtsCell = exhibitionCollectionView.dequeueReusableCell(withIdentifier: "commonListCellId", for: indexPath) as! CommonListCell
+            let publicArtsCell = commonListTableView.dequeueReusableCell(withIdentifier: "commonListCellId", for: indexPath) as! CommonListCell
             publicArtsCell.setPublicArtsListCellValues(publicArtsList: publicArtsListArray[indexPath.row])
             return publicArtsCell
         } else if (exhibitionsPageNameString == ExhbitionPageName.museumCollectionsList) {
-            let collectionsCell = exhibitionCollectionView.dequeueReusableCell(withIdentifier: "commonListCellId", for: indexPath) as! CommonListCell
+            let collectionsCell = commonListTableView.dequeueReusableCell(withIdentifier: "commonListCellId", for: indexPath) as! CommonListCell
             collectionsCell.setCollectionsCellValues(collectionList: collection[indexPath.row])
             return collectionsCell
         } else if (exhibitionsPageNameString == ExhbitionPageName.diningList) {
-            let diningListCell = exhibitionCollectionView.dequeueReusableCell(withIdentifier: "commonListCellId", for: indexPath) as! CommonListCell
+            let diningListCell = commonListTableView.dequeueReusableCell(withIdentifier: "commonListCellId", for: indexPath) as! CommonListCell
             diningListCell.setDiningListValues(diningList: diningListArray[indexPath.row])
             return diningListCell
         } else if (exhibitionsPageNameString == ExhbitionPageName.nmoqTourSecondList){
-            let nmoqTourSecondListCell = exhibitionCollectionView.dequeueReusableCell(withIdentifier: "commonListCellId", for: indexPath) as! CommonListCell
+            let nmoqTourSecondListCell = commonListTableView.dequeueReusableCell(withIdentifier: "commonListCellId", for: indexPath) as! CommonListCell
             nmoqTourSecondListCell.setTourMiddleDate(tourList: nmoqTourDetail[indexPath.row])
             return nmoqTourSecondListCell
         } else if (exhibitionsPageNameString == ExhbitionPageName.facilitiesSecondList){
-            let facilitiesSecondListCell = exhibitionCollectionView.dequeueReusableCell(withIdentifier: "commonListCellId", for: indexPath) as! CommonListCell
+            let facilitiesSecondListCell = commonListTableView.dequeueReusableCell(withIdentifier: "commonListCellId", for: indexPath) as! CommonListCell
             facilitiesSecondListCell.setFacilitiesDetail(FacilitiesDetailData: facilitiesDetail[indexPath.row])
             return facilitiesSecondListCell
         } else if (exhibitionsPageNameString == ExhbitionPageName.miaTourGuideList){
@@ -102,29 +102,29 @@ extension CommonListViewController: UITableViewDelegate,UITableViewDataSource, U
                 }
                 return cell
             } else {
-                let tourGuideCell = exhibitionCollectionView.dequeueReusableCell(withIdentifier: "commonListCellId", for: indexPath) as! CommonListCell
+                let tourGuideCell = commonListTableView.dequeueReusableCell(withIdentifier: "commonListCellId", for: indexPath) as! CommonListCell
                 tourGuideCell.setScienceTourGuideCellData(homeCellData: miaTourDataFullArray[indexPath.row-1])
                 return tourGuideCell
             }
         } else if (exhibitionsPageNameString == ExhbitionPageName.tourGuideList){
             if (indexPath.row == 0) {
-                let cell = exhibitionCollectionView.dequeueReusableCell(withIdentifier: "miaHeaderId", for: indexPath) as! MiaCollectionReusableView
+                let cell = commonListTableView.dequeueReusableCell(withIdentifier: "miaHeaderId", for: indexPath) as! MiaCollectionReusableView
                 cell.selectionStyle = .none
                 cell.setTourHeader()
                 return cell
             } else {
-                let cell = exhibitionCollectionView.dequeueReusableCell(withIdentifier: "commonListCellId", for: indexPath) as! CommonListCell
+                let cell = commonListTableView.dequeueReusableCell(withIdentifier: "commonListCellId", for: indexPath) as! CommonListCell
                 cell.tourGuideImage.image = UIImage(named: "location")
                 cell.setTourGuideCellData(museumsListData: museumsList[indexPath.row - 1])
                 return cell
             }
         } else {
             if (indexPath.row == 0) {
-                let cell = exhibitionCollectionView.dequeueReusableCell(withIdentifier: "parkTopCellId", for: indexPath) as! NMoQParkTopTableViewCell
+                let cell = commonListTableView.dequeueReusableCell(withIdentifier: "parkTopCellId", for: indexPath) as! NMoQParkTopTableViewCell
                 cell.setTopCellDescription(topDescription: nmoqParkList[0].mainDescription)
                 return cell
             } else if indexPath.row > nmoqParks.count {
-                let parkListSecondCell = exhibitionCollectionView.dequeueReusableCell(withIdentifier: "parkListCellId", for: indexPath) as! ParkListTableViewCell
+                let parkListSecondCell = commonListTableView.dequeueReusableCell(withIdentifier: "parkListCellId", for: indexPath) as! ParkListTableViewCell
                 parkListSecondCell.selectionStyle = .none
                 parkListSecondCell.setParkListValues(parkListData: nmoqParkList[0])
                 parkListSecondCell.loadMapView = {
@@ -133,7 +133,7 @@ extension CommonListViewController: UITableViewDelegate,UITableViewDataSource, U
                 }
                 return parkListSecondCell
             } else {
-                let parkListCell = exhibitionCollectionView.dequeueReusableCell(withIdentifier: "commonListCellId", for: indexPath) as! CommonListCell
+                let parkListCell = commonListTableView.dequeueReusableCell(withIdentifier: "commonListCellId", for: indexPath) as! CommonListCell
                 parkListCell.selectionStyle = .none
                 if (nmoqParks.count > 0) {
                     parkListCell.setParkListData(parkList: nmoqParks[indexPath.row - 1])

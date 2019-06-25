@@ -27,9 +27,9 @@ enum ExhbitionPageName {
     case parkList
 }
 class CommonListViewController: UIViewController {
-    @IBOutlet weak var exhibitionHeaderView: CommonHeaderView!
-    @IBOutlet weak var exhibitionCollectionView: UITableView!
-    @IBOutlet weak var exbtnLoadingView: LoadingView!
+    @IBOutlet weak var commonListHeaderView: CommonHeaderView!
+    @IBOutlet weak var commonListTableView: UITableView!
+    @IBOutlet weak var commonListLoadingView: LoadingView!
     
     var exhibition: [Exhibition]! = []
     var heritageListArray: [Heritage]! = []
@@ -66,12 +66,12 @@ class CommonListViewController: UIViewController {
     }
     
     func setUpExhibitionPageUi() {
-        exbtnLoadingView.isHidden = false
-        exbtnLoadingView.showLoading()
-        exbtnLoadingView.loadingViewDelegate = self
-        exhibitionHeaderView.headerViewDelegate = self
+        commonListLoadingView.isHidden = false
+        commonListLoadingView.showLoading()
+        commonListLoadingView.loadingViewDelegate = self
+        commonListHeaderView.headerViewDelegate = self
         if ((exhibitionsPageNameString == ExhbitionPageName.homeExhibition) || (exhibitionsPageNameString == ExhbitionPageName.museumExhibition)) {
-            exhibitionHeaderView.headerTitle.text = NSLocalizedString("EXHIBITIONS_TITLE", comment: "EXHIBITIONS_TITLE Label in the Exhibitions page")
+            commonListHeaderView.headerTitle.text = NSLocalizedString("EXHIBITIONS_TITLE", comment: "EXHIBITIONS_TITLE Label in the Exhibitions page")
             NotificationCenter.default.addObserver(self, selector: #selector(CommonListViewController.receiveExhibitionListNotificationEn(notification:)), name: NSNotification.Name(exhibitionsListNotificationEn), object: nil)
             NotificationCenter.default.addObserver(self, selector: #selector(CommonListViewController.receiveExhibitionListNotificationAr(notification:)), name: NSNotification.Name(exhibitionsListNotificationAr), object: nil)
             
@@ -95,8 +95,8 @@ class CommonListViewController: UIViewController {
             }
             
         } else if (exhibitionsPageNameString == ExhbitionPageName.heritageList) {
-            exhibitionHeaderView.headerTitle.text = NSLocalizedString("HERITAGE_SITES_TITLE", comment: "HERITAGE_SITES_TITLE  in the Heritage page")
-            exhibitionHeaderView.headerTitle.font = UIFont.headerFont
+            commonListHeaderView.headerTitle.text = NSLocalizedString("HERITAGE_SITES_TITLE", comment: "HERITAGE_SITES_TITLE  in the Heritage page")
+            commonListHeaderView.headerTitle.font = UIFont.headerFont
             self.fetchHeritageListFromCoredata()
             NotificationCenter.default.addObserver(self, selector: #selector(CommonListViewController.receiveHeritageListNotificationEn(notification:)), name: NSNotification.Name(heritageListNotificationEn), object: nil)
             NotificationCenter.default.addObserver(self, selector: #selector(CommonListViewController.receiveHeritageListNotificationAr(notification:)), name: NSNotification.Name(heritageListNotificationAr), object: nil)
@@ -106,7 +106,7 @@ class CommonListViewController: UIViewController {
 //                }
 //            }
         } else if (exhibitionsPageNameString == ExhbitionPageName.publicArtsList) {
-            exhibitionHeaderView.headerTitle.text = NSLocalizedString("PUBLIC_ARTS_TITLE", comment: "PUBLIC_ARTS_TITLE Label in the PublicArts page")
+            commonListHeaderView.headerTitle.text = NSLocalizedString("PUBLIC_ARTS_TITLE", comment: "PUBLIC_ARTS_TITLE Label in the PublicArts page")
 //            if  (networkReachability?.isReachable)! {
 //                DispatchQueue.global(qos: .background).async {
 //                    self.getPublicArtsListDataFromServer()
@@ -116,7 +116,7 @@ class CommonListViewController: UIViewController {
             NotificationCenter.default.addObserver(self, selector: #selector(CommonListViewController.receivePublicArtsListNotificationEn(notification:)), name: NSNotification.Name(publicArtsListNotificationEn), object: nil)
             NotificationCenter.default.addObserver(self, selector: #selector(CommonListViewController.receivePublicArtsListNotificationAr(notification:)), name: NSNotification.Name(publicArtsListNotificationAr), object: nil)
         } else if (exhibitionsPageNameString == ExhbitionPageName.museumCollectionsList) {
-            exhibitionHeaderView.headerTitle.text = NSLocalizedString("COLLECTIONS_TITLE", comment: "COLLECTIONS_TITLE Label in the collections page").uppercased()
+            commonListHeaderView.headerTitle.text = NSLocalizedString("COLLECTIONS_TITLE", comment: "COLLECTIONS_TITLE Label in the collections page").uppercased()
             NotificationCenter.default.addObserver(self, selector: #selector(CommonListViewController.receiveCollectionListNotificationEn(notification:)), name: NSNotification.Name(collectionsListNotificationEn), object: nil)
             NotificationCenter.default.addObserver(self, selector: #selector(CommonListViewController.receiveCollectionListNotificationAr(notification:)), name: NSNotification.Name(collectionsListNotificationAr), object: nil)
             if((museumId == "63") || (museumId == "96")) {
@@ -134,7 +134,7 @@ class CommonListViewController: UIViewController {
                 }
             }
         } else if (exhibitionsPageNameString == ExhbitionPageName.diningList) {
-            exhibitionHeaderView.headerTitle.text = NSLocalizedString("DINING_TITLE", comment: "DINING_TITLE in the Dining page")
+            commonListHeaderView.headerTitle.text = NSLocalizedString("DINING_TITLE", comment: "DINING_TITLE in the Dining page")
             if(fromHome) {
                 self.fetchDiningListFromCoredata()
 //                if  (networkReachability?.isReachable)! {
@@ -152,14 +152,14 @@ class CommonListViewController: UIViewController {
             }
         } else if (exhibitionsPageNameString == ExhbitionPageName.nmoqTourSecondList) {
             tourDesc = NSLocalizedString("NMoQ_TOUR_DESC", comment: "NMoQ_TOUR_DESC in the NMoQ Tour page")
-            exhibitionHeaderView.headerTitle.text = headerTitle?.uppercased()
+            commonListHeaderView.headerTitle.text = headerTitle?.uppercased()
             if (networkReachability?.isReachable)! {
                 getNMoQTourDetail()
             } else {
                 fetchTourDetailsFromCoredata()
             }
         } else if (exhibitionsPageNameString == ExhbitionPageName.facilitiesSecondList) {
-            exhibitionHeaderView.headerTitle.text = headerTitle?.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil).replacingOccurrences(of: "&amp;", with: "&", options: .regularExpression, range: nil).uppercased()
+            commonListHeaderView.headerTitle.text = headerTitle?.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil).replacingOccurrences(of: "&amp;", with: "&", options: .regularExpression, range: nil).uppercased()
             if (networkReachability?.isReachable)! {
                 getFacilitiesDetail()
             } else {
@@ -170,7 +170,7 @@ class CommonListViewController: UIViewController {
             DispatchQueue.main.async {
                 self.fetchTourGuideListFromCoredata()
             }
-            exhibitionHeaderView.headerTitle.isHidden = true
+            commonListHeaderView.headerTitle.isHidden = true
         } else if (exhibitionsPageNameString == ExhbitionPageName.tourGuideList) {
             NotificationCenter.default.addObserver(self, selector: #selector(CommonListViewController.receiveHomePageNotificationEn(notification:)), name: NSNotification.Name(homepageNotificationEn), object: nil)
             if  (networkReachability?.isReachable)! {
@@ -190,17 +190,17 @@ class CommonListViewController: UIViewController {
         popupView.comingSoonPopupDelegate = self
         
         if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
-            exhibitionHeaderView.headerBackButton.setImage(UIImage(named: "back_buttonX1"), for: .normal)
+            commonListHeaderView.headerBackButton.setImage(UIImage(named: "back_buttonX1"), for: .normal)
         } else {
-            exhibitionHeaderView.headerBackButton.setImage(UIImage(named: "back_mirrorX1"), for: .normal)
+            commonListHeaderView.headerBackButton.setImage(UIImage(named: "back_mirrorX1"), for: .normal)
         }
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
     }
     func registerNib() {
-        self.exhibitionCollectionView.register(UINib(nibName: "CommonListCellXib", bundle: nil), forCellReuseIdentifier: "commonListCellId")
-        self.exhibitionCollectionView.register(UINib(nibName: "MiaTourHeaderView", bundle: nil), forCellReuseIdentifier: "miaHeaderId")
-        self.exhibitionCollectionView.register(UINib(nibName: "ParkListView", bundle: nil), forCellReuseIdentifier: "parkListCellId")
-        self.exhibitionCollectionView.register(UINib(nibName: "NMoQPArkTopCell", bundle: nil), forCellReuseIdentifier: "parkTopCellId")
+        self.commonListTableView.register(UINib(nibName: "CommonListCellXib", bundle: nil), forCellReuseIdentifier: "commonListCellId")
+        self.commonListTableView.register(UINib(nibName: "MiaTourHeaderView", bundle: nil), forCellReuseIdentifier: "miaHeaderId")
+        self.commonListTableView.register(UINib(nibName: "ParkListView", bundle: nil), forCellReuseIdentifier: "parkListCellId")
+        self.commonListTableView.register(UINib(nibName: "NMoQPArkTopCell", bundle: nil), forCellReuseIdentifier: "parkTopCellId")
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {

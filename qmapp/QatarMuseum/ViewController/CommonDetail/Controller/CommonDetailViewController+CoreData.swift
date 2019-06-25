@@ -20,7 +20,7 @@ extension CommonDetailViewController {
                 self.heritageDetailtArray = data.heritage!
                 self.setTopBarImage()
                 self.saveOrUpdateHeritageCoredata()
-                self.heritageDetailTableView.reloadData()
+                self.commonDetailTableView.reloadData()
                 self.loadingView.stopLoading()
                 self.loadingView.isHidden = true
                 if (self.heritageDetailtArray.count == 0) {
@@ -51,7 +51,7 @@ extension CommonDetailViewController {
                 self.publicArtsDetailtArray = data.publicArtsDetail!
                 self.setTopBarImage()
                 self.saveOrUpdatePublicArtsCoredata()
-                self.heritageDetailTableView.reloadData()
+                self.commonDetailTableView.reloadData()
                 self.loadingView.stopLoading()
                 self.loadingView.isHidden = true
                 if (self.publicArtsDetailtArray.count == 0) {
@@ -118,7 +118,7 @@ extension CommonDetailViewController {
                         }
                     }
                     self.setTopBarImage()
-                    heritageDetailTableView.reloadData()
+                    commonDetailTableView.reloadData()
                 }else{
                     if(self.networkReachability?.isReachable == false) {
                         self.showNoNetwork()
@@ -181,7 +181,7 @@ extension CommonDetailViewController {
                             }
                         }
                         self.setTopBarImage()
-                        heritageDetailTableView.reloadData()
+                        commonDetailTableView.reloadData()
                     }else {
                         if(self.networkReachability?.isReachable == false) {
                             self.showNoNetwork()
@@ -211,7 +211,7 @@ extension CommonDetailViewController {
                 self.exhibition = data.exhibitions!
                 self.setTopBarImage()
                 self.saveOrUpdateExhibitionsCoredata()
-                self.heritageDetailTableView.reloadData()
+                self.commonDetailTableView.reloadData()
                 self.loadingView.stopLoading()
                 self.loadingView.isHidden = true
                 if (self.exhibition.count == 0) {
@@ -281,7 +281,7 @@ extension CommonDetailViewController {
                     }
                 }
                 self.self.setTopBarImage()
-                self.heritageDetailTableView.reloadData()
+                self.commonDetailTableView.reloadData()
             }
             else{
                 if(self.networkReachability?.isReachable == false) {
@@ -303,7 +303,7 @@ extension CommonDetailViewController {
             case .success(let data):
                 if (self.parksListArray.count == 0) {
                     self.parksListArray = data.parkList
-                    self.heritageDetailTableView.reloadData()
+                    self.commonDetailTableView.reloadData()
                     if(self.parksListArray.count == 0) {
                         self.addCloseButton()
                         var errorMessage: String
@@ -399,7 +399,7 @@ extension CommonDetailViewController {
                 //                        imageView.image = UIImage(named: "default_imageX2")
                 //                    }
                 
-                heritageDetailTableView.reloadData()
+                commonDetailTableView.reloadData()
             }
             else{
                 if(self.networkReachability?.isReachable == false) {
@@ -428,7 +428,7 @@ extension CommonDetailViewController {
                 case .success(let data):
                     self.nmoqParkDetailArray = data.nmoqParksDetail
                     // self.saveOrUpdateNmoqParkDetailCoredata(nmoqParkList: data.nmoqParksDetail)
-                    self.heritageDetailTableView.reloadData()
+                    self.commonDetailTableView.reloadData()
                     //                    if(self.nmoqParkDetailArray.count > 0) {
                     //                        if ( (self.nmoqParkDetailArray[0].images?.count)! > 0) {
                     //                            if let imageUrl = self.nmoqParkDetailArray[0].images?[0] {
@@ -519,7 +519,7 @@ extension CommonDetailViewController {
                     
                     //}
                 }
-                heritageDetailTableView.reloadData()
+                commonDetailTableView.reloadData()
             } else{
                 if(self.networkReachability?.isReachable == false) {
                     self.showNoNetwork()
@@ -544,7 +544,7 @@ extension CommonDetailViewController {
                 self.diningDetailtArray = data.dinings!
                 self.setTopBarImage()
                 self.saveOrUpdateDiningDetailCoredata()
-                self.heritageDetailTableView.reloadData()
+                self.commonDetailTableView.reloadData()
                 self.loadingView.stopLoading()
                 self.loadingView.isHidden = true
                 if (self.diningDetailtArray.count == 0) {
@@ -628,7 +628,7 @@ extension CommonDetailViewController {
                     }
                 }
                 self.setTopBarImage()
-                heritageDetailTableView.reloadData()
+                commonDetailTableView.reloadData()
             } else {
                 if(self.networkReachability?.isReachable == false) {
                     self.showNoNetwork()
