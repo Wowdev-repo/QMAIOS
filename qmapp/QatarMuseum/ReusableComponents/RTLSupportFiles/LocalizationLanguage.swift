@@ -2,7 +2,7 @@
 //  LocalizationLanguage.swift
 //  QFind
 //
-//  Created by Exalture on 22/01/18.
+//  Created by Wakralab Software Labs on 22/01/18.
 //  Copyright © 2018 QFind. All rights reserved.
 //
 

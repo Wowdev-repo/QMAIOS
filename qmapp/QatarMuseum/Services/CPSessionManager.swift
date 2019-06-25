@@ -3,7 +3,7 @@
 //  QatarMuseums
 //
 //  Created by Musheer on 4/14/19.
-//  Copyright © 2019 Wakralab. All rights reserved.
+//  Copyright © 2019 Qatar Museums. All rights reserved.
 //
 
 import Foundation

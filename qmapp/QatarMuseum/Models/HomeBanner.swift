@@ -2,8 +2,8 @@
 //  HomeBanner.swift
 //  QatarMuseums
 //
-//  Created by Exalture on 27/11/18.
-//  Copyright © 2018 Wakralab. All rights reserved.
+//  Created by Wakralab Software Labs on 27/11/18.
+//  Copyright © 2018 Qatar Museums. All rights reserved.
 //
 
 import Foundation

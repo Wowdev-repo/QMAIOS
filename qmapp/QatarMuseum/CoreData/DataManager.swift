@@ -3,7 +3,7 @@
 //  QatarMuseums
 //
 //  Created by Subins P Jose on 06/06/19.
-//  Copyright © 2019 Wakralab. All rights reserved.
+//  Copyright © 2019 Qatar Museums. All rights reserved.
 //
 
 import UIKit

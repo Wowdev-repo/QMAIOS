@@ -2,8 +2,8 @@
 //  NMoQParkDetail.swift
 //  QatarMuseums
 //
-//  Created by Developer on 22/03/19.
-//  Copyright © 2019 Wakralab. All rights reserved.
+//  Created by Wakralab Software Labs on 22/03/19.
+//  Copyright © 2019 Qatar Museums. All rights reserved.
 //
 
 import Foundation

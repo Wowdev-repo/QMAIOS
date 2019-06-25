@@ -2,8 +2,8 @@
 //  EventPopupView.swift
 //  QatarMuseum
 //
-//  Created by Exalture on 08/06/18.
-//  Copyright © 2018 Exalture. All rights reserved.
+//  Created by Wakralab Software Labs on 08/06/18.
+//  Copyright © 2018 Qatar Museums. All rights reserved.
 //
 
 import UIKit

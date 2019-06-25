@@ -2,8 +2,8 @@
 //  TourAndPanelListViewController+TableView.swift
 //  QatarMuseums
 //
-//  Created by Exalture on 24/06/19.
-//  Copyright © 2019 Wakralab. All rights reserved.
+//  Created by Wakralab Software Labs on 24/06/19.
+//  Copyright © 2019 Qatar Museums. All rights reserved.
 //
 
 import Foundation

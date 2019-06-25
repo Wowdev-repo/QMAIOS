@@ -2,8 +2,8 @@
 //  BenefitLabelCell.swift
 //  QatarMuseums
 //
-//  Created by Developer on 22/08/18.
-//  Copyright © 2018 Exalture. All rights reserved.
+//  Created by Wakralab Software Labs on 22/08/18.
+//  Copyright © 2018 Qatar Museums. All rights reserved.
 //
 
 import UIKit

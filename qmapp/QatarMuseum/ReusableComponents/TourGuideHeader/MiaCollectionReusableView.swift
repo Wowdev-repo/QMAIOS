@@ -2,8 +2,8 @@
 //  MiaCollectionReusableView.swift
 //  QatarMuseums
 //
-//  Created by Exalture on 17/07/18.
-//  Copyright © 2018 Exalture. All rights reserved.
+//  Created by Wakralab Software Labs on 17/07/18.
+//  Copyright © 2018 Qatar Museums. All rights reserved.
 //
 
 import UIKit

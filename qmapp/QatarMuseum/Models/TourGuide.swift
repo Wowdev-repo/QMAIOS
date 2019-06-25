@@ -2,8 +2,8 @@
 //  TourGuide.swift
 //  QatarMuseums
 //
-//  Created by Developer on 26/09/18.
-//  Copyright © 2018 Wakralab. All rights reserved.
+//  Created by Wakralab Software Labs on 26/09/18.
+//  Copyright © 2018 Qatar Museums. All rights reserved.
 //
 
 import Foundation
