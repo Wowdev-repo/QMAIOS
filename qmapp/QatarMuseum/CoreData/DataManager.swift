@@ -24,11 +24,19 @@ class DataManager {
                                      idValue: String?,
                                      managedContext: NSManagedObjectContext) -> [NSManagedObject] {
         var fetchResults = [NSManagedObject]()
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: entityName!)
-        if let key = idKey, let value = idValue {
+        if let key = idKey, let value = idValue , let entity = entityName {
+            let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: entity)
             fetchRequest.predicate = NSPredicate.init(format: "\(key) == \(value)")
+            
+            do {
+                fetchResults = try managedContext.fetch(fetchRequest)
+            } catch let error as NSError {
+                debugPrint(error.localizedDescription)
+            }
         }
-        fetchResults = try! managedContext.fetch(fetchRequest)
+        
+        
+        
         return fetchResults
     }
     
@@ -799,19 +807,19 @@ extension DataManager {
     static func updatePublicArts(managedContext: NSManagedObjectContext,
                                  publicArtsListArray:[PublicArtsList]?,
                                  language: String) {
-        let fetchData = DataManager.checkAddedToCoredata(entityName: "PublicArtsEntity",
-                                                         idKey: "id",
-                                                         idValue: nil,
-                                                         managedContext: managedContext) as! [PublicArtsEntity]
-        if let publicArts = publicArtsListArray, !fetchData.isEmpty {
+//        let fetchData = DataManager.checkAddedToCoredata(entityName: "PublicArtsEntity",
+//                                                         idKey: "id",
+//                                                         idValue: nil,
+//                                                         managedContext: managedContext) as! [PublicArtsEntity]
+        if let publicArts = publicArtsListArray {
             for publicArtsListDict in publicArts {
                 let fetchResult = DataManager.checkAddedToCoredata(entityName: "PublicArtsEntity",
                                                                    idKey: "id",
                                                                    idValue: publicArtsListDict.id,
-                                                                   managedContext: managedContext)
+                                                                   managedContext: managedContext) as! [PublicArtsEntity]
                 //update
                 if !fetchResult.isEmpty {
-                    let publicArtsdbDict = fetchResult[0] as! PublicArtsEntity
+                    let publicArtsdbDict = fetchResult[0]
                     DataManager.saveToPublicArtsCoreData(publicArtsListDict: publicArtsListDict,
                                                          managedObjContext: managedContext,
                                                          entity: publicArtsdbDict, language: language)
@@ -822,15 +830,16 @@ extension DataManager {
                                                          entity: nil, language: language)
                 }
             }
-        } else {
-            if let publicArts = publicArtsListArray {
-                for publicArtsListDict in publicArts {
-                    DataManager.saveToPublicArtsCoreData(publicArtsListDict: publicArtsListDict,
-                                                         managedObjContext: managedContext,
-                                                         entity: nil, language: language)
-                }
-            }
         }
+//        } else {
+//            if let publicArts = publicArtsListArray {
+//                for publicArtsListDict in publicArts {
+//                    DataManager.saveToPublicArtsCoreData(publicArtsListDict: publicArtsListDict,
+//                                                         managedObjContext: managedContext,
+//                                                         entity: nil, language: language)
+//                }
+//            }
+//        }
     }
     
     static func saveToPublicArtsCoreData(publicArtsListDict: PublicArtsList,
@@ -842,6 +851,7 @@ extension DataManager {
             publicArtsInfo = NSEntityDescription.insertNewObject(forEntityName: "PublicArtsEntity",
                                                                  into: managedObjContext) as? PublicArtsEntity
         }
+        publicArtsInfo?.id = publicArtsListDict.id
         publicArtsInfo?.name = publicArtsListDict.name
         publicArtsInfo?.image = publicArtsListDict.image
         publicArtsInfo?.latitude =  publicArtsListDict.latitude
@@ -1723,12 +1733,12 @@ extension DataManager {
     static func updateCollectionDetailsEntity(managedContext: NSManagedObjectContext,
                                               collectionDetailArray: [CollectionDetail],
                                               collectionName: String?) {
-        
-        if let fetchData = DataManager.checkAddedToCoredata(entityName: "CollectionDetailsEntity",
-                                                            idKey: "categoryCollection",
-                                                            idValue: collectionName,
-                                                            managedContext: managedContext) as? [CollectionDetailsEntity],
-            !fetchData.isEmpty {
+//
+//        if let fetchData = DataManager.checkAddedToCoredata(entityName: "CollectionDetailsEntity",
+//                                                            idKey: "categoryCollection",
+//                                                            idValue: collectionName,
+//                                                            managedContext: managedContext) as? [CollectionDetailsEntity],
+//            !fetchData.isEmpty {
             for collectionDetailDict in collectionDetailArray {
                 if let fetchData = DataManager.checkAddedToCoredata(entityName: "CollectionDetailsEntity",
                                                                     idKey: "nid",
@@ -1747,13 +1757,13 @@ extension DataManager {
                 }
             }
             
-        } else {
-            for collectionDetailDict in collectionDetailArray {
-                DataManager.saveCollectionDetailsEntity(collectionDetailDict: collectionDetailDict,
-                                                 managedObjContext: managedContext,
-                                                 entity: nil)
-            }
-        }
+//        } else {
+//            for collectionDetailDict in collectionDetailArray {
+//                DataManager.saveCollectionDetailsEntity(collectionDetailDict: collectionDetailDict,
+//                                                 managedObjContext: managedContext,
+//                                                 entity: nil)
+//            }
+//        }
     }
     
     static func saveCollectionDetailsEntity(collectionDetailDict: CollectionDetail,

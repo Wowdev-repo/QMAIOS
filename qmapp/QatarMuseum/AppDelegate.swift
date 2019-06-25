@@ -756,7 +756,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
     
     //MARK: PublicArtsList Coredata Method
-    func saveOrUpdatePublicArtsCoredata(publicArtsListArray:[PublicArtsList]?,
+    func saveOrUpdatePublicArtsCoredata(publicArtsListArray: [PublicArtsList]?,
                                         lang: String) {
         if ((publicArtsListArray?.count)! > 0) {
             if #available(iOS 10.0, *) {
