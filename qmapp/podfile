@@ -11,5 +11,4 @@ target 'QatarMuseums' do
  pod 'KeychainSwift', '~> 11.0'
  pod 'CocoaLumberjack/Swift'
  pod 'SSZipArchive'
- pod 'MLeaksFinder'
 end

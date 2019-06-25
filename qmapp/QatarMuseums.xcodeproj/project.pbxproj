@@ -692,13 +692,13 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		1E63D51022BC9EF900E2E1A5 /* PanelDiscussionViewcontroller */ = {
+		1E63D51022BC9EF900E2E1A5 /* PanelDiscussion */ = {
 			isa = PBXGroup;
 			children = (
 				1E63D51122BC9F1400E2E1A5 /* Controller */,
 				1E87D19922BCDA7C00F1C96F /* View */,
 			);
-			path = PanelDiscussionViewcontroller;
+			path = PanelDiscussion;
 			sourceTree = "<group>";
 		};
 		1E63D51122BC9F1400E2E1A5 /* Controller */ = {
@@ -719,13 +719,13 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		1EECB2E622C08AF800A0AB6B /* HomeViewController */ = {
+		1EECB2E622C08AF800A0AB6B /* Home */ = {
 			isa = PBXGroup;
 			children = (
 				1EECB2E822C08B2800A0AB6B /* View */,
 				1EECB2E722C08B1B00A0AB6B /* Controller */,
 			);
-			path = HomeViewController;
+			path = Home;
 			sourceTree = "<group>";
 		};
 		1EECB2E722C08B1B00A0AB6B /* Controller */ = {
@@ -839,30 +839,18 @@
 		B80DC05720C792E400E28034 /* QatarMuseum */ = {
 			isa = PBXGroup;
 			children = (
-				B317C534229470EE0054CDDA /* Utils */,
-				B80DFF2D2251F68C004E8EA6 /* CoreData */,
+				B8D2FC9822C201C500A570BD /* App */,
+				B8D2FC9722C201BC00A570BD /* Common */,
 				B8D712FE2250B463000ED7AA /* QatarMuseums.xcdatamodeld */,
-				B890F0B92238C714009A874A /* Images */,
-				B8AFA2F020E78E06008838A6 /* DINNextLTPro-Bold.otf */,
-				B8AFA2EE20E78E00008838A6 /* DINNextLTPro-Light.otf */,
-				B8AFA2EF20E78E03008838A6 /* DINNextLTPro-Regular.ttf */,
-				B8AFA2E820E78BA1008838A6 /* DINNextLTArabic-Bold.ttf */,
-				B8AFA2E920E78BA3008838A6 /* DINNextLTArabic-Light.ttf */,
-				B8AFA2EA20E78BA6008838A6 /* DINNextLTArabic-Regular.ttf */,
 				B8B2A18020D1491900E053A9 /* QMLogo.gif */,
 				1BE526D52107892900C8CD51 /* Models */,
 				B80DC08720C7943100E28034 /* ReusableComponents */,
-				B80DC08620C792FE00E28034 /* ViewController */,
-				1BE526CE210738B600C8CD51 /* Services */,
+				B80DC08620C792FE00E28034 /* Modules */,
 				B80DC05820C792E400E28034 /* AppDelegate.swift */,
 				B80DC05C20C792E400E28034 /* Main.storyboard */,
 				B80DC05F20C792E600E28034 /* Assets.xcassets */,
 				B80DC06120C792E600E28034 /* LaunchScreen.storyboard */,
 				B80DC06420C792E600E28034 /* Info.plist */,
-				B811FBC82103406100960246 /* Localizable.strings */,
-				B8B79AC02189B75900370AAB /* CountryList.json */,
-				B806B7CC21247FB400F9F338 /* MapStyle.json */,
-				B807FCCE218EA8FD003CC51E /* CountryListArabic.json */,
 			);
 			path = QatarMuseum;
 			sourceTree = "<group>";
@@ -885,24 +873,18 @@
 			path = QatarMuseumUITests;
 			sourceTree = "<group>";
 		};
-		B80DC08620C792FE00E28034 /* ViewController */ = {
+		B80DC08620C792FE00E28034 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
 				B832790A22C09BC200B6996D /* TourAndPanelList */,
-				1EECB2E622C08AF800A0AB6B /* HomeViewController */,
-				B8EAB7B320CA420100C001B2 /* FSCalendarVC */,
+				1EECB2E622C08AF800A0AB6B /* Home */,
 				B8D2FC5222C0CBC300A570BD /* Web */,
 				B8D2FC5322C0CC6400A570BD /* Event */,
 				B8D2FC5F22C1BCE600A570BD /* Profile */,
-				B8D2FC5822C0DBF900A570BD /* CommonList */,
-				B8D2FC6022C1BDA700A570BD /* Splash */,
-				B8D2FC6122C1BDB300A570BD /* CommonDetail */,
 				B8D2FC6222C1BDC400A570BD /* Museums */,
 				B8D2FC6322C1BDD500A570BD /* MiaTour */,
-				B8D2FC6422C1BDE000A570BD /* Notifications */,
 				B8D2FC6522C1BDEE00A570BD /* Education */,
 				B8D2FC6622C1BDFA00A570BD /* Filter */,
-				B8D2FC6722C1BE0700A570BD /* Settings */,
 				B8D2FC6822C1BE1000A570BD /* FloorMap */,
 				B8D2FC4F22C0C6EA00A570BD /* ObjectDetail */,
 				B832792A22C0C11300B6996D /* ArtificialNumberPad */,
@@ -913,10 +895,10 @@
 				B832791722C0A42700B6996D /* MapView */,
 				B832791222C0A1BB00B6996D /* Registration */,
 				B832791122C0A0D300B6996D /* CulturePassCard */,
-				1E63D51022BC9EF900E2E1A5 /* PanelDiscussionViewcontroller */,
+				1E63D51022BC9EF900E2E1A5 /* PanelDiscussion */,
 				B8436A9021C264CA00045242 /* GoogleMapViewController.swift */,
 			);
-			path = ViewController;
+			path = Modules;
 			sourceTree = "<group>";
 		};
 		B80DC08720C7943100E28034 /* ReusableComponents */ = {
@@ -1632,6 +1614,72 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
+		B8D2FC9722C201BC00A570BD /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				B8EAB7B320CA420100C001B2 /* FSCalendarVC */,
+				B8D2FC6122C1BDB300A570BD /* CommonDetail */,
+				B8D2FC5822C0DBF900A570BD /* CommonList */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		B8D2FC9822C201C500A570BD /* App */ = {
+			isa = PBXGroup;
+			children = (
+				B8D2FC6022C1BDA700A570BD /* Splash */,
+				B8D2FC6722C1BE0700A570BD /* Settings */,
+				B8D2FC6422C1BDE000A570BD /* Notifications */,
+				B8D2FC9C22C2027800A570BD /* Fonts */,
+				B8D2FC9922C2021200A570BD /* Strings */,
+				1BE526CE210738B600C8CD51 /* Services */,
+				B890F0B92238C714009A874A /* Images */,
+				B80DFF2D2251F68C004E8EA6 /* CoreData */,
+				B317C534229470EE0054CDDA /* Utils */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		B8D2FC9922C2021200A570BD /* Strings */ = {
+			isa = PBXGroup;
+			children = (
+				B8D2FC9B22C2023D00A570BD /* UIStrings */,
+				B8D2FC9A22C2022F00A570BD /* AppStrings */,
+			);
+			path = Strings;
+			sourceTree = "<group>";
+		};
+		B8D2FC9A22C2022F00A570BD /* AppStrings */ = {
+			isa = PBXGroup;
+			children = (
+				B8B79AC02189B75900370AAB /* CountryList.json */,
+				B806B7CC21247FB400F9F338 /* MapStyle.json */,
+				B807FCCE218EA8FD003CC51E /* CountryListArabic.json */,
+			);
+			path = AppStrings;
+			sourceTree = "<group>";
+		};
+		B8D2FC9B22C2023D00A570BD /* UIStrings */ = {
+			isa = PBXGroup;
+			children = (
+				B811FBC82103406100960246 /* Localizable.strings */,
+			);
+			path = UIStrings;
+			sourceTree = "<group>";
+		};
+		B8D2FC9C22C2027800A570BD /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				B8AFA2F020E78E06008838A6 /* DINNextLTPro-Bold.otf */,
+				B8AFA2EE20E78E00008838A6 /* DINNextLTPro-Light.otf */,
+				B8AFA2EF20E78E03008838A6 /* DINNextLTPro-Regular.ttf */,
+				B8AFA2E820E78BA1008838A6 /* DINNextLTArabic-Bold.ttf */,
+				B8AFA2E920E78BA3008838A6 /* DINNextLTArabic-Light.ttf */,
+				B8AFA2EA20E78BA6008838A6 /* DINNextLTArabic-Regular.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 		B8DB4FFE21B25D2D00C5DD10 /* PanelDiscussionDetailView */ = {
 			isa = PBXGroup;
 			children = (
@@ -2021,11 +2069,9 @@
 				"${PODS_ROOT}/Target Support Files/Pods-QatarMuseums/Pods-QatarMuseums-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/CocoaLumberjack/CocoaLumberjack.framework",
-				"${BUILT_PRODUCTS_DIR}/FBRetainCycleDetector/FBRetainCycleDetector.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/KeychainSwift/KeychainSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
-				"${BUILT_PRODUCTS_DIR}/MLeaksFinder/MLeaksFinder.framework",
 				"${BUILT_PRODUCTS_DIR}/SSZipArchive/SSZipArchive.framework",
 				"${BUILT_PRODUCTS_DIR}/YouTubePlayer/YouTubePlayer.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
@@ -2034,11 +2080,9 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaLumberjack.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBRetainCycleDetector.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KeychainSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MLeaksFinder.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SSZipArchive.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YouTubePlayer.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
