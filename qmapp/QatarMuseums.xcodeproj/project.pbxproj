@@ -199,7 +199,7 @@
 		B8D2FC5122C0C70A00A570BD /* ObjectDetailViewController+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D2FC5022C0C70A00A570BD /* ObjectDetailViewController+TableView.swift */; };
 		B8D2FC5522C0CC7F00A570BD /* EventViewController+CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D2FC5422C0CC7F00A570BD /* EventViewController+CoreData.swift */; };
 		B8D2FC5722C0CCBB00A570BD /* EventViewController+CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D2FC5622C0CCBB00A570BD /* EventViewController+CollectionView.swift */; };
-		B8D2FC5A22C0DC7C00A570BD /* CommonLisViewController+CoreDatat.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D2FC5922C0DC7C00A570BD /* CommonLisViewController+CoreDatat.swift */; };
+		B8D2FC5A22C0DC7C00A570BD /* CommonLisViewController+CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D2FC5922C0DC7C00A570BD /* CommonLisViewController+CoreData.swift */; };
 		B8D2FC5C22C0DCAD00A570BD /* CommonListViewController+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D2FC5B22C0DCAD00A570BD /* CommonListViewController+TableView.swift */; };
 		B8D2FC5E22C0DE4400A570BD /* CommonListViewController+ReusableViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D2FC5D22C0DE4400A570BD /* CommonListViewController+ReusableViews.swift */; };
 		B8D2FC6A22C1BE4F00A570BD /* CommonDetailViewController+CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D2FC6922C1BE4F00A570BD /* CommonDetailViewController+CoreData.swift */; };
@@ -334,7 +334,7 @@
 		B80B76A4218AD6AC00190967 /* AcceptDeclinePopup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AcceptDeclinePopup.swift; sourceTree = "<group>"; };
 		B80B76A6218AD6AC00190967 /* AcceptDeclinePopup.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AcceptDeclinePopup.xib; sourceTree = "<group>"; };
 		B80DC05520C792E400E28034 /* QatarMuseums.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QatarMuseums.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		B80DC05820C792E400E28034 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		B80DC05820C792E400E28034 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = ../../AppDelegate.swift; sourceTree = "<group>"; };
 		B80DC05D20C792E400E28034 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B80DC05F20C792E600E28034 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B80DC06220C792E600E28034 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -499,7 +499,7 @@
 		B8D2FC5022C0C70A00A570BD /* ObjectDetailViewController+TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ObjectDetailViewController+TableView.swift"; sourceTree = "<group>"; };
 		B8D2FC5422C0CC7F00A570BD /* EventViewController+CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EventViewController+CoreData.swift"; sourceTree = "<group>"; };
 		B8D2FC5622C0CCBB00A570BD /* EventViewController+CollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EventViewController+CollectionView.swift"; sourceTree = "<group>"; };
-		B8D2FC5922C0DC7C00A570BD /* CommonLisViewController+CoreDatat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CommonLisViewController+CoreDatat.swift"; sourceTree = "<group>"; };
+		B8D2FC5922C0DC7C00A570BD /* CommonLisViewController+CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CommonLisViewController+CoreData.swift"; sourceTree = "<group>"; };
 		B8D2FC5B22C0DCAD00A570BD /* CommonListViewController+TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CommonListViewController+TableView.swift"; sourceTree = "<group>"; };
 		B8D2FC5D22C0DE4400A570BD /* CommonListViewController+ReusableViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CommonListViewController+ReusableViews.swift"; sourceTree = "<group>"; };
 		B8D2FC6922C1BE4F00A570BD /* CommonDetailViewController+CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CommonDetailViewController+CoreData.swift"; sourceTree = "<group>"; };
@@ -841,16 +841,9 @@
 			children = (
 				B8D2FC9822C201C500A570BD /* App */,
 				B8D2FC9722C201BC00A570BD /* Common */,
-				B8D712FE2250B463000ED7AA /* QatarMuseums.xcdatamodeld */,
-				B8B2A18020D1491900E053A9 /* QMLogo.gif */,
 				1BE526D52107892900C8CD51 /* Models */,
 				B80DC08720C7943100E28034 /* ReusableComponents */,
 				B80DC08620C792FE00E28034 /* Modules */,
-				B80DC05820C792E400E28034 /* AppDelegate.swift */,
-				B80DC05C20C792E400E28034 /* Main.storyboard */,
-				B80DC05F20C792E600E28034 /* Assets.xcassets */,
-				B80DC06120C792E600E28034 /* LaunchScreen.storyboard */,
-				B80DC06420C792E600E28034 /* Info.plist */,
 			);
 			path = QatarMuseum;
 			sourceTree = "<group>";
@@ -909,14 +902,12 @@
 				B80B76A3218AD6AC00190967 /* RsvpPopups */,
 				B8F00C8121787CD300320DF1 /* LoginPopup */,
 				B827299321778B2F0017EC71 /* VersaPlayer */,
-				B8C31CDC2162435B00AE7788 /* iCarousel */,
 				B8CA08D52146D38400783642 /* BottomSheet */,
 				B8B49438212EDDD000203C7F /* Toast */,
 				1B902BFE212D56A800D3055B /* LabelViewCell */,
 				1B3C5058212AB2E30034E560 /* ArtifactNumberPadCell */,
 				1B51B3D62125B410002B84AA /* ObjectImageView */,
 				1B51B3D32121B658002B84AA /* ObjectDetailCell */,
-				1BC909CE2108E37900D6C00B /* CommonMethods */,
 				B8E01BFA21060FBC008D7F33 /* RTLSupportFiles */,
 				B811FBCA210380EF00960246 /* CommonColours */,
 				B8B7604D2100E86600CEE280 /* NotificationsList */,
@@ -924,20 +915,13 @@
 				B8C64D4520FDC2B900C2D51A /* TourGuideHeader */,
 				B82C87F420E69D2500777674 /* DiningDetailCell */,
 				B8FC18FF20DE84FA00D00E6B /* MuseumBottomCell */,
-				B8B81FE420DE2E0C004885D0 /* KASlideShow */,
 				B8DC478520DCF8660007B426 /* ParkCell */,
 				B8CAA93920DC1557009A936D /* HeritageDetailCell */,
-				B85BA4B120D01DBF00E7F4D1 /* GifFiles */,
 				B8E284FA20CE3AC2007867BE /* Exhibitionsdetail */,
-				B8BA80B820CD82D5007E880A /* ExhibitionsCell */,
+				B8BA80B820CD82D5007E880A /* CommonListCell */,
 				B8EAB7BE20CA67B400C001B2 /* EventPopup */,
-				B8EAB77E20CA41BB00C001B2 /* FSCalendar */,
 				B8EAB77920CA3E0B00C001B2 /* EventCollectionCell */,
-				B8DC40A320C9A30A0044134D /* CommonHeader */,
-				B8D1228E20C9091500772507 /* LoadingView */,
 				B8E2C01120C7FCBA00F3CE41 /* SideMenu */,
-				B8E2C00C20C7E9B100F3CE41 /* ComingSoonPopup */,
-				B80DC08F20C7A99200E28034 /* TopBarView */,
 			);
 			path = ReusableComponents;
 			sourceTree = "<group>";
@@ -1191,6 +1175,7 @@
 		B890F0B92238C714009A874A /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				B8B2A18020D1491900E053A9 /* QMLogo.gif */,
 				B890F0BC2238C8C9009A874A /* panelAndTalks.png */,
 			);
 			path = Images;
@@ -1230,13 +1215,13 @@
 			path = KASlideShow;
 			sourceTree = "<group>";
 		};
-		B8BA80B820CD82D5007E880A /* ExhibitionsCell */ = {
+		B8BA80B820CD82D5007E880A /* CommonListCell */ = {
 			isa = PBXGroup;
 			children = (
 				B8BA80B920CD8305007E880A /* CommonListCellXib.xib */,
 				B8BA80BB20CD831D007E880A /* CommonListCell.swift */,
 			);
-			path = ExhibitionsCell;
+			path = CommonListCell;
 			sourceTree = "<group>";
 		};
 		B8C31CDC2162435B00AE7788 /* iCarousel */ = {
@@ -1331,6 +1316,7 @@
 		B8D2FC6022C1BDA700A570BD /* Splash */ = {
 			isa = PBXGroup;
 			children = (
+				B80DC05820C792E400E28034 /* AppDelegate.swift */,
 				B8D2FC8422C1F14200A570BD /* Controller */,
 			);
 			path = Splash;
@@ -1430,7 +1416,7 @@
 			isa = PBXGroup;
 			children = (
 				B8BA80B620CD8297007E880A /* CommonListViewController.swift */,
-				B8D2FC5922C0DC7C00A570BD /* CommonLisViewController+CoreDatat.swift */,
+				B8D2FC5922C0DC7C00A570BD /* CommonLisViewController+CoreData.swift */,
 				B8D2FC5B22C0DCAD00A570BD /* CommonListViewController+TableView.swift */,
 				B8D2FC5D22C0DE4400A570BD /* CommonListViewController+ReusableViews.swift */,
 			);
@@ -1617,9 +1603,12 @@
 		B8D2FC9722C201BC00A570BD /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				B8EAB7B320CA420100C001B2 /* FSCalendarVC */,
-				B8D2FC6122C1BDB300A570BD /* CommonDetail */,
-				B8D2FC5822C0DBF900A570BD /* CommonList */,
+				B8D712FE2250B463000ED7AA /* QatarMuseums.xcdatamodeld */,
+				B80DC05C20C792E400E28034 /* Main.storyboard */,
+				B80DC06120C792E600E28034 /* LaunchScreen.storyboard */,
+				B8D2FC9D22C336C900A570BD /* ReusableViews */,
+				B85BA4B120D01DBF00E7F4D1 /* GifFiles */,
+				1BC909CE2108E37900D6C00B /* CommonMethods */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1627,6 +1616,8 @@
 		B8D2FC9822C201C500A570BD /* App */ = {
 			isa = PBXGroup;
 			children = (
+				B80DC05F20C792E600E28034 /* Assets.xcassets */,
+				B80DC06420C792E600E28034 /* Info.plist */,
 				B8D2FC6022C1BDA700A570BD /* Splash */,
 				B8D2FC6722C1BE0700A570BD /* Settings */,
 				B8D2FC6422C1BDE000A570BD /* Notifications */,
@@ -1678,6 +1669,22 @@
 				B8AFA2EA20E78BA6008838A6 /* DINNextLTArabic-Regular.ttf */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		B8D2FC9D22C336C900A570BD /* ReusableViews */ = {
+			isa = PBXGroup;
+			children = (
+				B8E2C00C20C7E9B100F3CE41 /* ComingSoonPopup */,
+				B80DC08F20C7A99200E28034 /* TopBarView */,
+				B8EAB77E20CA41BB00C001B2 /* FSCalendar */,
+				B8EAB7B320CA420100C001B2 /* FSCalendarVC */,
+				B8B81FE420DE2E0C004885D0 /* KASlideShow */,
+				B8D2FC6122C1BDB300A570BD /* CommonDetail */,
+				B8D1228E20C9091500772507 /* LoadingView */,
+				B8C31CDC2162435B00AE7788 /* iCarousel */,
+				B8D2FC5822C0DBF900A570BD /* CommonList */,
+			);
+			path = ReusableViews;
 			sourceTree = "<group>";
 		};
 		B8DB4FFE21B25D2D00C5DD10 /* PanelDiscussionDetailView */ = {
@@ -1798,6 +1805,7 @@
 		B8EAB7B320CA420100C001B2 /* FSCalendarVC */ = {
 			isa = PBXGroup;
 			children = (
+				B8DC40A320C9A30A0044134D /* CommonHeader */,
 				B8D2FC9622C1F30000A570BD /* Controller */,
 				B8EAB7B820CA424300C001B2 /* LunarFormatter.swift */,
 			);
@@ -2235,7 +2243,7 @@
 				B8FEC77C2112E57100648F66 /* Dining.swift in Sources */,
 				B8D2FC5522C0CC7F00A570BD /* EventViewController+CoreData.swift in Sources */,
 				1BE526D22107460F00C8CD51 /* QatarMuseumRouter.swift in Sources */,
-				B8D2FC5A22C0DC7C00A570BD /* CommonLisViewController+CoreDatat.swift in Sources */,
+				B8D2FC5A22C0DC7C00A570BD /* CommonLisViewController+CoreData.swift in Sources */,
 				B8FC190120DE854400D00E6B /* MuseumBottomCell.swift in Sources */,
 				B84BA060217EE3C000FD2C0D /* TokenData.swift in Sources */,
 				1BC909D2210B277F00D6C00B /* Home.swift in Sources */,
