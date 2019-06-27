@@ -59,6 +59,7 @@ class MuseumsViewController: UIViewController,KASlideShowDelegate {
         }
         museumsSlideView.imagesContentMode = .scaleAspectFill
         let aboutName = NSLocalizedString("ABOUT", comment: "ABOUT  in the Museum")
+//        Display tour guide for MIA n Audio guide for NMoQ
         let tourGuideName = ((museumId == "63") || (museumId == "96")) ?
             NSLocalizedString("TOURGUIDE_LABEL", comment: "TOURGUIDE_LABEL  in the MIA Museum page") :
             NSLocalizedString("AUDIOGUIDE_LABEL", comment: "AUDIOGUIDE_LABEL  in the NMoQ Museum page")

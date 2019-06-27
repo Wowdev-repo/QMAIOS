@@ -39,7 +39,9 @@ extension MuseumsViewController: UICollectionViewDelegate,UICollectionViewDataSo
         } else {
             if((itemName == "About") && (museumId == "66") || (itemName == "عن") && (museumId == "638")) {
                 museumsCell.itemButton.contentEdgeInsets = UIEdgeInsets(top: 15, left: 8, bottom: 15, right: 6)
-            }else if((itemName == "Audio Guide") || (itemName == "الدليل الصوتي") || (itemName == "Highlights Tour")) {
+            }else if((itemName == NSLocalizedString("TOURGUIDE_LABEL", comment: "TOURGUIDE_LABEL  in the MIA Museum page"))
+                || (itemName == NSLocalizedString("AUDIOGUIDE_LABEL", comment: "AUDIOGUIDE_LABEL  in the NMoQ Museum page"))
+                || (itemName == "Highlights Tour")) {
                 museumsCell.itemButton.contentEdgeInsets = UIEdgeInsets(top: 10, left: 9, bottom: 10, right: 9)
             }
             else if((itemName == "Exhibitions") || (itemName == "المعارض")) {
@@ -145,7 +147,8 @@ extension MuseumsViewController: UICollectionViewDelegate,UICollectionViewDataSo
                     ])
                 
                 self.present(heritageDtlView, animated: false, completion: nil)
-            } else if ((selectedItem == "Audio Guide") || (selectedItem == "الدليل الصوتي")){
+            } else if ((selectedItem == NSLocalizedString("TOURGUIDE_LABEL", comment: "TOURGUIDE_LABEL  in the MIA Museum page"))
+                || (selectedItem == NSLocalizedString("AUDIOGUIDE_LABEL", comment: "AUDIOGUIDE_LABEL  in the NMoQ Museum page"))){
                 if((museumId == "63") || (museumId == "96") || (museumId == "66") || (museumId == "638")) {
                     let tourGuideView =  self.storyboard?.instantiateViewController(withIdentifier: "exhibitionViewId") as! CommonListViewController
                     tourGuideView.exhibitionsPageNameString = ExhbitionPageName.miaTourGuideList

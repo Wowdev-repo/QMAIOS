@@ -189,7 +189,7 @@
 		B8CA08E42146D38400783642 /* ObjectPopupView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8CA08DB2146D38400783642 /* ObjectPopupView.xib */; };
 		B8CA08E52146D38400783642 /* MapDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8CA08DC2146D38400783642 /* MapDetailCell.xib */; };
 		B8CA08E72146D38400783642 /* MapDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8CA08DE2146D38400783642 /* MapDetailView.xib */; };
-		B8CAA93D20DC15FA009A936D /* HeritageDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CAA93C20DC15FA009A936D /* HeritageDetailCell.swift */; };
+		B8CAA93D20DC15FA009A936D /* CommonDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CAA93C20DC15FA009A936D /* CommonDetailCell.swift */; };
 		B8CAA93F20DC186E009A936D /* CommonDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CAA93E20DC186E009A936D /* CommonDetailViewController.swift */; };
 		B8CF5AFF2244C6A4008E663E /* NMoQPArkTopCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8CF5AFE2244C6A4008E663E /* NMoQPArkTopCell.xib */; };
 		B8CF5B012244C80B008E663E /* NMoQParkTopTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CF5B002244C80B008E663E /* NMoQParkTopTableViewCell.swift */; };
@@ -489,7 +489,7 @@
 		B8CA08DB2146D38400783642 /* ObjectPopupView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ObjectPopupView.xib; sourceTree = "<group>"; };
 		B8CA08DC2146D38400783642 /* MapDetailCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MapDetailCell.xib; sourceTree = "<group>"; };
 		B8CA08DE2146D38400783642 /* MapDetailView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MapDetailView.xib; sourceTree = "<group>"; };
-		B8CAA93C20DC15FA009A936D /* HeritageDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeritageDetailCell.swift; sourceTree = "<group>"; };
+		B8CAA93C20DC15FA009A936D /* CommonDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonDetailCell.swift; sourceTree = "<group>"; };
 		B8CAA93E20DC186E009A936D /* CommonDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonDetailViewController.swift; sourceTree = "<group>"; };
 		B8CF5AFE2244C6A4008E663E /* NMoQPArkTopCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NMoQPArkTopCell.xib; sourceTree = "<group>"; };
 		B8CF5B002244C80B008E663E /* NMoQParkTopTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NMoQParkTopTableViewCell.swift; sourceTree = "<group>"; };
@@ -1260,7 +1260,7 @@
 		B8CAA93920DC1557009A936D /* HeritageDetailCell */ = {
 			isa = PBXGroup;
 			children = (
-				B8CAA93C20DC15FA009A936D /* HeritageDetailCell.swift */,
+				B8CAA93C20DC15FA009A936D /* CommonDetailCell.swift */,
 				B8C31CE52162821300AE7788 /* MuseumAboutCell.swift */,
 				B8F6B03E225CAA7D000EF764 /* HeritageDetailView.xib */,
 			);
@@ -1609,6 +1609,9 @@
 				B8D712FE2250B463000ED7AA /* QatarMuseums.xcdatamodeld */,
 				B80DC05C20C792E400E28034 /* Main.storyboard */,
 				B80DC06120C792E600E28034 /* LaunchScreen.storyboard */,
+				B8EAB7B320CA420100C001B2 /* FSCalendarVC */,
+				B8D2FC6122C1BDB300A570BD /* CommonDetail */,
+				B8D2FC5822C0DBF900A570BD /* CommonList */,
 				B8D2FC9D22C336C900A570BD /* ReusableViews */,
 				B85BA4B120D01DBF00E7F4D1 /* GifFiles */,
 				1BC909CE2108E37900D6C00B /* CommonMethods */,
@@ -1679,12 +1682,9 @@
 				B8E2C00C20C7E9B100F3CE41 /* ComingSoonPopup */,
 				B80DC08F20C7A99200E28034 /* TopBarView */,
 				B8EAB77E20CA41BB00C001B2 /* FSCalendar */,
-				B8EAB7B320CA420100C001B2 /* FSCalendarVC */,
 				B8B81FE420DE2E0C004885D0 /* KASlideShow */,
-				B8D2FC6122C1BDB300A570BD /* CommonDetail */,
 				B8D1228E20C9091500772507 /* LoadingView */,
 				B8C31CDC2162435B00AE7788 /* iCarousel */,
-				B8D2FC5822C0DBF900A570BD /* CommonList */,
 			);
 			path = ReusableViews;
 			sourceTree = "<group>";
@@ -2033,7 +2033,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-QatarMuseums/Pods-QatarMuseums-resources.sh",
+				"${SRCROOT}/Pods/Target Support Files/Pods-QatarMuseums/Pods-QatarMuseums-resources.sh",
 				"${PODS_ROOT}/GooglePlaces/Frameworks/GooglePlaces.framework/Resources/GooglePlaces.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
@@ -2042,7 +2042,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-QatarMuseums/Pods-QatarMuseums-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-QatarMuseums/Pods-QatarMuseums-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		B8814DAC21281998004BAB28 /* ShellScript */ = {
@@ -2082,7 +2082,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-QatarMuseums/Pods-QatarMuseums-frameworks.sh",
+				"${SRCROOT}/Pods/Target Support Files/Pods-QatarMuseums/Pods-QatarMuseums-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/CocoaLumberjack/CocoaLumberjack.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
@@ -2105,7 +2105,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-QatarMuseums/Pods-QatarMuseums-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-QatarMuseums/Pods-QatarMuseums-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -2197,7 +2197,7 @@
 				B8294CF420CBF265002AFF72 /* FSCalendarCollectionView.m in Sources */,
 				B8294CEC20CBF265002AFF72 /* FSCalendarTransitionCoordinator.m in Sources */,
 				B80DFF312251F6BF004E8EA6 /* CoreDataMigrationModel.swift in Sources */,
-				B8CAA93D20DC15FA009A936D /* HeritageDetailCell.swift in Sources */,
+				B8CAA93D20DC15FA009A936D /* CommonDetailCell.swift in Sources */,
 				B37E794822B498A400125CA8 /* DataManager+Fetch.swift in Sources */,
 				B80DC05920C792E400E28034 /* AppDelegate.swift in Sources */,
 				B80DC08C20C798BA00E28034 /* HomeViewController.swift in Sources */,

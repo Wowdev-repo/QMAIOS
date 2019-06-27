@@ -15,7 +15,7 @@ extension UIApplication {
 }
 
 class AppLocalizer: NSObject {
-    class func DoTheMagic() {
+    class func performMethodSwizzle() {
         DDLogInfo("File: \(#file)" + "Function: \(#function)")
         MethodSwizzleGivenClassName(cls: Bundle.self, originalSelector: #selector(Bundle.localizedString(forKey:value:table:)), overrideSelector: #selector(Bundle.specialLocalizedStringForKey(_:value:table:)))
         MethodSwizzleGivenClassName(cls: UIApplication.self, originalSelector: #selector(getter: UIApplication.userInterfaceLayoutDirection), overrideSelector: #selector(getter: UIApplication.cstm_userInterfaceLayoutDirection))

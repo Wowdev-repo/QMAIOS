@@ -320,7 +320,7 @@ open class ImageCache {
                                         toDisk: false,
                                         completionHandler: nil)
                             options.callbackDispatchQueue.safeAsync {
-                                completionHandler(imageModifier.modify(result), .disk)
+                                completionHandler(imageModifier.modify(result), .memory)
                                 sSelf = nil
                             }
                         }

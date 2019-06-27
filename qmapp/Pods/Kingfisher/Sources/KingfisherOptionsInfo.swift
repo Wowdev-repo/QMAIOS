@@ -80,9 +80,6 @@ public enum KingfisherOptionsInfoItem {
     ///  If set, `Kingfisher` will only cache the value in memory but not in disk.
     case cacheMemoryOnly
     
-    ///  If set, `Kingfisher` will wait for caching operation to be completed before calling the completion block.
-    case waitForCache
-    
     /// If set, `Kingfisher` will only try to retrieve the image from cache not from network.
     case onlyFromCache
     
@@ -168,7 +165,6 @@ func <== (lhs: KingfisherOptionsInfoItem, rhs: KingfisherOptionsInfoItem) -> Boo
     case (.fromMemoryCacheOrRefresh, .fromMemoryCacheOrRefresh): return true
     case (.forceTransition, .forceTransition): return true
     case (.cacheMemoryOnly, .cacheMemoryOnly): return true
-    case (.waitForCache, .waitForCache): return true
     case (.onlyFromCache, .onlyFromCache): return true
     case (.backgroundDecode, .backgroundDecode): return true
     case (.callbackDispatchQueue(_), .callbackDispatchQueue(_)): return true
@@ -266,11 +262,6 @@ public extension Collection where Iterator.Element == KingfisherOptionsInfoItem 
     /// Whether cache the image only in memory or not.
     public var cacheMemoryOnly: Bool {
         return contains{ $0 <== .cacheMemoryOnly }
-    }
-    
-    /// Whether the caching operation will be waited or not.
-    public var waitForCache: Bool {
-        return contains{ $0 <== .waitForCache }
     }
     
     /// Whether only load the images from cache or not.

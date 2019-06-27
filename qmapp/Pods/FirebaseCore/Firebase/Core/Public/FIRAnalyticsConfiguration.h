@@ -22,7 +22,6 @@ NS_ASSUME_NONNULL_BEGIN
  * This class provides configuration fields for Firebase Analytics.
  */
 NS_SWIFT_NAME(AnalyticsConfiguration)
-DEPRECATED_MSG_ATTRIBUTE("Use these methods directly on the `Analytics` class.")
 @interface FIRAnalyticsConfiguration : NSObject
 
 /**
@@ -31,13 +30,10 @@ DEPRECATED_MSG_ATTRIBUTE("Use these methods directly on the `Analytics` class.")
 + (FIRAnalyticsConfiguration *)sharedInstance NS_SWIFT_NAME(shared());
 
 /**
- * Deprecated.
  * Sets the minimum engagement time in seconds required to start a new session. The default value
  * is 10 seconds.
  */
-- (void)setMinimumSessionInterval:(NSTimeInterval)minimumSessionInterval
-    DEPRECATED_MSG_ATTRIBUTE(
-        "Sessions are started immediately. More information at https://bit.ly/2FU46av");
+- (void)setMinimumSessionInterval:(NSTimeInterval)minimumSessionInterval;
 
 /**
  * Sets the interval of inactivity in seconds that terminates the current session. The default

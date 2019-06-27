@@ -48,7 +48,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         }
         
         
-        AppLocalizer.DoTheMagic()
+        AppLocalizer.performMethodSwizzle()
         FirebaseApp.configure()
         
         registerForPushNotifications()

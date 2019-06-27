@@ -10,7 +10,7 @@ import UIKit
 
 import MapKit
 
-class HeritageDetailCell: UITableViewCell {
+class CommonDetailCell: UITableViewCell {
     @IBOutlet weak var favoriteButton: UIButton!
     @IBOutlet weak var shareButton: UIButton!
     @IBOutlet weak var titleLabel: UITextView!
