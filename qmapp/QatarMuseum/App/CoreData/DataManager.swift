@@ -1147,12 +1147,9 @@ extension DataManager {
         managedObjContext.saveContext()
     }
     
-    static func updateNmoqPark(nmoqParkList: [NMoQPark], managedContext: NSManagedObjectContext, language: String) {
-        let fetchData = DataManager.checkAddedToCoredata(entityName: "NMoQParksEntity",
-                                                         idKey: "nid",
-                                                         idValue: nil,
-                                                         managedContext: managedContext) as! [NMoQParksEntity]
-        if (fetchData.count > 0) {
+    static func updateNmoqPark(nmoqParkList: [NMoQPark],
+                               managedContext: NSManagedObjectContext,
+                               language: String) {
             for nmoqParkListDict in nmoqParkList {
                 let fetchResult = DataManager.checkAddedToCoredata(entityName: "NMoQParksEntity",
                                                                    idKey: "nid",
@@ -1172,14 +1169,6 @@ extension DataManager {
                 }
             }
             NotificationCenter.default.post(name: NSNotification.Name(nmoqParkNotificationEn), object: self)
-        } else {
-            for nmoqParkListDict in nmoqParkList {
-                DataManager.saveNmoqParks(nmoqParkListDict: nmoqParkListDict,
-                                   managedObjContext: managedContext,
-                                   entity: nil, language: language)
-            }
-            NotificationCenter.default.post(name: NSNotification.Name(nmoqParkNotificationEn), object: self)
-        }
     }
     
     static func saveNmoqParks(nmoqParkListDict: NMoQPark,
