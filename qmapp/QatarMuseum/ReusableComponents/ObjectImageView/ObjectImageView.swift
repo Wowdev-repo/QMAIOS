@@ -98,8 +98,5 @@ class ObjectImageView: UIView, UIScrollViewDelegate  {
         objectImageViewDelegate?.dismissImagePopUpView()
         self.removeFromSuperview()
     }
-    
-    
-    
 }
 

@@ -311,6 +311,4 @@ class ObjectDetailTableViewCell: UITableViewCell,UITextViewDelegate,MapDetailPro
     }
     func dismissOvelay() {
     }
-
-    
 }

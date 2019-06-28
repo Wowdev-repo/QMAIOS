@@ -17,7 +17,6 @@
 		1B51B3D221219367002B84AA /* ObjectDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B51B3D121219366002B84AA /* ObjectDetailViewController.swift */; };
 		1B51B3D52121B6A9002B84AA /* ObjectDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B51B3D42121B6A9002B84AA /* ObjectDetailTableViewCell.swift */; };
 		1B7031EE218AFDB200B0E05B /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B7031ED218AFDB200B0E05B /* Notification.swift */; };
-		1B902C00212D56EC00D3055B /* BenefitLabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B902BFF212D56EC00D3055B /* BenefitLabelCell.swift */; };
 		1BAA2FCB2125FCC600D785DD /* ObjectImageXib.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BAA2FCA2125FCC500D785DD /* ObjectImageXib.xib */; };
 		1BAA2FCD2125FD8200D785DD /* ObjectImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BAA2FCC2125FD8200D785DD /* ObjectImageView.swift */; };
 		1BAA2FCF2126D15D00D785DD /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BAA2FCE2126D15D00D785DD /* Collection.swift */; };
@@ -281,7 +280,6 @@
 		1B51B3D121219366002B84AA /* ObjectDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectDetailViewController.swift; sourceTree = "<group>"; };
 		1B51B3D42121B6A9002B84AA /* ObjectDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectDetailTableViewCell.swift; sourceTree = "<group>"; };
 		1B7031ED218AFDB200B0E05B /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
-		1B902BFF212D56EC00D3055B /* BenefitLabelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BenefitLabelCell.swift; sourceTree = "<group>"; };
 		1BAA2FCA2125FCC500D785DD /* ObjectImageXib.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ObjectImageXib.xib; sourceTree = "<group>"; };
 		1BAA2FCC2125FD8200D785DD /* ObjectImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectImageView.swift; sourceTree = "<group>"; };
 		1BAA2FCE2126D15D00D785DD /* Collection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collection.swift; sourceTree = "<group>"; };
@@ -433,7 +431,7 @@
 		B832792822C0B4F200B6996D /* CulturePassViewController+Webcall+CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CulturePassViewController+Webcall+CoreData.swift"; sourceTree = "<group>"; };
 		B832792B22C0C16000B6996D /* ArtificialNumberPadViewController+CollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArtificialNumberPadViewController+CollectionView.swift"; sourceTree = "<group>"; };
 		B841715E224256D300B58E27 /* NMoQActivitiesList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NMoQActivitiesList.swift; sourceTree = "<group>"; };
-		B8436A9021C264CA00045242 /* GoogleMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleMapViewController.swift; sourceTree = "<group>"; };
+		B8436A9021C264CA00045242 /* GoogleMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GoogleMapViewController.swift; path = ../../GoogleMapViewController.swift; sourceTree = "<group>"; };
 		B843D9DF223F8E14003C1DF6 /* Facilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Facilities.swift; sourceTree = "<group>"; };
 		B843D9E1223FAB82003C1DF6 /* FacilitiesDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacilitiesDetail.swift; sourceTree = "<group>"; };
 		B84BA05F217EE3C000FD2C0D /* TokenData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenData.swift; sourceTree = "<group>"; };
@@ -602,13 +600,165 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0D71756E22C4B85500AC3BA9 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		0D71756F22C4B85B00AC3BA9 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B8EAB77920CA3E0B00C001B2 /* EventCollectionCell */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		0D71757022C4B86100AC3BA9 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		0D71757122C4B86800AC3BA9 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B8FC18FF20DE84FA00D00E6B /* MuseumBottomCell */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		0D71757222C4B86D00AC3BA9 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		0D71757322C4B87400AC3BA9 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		0D71757422C4B87A00AC3BA9 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		0D71757522C4B88000AC3BA9 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		0D71757622C4B88A00AC3BA9 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		0D71757722C4B89600AC3BA9 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				1B3C5058212AB2E30034E560 /* ArtifactNumberPadCell */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		0D71757822C4B89B00AC3BA9 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		0D71757922C4B8A300AC3BA9 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B827299321778B2F0017EC71 /* VersaPlayer */,
+				B8C31CE52162821300AE7788 /* MuseumAboutCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		0D71757A22C4B8AF00AC3BA9 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		0D71757B22C4B8B400AC3BA9 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		0D71757C22C4B8BA00AC3BA9 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		0D71757D22C4B8C000AC3BA9 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		0D71757E22C4B8C600AC3BA9 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		0D71758022C4B8FA00AC3BA9 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		0D71758122C4B90C00AC3BA9 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B8E284FA20CE3AC2007867BE /* Exhibitionsdetail */,
+				B8CAA93920DC1557009A936D /* HeritageDetailCell */,
+				B8DC478520DCF8660007B426 /* ParkCell */,
+				B82C87F420E69D2500777674 /* DiningDetailCell */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		0DC214FB22C4A68300A09C61 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B8C64D4520FDC2B900C2D51A /* TourGuideHeader */,
+				B806742E2240CFBA00885544 /* ParkListCell */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		1B3C5058212AB2E30034E560 /* ArtifactNumberPadCell */ = {
 			isa = PBXGroup;
 			children = (
 				1B3C5059212AB3460034E560 /* ArtifactNumberPadCell.swift */,
 				1B3C505A212AB3460034E560 /* ArtifactNumberPadCell.xib */,
 			);
-			path = ArtifactNumberPadCell;
+			name = ArtifactNumberPadCell;
+			path = ../../../ReusableComponents/ArtifactNumberPadCell;
 			sourceTree = "<group>";
 		};
 		1B51B3D32121B658002B84AA /* ObjectDetailCell */ = {
@@ -616,7 +766,8 @@
 			children = (
 				1B51B3D42121B6A9002B84AA /* ObjectDetailTableViewCell.swift */,
 			);
-			path = ObjectDetailCell;
+			name = ObjectDetailCell;
+			path = ../../ReusableComponents/ObjectDetailCell;
 			sourceTree = "<group>";
 		};
 		1B51B3D62125B410002B84AA /* ObjectImageView */ = {
@@ -625,15 +776,8 @@
 				1BAA2FCA2125FCC500D785DD /* ObjectImageXib.xib */,
 				1BAA2FCC2125FD8200D785DD /* ObjectImageView.swift */,
 			);
-			path = ObjectImageView;
-			sourceTree = "<group>";
-		};
-		1B902BFE212D56A800D3055B /* LabelViewCell */ = {
-			isa = PBXGroup;
-			children = (
-				1B902BFF212D56EC00D3055B /* BenefitLabelCell.swift */,
-			);
-			path = LabelViewCell;
+			name = ObjectImageView;
+			path = ../../ReusableComponents/ObjectImageView;
 			sourceTree = "<group>";
 		};
 		1BC909CE2108E37900D6C00B /* CommonMethods */ = {
@@ -714,6 +858,8 @@
 		1E87D19922BCDA7C00F1C96F /* View */ = {
 			isa = PBXGroup;
 			children = (
+				B8B54D6A20FF512600B21348 /* MuseumCollectionDetail */,
+				B80B76A3218AD6AC00190967 /* RsvpPopups */,
 				B8DB4FFE21B25D2D00C5DD10 /* PanelDiscussionDetailView */,
 			);
 			path = View;
@@ -740,6 +886,8 @@
 		1EECB2E822C08B2800A0AB6B /* View */ = {
 			isa = PBXGroup;
 			children = (
+				B8E2C01120C7FCBA00F3CE41 /* SideMenu */,
+				B81FF06921AFB9FE006A968B /* NMoQHeader */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -845,7 +993,6 @@
 				B8D2FC9822C201C500A570BD /* App */,
 				B8D2FC9722C201BC00A570BD /* Common */,
 				1BE526D52107892900C8CD51 /* Models */,
-				B80DC08720C7943100E28034 /* ReusableComponents */,
 				B80DC08620C792FE00E28034 /* Modules */,
 			);
 			path = QatarMuseum;
@@ -892,41 +1039,8 @@
 				B832791222C0A1BB00B6996D /* Registration */,
 				B832791122C0A0D300B6996D /* CulturePassCard */,
 				1E63D51022BC9EF900E2E1A5 /* PanelDiscussion */,
-				B8436A9021C264CA00045242 /* GoogleMapViewController.swift */,
 			);
 			path = Modules;
-			sourceTree = "<group>";
-		};
-		B80DC08720C7943100E28034 /* ReusableComponents */ = {
-			isa = PBXGroup;
-			children = (
-				B806742E2240CFBA00885544 /* ParkListCell */,
-				B81FF06921AFB9FE006A968B /* NMoQHeader */,
-				B80B76A3218AD6AC00190967 /* RsvpPopups */,
-				B8F00C8121787CD300320DF1 /* LoginPopup */,
-				B827299321778B2F0017EC71 /* VersaPlayer */,
-				B8CA08D52146D38400783642 /* BottomSheet */,
-				B8B49438212EDDD000203C7F /* Toast */,
-				1B902BFE212D56A800D3055B /* LabelViewCell */,
-				1B3C5058212AB2E30034E560 /* ArtifactNumberPadCell */,
-				1B51B3D62125B410002B84AA /* ObjectImageView */,
-				1B51B3D32121B658002B84AA /* ObjectDetailCell */,
-				B8E01BFA21060FBC008D7F33 /* RTLSupportFiles */,
-				B811FBCA210380EF00960246 /* CommonColours */,
-				B8B7604D2100E86600CEE280 /* NotificationsList */,
-				B8B54D6A20FF512600B21348 /* MuseumCollectionDetail */,
-				B8C64D4520FDC2B900C2D51A /* TourGuideHeader */,
-				B82C87F420E69D2500777674 /* DiningDetailCell */,
-				B8FC18FF20DE84FA00D00E6B /* MuseumBottomCell */,
-				B8DC478520DCF8660007B426 /* ParkCell */,
-				B8CAA93920DC1557009A936D /* HeritageDetailCell */,
-				B8E284FA20CE3AC2007867BE /* Exhibitionsdetail */,
-				B8BA80B820CD82D5007E880A /* CommonListCell */,
-				B8EAB7BE20CA67B400C001B2 /* EventPopup */,
-				B8EAB77920CA3E0B00C001B2 /* EventCollectionCell */,
-				B8E2C01120C7FCBA00F3CE41 /* SideMenu */,
-			);
-			path = ReusableComponents;
 			sourceTree = "<group>";
 		};
 		B80DC08F20C7A99200E28034 /* TopBarView */ = {
@@ -959,7 +1073,8 @@
 			children = (
 				B811FBCB2103811400960246 /* QMColours.swift */,
 			);
-			path = CommonColours;
+			name = CommonColours;
+			path = ../ReusableComponents/CommonColours;
 			sourceTree = "<group>";
 		};
 		B81FF06921AFB9FE006A968B /* NMoQHeader */ = {
@@ -1082,12 +1197,14 @@
 				B82C87F520E69D4100777674 /* DiningDetailTableViewCell.swift */,
 				B87F62E8225DD01B00ADCB1F /* DiningDetailCellView.xib */,
 			);
-			path = DiningDetailCell;
+			name = DiningDetailCell;
+			path = ../../../ReusableComponents/DiningDetailCell;
 			sourceTree = "<group>";
 		};
 		B832790A22C09BC200B6996D /* TourAndPanelList */ = {
 			isa = PBXGroup;
 			children = (
+				0D71758022C4B8FA00AC3BA9 /* View */,
 				B832790F22C09D2A00B6996D /* Controller */,
 			);
 			path = TourAndPanelList;
@@ -1106,6 +1223,7 @@
 		B832791122C0A0D300B6996D /* CulturePassCard */ = {
 			isa = PBXGroup;
 			children = (
+				0D71757E22C4B8C600AC3BA9 /* View */,
 				B8D2FC9522C1F2CE00A570BD /* Controller */,
 			);
 			path = CulturePassCard;
@@ -1114,6 +1232,7 @@
 		B832791222C0A1BB00B6996D /* Registration */ = {
 			isa = PBXGroup;
 			children = (
+				0D71757D22C4B8C000AC3BA9 /* View */,
 				B8D2FC9422C1F29D00A570BD /* Controller */,
 			);
 			path = Registration;
@@ -1122,6 +1241,7 @@
 		B832791722C0A42700B6996D /* MapView */ = {
 			isa = PBXGroup;
 			children = (
+				0D71757C22C4B8BA00AC3BA9 /* View */,
 				B8D2FC9322C1F28C00A570BD /* Controller */,
 			);
 			path = MapView;
@@ -1130,6 +1250,7 @@
 		B832791822C0A5A400B6996D /* PreviewConainer */ = {
 			isa = PBXGroup;
 			children = (
+				0D71757B22C4B8B400AC3BA9 /* View */,
 				B8D2FC9222C1F27F00A570BD /* Controller */,
 			);
 			path = PreviewConainer;
@@ -1138,6 +1259,7 @@
 		B832791D22C0AC2100B6996D /* PreviewContent */ = {
 			isa = PBXGroup;
 			children = (
+				0D71757A22C4B8AF00AC3BA9 /* View */,
 				B8D2FC9122C1F26F00A570BD /* Controller */,
 			);
 			path = PreviewContent;
@@ -1146,6 +1268,7 @@
 		B832792022C0AD0500B6996D /* MuseumAbout */ = {
 			isa = PBXGroup;
 			children = (
+				0D71757922C4B8A300AC3BA9 /* View */,
 				B8D2FC9022C1F25700A570BD /* Controller */,
 			);
 			path = MuseumAbout;
@@ -1154,6 +1277,7 @@
 		B832792722C0B40A00B6996D /* CulturePass */ = {
 			isa = PBXGroup;
 			children = (
+				0D71757822C4B89B00AC3BA9 /* View */,
 				B8D2FC8F22C1F24700A570BD /* Controller */,
 			);
 			path = CulturePass;
@@ -1162,6 +1286,7 @@
 		B832792A22C0C11300B6996D /* ArtificialNumberPad */ = {
 			isa = PBXGroup;
 			children = (
+				0D71757722C4B89600AC3BA9 /* View */,
 				B8D2FC8E22C1F23700A570BD /* Controller */,
 			);
 			path = ArtificialNumberPad;
@@ -1198,7 +1323,8 @@
 				B8B54D6B20FF514E00B21348 /* CollectionDetailView.xib */,
 				B8B54D6D20FF516B00B21348 /* CollectionDetailCell.swift */,
 			);
-			path = MuseumCollectionDetail;
+			name = MuseumCollectionDetail;
+			path = ../../../ReusableComponents/MuseumCollectionDetail;
 			sourceTree = "<group>";
 		};
 		B8B7604D2100E86600CEE280 /* NotificationsList */ = {
@@ -1224,7 +1350,8 @@
 				B8BA80B920CD8305007E880A /* CommonListCellXib.xib */,
 				B8BA80BB20CD831D007E880A /* CommonListCell.swift */,
 			);
-			path = CommonListCell;
+			name = CommonListCell;
+			path = ../../ReusableComponents/CommonListCell;
 			sourceTree = "<group>";
 		};
 		B8C31CDC2162435B00AE7788 /* iCarousel */ = {
@@ -1242,7 +1369,8 @@
 				B8C64D4C20FDDBB700C2D51A /* MiaCollectionReusableView.swift */,
 				B8C367F72254D325005E4305 /* MiaTourHeaderView.xib */,
 			);
-			path = TourGuideHeader;
+			name = TourGuideHeader;
+			path = ../../../ReusableComponents/TourGuideHeader;
 			sourceTree = "<group>";
 		};
 		B8CA08D52146D38400783642 /* BottomSheet */ = {
@@ -1261,10 +1389,10 @@
 			isa = PBXGroup;
 			children = (
 				B8CAA93C20DC15FA009A936D /* CommonDetailCell.swift */,
-				B8C31CE52162821300AE7788 /* MuseumAboutCell.swift */,
 				B8F6B03E225CAA7D000EF764 /* HeritageDetailView.xib */,
 			);
-			path = HeritageDetailCell;
+			name = HeritageDetailCell;
+			path = ../../../ReusableComponents/HeritageDetailCell;
 			sourceTree = "<group>";
 		};
 		B8D1228E20C9091500772507 /* LoadingView */ = {
@@ -1279,6 +1407,7 @@
 		B8D2FC4F22C0C6EA00A570BD /* ObjectDetail */ = {
 			isa = PBXGroup;
 			children = (
+				0D71757622C4B88A00AC3BA9 /* View */,
 				B8D2FC8D22C1F22D00A570BD /* Controller */,
 			);
 			path = ObjectDetail;
@@ -1287,6 +1416,7 @@
 		B8D2FC5222C0CBC300A570BD /* Web */ = {
 			isa = PBXGroup;
 			children = (
+				0D71756E22C4B85500AC3BA9 /* View */,
 				B8D2FC8022C1F10500A570BD /* Controller */,
 			);
 			path = Web;
@@ -1295,6 +1425,7 @@
 		B8D2FC5322C0CC6400A570BD /* Event */ = {
 			isa = PBXGroup;
 			children = (
+				0D71756F22C4B85B00AC3BA9 /* View */,
 				B8D2FC8122C1F11600A570BD /* Controller */,
 			);
 			path = Event;
@@ -1303,6 +1434,7 @@
 		B8D2FC5822C0DBF900A570BD /* CommonList */ = {
 			isa = PBXGroup;
 			children = (
+				0DC214FB22C4A68300A09C61 /* View */,
 				B8D2FC8322C1F13400A570BD /* Controller */,
 			);
 			path = CommonList;
@@ -1311,6 +1443,7 @@
 		B8D2FC5F22C1BCE600A570BD /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				0D71757022C4B86100AC3BA9 /* View */,
 				B8D2FC8222C1F12500A570BD /* Controller */,
 			);
 			path = Profile;
@@ -1327,6 +1460,7 @@
 		B8D2FC6122C1BDB300A570BD /* CommonDetail */ = {
 			isa = PBXGroup;
 			children = (
+				0D71758122C4B90C00AC3BA9 /* View */,
 				B8D2FC8522C1F15600A570BD /* Controller */,
 			);
 			path = CommonDetail;
@@ -1335,6 +1469,7 @@
 		B8D2FC6222C1BDC400A570BD /* Museums */ = {
 			isa = PBXGroup;
 			children = (
+				0D71757122C4B86800AC3BA9 /* View */,
 				B8D2FC8622C1F16600A570BD /* Controller */,
 			);
 			path = Museums;
@@ -1343,6 +1478,7 @@
 		B8D2FC6322C1BDD500A570BD /* MiaTour */ = {
 			isa = PBXGroup;
 			children = (
+				0D71757222C4B86D00AC3BA9 /* View */,
 				B8D2FC8722C1F17400A570BD /* Controller */,
 			);
 			path = MiaTour;
@@ -1360,6 +1496,7 @@
 		B8D2FC6522C1BDEE00A570BD /* Education */ = {
 			isa = PBXGroup;
 			children = (
+				0D71757322C4B87400AC3BA9 /* View */,
 				B8D2FC8922C1F19900A570BD /* Controller */,
 			);
 			path = Education;
@@ -1368,6 +1505,7 @@
 		B8D2FC6622C1BDFA00A570BD /* Filter */ = {
 			isa = PBXGroup;
 			children = (
+				0D71757422C4B87A00AC3BA9 /* View */,
 				B8D2FC8A22C1F1A500A570BD /* Controller */,
 			);
 			path = Filter;
@@ -1384,6 +1522,7 @@
 		B8D2FC6822C1BE1000A570BD /* FloorMap */ = {
 			isa = PBXGroup;
 			children = (
+				0D71757522C4B88000AC3BA9 /* View */,
 				B8D2FC8C22C1F21C00A570BD /* Controller */,
 			);
 			path = FloorMap;
@@ -1570,6 +1709,7 @@
 			isa = PBXGroup;
 			children = (
 				B85AE811217744D600A658A2 /* MapViewController.swift */,
+				B8436A9021C264CA00045242 /* GoogleMapViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1613,6 +1753,7 @@
 				B8D2FC6122C1BDB300A570BD /* CommonDetail */,
 				B8D2FC5822C0DBF900A570BD /* CommonList */,
 				B8D2FC9D22C336C900A570BD /* ReusableViews */,
+				B811FBCA210380EF00960246 /* CommonColours */,
 				B85BA4B120D01DBF00E7F4D1 /* GifFiles */,
 				1BC909CE2108E37900D6C00B /* CommonMethods */,
 			);
@@ -1622,6 +1763,7 @@
 		B8D2FC9822C201C500A570BD /* App */ = {
 			isa = PBXGroup;
 			children = (
+				B8E01BFA21060FBC008D7F33 /* RTLSupportFiles */,
 				B8D2FC6022C1BDA700A570BD /* Splash */,
 				B8D2FC6722C1BE0700A570BD /* Settings */,
 				B8D2FC6422C1BDE000A570BD /* Notifications */,
@@ -1678,6 +1820,13 @@
 		B8D2FC9D22C336C900A570BD /* ReusableViews */ = {
 			isa = PBXGroup;
 			children = (
+				B8EAB7BE20CA67B400C001B2 /* EventPopup */,
+				B8BA80B820CD82D5007E880A /* CommonListCell */,
+				1B51B3D32121B658002B84AA /* ObjectDetailCell */,
+				1B51B3D62125B410002B84AA /* ObjectImageView */,
+				B8B49438212EDDD000203C7F /* Toast */,
+				B8CA08D52146D38400783642 /* BottomSheet */,
+				B8F00C8121787CD300320DF1 /* LoginPopup */,
 				B8DC40A320C9A30A0044134D /* CommonHeader */,
 				B8E2C00C20C7E9B100F3CE41 /* ComingSoonPopup */,
 				B80DC08F20C7A99200E28034 /* TopBarView */,
@@ -1692,6 +1841,7 @@
 		B8D2FC9E22C33C9200A570BD /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				B8B7604D2100E86600CEE280 /* NotificationsList */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1720,7 +1870,8 @@
 				B8DC478620DCF8CE0007B426 /* ParkTableCellXib.xib */,
 				B8DC478820DCF8DF0007B426 /* ParkTableViewCell.swift */,
 			);
-			path = ParkCell;
+			name = ParkCell;
+			path = ../../../ReusableComponents/ParkCell;
 			sourceTree = "<group>";
 		};
 		B8E01BFA21060FBC008D7F33 /* RTLSupportFiles */ = {
@@ -1729,7 +1880,8 @@
 				B8E01BFB21060FDC008D7F33 /* AppLocalizer.swift */,
 				B8E01BFC21060FDC008D7F33 /* LocalizationLanguage.swift */,
 			);
-			path = RTLSupportFiles;
+			name = RTLSupportFiles;
+			path = ../ReusableComponents/RTLSupportFiles;
 			sourceTree = "<group>";
 		};
 		B8E284FA20CE3AC2007867BE /* Exhibitionsdetail */ = {
@@ -1738,7 +1890,8 @@
 				B85BA4AB20D01BC800E7F4D1 /* ExhibitionDetailTableViewCell.swift */,
 				B8F6B040225CAE84000EF764 /* ExhibitionDetailView.xib */,
 			);
-			path = Exhibitionsdetail;
+			name = Exhibitionsdetail;
+			path = ../../../ReusableComponents/Exhibitionsdetail;
 			sourceTree = "<group>";
 		};
 		B8E2C00C20C7E9B100F3CE41 /* ComingSoonPopup */ = {
@@ -1756,7 +1909,8 @@
 				B8E2C01220C7FD0000F3CE41 /* SideMenu.xib */,
 				B8E2C01420C7FD6800F3CE41 /* SideMenuView.swift */,
 			);
-			path = SideMenu;
+			name = SideMenu;
+			path = ../../../ReusableComponents/SideMenu;
 			sourceTree = "<group>";
 		};
 		B8EAB77920CA3E0B00C001B2 /* EventCollectionCell */ = {
@@ -1765,7 +1919,8 @@
 				B8EAB77A20CA3E2900C001B2 /* EventCellView.xib */,
 				B8EAB77C20CA3E6100C001B2 /* EventCollectionViewCell.swift */,
 			);
-			path = EventCollectionCell;
+			name = EventCollectionCell;
+			path = ../../../ReusableComponents/EventCollectionCell;
 			sourceTree = "<group>";
 		};
 		B8EAB77E20CA41BB00C001B2 /* FSCalendar */ = {
@@ -1826,7 +1981,8 @@
 				B8EAB7BF20CA67CD00C001B2 /* EventPopUp.xib */,
 				B8EAB7C120CA67E000C001B2 /* EventPopupView.swift */,
 			);
-			path = EventPopup;
+			name = EventPopup;
+			path = ../../ReusableComponents/EventPopup;
 			sourceTree = "<group>";
 		};
 		B8F00C8121787CD300320DF1 /* LoginPopup */ = {
@@ -1835,7 +1991,8 @@
 				B8F00C8221787CF800320DF1 /* LoginPopupView.xib */,
 				B8F00C8421787D0D00320DF1 /* LoginPopupPage.swift */,
 			);
-			path = LoginPopup;
+			name = LoginPopup;
+			path = ../../ReusableComponents/LoginPopup;
 			sourceTree = "<group>";
 		};
 		B8FC18FF20DE84FA00D00E6B /* MuseumBottomCell */ = {
@@ -1843,7 +2000,8 @@
 			children = (
 				B8FC190020DE854400D00E6B /* MuseumBottomCell.swift */,
 			);
-			path = MuseumBottomCell;
+			name = MuseumBottomCell;
+			path = ../../../ReusableComponents/MuseumBottomCell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -2220,7 +2378,6 @@
 				B8294CF220CBF265002AFF72 /* FSCalendarCell.m in Sources */,
 				B843D9E2223FAB82003C1DF6 /* FacilitiesDetail.swift in Sources */,
 				B85BA4AC20D01BC900E7F4D1 /* ExhibitionDetailTableViewCell.swift in Sources */,
-				1B902C00212D56EC00D3055B /* BenefitLabelCell.swift in Sources */,
 				1B7031EE218AFDB200B0E05B /* Notification.swift in Sources */,
 				B8CF5B012244C80B008E663E /* NMoQParkTopTableViewCell.swift in Sources */,
 				B8DC40A720C9A33A0044134D /* CommonHeaderView.swift in Sources */,
