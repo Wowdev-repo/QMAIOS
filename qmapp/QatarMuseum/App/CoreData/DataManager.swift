@@ -1069,11 +1069,6 @@ extension DataManager {
                         managedContext: NSManagedObjectContext,
                         isTourGuide:Bool,
                         language: String) {
-//        let fetchData = DataManager.checkAddedToCoredata(entityName: "NMoQTourListEntity",
-//                                                         idKey: "nid",
-//                                                         idValue: nil,
-//                                                         managedContext: managedContext) as! [NMoQTourListEntity]
-//        if (fetchData.count > 0) {
             for tourListDict in nmoqTourList {
                 let fetchResult = DataManager.checkAddedToCoredata(entityName: "NMoQTourListEntity",
                                                                    idKey: "nid",
@@ -1096,15 +1091,6 @@ extension DataManager {
                                       language: language)
                 }
             }
-//        } else {
-//            for tourListDict in nmoqTourList {
-//                DataManager.saveTourList(tourListDict: tourListDict,
-//                                  managedObjContext: managedContext,
-//                                  isTourGuide: isTourGuide,
-//                                  entity: nil,
-//                                  language: language)
-//            }
-//        }
     }
     
     static func saveTourList(tourListDict: NMoQTour,
@@ -1815,11 +1801,6 @@ extension DataManager {
     static func updateFacilitiesEntity(facilitiesList: [Facilities],
                                        managedContext: NSManagedObjectContext,
                                        language: String) {
-        let fetchData = DataManager.checkAddedToCoredata(entityName: "FacilitiesEntity",
-                                                         idKey: "nid",
-                                                         idValue: nil,
-                                                         managedContext: managedContext) as! [FacilitiesEntity]
-        if (fetchData.count > 0) {
             for facilitiesListDict in facilitiesList {
                 let fetchResult = DataManager.checkAddedToCoredata(entityName: "FacilitiesEntity",
                                                                    idKey: "nid",
@@ -1840,14 +1821,6 @@ extension DataManager {
                                               language: language)
                 }
             }
-        } else {
-            for facilitiesListDict in facilitiesList {
-                DataManager.saveFacilitiesEntity(facilitiesListDict: facilitiesListDict,
-                                          managedObjContext: managedContext,
-                                          entity: nil,
-                                          language: language)
-            }
-        }
     }
     
     static func saveFacilitiesEntity(facilitiesListDict: Facilities,

@@ -73,16 +73,7 @@ extension DataManager {
         do { aboutArray = try managedContext.fetch(fetchRequest) as! [AboutEntity] } catch _ {}
         if !aboutArray.isEmpty {
             let aboutDict = aboutArray[0]
-            var multimediaArray : [String] = []
-            let mutimediaInfoArray = (aboutDict.multimediaRelation?.allObjects) as! [AboutMultimediaFileEntity]
-            if(mutimediaInfoArray.count > 0) {
-                for mutimediaInfo in mutimediaInfoArray {
-                    multimediaArray.append(mutimediaInfo.image!)
-                }
-            }
-            museumArray.append(Museum(name: aboutDict.name,
-                                      id: aboutDict.id))
-            
+            museumArray.append(Museum(entity: aboutDict))
         }
         
         return museumArray
