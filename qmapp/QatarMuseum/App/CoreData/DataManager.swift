@@ -1069,11 +1069,11 @@ extension DataManager {
                         managedContext: NSManagedObjectContext,
                         isTourGuide:Bool,
                         language: String) {
-        let fetchData = DataManager.checkAddedToCoredata(entityName: "NMoQTourListEntity",
-                                                         idKey: "nid",
-                                                         idValue: nil,
-                                                         managedContext: managedContext) as! [NMoQTourListEntity]
-        if (fetchData.count > 0) {
+//        let fetchData = DataManager.checkAddedToCoredata(entityName: "NMoQTourListEntity",
+//                                                         idKey: "nid",
+//                                                         idValue: nil,
+//                                                         managedContext: managedContext) as! [NMoQTourListEntity]
+//        if (fetchData.count > 0) {
             for tourListDict in nmoqTourList {
                 let fetchResult = DataManager.checkAddedToCoredata(entityName: "NMoQTourListEntity",
                                                                    idKey: "nid",
@@ -1096,15 +1096,15 @@ extension DataManager {
                                       language: language)
                 }
             }
-        } else {
-            for tourListDict in nmoqTourList {
-                DataManager.saveTourList(tourListDict: tourListDict,
-                                  managedObjContext: managedContext,
-                                  isTourGuide: isTourGuide,
-                                  entity: nil,
-                                  language: language)
-            }
-        }
+//        } else {
+//            for tourListDict in nmoqTourList {
+//                DataManager.saveTourList(tourListDict: tourListDict,
+//                                  managedObjContext: managedContext,
+//                                  isTourGuide: isTourGuide,
+//                                  entity: nil,
+//                                  language: language)
+//            }
+//        }
     }
     
     static func saveTourList(tourListDict: NMoQTour,
@@ -1143,8 +1143,9 @@ extension DataManager {
                     managedObjContext.saveContext()
                 }
             }
+        } else {
+            managedObjContext.saveContext()
         }
-        managedObjContext.saveContext()
     }
     
     static func updateNmoqPark(nmoqParkList: [NMoQPark],
