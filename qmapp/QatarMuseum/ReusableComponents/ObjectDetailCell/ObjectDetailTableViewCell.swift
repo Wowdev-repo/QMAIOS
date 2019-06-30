@@ -160,6 +160,21 @@ class ObjectDetailTableViewCell: UITableViewCell,UITextViewDelegate,MapDetailPro
             self.avPlayer.automaticallyWaitsToMinimizeStalling = false
         }
         avPlayer!.volume = 1.0
+        
+        do {
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+            print("AVAudioSession Category Playback OK")
+            do {
+                try AVAudioSession.sharedInstance().setActive(true)
+                print("AVAudioSession is Active")
+            } catch let error as NSError {
+                print(error.localizedDescription)
+            }
+        } catch let error as NSError {
+            print(error.localizedDescription)
+        }
+        
+        
         avPlayer.play()
     }
     @IBAction func playButtonClicked(_ sender: UIButton) {
@@ -185,6 +200,7 @@ class ObjectDetailTableViewCell: UITableViewCell,UITextViewDelegate,MapDetailPro
                 
                 avPlayer.pause()
                 isPaused = true
+                
             } else {
                 playButton.setImage(UIImage(named:"pause_blackX1"), for: .normal)
                 avPlayer.play()
