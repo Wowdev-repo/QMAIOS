@@ -114,6 +114,7 @@ class FloorMapViewController: UIViewController, UIGestureRecognizerDelegate {
     let L2_G3_SC14_2 = CLLocationCoordinate2D(latitude: 25.295580, longitude: 51.539392);
     let L2_G3_WR4 = CLLocationCoordinate2D(latitude: 25.295540, longitude: 51.539470);
     let L2_G4_SC5 = CLLocationCoordinate2D(latitude: 25.295690, longitude: 51.539312);
+    let L2_G4_SC3 = CLLocationCoordinate2D(latitude: 25.295715, longitude: 51.539348);
     let L2_G3_SC3 = CLLocationCoordinate2D(latitude: 25.295715, longitude: 51.539348);
     let L2_G5_SC5 = CLLocationCoordinate2D(latitude: 25.295715, longitude: 51.539205);
     let L2_G5_SC11 = CLLocationCoordinate2D(latitude: 25.295735, longitude: 51.539225);
@@ -173,6 +174,7 @@ class FloorMapViewController: UIViewController, UIGestureRecognizerDelegate {
     let l2_g3_sc14_2 = GMSMarker()
     let l2_g3_wr4 = GMSMarker()
     let l2_g4_sc5 = GMSMarker()
+    let l2_g4_sc3 = GMSMarker()
     let l2_g3_sc3 = GMSMarker()
     let l2_g5_sc5 = GMSMarker()
     let l2_g5_sc11 = GMSMarker()
@@ -342,8 +344,8 @@ class FloorMapViewController: UIViewController, UIGestureRecognizerDelegate {
             playButton.setImage(UIImage(named:"play_blackX1"), for: .normal)
 
             
-            levelTwoPositionArray = ["l2_g1_sc2","l2_g1_sc7","l2_g1_sc8","l2_g1_sc13","l2_g1_sc14","l2_g2_2","l2_g3_sc14_1","l2_g3_sc14_2","l2_g3_wr4","l2_g4_sc5","l2_g3_sc3","l2_g5_sc5","l2_g5_sc11","l2_g7_sc13","l2_g7_sc8","l2_g7_sc4","l2_g1_sc3","l2_g8_sc1","l2_g8_sc5","l2_g9_sc7"]
-            levelTwoMarkerArray = [l2_g1_sc2,l2_g1_sc7,l2_g1_sc8,l2_g1_sc13,l2_g1_sc14,l2_g2_2,l2_g3_sc14_1,l2_g3_sc14_2,l2_g3_wr4,l2_g4_sc5,l2_g3_sc3,l2_g5_sc5,l2_g5_sc11,l2_g7_sc13,l2_g7_sc8,l2_g7_sc4,l2_g1_sc3,l2_g8_sc1,l2_g8_sc5,l2_g9_sc7]
+            levelTwoPositionArray = ["l2_g1_sc2","l2_g1_sc7","l2_g1_sc8","l2_g1_sc13","l2_g1_sc14","l2_g2_2","l2_g3_sc14_1","l2_g3_sc14_2","l2_g3_wr4","l2_g4_sc5","l2_g4_sc3","l2_g3_sc3","l2_g5_sc5","l2_g5_sc11","l2_g7_sc13","l2_g7_sc8","l2_g7_sc4","l2_g1_sc3","l2_g8_sc1","l2_g8_sc5","l2_g9_sc7"]
+            levelTwoMarkerArray = [l2_g1_sc2,l2_g1_sc7,l2_g1_sc8,l2_g1_sc13,l2_g1_sc14,l2_g2_2,l2_g3_sc14_1,l2_g3_sc14_2,l2_g3_wr4,l2_g4_sc5,l2_g4_sc3,l2_g3_sc3,l2_g5_sc5,l2_g5_sc11,l2_g7_sc13,l2_g7_sc8,l2_g7_sc4,l2_g1_sc3,l2_g8_sc1,l2_g8_sc5,l2_g9_sc7]
             levelThreePositionArray = ["l3_g10_wr2_1","l3_g10_wr2_2","l3_g10_podium14","l3_g10_podium9","l3_g11_14","l3_g12_11","l3_g12_12","l3_g12_17","l3_g12_wr5","l3_g13_2","l3_g13_15","l3_g14_7","l3_g14_13","l3_g15_13","l3_g16_wr5","l3_g17_8","l3_g17_9","l3_g18_1","l3_g18_2","l3_g18_11"]
             levelThreeMarkerArray = [l3_g10_wr2_1,l3_g10_wr2_2,l3_g10_podium14,l3_g10_podium9,l3_g11_14,l3_g12_11,l3_g12_12,l3_g12_17,l3_g12_wr5,l3_g13_2,l3_g13_15,l3_g14_7,l3_g14_13,l3_g15_13,l3_g16_wr5,l3_g17_8,l3_g17_9,l3_g18_1,l3_g18_2,l3_g18_11]
             showLevelTwoHighlightMarker()
@@ -630,6 +632,10 @@ class FloorMapViewController: UIViewController, UIGestureRecognizerDelegate {
         l2_g4_sc5.position = L2_G4_SC5
         l2_g4_sc5.title = "l2_g4_sc5"
         l2_g4_sc5.appearAnimation = .pop
+        
+        l2_g4_sc3.position = L2_G4_SC3
+        l2_g4_sc3.title = "l2_g4_sc5"
+        l2_g4_sc3.appearAnimation = .pop
         
         l2_g3_sc3.position = L2_G3_SC3
         l2_g3_sc3.title = "l2_g3_sc3"
@@ -934,6 +940,7 @@ class FloorMapViewController: UIViewController, UIGestureRecognizerDelegate {
         l2_g3_sc14_2.map = nil
         l2_g3_wr4.map = nil
         l2_g4_sc5.map = nil
+        l2_g4_sc3.map = nil
         l2_g3_sc3.map = nil
         l2_g5_sc5.map = nil
         l2_g5_sc11.map = nil
