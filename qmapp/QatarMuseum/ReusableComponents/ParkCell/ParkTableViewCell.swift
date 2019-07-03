@@ -100,8 +100,8 @@ class ParkTableViewCell: UITableViewCell {
             mapBottom.constant = 60
             locationsTitleLabel.text =  NSLocalizedString("LOCATION_TITLE",
                                                           comment: "LOCATION_TITLE in the Park detail")
-            let mapRedirectionMessage = NSLocalizedString("MAP_REDIRECTION_MESSAGE",
-                                                          comment: "MAP_REDIRECTION_MESSAGE in the Dining detail")
+//            let mapRedirectionMessage = NSLocalizedString("MAP_REDIRECTION_MESSAGE",
+//                                                          comment: "MAP_REDIRECTION_MESSAGE in the Dining detail")
            // locationButton.setTitle(mapRedirectionMessage, for: .normal)
             locationLineViewHeight.constant = 2
             //locationButtonBottomConstraint.constant = 29

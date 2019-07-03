@@ -167,7 +167,8 @@ extension MuseumsViewController: UICollectionViewDelegate,UICollectionViewDataSo
                     
                     self.present(tourGuideView, animated: false, completion: nil)
                 } else {
-                    self.loadComingSoonPopup()
+                    self.loadComingSoonPopup(isTour: true)
+                    
                 }
                 
             } else if ((selectedItem == "Exhibitions") || (selectedItem == "المعارض")){

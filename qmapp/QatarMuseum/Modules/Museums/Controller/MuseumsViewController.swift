@@ -59,10 +59,10 @@ class MuseumsViewController: UIViewController,KASlideShowDelegate {
         }
         museumsSlideView.imagesContentMode = .scaleAspectFill
         let aboutName = NSLocalizedString("ABOUT", comment: "ABOUT  in the Museum")
-//        Display tour guide for MIA n Audio guide for NMoQ
-        let tourGuideName = ((museumId == "63") || (museumId == "96")) ?
-            NSLocalizedString("TOURGUIDE_LABEL", comment: "TOURGUIDE_LABEL  in the MIA Museum page") :
-            NSLocalizedString("AUDIOGUIDE_LABEL", comment: "AUDIOGUIDE_LABEL  in the NMoQ Museum page")
+//        Display Audio guide for NMoQ only
+        let tourGuideName = ((museumId == "66") || (museumId == "638")) ?
+            NSLocalizedString("AUDIOGUIDE_LABEL", comment: "AUDIOGUIDE_LABEL  in the NMoQ Museum page") :
+            NSLocalizedString("TOURGUIDE_LABEL", comment: "TOURGUIDE_LABEL  in the MIA Museum page")
         let exhibitionsName = NSLocalizedString("EXHIBITIONS_LABEL", comment: "EXHIBITIONS_LABEL  in the Museum page")
         let collectionsName = NSLocalizedString("COLLECTIONS_TITLE", comment: "COLLECTIONS_TITLE  in the Museum page")
         //let experienceName = NSLocalizedString("EXPERIENCE_TITLE", comment: "EXPERIENCE_TITLE  in the Museum page")
@@ -288,11 +288,15 @@ extension MuseumsViewController {
 
 //MARK:- ReusableViews methods
 extension MuseumsViewController: TopBarProtocol,comingSoonPopUpProtocol {
-    func loadComingSoonPopup() {
+    func loadComingSoonPopup(isTour: Bool = false) {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         popUpView  = ComingSoonPopUp(frame: self.view.frame)
         popUpView.comingSoonPopupDelegate = self
-        popUpView.loadPopup()
+        if isTour {
+            popUpView.loadTourGuidePopup()
+        } else {
+            popUpView.loadPopup()
+        }
         self.view.addSubview(popUpView)
     }
     //MARk: ComingSoonPopUp Delegates

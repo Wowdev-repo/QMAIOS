@@ -60,8 +60,8 @@ class DiningDetailTableViewCell: UITableViewCell,UITextViewDelegate {
         locationsTitleLabel.font = UIFont.closeButtonFont
         locationFirstLabel.font = UIFont.sideMenuLabelFont
         locationButton.titleLabel?.font = UIFont.sideMenuLabelFont
-        let mapRedirectionMessage = NSLocalizedString("MAP_REDIRECTION_MESSAGE",
-                                                      comment: "MAP_REDIRECTION_MESSAGE in the Dining detail")
+//        let mapRedirectionMessage = NSLocalizedString("MAP_REDIRECTION_MESSAGE",
+//                                                      comment: "MAP_REDIRECTION_MESSAGE in the Dining detail")
         //locationButton.setTitle(mapRedirectionMessage, for: .normal)
         locationFirstLabel.text = diningDetail.location
         //For HyperLink in textview

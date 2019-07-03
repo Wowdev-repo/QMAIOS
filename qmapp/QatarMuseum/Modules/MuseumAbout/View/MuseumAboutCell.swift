@@ -205,9 +205,9 @@ class MuseumAboutCell: UITableViewCell,iCarouselDelegate,iCarouselDataSource,UIT
                                                        comment: "OPENING_TIME_TITLE in the Heritage detail")
         contactTitleLabel.text = NSLocalizedString("CONTACT_TITLE",
                                                    comment: "CONTACT_TITLE in the Heritage detail")
-        let mapRedirectionMessage = NSLocalizedString("MAP_REDIRECTION_MESSAGE",
-                                                      comment: "MAP_REDIRECTION_MESSAGE in the Dining detail")
-        locationButton.setTitle(mapRedirectionMessage, for: .normal)
+//        let mapRedirectionMessage = NSLocalizedString("MAP_REDIRECTION_MESSAGE",
+//                                                      comment: "MAP_REDIRECTION_MESSAGE in the Dining detail")
+//        locationButton.setTitle(mapRedirectionMessage, for: .normal)
     }
     
     func setPublicArtsDetailValues(publicArsDetail: PublicArtsDetail) {
