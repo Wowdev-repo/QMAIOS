@@ -368,9 +368,14 @@ extension CommonDetailViewController {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
         let managedContext = getContext()
         do {
-            var parksArray = [ParksEntity]()
-            let parksFetchRequest =  NSFetchRequest<NSFetchRequestResult>(entityName: "ParksEntity")
-            parksArray = (try managedContext.fetch(parksFetchRequest) as? [ParksEntity])!
+//            var parksArray = [ParksEntity]()
+//            let parksFetchRequest =  NSFetchRequest<NSFetchRequestResult>(entityName: "ParksEntity")
+//            parksArray = (try managedContext.fetch(parksFetchRequest) as? [ParksEntity])!
+            
+            let parksArray = DataManager.checkAddedToCoredata(entityName: "ParksEntity",
+                                                                   idKey: "language",
+                                                                   idValue: Utils.getLanguage(),
+                                                                   managedContext: managedContext) as! [ParksEntity]
             
             if (parksArray.count > 0) {
                 if  (networkReachability?.isReachable)! {

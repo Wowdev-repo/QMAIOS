@@ -167,9 +167,12 @@ class CommonListViewController: UIViewController {
             }
         } else if (exhibitionsPageNameString == ExhbitionPageName.miaTourGuideList) {
             NotificationCenter.default.addObserver(self, selector: #selector(CommonListViewController.receiveMiaTourNotification(notification:)), name: NSNotification.Name(miaTourNotification), object: nil)
-            DispatchQueue.main.async {
-                self.fetchTourGuideListFromCoredata()
+            if let museumID = self.museumId {
+                DispatchQueue.main.async {
+                    self.fetchTourGuideListFromCoredata(museumID: museumID)
+                }
             }
+            
             commonListHeaderView.headerTitle.isHidden = true
         } else if (exhibitionsPageNameString == ExhbitionPageName.tourGuideList) {
             NotificationCenter.default.addObserver(self, selector: #selector(CommonListViewController.receiveHomePageNotificationEn(notification:)), name: NSNotification.Name(homepageNotificationEn), object: nil)
@@ -451,8 +454,8 @@ extension CommonListViewController {
     @objc func receiveMiaTourNotification(notification: NSNotification) {
         let data = notification.userInfo as? [String:String]
         if (data?.count)!>0 {
-            if(museumId == data!["id"]) {
-                self.fetchTourGuideListFromCoredata()
+            if let museumID = self.museumId, museumID == data!["id"] {
+                self.fetchTourGuideListFromCoredata(museumID: museumID)
             }
         }
     }
