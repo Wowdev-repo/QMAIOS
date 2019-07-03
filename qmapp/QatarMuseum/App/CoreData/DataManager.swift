@@ -27,7 +27,6 @@ class DataManager {
         if let key = idKey, let value = idValue , let entity = entityName {
             let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: entity)
             fetchRequest.predicate = NSPredicate.init(format: "\(key) == \(value)")
-            
             do {
                 fetchResults = try managedContext.fetch(fetchRequest)
             } catch let error as NSError {
@@ -701,14 +700,11 @@ extension DataManager {
         
         if let multimediaFiles = tourguideListDict.multimediaFile {
             for file in multimediaFiles {
-                var multimediaEntity: TourGuideMultimediaEntity!
-                let multimediaArray: TourGuideMultimediaEntity = NSEntityDescription.insertNewObject(forEntityName: "TourGuideMultimediaEntity", into: managedObjContext) as! TourGuideMultimediaEntity
+                let multimediaArray = NSEntityDescription.insertNewObject(forEntityName: "TourGuideMultimediaEntity", into: managedObjContext) as! TourGuideMultimediaEntity
                 multimediaArray.multimediaFile = file
                 multimediaArray.language = language
-                multimediaEntity = multimediaArray
-                tourGuideInfo?.addToTourGuideMultimediaRelation(multimediaEntity)
+                tourGuideInfo?.addToTourGuideMultimediaRelation(multimediaArray)
                 managedObjContext.saveContext()
-                
             }
         }
         managedObjContext.saveContext()
@@ -916,26 +912,25 @@ extension DataManager {
     static func updateParks(managedContext: NSManagedObjectContext,
                             parksListArray: [ParksList],
                             language: String) {
-        let fetchData = DataManager.checkAddedToCoredata(entityName: "ParksEntity",
-                                                         idKey: nil,
-                                                         idValue: nil,
-                                                         managedContext: managedContext) as! [ParksEntity]
-        if !fetchData.isEmpty {
-            if DataManager.delete(managedContext: managedContext,
-                                  entityName: "ParksEntity") {
+//        let fetchData = DataManager.checkAddedToCoredata(entityName: "ParksEntity",
+//                                                         idKey: nil,
+//                                                         idValue: nil,
+//                                                         managedContext: managedContext) as! [ParksEntity]
+//        if !fetchData.isEmpty {
+         _ = DataManager.delete(managedContext: managedContext,
+                           entityName: "ParksEntity")
                 for parksDict in parksListArray {
                     DataManager.saveParks(parksDict: parksDict,
                                           managedObjContext: managedContext,
                                           language: language)
                 }
-            }
-        } else  {
-            for parksDict in parksListArray {
-                DataManager.saveParks(parksDict: parksDict,
-                                      managedObjContext: managedContext,
-                                      language: language)
-            }
-        }
+//        } else  {
+//            for parksDict in parksListArray {
+//                DataManager.saveParks(parksDict: parksDict,
+//                                      managedObjContext: managedContext,
+//                                      language: language)
+//            }
+//        }
     }
     
     /// Save Parks to core data

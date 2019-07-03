@@ -421,7 +421,7 @@ extension CommonListViewController {
                         }
                     }
                     if(self.miaTourDataFullArray.count > 0) {
-                        self.saveOrUpdateTourGuideCoredata(miaTourDataFullArray: data.tourGuide)
+                        self.saveOrUpdateTourGuideCoredata(data: data.tourGuide)
                     }
                 case .failure(let error):
                     if(self.miaTourDataFullArray.count == 0) {
@@ -435,14 +435,14 @@ extension CommonListViewController {
     }
     
     //MARK: Coredata Method
-    func saveOrUpdateTourGuideCoredata(miaTourDataFullArray:[TourGuide]?) {
-        if ((miaTourDataFullArray?.count)! > 0) {
+    func saveOrUpdateTourGuideCoredata(data: [TourGuide]?) {
+        if let tourData = data, !tourData.isEmpty {
             let appDelegate =  UIApplication.shared.delegate as? AppDelegate
             if #available(iOS 10.0, *) {
                 let container = appDelegate!.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
                     DataManager.updateTourGuide(managedContext: managedContext,
-                                                miaTourDataFullArray: self.miaTourDataFullArray,
+                                                miaTourDataFullArray: tourData,
                                                 museumID: self.museumId,
                                                 language: Utils.getLanguage())
                 }
@@ -450,7 +450,7 @@ extension CommonListViewController {
                 let managedContext = appDelegate!.managedObjectContext
                 managedContext.perform {
                     DataManager.updateTourGuide(managedContext : managedContext,
-                                                miaTourDataFullArray: self.miaTourDataFullArray,
+                                                miaTourDataFullArray: tourData,
                                                 museumID: self.museumId,
                                                 language: Utils.getLanguage())
                 }
@@ -458,13 +458,13 @@ extension CommonListViewController {
         }
     }
     
-    func fetchTourGuideListFromCoredata() {
+    func fetchTourGuideListFromCoredata(museumID: String) {
         let managedContext = getContext()
         do {
             var tourGuideArray = [TourGuideEntity]()
             tourGuideArray = DataManager.checkAddedToCoredata(entityName: "TourGuideEntity",
                                                               idKey: "museumsEntity",
-                                                              idValue: museumId,
+                                                              idValue: museumID,
                                                               managedContext: managedContext) as! [TourGuideEntity]
             
             if (tourGuideArray.count > 0) {

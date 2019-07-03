@@ -29,9 +29,9 @@ struct TourGuide: ResponseObjectSerializable, ResponseCollectionSerializable {
     init(entity: TourGuideEntity) {
         
         var imagesArray : [String] = []
-        if let imagesInfoArray = (entity.tourGuideMultimediaRelation?.allObjects) as? [ImageEntity] {
+        if let imagesInfoArray = (entity.tourGuideMultimediaRelation?.allObjects) as? [TourGuideMultimediaEntity] {
             for info in imagesInfoArray {
-                if let image = info.image {
+                if let image = info.multimediaFile {
                     imagesArray.append(image)
                 }
             }
