@@ -201,7 +201,8 @@ class CommonDetailCell: UITableViewCell {
             }
         }
         sundayTimeLabel.text = aboutData.openingTime
-        contactLabel.text = aboutData.contactEmail
+        contactLabel.text = (aboutData.contactEmail ?? "info@mia.org.qa") +
+            "\n\n" + (aboutData.contactNumber ?? "")
         titleLabel.font = UIFont.closeButtonFont
         middleTitleLabel.font = UIFont.closeButtonFont
         locationTitleLabel.text = NSLocalizedString("LOCATION_TITLE",

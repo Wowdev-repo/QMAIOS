@@ -287,13 +287,17 @@ class MuseumAboutCell: UITableViewCell,iCarouselDelegate,iCarouselDataSource,UIT
                                                     comment: "LOCATION_TITLE in the Heritage detail")
         openingTimeTitleLabel.text = NSLocalizedString("MUSEUM_TIMING",
                                                        comment: "MUSEUM_TIMING in the Heritage detail")
-        if ((aboutData.contactEmail != nil) && (aboutData.contactEmail != "")) {
-            contactTitleLabel.text = NSLocalizedString("CONTACT_TITLE",
-                                                       comment: "CONTACT_TITLE in the Heritage detail")
-            contactLabel.text = aboutData.contactEmail
-            contactLine.isHidden = false
+        contactTitleLabel.text = NSLocalizedString("CONTACT_TITLE",
+                                                   comment: "CONTACT_TITLE in the Heritage detail")
+
+        if (aboutData.contactEmail != "") {
+            contactLabel.text = (aboutData.contactEmail ?? "info@mia.org.qa") +
+                "\n\n" + (aboutData.contactNumber ?? "")
         }
-        
+        else {
+            contactLabel.text = "info@mia.org.qa"
+        }
+        contactLine.isHidden = false
         var latitudeString  = String()
         var longitudeString = String()
         var latitude : Double?
@@ -370,9 +374,13 @@ class MuseumAboutCell: UITableViewCell,iCarouselDelegate,iCarouselDataSource,UIT
         if ((aboutData.contactEmail != nil) && (aboutData.contactEmail != "") || (aboutData.contactNumber != nil) && (aboutData.contactEmail != "")) {
             contactTitleLabel.text = NSLocalizedString("CONTACT_TITLE",
                                                        comment: "CONTACT_TITLE in the Heritage detail")
-            contactLabel.text = aboutData.contactEmail!
-                //+ "\n\n" + aboutData.contactNumber!
-            contactPhoneLabel.text = aboutData.contactNumber!
+            if (aboutData.contactEmail != "") {
+                contactLabel.text = (aboutData.contactEmail ?? "info@mia.org.qa") +
+                    "\n\n" + (aboutData.contactNumber ?? "")
+            }
+            else {
+                contactLabel.text = "info@mia.org.qa"
+            }
             contactLine.isHidden = false
         }
         //Description
@@ -512,9 +520,13 @@ class MuseumAboutCell: UITableViewCell,iCarouselDelegate,iCarouselDataSource,UIT
             
             contactTitleLabel.text = NSLocalizedString("CONTACT_TITLE",
                                                        comment: "CONTACT_TITLE in the Heritage detail")
-            contactLabel.text = travelDetailData.email!
-            //+ "\n\n" + aboutData.contactNumber!
-            contactPhoneLabel.text = travelDetailData.contactNumber!
+            if (travelDetailData.email != "") {
+                contactLabel.text = (travelDetailData.email ?? "info@mia.org.qa") +
+                    "\n\n" + (travelDetailData.contactNumber ?? "")
+            }
+            else {
+                contactLabel.text = "info@mia.org.qa"
+            }
             contactLine.isHidden = false
         }
 //        let verticalSpace = NSLayoutConstraint(item: self.sundayTimeLabel, attribute: .bottom, relatedBy: .equal, toItem: self.favouriteView, attribute: .top, multiplier: 1, constant: -40)
