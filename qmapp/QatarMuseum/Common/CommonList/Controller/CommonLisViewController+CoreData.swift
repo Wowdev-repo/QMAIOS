@@ -76,29 +76,29 @@ extension CommonListViewController {
     //MARK: DiningList WebServiceCall
     func getDiningListFromServer()
     {
-        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.DiningList(LocalizationLanguage.currentAppleLanguage())).responseObject { (response: DataResponse<Dinings>) -> Void in
+        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.DiningList(LocalizationLanguage.currentAppleLanguage())).responseObject { [weak self] (response: DataResponse<Dinings>) -> Void in
             switch response.result {
             case .success(let data):
-                if(self.diningListArray.count == 0) {
-                    self.diningListArray = data.dinings
-                    self.commonListTableView.reloadData()
-                    if(self.diningListArray.count == 0) {
-                        self.commonListLoadingView.stopLoading()
-                        self.commonListLoadingView.noDataView.isHidden = false
-                        self.commonListLoadingView.isHidden = false
-                        self.commonListLoadingView.showNoDataView()
+                if(self?.diningListArray.count == 0) {
+                    self?.diningListArray = data.dinings
+                    self?.commonListTableView.reloadData()
+                    if(self?.diningListArray.count == 0) {
+                        self?.commonListLoadingView.stopLoading()
+                        self?.commonListLoadingView.noDataView.isHidden = false
+                        self?.commonListLoadingView.isHidden = false
+                        self?.commonListLoadingView.showNoDataView()
                     }
                 }
-                if(self.diningListArray.count > 0) {
-                    self.saveOrUpdateDiningCoredata(diningListArray: data.dinings,
+                if let count = self?.diningListArray.count,  count > 0 {
+                    self?.saveOrUpdateDiningCoredata(diningListArray: data.dinings,
                                                     lang: LocalizationLanguage.currentAppleLanguage())
                 }
             case .failure( _):
-                if(self.diningListArray.count == 0) {
-                    self.commonListLoadingView.stopLoading()
-                    self.commonListLoadingView.noDataView.isHidden = false
-                    self.commonListLoadingView.isHidden = false
-                    self.commonListLoadingView.showNoDataView()
+                if(self?.diningListArray.count == 0) {
+                    self?.commonListLoadingView.stopLoading()
+                    self?.commonListLoadingView.noDataView.isHidden = false
+                    self?.commonListLoadingView.isHidden = false
+                    self?.commonListLoadingView.showNoDataView()
                 }
             }
         }
@@ -106,10 +106,10 @@ extension CommonListViewController {
     //MARK: Museum DiningWebServiceCall
     func getMuseumDiningListFromServer()
     {
-        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.MuseumDiningList(["museum_id": museumId ?? 0])).responseObject { (response: DataResponse<Dinings>) -> Void in
+        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.MuseumDiningList(["museum_id": museumId ?? 0])).responseObject { [weak self] (response: DataResponse<Dinings>) -> Void in
             switch response.result {
             case .success(let data):
-                self.saveOrUpdateDiningCoredata(diningListArray: data.dinings, lang: LocalizationLanguage.currentAppleLanguage())
+                self?.saveOrUpdateDiningCoredata(diningListArray: data.dinings, lang: LocalizationLanguage.currentAppleLanguage())
             case .failure( _):
                 print("error")
             }
@@ -217,34 +217,34 @@ extension CommonListViewController {
     //MARK: ServiceCall
     func getNMoQTourDetail() {
         if(tourDetailId != nil) {
-            _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.GetNMoQTourDetail(["event_id" : tourDetailId!])).responseObject { (response: DataResponse<NMoQTourDetailList>) -> Void in
+            _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.GetNMoQTourDetail(["event_id" : tourDetailId!])).responseObject { [weak self] (response: DataResponse<NMoQTourDetailList>) -> Void in
                 switch response.result {
                 case .success(let data):
-                    self.nmoqTourDetail = data.nmoqTourDetailList ?? []
-                    if self.nmoqTourDetail.first(where: {$0.sortId != "" && $0.sortId != nil} ) != nil {
-                        self.nmoqTourDetail = self.nmoqTourDetail.sorted(by: { Int16($0.sortId!)! < Int16($1.sortId!)! })
+                    self?.nmoqTourDetail = data.nmoqTourDetailList ?? []
+                    if self?.nmoqTourDetail.first(where: {$0.sortId != "" && $0.sortId != nil} ) != nil {
+                        self?.nmoqTourDetail = self?.nmoqTourDetail.sorted(by: { Int16($0.sortId!)! < Int16($1.sortId!)! }) ?? []
                     }
-                    self.commonListTableView.reloadData()
-                    if(self.nmoqTourDetail.count == 0) {
+                    self?.commonListTableView.reloadData()
+                    if(self?.nmoqTourDetail.count == 0) {
                         let noResultMsg = NSLocalizedString("NO_RESULT_MESSAGE",
                                                             comment: "Setting the content of the alert")
-                        self.commonListLoadingView.stopLoading()
-                        self.commonListLoadingView.noDataView.isHidden = false
-                        self.commonListLoadingView.isHidden = false
-                        self.commonListLoadingView.showNoDataView()
-                        self.commonListLoadingView.noDataLabel.text = noResultMsg
+                        self?.commonListLoadingView.stopLoading()
+                        self?.commonListLoadingView.noDataView.isHidden = false
+                        self?.commonListLoadingView.isHidden = false
+                        self?.commonListLoadingView.showNoDataView()
+                        self?.commonListLoadingView.noDataLabel.text = noResultMsg
                     } else {
-                        self.saveOrUpdateTourDetailCoredata()
+                        self?.saveOrUpdateTourDetailCoredata()
                     }
                 case .failure( _):
                     var errorMessage: String
                     errorMessage = String(format: NSLocalizedString("NO_RESULT_MESSAGE",
                                                                     comment: "Setting the content of the alert"))
-                    self.commonListLoadingView.stopLoading()
-                    self.commonListLoadingView.noDataView.isHidden = false
-                    self.commonListLoadingView.isHidden = false
-                    self.commonListLoadingView.showNoDataView()
-                    self.commonListLoadingView.noDataLabel.text = errorMessage
+                    self?.commonListLoadingView.stopLoading()
+                    self?.commonListLoadingView.noDataView.isHidden = false
+                    self?.commonListLoadingView.isHidden = false
+                    self?.commonListLoadingView.showNoDataView()
+                    self?.commonListLoadingView.noDataLabel.text = errorMessage
                 }
             }
         }
@@ -310,31 +310,31 @@ extension CommonListViewController {
     //MARK: Facilities SecondaryList ServiceCall
     func getFacilitiesDetail() {
         if(tourDetailId != nil) {
-            _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.GetFacilitiesDetail(["category_id" : tourDetailId!])).responseObject { (response: DataResponse<FacilitiesDetailData>) -> Void in
+            _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.GetFacilitiesDetail(["category_id" : tourDetailId!])).responseObject { [weak self] (response: DataResponse<FacilitiesDetailData>) -> Void in
                 switch response.result {
                 case .success(let data):
-                    self.facilitiesDetail = data.facilitiesDetail
-                    self.commonListTableView.reloadData()
-                    if(self.nmoqTourDetail.count == 0) {
+                    self?.facilitiesDetail = data.facilitiesDetail
+                    self?.commonListTableView.reloadData()
+                    if(self?.nmoqTourDetail.count == 0) {
                         let noResultMsg = NSLocalizedString("NO_RESULT_MESSAGE",
                                                             comment: "Setting the content of the alert")
-                        self.commonListLoadingView.stopLoading()
-                        self.commonListLoadingView.noDataView.isHidden = false
-                        self.commonListLoadingView.isHidden = false
-                        self.commonListLoadingView.showNoDataView()
-                        self.commonListLoadingView.noDataLabel.text = noResultMsg
+                        self?.commonListLoadingView.stopLoading()
+                        self?.commonListLoadingView.noDataView.isHidden = false
+                        self?.commonListLoadingView.isHidden = false
+                        self?.commonListLoadingView.showNoDataView()
+                        self?.commonListLoadingView.noDataLabel.text = noResultMsg
                     } else {
-                        self.saveOrUpdateFacilitiesDetailCoredata()
+                        self?.saveOrUpdateFacilitiesDetailCoredata()
                     }
                 case .failure( _):
                     var errorMessage: String
                     errorMessage = String(format: NSLocalizedString("NO_RESULT_MESSAGE",
                                                                     comment: "Setting the content of the alert"))
-                    self.commonListLoadingView.stopLoading()
-                    self.commonListLoadingView.noDataView.isHidden = false
-                    self.commonListLoadingView.isHidden = false
-                    self.commonListLoadingView.showNoDataView()
-                    self.commonListLoadingView.noDataLabel.text = errorMessage
+                    self?.commonListLoadingView.stopLoading()
+                    self?.commonListLoadingView.noDataView.isHidden = false
+                    self?.commonListLoadingView.isHidden = false
+                    self?.commonListLoadingView.showNoDataView()
+                    self?.commonListLoadingView.noDataLabel.text = errorMessage
                 }
             }
         }
@@ -406,29 +406,29 @@ extension CommonListViewController {
     func getTourGuideDataFromServer() {
         _ = CPSessionManager.sharedInstance.apiManager()?
             .request(QatarMuseumRouter.MuseumTourGuide(LocalizationLanguage.currentAppleLanguage(), ["museum_id": museumId ?? 0]))
-            .responseObject { (response: DataResponse<TourGuides>) -> Void in
+            .responseObject { [weak self] (response: DataResponse<TourGuides>) -> Void in
                 switch response.result {
                 case .success(let data):
-                    if(self.miaTourDataFullArray.count == 0) {
-                        self.miaTourDataFullArray = data.tourGuide!
-                        self.commonListTableView.reloadData()
+                    if(self?.miaTourDataFullArray.count == 0) {
+                        self?.miaTourDataFullArray = data.tourGuide!
+                        self?.commonListTableView.reloadData()
                         //if no result after api call
-                        if(self.miaTourDataFullArray.count == 0) {
-                            self.commonListLoadingView.stopLoading()
-                            self.commonListLoadingView.noDataView.isHidden = false
-                            self.commonListLoadingView.isHidden = false
-                            self.commonListLoadingView.showNoDataView()
+                        if(self?.miaTourDataFullArray.count == 0) {
+                            self?.commonListLoadingView.stopLoading()
+                            self?.commonListLoadingView.noDataView.isHidden = false
+                            self?.commonListLoadingView.isHidden = false
+                            self?.commonListLoadingView.showNoDataView()
                         }
                     }
-                    if(self.miaTourDataFullArray.count > 0) {
-                        self.saveOrUpdateTourGuideCoredata(data: data.tourGuide)
+                    if let count = self?.miaTourDataFullArray.count, count > 0 {
+                        self?.saveOrUpdateTourGuideCoredata(data: data.tourGuide)
                     }
                 case .failure(let error):
-                    if(self.miaTourDataFullArray.count == 0) {
-                        self.commonListLoadingView.stopLoading()
-                        self.commonListLoadingView.noDataView.isHidden = false
-                        self.commonListLoadingView.isHidden = false
-                        self.commonListLoadingView.showNoDataView()
+                    if(self?.miaTourDataFullArray.count == 0) {
+                        self?.commonListLoadingView.stopLoading()
+                        self?.commonListLoadingView.noDataView.isHidden = false
+                        self?.commonListLoadingView.isHidden = false
+                        self?.commonListLoadingView.showNoDataView()
                     }
                 }
         }
@@ -516,31 +516,31 @@ extension CommonListViewController {
         } else {
             searchstring = "12186"
         }
-        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.HomeList(LocalizationLanguage.currentAppleLanguage())).responseObject { (response: DataResponse<HomeList>) -> Void in
+        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.HomeList(LocalizationLanguage.currentAppleLanguage())).responseObject { [weak self] (response: DataResponse<HomeList>) -> Void in
             switch response.result {
             case .success(let data):
-                DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), SearchString: \(searchstring)")
-                if(self.museumsList.count == 0) {
+//                DDLogInfo(NSStringFromClass(type(of: self ?? "")) + "Function: \(#function), SearchString: \(searchstring)")
+                if(self?.museumsList.count == 0) {
                     if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
                         searchstring = "12181"
                     } else {
                         searchstring = "12186"
                     }
-                    self.museumsList = data.homeList
+                    self?.museumsList = data.homeList
                     //Removed Exhibition from Tour List
-                    if let arrayOffset = self.museumsList.index(where: {$0.id == searchstring}) {
-                        self.museumsList.remove(at: arrayOffset)
+                    if let arrayOffset = self?.museumsList.index(where: {$0.id == searchstring}) {
+                        self?.museumsList.remove(at: arrayOffset)
                     }
-                    self.commonListTableView.reloadData()
+                    self?.commonListTableView.reloadData()
                 }
-                if(self.museumsList.count > 0) {
+                if let count = self?.museumsList.count, count > 0 {
                     
                     //Removed Exhibition from Tour List
-                    if let arrayOffset = self.museumsList.index(where: {$0.id == searchstring}) {
-                        self.museumsList.remove(at: arrayOffset)
+                    if let arrayOffset = self?.museumsList.index(where: {$0.id == searchstring}) {
+                        self?.museumsList.remove(at: arrayOffset)
                     }
                     if let homeList = data.homeList {
-                        self.saveOrUpdateMuseumsCoredata(museumsList: homeList,
+                        self?.saveOrUpdateMuseumsCoredata(museumsList: homeList,
                                                          language: LocalizationLanguage.currentAppleLanguage())
                     }
                 }
@@ -640,33 +640,33 @@ extension CommonListViewController {
     
     func getNmoqParkListFromServer() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
-        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.GetNmoqParkList(LocalizationLanguage.currentAppleLanguage())).responseObject { (response: DataResponse<NmoqParksLists>) -> Void in
+        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.GetNmoqParkList(LocalizationLanguage.currentAppleLanguage())).responseObject { [weak self] (response: DataResponse<NmoqParksLists>) -> Void in
             switch response.result {
             case .success(let data):
-                if(self.nmoqParkList.count == 0) {
-                    self.nmoqParkList = data.nmoqParkList
-                    if(self.nmoqParkList.count > 0) {
-                        self.commonListHeaderView.headerTitle.text = self.nmoqParkList[0].title?.replacingOccurrences(of: "<[^>]+>|&nbsp;", with: "", options: .regularExpression, range: nil).uppercased()
+                if(self?.nmoqParkList.count == 0) {
+                    self?.nmoqParkList = data.nmoqParkList
+                    if let count = self?.nmoqParkList.count, count > 0 {
+                        self?.commonListHeaderView.headerTitle.text = self?.nmoqParkList[0].title?.replacingOccurrences(of: "<[^>]+>|&nbsp;", with: "", options: .regularExpression, range: nil).uppercased()
                     }
-                    self.commonListTableView.reloadData()
-                    if(self.nmoqParkList.count == 0) {
-                        self.commonListLoadingView.stopLoading()
-                        self.commonListLoadingView.noDataView.isHidden = false
-                        self.commonListLoadingView.isHidden = false
-                        self.commonListLoadingView.showNoDataView()
+                    self?.commonListTableView.reloadData()
+                    if(self?.nmoqParkList.count == 0) {
+                        self?.commonListLoadingView.stopLoading()
+                        self?.commonListLoadingView.noDataView.isHidden = false
+                        self?.commonListLoadingView.isHidden = false
+                        self?.commonListLoadingView.showNoDataView()
                     }
                 }
-                if(self.nmoqParkList.count > 0) {
+                if let count = self?.nmoqParkList.count, count > 0 {
                     if let nmoqParkList = data.nmoqParkList {
-                        self.saveOrUpdateNmoqParkListCoredata(nmoqParkList: nmoqParkList)
+                        self?.saveOrUpdateNmoqParkListCoredata(nmoqParkList: nmoqParkList)
                     }
                 }
             case .failure( _):
-                if(self.nmoqParkList.count == 0) {
-                    self.commonListLoadingView.stopLoading()
-                    self.commonListLoadingView.noDataView.isHidden = false
-                    self.commonListLoadingView.isHidden = false
-                    self.commonListLoadingView.showNoDataView()
+                if(self?.nmoqParkList.count == 0) {
+                    self?.commonListLoadingView.stopLoading()
+                    self?.commonListLoadingView.noDataView.isHidden = false
+                    self?.commonListLoadingView.isHidden = false
+                    self?.commonListLoadingView.showNoDataView()
                 }
             }
         }
@@ -674,31 +674,32 @@ extension CommonListViewController {
     
     func getNmoqListOfParksFromServer() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
-        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.GetNmoqListParks(LocalizationLanguage.currentAppleLanguage())).responseObject { (response: DataResponse<NMoQParks>) -> Void in
+        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.GetNmoqListParks(LocalizationLanguage.currentAppleLanguage()))
+            .responseObject { [weak self] (response: DataResponse<NMoQParks>) -> Void in
             switch response.result {
             case .success(let data):
-                if(self.nmoqParks.count == 0) {
-                    self.nmoqParks = data.nmoqParks
-                    self.commonListTableView.reloadData()
-                    if(self.nmoqParks.count == 0) {
-                        self.commonListLoadingView.stopLoading()
-                        self.commonListLoadingView.noDataView.isHidden = false
-                        self.commonListLoadingView.isHidden = false
-                        self.commonListLoadingView.showNoDataView()
+                if let count = self?.nmoqParks.count, count == 0 {
+                    self?.nmoqParks = data.nmoqParks
+                    self?.commonListTableView.reloadData()
+                    if(self?.nmoqParks.count == 0) {
+                        self?.commonListLoadingView.stopLoading()
+                        self?.commonListLoadingView.noDataView.isHidden = false
+                        self?.commonListLoadingView.isHidden = false
+                        self?.commonListLoadingView.showNoDataView()
                     }
                 }
-                if(self.nmoqParks.count > 0) {
+                if let count = self?.nmoqParks.count, count > 0 {
                     if let nmoqParks = data.nmoqParks {
-                        self.saveOrUpdateNmoqParksCoredata(nmoqParkList: nmoqParks)
+                        self?.saveOrUpdateNmoqParksCoredata(nmoqParkList: nmoqParks)
                     }
                 }
                 
             case .failure( _):
-                if(self.nmoqParks.count == 0) {
-                    self.commonListLoadingView.stopLoading()
-                    self.commonListLoadingView.noDataView.isHidden = false
-                    self.commonListLoadingView.isHidden = false
-                    self.commonListLoadingView.showNoDataView()
+                if let count = self?.nmoqParks.count, count == 0 {
+                    self?.commonListLoadingView.stopLoading()
+                    self?.commonListLoadingView.noDataView.isHidden = false
+                    self?.commonListLoadingView.isHidden = false
+                    self?.commonListLoadingView.showNoDataView()
                 }
             }
         }
@@ -845,31 +846,31 @@ extension CommonListViewController {
     
     //MARK: Service call
     func getExhibitionDataFromServer() {
-        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.ExhibitionList(LocalizationLanguage.currentAppleLanguage())).responseObject { (response: DataResponse<Exhibitions>) -> Void in
+        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.ExhibitionList(LocalizationLanguage.currentAppleLanguage())).responseObject { [weak self] (response: DataResponse<Exhibitions>) -> Void in
             switch response.result {
             case .success(let data):
-                if(self.exhibition.count == 0) {
-                    self.exhibition = data.exhibitions
-                    self.commonListTableView.reloadData()
-                    if(self.exhibition.count == 0) {
-                        self.commonListLoadingView.stopLoading()
-                        self.commonListLoadingView.noDataView.isHidden = false
-                        self.commonListLoadingView.isHidden = false
-                        self.commonListLoadingView.showNoDataView()
+                if(self?.exhibition.count == 0) {
+                    self?.exhibition = data.exhibitions
+                    self?.commonListTableView.reloadData()
+                    if(self?.exhibition.count == 0) {
+                        self?.commonListLoadingView.stopLoading()
+                        self?.commonListLoadingView.noDataView.isHidden = false
+                        self?.commonListLoadingView.isHidden = false
+                        self?.commonListLoadingView.showNoDataView()
                     }
                 }
-                if(self.exhibition.count > 0) {
+                if let count = self?.exhibition.count, count > 0 {
                     if let exhibitions = data.exhibitions {
-                        self.saveOrUpdateExhibitionsCoredata(exhibition: exhibitions,
+                        self?.saveOrUpdateExhibitionsCoredata(exhibition: exhibitions,
                                                              isHomeExhibition: "1")
                     }
                 }
             case .failure( _):
-                if(self.exhibition.count == 0) {
-                    self.commonListLoadingView.stopLoading()
-                    self.commonListLoadingView.noDataView.isHidden = false
-                    self.commonListLoadingView.isHidden = false
-                    self.commonListLoadingView.showNoDataView()
+                if(self?.exhibition.count == 0) {
+                    self?.commonListLoadingView.stopLoading()
+                    self?.commonListLoadingView.noDataView.isHidden = false
+                    self?.commonListLoadingView.isHidden = false
+                    self?.commonListLoadingView.showNoDataView()
                 }
             }
         }
@@ -877,25 +878,27 @@ extension CommonListViewController {
     //MARK: MuseumExhibitions Service Call
     func getMuseumExhibitionDataFromServer() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
-        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.MuseumExhibitionList(["museum_id": museumId ?? 0])).responseObject { (response: DataResponse<Exhibitions>) -> Void in
+        _ = CPSessionManager.sharedInstance.apiManager()?
+            .request(QatarMuseumRouter.MuseumExhibitionList(["museum_id": museumId ?? 0]))
+            .responseObject { [weak self] (response: DataResponse<Exhibitions>) -> Void in
             switch response.result {
             case .success(let data):
-                self.exhibition = data.exhibitions
+                self?.exhibition = data.exhibitions
                 if let exhibitions = data.exhibitions {
-                    self.saveOrUpdateExhibitionsCoredata(exhibition: exhibitions,
+                    self?.saveOrUpdateExhibitionsCoredata(exhibition: exhibitions,
                                                          isHomeExhibition: "0")
                 }
-                self.commonListTableView.reloadData()
-                self.commonListLoadingView.stopLoading()
-                self.commonListLoadingView.isHidden = true
-                if (self.exhibition.count == 0) {
-                    self.commonListLoadingView.stopLoading()
-                    self.commonListLoadingView.noDataView.isHidden = false
-                    self.commonListLoadingView.isHidden = false
-                    self.commonListLoadingView.showNoDataView()
+                self?.commonListTableView.reloadData()
+                self?.commonListLoadingView.stopLoading()
+                self?.commonListLoadingView.isHidden = true
+                if (self?.exhibition.count == 0) {
+                    self?.commonListLoadingView.stopLoading()
+                    self?.commonListLoadingView.noDataView.isHidden = false
+                    self?.commonListLoadingView.isHidden = false
+                    self?.commonListLoadingView.showNoDataView()
                 }
             case .failure(let error):
-                if let unhandledError = handleError(viewController: self, errorType: error as! BackendError) {
+                if let controller = self, let unhandledError = handleError(viewController: controller, errorType: error as! BackendError) {
                     var errorMessage: String
                     var errorTitle: String
                     switch unhandledError.code {
@@ -905,7 +908,7 @@ extension CommonListViewController {
                     errorMessage = String(format: NSLocalizedString("ERROR_MESSAGE",
                                                                     comment: "Setting the content of the alert"))
                     }
-                    presentAlert(self, title: errorTitle, message: errorMessage)
+                    presentAlert(controller, title: errorTitle, message: errorMessage)
                 }
             }
         }
@@ -1028,44 +1031,44 @@ extension CommonListViewController {
         return fetchResults
     }
     func getCollectionList() {
-        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.CollectionList(LocalizationLanguage.currentAppleLanguage(),["museum_id": museumId ?? 0])).responseObject { (response: DataResponse<Collections>) -> Void in
+        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.CollectionList(LocalizationLanguage.currentAppleLanguage(),["museum_id": museumId ?? 0])).responseObject { [weak self] (response: DataResponse<Collections>) -> Void in
             switch response.result {
             case .success(let data):
-                if((self.museumId == "63") && (self.museumId == "96")) {
-                    if(self.collection.count == 0) {
-                        self.collection = data.collections!
-                        self.commonListLoadingView.stopLoading()
-                        self.commonListLoadingView.isHidden = true
+                if((self?.museumId == "63") && (self?.museumId == "96")) {
+                    if(self?.collection.count == 0) {
+                        self?.collection = data.collections!
+                        self?.commonListLoadingView.stopLoading()
+                        self?.commonListLoadingView.isHidden = true
                     }
                 } else {
-                    self.collection = data.collections!
-                    self.commonListLoadingView.stopLoading()
-                    self.commonListLoadingView.isHidden = true
+                    self?.collection = data.collections!
+                    self?.commonListLoadingView.stopLoading()
+                    self?.commonListLoadingView.isHidden = true
                 }
-                if(self.collection.count == 0) {
-                    self.commonListLoadingView.stopLoading()
-                    self.commonListLoadingView.noDataView.isHidden = false
-                    self.commonListLoadingView.isHidden = false
-                    self.commonListLoadingView.showNoDataView()
+                if(self?.collection.count == 0) {
+                    self?.commonListLoadingView.stopLoading()
+                    self?.commonListLoadingView.noDataView.isHidden = false
+                    self?.commonListLoadingView.isHidden = false
+                    self?.commonListLoadingView.showNoDataView()
                 }else {
-                    self.commonListTableView.reloadData()
+                    self?.commonListTableView.reloadData()
                     if let collections = data.collections {
-                        self.saveOrUpdateCollectionCoredata(collection: collections,
+                        self?.saveOrUpdateCollectionCoredata(collection: collections,
                                                             language: LocalizationLanguage.currentAppleLanguage())
                     }
                 }
                 
             case .failure( _):
                 print("error")
-                if((self.museumId != "63") && (self.museumId != "96")) {
+                if((self?.museumId != "63") && (self?.museumId != "96")) {
                     var errorMessage: String
                     errorMessage = String(format: NSLocalizedString("NO_RESULT_MESSAGE",
                                                                     comment: "Setting the content of the alert"))
-                    self.commonListLoadingView.stopLoading()
-                    self.commonListLoadingView.noDataView.isHidden = false
-                    self.commonListLoadingView.isHidden = false
-                    self.commonListLoadingView.showNoDataView()
-                    self.commonListLoadingView.noDataLabel.text = errorMessage
+                    self?.commonListLoadingView.stopLoading()
+                    self?.commonListLoadingView.noDataView.isHidden = false
+                    self?.commonListLoadingView.isHidden = false
+                    self?.commonListLoadingView.showNoDataView()
+                    self?.commonListLoadingView.noDataLabel.text = errorMessage
                 }
             }
         }
@@ -1074,29 +1077,29 @@ extension CommonListViewController {
     //MARK: PublicArts Functions
     //MARK: WebServiceCall
     func getPublicArtsListDataFromServer() {
-        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.PublicArtsList(LocalizationLanguage.currentAppleLanguage())).responseObject { (response: DataResponse<PublicArtsLists>) -> Void in
+        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.PublicArtsList(LocalizationLanguage.currentAppleLanguage())).responseObject { [weak self](response: DataResponse<PublicArtsLists>) -> Void in
             switch response.result {
             case .success(let data):
-                if(self.publicArtsListArray.count == 0) {
-                    self.publicArtsListArray = data.publicArtsList
-                    self.commonListTableView.reloadData()
-                    if(self.publicArtsListArray.count == 0) {
-                        self.commonListLoadingView.stopLoading()
-                        self.commonListLoadingView.noDataView.isHidden = false
-                        self.commonListLoadingView.isHidden = false
-                        self.commonListLoadingView.showNoDataView()
+                if(self?.publicArtsListArray.count == 0) {
+                    self?.publicArtsListArray = data.publicArtsList
+                    self?.commonListTableView.reloadData()
+                    if(self?.publicArtsListArray.count == 0) {
+                        self?.commonListLoadingView.stopLoading()
+                        self?.commonListLoadingView.noDataView.isHidden = false
+                        self?.commonListLoadingView.isHidden = false
+                        self?.commonListLoadingView.showNoDataView()
                     }
                 }
-                if(self.publicArtsListArray.count > 0) {
-                    self.saveOrUpdatePublicArtsCoredata(publicArtsListArray: data.publicArtsList,
+                if let count = self?.publicArtsListArray.count, count > 0 {
+                    self?.saveOrUpdatePublicArtsCoredata(publicArtsListArray: data.publicArtsList,
                                                         lang: LocalizationLanguage.currentAppleLanguage())
                 }
             case .failure( _):
-                if(self.publicArtsListArray.count == 0) {
-                    self.commonListLoadingView.stopLoading()
-                    self.commonListLoadingView.noDataView.isHidden = false
-                    self.commonListLoadingView.isHidden = false
-                    self.commonListLoadingView.showNoDataView()
+                if(self?.publicArtsListArray.count == 0) {
+                    self?.commonListLoadingView.stopLoading()
+                    self?.commonListLoadingView.noDataView.isHidden = false
+                    self?.commonListLoadingView.isHidden = false
+                    self?.commonListLoadingView.showNoDataView()
                 }
             }
         }
@@ -1167,30 +1170,30 @@ extension CommonListViewController {
     }
     //MARK: Heritage Page WebServiceCall
     func getHeritageDataFromServer() {
-        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.HeritageList(LocalizationLanguage.currentAppleLanguage())).responseObject { (response: DataResponse<Heritages>) -> Void in
+        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.HeritageList(LocalizationLanguage.currentAppleLanguage())).responseObject { [weak self] (response: DataResponse<Heritages>) -> Void in
             switch response.result {
             case .success(let data):
-                if(self.heritageListArray.count == 0) {
-                    self.heritageListArray = data.heritage
-                    self.commonListTableView.reloadData()
-                    if(self.heritageListArray.count == 0) {
-                        self.commonListLoadingView.stopLoading()
-                        self.commonListLoadingView.noDataView.isHidden = false
-                        self.commonListLoadingView.isHidden = false
-                        self.commonListLoadingView.showNoDataView()
+                if(self?.heritageListArray.count == 0) {
+                    self?.heritageListArray = data.heritage
+                    self?.commonListTableView.reloadData()
+                    if(self?.heritageListArray.count == 0) {
+                        self?.commonListLoadingView.stopLoading()
+                        self?.commonListLoadingView.noDataView.isHidden = false
+                        self?.commonListLoadingView.isHidden = false
+                        self?.commonListLoadingView.showNoDataView()
                     }
                 }
-                if(self.heritageListArray.count > 0) {
+                if let count = self?.heritageListArray.count, count > 0 {
                     if let heritage = data.heritage {
-                        self.saveOrUpdateHeritageCoredata(heritageListArray: heritage)
+                        self?.saveOrUpdateHeritageCoredata(heritageListArray: heritage)
                     }
                 }
             case .failure( _):
-                if(self.heritageListArray.count == 0) {
-                    self.commonListLoadingView.stopLoading()
-                    self.commonListLoadingView.noDataView.isHidden = false
-                    self.commonListLoadingView.isHidden = false
-                    self.commonListLoadingView.showNoDataView()
+                if(self?.heritageListArray.count == 0) {
+                    self?.commonListLoadingView.stopLoading()
+                    self?.commonListLoadingView.noDataView.isHidden = false
+                    self?.commonListLoadingView.isHidden = false
+                    self?.commonListLoadingView.showNoDataView()
                 }
             }
         }

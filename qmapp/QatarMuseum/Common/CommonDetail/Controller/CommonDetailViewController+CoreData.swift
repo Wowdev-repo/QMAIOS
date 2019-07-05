@@ -14,30 +14,30 @@ extension CommonDetailViewController {
     //MARK: WebServiceCall
     func getHeritageDetailsFromServer() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
-        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.HeritageDetail(["nid": heritageDetailId!])).responseObject { (response: DataResponse<Heritages>) -> Void in
+        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.HeritageDetail(["nid": heritageDetailId!])).responseObject { [weak self] (response: DataResponse<Heritages>) -> Void in
             switch response.result {
             case .success(let data):
-                self.heritageDetailtArray = data.heritage!
-                self.setTopBarImage()
-                self.saveOrUpdateHeritageCoredata()
-                self.commonDetailTableView.reloadData()
-                self.loadingView.stopLoading()
-                self.loadingView.isHidden = true
-                if (self.heritageDetailtArray.count == 0) {
-                    self.loadingView.stopLoading()
-                    self.loadingView.noDataView.isHidden = false
-                    self.loadingView.isHidden = false
-                    self.loadingView.showNoDataView()
+                self?.heritageDetailtArray = data.heritage!
+                self?.setTopBarImage()
+                self?.saveOrUpdateHeritageCoredata()
+                self?.commonDetailTableView.reloadData()
+                self?.loadingView.stopLoading()
+                self?.loadingView.isHidden = true
+                if (self?.heritageDetailtArray.count == 0) {
+                    self?.loadingView.stopLoading()
+                    self?.loadingView.noDataView.isHidden = false
+                    self?.loadingView.isHidden = false
+                    self?.loadingView.showNoDataView()
                 }
             case .failure( _):
                 var errorMessage: String
                 errorMessage = String(format: NSLocalizedString("NO_RESULT_MESSAGE",
                                                                 comment: "Setting the content of the alert"))
-                self.loadingView.stopLoading()
-                self.loadingView.noDataView.isHidden = false
-                self.loadingView.isHidden = false
-                self.loadingView.showNoDataView()
-                self.loadingView.noDataLabel.text = errorMessage
+                self?.loadingView.stopLoading()
+                self?.loadingView.noDataView.isHidden = false
+                self?.loadingView.isHidden = false
+                self?.loadingView.showNoDataView()
+                self?.loadingView.noDataLabel.text = errorMessage
             }
         }
     }
@@ -45,30 +45,30 @@ extension CommonDetailViewController {
     //MARK: PublicArts webservice call
     func getPublicArtsDetailsFromServer() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
-        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.GetPublicArtsDetail(["nid": publicArtsDetailId!])).responseObject { (response: DataResponse<PublicArtsDetails>) -> Void in
+        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.GetPublicArtsDetail(["nid": publicArtsDetailId!])).responseObject { [weak self] (response: DataResponse<PublicArtsDetails>) -> Void in
             switch response.result {
             case .success(let data):
-                self.publicArtsDetailtArray = data.publicArtsDetail!
-                self.setTopBarImage()
-                self.saveOrUpdatePublicArtsCoredata()
-                self.commonDetailTableView.reloadData()
-                self.loadingView.stopLoading()
-                self.loadingView.isHidden = true
-                if (self.publicArtsDetailtArray.count == 0) {
-                    self.loadingView.stopLoading()
-                    self.loadingView.noDataView.isHidden = false
-                    self.loadingView.isHidden = false
-                    self.loadingView.showNoDataView()
+                self?.publicArtsDetailtArray = data.publicArtsDetail!
+                self?.setTopBarImage()
+                self?.saveOrUpdatePublicArtsCoredata()
+                self?.commonDetailTableView.reloadData()
+                self?.loadingView.stopLoading()
+                self?.loadingView.isHidden = true
+                if (self?.publicArtsDetailtArray.count == 0) {
+                    self?.loadingView.stopLoading()
+                    self?.loadingView.noDataView.isHidden = false
+                    self?.loadingView.isHidden = false
+                    self?.loadingView.showNoDataView()
                 }
             case .failure( _):
                 var errorMessage: String
                 errorMessage = String(format: NSLocalizedString("NO_RESULT_MESSAGE",
                                                                 comment: "Setting the content of the alert"))
-                self.loadingView.stopLoading()
-                self.loadingView.noDataView.isHidden = false
-                self.loadingView.isHidden = false
-                self.loadingView.showNoDataView()
-                self.loadingView.noDataLabel.text = errorMessage
+                self?.loadingView.stopLoading()
+                self?.loadingView.noDataView.isHidden = false
+                self?.loadingView.isHidden = false
+                self?.loadingView.showNoDataView()
+                self?.loadingView.noDataLabel.text = errorMessage
             }
         }
     }
@@ -205,30 +205,30 @@ extension CommonDetailViewController {
     //MARK: ExhibitionDetail Webservice call
     func getExhibitionDetail() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.ExhibitionDetail(["nid": exhibitionId!])).responseObject { (response: DataResponse<Exhibitions>) -> Void in
+        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.ExhibitionDetail(["nid": exhibitionId!])).responseObject { [weak self] (response: DataResponse<Exhibitions>) -> Void in
             switch response.result {
             case .success(let data):
-                self.exhibition = data.exhibitions!
-                self.setTopBarImage()
-                self.saveOrUpdateExhibitionsCoredata()
-                self.commonDetailTableView.reloadData()
-                self.loadingView.stopLoading()
-                self.loadingView.isHidden = true
-                if (self.exhibition.count == 0) {
-                    self.loadingView.stopLoading()
-                    self.loadingView.noDataView.isHidden = false
-                    self.loadingView.isHidden = false
-                    self.loadingView.showNoDataView()
+                self?.exhibition = data.exhibitions!
+                self?.setTopBarImage()
+                self?.saveOrUpdateExhibitionsCoredata()
+                self?.commonDetailTableView.reloadData()
+                self?.loadingView.stopLoading()
+                self?.loadingView.isHidden = true
+                if (self?.exhibition.count == 0) {
+                    self?.loadingView.stopLoading()
+                    self?.loadingView.noDataView.isHidden = false
+                    self?.loadingView.isHidden = false
+                    self?.loadingView.showNoDataView()
                 }
             case .failure( _):
                 var errorMessage: String
                 errorMessage = String(format: NSLocalizedString("NO_RESULT_MESSAGE",
                                                                 comment: "Setting the content of the alert"))
-                self.loadingView.stopLoading()
-                self.loadingView.noDataView.isHidden = false
-                self.loadingView.isHidden = false
-                self.loadingView.showNoDataView()
-                self.loadingView.noDataLabel.text = errorMessage
+                self?.loadingView.stopLoading()
+                self?.loadingView.noDataView.isHidden = false
+                self?.loadingView.isHidden = false
+                self?.loadingView.showNoDataView()
+                self?.loadingView.noDataLabel.text = errorMessage
             }
         }
     }
@@ -298,44 +298,44 @@ extension CommonDetailViewController {
     func getParksDataFromServer()
     {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
-        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.ParksList(LocalizationLanguage.currentAppleLanguage())).responseObject { (response: DataResponse<ParksLists>) -> Void in
+        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.ParksList(LocalizationLanguage.currentAppleLanguage())).responseObject { [weak self] (response: DataResponse<ParksLists>) -> Void in
             switch response.result {
             case .success(let data):
-                if (self.parksListArray.count == 0) {
-                    self.parksListArray = data.parkList
-                    self.commonDetailTableView.reloadData()
-                    if(self.parksListArray.count == 0) {
-                        self.addCloseButton()
+                if (self?.parksListArray.count == 0) {
+                    self?.parksListArray = data.parkList
+                    self?.commonDetailTableView.reloadData()
+                    if(self?.parksListArray.count == 0) {
+                        self?.addCloseButton()
                         var errorMessage: String
                         errorMessage = String(format: NSLocalizedString("NO_RESULT_MESSAGE",
                                                                         comment: "Setting the content of the alert"))
-                        self.loadingView.stopLoading()
-                        self.loadingView.noDataView.isHidden = false
-                        self.loadingView.isHidden = false
-                        self.loadingView.showNoDataView()
-                        self.loadingView.noDataLabel.text = errorMessage
+                        self?.loadingView.stopLoading()
+                        self?.loadingView.noDataView.isHidden = false
+                        self?.loadingView.isHidden = false
+                        self?.loadingView.showNoDataView()
+                        self?.loadingView.noDataLabel.text = errorMessage
                     }
                 }
-                if (self.parksListArray.count > 0)  {
+                if let count = self?.parksListArray.count, count > 0  {
                     if let parkList = data.parkList {
-                        self.saveOrUpdateParksCoredata(parksListArray: parkList)
+                        self?.saveOrUpdateParksCoredata(parksListArray: parkList)
                     }
                     
-                    self.setTopBarImage()
+                    self?.setTopBarImage()
                 }
                 
             case .failure( _):
                 print("error")
-                if(self.parksListArray.count == 0) {
-                    self.addCloseButton()
+                if(self?.parksListArray.count == 0) {
+                    self?.addCloseButton()
                     var errorMessage: String
                     errorMessage = String(format: NSLocalizedString("NO_RESULT_MESSAGE",
                                                                     comment: "Setting the content of the alert"))
-                    self.loadingView.stopLoading()
-                    self.loadingView.noDataView.isHidden = false
-                    self.loadingView.isHidden = false
-                    self.loadingView.showNoDataView()
-                    self.loadingView.noDataLabel.text = errorMessage
+                    self?.loadingView.stopLoading()
+                    self?.loadingView.noDataView.isHidden = false
+                    self?.loadingView.isHidden = false
+                    self?.loadingView.showNoDataView()
+                    self?.loadingView.noDataLabel.text = errorMessage
                 }
                 
             }
@@ -428,16 +428,16 @@ extension CommonDetailViewController {
     func getNMoQParkDetailFromServer() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
         if (parkDetailId != nil) {
-            _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.GetNMoQPlaygroundDetail(LocalizationLanguage.currentAppleLanguage(), ["nid": parkDetailId!])).responseObject { (response: DataResponse<NMoQParksDetail>) -> Void in
+            _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.GetNMoQPlaygroundDetail(LocalizationLanguage.currentAppleLanguage(), ["nid": parkDetailId!])).responseObject { [weak self] (response: DataResponse<NMoQParksDetail>) -> Void in
                 switch response.result {
                 case .success(let data):
-                    self.nmoqParkDetailArray = data.nmoqParksDetail
+                    self?.nmoqParkDetailArray = data.nmoqParksDetail
                     // self.saveOrUpdateNmoqParkDetailCoredata(nmoqParkList: data.nmoqParksDetail)
-                    self.commonDetailTableView.reloadData()
+                    self?.commonDetailTableView.reloadData()
                     //                    if(self.nmoqParkDetailArray.count > 0) {
                     //                        if ( (self.nmoqParkDetailArray[0].images?.count)! > 0) {
                     //                            if let imageUrl = self.nmoqParkDetailArray[0].images?[0] {
-                    self.setTopBarImage()
+                    self?.setTopBarImage()
                     //                            } else {
                     //                                self.imageView.image = UIImage(named: "default_imageX2")
                     //                            }
@@ -445,25 +445,25 @@ extension CommonDetailViewController {
                     //                        }
                     //                    }
                     
-                    self.loadingView.stopLoading()
-                    self.loadingView.isHidden = true
-                    if (self.nmoqParkDetailArray.count == 0) {
-                        self.loadingView.stopLoading()
-                        self.loadingView.noDataView.isHidden = false
-                        self.loadingView.isHidden = false
-                        self.loadingView.showNoDataView()
+                    self?.loadingView.stopLoading()
+                    self?.loadingView.isHidden = true
+                    if (self?.nmoqParkDetailArray.count == 0) {
+                        self?.loadingView.stopLoading()
+                        self?.loadingView.noDataView.isHidden = false
+                        self?.loadingView.isHidden = false
+                        self?.loadingView.showNoDataView()
                     }
                     
                 case .failure( _):
-                    self.addCloseButton()
+                    self?.addCloseButton()
                     var errorMessage: String
                     errorMessage = String(format: NSLocalizedString("NO_RESULT_MESSAGE",
                                                                     comment: "Setting the content of the alert"))
-                    self.loadingView.stopLoading()
-                    self.loadingView.noDataView.isHidden = false
-                    self.loadingView.isHidden = false
-                    self.loadingView.showNoDataView()
-                    self.loadingView.noDataLabel.text = errorMessage
+                    self?.loadingView.stopLoading()
+                    self?.loadingView.noDataView.isHidden = false
+                    self?.loadingView.isHidden = false
+                    self?.loadingView.showNoDataView()
+                    self?.loadingView.noDataLabel.text = errorMessage
                 }
             }
         }
@@ -543,30 +543,30 @@ extension CommonDetailViewController {
     //MARK: Dining WebServiceCall
     func getDiningDetailsFromServer() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
-        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.GetDiningDetail(["nid": diningDetailId!])).responseObject { (response: DataResponse<Dinings>) -> Void in
+        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.GetDiningDetail(["nid": diningDetailId!])).responseObject { [weak self] (response: DataResponse<Dinings>) -> Void in
             switch response.result {
             case .success(let data):
-                self.diningDetailtArray = data.dinings!
-                self.setTopBarImage()
-                self.saveOrUpdateDiningDetailCoredata()
-                self.commonDetailTableView.reloadData()
-                self.loadingView.stopLoading()
-                self.loadingView.isHidden = true
-                if (self.diningDetailtArray.count == 0) {
-                    self.loadingView.stopLoading()
-                    self.loadingView.noDataView.isHidden = false
-                    self.loadingView.isHidden = false
-                    self.loadingView.showNoDataView()
+                self?.diningDetailtArray = data.dinings!
+                self?.setTopBarImage()
+                self?.saveOrUpdateDiningDetailCoredata()
+                self?.commonDetailTableView.reloadData()
+                self?.loadingView.stopLoading()
+                self?.loadingView.isHidden = true
+                if (self?.diningDetailtArray.count == 0) {
+                    self?.loadingView.stopLoading()
+                    self?.loadingView.noDataView.isHidden = false
+                    self?.loadingView.isHidden = false
+                    self?.loadingView.showNoDataView()
                 }
             case .failure( _):
                 var errorMessage: String
                 errorMessage = String(format: NSLocalizedString("NO_RESULT_MESSAGE",
                                                                 comment: "Setting the content of the alert"))
-                self.loadingView.stopLoading()
-                self.loadingView.noDataView.isHidden = false
-                self.loadingView.isHidden = false
-                self.loadingView.showNoDataView()
-                self.loadingView.noDataLabel.text = errorMessage
+                self?.loadingView.stopLoading()
+                self?.loadingView.noDataView.isHidden = false
+                self?.loadingView.isHidden = false
+                self?.loadingView.showNoDataView()
+                self?.loadingView.noDataLabel.text = errorMessage
             }
         }
     }

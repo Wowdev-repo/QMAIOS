@@ -346,12 +346,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         let queue = DispatchQueue(label: "HeritageThread", qos: .background, attributes: .concurrent)
         _ = CPSessionManager.sharedInstance.apiManager()?
             .request(QatarMuseumRouter.HeritageList(lang))
-            .responseObject(queue: queue) { (response: DataResponse<Heritages>) -> Void in
+            .responseObject(queue: queue) { [weak self] (response: DataResponse<Heritages>) -> Void in
             switch response.result {
             case .success(let data):
                 if let heritage = data.heritage{
                         DispatchQueue.main.async{
-                            self.saveOrUpdateHeritageCoredata(heritageListArray: heritage,
+                            self?.saveOrUpdateHeritageCoredata(heritageListArray: heritage,
                                                               language: lang)
                         }
                 }
@@ -387,12 +387,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         let queue = DispatchQueue(label: "ExhibitionThread", qos: .background, attributes: .concurrent)
         _ = CPSessionManager.sharedInstance.apiManager()?
             .request(QatarMuseumRouter.ExhibitionList(lang))
-            .responseObject(queue: queue) { (response: DataResponse<Exhibitions>) -> Void in
+            .responseObject(queue: queue) { [weak self] (response: DataResponse<Exhibitions>) -> Void in
             switch response.result {
             case .success(let data):
                 if(data.exhibitions != nil) {
                     if let exhibitions = data.exhibitions {
-                        self.saveOrUpdateExhibitionsCoredata(exhibition: exhibitions,
+                        self?.saveOrUpdateExhibitionsCoredata(exhibition: exhibitions,
                                                              language: lang)
                     }
                 }
@@ -429,12 +429,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     //MARK: Home Service call
     func getHomeList(lang: String) {
         let queue = DispatchQueue(label: "HomeThread", qos: .background, attributes: .concurrent)
-        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.HomeList(lang)).responseObject(queue:queue) { (response: DataResponse<HomeList>) -> Void in
+        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.HomeList(lang)).responseObject(queue:queue) { [weak self] (response: DataResponse<HomeList>) -> Void in
             switch response.result {
             case .success(let data):
                 if let homeList = data.homeList {
                         DispatchQueue.main.async{
-                            self.saveOrUpdateHomeCoredata(homeList: homeList,
+                            self?.saveOrUpdateHomeCoredata(homeList: homeList,
                                                           language: lang)
                     }
                 }
@@ -470,13 +470,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     func getMiaTourGuideDataFromServer(museumId:String?,
                                        lang:String) {
         let queue = DispatchQueue(label: "MiaTourThread", qos: .background, attributes: .concurrent)
-        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.MuseumTourGuide(lang,["museum_id": museumId!])).responseObject(queue:queue) { (response: DataResponse<TourGuides>) -> Void in
+        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.MuseumTourGuide(lang,["museum_id": museumId!])).responseObject(queue:queue) { [weak self] (response: DataResponse<TourGuides>) -> Void in
             switch response.result {
             case .success(let data):
                 if(data.tourGuide != nil) {
                     if((data.tourGuide?.count)! > 0) {
                         DispatchQueue.main.async{
-                            self.saveOrUpdateTourGuideCoredata(miaTourDataFullArray: data.tourGuide,
+                            self?.saveOrUpdateTourGuideCoredata(miaTourDataFullArray: data.tourGuide,
                                                                museumId: museumId,
                                                                lang: lang)
                         }
@@ -525,13 +525,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             _ = CPSessionManager.sharedInstance.apiManager()?
                 .request(QatarMuseumRouter.GetNMoQAboutEvent(lang,
                                                              ["nid": museumId!]))
-                .responseObject(queue: queue) { (response: DataResponse<Museums>) -> Void in
+                .responseObject(queue: queue) { [weak self] (response: DataResponse<Museums>) -> Void in
                     switch response.result {
                     case .success(let data):
                         if(data.museum != nil) {
                             if((data.museum?.count)! > 0) {
                                 DispatchQueue.main.async{
-                                    self.saveOrUpdateAboutCoredata(aboutDetailtArray: data.museum,
+                                    self?.saveOrUpdateAboutCoredata(aboutDetailtArray: data.museum,
                                                                    lang: lang)
                                 }
                             }
@@ -573,13 +573,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         let queue = DispatchQueue(label: "NMoQTourListThread", qos: .background, attributes: .concurrent)
         _ = CPSessionManager.sharedInstance.apiManager()?
             .request(QatarMuseumRouter.GetNMoQTourList(lang))
-            .responseObject(queue:queue) { (response: DataResponse<NMoQTourList>) -> Void in
+            .responseObject(queue:queue) { [weak self] (response: DataResponse<NMoQTourList>) -> Void in
             switch response.result {
             case .success(let data):
                 if(data.nmoqTourList != nil) {
                     if let nmoqTourList = data.nmoqTourList {
                         DispatchQueue.main.async{
-                            self.saveOrUpdateTourListCoredata(nmoqTourList: nmoqTourList,
+                            self?.saveOrUpdateTourListCoredata(nmoqTourList: nmoqTourList,
                                                               isTourGuide: true, language: lang)
                         }
                     }
@@ -620,12 +620,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         let queue = DispatchQueue(label: "NMoQTravelListThread", qos: .background, attributes: .concurrent)
         _ = CPSessionManager.sharedInstance.apiManager()?
             .request(QatarMuseumRouter.GetNMoQTravelList(lang))
-            .responseObject(queue:queue) { (response: DataResponse<HomeBannerList>) -> Void in
+            .responseObject(queue:queue) { [weak self] (response: DataResponse<HomeBannerList>) -> Void in
             switch response.result {
             case .success(let data):
                 if(data.homeBannerList != nil) {
                     if let homeBannerList = data.homeBannerList {
-                        self.saveOrUpdateTravelListCoredata(travelList: homeBannerList,
+                        self?.saveOrUpdateTravelListCoredata(travelList: homeBannerList,
                                                             language: lang)
                     }
                 }
@@ -662,11 +662,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         let queue = DispatchQueue(label: "NMoQSpecialEventListThread", qos: .background, attributes: .concurrent)
         _ = CPSessionManager.sharedInstance.apiManager()?
             .request(QatarMuseumRouter.GetNMoQSpecialEventList(lang))
-            .responseObject(queue:queue) { (response: DataResponse<NMoQActivitiesListData>) -> Void in
+            .responseObject(queue:queue) { [weak self] (response: DataResponse<NMoQActivitiesListData>) -> Void in
             switch response.result {
             case .success(let data):
                 if let nmoqActivitiesList = data.nmoqActivitiesList {
-                    self.saveOrUpdateActivityListCoredata(nmoqActivityList: nmoqActivitiesList,
+                    self?.saveOrUpdateActivityListCoredata(nmoqActivityList: nmoqActivitiesList,
                                                           language: lang)
                 }
                 
@@ -699,12 +699,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     //MARK: DiningList WebServiceCall
     func getDiningListFromServer(language: String) {
         let queue = DispatchQueue(label: "DiningListThread", qos: .background, attributes: .concurrent)
-        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.DiningList(language)).responseObject(queue: queue) { (response: DataResponse<Dinings>) -> Void in
+        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.DiningList(language)).responseObject(queue: queue) { [weak self] (response: DataResponse<Dinings>) -> Void in
             switch response.result {
             case .success(let data):
                 if(data.dinings != nil) {
                     if((data.dinings?.count)! > 0) {
-                        self.saveOrUpdateDiningCoredata(diningListArray: data.dinings, lang: language)
+                        self?.saveOrUpdateDiningCoredata(diningListArray: data.dinings, lang: language)
                     }
                 }
                 
@@ -739,12 +739,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         let queue = DispatchQueue(label: "PublicArtsListThread", qos: .background, attributes: .concurrent)
         _ = CPSessionManager.sharedInstance.apiManager()?
             .request(QatarMuseumRouter.PublicArtsList(lang))
-            .responseObject(queue: queue) { (response: DataResponse<PublicArtsLists>) -> Void in
+            .responseObject(queue: queue) { [weak self] (response: DataResponse<PublicArtsLists>) -> Void in
             switch response.result {
             case .success(let data):
                 if(data.publicArtsList != nil) {
                     if((data.publicArtsList?.count)! > 0) {
-                        self.saveOrUpdatePublicArtsCoredata(publicArtsListArray: data.publicArtsList,
+                        self?.saveOrUpdatePublicArtsCoredata(publicArtsListArray: data.publicArtsList,
                                                             lang: lang)
                     }
                 }
@@ -781,12 +781,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     //MARK: Webservice call
     func getCollectionList(museumId:String?, lang: String) {
         let queue = DispatchQueue(label: "CollectionListThread", qos: .background, attributes: .concurrent)
-        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.CollectionList(lang, ["museum_id": museumId ?? 0])).responseObject(queue: queue) { (response: DataResponse<Collections>) -> Void in
+        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.CollectionList(lang, ["museum_id": museumId ?? 0])).responseObject(queue: queue) { [weak self] (response: DataResponse<Collections>) -> Void in
             switch response.result {
             case .success(let data):
                 if(data.collections != nil) {
                     if let collections = data.collections {
-                        self.saveOrUpdateCollectionCoredata(collection: collections,
+                        self?.saveOrUpdateCollectionCoredata(collection: collections,
                                                             museumId: museumId, language: lang)
                     }
                 }
@@ -849,11 +849,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
     
     func getParksDataFromServer(lang: String) {
-        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.ParksList(lang)).responseObject { (response: DataResponse<ParksLists>) -> Void in
+        _ = CPSessionManager.sharedInstance.apiManager()?
+            .request(QatarMuseumRouter.ParksList(lang))
+            .responseObject { [weak self] (response: DataResponse<ParksLists>) -> Void in
             switch response.result {
             case .success(let data):
                 if let parkList = data.parkList {
-                    self.saveOrUpdateParksCoredata(parksListArray: parkList,
+                    self?.saveOrUpdateParksCoredata(parksListArray: parkList,
                                                    language: lang)
                 }
             case .failure(let error):
@@ -886,11 +888,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     func getFacilitiesListFromServer(lang: String) {
         _ = CPSessionManager.sharedInstance.apiManager()?
             .request(QatarMuseumRouter.FacilitiesList(lang))
-            .responseObject { (response: DataResponse<FacilitiesData>) -> Void in
+            .responseObject { [weak self] (response: DataResponse<FacilitiesData>) -> Void in
             switch response.result {
             case .success(let data):
                     if let facilitiesList = data.facilitiesList {
-                        self.saveOrUpdateFacilitiesListCoredata(facilitiesList: facilitiesList,
+                        self?.saveOrUpdateFacilitiesListCoredata(facilitiesList: facilitiesList,
                                                                 language: lang)
                     }
                 
@@ -925,12 +927,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     func getNmoqParkListFromServer(lang: String) {
         _ = CPSessionManager.sharedInstance.apiManager()?
             .request(QatarMuseumRouter.GetNmoqParkList(lang))
-            .responseObject { (response: DataResponse<NmoqParksLists>) -> Void in
+            .responseObject { [weak self] (response: DataResponse<NmoqParksLists>) -> Void in
             switch response.result {
             case .success(let data):
                 if(data.nmoqParkList != nil) {
                     if let nmoqParkList = data.nmoqParkList {
-                        self.saveOrUpdateNmoqParkListCoredata(nmoqParkList: nmoqParkList,
+                        self?.saveOrUpdateNmoqParkListCoredata(nmoqParkList: nmoqParkList,
                                                               language: lang)
                     }
                 }
@@ -964,12 +966,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
     
     func getNmoqListOfParksFromServer(lang: String) {
-        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.GetNmoqListParks(lang)).responseObject { (response: DataResponse<NMoQParks>) -> Void in
+        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.GetNmoqListParks(lang)).responseObject { [weak self] (response: DataResponse<NMoQParks>) -> Void in
             switch response.result {
             case .success(let data):
                 if(data.nmoqParks != nil) {
                     if let nmoqParks = data.nmoqParks {
-                        self.saveOrUpdateNmoqParksCoredata(nmoqParkList: nmoqParks, language: lang)
+                        self?.saveOrUpdateNmoqParksCoredata(nmoqParkList: nmoqParks, language: lang)
                     }
                 }
                 

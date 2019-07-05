@@ -24,6 +24,10 @@ class CommonListCell: UITableViewCell {
     var isFavourite : Bool = false
     var exhibitionCellItemBtnTapAction : (()->())?
     
+    deinit {
+        print("#################### CommonListCell");
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         setGradientLayer()
