@@ -756,9 +756,10 @@ extension CommonListViewController {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
         let managedContext = getContext()
         do {
-            var parkListArray = [NMoQParkListEntity]()
-            let fetchRequest =  NSFetchRequest<NSFetchRequestResult>(entityName: "NMoQParkListEntity")
-            parkListArray = (try managedContext.fetch(fetchRequest) as? [NMoQParkListEntity])!
+            let parkListArray = DataManager.checkAddedToCoredata(entityName: "NMoQParkListEntity",
+                                                                 idKey: "language",
+                                                                 idValue: Utils.getLanguage(),
+                                                                 managedContext: managedContext) as! [NMoQParkListEntity]
             if (parkListArray.count > 0) {
                 if  (networkReachability?.isReachable)! {
                     DispatchQueue.global(qos: .background).async {

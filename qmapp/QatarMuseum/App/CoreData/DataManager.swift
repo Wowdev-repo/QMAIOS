@@ -1000,11 +1000,6 @@ extension DataManager {
     static func updateTravelList(travelList: [HomeBanner],
                                  managedContext: NSManagedObjectContext,
                                  language: String) {
-        let fetchData = DataManager.checkAddedToCoredata(entityName: "NMoQTravelListEntity",
-                                                         idKey: "fullContentID",
-                                                         idValue: nil,
-                                                         managedContext: managedContext) as! [NMoQTravelListEntity]
-        if (fetchData.count > 0) {
             for travelListDict in travelList {
                 let fetchResult = DataManager.checkAddedToCoredata(entityName: "NMoQTravelListEntity",
                                                                    idKey: "fullContentID",
@@ -1025,14 +1020,6 @@ extension DataManager {
                                         language: language)
                 }
             }
-        } else {
-            for travelListDict in travelList {
-                DataManager.saveTravelList(travelListDict: travelListDict,
-                                    managedObjContext: managedContext,
-                                    entity: nil,
-                                    language: language)
-            }
-        }
     }
     
     static func saveTravelList(travelListDict: HomeBanner,
@@ -1182,11 +1169,6 @@ extension DataManager {
     static func updateNmoqParkList(nmoqParkList: [NMoQParksList],
                                    managedContext: NSManagedObjectContext,
                                    language: String) {
-        let fetchData = DataManager.checkAddedToCoredata(entityName: "NMoQParkListEntity",
-                                                         idKey: "nid",
-                                                         idValue: nil,
-                                                         managedContext: managedContext) as! [NMoQParkListEntity]
-        if (fetchData.count > 0) {
             for nmoqParkListDict in nmoqParkList {
                 let fetchResult = DataManager.checkAddedToCoredata(entityName: "NMoQParkListEntity",
                                                                    idKey: "nid",
@@ -1208,15 +1190,6 @@ extension DataManager {
                 }
             }
             NotificationCenter.default.post(name: NSNotification.Name(facilitiesListNotificationEn), object: self)
-        } else {
-            for nmoqParkListDict in nmoqParkList {
-                DataManager.saveNmoqParkList(nmoqParkListDict: nmoqParkListDict,
-                                      managedObjContext: managedContext,
-                                      entity: nil,
-                                      language: language)
-            }
-            NotificationCenter.default.post(name: NSNotification.Name(facilitiesListNotificationEn), object: self)
-        }
     }
     
     static func saveNmoqParkList(nmoqParkListDict: NMoQParksList,
