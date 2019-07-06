@@ -27,33 +27,33 @@ extension FloorMapViewController {
     //    }
     func getFloorMapDataFromServer()
     {
-        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.CollectionByTourGuide(LocalizationLanguage.currentAppleLanguage(),["tour_guide_id": tourGuideId!])).responseObject { (response: DataResponse<TourGuideFloorMaps>) -> Void in
+        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.CollectionByTourGuide(LocalizationLanguage.currentAppleLanguage(),["tour_guide_id": tourGuideId!])).responseObject { [weak self] (response: DataResponse<TourGuideFloorMaps>) -> Void in
             switch response.result {
             case .success(let data):
-                self.floorMapArray = data.tourGuideFloorMap
-                self.loadingView.stopLoading()
-                self.loadingView.isHidden = true
-                if (self.floorMapArray.count > 0) {
+                self?.floorMapArray = data.tourGuideFloorMap
+                self?.loadingView.stopLoading()
+                self?.loadingView.isHidden = true
+                if let count = self?.floorMapArray.count, count > 0 {
                     if let tourGuideFloorMap = data.tourGuideFloorMap {
-                        self.saveOrUpdateFloormapCoredata(floorMapArray: tourGuideFloorMap)
+                        self?.saveOrUpdateFloormapCoredata(floorMapArray: tourGuideFloorMap)
                     }
-                    if ((self.fromTourString == fromTour.HighlightTour) || (self.fromTourString == fromTour.exploreTour)){
+                    if ((self?.fromTourString == fromTour.HighlightTour) || (self?.fromTourString == fromTour.exploreTour)){
                         //if(self.selectedScienceTourLevel == "2" ) {
-                        self.showOrHideLevelTwoHighlightTour()
+                        self?.showOrHideLevelTwoHighlightTour()
                         // } else if (self.selectedScienceTourLevel == "3" ) {
-                        self.showOrHideLevelThreeHighlightTour()
+                        self?.showOrHideLevelThreeHighlightTour()
                         // }
-                        if let arrayOffset = self.self.floorMapArray.index(where: {$0.nid == self.selectednid}) {
-                            self.addBottomSheetView(index: arrayOffset)
+                        if let arrayOffset = self?.floorMapArray.index(where: {$0.nid == self?.selectednid}) {
+                            self?.addBottomSheetView(index: arrayOffset)
                         }
-                    } else if(self.fromTourString == fromTour.scienceTour) {
+                    } else if(self?.fromTourString == fromTour.scienceTour) {
                         // if(self.selectedScienceTourLevel == "2" ) {
-                        self.showOrHideLevelTwoScienceTour()
+                        self?.showOrHideLevelTwoScienceTour()
                         // } else if(self.selectedScienceTourLevel == "3") {
-                        self.showOrHideLevelThreeScienceTour()
+                        self?.showOrHideLevelThreeScienceTour()
                         // }
-                        if let arrayOffset = self.floorMapArray.index(where: {$0.nid == self.selectednid}) {
-                            self.addBottomSheetView(index: arrayOffset)
+                        if let arrayOffset = self?.floorMapArray.index(where: {$0.nid == self?.selectednid}) {
+                            self?.addBottomSheetView(index: arrayOffset)
                         }
                     }
                 }
@@ -62,11 +62,11 @@ extension FloorMapViewController {
                 var errorMessage: String
                 errorMessage = String(format: NSLocalizedString("NO_RESULT_MESSAGE",
                                                                 comment: "Setting the content of the alert"))
-                self.loadingView.stopLoading()
-                self.loadingView.noDataView.isHidden = false
-                self.loadingView.isHidden = false
-                self.loadingView.showNoDataView()
-                self.loadingView.noDataLabel.text = errorMessage
+                self?.loadingView.stopLoading()
+                self?.loadingView.noDataView.isHidden = false
+                self?.loadingView.isHidden = false
+                self?.loadingView.showNoDataView()
+                self?.loadingView.noDataLabel.text = errorMessage
                 
             }
         }

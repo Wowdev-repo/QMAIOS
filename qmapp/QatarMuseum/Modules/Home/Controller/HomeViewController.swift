@@ -303,11 +303,13 @@ class HomeViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     //MARK: Service call
     func getHomeList() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.HomeList(LocalizationLanguage.currentAppleLanguage())).responseObject { (response: DataResponse<HomeList>) -> Void in
+        _ = CPSessionManager.sharedInstance.apiManager()?
+            .request(QatarMuseumRouter.HomeList(LocalizationLanguage.currentAppleLanguage()))
+            .responseObject { [weak self] (response: DataResponse<HomeList>) -> Void in
             switch response.result {
             case .success(let data):
-                if((self.homeList.count == 0) || (self.homeList.count == 1)) {
-                    self.homeList = data.homeList
+                if((self?.homeList.count == 0) || (self?.homeList.count == 1)) {
+                    self?.homeList = data.homeList
                     /* Just Commented for New Release
                     let panelAndTalksName = NSLocalizedString("PANEL_AND_TALKS",comment: "PANEL_AND_TALKS in Home Page")
                     if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
@@ -323,58 +325,62 @@ class HomeViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                         }
                     }
 */
-                    if let nilItem = self.homeList.first(where: {$0.sortId == "" || $0.sortId == nil}) {
+                    if let nilItem = self?.homeList.first(where: {$0.sortId == "" || $0.sortId == nil}) {
                         print(nilItem)
                     } else {
-                        self.homeList = self.homeList.sorted(by: { Int16($0.sortId!)! < Int16($1.sortId!)! })
+                        self?.homeList = self?.homeList.sorted(by: { Int16($0.sortId!)! < Int16($1.sortId!)! })
                     }
-                    if(self.homeBannerList.count > 0) {
-                        self.homeList.insert(Home(id:self.homeBannerList[0].fullContentID , name: self.homeBannerList[0].bannerTitle,image: self.homeBannerList[0].bannerLink,
+                    if let count = self?.homeBannerList.count, count > 0 {
+                        self?.homeList.insert(Home(id:self?.homeBannerList[0].fullContentID , name: self?.homeBannerList[0].bannerTitle,image: self?.homeBannerList[0].bannerLink,
                                                   tourguide_available: "false", sort_id: nil),
                                              at: 0)
                     }
 
-                    if((self.homeList.count == 0) || (self.homeList.count == 1)) {
-                        self.loadingView.stopLoading()
-                        self.loadingView.noDataView.isHidden = false
-                        self.loadingView.isHidden = false
-                        self.loadingView.showNoDataView()
+                    if((self?.homeList.count == 0) || (self?.homeList.count == 1)) {
+                        self?.loadingView.stopLoading()
+                        self?.loadingView.noDataView.isHidden = false
+                        self?.loadingView.isHidden = false
+                        self?.loadingView.showNoDataView()
                     }
                     
-                    self.homeTableView.reloadData()
+                    self?.homeTableView.reloadData()
                 }
-                if(self.homeList.count > 0) {
+//                if(self?.homeList.count > 0) {
                    // self.saveOrUpdateHomeCoredata(homeList: data.homeList)
-                }
+//                }
             case .failure( _):
-                if((self.homeList.count == 0) || (self.homeList.count == 1)) {
-                    self.loadingView.stopLoading()
-                    self.loadingView.noDataView.isHidden = false
-                    self.loadingView.isHidden = false
-                    self.loadingView.showNoDataView()
+                if((self?.homeList.count == 0) || (self?.homeList.count == 1)) {
+                    self?.loadingView.stopLoading()
+                    self?.loadingView.noDataView.isHidden = false
+                    self?.loadingView.isHidden = false
+                    self?.loadingView.showNoDataView()
                 }
             }
         }
     }
     func getHomeBanner() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.GetHomeBanner()).responseObject { (response: DataResponse<HomeBannerList>) -> Void in
+        _ = CPSessionManager.sharedInstance.apiManager()?
+            .request(QatarMuseumRouter.GetHomeBanner())
+            .responseObject { [weak self] (response: DataResponse<HomeBannerList>) -> Void in
             switch response.result {
             case .success(let data):
                 
-                self.homeBannerList = data.homeBannerList
-                if((UserDefaults.standard.value(forKey: "acceptOrDecline") as? String != nil) && (UserDefaults.standard.value(forKey: "acceptOrDecline") as? String != "")  && (self.homeBannerList.count > 0)) {
-                    if(self.homeList.count > 0) {
-                        self.homeList.insert(Home(id:self.homeBannerList[0].fullContentID , name: self.homeBannerList[0].bannerTitle,image: self.homeBannerList[0].bannerLink,
+                self?.homeBannerList = data.homeBannerList
+                if let count = self?.homeBannerList.count,
+                    (UserDefaults.standard.value(forKey: "acceptOrDecline") as? String != nil) && (UserDefaults.standard.value(forKey: "acceptOrDecline") as? String != "") &&
+                    count > 0 {
+                    if let count = self?.homeList.count, count > 0 {
+                        self?.homeList.insert(Home(id:self?.homeBannerList[0].fullContentID , name: self?.homeBannerList[0].bannerTitle,image: self?.homeBannerList[0].bannerLink,
                                                   tourguide_available: "false", sort_id: nil),
                                              at: 0)
                     }
                     
                 }
-                if(self.homeBannerList.count > 0) {
-                    self.saveOrUpdateHomeBannerCoredata()
+                if let count = self?.homeBannerList.count, count > 0 {
+                    self?.saveOrUpdateHomeBannerCoredata()
                 }
-                self.homeTableView.reloadData()
+                self?.homeTableView.reloadData()
             case .failure( _):
             print("error")
             }
@@ -1068,49 +1074,59 @@ class HomeViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     }
     //MARK: WebServiceCall
     func getCulturePassTokenFromServer(login: Bool? = false) {
-        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.GetToken(["name": loginPopUpView.userNameText.text!,"pass":loginPopUpView.passwordText.text!])).responseObject { (response: DataResponse<TokenData>) -> Void in
+        _ = CPSessionManager.sharedInstance.apiManager()?
+            .request(QatarMuseumRouter.GetToken(["name": loginPopUpView.userNameText.text!,"pass":loginPopUpView.passwordText.text!]))
+            .responseObject { [weak self] (response: DataResponse<TokenData>) -> Void in
             switch response.result {
             case .success(let data):
-                self.accessToken = data.accessToken
+                self?.accessToken = data.accessToken
                 if(login == true) {
-                    self.getCulturePassLoginFromServer()
+                    self?.getCulturePassLoginFromServer()
                 }
                 
             case .failure( _):
-                self.loginPopUpView.loadingView.stopLoading()
-                self.loginPopUpView.loadingView.isHidden = true
+                self?.loginPopUpView.loadingView.stopLoading()
+                self?.loginPopUpView.loadingView.isHidden = true
             }
         }
     }
     func getCulturePassLoginFromServer() {
         let titleString = NSLocalizedString("WEBVIEW_TITLE",comment: "Set the title for Alert")
         if(accessToken != nil) {
-            _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.Login(["name" : loginPopUpView.userNameText.text!,"pass": loginPopUpView.passwordText.text!])).responseObject { (response: DataResponse<LoginData>) -> Void in
+            _ = CPSessionManager.sharedInstance.apiManager()?
+                .request(QatarMuseumRouter.Login(["name" : loginPopUpView.userNameText.text!,"pass": loginPopUpView.passwordText.text!]))
+                .responseObject { [weak self](response: DataResponse<LoginData>) -> Void in
                 switch response.result {
                 case .success(let data):
-                    self.loginPopUpView.loadingView.stopLoading()
-                    self.loginPopUpView.loadingView.isHidden = true
-                    self.keychain.set(self.loginPopUpView.passwordText.text ?? "", forKey: UserProfileInfo.user_password)
+                    self?.loginPopUpView.loadingView.stopLoading()
+                    self?.loginPopUpView.loadingView.isHidden = true
+                    self?.keychain.set(self?.loginPopUpView.passwordText.text ?? "", forKey: UserProfileInfo.user_password)
 
                     if(response.response?.statusCode == 200) {
-                        self.loginArray = data
-                        UserDefaults.standard.setValue(self.loginArray?.token, forKey: "accessToken")
-                        if(self.loginArray != nil) {
-                            if(self.loginArray?.user != nil) {
-                                if(self.loginArray?.user?.uid != nil) {
-                                    self.checkRSVPUserFromServer(userId: self.loginArray?.user?.uid )
+                        self?.loginArray = data
+                        UserDefaults.standard.setValue(self?.loginArray?.token, forKey: "accessToken")
+                        if(self?.loginArray != nil) {
+                            if(self?.loginArray?.user != nil) {
+                                if(self?.loginArray?.user?.uid != nil) {
+                                    self?.checkRSVPUserFromServer(userId: self?.loginArray?.user?.uid )
                                 }
                             }
                         }
                     } else if(response.response?.statusCode == 401) {
-                        showAlertView(title: titleString, message: NSLocalizedString("WRONG_USERNAME_OR_PWD",comment: "Set the message for wrong username or password"), viewController: self)
+                        if let controller = self {
+                            showAlertView(title: titleString, message: NSLocalizedString("WRONG_USERNAME_OR_PWD",comment: "Set the message for wrong username or password"), viewController: controller)
+                        }
+                        
                     } else if(response.response?.statusCode == 406) {
-                        showAlertView(title: titleString, message: NSLocalizedString("ALREADY_LOGGEDIN",comment: "Set the message for Already Logged in"), viewController: self)
+                        if let controller = self {
+                            showAlertView(title: titleString, message: NSLocalizedString("ALREADY_LOGGEDIN",comment: "Set the message for Already Logged in"), viewController: controller)
+                        }
+                        
                     }
                     
                 case .failure( _):
-                    self.loginPopUpView.loadingView.stopLoading()
-                    self.loginPopUpView.loadingView.isHidden = true
+                    self?.loginPopUpView.loadingView.stopLoading()
+                    self?.loginPopUpView.loadingView.isHidden = true
                     
                 }
             }
@@ -1119,34 +1135,36 @@ class HomeViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     }
     //RSVP Service call
     func checkRSVPUserFromServer(userId: String?) {
-        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.GetUser(userId!)).responseObject { (response: DataResponse<UserInfoData>) -> Void in
+        _ = CPSessionManager.sharedInstance.apiManager()?
+            .request(QatarMuseumRouter.GetUser(userId!))
+            .responseObject { [weak self] (response: DataResponse<UserInfoData>) -> Void in
             switch response.result {
             case .success(let data):
-                self.loginPopUpView.loadingView.stopLoading()
-                self.loginPopUpView.loadingView.isHidden = true
+                self?.loginPopUpView.loadingView.stopLoading()
+                self?.loginPopUpView.loadingView.isHidden = true
                 if(response.response?.statusCode == 200) {
-                    self.userInfoArray = data
+                    self?.userInfoArray = data
                     
-                    if(self.userInfoArray != nil) {
-                        if(self.userInfoArray?.fieldRsvpAttendance != nil) {
-                            let undData = self.userInfoArray?.fieldRsvpAttendance!["und"] as? NSArray
+                    if(self?.userInfoArray != nil) {
+                        if(self?.userInfoArray?.fieldRsvpAttendance != nil) {
+                            let undData = self?.userInfoArray?.fieldRsvpAttendance!["und"] as? NSArray
                             if(undData != nil) {
                                 if((undData?.count)! > 0) {
                                     let value = undData?[0] as! NSDictionary
                                     if(value["value"] != nil) {
                                         UserDefaults.standard.setValue(value["value"], forKey: "acceptOrDecline")
-                                        self.getHomeBanner()
+                                        self?.getHomeBanner()
                                     }
                                 }
                                 
                             }
                         }
                     }
-                    self.setProfileDetails(loginInfo: self.loginArray)
+                    self?.setProfileDetails(loginInfo: self?.loginArray)
                 }
             case .failure( _):
-                self.loginPopUpView.loadingView.stopLoading()
-                self.loginPopUpView.loadingView.isHidden = true
+                self?.loginPopUpView.loadingView.stopLoading()
+                self?.loginPopUpView.loadingView.isHidden = true
                 
             }
         }
@@ -1155,15 +1173,17 @@ class HomeViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     func getEventListUserRegistrationFromServer() {
         if((accessToken != nil) && ((keychain.get(UserProfileInfo.user_id) != nil) && (keychain.get(UserProfileInfo.user_id) != nil))){
             let userId = keychain.get(UserProfileInfo.user_id) ?? ""
-            _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.NMoQEventListUserRegistration(["uid" : userId])).responseObject { (response: DataResponse<NMoQUserEventListValues>) -> Void in
+            _ = CPSessionManager.sharedInstance.apiManager()?
+                .request(QatarMuseumRouter.NMoQEventListUserRegistration(["uid" : userId]))
+                .responseObject { [weak self] (response: DataResponse<NMoQUserEventListValues>) -> Void in
                 switch response.result {
                 case .success(let data):
-                    self.userEventList = data.eventList ?? []
-                    self.saveOrUpdateEventReistratedCoredata()
+                    self?.userEventList = data.eventList ?? []
+                    self?.saveOrUpdateEventReistratedCoredata()
                 case .failure( _):
-                    self.loginPopUpView.removeFromSuperview()
-                    self.loginPopUpView.loadingView.stopLoading()
-                    self.loginPopUpView.loadingView.isHidden = true
+                    self?.loginPopUpView.removeFromSuperview()
+                    self?.loginPopUpView.loadingView.stopLoading()
+                    self?.loginPopUpView.loadingView.isHidden = true
                 }
             }
         }

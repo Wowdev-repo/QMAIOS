@@ -113,11 +113,11 @@ class GoogleMapViewController: UIViewController,CLLocationManagerDelegate,GMSMap
         
         let url = "https://maps.googleapis.com/maps/api/directions/json?origin=\(origin)&destination=\(destination)&mode=driving&key=\(apiKey)"
         
-        CPSessionManager.sharedInstance.apiManager()?.request(url).responseObject { (response: DataResponse<GoogleDirections>) -> Void in
+        CPSessionManager.sharedInstance.apiManager()?.request(url).responseObject { [weak self] (response: DataResponse<GoogleDirections>) -> Void in
             switch response.result {
             case .success(let data):
                 print(data)
-                self.directionArray = data
+                self?.directionArray = data
             case .failure( _):
                 print("error")
             }
@@ -143,7 +143,7 @@ class GoogleMapViewController: UIViewController,CLLocationManagerDelegate,GMSMap
 //            }
             
         }
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
+        DDLogInfo("Function: \(#function)")
     }
     
     // MARK: function for create a marker pin on map

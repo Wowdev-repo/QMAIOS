@@ -314,30 +314,30 @@ extension TourAndPanelListViewController {
 extension TourAndPanelListViewController {
     //MARK: TravelList Service Call
     func getTravelList() {
-        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.GetNMoQTravelList(LocalizationLanguage.currentAppleLanguage())).responseObject { (response: DataResponse<HomeBannerList>) -> Void in
+        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.GetNMoQTravelList(LocalizationLanguage.currentAppleLanguage())).responseObject { [weak self] (response: DataResponse<HomeBannerList>) -> Void in
             switch response.result {
             case .success(let data):
-                if(self.travelList.count == 0) {
-                    self.travelList = data.homeBannerList
-                    self.collectionTableView.reloadData()
-                    if(self.travelList.count == 0) {
-                        self.loadingView.stopLoading()
-                        self.loadingView.noDataView.isHidden = false
-                        self.loadingView.isHidden = false
-                        self.loadingView.showNoDataView()
+                if(self?.travelList.count == 0) {
+                    self?.travelList = data.homeBannerList
+                    self?.collectionTableView.reloadData()
+                    if(self?.travelList.count == 0) {
+                        self?.loadingView.stopLoading()
+                        self?.loadingView.noDataView.isHidden = false
+                        self?.loadingView.isHidden = false
+                        self?.loadingView.showNoDataView()
                     }
                 }
-                if(self.nmoqActivityList.count > 0) {
+                if let count = self?.nmoqActivityList.count, count > 0 {
                     if let homeBannerList = data.homeBannerList {
-                        self.saveOrUpdateTravelListCoredata(travelList: homeBannerList)
+                        self?.saveOrUpdateTravelListCoredata(travelList: homeBannerList)
                     }
                 }
             case .failure( _):
-                if(self.travelList.count == 0) {
-                    self.loadingView.stopLoading()
-                    self.loadingView.noDataView.isHidden = false
-                    self.loadingView.isHidden = false
-                    self.loadingView.showNoDataView()
+                if(self?.travelList.count == 0) {
+                    self?.loadingView.stopLoading()
+                    self?.loadingView.noDataView.isHidden = false
+                    self?.loadingView.isHidden = false
+                    self?.loadingView.showNoDataView()
                 }
             }
         }
@@ -346,69 +346,70 @@ extension TourAndPanelListViewController {
     //MARK: Facilities API
     func getFacilitiesListFromServer()
     {
-        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.FacilitiesList(LocalizationLanguage.currentAppleLanguage())).responseObject { (response: DataResponse<FacilitiesData>) -> Void in
+        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.FacilitiesList(LocalizationLanguage.currentAppleLanguage())).responseObject { [weak self] (response: DataResponse<FacilitiesData>) -> Void in
             switch response.result {
             case .success(let data):
-                if(self.facilitiesList.count == 0) {
-                    self.facilitiesList = data.facilitiesList
-                    if self.facilitiesList.first(where: {$0.sortId != "" && $0.sortId != nil} ) != nil {
-                        self.facilitiesList = self.facilitiesList.sorted(by: { Int16($0.sortId!)! < Int16($1.sortId!)! })
+                if(self?.facilitiesList.count == 0) {
+                    self?.facilitiesList = data.facilitiesList
+                    if self?.facilitiesList.first(where: {$0.sortId != "" && $0.sortId != nil} ) != nil {
+                        self?.facilitiesList = self?.facilitiesList.sorted(by: { Int16($0.sortId!)! < Int16($1.sortId!)! })
                     }
-                    self.collectionTableView.reloadData()
-                    if(self.facilitiesList.count == 0) {
-                        self.loadingView.stopLoading()
-                        self.loadingView.noDataView.isHidden = false
-                        self.loadingView.isHidden = false
-                        self.loadingView.showNoDataView()
+                    self?.collectionTableView.reloadData()
+                    if(self?.facilitiesList.count == 0) {
+                        self?.loadingView.stopLoading()
+                        self?.loadingView.noDataView.isHidden = false
+                        self?.loadingView.isHidden = false
+                        self?.loadingView.showNoDataView()
                     }
                 }
-                if(self.facilitiesList.count > 0) {
+                if let count = self?.facilitiesList.count, count > 0 {
                     if let facilitiesList = data.facilitiesList {
-                        self.saveOrUpdateFacilitiesListCoredata(facilitiesList: facilitiesList,
+                        self?.saveOrUpdateFacilitiesListCoredata(facilitiesList: facilitiesList,
                                                                 language: LocalizationLanguage.currentAppleLanguage())
                     }
                 }
             case .failure( _):
-                if(self.facilitiesList.count == 0) {
-                    self.loadingView.stopLoading()
-                    self.loadingView.noDataView.isHidden = false
-                    self.loadingView.isHidden = false
-                    self.loadingView.showNoDataView()
+                if(self?.facilitiesList.count == 0) {
+                    self?.loadingView.stopLoading()
+                    self?.loadingView.noDataView.isHidden = false
+                    self?.loadingView.isHidden = false
+                    self?.loadingView.showNoDataView()
                 }
             }
             
-            DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
+            DDLogInfo("Function: \(#function)")
         }
     }
     //Activities API
     func getNMoQSpecialEventList() {
-        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.GetNMoQSpecialEventList(LocalizationLanguage.currentAppleLanguage())).responseObject { (response: DataResponse<NMoQActivitiesListData>) -> Void in
+        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.GetNMoQSpecialEventList(LocalizationLanguage.currentAppleLanguage()))
+            .responseObject { [weak self] (response: DataResponse<NMoQActivitiesListData>) -> Void in
             switch response.result {
             case .success(let data):
-                if(self.nmoqActivityList.count == 0) {
-                    self.nmoqActivityList = data.nmoqActivitiesList
-                    if self.nmoqActivityList.first(where: {$0.sortId != "" && $0.sortId != nil} ) != nil {
-                        self.nmoqActivityList = self.nmoqActivityList.sorted(by: { Int16($0.sortId!)! < Int16($1.sortId!)! })
+                if(self?.nmoqActivityList.count == 0) {
+                    self?.nmoqActivityList = data.nmoqActivitiesList
+                    if self?.nmoqActivityList.first(where: {$0.sortId != "" && $0.sortId != nil} ) != nil {
+                        self?.nmoqActivityList = self?.nmoqActivityList.sorted(by: { Int16($0.sortId!)! < Int16($1.sortId!)! })
                     }
-                    self.collectionTableView.reloadData()
-                    if(self.nmoqActivityList.count == 0) {
-                        self.loadingView.stopLoading()
-                        self.loadingView.noDataView.isHidden = false
-                        self.loadingView.isHidden = false
-                        self.loadingView.showNoDataView()
+                    self?.collectionTableView.reloadData()
+                    if(self?.nmoqActivityList.count == 0) {
+                        self?.loadingView.stopLoading()
+                        self?.loadingView.noDataView.isHidden = false
+                        self?.loadingView.isHidden = false
+                        self?.loadingView.showNoDataView()
                     }
                 }
-                if(self.nmoqActivityList.count > 0) {
+                if let count = self?.nmoqActivityList.count, count > 0 {
                     if let list = data.nmoqActivitiesList {
-                        self.saveOrUpdateActivityListCoredata(nmoqActivityList: list)
+                        self?.saveOrUpdateActivityListCoredata(nmoqActivityList: list)
                     }
                 }
             case .failure( _):
-                if(self.nmoqActivityList.count == 0) {
-                    self.loadingView.stopLoading()
-                    self.loadingView.noDataView.isHidden = false
-                    self.loadingView.isHidden = false
-                    self.loadingView.showNoDataView()
+                if(self?.nmoqActivityList.count == 0) {
+                    self?.loadingView.stopLoading()
+                    self?.loadingView.noDataView.isHidden = false
+                    self?.loadingView.isHidden = false
+                    self?.loadingView.showNoDataView()
                 }
             }
         }
@@ -417,33 +418,34 @@ extension TourAndPanelListViewController {
     func getNMoQTourList() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         
-        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.GetNMoQTourList(LocalizationLanguage.currentAppleLanguage())).responseObject { (response: DataResponse<NMoQTourList>) -> Void in
+        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.GetNMoQTourList(LocalizationLanguage.currentAppleLanguage()))
+            .responseObject { [weak self] (response: DataResponse<NMoQTourList>) -> Void in
             switch response.result {
             case .success(let data):
-                if(self.nmoqTourList.count == 0) {
-                    self.nmoqTourList = data.nmoqTourList
-                    self.collectionTableView.reloadData()
-                    if(self.nmoqTourList.count == 0) {
-                        self.loadingView.stopLoading()
-                        self.loadingView.noDataView.isHidden = false
-                        self.loadingView.isHidden = false
-                        self.loadingView.showNoDataView()
+                if(self?.nmoqTourList.count == 0) {
+                    self?.nmoqTourList = data.nmoqTourList
+                    self?.collectionTableView.reloadData()
+                    if(self?.nmoqTourList.count == 0) {
+                        self?.loadingView.stopLoading()
+                        self?.loadingView.noDataView.isHidden = false
+                        self?.loadingView.isHidden = false
+                        self?.loadingView.showNoDataView()
                     }
                 }
-                if(self.nmoqTourList.count > 0) {
+                if let count = self?.nmoqTourList.count, count > 0 {
                     if let nmoqTourList = data.nmoqTourList {
-                        self.saveOrUpdateTourListCoredata(nmoqTourList: nmoqTourList,
+                        self?.saveOrUpdateTourListCoredata(nmoqTourList: nmoqTourList,
                                                           isTourGuide: true)
                     }
                 }
                 
             case .failure( _):
                 
-                if(self.nmoqTourList.count == 0) {
-                    self.loadingView.stopLoading()
-                    self.loadingView.noDataView.isHidden = false
-                    self.loadingView.isHidden = false
-                    self.loadingView.showNoDataView()
+                if(self?.nmoqTourList.count == 0) {
+                    self?.loadingView.stopLoading()
+                    self?.loadingView.noDataView.isHidden = false
+                    self?.loadingView.isHidden = false
+                    self?.loadingView.showNoDataView()
                 }
             }
         }

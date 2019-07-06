@@ -297,7 +297,9 @@ extension ProfileViewController {
     func filterButtonPressed() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function) + Action: Logout")
         if(UserDefaults.standard.value(forKey: "accessToken") as? String != nil) {
-            _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.Logout()).responseObject { (response: DataResponse<LogoutData>) -> Void in
+            _ = CPSessionManager.sharedInstance.apiManager()?
+                .request(QatarMuseumRouter.Logout())
+                .responseObject { [weak self] (response: DataResponse<LogoutData>) -> Void in
                 switch response.result {
                 case .success( _):
                     if(response.response?.statusCode == 200) {
@@ -305,40 +307,43 @@ extension ProfileViewController {
                         UserDefaults.standard.removeObject(forKey: "acceptOrDecline")
                         
                         
-                        self.keychain.set("", forKey: UserProfileInfo.user_id)
-                        self.keychain.set("", forKey: UserProfileInfo.user_email)
-                        self.keychain.set("", forKey: UserProfileInfo.user_dispaly_name)
-                        self.keychain.set("", forKey: UserProfileInfo.user_dob)
-                        self.keychain.set("", forKey: UserProfileInfo.user_country)
-                        self.keychain.set("", forKey: UserProfileInfo.user_nationality)
-                        self.keychain.set("", forKey: UserProfileInfo.user_photo)
+                        self?.keychain.set("", forKey: UserProfileInfo.user_id)
+                        self?.keychain.set("", forKey: UserProfileInfo.user_email)
+                        self?.keychain.set("", forKey: UserProfileInfo.user_dispaly_name)
+                        self?.keychain.set("", forKey: UserProfileInfo.user_dob)
+                        self?.keychain.set("", forKey: UserProfileInfo.user_country)
+                        self?.keychain.set("", forKey: UserProfileInfo.user_nationality)
+                        self?.keychain.set("", forKey: UserProfileInfo.user_photo)
                         
-                        self.keychain.delete(UserProfileInfo.user_firstname)
-                        self.keychain.delete(UserProfileInfo.user_lastname)// Remove single key
+                        self?.keychain.delete(UserProfileInfo.user_firstname)
+                        self?.keychain.delete(UserProfileInfo.user_lastname)// Remove single key
                         
                         if((UserDefaults.standard.value(forKey: "acceptOrDecline") as? String != nil) && (UserDefaults.standard.value(forKey: "acceptOrDecline") as? String != "")) {
                             let managedContext = getContext()
                             DataManager.delete(managedContext: managedContext, entityName: "RegisteredEventListEntity")
                         }
                         
-                        if let presenter = self.presentingViewController as? CulturePassViewController {
+                        if let presenter = self?.presentingViewController as? CulturePassViewController {
                             presenter.fromHome = true
                             presenter.fromProfile = true
-                            self.dismiss(animated: false, completion: nil)
+                            self?.dismiss(animated: false, completion: nil)
                         } else {
-                            let culturePassView =  self.storyboard?.instantiateViewController(withIdentifier: "culturePassViewId") as! CulturePassViewController
+                            let culturePassView =  self?.storyboard?.instantiateViewController(withIdentifier: "culturePassViewId") as! CulturePassViewController
                             culturePassView.fromHome = true
                             culturePassView.fromProfile = true
-                            self.present(culturePassView, animated: false, completion: nil)
+                            self?.present(culturePassView, animated: false, completion: nil)
                         }
                         
                     } else {
-                        showAlertView(title: NSLocalizedString("WEBVIEW_TITLE", comment: "WEBVIEW_TITLE in profile page"), message: NSLocalizedString("LOGOUT_ERROR", comment: "LOGOUT_ERROR in profile page"), viewController: self)
+                        if let controller = self {
+                            showAlertView(title: NSLocalizedString("WEBVIEW_TITLE", comment: "WEBVIEW_TITLE in profile page"), message: NSLocalizedString("LOGOUT_ERROR", comment: "LOGOUT_ERROR in profile page"), viewController: controller)
+                        }
+                        
                     }
                 case .failure( _):
-                    self.view.hideAllToasts()
+                    self?.view.hideAllToasts()
                     let logOutFailture =  NSLocalizedString("LOGOUT_ERROR", comment: "LOGOUT_ERROR")
-                    self.view.makeToast(logOutFailture)
+                    self?.view.makeToast(logOutFailture)
                     
                 }
             }

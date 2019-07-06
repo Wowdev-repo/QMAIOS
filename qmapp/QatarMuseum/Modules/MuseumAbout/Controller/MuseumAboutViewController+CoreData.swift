@@ -13,37 +13,37 @@ extension MuseumAboutViewController {
     //MARK: ABout Webservice
     func getAboutDetailsFromServer() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.LandingPageMuseums(["nid": museumId ?? 0])).responseObject { (response: DataResponse<Museums>) -> Void in
+        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.LandingPageMuseums(["nid": museumId ?? 0])).responseObject { [weak self] (response: DataResponse<Museums>) -> Void in
             switch response.result {
             case .success(let data):
-                self.aboutDetailtArray = data.museum!
-                self.setTopBarImage()
-                self.saveOrUpdateAboutCoredata(aboutDetailtArray: data.museum)
-                self.heritageDetailTableView.reloadData()
-                self.loadingView.stopLoading()
-                self.loadingView.isHidden = true
-                if(self.aboutDetailtArray.count != 0) {
-                    if(self.aboutDetailtArray[0].multimediaFile != nil) {
-                        if((self.aboutDetailtArray[0].multimediaFile?.count)! > 0) {
-                            self.carousel.reloadData()
+                self?.aboutDetailtArray = data.museum!
+                self?.setTopBarImage()
+                self?.saveOrUpdateAboutCoredata(aboutDetailtArray: data.museum)
+                self?.heritageDetailTableView.reloadData()
+                self?.loadingView.stopLoading()
+                self?.loadingView.isHidden = true
+                if(self?.aboutDetailtArray.count != 0) {
+                    if(self?.aboutDetailtArray[0].multimediaFile != nil) {
+                        if((self?.aboutDetailtArray[0].multimediaFile?.count)! > 0) {
+                            self?.carousel.reloadData()
                         }
                     }
                 }
-                if (self.aboutDetailtArray.count == 0) {
-                    self.loadingView.stopLoading()
-                    self.loadingView.noDataView.isHidden = false
-                    self.loadingView.isHidden = false
-                    self.loadingView.showNoDataView()
+                if (self?.aboutDetailtArray.count == 0) {
+                    self?.loadingView.stopLoading()
+                    self?.loadingView.noDataView.isHidden = false
+                    self?.loadingView.isHidden = false
+                    self?.loadingView.showNoDataView()
                 }
             case .failure( _):
                 var errorMessage: String
                 errorMessage = String(format: NSLocalizedString("NO_RESULT_MESSAGE",
                                                                 comment: "Setting the content of the alert"))
-                self.loadingView.stopLoading()
-                self.loadingView.noDataView.isHidden = false
-                self.loadingView.isHidden = false
-                self.loadingView.showNoDataView()
-                self.loadingView.noDataLabel.text = errorMessage
+                self?.loadingView.stopLoading()
+                self?.loadingView.noDataView.isHidden = false
+                self?.loadingView.isHidden = false
+                self?.loadingView.showNoDataView()
+                self?.loadingView.noDataLabel.text = errorMessage
             }
         }
     }
@@ -52,29 +52,30 @@ extension MuseumAboutViewController {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         if(museumId != nil) {
             
-            _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.GetNMoQAboutEvent(LocalizationLanguage.currentAppleLanguage(),["nid": museumId!])).responseObject { (response: DataResponse<Museums>) -> Void in
+            _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.GetNMoQAboutEvent(LocalizationLanguage.currentAppleLanguage(),["nid": museumId!]))
+                .responseObject { [weak self] (response: DataResponse<Museums>) -> Void in
                 switch response.result {
                 case .success(let data):
-                    if(self.aboutDetailtArray.count == 0) {
-                        self.aboutDetailtArray = data.museum!
-                        self.heritageDetailTableView.reloadData()
-                        if(self.aboutDetailtArray.count == 0) {
-                            self.loadingView.stopLoading()
-                            self.loadingView.noDataView.isHidden = false
-                            self.loadingView.isHidden = false
-                            self.loadingView.showNoDataView()
+                    if(self?.aboutDetailtArray.count == 0) {
+                        self?.aboutDetailtArray = data.museum!
+                        self?.heritageDetailTableView.reloadData()
+                        if(self?.aboutDetailtArray.count == 0) {
+                            self?.loadingView.stopLoading()
+                            self?.loadingView.noDataView.isHidden = false
+                            self?.loadingView.isHidden = false
+                            self?.loadingView.showNoDataView()
                         }
                     }
-                    if(self.aboutDetailtArray.count > 0) {
-                        self.saveOrUpdateAboutCoredata(aboutDetailtArray: data.museum)
+                    if let count = self?.aboutDetailtArray.count, count > 0 {
+                        self?.saveOrUpdateAboutCoredata(aboutDetailtArray: data.museum)
                     }
                     
                 case .failure( _):
-                    if(self.aboutDetailtArray.count == 0) {
-                        self.loadingView.stopLoading()
-                        self.loadingView.noDataView.isHidden = false
-                        self.loadingView.isHidden = false
-                        self.loadingView.showNoDataView()
+                    if(self?.aboutDetailtArray.count == 0) {
+                        self?.loadingView.stopLoading()
+                        self?.loadingView.noDataView.isHidden = false
+                        self?.loadingView.isHidden = false
+                        self?.loadingView.showNoDataView()
                     }
                 }
             }

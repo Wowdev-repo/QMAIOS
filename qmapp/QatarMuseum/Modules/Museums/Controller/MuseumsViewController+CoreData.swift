@@ -14,15 +14,15 @@ extension MuseumsViewController {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         _ = CPSessionManager.sharedInstance.apiManager()?
             .request(QatarMuseumRouter.LandingPageMuseums(["nid": museumId ?? 0]))
-            .responseObject { (response: DataResponse<Museums>) -> Void in
+            .responseObject { [weak self] (response: DataResponse<Museums>) -> Void in
                 switch response.result {
                 case .success(let data):
-                    if(self.museumArray.count == 0) {
-                        self.museumArray = data.museum!
+                    if(self?.museumArray.count == 0) {
+                        self?.museumArray = data.museum!
                     }
-                    if(self.museumArray.count > 0) {
-                        self.setImageArray(imageArray: self.museumArray[0].multimediaFile)
-                        self.saveOrUpdateAboutCoredata(aboutDetailtArray: data.museum)
+                    if let count = self?.museumArray.count, count > 0 {
+                        self?.setImageArray(imageArray: self?.museumArray[0].multimediaFile)
+                        self?.saveOrUpdateAboutCoredata(aboutDetailtArray: data.museum)
                     }
                 case .failure(let error):
                     print(error)

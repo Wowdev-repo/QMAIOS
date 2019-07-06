@@ -86,42 +86,42 @@ extension PreviewContainerViewController {
 extension PreviewContainerViewController {
     func getTourGuideDataFromServer() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.CollectionByTourGuide(LocalizationLanguage.currentAppleLanguage(),["tour_guide_id": tourGuideId!])).responseObject { (response: DataResponse<TourGuideFloorMaps>) -> Void in
+        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.CollectionByTourGuide(LocalizationLanguage.currentAppleLanguage(),["tour_guide_id": tourGuideId!])).responseObject { [weak self] (response: DataResponse<TourGuideFloorMaps>) -> Void in
             switch response.result {
             case .success(let data):
-                self.tourGuideArray = data.tourGuideFloorMap
-                self.countValue = self.tourGuideArray.count
-                if(self.tourGuideArray.count != 0) {
-                    self.headerView.settingsButton.isHidden = false
-                    if((self.museumId == "63") || (self.museumId == "96")) {
-                        self.headerView.settingsButton.setImage(UIImage(named: "locationImg"), for: .normal)
+                self?.tourGuideArray = data.tourGuideFloorMap
+                self?.countValue = self?.tourGuideArray.count
+                if(self?.tourGuideArray.count != 0) {
+                    self?.headerView.settingsButton.isHidden = false
+                    if((self?.museumId == "63") || (self?.museumId == "96")) {
+                        self?.headerView.settingsButton.setImage(UIImage(named: "locationImg"), for: .normal)
                     } else {
-                        self.headerView.settingsButton.isHidden = true
+                        self?.headerView.settingsButton.isHidden = true
                     }
-                    self.headerView.settingsButton.contentEdgeInsets = UIEdgeInsets(top: 9, left: 10, bottom:9, right: 10)
-                    self.setUpPageControl()
-                    self.showOrHidePageControlView(countValue: self.tourGuideArray.count, scrolling: false)
-                    self.showPageControlAtFirstTime()
-                    self.saveOrUpdateTourGuideCoredata()
+                    self?.headerView.settingsButton.contentEdgeInsets = UIEdgeInsets(top: 9, left: 10, bottom:9, right: 10)
+                    self?.setUpPageControl()
+                    self?.showOrHidePageControlView(countValue: self?.tourGuideArray.count, scrolling: false)
+                    self?.showPageControlAtFirstTime()
+                    self?.saveOrUpdateTourGuideCoredata()
                 }
-                self.loadingView.stopLoading()
-                self.loadingView.isHidden = true
+                self?.loadingView.stopLoading()
+                self?.loadingView.isHidden = true
                 
-                if (self.tourGuideArray.count == 0) {
-                    self.loadingView.stopLoading()
-                    self.loadingView.noDataView.isHidden = false
-                    self.loadingView.isHidden = false
-                    self.loadingView.showNoDataView()
+                if (self?.tourGuideArray.count == 0) {
+                    self?.loadingView.stopLoading()
+                    self?.loadingView.noDataView.isHidden = false
+                    self?.loadingView.isHidden = false
+                    self?.loadingView.showNoDataView()
                 }
             case .failure(let error):
                 var errorMessage: String
                 errorMessage = String(format: NSLocalizedString("NO_RESULT_MESSAGE",
                                                                 comment: "Setting the content of the alert"))
-                self.loadingView.stopLoading()
-                self.loadingView.noDataView.isHidden = false
-                self.loadingView.isHidden = false
-                self.loadingView.showNoDataView()
-                self.loadingView.noDataLabel.text = errorMessage
+                self?.loadingView.stopLoading()
+                self?.loadingView.noDataView.isHidden = false
+                self?.loadingView.isHidden = false
+                self?.loadingView.showNoDataView()
+                self?.loadingView.noDataLabel.text = errorMessage
             }
         }
     }
@@ -129,11 +129,11 @@ extension PreviewContainerViewController {
     func getTourGuideDataFromServerInBackgound() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         let queue = DispatchQueue(label: "", qos: .background, attributes: .concurrent)
-        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.CollectionByTourGuide(LocalizationLanguage.currentAppleLanguage(),["tour_guide_id": tourGuideId!])).responseObject(queue: queue) { (response: DataResponse<TourGuideFloorMaps>) -> Void in
+        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.CollectionByTourGuide(LocalizationLanguage.currentAppleLanguage(),["tour_guide_id": tourGuideId!])).responseObject(queue: queue) { [weak self] (response: DataResponse<TourGuideFloorMaps>) -> Void in
             switch response.result {
             case .success(let data):
                 if(data.tourGuideFloorMap?.count != 0) {
-                    self.saveOrUpdateTourGuideCoredata()
+                    self?.saveOrUpdateTourGuideCoredata()
                 }
             case .failure(let error):
                 print(error)

@@ -15,37 +15,39 @@ extension EventViewController {
         // let dateString = toMillis()
         let getDate = toDayMonthYear()
         if ((getDate.day != nil) && (getDate.month != nil) && (getDate.year != nil)) {
-            _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.EducationEvent(["field_eduprog_repeat_field_date_value[value][month]" : getDate.month!, "field_eduprog_repeat_field_date_value[value][day]" : getDate.day!,"field_eduprog_repeat_field_date_value[value][year]" : getDate.year!,"cck_multiple_field_remove_fields" : "All","institution" : institutionType ?? "All","age" : ageGroupType ?? "All", "programe" : programmeType ?? "All"] )).responseObject { (response: DataResponse<EducationEventList>) -> Void in
+            _ = CPSessionManager.sharedInstance.apiManager()?
+                .request(QatarMuseumRouter.EducationEvent(["field_eduprog_repeat_field_date_value[value][month]" : getDate.month!, "field_eduprog_repeat_field_date_value[value][day]" : getDate.day!,"field_eduprog_repeat_field_date_value[value][year]" : getDate.year!,"cck_multiple_field_remove_fields" : "All","institution" : institutionType ?? "All","age" : ageGroupType ?? "All", "programe" : programmeType ?? "All"] ))
+                .responseObject { [weak self] (response: DataResponse<EducationEventList>) -> Void in
                 switch response.result {
                 case .success(let data):
-                    self.educationEventArray = data.educationEvent!
-                    if (self.isLoadEventPage == true) {
-                        self.saveOrUpdateEventCoredata()
+                    self?.educationEventArray = data.educationEvent!
+                    if (self?.isLoadEventPage == true) {
+                        self?.saveOrUpdateEventCoredata()
                     }
                     else {
-                        self.saveOrUpdateEducationEventCoredata()
+                        self?.saveOrUpdateEducationEventCoredata()
                     }
-                    self.eventCollectionView.reloadData()
-                    self.loadingView.stopLoading()
-                    self.loadingView.isHidden = true
-                    if (self.educationEventArray.count == 0) {
-                        self.loadingView.stopLoading()
-                        self.loadingView.noDataView.isHidden = false
-                        self.loadingView.isHidden = false
-                        self.loadingView.showNoDataView()
+                    self?.eventCollectionView.reloadData()
+                    self?.loadingView.stopLoading()
+                    self?.loadingView.isHidden = true
+                    if (self?.educationEventArray.count == 0) {
+                        self?.loadingView.stopLoading()
+                        self?.loadingView.noDataView.isHidden = false
+                        self?.loadingView.isHidden = false
+                        self?.loadingView.showNoDataView()
                         let message = NSLocalizedString("NO_EVENTS",
                                                         comment: "Setting the content of the alert")
-                        self.loadingView.noDataLabel.text = message
+                        self?.loadingView.noDataLabel.text = message
                     }
                 case .failure( _):
                     var errorMessage: String
                     errorMessage = String(format: NSLocalizedString("NO_EVENTS",
                                                                     comment: "Setting the content of the alert"))
-                    self.loadingView.stopLoading()
-                    self.loadingView.noDataView.isHidden = false
-                    self.loadingView.isHidden = false
-                    self.loadingView.showNoDataView()
-                    self.loadingView.noDataLabel.text = errorMessage
+                    self?.loadingView.stopLoading()
+                    self?.loadingView.noDataView.isHidden = false
+                    self?.loadingView.isHidden = false
+                    self?.loadingView.showNoDataView()
+                    self?.loadingView.noDataLabel.text = errorMessage
                 }
             }
         }

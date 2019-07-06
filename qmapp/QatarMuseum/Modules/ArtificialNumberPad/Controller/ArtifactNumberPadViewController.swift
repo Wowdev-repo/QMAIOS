@@ -120,27 +120,27 @@ extension ArtifactNumberPadViewController {
     {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)" + "SearchString: \(searchString)")
         if((searchString != "") && (searchString != nil)) {
-            _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.CollectionByTourGuide(LocalizationLanguage.currentAppleLanguage(),["artifact_number": searchString!])).responseObject { (response: DataResponse<TourGuideFloorMaps>) -> Void in
+            _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.CollectionByTourGuide(LocalizationLanguage.currentAppleLanguage(),["artifact_number": searchString!])).responseObject { [weak self] (response: DataResponse<TourGuideFloorMaps>) -> Void in
                 switch response.result {
                 case .success(let data):
-                    self.objectDetailArray = data.tourGuideFloorMap
-                    if(self.objectDetailArray.count != 0) {
-                        self.loadObjectDetail()
+                    self?.objectDetailArray = data.tourGuideFloorMap
+                    if(self?.objectDetailArray.count != 0) {
+                        self?.loadObjectDetail()
                     }
-                    self.loadingView.stopLoading()
-                    self.loadingView.isHidden = true
+                    self?.loadingView.stopLoading()
+                    self?.loadingView.isHidden = true
                     
-                    if (self.objectDetailArray.count == 0) {
-                        self.loadingView.stopLoading()
-                        self.loadingView.isHidden = true
-                        self.view.hideAllToasts()
+                    if (self?.objectDetailArray.count == 0) {
+                        self?.loadingView.stopLoading()
+                        self?.loadingView.isHidden = true
+                        self?.view.hideAllToasts()
                         let locationMissingMessage =  NSLocalizedString("NO_ARTIFACTS", comment: "NO_ARTIFACTS")
-                        self.view.makeToast(locationMissingMessage)
+                        self?.view.makeToast(locationMissingMessage)
                         
                     }
                 case .failure(let error):
-                    self.loadingView.stopLoading()
-                    self.loadingView.isHidden = true
+                    self?.loadingView.stopLoading()
+                    self?.loadingView.isHidden = true
                 }
             }
         }

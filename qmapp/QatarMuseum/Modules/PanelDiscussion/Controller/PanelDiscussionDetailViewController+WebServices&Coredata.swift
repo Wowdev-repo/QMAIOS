@@ -66,29 +66,31 @@ extension PanelDiscussionDetailViewController {
     //MARK: WebServiceCall
     func getCollectioDetailsFromServer() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.CollectionDetail(["category": collectionName!])).responseObject { (response: DataResponse<CollectionDetails>) -> Void in
+        _ = CPSessionManager.sharedInstance.apiManager()?
+            .request(QatarMuseumRouter.CollectionDetail(["category": collectionName!]))
+            .responseObject { [weak self] (response: DataResponse<CollectionDetails>) -> Void in
             switch response.result {
             case .success(let data):
-                self.collectionDetailArray = data.collectionDetails ?? []
-                self.saveOrUpdateCollectionDetailCoredata()
-                self.panelDetailTableView.reloadData()
-                self.loadingView.stopLoading()
-                self.loadingView.isHidden = true
-                if (self.collectionDetailArray.count == 0) {
-                    self.loadingView.stopLoading()
-                    self.loadingView.noDataView.isHidden = false
-                    self.loadingView.isHidden = false
-                    self.loadingView.showNoDataView()
+                self?.collectionDetailArray = data.collectionDetails ?? []
+                self?.saveOrUpdateCollectionDetailCoredata()
+                self?.panelDetailTableView.reloadData()
+                self?.loadingView.stopLoading()
+                self?.loadingView.isHidden = true
+                if (self?.collectionDetailArray.count == 0) {
+                    self?.loadingView.stopLoading()
+                    self?.loadingView.noDataView.isHidden = false
+                    self?.loadingView.isHidden = false
+                    self?.loadingView.showNoDataView()
                 }
             case .failure( _):
                 var errorMessage: String
                 errorMessage = String(format: NSLocalizedString("NO_RESULT_MESSAGE",
                                                                 comment: "Setting the content of the alert"))
-                self.loadingView.stopLoading()
-                self.loadingView.noDataView.isHidden = false
-                self.loadingView.isHidden = false
-                self.loadingView.showNoDataView()
-                self.loadingView.noDataLabel.text = errorMessage
+                self?.loadingView.stopLoading()
+                self?.loadingView.noDataView.isHidden = false
+                self?.loadingView.isHidden = false
+                self?.loadingView.showNoDataView()
+                self?.loadingView.noDataLabel.text = errorMessage
             }
         }
     }
@@ -96,35 +98,37 @@ extension PanelDiscussionDetailViewController {
     func getNMoQParkDetailFromServer() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         if (nid != nil) {
-            _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.GetNMoQPlaygroundDetail(LocalizationLanguage.currentAppleLanguage(), ["nid": nid!])).responseObject { (response: DataResponse<NMoQParksDetail>) -> Void in
+            _ = CPSessionManager.sharedInstance.apiManager()?
+                .request(QatarMuseumRouter.GetNMoQPlaygroundDetail(LocalizationLanguage.currentAppleLanguage(), ["nid": nid!]))
+                .responseObject { [weak self] (response: DataResponse<NMoQParksDetail>) -> Void in
                 switch response.result {
                 case .success(let data):
-                    self.nmoqParkDetailArray = data.nmoqParksDetail
-                    if (self.nmoqParkDetailArray.count > 0) {
-                        if self.nmoqParkDetailArray.first(where: {$0.sortId != "" && $0.sortId != nil} ) != nil {
-                            self.nmoqParkDetailArray = self.nmoqParkDetailArray.sorted(by: { Int16($0.sortId!)! < Int16($1.sortId!)! })
+                    self?.nmoqParkDetailArray = data.nmoqParksDetail
+                    if let count = self?.nmoqParkDetailArray.count, count > 0 {
+                        if self?.nmoqParkDetailArray.first(where: {$0.sortId != "" && $0.sortId != nil} ) != nil {
+                            self?.nmoqParkDetailArray = self?.nmoqParkDetailArray.sorted(by: { Int16($0.sortId!)! < Int16($1.sortId!)! })
                         }
                     }
                     //self.saveOrUpdateNmoqParkDetailCoredata(nmoqParkList: data.nmoqParksDetail)
-                    self.panelDetailTableView.reloadData()
-                    self.loadingView.stopLoading()
-                    self.loadingView.isHidden = true
-                    if (self.nmoqParkDetailArray.count == 0) {
-                        self.loadingView.stopLoading()
-                        self.loadingView.noDataView.isHidden = false
-                        self.loadingView.isHidden = false
-                        self.loadingView.showNoDataView()
+                    self?.panelDetailTableView.reloadData()
+                    self?.loadingView.stopLoading()
+                    self?.loadingView.isHidden = true
+                    if (self?.nmoqParkDetailArray.count == 0) {
+                        self?.loadingView.stopLoading()
+                        self?.loadingView.noDataView.isHidden = false
+                        self?.loadingView.isHidden = false
+                        self?.loadingView.showNoDataView()
                     }
                     
                 case .failure( _):
                     var errorMessage: String
                     errorMessage = String(format: NSLocalizedString("NO_RESULT_MESSAGE",
                                                                     comment: "Setting the content of the alert"))
-                    self.loadingView.stopLoading()
-                    self.loadingView.noDataView.isHidden = false
-                    self.loadingView.isHidden = false
-                    self.loadingView.showNoDataView()
-                    self.loadingView.noDataLabel.text = errorMessage
+                    self?.loadingView.stopLoading()
+                    self?.loadingView.noDataView.isHidden = false
+                    self?.loadingView.isHidden = false
+                    self?.loadingView.showNoDataView()
+                    self?.loadingView.noDataLabel.text = errorMessage
                 }
             }
         }

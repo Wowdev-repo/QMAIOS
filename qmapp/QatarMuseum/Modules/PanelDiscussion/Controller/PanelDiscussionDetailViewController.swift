@@ -231,29 +231,31 @@ class PanelDiscussionDetailViewController: UIViewController,LoadingViewProtocol,
     func getNMoQSpecialEventDetail() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         if(panelDetailId != nil) {
-            _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.GetNMoQSpecialEventDetail(["event_id" : panelDetailId!])).responseObject { (response: DataResponse<NMoQTourList>) -> Void in
+            _ = CPSessionManager.sharedInstance.apiManager()?
+                .request(QatarMuseumRouter.GetNMoQSpecialEventDetail(["event_id" : panelDetailId!]))
+                .responseObject { [weak self] (response: DataResponse<NMoQTourList>) -> Void in
                 switch response.result {
                 case .success(let data):
-                    self.nmoqSpecialEventDetail = data.nmoqTourList
-                    self.panelDetailTableView.reloadData()
-                    if(self.nmoqSpecialEventDetail.count == 0) {
+                    self?.nmoqSpecialEventDetail = data.nmoqTourList
+                    self?.panelDetailTableView.reloadData()
+                    if(self?.nmoqSpecialEventDetail.count == 0) {
                         let noResultMsg = NSLocalizedString("NO_RESULT_MESSAGE",
                                                             comment: "Setting the content of the alert")
-                        self.loadingView.stopLoading()
-                        self.loadingView.noDataView.isHidden = false
-                        self.loadingView.isHidden = false
-                        self.loadingView.showNoDataView()
-                        self.loadingView.noDataLabel.text = noResultMsg
+                        self?.loadingView.stopLoading()
+                        self?.loadingView.noDataView.isHidden = false
+                        self?.loadingView.isHidden = false
+                        self?.loadingView.showNoDataView()
+                        self?.loadingView.noDataLabel.text = noResultMsg
                     }
                 case .failure( _):
                     var errorMessage: String
                     errorMessage = String(format: NSLocalizedString("NO_RESULT_MESSAGE",
                                                                     comment: "Setting the content of the alert"))
-                    self.loadingView.stopLoading()
-                    self.loadingView.noDataView.isHidden = false
-                    self.loadingView.isHidden = false
-                    self.loadingView.showNoDataView()
-                    self.loadingView.noDataLabel.text = errorMessage
+                    self?.loadingView.stopLoading()
+                    self?.loadingView.noDataView.isHidden = false
+                    self?.loadingView.isHidden = false
+                    self?.loadingView.showNoDataView()
+                    self?.loadingView.noDataLabel.text = errorMessage
                 }
             }
         }
@@ -261,30 +263,32 @@ class PanelDiscussionDetailViewController: UIViewController,LoadingViewProtocol,
     func getNMoQTourDetail() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         if(panelDetailId != nil) {
-            _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.GetNMoQTourDetail(["event_id" : panelDetailId!])).responseObject { (response: DataResponse<NMoQTourDetailList>) -> Void in
+            _ = CPSessionManager.sharedInstance.apiManager()?
+                .request(QatarMuseumRouter.GetNMoQTourDetail(["event_id" : panelDetailId!]))
+                .responseObject { [weak self] (response: DataResponse<NMoQTourDetailList>) -> Void in
                 switch response.result {
                 case .success(let data):
-                    self.nmoqTourDetail = data.nmoqTourDetailList
+                    self?.nmoqTourDetail = data.nmoqTourDetailList
                     //self.saveOrUpdateHomeCoredata()
-                    self.panelDetailTableView.reloadData()
-                    if(self.nmoqTourDetail.count == 0) {
+                    self?.panelDetailTableView.reloadData()
+                    if(self?.nmoqTourDetail.count == 0) {
                         let noResultMsg = NSLocalizedString("NO_RESULT_MESSAGE",
                                                             comment: "Setting the content of the alert")
-                        self.loadingView.stopLoading()
-                        self.loadingView.noDataView.isHidden = false
-                        self.loadingView.isHidden = false
-                        self.loadingView.showNoDataView()
-                        self.loadingView.noDataLabel.text = noResultMsg
+                        self?.loadingView.stopLoading()
+                        self?.loadingView.noDataView.isHidden = false
+                        self?.loadingView.isHidden = false
+                        self?.loadingView.showNoDataView()
+                        self?.loadingView.noDataLabel.text = noResultMsg
                     }
                 case .failure( _):
                     var errorMessage: String
                     errorMessage = String(format: NSLocalizedString("NO_RESULT_MESSAGE",
                                                                     comment: "Setting the content of the alert"))
-                    self.loadingView.stopLoading()
-                    self.loadingView.noDataView.isHidden = false
-                    self.loadingView.isHidden = false
-                    self.loadingView.showNoDataView()
-                    self.loadingView.noDataLabel.text = errorMessage
+                    self?.loadingView.stopLoading()
+                    self?.loadingView.noDataView.isHidden = false
+                    self?.loadingView.isHidden = false
+                    self?.loadingView.showNoDataView()
+                    self?.loadingView.noDataLabel.text = errorMessage
                 }
             }
         }
@@ -350,15 +354,17 @@ class PanelDiscussionDetailViewController: UIViewController,LoadingViewProtocol,
                 ]
                 let timestamp = Int(NSDate().timeIntervalSince1970)
                 let timestampInString = String(timestamp)
-                _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.NMoQEntityRegistration(["type" : "nmoq_event_registration","entity_id": entityId!,"entity_type" :"node","user_uid": userId,"count": selectedCount!,"author_uid": userId,"state": "pending","created": timestampInString,"updated": timestampInString,"field_confirm_attendance" :fieldConfirmAttendance,"field_number_of_attendees" : fieldNumberOfAttendees, "field_first_name_": fieldFirstName,"field_nmoq_last_name" : fieldNmoqLastName,"field_membership_number": fieldMembershipNumber,"field_qma_edu_reg_date":fieldQmaEduRegDate])).responseObject { (response: DataResponse<NMoQEntityRegistration>) -> Void in
+                _ = CPSessionManager.sharedInstance.apiManager()?
+                    .request(QatarMuseumRouter.NMoQEntityRegistration(["type" : "nmoq_event_registration","entity_id": entityId!,"entity_type" :"node","user_uid": userId,"count": selectedCount!,"author_uid": userId,"state": "pending","created": timestampInString,"updated": timestampInString,"field_confirm_attendance" :fieldConfirmAttendance,"field_number_of_attendees" : fieldNumberOfAttendees, "field_first_name_": fieldFirstName,"field_nmoq_last_name" : fieldNmoqLastName,"field_membership_number": fieldMembershipNumber,"field_qma_edu_reg_date":fieldQmaEduRegDate]))
+                    .responseObject { [weak self] (response: DataResponse<NMoQEntityRegistration>) -> Void in
                     switch response.result {
                     case .success(let data):
-                        self.entityRegistration = data
-                        self.newRegistrationId = self.entityRegistration?.registrationId
-                        self.setEntityRegistrationAsComplete(currentRow: currentRow, timestamp: timestampInString, selectedCell: selectedCell)
+                        self?.entityRegistration = data
+                        self?.newRegistrationId = self?.entityRegistration?.registrationId
+                        self?.setEntityRegistrationAsComplete(currentRow: currentRow, timestamp: timestampInString, selectedCell: selectedCell)
                     case .failure( _):
-                        self.loadingView.stopLoading()
-                        self.loadingView.isHidden = true
+                        self?.loadingView.stopLoading()
+                        self?.loadingView.isHidden = true
                         
                     }
                 }
@@ -425,19 +431,26 @@ class PanelDiscussionDetailViewController: UIViewController,LoadingViewProtocol,
                             
                             ]]
                 ]
-                _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.SetUserRegistrationComplete(regId!,["registration_id": regId!,"type" : "nmoq_event_registration","entity_id": entityId!,"entity_type" :"node","user_uid": userId,"count": selectedCount!,"author_uid": userId,"state": "complete","created": timestamp,"updated": timestamp,"field_confirm_attendance" :fieldConfirmAttendance,"field_number_of_attendees" : fieldNumberOfAttendees, "field_first_name_": fieldFirstName,"field_nmoq_last_name" : fieldNmoqLastName,"field_membership_number": fieldMembershipNumber,"field_qma_edu_reg_date":fieldQmaEduRegDate])).responseObject { (response: DataResponse<NMoQEntityRegistration>) -> Void in
+                _ = CPSessionManager.sharedInstance.apiManager()?
+                    .request(QatarMuseumRouter.SetUserRegistrationComplete(regId!,["registration_id": regId!,"type" : "nmoq_event_registration","entity_id": entityId!,"entity_type" :"node","user_uid": userId,"count": selectedCount!,"author_uid": userId,"state": "complete","created": timestamp,"updated": timestamp,"field_confirm_attendance" :fieldConfirmAttendance,"field_number_of_attendees" : fieldNumberOfAttendees, "field_first_name_": fieldFirstName,"field_nmoq_last_name" : fieldNmoqLastName,"field_membership_number": fieldMembershipNumber,"field_qma_edu_reg_date":fieldQmaEduRegDate]))
+                    .responseObject { [weak self] (response: DataResponse<NMoQEntityRegistration>) -> Void in
                     switch response.result {
                     case .success(let data):
-                        self.loadingView.stopLoading()
-                        self.loadingView.isHidden = true
-                        self.completedEntityReg = data
-                        self.userEventList.append(NMoQUserEventList(title: self.panelTitle, eventID: self.completedEntityReg?.entityId, regID: self.completedEntityReg?.registrationId,seats:self.selectedCount))
-                        self.saveOrUpdateEventReistratedCoredata(tourEntity: self.nmoqTourDetail[currentRow], registrationId: self.completedEntityReg?.registrationId)
-                        self.loadAddToCalendarPopup()
+                        self?.loadingView.stopLoading()
+                        self?.loadingView.isHidden = true
+                        self?.completedEntityReg = data
+                        self?.userEventList.append(NMoQUserEventList(title: self?.panelTitle, eventID: self?.completedEntityReg?.entityId, regID: self?.completedEntityReg?.registrationId,seats:self?.selectedCount))
+                        if let detail = self?.nmoqTourDetail[currentRow] {
+                            self?.saveOrUpdateEventReistratedCoredata(tourEntity: detail,
+                                                                      registrationId: self?.completedEntityReg?.registrationId)
+                            
+                        }
+                        
+                        self?.loadAddToCalendarPopup()
                     //self.setRegistrationSwitchOn(selectedCell: selectedCell)
                     case .failure( _):
-                        self.loadingView.stopLoading()
-                        self.loadingView.isHidden = true
+                        self?.loadingView.stopLoading()
+                        self?.loadingView.isHidden = true
                         
                     }
                 }
@@ -464,22 +477,24 @@ class PanelDiscussionDetailViewController: UIViewController,LoadingViewProtocol,
             let userName = (keychain.get(UserProfileInfo.user_dispaly_name))!
             let pwd = (keychain.get(UserProfileInfo.user_password))! 
             
-            _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.SetUserUnRegistration(regId!,["name":userName,"pass":pwd])).responseData { (response) -> Void in
+            _ = CPSessionManager.sharedInstance.apiManager()?
+                .request(QatarMuseumRouter.SetUserUnRegistration(regId!,["name":userName,"pass":pwd]))
+                .responseData { [weak self] (response) -> Void in
                 switch response.result {
                 case .success( _):
-                    self.loadingView.stopLoading()
-                    self.loadingView.isHidden = true
+                    self?.loadingView.stopLoading()
+                    self?.loadingView.isHidden = true
                     if(response.response?.statusCode == 200) {
-                        if let index = self.userEventList.index(where: {$0.eventID == self.nmoqTourDetail[currentRow].nid}) {
-                            self.userEventList.remove(at: index)
+                        if let index = self?.userEventList.index(where: {$0.eventID == self?.nmoqTourDetail[currentRow].nid}) {
+                            self?.userEventList.remove(at: index)
                         }
-                        self.deleteRegisteredEvent(registrationId: regId)
+                        self?.deleteRegisteredEvent(registrationId: regId)
                         //self.setRegistrationSwitchOff(selectedCell: selectedCell)
                         
                     }
                 case .failure( _):
-                    self.loadingView.stopLoading()
-                    self.loadingView.isHidden = true
+                    self?.loadingView.stopLoading()
+                    self?.loadingView.isHidden = true
                     
                 }
             }
@@ -1049,31 +1064,33 @@ class PanelDiscussionDetailViewController: UIViewController,LoadingViewProtocol,
     func getFacilitiesDetail() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         if(panelDetailId != nil) {
-            _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.GetFacilitiesDetail(["category_id" : panelDetailId!])).responseObject { (response: DataResponse<FacilitiesDetailData>) -> Void in
+            _ = CPSessionManager.sharedInstance.apiManager()?
+                .request(QatarMuseumRouter.GetFacilitiesDetail(["category_id" : panelDetailId!]))
+                .responseObject { [weak self] (response: DataResponse<FacilitiesDetailData>) -> Void in
                 switch response.result {
                 case .success(let data):
-                    self.facilitiesDetail = data.facilitiesDetail ?? []
-                    self.panelDetailTableView.reloadData()
-                    if(self.nmoqTourDetail.count == 0) {
+                    self?.facilitiesDetail = data.facilitiesDetail ?? []
+                    self?.panelDetailTableView.reloadData()
+                    if(self?.nmoqTourDetail.count == 0) {
                         let noResultMsg = NSLocalizedString("NO_RESULT_MESSAGE",
                                                             comment: "Setting the content of the alert")
-                        self.loadingView.stopLoading()
-                        self.loadingView.noDataView.isHidden = false
-                        self.loadingView.isHidden = false
-                        self.loadingView.showNoDataView()
-                        self.loadingView.noDataLabel.text = noResultMsg
+                        self?.loadingView.stopLoading()
+                        self?.loadingView.noDataView.isHidden = false
+                        self?.loadingView.isHidden = false
+                        self?.loadingView.showNoDataView()
+                        self?.loadingView.noDataLabel.text = noResultMsg
                     } else {
-                        self.saveOrUpdateFacilitiesDetailCoredata()
+                        self?.saveOrUpdateFacilitiesDetailCoredata()
                     }
                 case .failure( _):
                     var errorMessage: String
                     errorMessage = String(format: NSLocalizedString("NO_RESULT_MESSAGE",
                                                                     comment: "Setting the content of the alert"))
-                    self.loadingView.stopLoading()
-                    self.loadingView.noDataView.isHidden = false
-                    self.loadingView.isHidden = false
-                    self.loadingView.showNoDataView()
-                    self.loadingView.noDataLabel.text = errorMessage
+                    self?.loadingView.stopLoading()
+                    self?.loadingView.noDataView.isHidden = false
+                    self?.loadingView.isHidden = false
+                    self?.loadingView.showNoDataView()
+                    self?.loadingView.noDataLabel.text = errorMessage
                 }
             }
         }
