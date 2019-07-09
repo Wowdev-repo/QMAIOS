@@ -8,6 +8,7 @@
 
 
 import Firebase
+import FirebaseMessaging
 import GoogleMaps
 import GooglePlaces
 import Kingfisher
@@ -21,7 +22,7 @@ var tokenValue : String? = nil
 var languageKey = 1
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate, MessagingDelegate {
     var window: UIWindow?
     var shouldRotate = false
     let networkReachability = NetworkReachabilityManager()
@@ -47,17 +48,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             self.apiCalls()
         }
         
-        
-        AppLocalizer.performMethodSwizzle()
-        FirebaseApp.configure()
-        
-        registerForPushNotifications()
-        
         // Register with APNs
         let settings = UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
         
         application.registerUserNotificationSettings(settings)
         application.registerForRemoteNotifications()
+        
+        AppLocalizer.performMethodSwizzle()
+        FirebaseApp.configure()
+        
+        fetchCurrentNotificationToken()
+        registerForPushNotifications()
         
         if #available(iOS 10.0, *) {
             UNUserNotificationCenter.current().delegate = self
@@ -138,6 +139,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             }
         } else {
             // Fallback on earlier versions
+        }
+    }
+    
+    func fetchCurrentNotificationToken() {
+        
+        Messaging.messaging().delegate = self
+        
+        InstanceID.instanceID().instanceID { (result, error) in
+            if let error = error {
+                print("Error fetching remote instance ID: \(error)")
+            } else if let result = result {
+                print("Remote instance ID token: \(result.token)")
+            }
         }
     }
     
