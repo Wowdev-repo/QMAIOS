@@ -67,7 +67,6 @@
 "CONTINUE_TITLE" = "Continue";
 "MUSEUM_TITLE" = "Museum of Islamic Art";
 "NO_RESULT_MESSAGE" = "No results found";
-"CHECK_INTERNET" = "Check your internet connections";
 "LOCATION_TITLE" = "LOCATION";
 "TO" = "to";
 "MAP_REDIRECTION_MESSAGE" = "Click here to open in Google Maps";
@@ -273,7 +272,7 @@
 "Forgot Password ?" = "Forgot Password ?";
 "Reset your password here" = "Reset your password here";
 
-"UPGRADE CULTURE PASS TYPE" = "UPGRADE CULTURE PASS TYPE";
+"UPGRADE CULTURE PASS TYPE" = "CHOOSE MEMBERSHIP TYPE";
 "CHOOSE MEMBERSHIP TYPE" = "CHOOSE MEMBERSHIP TYPE";
 "CP Family" = "Culture Pass Family";
 "QMA STAFF CP Family" = "QMA STAFF CP Family";
@@ -327,7 +326,7 @@
 "Last Name*" = "Last Name*";
 "Last Name" = "Last Name";
 "Country"="Country";
-"Select Country*"="Select Country*";
+"Select Country*"="Country of Residence*";
 "Select Country"="Select Country";
 "Nationality"="Nationality";
 "Select Nationality"="Select Nationality";
@@ -337,7 +336,7 @@
 "Mobile*" = "Mobile*";
 "Mobile" = "Mobile";
 "Subscribe to Newsletter" = "Subscribe to Newsletter";
-"Accept Terms & Condition" = "Accept Terms & Condition";
+"Accept Terms & Condition" = "Accept Terms & Conditions";
 "Save" = "Save";
 
 "Membership Renewal" = "Membership Renewal";
@@ -359,7 +358,7 @@
 "Today" = "Today";
 
 "CART" = "CART";
-"Clear cart" = "Clear cart";
+"Clear cart" = "Clear Cart";
 "Expires in" = "Expires in";
 "Months" = "Months";
 "Month" = "Month";
@@ -481,7 +480,7 @@
 "Please enter valid mobile number" = "Please enter valid mobile number";
 "Please accept terms and conditions" = "Please accept terms and conditions";
 "Cannot lock the ticket, Please try again" = "Cannot lock the ticket, Please try again";
-"Please pick tickets" = "Please pick tickets";
+"Please pick tickets" = "Select atleast a ticket to proceed";
 "Ticket not locked please try again" = "Ticket not locked please try again";
 
 "Do you want to change your subscription plan from existing" = "Do you want to change your subscription plan from existing";
@@ -511,7 +510,7 @@
 
 "If you need to buy this ticket then Please upgrade your membership" = "If you need to buy this ticket then Please upgrade your membership";
 
-"You already a member of this plan" = "You already a member of this plan";
+"You already a member of this plan" = "You have already subscribed to this membership plan.";
 
 "SELECT TICKETS" = "SELECT TICKETS";
 "You will need a ticket to enter the museum. Tickets are valid for three consecutive days starting with the first day of entry." = "You will need a ticket to enter the museum. Tickets are valid for three consecutive days starting with the first day of entry.";
@@ -555,3 +554,4 @@
 
 "AppRegularFont" = "DINNextLTPro-Regular";
 "AppBoldFont" = "DINNextLTPro-Bold";
+"Change  Subscription" = "Change Subscription?";

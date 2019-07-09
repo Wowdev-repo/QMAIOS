@@ -271,8 +271,9 @@
 "TERMS & CONDITIONS" = "الشروط و الاحكام";
 "Forgot Password ?" = "هل نسيت كلمة المرور ؟";
 "Reset your password here" = "أعاده ضبط كلمة مرورك هنا";
-"UPGRADE CULTURE PASS TYPE" = "تحديث نوع بطاقتك الى الثقافه";
+"UPGRADE CULTURE PASS TYPE" =  "اختر نوع العضويه";
 "CHOOSE MEMBERSHIP TYPE" = "اختر نوع العضويه";
+
 "CP Family" = " بطاقتك إلى الثقافة العائليه";
 "QMA STAFF CP Family" = " بطاقتك إلى الثقافة العائليه";
 "QMA STAFF CP Plus" = " بطاقتك إلى الثقافة المميزه";
@@ -284,7 +285,7 @@
 "CP Member Plus" = " بطاقتك إلى الثقافة المميزه";
 "Read Benefits" = "قراءة المزايا";
 "Subscribed" = "مسجل";
-"Expires On" = "تنتهي صلاحيته في";
+"Expires On" = "ينتهي في";
 "Benefits" = "المزايا";
 "FREE UNLIMITED MUSEUM ADMISSION" = "دخول مجاني غير محدود للمتحف";
 "CP TOURS INCLUDING MARCHITECTURE" = "جولات سياحية بما في ذلك مارشاريت";
@@ -321,7 +322,7 @@
 "Last Name*" = "اسم العائلة*";
 "Last Name" = "اسم العائلة";
 "Country"="حدد بلد الإقامة";
-"Select Country*"="*حدد بلد الإقامة";
+"Select Country*"="بلد الإقامة*";
 "Select Country"="حدد بلد الإقامة";
 "Nationality"="الجنسية";
 "Select Nationality"="اختر الجنسية";
@@ -336,7 +337,7 @@
 "MY TICKETS" = "تذاكري";
 "Membership Renewal" = "تجديد عضوية بطاقتك الى الثقافة";
 "Culture Pass Membership" = "عضويه بطاقته الثقافه";
-"Expires On" = "تنتهي صلاحيته في";
+"Expires On" = "ينتهي في";
 "My Visits" = "تذاكري";
 "My Profile" = "الملف الشخصي";
 "Log Out" = "تسجيل الخروج";
@@ -443,7 +444,7 @@
 "Please enter valid mobile number" = "يرجى إدخال رقم جوال صحيح";
 "Please accept terms and conditions" = "يرجى قبول الشروط والأحكام";
 "Cannot lock the ticket, Please try again" = "لا يمكن قفل التذكرة ، يرجى المحاولة مرة أخرى";
-"Please pick tickets" = "يرجى اختيار التذاكر";
+"Please pick tickets" ="حدد على الأقل تذكرة للمتابعة";
 "Ticket not locked please try again" = "التذكرة غير مقفلة ، يرجى المحاولة مرة أخرى";
 "Do you want to change your subscription plan from existing" = "هل تريد تغيير نوع اشتراكك من القائمة";
 "to new" = "الجديد إلى";
@@ -466,7 +467,7 @@
 "Ticket PDF not generated" = "لم يتم إنشاء تذكرة PDF";
 "Buy your Tickets" = "اشترِ تذاكرك / تذكرتك";
 "If you need to buy this ticket then Please upgrade your membership" = "إذا كنت بحاجة لشراء هذه التذكرة ، يرجى تحديث عضويتك";
-"You already a member of this plan" = "أنت بالفعل عضو في هذه الخطة";
+"You already a member of this plan" = "أنت مشترك بالفعل في خطة العضوية هذه";
 "SELECT TICKETS" = "اختر التذاكر";
 "You will need a ticket to enter the museum. Tickets are valid for three consecutive days starting with the first day of entry." = "ستحتاج إلى تذكرة لدخول المتحف.التذاكر صالحة لمدة ثلاثة أيام متتالية تبدأ من اليوم الأول للدخول.";
 "GUEST CHECKOUT" = "استمرار كزائر";
@@ -505,3 +506,4 @@
 
 "AppRegularFont" = "DINNextLTArabic-Regular";
 "AppBoldFont" = "DINNextLTArabic-Bold";
+"Change  Subscription" = "تغيير الاشتراك؟";
