@@ -125,15 +125,15 @@ func convertDMSToDDCoordinate(latLongString : String) -> Double {
         degreeString = latLongArray[0]
     }
     delimiter = "'"
-    latLong = latLongArray[1]
-    latLongArray = latLong.components(separatedBy: delimiter)
     if ((latLongArray.count) > 1) {
+        latLong = latLongArray[1]
+        latLongArray = latLong.components(separatedBy: delimiter)
         minString = latLongArray[0]
         secString = latLongArray[1]
     }
     let degree = (degreeString! as NSString).doubleValue
-    let min = (minString! as NSString).doubleValue
-    let sec = (secString! as NSString).doubleValue
+    let min = ((minString ?? "0") as NSString).doubleValue
+    let sec = ((secString ?? "0") as NSString).doubleValue
     let ddCoordinate = degree + (min / 60) + (sec / 3600)
     return ddCoordinate
 }
