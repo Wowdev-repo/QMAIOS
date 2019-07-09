@@ -14,8 +14,12 @@ import UIKit
 
 
 class PreviewContentViewController: UIViewController, UIGestureRecognizerDelegate {
+    
     @IBOutlet weak var accessNumberLabel: UILabel!
     @IBOutlet weak var objectTableView: UITableView!
+    @IBOutlet weak var underLineView: UIView!
+    
+    @IBOutlet weak var tableViewTopConstrain: NSLayoutConstraint!
     
     var tourGuideDict : TourGuideFloorMap!
     var pageIndex = Int()
@@ -54,10 +58,17 @@ class PreviewContentViewController: UIViewController, UIGestureRecognizerDelegat
         if tourGuideData?.galleyNumber != nil  {
             floorLevel = (tourGuideData?.floorLevel?.replacingOccurrences(of: "<[^>]+>|&nbsp;|&#039;", with: "", options: .regularExpression, range: nil))!
         }
-        accessNumberLabel.text = NSLocalizedString("FLOOR", comment: "FLOOR text in the preview page") + " " + floorLevel + ", " + NSLocalizedString("GALLERY", comment: "GALLERY text in the preview page") + " " + galleryNumber
-        accessNumberLabel.font = UIFont.sideMenuLabelFont
-        if(UIScreen.main.bounds.height <= 568) {
-            accessNumberLabel.font = UIFont.exhibitionDateLabelFont
+        if tourGuideData?.tourGuideId == "16076" || tourGuideData?.tourGuideId == "16086" { // NMoQ tourGUideIds for english n arabic
+            accessNumberLabel.isHidden = true
+            underLineView.isHidden = true
+            tableViewTopConstrain.constant = -30
+        }
+        else {
+            accessNumberLabel.text = NSLocalizedString("FLOOR", comment: "FLOOR text in the preview page") + " " + floorLevel + ", " + NSLocalizedString("GALLERY", comment: "GALLERY text in the preview page") + " " + galleryNumber
+            accessNumberLabel.font = UIFont.sideMenuLabelFont
+            if(UIScreen.main.bounds.height <= 568) {
+                accessNumberLabel.font = UIFont.exhibitionDateLabelFont
+            }
         }
     }
     
