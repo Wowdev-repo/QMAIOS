@@ -102,7 +102,7 @@ class QMTLAPIServices: NSObject {
                     
                     if errInfo == "The Internet connection appears to be offline." {
                         self.view.hideAllToasts()
-                        self.showToast(message: errInfo)
+                        self.showToast(message: self.getLocalizedStr(str: "CHECK_INTERNET"))
                     }
                 }
                 

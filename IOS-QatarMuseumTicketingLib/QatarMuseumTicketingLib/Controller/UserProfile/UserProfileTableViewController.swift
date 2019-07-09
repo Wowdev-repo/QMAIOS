@@ -274,7 +274,7 @@ class UserProfileTableViewController: UITableViewController,QMTLTabViewControlle
         
         QMTLSingleton.sharedInstance.userInfo.currentSubscribtion = subscribedObj
         
-        membershipExpiryDateLbl.text = "\(getLocalizedStr(str: "Expires On")) \(dateToString(date: subscribedObj.endDateTime))"
+        membershipExpiryDateLbl.text = "\(NSLocalizedString("Expires On", comment: "")) \(dateToString(date: subscribedObj.endDateTime))"
         
         hud.dismiss()
             

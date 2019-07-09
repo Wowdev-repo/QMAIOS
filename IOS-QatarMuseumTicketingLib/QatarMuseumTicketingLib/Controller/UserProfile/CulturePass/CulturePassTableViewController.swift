@@ -218,7 +218,7 @@ class CulturePassTableViewController: UITableViewController,QMTLTabViewControlle
                 cell.subscribedIndicatorLbl.text = "\(getLocalizedStr(str: cell.subscribedIndicatorLbl.text!))"
                 
                 if dateToString(date: QMTLSingleton.sharedInstance.userInfo.currentSubscribtion.endDateTime) != dateToString(date: Date()){
-                    cell.expiresOnLbl.text = "\(getLocalizedStr(str: "Expires On")) \(dateToString(date: QMTLSingleton.sharedInstance.userInfo.currentSubscribtion.endDateTime))"
+                    cell.expiresOnLbl.text = "\(NSLocalizedString("Expires On", comment: "")) \(dateToString(date: QMTLSingleton.sharedInstance.userInfo.currentSubscribtion.endDateTime))"
                 }else{
                     cell.expiresOnLbl.text = ""
                 }
@@ -233,7 +233,7 @@ class CulturePassTableViewController: UITableViewController,QMTLTabViewControlle
                     cell.subscribedIndicatorLbl.text = "\(getLocalizedStr(str: cell.subscribedIndicatorLbl.text!))"
                     
                     if dateToString(date: QMTLSingleton.sharedInstance.userInfo.currentSubscribtion.endDateTime) != dateToString(date: Date()){
-                        cell.expiresOnLbl.text = "\(getLocalizedStr(str: "Expires On")) \(dateToString(date: QMTLSingleton.sharedInstance.userInfo.currentSubscribtion.endDateTime))"
+                        cell.expiresOnLbl.text = "\(NSLocalizedString("Expires On", comment: "")) \(dateToString(date: QMTLSingleton.sharedInstance.userInfo.currentSubscribtion.endDateTime))"
                     }else{
                         cell.expiresOnLbl.text = ""
                     }
@@ -243,7 +243,7 @@ class CulturePassTableViewController: UITableViewController,QMTLTabViewControlle
                     cell.subscribedIndicatorLbl.text = "\(getLocalizedStr(str: cell.subscribedIndicatorLbl.text!))"
                     
                     if dateToString(date: QMTLSingleton.sharedInstance.userInfo.currentSubscribtion.endDateTime) != dateToString(date: Date()){
-                        cell.expiresOnLbl.text = "\(getLocalizedStr(str: "Expires On")) \(dateToString(date: QMTLSingleton.sharedInstance.userInfo.currentSubscribtion.endDateTime))"
+                        cell.expiresOnLbl.text = "\(NSLocalizedString("Expires On", comment: "")) \(dateToString(date: QMTLSingleton.sharedInstance.userInfo.currentSubscribtion.endDateTime))"
                     }else{
                         cell.expiresOnLbl.text = ""
                     }
@@ -253,7 +253,7 @@ class CulturePassTableViewController: UITableViewController,QMTLTabViewControlle
                     cell.subscribedIndicatorLbl.text = "\(getLocalizedStr(str: cell.subscribedIndicatorLbl.text!))"
                     
                     if dateToString(date: QMTLSingleton.sharedInstance.userInfo.currentSubscribtion.endDateTime) != dateToString(date: Date()){
-                        cell.expiresOnLbl.text = "\(getLocalizedStr(str: "Expires On")) \(dateToString(date: QMTLSingleton.sharedInstance.userInfo.currentSubscribtion.endDateTime))"
+                        cell.expiresOnLbl.text = "\(NSLocalizedString("Expires On", comment: "")) \(dateToString(date: QMTLSingleton.sharedInstance.userInfo.currentSubscribtion.endDateTime))"
                     }else{
                         cell.expiresOnLbl.text = ""
                     }
@@ -401,12 +401,15 @@ class CulturePassTableViewController: UITableViewController,QMTLTabViewControlle
                         break
                     }}))
                 
-                self.present(alert, animated: true, completion: nil)
+                self.present(alert, animated: true, completion:{
+                    alert.view.superview?.isUserInteractionEnabled = true
+                    alert.view.superview?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.alertControllerBackgroundTapped)))
+                })
             }else{
                 
                 let alertMsg = "\(getLocalizedStr(str: "Do you want to change your subscription plan from existing"))(\(getLocalizedStr(str: currentSubscriptionName))) \(getLocalizedStr(str: "to new"))(\(getLocalizedStr(str: selectedSubscriptionName)))"
                 
-                let alert = UIAlertController(title: "", message: alertMsg, preferredStyle: .alert)
+                let alert = UIAlertController(title:getLocalizedStr(str: "Change  Subscription"), message: alertMsg, preferredStyle: .alert)
                 
                 alert.addAction(UIAlertAction(title: getLocalizedStr(str:"Continue"), style: .default, handler: { action in
                     switch action.style{
@@ -431,12 +434,20 @@ class CulturePassTableViewController: UITableViewController,QMTLTabViewControlle
                     @unknown default:
                         break
                     }}))
-                self.present(alert, animated: true, completion: nil)
+                self.present(alert, animated: true, completion:{
+                    alert.view.superview?.isUserInteractionEnabled = true
+                    alert.view.superview?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.alertControllerBackgroundTapped)))
+                    })
             }
             
             
             
         }
+    }
+    
+    @objc func alertControllerBackgroundTapped()
+    {
+        self.dismiss(animated: true, completion: nil)
     }
     
     //MARK:-
@@ -462,7 +473,10 @@ class CulturePassTableViewController: UITableViewController,QMTLTabViewControlle
                         break
                     }}))
             
-                self.present(alert, animated: true, completion: nil)
+            self.present(alert, animated: true, completion:{
+                alert.view.superview?.isUserInteractionEnabled = true
+                alert.view.superview?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.alertControllerBackgroundTapped)))
+            })
 
         }
     }

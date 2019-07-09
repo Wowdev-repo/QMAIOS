@@ -903,6 +903,16 @@ class SignUpTableViewController: UITableViewController, UITextFieldDelegate,QMTL
         i_15.text = getLocalizedStr(str: i_15.text!)
         
         i_14_TandCBtn.setTitle(getLocalizedStr(str: i_14_TandCBtn.titleLabel!.text!), for: .normal)
+        
+        if ((QMTLLocalizationLanguage.currentAppleLanguage()) == "en") {
+            i_14_TandCBtn.titleLabelFont =  UIFont.init(name: "DINNextLTPro-Bold", size: 15)
+            //nxtBtn.setTitle ("Next", for: .normal);
+        }
+        else{
+            i_14_TandCBtn.titleLabelFont = UIFont.init(name: "DINNextLTArabic-Bold", size: 15)
+            //nxtBtn.setTitle ("التالي", for: .normal);
+        }
+        
     }
 
     

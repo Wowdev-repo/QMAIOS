@@ -163,7 +163,7 @@ class UserInfoTableViewController: UITableViewController,UITextFieldDelegate,QMT
             membershipExpiryLbl.text = ""
             memExpBottomConstraint.constant = 8
         }else{
-            membershipExpiryLbl.text = "\(getLocalizedStr(str: "Expires On")) \(dateToString(date: QMTLSingleton.sharedInstance.userInfo.currentSubscribtion.endDateTime))"
+            membershipExpiryLbl.text = "\(NSLocalizedString("Expires On", comment: "")) \(dateToString(date: QMTLSingleton.sharedInstance.userInfo.currentSubscribtion.endDateTime))"
             memExpBottomConstraint.constant = 1.5
         }
     }

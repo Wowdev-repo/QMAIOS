@@ -545,12 +545,22 @@ class QMTLTicketCounterContainerViewController: UIViewController,UICollectionVie
         switch pageNumber {
         case 0:
             nxtBtn.setTitle(getLocalizedStr(str: "Next") , for: .normal)
+            
+               if ((QMTLLocalizationLanguage.currentAppleLanguage()) == "en") {
+                nxtBtn.titleLabelFont =  UIFont.init(name: "DINNextLTPro-Bold", size: 18)
+                //nxtBtn.setTitle ("Next", for: .normal);
+            }
+            else{
+               nxtBtn.titleLabelFont = UIFont.init(name: "DINNextLTArabic-Bold", size: 18)
+               // nxtBtn.setTitle ("التالي", for: .normal);
+               // nxtBtn.setTitle ("Next", for: .normal);
+            }
 
             firstPageIndicator.backgroundColor = selectedColor
             secondPageIndicator.backgroundColor = UIColor.white
             thirdPageIndicator.backgroundColor = UIColor.white
             
-            firstPageIndicator.textColor = UIColor.white
+            firstPageIndicator.textColor = UIColor.black
             secondPageIndicator.textColor = UIColor.lightGray
             thirdPageIndicator.textColor = UIColor.lightGray
             
@@ -572,13 +582,22 @@ class QMTLTicketCounterContainerViewController: UIViewController,UICollectionVie
             break
         case 1:
             nxtBtn.setTitle(getLocalizedStr(str: "Next") , for: .normal)
+            
+            if ((QMTLLocalizationLanguage.currentAppleLanguage()) == "en") {
+                nxtBtn.titleLabelFont =  UIFont.init(name: "DINNextLTPro-Bold", size: 18)
+                //nxtBtn.setTitle ("Next", for: .normal);
+            }
+            else{
+                nxtBtn.titleLabelFont = UIFont.init(name: "DINNextLTArabic-Bold", size: 18)
+                //nxtBtn.setTitle ("التالي", for: .normal);
+            }
 
             firstPageIndicator.backgroundColor = selectedColor
             secondPageIndicator.backgroundColor = selectedColor
             thirdPageIndicator.backgroundColor = UIColor.white
             
-            firstPageIndicator.textColor = UIColor.white
-            secondPageIndicator.textColor = UIColor.white
+            firstPageIndicator.textColor = UIColor.black
+            secondPageIndicator.textColor = UIColor.black
             thirdPageIndicator.textColor = UIColor.lightGray
             
             firstPageCompletedIndicator.backgroundColor = selectedColor
@@ -602,14 +621,21 @@ class QMTLTicketCounterContainerViewController: UIViewController,UICollectionVie
             break
         case 2:
             nxtBtn.setTitle(getLocalizedStr(str: "Complete Order"), for: .normal)
+            
+            if ((QMTLLocalizationLanguage.currentAppleLanguage()) == "en") {
+                nxtBtn.titleLabelFont =  UIFont.init(name: "DINNextLTPro-Bold", size: 18)
+            }
+            else{
+                nxtBtn.titleLabelFont = UIFont.init(name: "DINNextLTArabic-Bold", size: 18)
+            }
 
             firstPageIndicator.backgroundColor = selectedColor
             secondPageIndicator.backgroundColor = selectedColor
             thirdPageIndicator.backgroundColor = selectedColor
             
-            firstPageIndicator.textColor = UIColor.white
-            secondPageIndicator.textColor = UIColor.white
-            thirdPageIndicator.textColor = UIColor.white
+            firstPageIndicator.textColor = UIColor.black
+            secondPageIndicator.textColor = UIColor.black
+            thirdPageIndicator.textColor = UIColor.black
             
             firstPageCompletedIndicator.backgroundColor = selectedColor
             secondPageCompletedIndicator.backgroundColor = selectedColor
@@ -663,6 +689,24 @@ class QMTLTicketCounterContainerViewController: UIViewController,UICollectionVie
         
         cell.divisionNameLbl.text = getLocalizedStr(str: divisionObj.name)
         
+        if UIDevice.current.screenType == .iPhones_5_5s_5c_SE {
+            
+            if ((QMTLLocalizationLanguage.currentAppleLanguage()) == "en") {
+                cell.divisionNameLbl?.font = UIFont.init(name: "DINNextLTPro-Bold", size: 12)
+            }
+            else{
+                cell.divisionNameLbl?.font = UIFont.init(name: "DINNextLTArabic-Bold", size: 12)
+            }
+        }
+        else {
+            
+            if ((QMTLLocalizationLanguage.currentAppleLanguage()) == "en") {
+                cell.divisionNameLbl?.font = UIFont.init(name: "DINNextLTPro-Bold", size: 15)
+            }
+            else{
+                cell.divisionNameLbl?.font = UIFont.init(name: "DINNextLTArabic-Bold", size: 15)
+            }
+        }
         return cell
     }
     

@@ -36,7 +36,7 @@ class MuseumListViewController: UIViewController,UITableViewDelegate, UITableVie
         
         self.popTitleLabel.text = self.getLocalizedStr(str: "PLEASE SELECT A MUSEUM")
         self.cancelButtonClick.setTitle(self.getLocalizedStr(str: "Cancel"), for: .normal)
-        self.nextButtonClick.setTitle(self.getLocalizedStr(str: "Next"), for: .normal)
+        self.nextButtonClick.setTitle(NSLocalizedString("Next", comment: ""), for: .normal)
         //self.cancelButtonClick.titleLabel?.text = self.getLocalizedStr(str: "Cancel")
         //self.nextButtonClick.titleLabel?.text = self.getLocalizedStr(str: "Next")
         
@@ -73,19 +73,19 @@ class MuseumListViewController: UIViewController,UITableViewDelegate, UITableVie
         if UIDevice.current.screenType == .iPhones_5_5s_5c_SE {
             
              if ((QMTLLocalizationLanguage.currentAppleLanguage()) == "en") {
-            cell.textLabel?.font = UIFont.init(name: "DINNextLTPro-Regular", size: 12)
+            cell.textLabel?.font = UIFont.init(name: "DINNextLTPro-Bold", size: 12)
             }
              else{
-               cell.textLabel?.font = UIFont.init(name: "DINNextLTArabic-Regular", size: 12)
+               cell.textLabel?.font = UIFont.init(name: "DINNextLTArabic-Bold", size: 12)
             }
         }
         else {
             
             if ((QMTLLocalizationLanguage.currentAppleLanguage()) == "en") {
-                cell.textLabel?.font = UIFont.init(name: "DINNextLTPro-Regular", size: 15)
+                cell.textLabel?.font = UIFont.init(name: "DINNextLTPro-Bold", size: 15)
             }
             else{
-                cell.textLabel?.font = UIFont.init(name: "DINNextLTArabic-Regular", size: 15)
+                cell.textLabel?.font = UIFont.init(name: "DINNextLTArabic-Bold", size: 15)
             }
         }
         if QMTLLocalizationLanguage.currentAppleLanguage() == QMTLConstants.Language.AR_LANGUAGE {
@@ -115,5 +115,6 @@ class MuseumListViewController: UIViewController,UITableViewDelegate, UITableVie
     func getLocalizedStr(str : String) -> String{
         return NSLocalizedString(str.trimmingCharacters(in: .whitespacesAndNewlines),comment: "")
     }
+    
     
 }

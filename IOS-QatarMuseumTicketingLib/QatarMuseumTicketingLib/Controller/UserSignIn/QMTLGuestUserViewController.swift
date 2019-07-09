@@ -10,6 +10,7 @@ import UIKit
 import Toast_Swift
 import SwiftyJSON
 import ActionSheetPicker_3_0
+import Reachability
 
 protocol QMTLGuestUserViewControllerDelegate: class {
     func continueUserSignIn()
@@ -182,6 +183,20 @@ class QMTLGuestUserViewController: UIViewController,QMTLSignInUserViewController
             self.view.hideAllToasts()
         })
     }
+    //MARK:- Check Internet
+    
+    
+    func internetConnected() -> Bool {
+        let reachability = Reachability()!
+        
+        if (reachability.connection != .none){
+            return true
+        }
+        else{
+            return false
+        }
+    }
+    
     
     //MARK:- IBAction
     @IBAction func backBtnAction(_ sender : Any){
@@ -198,18 +213,24 @@ class QMTLGuestUserViewController: UIViewController,QMTLSignInUserViewController
     
     @IBAction func continueBtnAction(_ sender: Any){
         
-        if isValid() {
-            
-            let name = nameTxtFld.text ?? ""
-            
-            QMTLSingleton.sharedInstance.userInfo.name = name.trimmingCharacters(in: .whitespacesAndNewlines)
-            QMTLSingleton.sharedInstance.userInfo.email = emailTxtFld.text ?? ""
-            QMTLSingleton.sharedInstance.userInfo.phone = phoneTxtFld.text ?? ""
-            QMTLSingleton.sharedInstance.userInfo.nationality = nationalityTxtFld.text ?? ""
-            qmtlGuestUserViewControllerDelegate?.continueUserSignIn()
-            QMTLSingleton.sharedInstance.isGuestCheckout = true
-            self.navigationController?.popViewController(animated: true)
+        if (internetConnected()){
+            if isValid() {
+                
+                let name = nameTxtFld.text ?? ""
+                
+                QMTLSingleton.sharedInstance.userInfo.name = name.trimmingCharacters(in: .whitespacesAndNewlines)
+                QMTLSingleton.sharedInstance.userInfo.email = emailTxtFld.text ?? ""
+                QMTLSingleton.sharedInstance.userInfo.phone = phoneTxtFld.text ?? ""
+                QMTLSingleton.sharedInstance.userInfo.nationality = nationalityTxtFld.text ?? ""
+                qmtlGuestUserViewControllerDelegate?.continueUserSignIn()
+                QMTLSingleton.sharedInstance.isGuestCheckout = true
+                self.navigationController?.popViewController(animated: true)
+            }
         }
+        else{
+            self.showToast(message: getLocalizedStr(str: "CHECK_INTERNET"))
+        }
+       
         
     }
     
@@ -312,7 +333,7 @@ class QMTLGuestUserViewController: UIViewController,QMTLSignInUserViewController
         switch textField {
         case nationalityTxtFld:
             
-            titleStr = self.getLocalizedStr(str: "Nationality")
+            titleStr = self.getLocalizedStr(str: "Select Nationality")
             
             for country in QMTLSingleton.sharedInstance.listCountriesArr {
                 itemsArr.append(country.name)
@@ -446,8 +467,6 @@ class QMTLGuestUserViewController: UIViewController,QMTLSignInUserViewController
         self.navigationController?.popViewController(animated: true)
     }
     
-    //MARK:- Localization
-    
     func getLocalizedStr(str : String) -> String{
         return NSLocalizedString(str.trimmingCharacters(in: .whitespacesAndNewlines),comment: "")
     }
@@ -460,6 +479,18 @@ class QMTLGuestUserViewController: UIViewController,QMTLSignInUserViewController
         nextBtn.setTitle(getLocalizedStr(str: nextBtn.titleLabel!.text!), for: .normal)
         
         alreadyMemberBtn.setTitle(getLocalizedStr(str: alreadyMemberBtn.titleLabel!.text!), for: .normal)
+        
+        if ((QMTLLocalizationLanguage.currentAppleLanguage()) == "en") {
+            alreadyMemberBtn.titleLabelFont =  UIFont.init(name: "DINNextLTPro-Regular", size: 18)
+            //nxtBtn.setTitle ("Next", for: .normal);
+             nextBtn.titleLabelFont =  UIFont.init(name: "DINNextLTPro-Bold", size: 18)
+            
+        }
+        else{
+            alreadyMemberBtn.titleLabelFont = UIFont.init(name: "DINNextLTArabic-Regular", size: 18)
+            nextBtn.titleLabelFont =  UIFont.init(name: "DINNextLTArabic-Bold", size: 18)
+            //nxtBtn.setTitle ("التالي", for: .normal);
+        }
         
         nameTxtFld.placeholder = getLocalizedStr(str: nameTxtFld.placeholder!)
         emailTxtFld.placeholder = getLocalizedStr(str: emailTxtFld.placeholder!)

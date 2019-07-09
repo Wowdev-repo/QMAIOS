@@ -157,8 +157,8 @@ class QMTLSignInUserViewController: UIViewController, UITextFieldDelegate, APISe
             self.navigationController?.popToRootViewController(animated: true)
         }else{
             showToast(message: "Username or password is wrong")
-            emailIdTxt.text = ""
-            passwordTxt.text = ""
+            //emailIdTxt.text = ""
+            //passwordTxt.text = ""
             emailIdTxt.becomeFirstResponder()
         }
     }
@@ -187,6 +187,7 @@ class QMTLSignInUserViewController: UIViewController, UITextFieldDelegate, APISe
     
     //MARK:- IBAction
     @IBAction func backBtnAction(_ sender : Any){
+        
         self.navigationController?.popViewController(animated: true)
     }
     
