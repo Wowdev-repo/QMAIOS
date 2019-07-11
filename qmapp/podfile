@@ -19,4 +19,5 @@ target 'QatarMuseums' do
  pod 'FSCalendar'
  pod 'ActionSheetPicker-3.0', '~> 2.3.0'
  pod 'QRCode'
+ pod 'ReachabilitySwift'
 end

@@ -82,7 +82,6 @@ typedef NS_ENUM(NSInteger, SSZipArchiveErrorCode) {
 
 // Zip
 // default compression level is Z_DEFAULT_COMPRESSION (from "zlib.h")
-// keepParentDirectory: if YES, then unzipping will give `directoryName/fileName`. If NO, then unzipping will just give `fileName`. Default is NO.
 
 // without password
 + (BOOL)createZipFileAtPath:(NSString *)path withFilesAtPaths:(NSArray<NSString *> *)paths;
