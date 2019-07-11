@@ -342,19 +342,29 @@ extension MuseumsViewController: TopBarProtocol,comingSoonPopUpProtocol {
     
     func profileButtonPressed() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-        let transition = CATransition()
-        transition.duration = 0.25
-        transition.type = kCATransitionFade
-        transition.timingFunction = CAMediaTimingFunction(name:kCAMediaTimingFunctionEaseInEaseOut)
-        view.window!.layer.add(transition, forKey: kCATransition)
-        if (UserDefaults.standard.value(forKey: "accessToken") as? String != nil) {
-            let profileView =  self.storyboard?.instantiateViewController(withIdentifier: "profileViewId") as! ProfileViewController
-            self.present(profileView, animated: false, completion: nil)
-        } else {
-            let culturePassView =  self.storyboard?.instantiateViewController(withIdentifier: "culturePassViewId") as! CulturePassViewController
-            culturePassView.fromHome = false
-            self.present(culturePassView, animated: false, completion: nil)
-        }
+        
+        // New Ticketing Functionalty Implementation
+        var storyBoard = UIStoryboard()
+        UserDefaults.standard.set(AppConstants.QMTLibConstants.QMTLUserProfileTableViewController, forKey: AppConstants.QMTLibConstants.initialViewControllerKey)
+        let bundle = Bundle(identifier: AppConstants.QMTLibConstants.bundleId)
+        storyBoard = UIStoryboard(name: AppConstants.QMTLibConstants.QMTStoryboardForEN_Id, bundle: bundle)
+        let controller = storyBoard.instantiateViewController(withIdentifier: AppConstants.QMTLibConstants.QMTLTabViewController)
+        //self.navigationController?.pushViewController(controller, animated: true)
+        self.present(controller, animated: true, completion: nil)
+        
+//        let transition = CATransition()
+//        transition.duration = 0.25
+//        transition.type = kCATransitionFade
+//        transition.timingFunction = CAMediaTimingFunction(name:kCAMediaTimingFunctionEaseInEaseOut)
+//        view.window!.layer.add(transition, forKey: kCATransition)
+//        if (UserDefaults.standard.value(forKey: "accessToken") as? String != nil) {
+//            let profileView =  self.storyboard?.instantiateViewController(withIdentifier: "profileViewId") as! ProfileViewController
+//            self.present(profileView, animated: false, completion: nil)
+//        } else {
+//            let culturePassView =  self.storyboard?.instantiateViewController(withIdentifier: "culturePassViewId") as! CulturePassViewController
+//            culturePassView.fromHome = false
+//            self.present(culturePassView, animated: false, completion: nil)
+//        }
         
         Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
             AnalyticsParameterItemID: FirebaseAnalyticsEvents.tapped_museum_profile,
