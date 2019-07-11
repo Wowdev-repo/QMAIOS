@@ -271,8 +271,8 @@
 "TERMS & CONDITIONS" = "الشروط و الاحكام";
 "Forgot Password ?" = "هل نسيت كلمة المرور ؟";
 "Reset your password here" = "أعاده ضبط كلمة مرورك هنا";
-"UPGRADE CULTURE PASS TYPE" =  "اختر نوع العضويه";
-"CHOOSE MEMBERSHIP TYPE" = "اختر نوع العضويه";
+"UPGRADE CULTURE PASS TYPE" =  "قم بترقية عضويتك";
+"CHOOSE MEMBERSHIP TYPE" = "اختيار نوع العضوية";
 
 "CP Family" = " بطاقتك إلى الثقافة العائليه";
 "QMA STAFF CP Family" = " بطاقتك إلى الثقافة العائليه";
@@ -336,7 +336,7 @@
 "Save" = "حفظ";
 "MY TICKETS" = "تذاكري";
 "Membership Renewal" = "تجديد عضوية بطاقتك الى الثقافة";
-"Culture Pass Membership" = "عضويه بطاقته الثقافه";
+"Culture Pass Membership" = "عضوية بطاقتك الى الثقافة";
 "Expires On" = "ينتهي في";
 "My Visits" = "تذاكري";
 "My Profile" = "الملف الشخصي";
