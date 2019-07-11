@@ -262,15 +262,15 @@ class QMTLGuestUserViewController: UIViewController,QMTLSignInUserViewController
         
         if nameStr?.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines) == "" {
             returnVal = false
-            nameTxtFld.becomeFirstResponder()
+            //nameTxtFld.becomeFirstResponder()
             showToast(message: "Please enter name")
         }else if emailStr?.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines) == "" {
             returnVal = false
-            emailTxtFld.becomeFirstResponder()
+            //emailTxtFld.becomeFirstResponder()
             showToast(message: "Please enter email id")
         }else if !isValidEmail(emailAddressString: emailStr ?? ""){
             returnVal = false
-            emailTxtFld.becomeFirstResponder()
+            //emailTxtFld.becomeFirstResponder()
             showToast(message: "Please enter valid email id")
         }else if !isAgreementChecked {
             returnVal = false
@@ -483,11 +483,13 @@ class QMTLGuestUserViewController: UIViewController,QMTLSignInUserViewController
         if ((QMTLLocalizationLanguage.currentAppleLanguage()) == "en") {
             alreadyMemberBtn.titleLabelFont =  UIFont.init(name: "DINNextLTPro-Regular", size: 18)
             //nxtBtn.setTitle ("Next", for: .normal);
+            i_3_TandCBtn.titleLabelFont =  UIFont.init(name: "DINNextLTPro-Bold", size: 15)
              nextBtn.titleLabelFont =  UIFont.init(name: "DINNextLTPro-Bold", size: 18)
             
         }
         else{
             alreadyMemberBtn.titleLabelFont = UIFont.init(name: "DINNextLTArabic-Regular", size: 18)
+            tAndcBtn.titleLabelFont = UIFont.init(name: "DINNextLTArabic-Bold", size: 15)
             nextBtn.titleLabelFont =  UIFont.init(name: "DINNextLTArabic-Bold", size: 18)
             //nxtBtn.setTitle ("التالي", for: .normal);
         }

@@ -420,6 +420,8 @@ class SignUpTableViewController: UITableViewController, UITextFieldDelegate,QMTL
             print("view controller presented is ",vc);
             if vc is CulturePassTableViewController {
                 _ = self.navigationController?.popToViewController(vc, animated: true)
+                let culturePassTableViewController = CulturePassTableViewController()
+                culturePassTableViewController.isFromSignUpPage = true
                 break
             }
         }

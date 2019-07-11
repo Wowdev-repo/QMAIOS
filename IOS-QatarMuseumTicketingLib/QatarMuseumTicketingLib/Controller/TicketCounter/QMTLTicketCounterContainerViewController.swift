@@ -10,6 +10,7 @@ import UIKit
 import SwiftyJSON
 import FSPagerView
 import Toast_Swift
+import Reachability
 
 class QMTLTicketCounterContainerViewController: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,QMTLCalendarViewControllerDelegate,QMTLGuestUserViewControllerDelegate,QMTLCartTableTableViewControllerDelegate, FSPagerViewDelegate,FSPagerViewDataSource,QMTLTabViewControllerDelegate,PaymentGatewayViewControllerDelegate, APIServiceResponse, APIServiceProtocolForConnectionError,MuseumSelectionDelegate {
     
@@ -866,7 +867,13 @@ class QMTLTicketCounterContainerViewController: UIViewController,UICollectionVie
                         continueUserSignIn()
                     }
                 }else{
-                    showToast(message: "Please pick tickets")
+                    if (internetConnected()){
+                        showToast(message: "Please pick tickets")
+                    }
+                    else{
+                        self.showToast(message: getLocalizedStr(str: "CHECK_INTERNET"))
+                    }
+                    
                 }
                 
                 
@@ -895,6 +902,17 @@ class QMTLTicketCounterContainerViewController: UIViewController,UICollectionVie
             self.performSegue(withIdentifier: QMTLConstants.Segue.ticketCounterViewControllerSegue, sender: expositionPeriodsList[selectedExpositionIndex])
         }
         */
+    }
+    
+    func internetConnected() -> Bool {
+        let reachability = Reachability()!
+        
+        if (reachability.connection != .none){
+            return true
+        }
+        else{
+            return false
+        }
     }
     
     func scrollToSelectedPage(){
