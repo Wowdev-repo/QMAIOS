@@ -66,6 +66,40 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UP6-HT-d81">
+                                <rect key="frame" x="0.0" y="85" width="414" height="94"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BuyYourTicket" translatesAutoresizingMaskIntoConstraints="NO" id="xWg-V3-83E">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="94"/>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Buy Tickets" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="538-FH-s1Z">
+                                        <rect key="frame" x="163.66666666666666" y="72" width="86.666666666666657" height="17"/>
+                                        <fontDescription key="fontDescription" name="DINNextLTPro-Bold" family="DIN Next LT Pro" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SzU-wR-HPs">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="94"/>
+                                        <connections>
+                                            <action selector="buyTicketBtnAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="wCl-22-6oY"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="SzU-wR-HPs" secondAttribute="bottom" id="47n-Te-rde"/>
+                                    <constraint firstItem="xWg-V3-83E" firstAttribute="top" secondItem="UP6-HT-d81" secondAttribute="top" id="4qM-4f-wfR"/>
+                                    <constraint firstAttribute="trailing" secondItem="SzU-wR-HPs" secondAttribute="trailing" id="Cmh-0g-lXl"/>
+                                    <constraint firstAttribute="height" constant="94" id="GdW-2q-GEJ"/>
+                                    <constraint firstAttribute="bottom" secondItem="xWg-V3-83E" secondAttribute="bottom" id="MeO-3e-EtE"/>
+                                    <constraint firstItem="xWg-V3-83E" firstAttribute="leading" secondItem="UP6-HT-d81" secondAttribute="leading" id="UGo-Zh-bIa"/>
+                                    <constraint firstItem="SzU-wR-HPs" firstAttribute="top" secondItem="UP6-HT-d81" secondAttribute="top" id="gfs-Zr-g0o"/>
+                                    <constraint firstItem="SzU-wR-HPs" firstAttribute="leading" secondItem="UP6-HT-d81" secondAttribute="leading" id="glX-gS-XWi"/>
+                                    <constraint firstAttribute="bottom" secondItem="538-FH-s1Z" secondAttribute="bottom" constant="5" id="m4l-yr-lmo"/>
+                                    <constraint firstItem="538-FH-s1Z" firstAttribute="centerX" secondItem="UP6-HT-d81" secondAttribute="centerX" id="muP-og-qpv"/>
+                                    <constraint firstAttribute="trailing" secondItem="xWg-V3-83E" secondAttribute="trailing" id="tmC-41-KbN"/>
+                                </constraints>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NkB-Zv-8hj" customClass="TopBarView" customModule="QatarMuseums" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="20" width="414" height="65"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -239,7 +273,7 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="IMq-AN-rKM">
-                                <rect key="frame" x="0.0" y="85" width="414" height="554"/>
+                                <rect key="frame" x="0.0" y="179" width="414" height="460"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <outlet property="dataSource" destination="BYZ-38-t0r" id="mfd-d0-COY"/>
@@ -273,11 +307,13 @@
                             </visualEffectView>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="IMq-AN-rKM" firstAttribute="top" secondItem="NkB-Zv-8hj" secondAttribute="bottom" id="19d-pS-8ip"/>
                             <constraint firstItem="uSs-hx-cNf" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="1bW-22-FfF"/>
                             <constraint firstItem="uSs-hx-cNf" firstAttribute="top" secondItem="OhP-XR-zcm" secondAttribute="bottom" id="2US-WC-1zg"/>
+                            <constraint firstAttribute="trailing" secondItem="UP6-HT-d81" secondAttribute="trailing" id="3I5-z4-sXi"/>
                             <constraint firstItem="NdW-we-G9U" firstAttribute="top" secondItem="NkB-Zv-8hj" secondAttribute="bottom" id="AQb-6w-nz9"/>
+                            <constraint firstItem="UP6-HT-d81" firstAttribute="top" secondItem="NkB-Zv-8hj" secondAttribute="bottom" id="Ddd-9b-Nxi"/>
                             <constraint firstAttribute="trailing" secondItem="IMq-AN-rKM" secondAttribute="trailing" id="ECR-39-XSN"/>
+                            <constraint firstItem="UP6-HT-d81" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="FS7-8B-1Cs"/>
                             <constraint firstItem="QlX-sU-UNH" firstAttribute="top" secondItem="uSs-hx-cNf" secondAttribute="bottom" constant="-34" id="GI7-28-yiw"/>
                             <constraint firstItem="NkB-Zv-8hj" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailing" id="GQR-cl-Fkx"/>
                             <constraint firstItem="IMq-AN-rKM" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="JaD-tm-MeL"/>
@@ -286,6 +322,7 @@
                             <constraint firstItem="qGw-V5-okh" firstAttribute="top" secondItem="NdW-we-G9U" secondAttribute="bottom" id="ayr-bP-yvL"/>
                             <constraint firstAttribute="trailing" secondItem="uSs-hx-cNf" secondAttribute="trailing" id="cL4-oG-74C"/>
                             <constraint firstItem="NkB-Zv-8hj" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="ePo-4u-Xab"/>
+                            <constraint firstItem="IMq-AN-rKM" firstAttribute="top" secondItem="UP6-HT-d81" secondAttribute="bottom" id="eQ3-XN-bbL"/>
                             <constraint firstItem="NkB-Zv-8hj" firstAttribute="top" secondItem="OhP-XR-zcm" secondAttribute="bottom" id="jMm-tB-pZY"/>
                             <constraint firstItem="qGw-V5-okh" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="mPg-mv-kJP"/>
                             <constraint firstAttribute="trailing" secondItem="NdW-we-G9U" secondAttribute="trailing" id="pyi-pk-xAv"/>
@@ -4113,7 +4150,7 @@
                                 </constraints>
                             </view>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="84D-I2-0Ka">
-                                <rect key="frame" x="21" y="664" width="35" height="35"/>
+                                <rect key="frame" x="21" y="664" width="16" height="35"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="63v-74-IBh"/>
                                     <constraint firstAttribute="width" relation="lessThanOrEqual" constant="35" id="kSq-dB-xlq"/>
@@ -4124,7 +4161,7 @@
                                 </connections>
                             </button>
                             <slider hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Wq6-bK-3gi">
-                                <rect key="frame" x="66" y="666.66666666666663" width="325" height="31"/>
+                                <rect key="frame" x="47" y="666.66666666666663" width="344" height="31"/>
                                 <color key="minimumTrackTintColor" red="0.94901960784313721" green="0.91764705882352937" blue="0.29803921568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="maximumTrackTintColor" red="0.97254901960784312" green="0.76078431372549016" blue="0.27450980392156865" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
@@ -4141,7 +4178,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w9A-t9-cCC">
-                                <rect key="frame" x="15" y="100" width="40" height="37"/>
+                                <rect key="frame" x="15" y="100" width="30" height="37"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="37" id="hth-s7-ERY"/>
                                 </constraints>
@@ -4151,7 +4188,7 @@
                                 </connections>
                             </button>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eW7-6Q-nVu">
-                                <rect key="frame" x="359" y="96" width="40" height="45"/>
+                                <rect key="frame" x="369" y="96" width="30" height="45"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="lessThanOrEqual" constant="40" id="3dM-zf-flM"/>
                                     <constraint firstAttribute="height" constant="45" id="8IA-xw-H93"/>
@@ -6338,6 +6375,7 @@
     </scenes>
     <resources>
         <image name="Audio CircleX1" width="93" height="93"/>
+        <image name="BuyYourTicket" width="533.66668701171875" height="133.66667175292969"/>
         <image name="MIA_AboutX1" width="81" height="93"/>
         <image name="closeX1" width="93" height="93"/>
         <image name="close_greyX1" width="93" height="93"/>
@@ -6374,9 +6412,9 @@
         <image name="up_arrowX2" width="93" height="54"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="q5d-pS-Wk4"/>
+        <segue reference="sBl-n6-gHM"/>
         <segue reference="flV-LF-tzN"/>
-        <segue reference="wxa-KK-0h2"/>
+        <segue reference="rjQ-yI-tVc"/>
         <segue reference="tXC-tz-XiI"/>
         <segue reference="YLB-FU-qXW"/>
     </inferredMetricsTieBreakers>

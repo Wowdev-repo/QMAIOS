@@ -643,14 +643,27 @@ class HomeViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         self.present(diningView, animated: false, completion: nil)
     }
     
+
     
     func culturePassButtonPressed() {
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
-        if (UserDefaults.standard.value(forKey: "accessToken") as? String != nil) {
-            self.performSegue(withIdentifier: "homeToProfileFadeSegue", sender: self)
-        } else {
-            self.performSegue(withIdentifier: "homeToCulturepass", sender: self)
-        }
+        
+        // New Ticketing Functionalty Implementation
+        var storyBoard = UIStoryboard()
+        UserDefaults.standard.set(AppConstants.QMTLibConstants.QMTLUserProfileTableViewController, forKey: AppConstants.QMTLibConstants.initialViewControllerKey)
+        let bundle = Bundle(identifier: AppConstants.QMTLibConstants.bundleId)
+        storyBoard = UIStoryboard(name: AppConstants.QMTLibConstants.QMTStoryboardForEN_Id, bundle: bundle)
+        let controller = storyBoard.instantiateViewController(withIdentifier: AppConstants.QMTLibConstants.QMTLTabViewController)
+        //self.navigationController?.pushViewController(controller, animated: true)
+        self.present(controller, animated: true, completion: nil)
+        
+        
+        // Old Ticketing Mechanism Implementation
+        //   DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
+        //        if (UserDefaults.standard.value(forKey: "accessToken") as? String != nil) {
+        //            self.performSegue(withIdentifier: "homeToProfileFadeSegue", sender: self)
+        //        } else {
+        //            self.performSegue(withIdentifier: "homeToCulturepass", sender: self)
+        //        }
     }
     
     func giftShopButtonPressed() {
@@ -741,6 +754,16 @@ class HomeViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         sideView.sideMenuDelegate = self
     }
     
+    @IBAction func buyTicketBtnAction(_ sender: Any) {
+        var storyBoard = UIStoryboard()
+        UserDefaults.standard.set(AppConstants.QMTLibConstants.QMTLTicketCounterContainerViewController, forKey: AppConstants.QMTLibConstants.initialViewControllerKey)
+        let bundle = Bundle(identifier: AppConstants.QMTLibConstants.bundleId)
+        storyBoard = UIStoryboard(name: AppConstants.QMTLibConstants.QMTStoryboardForEN_Id, bundle: bundle)
+        let controller = storyBoard.instantiateViewController(withIdentifier:
+            AppConstants.QMTLibConstants.QMTLTabViewController)
+        //self.navigationController?.pushViewController(controller, animated: true)
+        self.present(controller, animated: true, completion: nil)
+    }
     //MARK: Bottombar Delegate
     @IBAction func didTapMoreButton(_ sender: UIButton) {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")

@@ -148,6 +148,8 @@
 		B87F62EB225E2E6100ADCB1F /* Migration2to3.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = B87F62EA225E2E6100ADCB1F /* Migration2to3.xcmappingmodel */; };
 		B88F07E8217DD5F600B16875 /* CulturePassCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88F07E7217DD5F600B16875 /* CulturePassCardViewController.swift */; };
 		B890F0BD2238C8C9009A874A /* panelAndTalks.png in Resources */ = {isa = PBXBuildFile; fileRef = B890F0BC2238C8C9009A874A /* panelAndTalks.png */; };
+		B8914A2622D616C0005C4BCC /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8914A2522D616C0005C4BCC /* AppConstants.swift */; };
+		B8914A2A22D70505005C4BCC /* QatarMuseumTicketingLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8914A2922D70505005C4BCC /* QatarMuseumTicketingLib.framework */; };
 		B897351321B81C3200BB812C /* NMoQTourDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = B897351221B81C3200BB812C /* NMoQTourDetail.swift */; };
 		B8ADA8AB2164CC2E00127F9A /* PreviewContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8ADA8AA2164CC2E00127F9A /* PreviewContentViewController.swift */; };
 		B8ADA8AD2164CD4100127F9A /* PreviewContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8ADA8AC2164CD4100127F9A /* PreviewContainerViewController.swift */; };
@@ -445,6 +447,8 @@
 		B87F62EA225E2E6100ADCB1F /* Migration2to3.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = Migration2to3.xcmappingmodel; sourceTree = "<group>"; };
 		B88F07E7217DD5F600B16875 /* CulturePassCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CulturePassCardViewController.swift; sourceTree = "<group>"; };
 		B890F0BC2238C8C9009A874A /* panelAndTalks.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = panelAndTalks.png; sourceTree = "<group>"; };
+		B8914A2522D616C0005C4BCC /* AppConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
+		B8914A2922D70505005C4BCC /* QatarMuseumTicketingLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QatarMuseumTicketingLib.framework; sourceTree = "<group>"; };
 		B897351221B81C3200BB812C /* NMoQTourDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NMoQTourDetail.swift; sourceTree = "<group>"; };
 		B8ADA8AA2164CC2E00127F9A /* PreviewContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewContentViewController.swift; sourceTree = "<group>"; };
 		B8ADA8AC2164CD4100127F9A /* PreviewContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewContainerViewController.swift; sourceTree = "<group>"; };
@@ -570,6 +574,7 @@
 				B806B7BF2124534200F9F338 /* CoreText.framework in Frameworks */,
 				B806B7BD2124533B00F9F338 /* GLKit.framework in Frameworks */,
 				B806B7BB2124533300F9F338 /* ImageIO.framework in Frameworks */,
+				B8914A2A22D70505005C4BCC /* QatarMuseumTicketingLib.framework in Frameworks */,
 				B806B7B92124532D00F9F338 /* libc++.tbd in Frameworks */,
 				B806B7B72124532300F9F338 /* libz.tbd in Frameworks */,
 				B806B7B52124531B00F9F338 /* OpenGLES.framework in Frameworks */,
@@ -798,6 +803,7 @@
 				1BE526D12107460F00C8CD51 /* QatarMuseumRouter.swift */,
 				1BE526D32107470700C8CD51 /* Config.swift */,
 				49504223226311EC00F320EF /* CPSessionManager.swift */,
+				B8914A2522D616C0005C4BCC /* AppConstants.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -962,6 +968,7 @@
 		B80DC04C20C792E400E28034 = {
 			isa = PBXGroup;
 			children = (
+				B8914A2922D70505005C4BCC /* QatarMuseumTicketingLib.framework */,
 				49504222226311B000F320EF /* qmcert.cer */,
 				49273F602185A74800D3057A /* QatarMuseums.entitlements */,
 				B8EAA3582158D4520060D168 /* GoogleService-Info.plist */,
@@ -2244,25 +2251,39 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-QatarMuseums/Pods-QatarMuseums-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/ActionSheetPicker-3.0/ActionSheetPicker_3_0.framework",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/CocoaLumberjack/CocoaLumberjack.framework",
+				"${BUILT_PRODUCTS_DIR}/FSCalendar/FSCalendar.framework",
+				"${BUILT_PRODUCTS_DIR}/FSPagerView/FSPagerView.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/JGProgressHUD/JGProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/KeychainSwift/KeychainSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
+				"${BUILT_PRODUCTS_DIR}/QRCode/QRCode.framework",
 				"${BUILT_PRODUCTS_DIR}/SSZipArchive/SSZipArchive.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+				"${BUILT_PRODUCTS_DIR}/Toast-Swift/Toast_Swift.framework",
 				"${BUILT_PRODUCTS_DIR}/YouTubePlayer/YouTubePlayer.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ActionSheetPicker_3_0.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaLumberjack.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FSCalendar.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FSPagerView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JGProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KeychainSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/QRCode.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SSZipArchive.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Toast_Swift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YouTubePlayer.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
@@ -2351,6 +2372,7 @@
 				B8EAB7BA20CA424300C001B2 /* DelegateAppearanceViewController.swift in Sources */,
 				B8D2FC7422C1E0B700A570BD /* MuseumsViewController+CollectionView.swift in Sources */,
 				B832791F22C0AC3700B6996D /* PreviewContentViewController+TableView.swift in Sources */,
+				B8914A2622D616C0005C4BCC /* AppConstants.swift in Sources */,
 				B82729B121778B2F0017EC71 /* VPlayerRenderingView.swift in Sources */,
 				B8EAB7C220CA67E000C001B2 /* EventPopupView.swift in Sources */,
 				B8D2FC7C22C1EDDB00A570BD /* FilterViewController+PickerView.swift in Sources */,

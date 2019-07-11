@@ -1,4 +1,5 @@
 PODS:
+  - ActionSheetPicker-3.0 (2.3.0)
   - Alamofire (4.8.2)
   - CocoaLumberjack/Core (3.5.3)
   - CocoaLumberjack/Swift (3.5.3):
@@ -40,6 +41,8 @@ PODS:
     - GoogleUtilities/Reachability (~> 6.0)
     - GoogleUtilities/UserDefaults (~> 6.0)
     - Protobuf (~> 3.1)
+  - FSCalendar (2.8.0)
+  - FSPagerView (0.8.2)
   - GoogleAppMeasurement (6.0.1):
     - GoogleUtilities/AppDelegateSwizzler (~> 6.0)
     - GoogleUtilities/MethodSwizzler (~> 6.0)
@@ -67,6 +70,7 @@ PODS:
     - GoogleUtilities/Logger
   - GoogleUtilities/UserDefaults (6.1.0):
     - GoogleUtilities/Logger
+  - JGProgressHUD (2.0.3)
   - KeychainSwift (11.0.0)
   - Kingfisher (4.9.0)
   - nanopb (0.3.901):
@@ -75,24 +79,35 @@ PODS:
   - nanopb/decode (0.3.901)
   - nanopb/encode (0.3.901)
   - Protobuf (3.7.0)
+  - QRCode (2.0)
   - SSZipArchive (2.2.2)
+  - SwiftyJSON (5.0.0)
+  - Toast-Swift (4.0.1)
   - YouTubePlayer (0.4.0)
 
 DEPENDENCIES:
+  - ActionSheetPicker-3.0 (~> 2.3.0)
   - Alamofire (~> 4.5)
   - CocoaLumberjack/Swift
   - Crashlytics
   - Fabric
   - Firebase/Core
   - Firebase/Messaging
+  - FSCalendar
+  - FSPagerView
   - GooglePlaces
+  - JGProgressHUD
   - KeychainSwift (~> 11.0)
   - Kingfisher (<= 4.9.0)
+  - QRCode
   - SSZipArchive
+  - SwiftyJSON
+  - Toast-Swift (~> 4.0.0)
   - YouTubePlayer
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - ActionSheetPicker-3.0
     - Alamofire
     - CocoaLumberjack
     - Crashlytics
@@ -103,18 +118,25 @@ SPEC REPOS:
     - FirebaseCore
     - FirebaseInstanceID
     - FirebaseMessaging
+    - FSCalendar
+    - FSPagerView
     - GoogleAppMeasurement
     - GoogleMaps
     - GooglePlaces
     - GoogleUtilities
+    - JGProgressHUD
     - KeychainSwift
     - Kingfisher
     - nanopb
     - Protobuf
+    - QRCode
     - SSZipArchive
+    - SwiftyJSON
+    - Toast-Swift
     - YouTubePlayer
 
 SPEC CHECKSUMS:
+  ActionSheetPicker-3.0: eef157d75e151f255c5333d26656c7fbfe905a51
   Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
   CocoaLumberjack: 2f44e60eb91c176d471fdba43b9e3eae6a721947
   Crashlytics: 5aa8e90dcbf2f34898b4f5a0037787531246cca0
@@ -125,17 +147,23 @@ SPEC CHECKSUMS:
   FirebaseCore: 66bdef3b310a026880e2a5bc8aa586ab62ce4543
   FirebaseInstanceID: 27bed93a59b6685f5c3e0c028a878a764fd75c33
   FirebaseMessaging: 31377e05331d16dc6c9fd82554f9a5c49aa70aed
+  FSCalendar: 3a5ed3636e2ba1b83ebebfcf0c2603105a6f5efe
+  FSPagerView: 816a18842306973cc7cc6df8a5332272f7815c30
   GoogleAppMeasurement: 51d8d9ea48f0ca44484d29cfbdef976fbd4fc336
   GoogleMaps: f79af95cb24d869457b1f961c93d3ce8b2f3b848
   GooglePlaces: 3d06e6c99654545b4738ce49648745779c25f2ef
   GoogleUtilities: 84df567c76ca84f67b7bb40e769fdd4acc746a10
+  JGProgressHUD: 12b20a8f4ffe05258f8635c1ab92816e451f904d
   KeychainSwift: bea6bd9f98af7b8d7ca4aa79fe105c00fab532db
   Kingfisher: 64539b51826b778206daa6ed815d12653caa69dd
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
   Protobuf: 7a877b7f3e5964e3fce995e2eb323dbc6831bb5a
+  QRCode: f98a1886c8f37523704a7512a4c0cd45b34c18a4
   SSZipArchive: fa16b8cc4cdeceb698e5e5d9f67e9558532fbf23
+  SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
+  Toast-Swift: e42a638589a2f95036b4bb7626cfbdde7daf0393
   YouTubePlayer: 028451f6772f372d4759866db99824c676ac1473
 
-PODFILE CHECKSUM: 384634d2bdaa99574ad84668753677903ab50971
+PODFILE CHECKSUM: 45d87c7861c063b9b8e66fa49fa46983dfd0953b
 
 COCOAPODS: 1.7.0.rc.2
