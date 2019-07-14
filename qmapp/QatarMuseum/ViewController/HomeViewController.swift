@@ -84,6 +84,13 @@ class HomeViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         diningLabel.text = NSLocalizedString("DINING_LABEL",comment: "DINING_LABEL in Home Page")
         // Ticketing Localisation For Buy Your Ticket
         buyYourTicketsLabel.text = NSLocalizedString(buyYourTicketsLabel.text!, comment: "")
+        buyYourTicketsLabel.font = UIFont.buyTicketFont
+        
+        if ((LocalizationLanguage.currentAppleLanguage()) == "en") {
+            buyYourTicketsLabel.font = UIFont.init(name: "DINNextLTPro-Bold", size: 17)!
+        } else{
+            buyYourTicketsLabel.font = UIFont.init(name: "DINNextLTArabic-Bold", size:18)!
+        }
         moreLabel.font = UIFont.exhibitionDateLabelFont
         culturePassLabel.font = UIFont.exhibitionDateLabelFont
         giftShopLabel.font = UIFont.exhibitionDateLabelFont

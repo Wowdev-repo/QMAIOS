@@ -17,5 +17,6 @@ target 'QatarMuseums' do
  pod 'KeychainSwift', '~> 11.0'
  pod 'IQKeyboardManagerSwift'
  pod 'TTTAttributedLabel'
+ pod 'ReachabilitySwift'
  
 end

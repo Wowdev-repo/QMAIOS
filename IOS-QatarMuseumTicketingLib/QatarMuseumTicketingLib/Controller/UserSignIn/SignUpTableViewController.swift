@@ -97,7 +97,7 @@ class SignUpTableViewController: UITableViewController, UITextFieldDelegate,QMTL
         toastStyle.messageColor = .white
         toastStyle.backgroundColor = .darkGray
         
-        QMTLSingleton.sharedInstance.userInfo.subscriptionArticle = nil
+        //QMTLSingleton.sharedInstance.userInfo.subscriptionArticle = nil
         
         setupView()
         
@@ -138,6 +138,7 @@ class SignUpTableViewController: UITableViewController, UITextFieldDelegate,QMTL
         tabViewController.bottomBtn.setTitle(getLocalizedStr(str: "Save") , for: .normal)
         tabViewController.topTabBarView.myProfileBtn.isHidden = true
         
+        print ("subscribed obj is",QMTLSingleton.sharedInstance.userInfo.subscriptionArticle?.name as Any);
         
         if let subscribedObj = QMTLSingleton.sharedInstance.userInfo.subscriptionArticle {
             
@@ -414,7 +415,16 @@ class SignUpTableViewController: UITableViewController, UITextFieldDelegate,QMTL
     }
     
     @objc func membershipViewTapAction(sender: UITapGestureRecognizer? = nil) {
-            self.performSegue(withIdentifier: QMTLConstants.Segue.segueCulturePassTableViewController, sender: nil)
+            //self.performSegue(withIdentifier: QMTLConstants.Segue.segueCulturePassTableViewController, sender: nil)
+        for vc in (self.navigationController?.viewControllers ?? []) {
+            print("view controller presented is ",vc);
+            if vc is CulturePassTableViewController {
+                _ = self.navigationController?.popToViewController(vc, animated: true)
+                let culturePassTableViewController = CulturePassTableViewController()
+                culturePassTableViewController.isFromSignUpPage = true
+                break
+            }
+        }
     }
     
     func callSavePerson(){
@@ -472,7 +482,15 @@ class SignUpTableViewController: UITableViewController, UITextFieldDelegate,QMTL
     
     func backBtnSelected() {
         print("Guest page backBtnSelected")
-        self.navigationController?.popViewController(animated: false)
+        //self.navigationController?.popViewController(animated: false)
+        for vc in (self.navigationController?.viewControllers ?? []) {
+            print("view controller presented is ",vc);
+            if vc is CulturePassTableViewController {
+                _ = self.navigationController?.popToViewController(vc, animated: true)
+                break
+            }
+        }
+        //self.dismiss(animated: false, completion: nil);
     }
     
     func bottomBtnAction() {
@@ -887,6 +905,16 @@ class SignUpTableViewController: UITableViewController, UITextFieldDelegate,QMTL
         i_15.text = getLocalizedStr(str: i_15.text!)
         
         i_14_TandCBtn.setTitle(getLocalizedStr(str: i_14_TandCBtn.titleLabel!.text!), for: .normal)
+        
+        if ((QMTLLocalizationLanguage.currentAppleLanguage()) == "en") {
+            i_14_TandCBtn.titleLabelFont =  UIFont.init(name: "DINNextLTPro-Bold", size: 15)
+            //nxtBtn.setTitle ("Next", for: .normal);
+        }
+        else{
+            i_14_TandCBtn.titleLabelFont = UIFont.init(name: "DINNextLTArabic-Bold", size: 15)
+            //nxtBtn.setTitle ("التالي", for: .normal);
+        }
+        
     }
 
     

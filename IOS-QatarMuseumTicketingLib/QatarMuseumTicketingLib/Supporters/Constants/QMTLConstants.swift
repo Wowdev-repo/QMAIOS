@@ -46,9 +46,9 @@ struct QMTLConstants {
     //MARK:-
     struct GantnerAPI {
         //Production
-        static let baseURL = "https://tickets.qm.org.qa"
+        //static let baseURL = "https://tickets.qm.org.qa"
         //staging
-        //static let baseURL = "https://testtickets.qm.org.qa"
+        static let baseURL = "https://testtickets.qm.org.qa"
         static let baseURLTest = "\(GantnerAPI.baseURL)/Json/"
         static let baseImgURLTest = "\(GantnerAPI.baseURL)/WebShopImageService.svc/"
         
@@ -81,22 +81,22 @@ struct QMTLConstants {
     struct QMAPI {
         
         // Payment Staging URL
-        //static let paymentGatewayURL = "http://qatarmuseumslchjkord6f.devcloud.acquia-sites.com/apipayment"
+        static let paymentGatewayURL = "http://qatarmuseumslchjkord6f.devcloud.acquia-sites.com/apipayment"
         
         // Payment Prod URL
-        static let paymentGatewayURL = "https://visit.qm.org.qa/apipayment"
+        //static let paymentGatewayURL = "https://visit.qm.org.qa/apipayment"
         
         
         
         // Email Staging
-//        static let emailBaseUrl = "https://testmailtickets.qm.org.qa/api"
-//        static let userName = "admin"
-//        static let password = "admin"
+        static let emailBaseUrl = "https://testmailtickets.qm.org.qa/api"
+        static let userName = "admin"
+        static let password = "admin"
         
         // Email Production
-        static let emailBaseUrl = "https://mailtickets.qm.org.qa/api"
-        static let userName = "admin"
-        static let password = "EPQMA!_2019"
+//        static let emailBaseUrl = "https://mailtickets.qm.org.qa/api"
+//        static let userName = "admin"
+//        static let password = "EPQMA!_2019"
         
         static let passwordResetURL = "\(QMAPI.emailBaseUrl)/PasswordReset"
         static let ticketPurchaseURL = "\(QMAPI.emailBaseUrl)/TicketPurchase"
@@ -137,6 +137,20 @@ struct QMTLConstants {
         static let CPPurchaseMail = "CPPurchaseMail"
         static let CancelSubscription = "CancelSubscription"
         
+    }
+    
+    //FONTS:-
+    struct App {
+//        "AppRegularFont" = "DINNextLTPro-Regular";
+//        "AppBoldFont" = "DINNextLTPro-Bold";
+    static let regularFontEn = "DINNextLTPro-Regular"
+    static let boldFontEn = "DINNextLTPro-Bold";
+        
+    static let regularFontAr = "DINNextLTArabic-Regular"
+    static let boldFontAr = "DINNextLTArabic-Bold"
+        
+    static let regularFont = NSLocalizedString("AppRegularFont", comment: "")
+    static let boldFont = NSLocalizedString("AppBoldFont", comment: "")
     }
     
     //MARK:-
@@ -562,6 +576,8 @@ struct QMTLConstants {
         static let segueQMTLGuestUserViewController = "SegueQMTLGuestUserViewController"
         static let segueQMTLSignInUserViewController = "SegueQMTLSignInUserViewController"
         static let segueCulturePassTableViewController = "SegueCulturePassTableViewController"
+        static let segueCulturePassList = "culturePassListSegue"
+        static let signupFromCardSegue = "signupFromCardSegue"
         static let segueQMTLSignInUserViewControllerFromProfile = "SegueQMTLSignInUserViewControllerFromProfile"
         static let segueQMTLTicketSuccessfullViewController = "SegueQMTLTicketSuccessfullViewController"
         static let segueUserInfoTableViewController = "SegueUserInfoTableViewController"

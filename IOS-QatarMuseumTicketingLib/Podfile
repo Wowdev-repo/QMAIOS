@@ -14,6 +14,7 @@ target 'QatarMuseumTicketingLib' do
   pod 'Kingfisher', '<= 4.9.0'
   pod 'QRCode'
   pod 'KeychainSwift', '~> 11.0'
+  pod 'ReachabilitySwift'
 
   # Pods for QatarMuseumTicketingLib
 

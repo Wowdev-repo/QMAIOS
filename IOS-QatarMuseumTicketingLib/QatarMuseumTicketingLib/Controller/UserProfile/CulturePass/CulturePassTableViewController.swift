@@ -23,6 +23,7 @@ class CulturePassTableViewController: UITableViewController,QMTLTabViewControlle
     var findSubscriptionArticleResponseJsonValue : JSON = []
     
     var isFromSignUpPage = false
+    var isFromLoginPage = false
     
     //MARK:- IBOutlet
     
@@ -45,6 +46,7 @@ class CulturePassTableViewController: UITableViewController,QMTLTabViewControlle
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        
                 
         self.tableView.register(UINib(nibName: QMTLConstants.NibName.culturePassTableViewCell, bundle: QMTLSingleton.sharedInstance.bundle), forCellReuseIdentifier: QMTLConstants.CellId.CulturePassTableViewCellID)
         
@@ -56,8 +58,8 @@ class CulturePassTableViewController: UITableViewController,QMTLTabViewControlle
         tabViewController.qmtlTabViewControllerDelegate = self
         tabViewController.topTabBarView.backBtn.isHidden = false
         tabViewController.topTabBarView.myProfileBtn.isHidden = true
-
-        if isFromSignUpPage {
+        //print ("bool is",isFromSignUpPage);
+        if (isFromSignUpPage || QMTLSingleton.sharedInstance.userInfo.currentSubscribtion.id == "")  {
             titleLbl.text = "\(getLocalizedStr(str: "CHOOSE MEMBERSHIP TYPE"))"
         }else{
             titleLbl.text = "\(getLocalizedStr(str: "UPGRADE CULTURE PASS TYPE"))"
@@ -211,13 +213,16 @@ class CulturePassTableViewController: UITableViewController,QMTLTabViewControlle
         }
         
         if !isFromSignUpPage {
+            
+            
+            
             if subscriptionArticle.id == QMTLSingleton.sharedInstance.userInfo.currentSubscribtion.id{
                 print ("in if")
                 cell.subscribedIndicatorLbl.isHidden = false
                 cell.subscribedIndicatorLbl.text = "\(getLocalizedStr(str: cell.subscribedIndicatorLbl.text!))"
                 
                 if dateToString(date: QMTLSingleton.sharedInstance.userInfo.currentSubscribtion.endDateTime) != dateToString(date: Date()){
-                    cell.expiresOnLbl.text = "\(getLocalizedStr(str: "Expires On")) \(dateToString(date: QMTLSingleton.sharedInstance.userInfo.currentSubscribtion.endDateTime))"
+                    cell.expiresOnLbl.text = "\(NSLocalizedString("Expires On", comment: "")) \(dateToString(date: QMTLSingleton.sharedInstance.userInfo.currentSubscribtion.endDateTime))"
                 }else{
                     cell.expiresOnLbl.text = ""
                 }
@@ -232,7 +237,7 @@ class CulturePassTableViewController: UITableViewController,QMTLTabViewControlle
                     cell.subscribedIndicatorLbl.text = "\(getLocalizedStr(str: cell.subscribedIndicatorLbl.text!))"
                     
                     if dateToString(date: QMTLSingleton.sharedInstance.userInfo.currentSubscribtion.endDateTime) != dateToString(date: Date()){
-                        cell.expiresOnLbl.text = "\(getLocalizedStr(str: "Expires On")) \(dateToString(date: QMTLSingleton.sharedInstance.userInfo.currentSubscribtion.endDateTime))"
+                        cell.expiresOnLbl.text = "\(NSLocalizedString("Expires On", comment: "")) \(dateToString(date: QMTLSingleton.sharedInstance.userInfo.currentSubscribtion.endDateTime))"
                     }else{
                         cell.expiresOnLbl.text = ""
                     }
@@ -242,7 +247,7 @@ class CulturePassTableViewController: UITableViewController,QMTLTabViewControlle
                     cell.subscribedIndicatorLbl.text = "\(getLocalizedStr(str: cell.subscribedIndicatorLbl.text!))"
                     
                     if dateToString(date: QMTLSingleton.sharedInstance.userInfo.currentSubscribtion.endDateTime) != dateToString(date: Date()){
-                        cell.expiresOnLbl.text = "\(getLocalizedStr(str: "Expires On")) \(dateToString(date: QMTLSingleton.sharedInstance.userInfo.currentSubscribtion.endDateTime))"
+                        cell.expiresOnLbl.text = "\(NSLocalizedString("Expires On", comment: "")) \(dateToString(date: QMTLSingleton.sharedInstance.userInfo.currentSubscribtion.endDateTime))"
                     }else{
                         cell.expiresOnLbl.text = ""
                     }
@@ -252,7 +257,7 @@ class CulturePassTableViewController: UITableViewController,QMTLTabViewControlle
                     cell.subscribedIndicatorLbl.text = "\(getLocalizedStr(str: cell.subscribedIndicatorLbl.text!))"
                     
                     if dateToString(date: QMTLSingleton.sharedInstance.userInfo.currentSubscribtion.endDateTime) != dateToString(date: Date()){
-                        cell.expiresOnLbl.text = "\(getLocalizedStr(str: "Expires On")) \(dateToString(date: QMTLSingleton.sharedInstance.userInfo.currentSubscribtion.endDateTime))"
+                        cell.expiresOnLbl.text = "\(NSLocalizedString("Expires On", comment: "")) \(dateToString(date: QMTLSingleton.sharedInstance.userInfo.currentSubscribtion.endDateTime))"
                     }else{
                         cell.expiresOnLbl.text = ""
                     }
@@ -280,8 +285,11 @@ class CulturePassTableViewController: UITableViewController,QMTLTabViewControlle
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let subscriptionArticle = subscriptionArticleArr[indexPath.row]
-        
-        if isFromSignUpPage{
+        if isFromLoginPage{
+            QMTLSingleton.sharedInstance.userInfo.subscriptionArticle = subscriptionArticle
+            self.performSegue(withIdentifier: QMTLConstants.Segue.signupFromCardSegue, sender: nil)
+        }
+        else if isFromSignUpPage{
             if QMTLSingleton.sharedInstance.userInfo.isLoggedIn {
                 print("sign up")
                 navToCartPage(subscriptionArticle: subscriptionArticle)
@@ -397,12 +405,15 @@ class CulturePassTableViewController: UITableViewController,QMTLTabViewControlle
                         break
                     }}))
                 
-                self.present(alert, animated: true, completion: nil)
+                self.present(alert, animated: true, completion:{
+                    alert.view.superview?.isUserInteractionEnabled = true
+                    alert.view.superview?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.alertControllerBackgroundTapped)))
+                })
             }else{
                 
                 let alertMsg = "\(getLocalizedStr(str: "Do you want to change your subscription plan from existing"))(\(getLocalizedStr(str: currentSubscriptionName))) \(getLocalizedStr(str: "to new"))(\(getLocalizedStr(str: selectedSubscriptionName)))"
                 
-                let alert = UIAlertController(title: "", message: alertMsg, preferredStyle: .alert)
+                let alert = UIAlertController(title:getLocalizedStr(str: "Change  Subscription"), message: alertMsg, preferredStyle: .alert)
                 
                 alert.addAction(UIAlertAction(title: getLocalizedStr(str:"Continue"), style: .default, handler: { action in
                     switch action.style{
@@ -427,12 +438,20 @@ class CulturePassTableViewController: UITableViewController,QMTLTabViewControlle
                     @unknown default:
                         break
                     }}))
-                self.present(alert, animated: true, completion: nil)
+                self.present(alert, animated: true, completion:{
+                    alert.view.superview?.isUserInteractionEnabled = true
+                    alert.view.superview?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.alertControllerBackgroundTapped)))
+                    })
             }
             
             
             
         }
+    }
+    
+    @objc func alertControllerBackgroundTapped()
+    {
+        self.dismiss(animated: true, completion: nil)
     }
     
     //MARK:-
@@ -458,7 +477,10 @@ class CulturePassTableViewController: UITableViewController,QMTLTabViewControlle
                         break
                     }}))
             
-                self.present(alert, animated: true, completion: nil)
+            self.present(alert, animated: true, completion:{
+                alert.view.superview?.isUserInteractionEnabled = true
+                alert.view.superview?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.alertControllerBackgroundTapped)))
+            })
 
         }
     }
@@ -533,15 +555,24 @@ class CulturePassTableViewController: UITableViewController,QMTLTabViewControlle
     
     func backBtnSelected() {
         
-        if isFromSignUpPage{
-            
+//        if isFromLoginPage{
+//            print ("in back1");
+//            for vc in (self.navigationController?.viewControllers ?? []) {
+//                 print ("in back1",vc);
+//                if vc is QMTLSignInUserViewController {
+//                    _ = self.navigationController?.popToViewController(vc, animated: true)
+//                    break
+//                }
+//            }
+//        }
+//        else
+            if isFromSignUpPage{
+             print ("in back2");
             let allControllers = self.navigationController?.viewControllers
-            
             let controllerToPop = allControllers?[(allControllers?.count)! - 3]
-            self.navigationController?.popToViewController(controllerToPop!, animated: false)
-            
-            
+            self.navigationController?.popToViewController(controllerToPop!, animated: false) 
         }else{
+             print ("in back3");
             self.navigationController?.popViewController(animated: false)
         }
         

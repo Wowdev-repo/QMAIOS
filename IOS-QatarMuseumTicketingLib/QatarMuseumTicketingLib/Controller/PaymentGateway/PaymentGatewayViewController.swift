@@ -75,9 +75,18 @@ class PaymentGatewayViewController: UIViewController, WKNavigationDelegate, APIS
     
     func responseWith(ResponseJSON json: JSON, StatusCode statusCode: Int, ServiceFor serviceFor: String) {
         print("\(serviceFor) Success ResponseJSON = \(json)")
+        let jscript = "var meta = document.createElement('meta'); meta.setAttribute('name', 'viewport'); meta.setAttribute('content', 'width=device-width'); document.getElementsByTagName('head')[0].appendChild(meta);"
+       
+        let userScript = WKUserScript(source: jscript, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
+        let wkUController = WKUserContentController()
+        wkUController.addUserScript(userScript)
+        let wkWebConfig = WKWebViewConfiguration()
+        wkWebConfig.userContentController = wkUController
+        let yourWebView = WKWebView(frame: pgwWebView.bounds, configuration: wkWebConfig)
+        yourWebView.navigationDelegate = self
+        yourWebView.load(URLRequest(url: URL(string: json.stringValue)!))
         
-        pgwWebView.load(URLRequest(url: URL(string: json.stringValue)!))
-        
+        self.view.addSubview(yourWebView)
         hud.show(in: window!)
     }
     
@@ -86,13 +95,15 @@ class PaymentGatewayViewController: UIViewController, WKNavigationDelegate, APIS
     func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
         
     }
-    
-    func webView(_ webView: WKWebView, didReceiveServerRedirectForProvisionalNavigation navigation: WKNavigation!) {
-        
+    func webViewDidFinishLoad(webView: UIWebView) {
+        let zoom = webView.bounds.size.width / webView.scrollView.contentSize.width
+        webView.scrollView.setZoomScale(zoom, animated: true)
     }
     
+  
+    
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        
+       
         hud.dismiss()
     }
 
