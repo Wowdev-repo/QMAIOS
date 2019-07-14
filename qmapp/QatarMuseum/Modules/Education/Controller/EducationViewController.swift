@@ -12,14 +12,15 @@ import Crashlytics
 import Firebase
 import UIKit
 import YouTubePlayer
+import TTTAttributedLabel
 
 
-class EducationViewController: UIViewController {
+class EducationViewController: UIViewController, TTTAttributedLabelDelegate {
     @IBOutlet weak var headerView: CommonHeaderView!
     @IBOutlet weak var educationTitle: UILabel!
     @IBOutlet weak var videoView: YouTubePlayerView!
     @IBOutlet weak var firstDescriptionLabel: UILabel!
-    @IBOutlet weak var secondDescriptionLabel: UILabel!
+    @IBOutlet weak var secondDescriptionLabel: TTTAttributedLabel!
     @IBOutlet weak var playButton: UIButton!
     @IBOutlet weak var loadingView: LoadingView!
     @IBOutlet weak var videoImage: UIImageView!
@@ -42,7 +43,20 @@ class EducationViewController: UIViewController {
         loadingView.showLoading()
         educationTitle.text = NSLocalizedString("KNOWLEDGE_ACTION_TITLE", comment: "KNOWLEDGE_ACTION_TITLE in the education page")
         firstDescriptionLabel.text = NSLocalizedString("EDUCATION_DESCRIPTION", comment: "EDUCATION_DESCRIPTION in the education page")
-        secondDescriptionLabel.text = NSLocalizedString("EDUCATION_TEXT", comment: "EDUCATION_TEXT in the education page")
+        secondDescriptionLabel.font = UIFont.englishTitleFont
+        
+        let str : NSString = NSLocalizedString("EDUCATION_TEXT", comment: "EDUCATION_TEXT in the education page") as NSString
+        secondDescriptionLabel.delegate = self
+        secondDescriptionLabel.text = str
+        
+        if ((LocalizationLanguage.currentAppleLanguage()) == "en") {
+            let range : NSRange = str.range(of: "Knowledge in Action")
+            secondDescriptionLabel.addLink(to: NSURL(string: "https://www.qm.org.qa/sites/default/files/education/uploads/kina_2019_summer.pdf")! as URL, with: range)
+        }else{
+            let range : NSRange = str.range(of: "تطبيق المعرفة")
+            secondDescriptionLabel.addLink(to: NSURL(string: "https://www.qm.org.qa/sites/default/files/education/uploads/kina_2019_summer_ar.pdf")! as URL, with: range)
+        }
+        
         //secondDescriptionLabel.text = "All of our education parameters privide interactive opportunities. We hope that they create lasting memories and lead to the development of creative, compassionate and engaged individuals.\n\n For school teachers and educators, we bring custom-made worshops, conferences and trainings to suit their needs. We also focus on working with children to encourage them to explore the world around them, engage with it, and express themselves through creative activities.\n\n All of our activities with Qatar Supreme Educational Council Professional Standards for Teachers and National Curriculum Standars."
         headerView.headerViewDelegate = self
         headerView.headerTitle.text = NSLocalizedString("EDUCATION_TITLE", comment: "EDUCATION_TITLE in the education page")

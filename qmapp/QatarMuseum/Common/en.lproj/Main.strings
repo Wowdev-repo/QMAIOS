@@ -277,3 +277,6 @@
 
 /* Class = "UILabel"; text = "A UNESCO WORLD HERITAGE SITE"; ObjectID = "yut-RA-ad3"; */
 "yut-RA-ad3.text" = "A UNESCO WORLD HERITAGE SITE";
+
+/* Class = "UILabel"; text = "Buy Tickets"; ObjectID = "538-FH-s1Z"; */
+"538-FH-s1Z.text" = "Buy Tickets";

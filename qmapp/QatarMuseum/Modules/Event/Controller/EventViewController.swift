@@ -8,6 +8,7 @@
 
 
 
+
 import Crashlytics
 import EventKit
 import Firebase
@@ -118,35 +119,36 @@ class EventViewController: UIViewController,UIViewControllerTransitioningDelegat
                 self.fetchEducationEventFromCoredata()
             }
         }
+        
+        calendarView.appearance.titleWeekendColor = UIColor.profilePink
+        previousConstraint.constant = 30
+        nextConstraint.constant = 30
+        
         if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
             UserDefaults.standard.set(false, forKey: "Arabic")
             headerView.headerBackButton.setImage(UIImage(named: "back_buttonX1"), for: .normal)
             previousButton.setImage(UIImage(named: "previousImg"), for: .normal)
             nextButton.setImage(UIImage(named: "nextImg"), for: .normal)
             calendarView.locale = NSLocale.init(localeIdentifier: "en") as Locale
-            calendarView.identifier = NSCalendar.Identifier.gregorian.rawValue
+//            calendarView.identifier = NSCalendar.Identifier.gregorian.rawValue
             calendarView.appearance.titleFont = UIFont.init(name: "DINNextLTPro-Bold", size: 19)
             
-            calendarView.appearance.titleWeekendColor = UIColor.profilePink
-            previousConstraint.constant = 30
-            nextConstraint.constant = 30
+//            calendarView.appearance.titleWeekendColor = UIColor.profilePink
+//            previousConstraint.constant = 30
+//            nextConstraint.constant = 30
             
         }
         else {
-           
-            headerView.headerBackButton.setImage(UIImage(named: "back_mirrorX1"), for: .normal)
             //For RTL
+            previousButton.setImage(UIImage(named: "nextImg"), for: .normal)
+            nextButton.setImage(UIImage(named: "previousImg"), for: .normal)
+            headerView.headerBackButton.setImage(UIImage(named: "back_mirrorX1"), for: .normal)
             calendarView?.locale = Locale(identifier: "ar")
             self.calendarView.transform = CGAffineTransform(scaleX: -1, y: 1)
             calendarView.setCurrentPage(Date(), animated: false)
             UserDefaults.standard.set(true, forKey: "Arabic")
             calendarView.appearance.titleFont = UIFont.init(name: "DINNextLTArabic-Bold", size: 18)
             calendarView.appearance.weekdayFont =  UIFont.init(name: "DINNextLTArabic-Regular", size: 13)
-            previousButton.setImage(UIImage(named: "nextImg"), for: .normal)
-            nextButton.setImage(UIImage(named: "previousImg"), for: .normal)
-            calendarView.appearance.titleWeekendColor = UIColor.profilePink
-            previousConstraint.constant = 30
-            nextConstraint.constant = 30
         }
     }
     //For RTL

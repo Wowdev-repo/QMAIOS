@@ -28,7 +28,7 @@ enum HomePageName {
     case bannerMuseumLandingPage
 }
 
-class HomeViewController: UIViewController,UITableViewDelegate,UITableViewDataSource, TopBarProtocol,comingSoonPopUpProtocol,SideMenuProtocol,UIViewControllerTransitioningDelegate,LoadingViewProtocol,LoginPopUpProtocol,UITextFieldDelegate {
+class HomeViewController: UIViewController, UIViewControllerTransitioningDelegate {
     
 
     @IBOutlet weak var restaurantButton: UIButton!
@@ -385,9 +385,332 @@ class HomeViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             }
         }
     }
+   
+    @IBAction func buyTicketBtnAction(_ sender: Any) {
+        var storyBoard = UIStoryboard()
+        UserDefaults.standard.set(AppConstants.QMTLibConstants.QMTLTicketCounterContainerViewController, forKey: AppConstants.QMTLibConstants.initialViewControllerKey)
+        let bundle = Bundle(identifier: AppConstants.QMTLibConstants.bundleId)
+        storyBoard = UIStoryboard(name: AppConstants.QMTLibConstants.QMTStoryboardForEN_Id, bundle: bundle)
+        let controller = storyBoard.instantiateViewController(withIdentifier:
+            AppConstants.QMTLibConstants.QMTLTabViewController)
+        //self.navigationController?.pushViewController(controller, animated: true)
+        self.present(controller, animated: true, completion: nil)
+    }
+    //MARK: Bottombar Delegate
+    @IBAction func didTapMoreButton(_ sender: UIButton) {
+        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
+        self.moreButton.transform = CGAffineTransform(scaleX: 1, y: 1)
+         topbarMenuPressed()
+    }
+    
+    @IBAction func moreButtonTouchDown(_ sender: UIButton) {
+        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
+        self.moreButton.transform = CGAffineTransform(scaleX: 0.7, y: 0.7)
+    }
+    
+    @IBAction func didTaprestaurantButton(_ sender: UIButton) {
+        self.restaurantButton.transform = CGAffineTransform(scaleX: 1, y: 1)
+         homePageNameString = HomePageName.diningList
+        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
+        self.performSegue(withIdentifier: "homeToCommonListSegue", sender: self)
+        self.culturePassButton.transform = CGAffineTransform(scaleX: 1, y: 1)
+        let diningView =  self.storyboard?.instantiateViewController(withIdentifier: "exhibitionViewId") as! CommonListViewController
+         diningView.fromHome = true
+         diningView.fromSideMenu = false
+         diningView.exhibitionsPageNameString = ExhbitionPageName.diningList
+         let transition = CATransition()
+         transition.duration = 0.25
+         transition.type = kCATransitionPush
+         transition.subtype = kCATransitionFromRight
+         view.window!.layer.add(transition, forKey: kCATransition)
+         Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
+            AnalyticsParameterItemID: FirebaseAnalyticsEvents.tapped_button_item,
+            AnalyticsParameterItemName: "didTaprestaurantButton_from_Home_Menu",
+            AnalyticsParameterContentType: "cont"
+            ])
+         self.present(diningView, animated: false, completion: nil)
+    }
+    
+    @IBAction func restaurantButtonTouchDown(_ sender: UIButton) {
+        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
+        self.restaurantButton.transform = CGAffineTransform(scaleX: 0.7, y: 0.7)
+    }
+    
+    @IBAction func didTapCulturePass(_ sender: UIButton) {
+        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
+        culturePassButtonPressed()
+        self.culturePassButton.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+    }
+    
+    @IBAction func culturePassTouchDown(_ sender: UIButton) {
+        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
+        self.culturePassButton.transform = CGAffineTransform(scaleX: 0.7, y: 0.7)
+    }
+    
+    @IBAction func didTapGiftShopButton(_ sender: UIButton) {
+        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
+        giftShopButtonPressed()
+        self.giftShopButton.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+    }
+    
+    @IBAction func giftShopButtonTouchDown(_ sender: UIButton) {
+        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
+        self.giftShopButton.transform = CGAffineTransform(scaleX: 0.7, y: 0.7)
+    }
+    
+    func topbarMenuPressed() {
+        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
+        self.topbarView.menuButton.contentEdgeInsets = UIEdgeInsets(top: 14, left: 20, bottom: 14, right: 18)
+        var sideViewFrame = CGRect()
+        if (UIScreen.main.bounds.height >= 812) {
+            sideViewFrame = CGRect(x: 0, y: 40, width: self.view.frame.width, height: self.view.bounds.height)
+        } else {
+            sideViewFrame = CGRect(x: 0, y: 20, width: self.view.frame.width, height: self.view.bounds.height)
+        }
+        sideView  = SideMenuView(frame: sideViewFrame)
+        self.view.addSubview(sideView)
+        
+        sideView.transform = CGAffineTransform.init(scaleX: 1, y: 1)
+        sideView.alpha = 0
+        UIView.animate(withDuration: 0.3) {
+            self.visualEffectView.isHidden = false
+            self.visualEffectView.effect = self.effect
+            self.sideView.alpha = 1
+            self.sideView.transform = CGAffineTransform.identity
+            self.sideView.topBarView.menuButton.contentEdgeInsets = UIEdgeInsets(top: 14, left: 18, bottom: 14, right: 20)
+        }
+        
+        Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
+            AnalyticsParameterItemID: FirebaseAnalyticsEvents.tapped_button_item,
+            AnalyticsParameterItemName: "topbarMenuPressed_from_Home",
+            AnalyticsParameterContentType: "cont"
+            ])
+        sideView.sideMenuDelegate = self
+        
+    }
+    
+    func topBarEventButtonPressed() {
+        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
+        homePageNameString = HomePageName.eventList
+        self.performSegue(withIdentifier: "homeToEventSegue", sender: self)
+    }
+    
+    func topBarProfileButtonPressed() {
+        let profileView =  self.storyboard?.instantiateViewController(withIdentifier: "profileViewId") as! ProfileViewController
+        profileView.fromHome = true
+        let transition = CATransition()
+        transition.duration = 0.3
+        transition.type = kCATransitionPush
+        transition.subtype = kCATransitionFromRight
+        view.window!.layer.add(transition, forKey: kCATransition)
+        Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
+            AnalyticsParameterItemID: FirebaseAnalyticsEvents.tapped_button_item,
+            AnalyticsParameterItemName: "topBarProfileButtonPressed_from_Home",
+            AnalyticsParameterContentType: "cont"
+            ])
+        self.present(profileView, animated: false, completion: nil)
+        
+    }
+    
+    func setProfileDetails(loginInfo : LoginData?) {
+        if (loginInfo != nil) {
+            let userData = loginInfo?.user
+            self.keychain.set(userData?.uid ?? "", forKey: UserProfileInfo.user_id)
+            self.keychain.set(userData?.mail ?? "", forKey: UserProfileInfo.user_email)
+            self.keychain.set(userData?.name ?? "", forKey: UserProfileInfo.user_dispaly_name)
+            self.keychain.set(userData?.picture ?? "", forKey: UserProfileInfo.user_photo)
+            
+            if(userData?.fieldDateOfBirth != nil) {
+                if((userData?.fieldDateOfBirth?.count)! > 0) {
+                    self.keychain.set(userData?.fieldDateOfBirth![0] ?? "", forKey: UserProfileInfo.user_dob)
+
+                }
+            }
+            let firstNameData = userData?.fieldFirstName["und"] as? NSArray
+            if(firstNameData != nil && (firstNameData?.count)! > 0) {
+                let name = firstNameData![0] as! NSDictionary
+                if(name["value"] != nil) {
+                    self.keychain.set(name["value"] as! String , forKey: UserProfileInfo.user_firstname)
+
+                }
+            }
+            let lastNameData = userData?.fieldLastName["und"] as? NSArray
+            if(lastNameData != nil && (lastNameData?.count)! > 0) {
+                let name = lastNameData?[0] as! NSDictionary
+                if(name["value"] != nil) {
+                    self.keychain.set(name["value"] as! String , forKey: UserProfileInfo.user_lastname)
+
+                }
+            }
+            let locationData = userData?.fieldLocation["und"] as! NSArray
+            if(locationData.count > 0) {
+                let iso = locationData[0] as! NSDictionary
+                if(iso["iso2"] != nil) {
+                    self.keychain.set(iso["iso2"] as! String , forKey: UserProfileInfo.user_country)
+
+                }
+                
+            }
+            
+            let nationalityData = userData?.fieldNationality["und"] as! NSArray
+            if(nationalityData.count > 0) {
+                let nation = nationalityData[0] as! NSDictionary
+                if(nation["iso2"] != nil) {
+                    self.keychain.set(nation["iso2"] as! String, forKey: UserProfileInfo.user_nationality)
+
+                }
+            }
+            let translationsData = userData?.translations["data"] as? NSDictionary
+            if(translationsData != nil) {
+                let arValues = translationsData?["ar"] as! NSDictionary
+                if(arValues["entity_id"] != nil) {
+                    self.keychain.set(arValues["entity_id"] as! String, forKey: UserProfileInfo.user_loginentity_id)
+
+                }
+            }
+            
+            
+            
+        }
+        self.loginPopUpView.removeFromSuperview()
+        getEventListUserRegistrationFromServer()
+    }
+    func loadTourViewPage(nid: String?,subTitle:String?,isFromTour:Bool?) {
+        homePageNameString = HomePageName.panelAndTalksList
+        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
+        self.performSegue(withIdentifier: "homeToCommonListSegue", sender: self)
+    }
+    @objc func receiveHomePageNotificationEn(notification: NSNotification) {
+        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
+        if ((LocalizationLanguage.currentAppleLanguage() == ENG_LANGUAGE ) && (homeList.count == 0)){
+            DispatchQueue.main.async{
+                self.fetchHomeInfoFromCoredata()
+            }
+        }
+        
+    }
+    @objc func receiveHomePageNotificationAr(notification: NSNotification) {
+        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
+        if ((LocalizationLanguage.currentAppleLanguage() == AR_LANGUAGE ) && (homeList.count == 0)){
+            DispatchQueue.main.async{
+                self.fetchHomeInfoFromCoredata()
+            }
+        }
+    }
+    func recordScreenView() {
+        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
+        let screenClass = String(describing: type(of: self))
+        Analytics.setScreenName(HOME, screenClass: screenClass)
+    }
+    
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return UIModalPresentationStyle.none
+    }
+}
+
+//MARK:- Segue extension
+extension HomeViewController {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if (segue.identifier == "homeToCommonListSegue") {
+            let commonList = segue.destination as! CommonListViewController
+            if((homePageNameString == HomePageName.exhibitionList) && ((homeList[selectedRow!].id == "12181") || (homeList[selectedRow!].id == "12186"))){
+                commonList.exhibitionsPageNameString = ExhbitionPageName.homeExhibition
+            } else if((homePageNameString == HomePageName.panelAndTalksList) && (homeList[selectedRow!].id == "13976") || (homeList[selectedRow!].id == "15631")) {
+                commonList.tourDetailId = homeList[selectedRow!].id
+                commonList.headerTitle = NSLocalizedString("PANEL_AND_TALKS",comment: "PANEL_AND_TALKS in Home Page")
+                commonList.isFromTour = false
+                commonList.exhibitionsPageNameString = ExhbitionPageName.nmoqTourSecondList
+            }  else if(homePageNameString == HomePageName.tourguideList){
+                commonList.fromSideMenu = true
+                commonList.exhibitionsPageNameString = ExhbitionPageName.tourGuideList
+            } else if(homePageNameString == HomePageName.diningList){
+                commonList.fromHome = true
+                commonList.fromSideMenu = false
+                commonList.exhibitionsPageNameString = ExhbitionPageName.diningList
+            }
+            
+        } else if (segue.identifier == "homeToListFadeSegue") {
+            let commonList = segue.destination as! CommonListViewController
+            if(homePageNameString == HomePageName.exhibitionList){
+                commonList.fromSideMenu = true
+                commonList.exhibitionsPageNameString = ExhbitionPageName.homeExhibition
+            } else if(homePageNameString == HomePageName.diningList){
+                commonList.fromHome = true
+                commonList.fromSideMenu = true
+                commonList.exhibitionsPageNameString = ExhbitionPageName.diningList
+            } else if(homePageNameString == HomePageName.heritageList){
+                commonList.fromSideMenu = true
+                commonList.exhibitionsPageNameString = ExhbitionPageName.heritageList
+            } else if(homePageNameString == HomePageName.publicArtsList){
+                commonList.fromSideMenu = true
+                commonList.exhibitionsPageNameString = ExhbitionPageName.publicArtsList
+            }
+        }else if (segue.identifier == "homeToMuseumLandingSegue") {
+            let museumsView = segue.destination as! MuseumsViewController
+            
+            if(homePageNameString == HomePageName.museumLandingPage){
+                museumsView.museumId = homeList[selectedRow!].id
+                museumsView.museumTitleString = homeList[selectedRow!].name
+                museumsView.fromHomeBanner = false
+            } else if(homePageNameString == HomePageName.bannerMuseumLandingPage){
+                museumsView.fromHomeBanner = true
+                museumsView.museumTitleString = homeBannerList[0].bannerTitle
+                museumsView.bannerId = homeBannerList[0].fullContentID
+                museumsView.bannerImageArray = homeBannerList[0].image
+            } else {
+                museumsView.fromHomeBanner = true
+                museumsView.museumTitleString = homeBannerList[0].bannerTitle
+            }
+            
+        }else if (segue.identifier == "homeToCulturepass") {
+            let culturePass = segue.destination as! CulturePassViewController
+            culturePass.fromHome = true
+        } else if (segue.identifier == "homeToCommonDetail") {
+            let commonDetail = segue.destination as! CommonDetailViewController
+            commonDetail.pageNameString = PageName.SideMenuPark
+        } else if (segue.identifier == "homeToNotificationSegue") {
+            let notificationView = segue.destination as! NotificationsViewController
+            notificationView.fromHome = true
+        } else if(homePageNameString == HomePageName.eventList){
+            let eventView = segue.destination as! EventViewController
+            if (segue.identifier == "homeToEventSegue") {
+                eventView.fromHome = true
+                eventView.isLoadEventPage = true
+            } else if (segue.identifier == "homeToEventFadeSegue") {
+                eventView.fromHome = true
+                eventView.isLoadEventPage = true
+                eventView.fromSideMenu = true
+            }
+            
+        } else if (segue.identifier == "homeToEducationFadeSegue") {
+            let educationView = segue.destination as! EducationViewController
+            educationView.fromSideMenu = true
+        }else if (segue.identifier == "homeToWebViewSegue") {
+            let webViewVc = segue.destination as! WebViewController
+            let aboutUrlString = "https://inq-online.com/"
+            if let aboutUrl = URL(string: aboutUrlString) {
+                // show alert to choose app
+                if UIApplication.shared.canOpenURL(aboutUrl as URL) {
+                    webViewVc.webViewUrl = aboutUrl
+                    webViewVc.titleString = NSLocalizedString("WEBVIEW_TITLE", comment: "WEBVIEW_TITLE  in the Webview")
+                }
+            }
+        } else if (homePageNameString == HomePageName.profilePage) {
+            let profileView = segue.destination as! ProfileViewController
+            if (segue.identifier == "homeToProfileSegue") {
+                profileView.fromHome = true
+                //homeToProfileSegue
+                //homeToProfileFadeSegue
+            }
+        }
+    }
+}
+
+//MARK:- ReusableView methods and delgates
+extension HomeViewController: TopBarProtocol,comingSoonPopUpProtocol,SideMenuProtocol, LoadingViewProtocol,LoginPopUpProtocol {
     //MARK: Topbar Delegate
     func backButtonPressed() {
-    DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
+        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
     }
     
     func eventButtonPressed() {
@@ -402,16 +725,16 @@ class HomeViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     
     func notificationbuttonPressed() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-
+        
         self.performSegue(withIdentifier: "homeToNotificationSegue", sender: self)
-//        let notificationsView =  self.storyboard?.instantiateViewController(withIdentifier: "notificationId") as! NotificationsViewController
-//        notificationsView.fromHome = true
-//        let transition = CATransition()
-//        transition.duration = 0.3
-//        transition.type = kCATransitionPush
-//        transition.subtype = kCATransitionFromRight
-//        view.window!.layer.add(transition, forKey: kCATransition)
-//        self.present(notificationsView, animated: false, completion: nil)
+        //        let notificationsView =  self.storyboard?.instantiateViewController(withIdentifier: "notificationId") as! NotificationsViewController
+        //        notificationsView.fromHome = true
+        //        let transition = CATransition()
+        //        transition.duration = 0.3
+        //        transition.type = kCATransitionPush
+        //        transition.subtype = kCATransitionFromRight
+        //        view.window!.layer.add(transition, forKey: kCATransition)
+        //        self.present(notificationsView, animated: false, completion: nil)
         let notificationsView =  self.storyboard?.instantiateViewController(withIdentifier: "notificationId") as! NotificationsViewController
         notificationsView.fromHome = true
         let transition = CATransition()
@@ -459,52 +782,52 @@ class HomeViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     }
     
     //MARK: SideMenu Delegates
-//    func exhibitionButtonPressed() {
-//        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
-//        homePageNameString = HomePageName.exhibitionList
-//        self.performSegue(withIdentifier: "homeToListFadeSegue", sender: self)
-//    }
-//
-//    func eventbuttonPressed() {
-//        homePageNameString = HomePageName.eventList
-//        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
-//        self.performSegue(withIdentifier: "homeToEventFadeSegue", sender: self)
-//    }
-//    
-//    func educationButtonPressed() {
-//        homePageNameString = HomePageName.educationList
-//        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
-//        self.performSegue(withIdentifier: "homeToEducationFadeSegue", sender: self)
-//    }
-//
-//    func tourGuideButtonPressed() {
-//        homePageNameString = HomePageName.tourguideList
-//        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
-//        self.performSegue(withIdentifier: "homeToCommonListSegue", sender: self)
-//    }
-//
-//    func heritageButtonPressed() {
-//        homePageNameString = HomePageName.heritageList
-//        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
-//        self.performSegue(withIdentifier: "homeToListFadeSegue", sender: self)
-//    }
-//
-//    func publicArtsButtonPressed() {
-//        homePageNameString = HomePageName.publicArtsList
-//        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
-//        self.performSegue(withIdentifier: "homeToListFadeSegue", sender: self)
-//    }
-//
-//    func parksButtonPressed() {
-//        homePageNameString = HomePageName.parksList
-//        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
-//        self.performSegue(withIdentifier: "homeToCommonDetail", sender: self)
-//    }
-//
-//    func diningButtonPressed() {
-//        homePageNameString = HomePageName.diningList
-//        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
-//        self.performSegue(withIdentifier: "homeToListFadeSegue", sender: self)
+    //    func exhibitionButtonPressed() {
+    //        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
+    //        homePageNameString = HomePageName.exhibitionList
+    //        self.performSegue(withIdentifier: "homeToListFadeSegue", sender: self)
+    //    }
+    //
+    //    func eventbuttonPressed() {
+    //        homePageNameString = HomePageName.eventList
+    //        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
+    //        self.performSegue(withIdentifier: "homeToEventFadeSegue", sender: self)
+    //    }
+    //
+    //    func educationButtonPressed() {
+    //        homePageNameString = HomePageName.educationList
+    //        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
+    //        self.performSegue(withIdentifier: "homeToEducationFadeSegue", sender: self)
+    //    }
+    //
+    //    func tourGuideButtonPressed() {
+    //        homePageNameString = HomePageName.tourguideList
+    //        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
+    //        self.performSegue(withIdentifier: "homeToCommonListSegue", sender: self)
+    //    }
+    //
+    //    func heritageButtonPressed() {
+    //        homePageNameString = HomePageName.heritageList
+    //        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
+    //        self.performSegue(withIdentifier: "homeToListFadeSegue", sender: self)
+    //    }
+    //
+    //    func publicArtsButtonPressed() {
+    //        homePageNameString = HomePageName.publicArtsList
+    //        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
+    //        self.performSegue(withIdentifier: "homeToListFadeSegue", sender: self)
+    //    }
+    //
+    //    func parksButtonPressed() {
+    //        homePageNameString = HomePageName.parksList
+    //        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
+    //        self.performSegue(withIdentifier: "homeToCommonDetail", sender: self)
+    //    }
+    //
+    //    func diningButtonPressed() {
+    //        homePageNameString = HomePageName.diningList
+    //        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
+    //        self.performSegue(withIdentifier: "homeToListFadeSegue", sender: self)
     
     func exhibitionButtonPressed() {
         let exhibitionView =  self.storyboard?.instantiateViewController(withIdentifier: "exhibitionViewId") as! CommonListViewController
@@ -514,7 +837,7 @@ class HomeViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         transition.type = kCATransitionFade
         transition.timingFunction = CAMediaTimingFunction(name:kCAMediaTimingFunctionEaseInEaseOut)
         view.window!.layer.add(transition, forKey: kCATransition)
-         exhibitionView.exhibitionsPageNameString = ExhbitionPageName.homeExhibition
+        exhibitionView.exhibitionsPageNameString = ExhbitionPageName.homeExhibition
         Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
             AnalyticsParameterItemID: FirebaseAnalyticsEvents.tapped_button_item,
             AnalyticsParameterItemName: "exhibitionButtonPressed_from_Home_Menu",
@@ -642,7 +965,7 @@ class HomeViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         self.present(diningView, animated: false, completion: nil)
     }
     
-
+    
     
     func culturePassButtonPressed() {
         
@@ -675,38 +998,38 @@ class HomeViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
         self.performSegue(withIdentifier: "homeToSettingsSegue", sender: self)
         //        FIXME: Below code loads webview rather than the settings page
-//                let aboutUrlString = "https://inq-online.com/"
-//        if let aboutUrl = URL(string: aboutUrlString) {
-//            // show alert to choose app
-//            if UIApplication.shared.canOpenURL(aboutUrl as URL) {
-//                let webViewVc:WebViewController = self.storyboard?.instantiateViewController(withIdentifier: "webViewId") as! WebViewController
-//                webViewVc.webViewUrl = aboutUrl
-//                webViewVc.titleString = NSLocalizedString("WEBVIEW_TITLE", comment: "WEBVIEW_TITLE  in the Webview")
-//                self.present(webViewVc, animated: false, completion: nil)
-//            }
-//
-//            Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
-//                AnalyticsParameterItemID: FirebaseAnalyticsEvents.tapped_button_item,
-//                AnalyticsParameterItemName: "giftShopButtonPressed_from_Home_Menu",
-//                AnalyticsParameterContentType: aboutUrlString
-//                ])
-//        }
+        //                let aboutUrlString = "https://inq-online.com/"
+        //        if let aboutUrl = URL(string: aboutUrlString) {
+        //            // show alert to choose app
+        //            if UIApplication.shared.canOpenURL(aboutUrl as URL) {
+        //                let webViewVc:WebViewController = self.storyboard?.instantiateViewController(withIdentifier: "webViewId") as! WebViewController
+        //                webViewVc.webViewUrl = aboutUrl
+        //                webViewVc.titleString = NSLocalizedString("WEBVIEW_TITLE", comment: "WEBVIEW_TITLE  in the Webview")
+        //                self.present(webViewVc, animated: false, completion: nil)
+        //            }
+        //
+        //            Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
+        //                AnalyticsParameterItemID: FirebaseAnalyticsEvents.tapped_button_item,
+        //                AnalyticsParameterItemName: "giftShopButtonPressed_from_Home_Menu",
+        //                AnalyticsParameterContentType: aboutUrlString
+        //                ])
+        //        }
     }
     
-//    func settingsButtonPressed() {
-//        let settingsView =  self.storyboard?.instantiateViewController(withIdentifier: "settingsId") as! SettingsViewController
-//        let transition = CATransition()
-//        transition.duration = 0.3
-//        transition.type = kCATransitionPush
-//        transition.subtype = kCATransitionFromRight
-//        view.window!.layer.add(transition, forKey: kCATransition)
-//        Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
-//            AnalyticsParameterItemID: FirebaseAnalyticsEvents.tapped_button_item,
-//            AnalyticsParameterItemName: "settingsButtonPressed_from_Home_Menu",
-//            AnalyticsParameterContentType: "cont"
-//            ])
-//        self.present(settingsView, animated: false, completion: nil)
-//    }
+    //    func settingsButtonPressed() {
+    //        let settingsView =  self.storyboard?.instantiateViewController(withIdentifier: "settingsId") as! SettingsViewController
+    //        let transition = CATransition()
+    //        transition.duration = 0.3
+    //        transition.type = kCATransitionPush
+    //        transition.subtype = kCATransitionFromRight
+    //        view.window!.layer.add(transition, forKey: kCATransition)
+    //        Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
+    //            AnalyticsParameterItemID: FirebaseAnalyticsEvents.tapped_button_item,
+    //            AnalyticsParameterItemName: "settingsButtonPressed_from_Home_Menu",
+    //            AnalyticsParameterContentType: "cont"
+    //            ])
+    //        self.present(settingsView, animated: false, completion: nil)
+    //    }
     
     func menuEventPressed() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
@@ -752,132 +1075,6 @@ class HomeViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         self.topbarView.menuButton.setImage(UIImage(named: "side_menu_iconX1"), for: .normal)
         self.topbarView.menuButton.contentEdgeInsets = UIEdgeInsets(top: 14, left: 18, bottom: 14, right: 18)
         sideView.sideMenuDelegate = self
-    }
-    
-    @IBAction func buyTicketBtnAction(_ sender: Any) {
-        var storyBoard = UIStoryboard()
-        UserDefaults.standard.set(AppConstants.QMTLibConstants.QMTLTicketCounterContainerViewController, forKey: AppConstants.QMTLibConstants.initialViewControllerKey)
-        let bundle = Bundle(identifier: AppConstants.QMTLibConstants.bundleId)
-        storyBoard = UIStoryboard(name: AppConstants.QMTLibConstants.QMTStoryboardForEN_Id, bundle: bundle)
-        let controller = storyBoard.instantiateViewController(withIdentifier:
-            AppConstants.QMTLibConstants.QMTLTabViewController)
-        //self.navigationController?.pushViewController(controller, animated: true)
-        self.present(controller, animated: true, completion: nil)
-    }
-    //MARK: Bottombar Delegate
-    @IBAction func didTapMoreButton(_ sender: UIButton) {
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
-        self.moreButton.transform = CGAffineTransform(scaleX: 1, y: 1)
-         topbarMenuPressed()
-    }
-    
-    @IBAction func moreButtonTouchDown(_ sender: UIButton) {
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
-        self.moreButton.transform = CGAffineTransform(scaleX: 0.7, y: 0.7)
-    }
-    
-    @IBAction func didTaprestaurantButton(_ sender: UIButton) {
-        self.restaurantButton.transform = CGAffineTransform(scaleX: 1, y: 1)
-         homePageNameString = HomePageName.diningList
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
-        self.performSegue(withIdentifier: "homeToCommonListSegue", sender: self)
-        self.culturePassButton.transform = CGAffineTransform(scaleX: 1, y: 1)
-        let diningView =  self.storyboard?.instantiateViewController(withIdentifier: "exhibitionViewId") as! CommonListViewController
-         diningView.fromHome = true
-         diningView.fromSideMenu = false
-         diningView.exhibitionsPageNameString = ExhbitionPageName.diningList
-         let transition = CATransition()
-         transition.duration = 0.25
-         transition.type = kCATransitionPush
-         transition.subtype = kCATransitionFromRight
-         view.window!.layer.add(transition, forKey: kCATransition)
-         Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
-            AnalyticsParameterItemID: FirebaseAnalyticsEvents.tapped_button_item,
-            AnalyticsParameterItemName: "didTaprestaurantButton_from_Home_Menu",
-            AnalyticsParameterContentType: "cont"
-            ])
-         self.present(diningView, animated: false, completion: nil)
-    }
-    
-    @IBAction func restaurantButtonTouchDown(_ sender: UIButton) {
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
-        self.restaurantButton.transform = CGAffineTransform(scaleX: 0.7, y: 0.7)
-    }
-    
-    @IBAction func didTapCulturePass(_ sender: UIButton) {
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
-        culturePassButtonPressed()
-        self.culturePassButton.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
-    }
-    
-    @IBAction func culturePassTouchDown(_ sender: UIButton) {
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
-        self.culturePassButton.transform = CGAffineTransform(scaleX: 0.7, y: 0.7)
-    }
-    
-    @IBAction func didTapGiftShopButton(_ sender: UIButton) {
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
-        giftShopButtonPressed()
-        self.giftShopButton.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
-    }
-    
-    @IBAction func giftShopButtonTouchDown(_ sender: UIButton) {
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
-        self.giftShopButton.transform = CGAffineTransform(scaleX: 0.7, y: 0.7)
-    }
-    
-    func topbarMenuPressed() {
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
-        self.topbarView.menuButton.contentEdgeInsets = UIEdgeInsets(top: 14, left: 20, bottom: 14, right: 18)
-        var sideViewFrame = CGRect()
-        if (UIScreen.main.bounds.height >= 812) {
-            sideViewFrame = CGRect(x: 0, y: 40, width: self.view.frame.width, height: self.view.bounds.height)
-        } else {
-            sideViewFrame = CGRect(x: 0, y: 20, width: self.view.frame.width, height: self.view.bounds.height)
-        }
-        sideView  = SideMenuView(frame: sideViewFrame)
-        self.view.addSubview(sideView)
-        
-        sideView.transform = CGAffineTransform.init(scaleX: 1, y: 1)
-        sideView.alpha = 0
-        UIView.animate(withDuration: 0.3) {
-            self.visualEffectView.isHidden = false
-            self.visualEffectView.effect = self.effect
-            self.sideView.alpha = 1
-            self.sideView.transform = CGAffineTransform.identity
-            self.sideView.topBarView.menuButton.contentEdgeInsets = UIEdgeInsets(top: 14, left: 18, bottom: 14, right: 20)
-        }
-        
-        Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
-            AnalyticsParameterItemID: FirebaseAnalyticsEvents.tapped_button_item,
-            AnalyticsParameterItemName: "topbarMenuPressed_from_Home",
-            AnalyticsParameterContentType: "cont"
-            ])
-        sideView.sideMenuDelegate = self
-        
-    }
-    
-    func topBarEventButtonPressed() {
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
-        homePageNameString = HomePageName.eventList
-        self.performSegue(withIdentifier: "homeToEventSegue", sender: self)
-    }
-    
-    func topBarProfileButtonPressed() {
-        let profileView =  self.storyboard?.instantiateViewController(withIdentifier: "profileViewId") as! ProfileViewController
-        profileView.fromHome = true
-        let transition = CATransition()
-        transition.duration = 0.3
-        transition.type = kCATransitionPush
-        transition.subtype = kCATransitionFromRight
-        view.window!.layer.add(transition, forKey: kCATransition)
-        Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
-            AnalyticsParameterItemID: FirebaseAnalyticsEvents.tapped_button_item,
-            AnalyticsParameterItemName: "topBarProfileButtonPressed_from_Home",
-            AnalyticsParameterContentType: "cont"
-            ])
-        self.present(profileView, animated: false, completion: nil)
-        
     }
     
     func showNodata() {
@@ -948,71 +1145,11 @@ class HomeViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             self.view.makeToast(eventAddedMessage)
         }
     }
-    
-    func setProfileDetails(loginInfo : LoginData?) {
-        if (loginInfo != nil) {
-            let userData = loginInfo?.user
-            self.keychain.set(userData?.uid ?? "", forKey: UserProfileInfo.user_id)
-            self.keychain.set(userData?.mail ?? "", forKey: UserProfileInfo.user_email)
-            self.keychain.set(userData?.name ?? "", forKey: UserProfileInfo.user_dispaly_name)
-            self.keychain.set(userData?.picture ?? "", forKey: UserProfileInfo.user_photo)
-            
-            if(userData?.fieldDateOfBirth != nil) {
-                if((userData?.fieldDateOfBirth?.count)! > 0) {
-                    self.keychain.set(userData?.fieldDateOfBirth![0] ?? "", forKey: UserProfileInfo.user_dob)
+}
 
-                }
-            }
-            let firstNameData = userData?.fieldFirstName["und"] as? NSArray
-            if(firstNameData != nil && (firstNameData?.count)! > 0) {
-                let name = firstNameData![0] as! NSDictionary
-                if(name["value"] != nil) {
-                    self.keychain.set(name["value"] as! String , forKey: UserProfileInfo.user_firstname)
+//MARK:- TextField Delegate
+extension HomeViewController: UITextFieldDelegate {
 
-                }
-            }
-            let lastNameData = userData?.fieldLastName["und"] as? NSArray
-            if(lastNameData != nil && (lastNameData?.count)! > 0) {
-                let name = lastNameData?[0] as! NSDictionary
-                if(name["value"] != nil) {
-                    self.keychain.set(name["value"] as! String , forKey: UserProfileInfo.user_lastname)
-
-                }
-            }
-            let locationData = userData?.fieldLocation["und"] as! NSArray
-            if(locationData.count > 0) {
-                let iso = locationData[0] as! NSDictionary
-                if(iso["iso2"] != nil) {
-                    self.keychain.set(iso["iso2"] as! String , forKey: UserProfileInfo.user_country)
-
-                }
-                
-            }
-            
-            let nationalityData = userData?.fieldNationality["und"] as! NSArray
-            if(nationalityData.count > 0) {
-                let nation = nationalityData[0] as! NSDictionary
-                if(nation["iso2"] != nil) {
-                    self.keychain.set(nation["iso2"] as! String, forKey: UserProfileInfo.user_nationality)
-
-                }
-            }
-            let translationsData = userData?.translations["data"] as? NSDictionary
-            if(translationsData != nil) {
-                let arValues = translationsData?["ar"] as! NSDictionary
-                if(arValues["entity_id"] != nil) {
-                    self.keychain.set(arValues["entity_id"] as! String, forKey: UserProfileInfo.user_loginentity_id)
-
-                }
-            }
-            
-            
-            
-        }
-        self.loginPopUpView.removeFromSuperview()
-        getEventListUserRegistrationFromServer()
-    }
-    //MARK:TextField Delegate
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if (textField == loginPopUpView.userNameText) {
             loginPopUpView.passwordText.becomeFirstResponder()
@@ -1021,134 +1158,5 @@ class HomeViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             loginPopUpView.passwordText.resignFirstResponder()
         }
         return true
-    }
-    func loadTourViewPage(nid: String?,subTitle:String?,isFromTour:Bool?) {
-        homePageNameString = HomePageName.panelAndTalksList
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
-        self.performSegue(withIdentifier: "homeToCommonListSegue", sender: self)
-    }
-    @objc func receiveHomePageNotificationEn(notification: NSNotification) {
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
-        if ((LocalizationLanguage.currentAppleLanguage() == ENG_LANGUAGE ) && (homeList.count == 0)){
-            DispatchQueue.main.async{
-                self.fetchHomeInfoFromCoredata()
-            }
-        }
-        
-    }
-    @objc func receiveHomePageNotificationAr(notification: NSNotification) {
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
-        if ((LocalizationLanguage.currentAppleLanguage() == AR_LANGUAGE ) && (homeList.count == 0)){
-            DispatchQueue.main.async{
-                self.fetchHomeInfoFromCoredata()
-            }
-        }
-    }
-    func recordScreenView() {
-        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
-        let screenClass = String(describing: type(of: self))
-        Analytics.setScreenName(HOME, screenClass: screenClass)
-    }
-    
-    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
-        return UIModalPresentationStyle.none
-    }
-}
-
-//MARK: Segue extension
-extension HomeViewController {
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if (segue.identifier == "homeToCommonListSegue") {
-            let commonList = segue.destination as! CommonListViewController
-            if((homePageNameString == HomePageName.exhibitionList) && ((homeList[selectedRow!].id == "12181") || (homeList[selectedRow!].id == "12186"))){
-                commonList.exhibitionsPageNameString = ExhbitionPageName.homeExhibition
-            } else if((homePageNameString == HomePageName.panelAndTalksList) && (homeList[selectedRow!].id == "13976") || (homeList[selectedRow!].id == "15631")) {
-                commonList.tourDetailId = homeList[selectedRow!].id
-                commonList.headerTitle = NSLocalizedString("PANEL_AND_TALKS",comment: "PANEL_AND_TALKS in Home Page")
-                commonList.isFromTour = false
-                commonList.exhibitionsPageNameString = ExhbitionPageName.nmoqTourSecondList
-            }  else if(homePageNameString == HomePageName.tourguideList){
-                commonList.fromSideMenu = true
-                commonList.exhibitionsPageNameString = ExhbitionPageName.tourGuideList
-            } else if(homePageNameString == HomePageName.diningList){
-                commonList.fromHome = true
-                commonList.fromSideMenu = false
-                commonList.exhibitionsPageNameString = ExhbitionPageName.diningList
-            }
-            
-        } else if (segue.identifier == "homeToListFadeSegue") {
-            let commonList = segue.destination as! CommonListViewController
-            if(homePageNameString == HomePageName.exhibitionList){
-                commonList.fromSideMenu = true
-                commonList.exhibitionsPageNameString = ExhbitionPageName.homeExhibition
-            } else if(homePageNameString == HomePageName.diningList){
-                commonList.fromHome = true
-                commonList.fromSideMenu = true
-                commonList.exhibitionsPageNameString = ExhbitionPageName.diningList
-            } else if(homePageNameString == HomePageName.heritageList){
-                commonList.fromSideMenu = true
-                commonList.exhibitionsPageNameString = ExhbitionPageName.heritageList
-            } else if(homePageNameString == HomePageName.publicArtsList){
-                commonList.fromSideMenu = true
-                commonList.exhibitionsPageNameString = ExhbitionPageName.publicArtsList
-            }
-        }else if (segue.identifier == "homeToMuseumLandingSegue") {
-            let museumsView = segue.destination as! MuseumsViewController
-            
-            if(homePageNameString == HomePageName.museumLandingPage){
-                museumsView.museumId = homeList[selectedRow!].id
-                museumsView.museumTitleString = homeList[selectedRow!].name
-                museumsView.fromHomeBanner = false
-            } else if(homePageNameString == HomePageName.bannerMuseumLandingPage){
-                museumsView.fromHomeBanner = true
-                museumsView.museumTitleString = homeBannerList[0].bannerTitle
-                museumsView.bannerId = homeBannerList[0].fullContentID
-                museumsView.bannerImageArray = homeBannerList[0].image
-            } else {
-                museumsView.fromHomeBanner = true
-                museumsView.museumTitleString = homeBannerList[0].bannerTitle
-            }
-            
-        }else if (segue.identifier == "homeToCulturepass") {
-            let culturePass = segue.destination as! CulturePassViewController
-            culturePass.fromHome = true
-        } else if (segue.identifier == "homeToCommonDetail") {
-            let commonDetail = segue.destination as! CommonDetailViewController
-            commonDetail.pageNameString = PageName.SideMenuPark
-        } else if (segue.identifier == "homeToNotificationSegue") {
-            let notificationView = segue.destination as! NotificationsViewController
-            notificationView.fromHome = true
-        } else if(homePageNameString == HomePageName.eventList){
-            let eventView = segue.destination as! EventViewController
-            if (segue.identifier == "homeToEventSegue") {
-                eventView.fromHome = true
-                eventView.isLoadEventPage = true
-            } else if (segue.identifier == "homeToEventFadeSegue") {
-                eventView.fromHome = true
-                eventView.isLoadEventPage = true
-                eventView.fromSideMenu = true
-            }
-            
-        } else if (segue.identifier == "homeToEducationFadeSegue") {
-            let educationView = segue.destination as! EducationViewController
-            educationView.fromSideMenu = true
-        }else if (segue.identifier == "homeToWebViewSegue") {
-            let webViewVc = segue.destination as! WebViewController
-            let aboutUrlString = "https://inq-online.com/"
-            if let aboutUrl = URL(string: aboutUrlString) {
-                // show alert to choose app
-                if UIApplication.shared.canOpenURL(aboutUrl as URL) {
-                    webViewVc.webViewUrl = aboutUrl
-                    webViewVc.titleString = NSLocalizedString("WEBVIEW_TITLE", comment: "WEBVIEW_TITLE  in the Webview")
-                }
-            }
-        } else if (homePageNameString == HomePageName.profilePage) {
-            let profileView = segue.destination as! ProfileViewController
-            if (segue.identifier == "homeToProfileSegue") {
-                profileView.fromHome = true
-                //homeToProfileSegue
-                //homeToProfileFadeSegue
-            }
-        }
     }
 }

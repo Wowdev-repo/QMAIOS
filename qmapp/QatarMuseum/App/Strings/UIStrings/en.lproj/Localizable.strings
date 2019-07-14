@@ -129,7 +129,7 @@
 
 "KNOWLEDGE_ACTION_TITLE" = "KNOWLEDGE IN ACTION";
 "EDUCATION_DESCRIPTION" = "Our numerous programmes are designed for families, university students and adults \n\n Find out what's on offer and register ahead to secure your place.";
-"EDUCATION_TEXT" = "All of our education parameters privide interactive opportunities. We hope that they create lasting memories and lead to the development of creative, compassionate and engaged individuals.\n\n For school teachers and educators, we bring custom-made worshops, conferences and trainings to suit their needs. We also focus on working with children to encourage them to explore the world around them, engage with it, and express themselves through creative activities.\n\n All of our activities with Qatar Supreme Educational Council Professional Standards for Teachers and National Curriculum Standars.";
+"EDUCATION_TEXT" = "All of our education parameters provide interactive opportunities. We hope that they create lasting memories and lead to the development of creative, compassionate and engaged individuals.\n\n For school teachers and educators, we bring custom-made worshops, conferences and trainings to suit their needs. We also focus on working with children to encourage them to explore the world around them, engage with it, and express themselves through creative activities.\n\n All of our activities align with Ministry of Education professional standards for teachers and National Curriculum standards. \n\n Educational and public programs for Summer 2019 (June-August) are published in the Knowledge in Action (KinA) brochure.You can use this brochure to find talks, lectures, conferences, workshops, tours, master classes and courses offered by museums and programs departments across QM.";
 "TOUR_GUIDES" = "TOUR GUIDES";
 "TOUR_GUIDE_TEXT" = "Immerse yourself into the object details curated specially for you by our experts.";
 "EVENT_ADDED_MESSAGE" = "Event added to Calendar";
@@ -266,3 +266,304 @@
 "EMAIL_DEVICE_CONFIG_TITLE" = "Could Not Send Email";
 "EMAIL_DEVICE_CONFIG_MESSAGE" = "Your device could not send e-mail.Please check e-mail configuration and try again.";
 "PROBLEM_DESCRIPTION" = "";
+
+// Ticketing Library Module Changes Started From Here
+"SIGN IN" = "SIGN IN";
+"Login using your credentials" = "Login using your credentials";
+"Email" = "Email";
+"Password" = "Password";
+"Forgot Password?" = "Forgot Password?";
+"Sign Up" = "Sign Up";
+"Login" = "Login";
+"CONTINUE AS GUEST?" = "CONTINUE AS GUEST?";
+"Check without signing in." = "Check without signing in.";
+"Already a Member ?" = "Already a Member ?";
+"TERMS & CONDITIONS" = "TERMS & CONDITIONS";
+
+"Forgot Password ?" = "Forgot Password ?";
+"Reset your password here" = "Reset your password here";
+
+"UPGRADE CULTURE PASS TYPE" = "UPGRADE CULTURE PASS TYPE";
+"CHOOSE MEMBERSHIP TYPE" = "CHOOSE MEMBERSHIP TYPE";
+"CP Family" = "Culture Pass Family";
+"QMA STAFF CP Family" = "QMA STAFF CP Family";
+"QMA STAFF CP Plus" = "QMA STAFF CP Plus";
+"CP Basic" = "Culture Pass Basic";
+"CP Plus" = "Culture Pass Plus";
+
+"QR" = "QAR";
+"CP Member Basic" = "CP Member Basic";
+"CP Member Plus" = "CP Member Plus";
+"Read Benefits" = "Read Benefits";
+"Subscribed" = "Subscribed";
+"Expires On" = "Expires On";
+
+"Benefits" = "Benefits";
+"FREE UNLIMITED MUSEUM ADMISSION" = "FREE UNLIMITED MUSEUM ADMISSION";
+"CP TOURS INCLUDING MARCHITECTURE" = "CP TOURS INCLUDING MARCHITECTURE";
+"CP EXCLUSIVE WORKSHOPS" = "CP EXCLUSIVE WORKSHOPS";
+"QM F&B" = "QM F&B";
+"QM GIFT SHOPS" = "QM GIFT SHOPS";
+"INQ-ONLINE SHOP" = "INQ-ONLINE SHOP";
+"CASS ART QATAR" = "CASS ART QATAR";
+"COMMUNITY CLASSES WITH PARTNERS" = "COMMUNITY CLASSES WITH PARTNERS";
+"HEALTH & LEISURE DISCOUNTS" = "HEALTH & LEISURE DISCOUNTS";
+"EXTERNAL PARTY EVENTS AT QM" = "EXTERNAL PARTY EVENTS AT QM";
+"Newsletter" = "Newsletter";
+"SKIP THE LINE AT VENUES" = "SKIP THE LINE AT VENUES";
+
+"No" = "No";
+"1 FREE PER YEAR" = "1 FREE PER YEAR";
+"10% IDAM (LUNCH ONLY), 15% CAFÉS & KIOSKS" = "10% IDAM (LUNCH ONLY), 15% CAFÉS & KIOSKS";
+"10% DISCOUNT" = "10% DISCOUNT";
+"Yes" = "Yes";
+"Unlimited tours Including Marchitecture" = "Unlimited tours Including Marchitecture";
+"Unlimited workshops" = "Unlimited workshops";
+"15% DISCOUNT" = "15% DISCOUNT";
+"5% DISCOUNT" = "5% DISCOUNT";
+
+
+"REGISTER & BECOME A MEMBER" = "REGISTER & BECOME A MEMBER";
+"Your Account Details*" = "Your Account Details*";
+"Email*" = "Email*";
+"Set Password*" = "Set Password*";
+"Password*" = "Password*";
+"Confirm Password" = "Confirm Password";
+"Confirm Password*" = "Confirm Password*";
+"About You" = "About You";
+"Title" = "Title";
+"First Name*" = "First Name*";
+"First Name" = "First Name";
+"Last Name*" = "Last Name*";
+"Last Name" = "Last Name";
+"Country"="Country";
+"Select Country*"="Country of Residence*";
+"Select Country"="Select Country";
+"Nationality"="Nationality";
+"Select Nationality"="Select Nationality";
+"Country of Residence*" = "Country of Residence*";
+"Country of Residence" = "Country of Residence";
+"Code" = "Code";
+"Mobile*" = "Mobile*";
+"Mobile" = "Mobile";
+"Subscribe to Newsletter" = "Subscribe to Newsletter";
+"Accept Terms & Condition" = "Accept Terms & Conditions";
+"Save" = "Save";
+
+"Membership Renewal" = "Membership Renewal";
+"Culture Pass Membership" = "Culture Pass Membership";
+"Expires On" = "Expires On";
+"My Visits" = "My Visits";
+"My Profile" = "My Profile";
+"Log Out" = "Log Out";
+
+"EDIT YOUR PROFILE DETAILS" = "EDIT YOUR PROFILE DETAILS";
+"Your Membership Plan*" = "Your Membership Plan*";
+"Valid up to" = "Valid up to";
+"Send password reset link to email" = "Send password reset link to email";
+
+"MY VISITS" = "MY VISITS";
+"Your tickets so far" = "Your tickets so far";
+"Completed" = "Completed";
+"Upcoming" = "Upcoming";
+"Today" = "Today";
+
+"CART" = "CART";
+"Clear cart" = "Clear Cart";
+"Expires in" = "Expires in";
+"Months" = "Months";
+"Month" = "Month";
+"Complete Order" = "Complete Order";
+
+"MEMBERSHIP PURCHASED SUCCESSFULLY" = "MEMBERSHIP PURCHASED SUCCESSFULLY";
+"Please check your email for further details" = "Please check your email for further details";
+"Transaction ID" = "Transaction ID";
+"Payment Method" = "Payment Method";
+"Credit" = "Credit";
+"Membership ID" = "Membership ID";
+"OK" = "OK";
+
+"Fire Station" = "Fire Station";
+"MIA - Museum of Islamic Arts" = "MIA - Museum of Islamic Arts";
+"MATHAF" = "MATHAF";
+"webshop" = "webshop";
+"National Museum of Qatar" = "National Museum of Qatar";
+
+"WHEN WOULD YOU LIKE TO VISIT THE MUSEUM ?" = "WHEN WOULD YOU LIKE TO VISIT THE MUSEUM ?";
+"Booking not opened for this museum" = "Booking not opened for this museum";
+"Next" = "Next";
+
+"SELECT YOUR TICKETS" = "SELECT YOUR TICKETS";
+"Each visitor requires a valid ticket" = "Each visitor requires a valid ticket";
+
+//"QR Adult" = "QR Adult";
+//"Adult" = "Adult";
+//"Child 0-16 years" = "Child 0-16 years";
+//"Student" = "Student";
+//"QR Res Child 0-16 years" = "QR Res Child 0-16 years";
+//"QR Res Student" = "QR Res Student";
+//"Adult" = "Adult";
+//"Museum pass" = "Museum pass";
+//"CP Member Plus" = "CP Member Plus";
+//"CP Member Family" = "CP Member Family";
+//"Family" = "Family";
+//"QR Family" = "QR Family";
+
+
+"Adult (Resident of Qatar)" = "Adult (Resident of Qatar)";
+"Adult" = "Adult";
+"Child 0-16 years" = "Child 0-16 years";
+"Child 0-16" = "Child 0-16";
+"Student" = "Student";
+"Student (Resident of Qatar)" = "Student (Resident of Qatar)";
+"Child 0 - 16 years (Resident of Qatar)" = "Child 0 - 16 years (Resident of Qatar)";
+"Free Entry" = "Free Entry";
+"Museum Pass" = "Museum Pass";
+"Culture Pass Plus card holder" = "Culture Pass Plus card holder";
+"Culture Pass Family card holder" = "Culture Pass Family card holder";
+"Family" = "Family";
+"Family (Resident of Qatar)" = "Family (Resident of Qatar)";
+
+
+"Total" = "Total";
+
+"Valid for" = "Valid for";
+"Valid for Life time" = "Valid for Life time";
+"Complete Order" = "Complete Order";
+
+"PAYMENT SUCCESSFUL" = "PAYMENT SUCCESSFUL";
+"TICKET PURCHASED SUCCESSFULLY" = "TICKET PURCHASED SUCCESSFULLY";
+"Please bring this ticket during your visit" = "Please bring this ticket during your visit";
+
+"Valid for 1 year" = "Valid for 1 year";
+"TICKET" = "TICKET";
+"Ticket ID" = "Ticket ID";
+"Print" = "Print";
+"My Visits" = "My Visits";
+
+"No tickets available to show" = "No tickets available to show";
+"Ticket history not available" = "Ticket history not available";
+"User registration failed" = "User registration failed";
+"Your profile updated successfully" = "Your profile updated successfully";
+"Email id already exist" = "Email id already exist";
+"Password reset link has been sent to your mail" = "Password reset link has been sent to your mail";
+"Please enter email id" = "Please enter email id";
+"Please enter valid email id" = "Please enter valid email id";
+"Please enter title" = "Please enter title";
+"Please enter first name" = "Please enter first name";
+"Please enter last name" = "Please enter last name";
+"Please enter country of residence" = "Please enter country of residence";
+"Please enter nationality" = "Please enter nationality";
+"Please enter phone code" = "Please enter phone code";
+"Please enter mobile number" = "Please enter mobile number";
+"Please enter valid mobile number" = "Please enter valid mobile number";
+"Please enter new password" = "Please enter new password";
+"Please enter valid email id" = "Please enter valid email id";
+"Failed to find your Profile Kindly try with Correct email" = "Failed to find your Profile Kindly try with Correct email";
+
+"Please enter name" = "Please enter name";
+"Please enter valid email id" = "Please enter valid email id";
+"Please enter phone number" = "Please enter phone number";
+"Please enter valid phone number" = "Please enter valid phone number";
+"Please enter nationality" = "Please enter nationality";
+"Please accept terms and conditions" = "Please accept terms and conditions";
+"Username or password is wrong" = "Username or password is wrong";
+"Please enter Valid Email Id" = "Please enter Valid Email Id";
+"Please enter password" = "Please enter password";
+"Password reset link has been sent to your mail" = "Password reset link has been sent to your mail";
+"Failed to find your Profile Kindly try with Correct email" = "Failed to find your Profile Kindly try with Correct email";
+"Please enter new password" = "Please enter new password";
+"Please enter valid email id" = "Please enter valid email id";
+"User registration failed" = "User registration failed";
+"Email id already exist" = "Email id already exist";
+"Please enter valid email id" = "Please enter valid email id";
+"Please enter new password" = "Please enter new password";
+"Password should have atlease 1 character, 1 number, 1 special character and minimum 6 characters" = "Password should have atlease 1 character, 1 number, 1 special character and minimum 6 characters";
+"Please re enter password" = "Please re enter password";
+"Re entered password is not matching with new password" = "Re entered password is not matching with new password";
+"Please enter title" = "Please enter title";
+"Please enter first name" = "Please enter first name";
+"Please enter last name" = "Please enter last name";
+"Please enter country of residence" = "Please enter country of residence";
+"Please enter nationality" = "Please enter nationality";
+"Please enter phone code" = "Please enter phone code";
+"Please enter mobile number" = "Please enter mobile number";
+"Please enter valid mobile number" = "Please enter valid mobile number";
+"Please accept terms and conditions" = "Please accept terms and conditions";
+"Cannot lock the ticket, Please try again" = "Cannot lock the ticket, Please try again";
+"Please pick tickets" = "Select atleast a ticket to proceed";
+"Ticket not locked please try again" = "Ticket not locked please try again";
+
+"Do you want to change your subscription plan from existing" = "Do you want to change your subscription plan from existing";
+"to new" = "to new";
+"new" = "new";
+"Continue" = "Continue";
+"Cancel" = "Cancel";
+"Are you sure you want to log out?" = "Are you sure you want to log out?";
+"Ok" = "Ok";
+"Continue to checkout the selected membership plan" = "Continue to checkout the selected membership plan";
+"Please subscribe to any of the membership plan" = "Please subscribe to any of the membership plan";
+
+"Checkout without signing in." = "Checkout without signing in.";
+"Name" = "Name";
+"Name*" = "Name*";
+"Phone" = "Phone";
+"Already a Member ?" = "Already a Member ?";
+"Sign Up" = "Sign Up";
+"Your email*" = "Your email*";
+
+"FLIP" = "FLIP";
+"E-CARD" = "E-CARD";
+
+"Ticket PDF not generated" = "Ticket PDF not generated";
+
+"Buy your Tickets" = "Buy your Tickets";
+
+"If you need to buy this ticket then Please upgrade your membership" = "If you need to buy this ticket then Please upgrade your membership";
+
+"You already a member of this plan" = "You have already subscribed to this membership plan.";
+
+"SELECT TICKETS" = "SELECT TICKETS";
+"You will need a ticket to enter the museum. Tickets are valid for three consecutive days starting with the first day of entry." = "You will need a ticket to enter the museum. Tickets are valid for three consecutive days starting with the first day of entry.";
+
+"GUEST CHECKOUT" = "GUEST CHECKOUT";
+"Continue without logging in" = "Continue without logging in";
+"Existing Culture Pass Member?" = "Existing Culture Pass Member?";
+
+"LOG IN" = "LOG IN";
+"Log in to your Culture Pass account" = "Log in to your Culture Pass account";
+
+"PAYMENT SUCCESSFUL" = "PAYMENT SUCCESSFUL";
+"YOUR TICKET" = "YOUR TICKET";
+"Show this ticket at the Museum for entry" = "Show this ticket at the Museum for entry";
+"My Tickets" = "My Tickets";
+"MY TICKETS" = "MY TICKETS";
+"Buy Tickets" = "Buy Tickets";
+"You are not authorized to select CP Membership tickets, please log in or register to become a member." = "You are not authorized to select CP Membership tickets, please log in or register to become a member.";
+"You are not authorized member, please upgrade your membership." = "You are not authorized member, please upgrade your membership.";
+"You are not authorized user." = "You are not authorized user.";
+"Free" = "Free";
+"MUSEUM OF ISLAMIC ART (MIA)"="MUSEUM OF ISLAMIC ART (MIA)";
+"NATIONAL MUSEUM OF QATAR" = "NATIONAL MUSEUM OF QATAR";
+"MATHAF: ARAB MUSEUM OF MODERN ART"="MATHAF: ARAB MUSEUM OF MODERN ART";
+
+
+// Ticket Description
+"Please present your valid student card on entry."="Please present your valid student card on entry.";
+"Family ticket includes 2 adults and up to 4 children."="Family ticket includes 2 adults and up to 4 children.";
+"Family ticket includes 2 adults and up tp 4 children."="Family ticket includes 2 adults and up tp 4 children.";
+"Please present your valid Culture Pass card on entry."="Please present your valid Culture Pass card on entry.";
+"Please present your valid QID or Qatari drivers license on entry."="Please present your valid QID or Qatari drivers license on entry.";
+"Grants the holder access to all QM museums."="Grants the holder access to all QM museums.";
+"No description available"="No description available";
+
+"PLEASE SELECT A MUSEUM"="PLEASE SELECT A MUSEUM";
+"VisitTicket" = "Ticket";
+"Share" = "Share";
+"1" ="1";
+"2"="2";
+"3"="3";
+
+"AppRegularFont" = "DINNextLTPro-Regular";
+"AppBoldFont" = "DINNextLTPro-Bold";
+"Change  Subscription" = "Change Subscription?";

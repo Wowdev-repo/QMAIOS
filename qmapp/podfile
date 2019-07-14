@@ -20,4 +20,5 @@ target 'QatarMuseums' do
  pod 'ActionSheetPicker-3.0', '~> 2.3.0'
  pod 'QRCode'
  pod 'ReachabilitySwift'
+ pod 'TTTAttributedLabel'
 end
