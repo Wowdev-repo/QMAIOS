@@ -593,7 +593,7 @@ class QMTLTicketCounterTableViewController: UITableViewController,TicketPickerVi
    
             if !priceItem.isUserCanBuyThis {
                      if (priceItem.cantBuyErrMsgStr != ""){
-                let alert = UIAlertController(title: "", message: msgStr, preferredStyle: .alert)
+                let alert = UIAlertController(title: getLocalizedStr(str:"Alert"), message: msgStr, preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: getLocalizedStr(str:"OK"), style: .default, handler: { action in
                     switch action.style{
                     case .default:
