@@ -12,6 +12,7 @@ enum CoreDataVersion: Int {
     case version1 = 1
     case version2
     case version3
+    case version4
     
     // MARK: - Accessors
     
