@@ -311,7 +311,7 @@ class SignUpTableViewController: UITableViewController, UITextFieldDelegate,QMTL
     
     func showToast(message : String) {
         
-        let toastLabel = UILabel(frame: CGRect(x: self.view.frame.size.width/2 - 75, y: self.view.frame.size.height/2 - 17, width: 150, height: 35))
+        let toastLabel = UILabel(frame: CGRect(x: self.view.frame.size.width/2 - 75, y: self.view.frame.size.height/2 - 17, width: 250, height: 35))
         toastLabel.backgroundColor = UIColor.darkGray
         toastLabel.textColor = UIColor.white
         toastLabel.textAlignment = .center;
@@ -329,9 +329,9 @@ class SignUpTableViewController: UITableViewController, UITextFieldDelegate,QMTL
     }
     
 //    func showToast(message : String){
-//        
+//
 //        scrollToTop()
-//        
+//
 //        self.view.makeToast(getLocalizedStr(str: message), duration: 2.0, position: .center, style: toastStyle)
 //        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute: {
 //            self.view.hideAllToasts()
