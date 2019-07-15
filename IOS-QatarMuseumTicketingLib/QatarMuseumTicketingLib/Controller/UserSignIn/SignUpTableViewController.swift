@@ -83,6 +83,7 @@ class SignUpTableViewController: UITableViewController, UITextFieldDelegate,QMTL
         self.navigationItem.setHidesBackButton(true, animated:false)
         self.navigationItem.title = ""
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+        UserDefaults.standard.set("REGISTER", forKey: "SCREEN") 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
