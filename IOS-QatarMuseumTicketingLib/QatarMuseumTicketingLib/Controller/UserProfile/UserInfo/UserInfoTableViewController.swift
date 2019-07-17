@@ -186,7 +186,7 @@ class UserInfoTableViewController: UITableViewController,UITextFieldDelegate,QMT
     //MARK:- Show Toast
     func showToast(message : String) {
         
-        let toastLabel = UILabel(frame: CGRect(x: self.view.frame.size.width/2 - 75, y: self.view.frame.size.height/2 - 17, width: 250, height: 35))
+        let toastLabel = UILabel(frame: CGRect(x: self.view.frame.size.width/2 - 125, y: self.view.frame.size.height/2 - 17, width: 250, height: 35))
         toastLabel.backgroundColor = UIColor.darkGray
         toastLabel.textColor = UIColor.white
         toastLabel.textAlignment = .center;

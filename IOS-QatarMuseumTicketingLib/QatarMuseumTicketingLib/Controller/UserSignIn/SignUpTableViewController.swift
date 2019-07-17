@@ -83,7 +83,7 @@ class SignUpTableViewController: UITableViewController, UITextFieldDelegate,QMTL
         self.navigationItem.setHidesBackButton(true, animated:false)
         self.navigationItem.title = ""
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
-        UserDefaults.standard.set("REGISTER", forKey: "SCREEN") 
+        UserDefaults.standard.set("REGISTER", forKey: "SCREEN")
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -312,7 +312,7 @@ class SignUpTableViewController: UITableViewController, UITextFieldDelegate,QMTL
     
     func showToast(message : String) {
         
-        let toastLabel = UILabel(frame: CGRect(x: self.view.frame.size.width/2 - 75, y: self.view.frame.size.height/2 - 17, width: 250, height: 35))
+        let toastLabel = UILabel(frame: CGRect(x: self.view.frame.size.width/2 - 125, y: self.view.frame.size.height/2 - 17, width: 250, height: 35))
         toastLabel.backgroundColor = UIColor.darkGray
         toastLabel.textColor = UIColor.white
         toastLabel.textAlignment = .center;

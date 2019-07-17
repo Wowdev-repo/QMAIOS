@@ -3566,7 +3566,7 @@
                                                             </constraints>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Membership" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tf4-Ye-uba">
-                                                            <rect key="frame" x="75" y="3.5" width="92" height="17"/>
+                                                            <rect key="frame" x="75" y="4.5" width="92" height="17"/>
                                                             <fontDescription key="fontDescription" name="DINNextLTPro-Regular" family="DIN Next LT Pro" pointSize="17"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
@@ -3585,7 +3585,7 @@
                                                     <constraints>
                                                         <constraint firstItem="T9C-YI-8YM" firstAttribute="centerY" secondItem="so7-zS-dJZ" secondAttribute="centerY" id="BST-hd-8Za"/>
                                                         <constraint firstItem="r6e-hb-MIt" firstAttribute="leading" secondItem="T9C-YI-8YM" secondAttribute="trailing" constant="5" id="C6r-S0-afw"/>
-                                                        <constraint firstItem="r6e-hb-MIt" firstAttribute="top" secondItem="tf4-Ye-uba" secondAttribute="bottom" constant="1.5" id="FZO-hN-qUn"/>
+                                                        <constraint firstItem="r6e-hb-MIt" firstAttribute="top" secondItem="tf4-Ye-uba" secondAttribute="bottom" constant="0.5" id="FZO-hN-qUn"/>
                                                         <constraint firstItem="tf4-Ye-uba" firstAttribute="leading" secondItem="T9C-YI-8YM" secondAttribute="trailing" constant="5" id="KrC-u1-zuB"/>
                                                         <constraint firstItem="T9C-YI-8YM" firstAttribute="leading" secondItem="so7-zS-dJZ" secondAttribute="leading" constant="20" id="Uv9-TT-IRJ"/>
                                                         <constraint firstAttribute="height" constant="51" id="vtC-bR-yHA"/>
@@ -4318,11 +4318,11 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="hdo-Wz-xX9"/>
-        <segue reference="lDz-eU-DMy"/>
+        <segue reference="Lpv-Zc-Li3"/>
         <segue reference="ihf-jg-C3m"/>
         <segue reference="1vx-Lg-GDN"/>
         <segue reference="Nhf-Bu-nAf"/>
-        <segue reference="qBU-hl-NUc"/>
+        <segue reference="BEn-Gk-AaP"/>
         <segue reference="XIx-Ru-dpJ"/>
     </inferredMetricsTieBreakers>
 </document>
