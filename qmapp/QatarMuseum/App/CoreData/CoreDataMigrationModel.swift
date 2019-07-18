@@ -49,6 +49,8 @@ class CoreDataMigrationModel {
         case .version2:
             return CoreDataMigrationModel(version: .version3)
         case .version3:
+            return CoreDataMigrationModel(version: .version4)
+        case .version4:
             return nil
         }
     }
