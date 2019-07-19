@@ -404,7 +404,8 @@ class FloorMapViewController: UIViewController, UIGestureRecognizerDelegate {
         var camera = GMSCameraPosition()
         //Device Condition check for moving map to center of device screen
         if (UIScreen.main.bounds.height > 700) {
-            camera = GMSCameraPosition.camera(withLatitude: 25.295447, longitude: 51.539195, zoom:19)
+            camera = GMSCameraPosition.camera(withLatitude: 25.295347, longitude: 51.539195, zoom:19)
+//            camera = GMSCameraPosition.camera(withLatitude: 25.295447, longitude: 51.539195, zoom:19)
         }
         else {
             camera = GMSCameraPosition.camera(withLatitude: 25.296059, longitude: 51.538703, zoom:19)
@@ -449,6 +450,7 @@ class FloorMapViewController: UIViewController, UIGestureRecognizerDelegate {
         }
         let southWest = CLLocationCoordinate2D(latitude: 25.294730, longitude: 51.539021)
         let northEast = CLLocationCoordinate2D(latitude: 25.295685, longitude: 51.539945)
+
         let overlayBounds = GMSCoordinateBounds(coordinate: southWest, coordinate: northEast)
         overlay = GMSGroundOverlay.init(bounds: overlayBounds, icon: icon)
         //let camera2 = GMSCameraPosition.camera(withLatitude: 25.295447, longitude: 51.539195, zoom:19)

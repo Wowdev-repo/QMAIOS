@@ -149,4 +149,69 @@ class ImageMigrationPolicyFrom3To4: NSEntityMigrationPolicy {
     }
 }
 
+class DateMigrationPolicyFrom3To4: NSEntityMigrationPolicy {
+    override func createDestinationInstances(forSource sInstance: NSManagedObject, in mapping: NSEntityMapping, manager: NSMigrationManager) throws {
+        
+        
+        if let modelVersion = mapping.userInfo?["modelVersion"] as? String, modelVersion == "4" {
+            
+            var lang = "0"
+            var langKey = "lang"
+            let sourceRelationNames = ["endDateRelation","fieldRepeatDates","startDateRelation"]
+            let destinationRelationNames = ["endDateRelation","fieldRepeatDates","startDateRelation"]
+            let sourceRelationDateAttributeKeys = ["endDate","fieldRepeatDate","startDate"]
+            
+            switch sInstance.entity.name {
+            case "EducationEventEntity":
+                lang = "1"
+                
+            case "EducationEventEntityAr":
+                break
+                
+            case "EventEntity":
+                lang = "1"
+                
+            case "EventEntityArabic":
+                break
+            
+            default:
+                break
+            }
+            
+            let sourceKeys = sInstance.entity.attributesByName.keys
+            let sourceValues = sInstance.dictionaryWithValues(forKeys: sourceKeys.map { $0 })
+            let destination = NSEntityDescription.insertNewObject(forEntityName: mapping.destinationEntityName!, into: manager.destinationContext)
+            
+            // migrate all the keys that are in the new destination instance & in the old source instace
+//                        let destinationKeys = destination.entity.attributesByName.keys
+//                        for key in destinationKeys {
+//                            if let value = sourceValues[key] {
+//                                destination.setValue(value, forKey: key)
+//                            }
+//                        }
+            destination.setValue(lang, forKey: langKey)
+            
+            for i in 0...sourceRelationNames.count {
+                // now check if the old source Country entity is present and convert it to the new Country class
+                if let sourceFacilitiesImage = sInstance.value(forKey: sourceRelationNames[i]) as? NSManagedObject {
+                    if let date = sourceFacilitiesImage.value(forKey: sourceRelationDateAttributeKeys[i]) as? String {
+                        let destinationDate = DateEntity()
+                        destinationDate.date = date
+                        destinationDate.language = lang
+                        
+                        destination.setValue(destinationDate, forKey: destinationRelationNames[i])
+                    }
+                }
+            }
+            
+            manager.associate(sourceInstance: sInstance, withDestinationInstance: destination, for: mapping)
+            
+        } else {
+            try super.createDestinationInstances(forSource: sInstance,
+                                                 in: mapping,
+                                                 manager: manager)
+        }
+        
+    }
+}
 

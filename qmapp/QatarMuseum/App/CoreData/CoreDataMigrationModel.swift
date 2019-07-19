@@ -146,7 +146,7 @@ class CoreDataMigrationModel {
         let compatibleMigrationModel = CoreDataMigrationModel.all.first {
             $0.managedObjectModel().isConfiguration(withName: nil, compatibleWithStoreMetadata: metadata)
         }
-        DDLogInfo(NSStringFromClass(type(of: self) as! AnyClass) + "Function: \(#function)")
+//        DDLogInfo(NSStringFromClass(type(of: self) as! AnyClass) + "Function: \(#function)")
         return compatibleMigrationModel
     }
 }
