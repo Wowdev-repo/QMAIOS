@@ -8,16 +8,6 @@
 
 import Foundation
 
-struct ImageRelationNames {
-    let FloorMapImgRelation = "imagesRelation"
-}
-
-struct dateRelationNames {
-    let educationEndDateRelation = "endDateRelation"
-    let educationFieldDateRelation = "fieldRepeatDates"
-    let educationStartdDateRelation = "startDateRelation"
-}
-
 class ImageMigrationPolicyFrom3To4: NSEntityMigrationPolicy {
     override func createDestinationInstances(forSource sInstance: NSManagedObject, in mapping: NSEntityMapping, manager: NSMigrationManager) throws {
         
