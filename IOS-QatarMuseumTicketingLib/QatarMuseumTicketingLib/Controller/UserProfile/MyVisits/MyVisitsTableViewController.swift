@@ -177,6 +177,13 @@ class MyVisitsTableViewController: UITableViewController,QMTLTabViewControllerDe
     func dateToString(date : Date) -> String{
         
         let dateFormatter = DateFormatter()
+        // set locale to "ar_DZ" and format as per your specifications
+         if QMTLLocalizationLanguage.currentAppleLanguage() == QMTLConstants.Language.AR_LANGUAGE {
+        dateFormatter.locale = NSLocale(localeIdentifier: "ar") as Locale
+        }
+         else{
+             dateFormatter.locale = NSLocale(localeIdentifier: "en") as Locale
+        }
         dateFormatter.dateFormat = "dd MMMM yyyy"
         let dateString = dateFormatter.string(from: date)
         return dateString

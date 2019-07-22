@@ -654,7 +654,7 @@ class UserInfoTableViewController: UITableViewController,UITextFieldDelegate,QMT
             showToast(message: "Please enter mobile number")
         }else if !isValidPhoneNumber(value: mobile ?? ""){
             returnVal = false
-            mobileNumTxtFld.becomeFirstResponder()
+            //mobileNumTxtFld.becomeFirstResponder()
             showToast(message: "Please enter valid mobile number")
         }
         

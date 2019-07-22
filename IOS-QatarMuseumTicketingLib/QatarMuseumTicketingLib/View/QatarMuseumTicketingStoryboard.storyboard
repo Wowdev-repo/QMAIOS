@@ -1948,7 +1948,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.91372549020000005" green="0.93333333330000001" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <view key="tableHeaderView" contentMode="scaleToFill" misplaced="YES" id="ZXj-63-PKq">
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="ZXj-63-PKq">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="263"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
@@ -1962,10 +1962,10 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JWi-Fw-ESb">
-                                            <rect key="frame" x="160" y="7.5" width="130" height="45"/>
+                                            <rect key="frame" x="140" y="7.5" width="150" height="45"/>
                                             <color key="backgroundColor" red="0.93333333333333335" green="0.94901960784313721" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="130" id="125-qL-xP9"/>
+                                                <constraint firstAttribute="width" constant="150" id="125-qL-xP9"/>
                                                 <constraint firstAttribute="height" constant="45" id="yUR-Y2-8gr"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" name="DINNextLTPro-Regular" family="DIN Next LT Pro" pointSize="17"/>
@@ -2023,7 +2023,7 @@
                                     </constraints>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fe4-ZK-ZFI">
-                                    <rect key="frame" x="10" y="150" width="300" height="49"/>
+                                    <rect key="frame" x="10" y="150" width="300" height="113"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hathim Mohammed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yX4-60-bvg">
                                             <rect key="frame" x="6" y="10" width="289" height="17"/>
@@ -2038,7 +2038,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vue-g7-lfx">
-                                            <rect key="frame" x="0.0" y="48" width="300" height="1"/>
+                                            <rect key="frame" x="0.0" y="112" width="300" height="1"/>
                                             <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="1" id="x1c-D1-x6X"/>
@@ -3551,12 +3551,12 @@
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="65" id="Z7l-OW-rJr">
                                         <rect key="frame" x="0.0" y="62" width="320" height="65"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Z7l-OW-rJr" id="dAV-Ca-IdA">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Z7l-OW-rJr" id="dAV-Ca-IdA">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="65"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="so7-zS-dJZ">
-                                                    <rect key="frame" x="15" y="14" width="290" height="51"/>
+                                                    <rect key="frame" x="15" y="17" width="290" height="51"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="membershipThumbnailSmall.png" translatesAutoresizingMaskIntoConstraints="NO" id="T9C-YI-8YM">
                                                             <rect key="frame" x="20" y="8" width="50" height="35"/>
@@ -3566,7 +3566,7 @@
                                                             </constraints>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Membership" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tf4-Ye-uba">
-                                                            <rect key="frame" x="75" y="4.5" width="92" height="17"/>
+                                                            <rect key="frame" x="75" y="6" width="92" height="18.5"/>
                                                             <fontDescription key="fontDescription" name="DINNextLTPro-Regular" family="DIN Next LT Pro" pointSize="17"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
@@ -3583,17 +3583,21 @@
                                                     </subviews>
                                                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
+                                                        <constraint firstItem="tf4-Ye-uba" firstAttribute="top" secondItem="so7-zS-dJZ" secondAttribute="top" constant="6" id="4da-YM-bBN"/>
                                                         <constraint firstItem="T9C-YI-8YM" firstAttribute="centerY" secondItem="so7-zS-dJZ" secondAttribute="centerY" id="BST-hd-8Za"/>
                                                         <constraint firstItem="r6e-hb-MIt" firstAttribute="leading" secondItem="T9C-YI-8YM" secondAttribute="trailing" constant="5" id="C6r-S0-afw"/>
-                                                        <constraint firstItem="r6e-hb-MIt" firstAttribute="top" secondItem="tf4-Ye-uba" secondAttribute="bottom" constant="0.5" id="FZO-hN-qUn"/>
+                                                        <constraint firstItem="r6e-hb-MIt" firstAttribute="top" secondItem="tf4-Ye-uba" secondAttribute="bottom" constant="1.5" id="FZO-hN-qUn"/>
                                                         <constraint firstItem="tf4-Ye-uba" firstAttribute="leading" secondItem="T9C-YI-8YM" secondAttribute="trailing" constant="5" id="KrC-u1-zuB"/>
                                                         <constraint firstItem="T9C-YI-8YM" firstAttribute="leading" secondItem="so7-zS-dJZ" secondAttribute="leading" constant="20" id="Uv9-TT-IRJ"/>
                                                         <constraint firstAttribute="height" constant="51" id="vtC-bR-yHA"/>
-                                                        <constraint firstAttribute="bottom" secondItem="r6e-hb-MIt" secondAttribute="bottom" constant="9" id="xVO-AJ-QQv"/>
+                                                        <constraint firstAttribute="bottom" secondItem="r6e-hb-MIt" secondAttribute="bottom" constant="5" id="xVO-AJ-QQv"/>
                                                     </constraints>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your Membership Plan*" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dtb-23-HnZ">
-                                                    <rect key="frame" x="15" y="0.0" width="142" height="9"/>
+                                                    <rect key="frame" x="15" y="0.0" width="142" height="12"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="12" id="8Ef-RO-F8D"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" name="DINNextLTPro-Regular" family="DIN Next LT Pro" pointSize="14"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -4321,7 +4325,7 @@
         <segue reference="Lpv-Zc-Li3"/>
         <segue reference="ihf-jg-C3m"/>
         <segue reference="1vx-Lg-GDN"/>
-        <segue reference="Nhf-Bu-nAf"/>
+        <segue reference="dWn-sD-scb"/>
         <segue reference="BEn-Gk-AaP"/>
         <segue reference="XIx-Ru-dpJ"/>
     </inferredMetricsTieBreakers>

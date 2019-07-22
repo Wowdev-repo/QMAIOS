@@ -230,7 +230,7 @@ class QMTLSignInUserViewController: UIViewController, UITextFieldDelegate, APISe
         if usernameStr?.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines) == "" {
             returnVal = false
             //emailIdTxt.becomeFirstResponder()
-            showToast(message: "Please enter Email Id")
+            showToast(message: "Please enter email id")
         }else if !isValidEmail(emailAddressString: usernameStr ?? ""){
             returnVal = false
             //emailIdTxt.becomeFirstResponder()
