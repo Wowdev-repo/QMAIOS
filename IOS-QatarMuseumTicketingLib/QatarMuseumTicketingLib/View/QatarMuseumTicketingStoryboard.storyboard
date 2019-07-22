@@ -292,13 +292,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" tag="12" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="17 January 2019" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dr7-Eb-iNi">
-                                                            <rect key="frame" x="0.0" y="31" width="108.5" height="15"/>
-                                                            <fontDescription key="fontDescription" name="DINNextLTPro-Regular" family="DIN Next LT Pro" pointSize="15"/>
-                                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" tag="13" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ticket ID AJ0190" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nZo-np-DSp">
-                                                            <rect key="frame" x="133.5" y="31" width="108.5" height="15"/>
+                                                            <rect key="frame" x="0.0" y="31" width="260" height="15"/>
                                                             <fontDescription key="fontDescription" name="DINNextLTPro-Regular" family="DIN Next LT Pro" pointSize="15"/>
                                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
@@ -309,11 +303,10 @@
                                                         <constraint firstItem="JuF-le-yhp" firstAttribute="trailing" secondItem="9MW-Rc-27J" secondAttribute="trailing" id="72B-p4-c6x"/>
                                                         <constraint firstAttribute="height" constant="92" id="Cvf-ru-FYh"/>
                                                         <constraint firstItem="JuF-le-yhp" firstAttribute="top" secondItem="Dr7-Eb-iNi" secondAttribute="bottom" constant="5" id="EMQ-OH-5b0"/>
-                                                        <constraint firstItem="nZo-np-DSp" firstAttribute="leading" secondItem="Dr7-Eb-iNi" secondAttribute="trailing" constant="25" id="I8m-TG-sXz"/>
-                                                        <constraint firstItem="nZo-np-DSp" firstAttribute="top" secondItem="9MW-Rc-27J" secondAttribute="bottom" constant="9" id="L0m-4L-Ndy"/>
                                                         <constraint firstItem="9MW-Rc-27J" firstAttribute="top" secondItem="DaN-kP-GWd" secondAttribute="top" constant="5" id="Ouh-rZ-gdP"/>
                                                         <constraint firstItem="Dr7-Eb-iNi" firstAttribute="top" secondItem="9MW-Rc-27J" secondAttribute="bottom" constant="9" id="R9b-9S-yMw"/>
                                                         <constraint firstItem="JuF-le-yhp" firstAttribute="leading" secondItem="Dr7-Eb-iNi" secondAttribute="leading" id="RWa-MJ-2bL"/>
+                                                        <constraint firstAttribute="trailing" secondItem="Dr7-Eb-iNi" secondAttribute="trailing" id="WIN-cj-zKs"/>
                                                         <constraint firstItem="9MW-Rc-27J" firstAttribute="leading" secondItem="DaN-kP-GWd" secondAttribute="leading" id="e8r-uA-cLK"/>
                                                         <constraint firstAttribute="trailing" secondItem="9MW-Rc-27J" secondAttribute="trailing" id="fUP-EI-9tA"/>
                                                         <constraint firstItem="Dr7-Eb-iNi" firstAttribute="leading" secondItem="DaN-kP-GWd" secondAttribute="leading" id="qDY-c0-ES1"/>
@@ -382,7 +375,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="f0j-wD-nBr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="376.81159420289856" y="2425.271739130435"/>
+            <point key="canvasLocation" x="375" y="2424.2957746478874"/>
         </scene>
         <!--Culture Pass Table View Controller-->
         <scene sceneID="8lw-fa-EIH">
@@ -1948,7 +1941,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.91372549020000005" green="0.93333333330000001" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <view key="tableHeaderView" contentMode="scaleToFill" id="ZXj-63-PKq">
+                        <view key="tableHeaderView" contentMode="scaleToFill" misplaced="YES" id="ZXj-63-PKq">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="263"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
@@ -2023,7 +2016,7 @@
                                     </constraints>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fe4-ZK-ZFI">
-                                    <rect key="frame" x="10" y="150" width="300" height="113"/>
+                                    <rect key="frame" x="10" y="150" width="300" height="49"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hathim Mohammed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yX4-60-bvg">
                                             <rect key="frame" x="6" y="10" width="289" height="17"/>
@@ -2038,7 +2031,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vue-g7-lfx">
-                                            <rect key="frame" x="0.0" y="112" width="300" height="1"/>
+                                            <rect key="frame" x="0.0" y="48" width="300" height="1"/>
                                             <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="1" id="x1c-D1-x6X"/>
@@ -2224,7 +2217,7 @@
             <objects>
                 <viewController storyboardIdentifier="QMTLGuestUserViewController" id="Pva-RM-x1w" customClass="QMTLGuestUserViewController" customModule="QatarMuseumTicketingLib" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="jrj-eD-Ljx">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kb8-6H-FMg">
@@ -2483,7 +2476,7 @@
             <objects>
                 <viewController storyboardIdentifier="QMTLSignInUserViewController" id="sG2-d5-JUd" customClass="QMTLSignInUserViewController" customModule="QatarMuseumTicketingLib" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="UAD-zc-x8k">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sJS-C0-iJW">
@@ -4043,7 +4036,7 @@
             <objects>
                 <viewController storyboardIdentifier="cardViewId" id="7Q2-op-uZi" customClass="CulturePassCardViewController" customModule="QatarMuseumTicketingLib" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="h9X-GR-pcs">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="culturepass_front.png" translatesAutoresizingMaskIntoConstraints="NO" id="aT2-de-Ud0">

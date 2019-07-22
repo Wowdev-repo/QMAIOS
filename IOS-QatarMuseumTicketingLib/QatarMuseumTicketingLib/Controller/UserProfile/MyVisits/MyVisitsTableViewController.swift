@@ -263,10 +263,10 @@ class MyVisitsTableViewController: UITableViewController,QMTLTabViewControllerDe
         let statusLbl = cell.viewWithTag(10) as! UILabel
         let museumNameLbl = cell.viewWithTag(11) as! UILabel
         let dateLbl = cell.viewWithTag(12) as! UILabel
-        let ticketIdLbl = cell.viewWithTag(13) as! UILabel
+        //let ticketIdLbl = cell.viewWithTag(13) as! UILabel
         let ticketInfo = cell.viewWithTag(14) as! UILabel
 
-        ticketIdLbl.text = ""
+        //ticketIdLbl.text = ""
         
         containerView?.layer.cornerRadius = 10.0
         statusContainerView?.layer.cornerRadius = 10.0
@@ -308,7 +308,7 @@ class MyVisitsTableViewController: UITableViewController,QMTLTabViewControllerDe
         
         museumNameLbl.decideTextDirection()
         dateLbl.decideTextDirection()
-        ticketIdLbl.decideTextDirection()
+        //ticketIdLbl.decideTextDirection()
         
         return cell
     }
