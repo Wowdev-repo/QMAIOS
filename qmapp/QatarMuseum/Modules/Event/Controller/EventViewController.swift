@@ -133,22 +133,27 @@ class EventViewController: UIViewController,UIViewControllerTransitioningDelegat
 //            calendarView.identifier = NSCalendar.Identifier.gregorian.rawValue
             calendarView.appearance.titleFont = UIFont.init(name: "DINNextLTPro-Bold", size: 19)
             
-//            calendarView.appearance.titleWeekendColor = UIColor.profilePink
-//            previousConstraint.constant = 30
-//            nextConstraint.constant = 30
+            calendarView.appearance.titleWeekendColor = UIColor.profilePink
+            previousConstraint.constant = 30
+            nextConstraint.constant = 30
             
         }
         else {
             //For RTL
-            previousButton.setImage(UIImage(named: "nextImg"), for: .normal)
-            nextButton.setImage(UIImage(named: "previousImg"), for: .normal)
             headerView.headerBackButton.setImage(UIImage(named: "back_mirrorX1"), for: .normal)
             calendarView?.locale = Locale(identifier: "ar")
+            calendarView?.firstWeekday = 7
+            calendarView.calendarHeaderView.collectionViewLayout.collectionView?.semanticContentAttribute = .forceLeftToRight
             self.calendarView.transform = CGAffineTransform(scaleX: -1, y: 1)
             calendarView.setCurrentPage(Date(), animated: false)
             UserDefaults.standard.set(true, forKey: "Arabic")
             calendarView.appearance.titleFont = UIFont.init(name: "DINNextLTArabic-Bold", size: 18)
             calendarView.appearance.weekdayFont =  UIFont.init(name: "DINNextLTArabic-Regular", size: 13)
+            previousButton.setImage(UIImage(named: "nextImg"), for: .normal)
+            nextButton.setImage(UIImage(named: "previousImg"), for: .normal)
+            calendarView.appearance.titleWeekendColor = UIColor.profilePink
+            previousConstraint.constant = 30
+            nextConstraint.constant = 30
         }
     }
     //For RTL

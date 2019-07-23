@@ -1526,7 +1526,7 @@ typedef NS_ENUM(NSUInteger, FSCalendarOrientation) {
         
         NSNumberFormatter *k = [[NSNumberFormatter alloc] init];
         
-        k.locale = [NSLocale localeWithLocaleIdentifier:@"fa_IR"];
+        k.locale = [NSLocale localeWithLocaleIdentifier:@"ar_SA"];
         NSString * kk = [k stringFromNumber:myNumber];
         
         cell.titleLabel.text = kk;
@@ -1535,9 +1535,6 @@ typedef NS_ENUM(NSUInteger, FSCalendarOrientation) {
         cell.titleLabel.transform =  CGAffineTransformMakeScale(-1, 1);
         
     }
-    
-   
-    
     
     cell.subtitle  = [self.dataSourceProxy calendar:self subtitleForDate:date];
     cell.selected = [_selectedDates containsObject:date];

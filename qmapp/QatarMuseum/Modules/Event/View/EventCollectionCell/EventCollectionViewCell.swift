@@ -40,7 +40,7 @@ class EventCollectionViewCell: UICollectionViewCell {
         groupSizeLabel.isHidden = false
         let eventTitle = event.title?.replacingOccurrences(of: "<[^>]+>|&nbsp;", with: "", options: .regularExpression, range: nil).uppercased()
         firstTitle.text = eventTitle?.replacingOccurrences(of: "&#039;", with: "'", options: .regularExpression, range: nil)
-        let dateValue = event.fieldRepeatDate
+//        let dateValue = event.fieldRepeatDate
 //        if(dateValue != nil) {
 //        if((dateValue?.count)! > 0) {
 //            descriptionLabel.text = event.fieldRepeatDate?[0].replacingOccurrences(of: "<[^>]+>|&nbsp;", with: "", options: .regularExpression, range: nil)
