@@ -292,13 +292,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" tag="12" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="17 January 2019" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dr7-Eb-iNi">
-                                                            <rect key="frame" x="0.0" y="31" width="108.5" height="15"/>
-                                                            <fontDescription key="fontDescription" name="DINNextLTPro-Regular" family="DIN Next LT Pro" pointSize="15"/>
-                                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" tag="13" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ticket ID AJ0190" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nZo-np-DSp">
-                                                            <rect key="frame" x="133.5" y="31" width="108.5" height="15"/>
+                                                            <rect key="frame" x="0.0" y="31" width="260" height="15"/>
                                                             <fontDescription key="fontDescription" name="DINNextLTPro-Regular" family="DIN Next LT Pro" pointSize="15"/>
                                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
@@ -309,11 +303,10 @@
                                                         <constraint firstItem="JuF-le-yhp" firstAttribute="trailing" secondItem="9MW-Rc-27J" secondAttribute="trailing" id="72B-p4-c6x"/>
                                                         <constraint firstAttribute="height" constant="92" id="Cvf-ru-FYh"/>
                                                         <constraint firstItem="JuF-le-yhp" firstAttribute="top" secondItem="Dr7-Eb-iNi" secondAttribute="bottom" constant="5" id="EMQ-OH-5b0"/>
-                                                        <constraint firstItem="nZo-np-DSp" firstAttribute="leading" secondItem="Dr7-Eb-iNi" secondAttribute="trailing" constant="25" id="I8m-TG-sXz"/>
-                                                        <constraint firstItem="nZo-np-DSp" firstAttribute="top" secondItem="9MW-Rc-27J" secondAttribute="bottom" constant="9" id="L0m-4L-Ndy"/>
                                                         <constraint firstItem="9MW-Rc-27J" firstAttribute="top" secondItem="DaN-kP-GWd" secondAttribute="top" constant="5" id="Ouh-rZ-gdP"/>
                                                         <constraint firstItem="Dr7-Eb-iNi" firstAttribute="top" secondItem="9MW-Rc-27J" secondAttribute="bottom" constant="9" id="R9b-9S-yMw"/>
                                                         <constraint firstItem="JuF-le-yhp" firstAttribute="leading" secondItem="Dr7-Eb-iNi" secondAttribute="leading" id="RWa-MJ-2bL"/>
+                                                        <constraint firstAttribute="trailing" secondItem="Dr7-Eb-iNi" secondAttribute="trailing" id="WIN-cj-zKs"/>
                                                         <constraint firstItem="9MW-Rc-27J" firstAttribute="leading" secondItem="DaN-kP-GWd" secondAttribute="leading" id="e8r-uA-cLK"/>
                                                         <constraint firstAttribute="trailing" secondItem="9MW-Rc-27J" secondAttribute="trailing" id="fUP-EI-9tA"/>
                                                         <constraint firstItem="Dr7-Eb-iNi" firstAttribute="leading" secondItem="DaN-kP-GWd" secondAttribute="leading" id="qDY-c0-ES1"/>
@@ -349,7 +342,7 @@
                                             </constraints>
                                         </view>
                                         <label opaque="NO" userInteractionEnabled="NO" tag="14" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B7f-0V-IMZ">
-                                            <rect key="frame" x="30" y="102" width="260" height="30"/>
+                                            <rect key="frame" x="30" y="107" width="260" height="30"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <fontDescription key="fontDescription" name="DINNextLTPro-Regular" family="DIN Next LT Pro" pointSize="15"/>
                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -357,8 +350,8 @@
                                         </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="B7f-0V-IMZ" firstAttribute="top" secondItem="8vU-XA-kCK" secondAttribute="top" constant="102" id="1e8-V3-nJ4"/>
-                                        <constraint firstAttribute="bottom" secondItem="B7f-0V-IMZ" secondAttribute="bottom" constant="18" id="OdA-SU-Yyh"/>
+                                        <constraint firstItem="B7f-0V-IMZ" firstAttribute="top" secondItem="8vU-XA-kCK" secondAttribute="top" constant="107" id="1e8-V3-nJ4"/>
+                                        <constraint firstAttribute="bottom" secondItem="B7f-0V-IMZ" secondAttribute="bottom" constant="13" id="OdA-SU-Yyh"/>
                                         <constraint firstAttribute="bottom" secondItem="aKs-6N-GJP" secondAttribute="bottom" constant="10" id="SAu-b5-zka"/>
                                         <constraint firstItem="aKs-6N-GJP" firstAttribute="leading" secondItem="8vU-XA-kCK" secondAttribute="leading" constant="10" id="XjG-nv-cDm"/>
                                         <constraint firstItem="B7f-0V-IMZ" firstAttribute="leading" secondItem="8vU-XA-kCK" secondAttribute="leading" constant="30" id="at4-64-DfG"/>
@@ -382,14 +375,14 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="f0j-wD-nBr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="376.81159420289856" y="2425.271739130435"/>
+            <point key="canvasLocation" x="375" y="2424.2957746478874"/>
         </scene>
         <!--Culture Pass Table View Controller-->
         <scene sceneID="8lw-fa-EIH">
             <objects>
                 <tableViewController storyboardIdentifier="CulturePassTableViewController" id="77w-qa-YFn" customClass="CulturePassTableViewController" customModule="QatarMuseumTicketingLib" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Cyh-uy-5Zo">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.91372549020000005" green="0.93333333330000001" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" misplaced="YES" id="2PT-22-kLD">
@@ -440,11 +433,11 @@
             <objects>
                 <viewController id="1wx-aL-guq" customClass="ReadBenefitsViewController" customModule="QatarMuseumTicketingLib" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="7Wf-Wg-Phj">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="SHH-eO-f1A">
-                                <rect key="frame" x="0.0" y="20" width="320" height="548"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="455"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="2lj-XF-4uc">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="280"/>
@@ -454,11 +447,10 @@
                                             <rect key="frame" x="20" y="20" width="280" height="205"/>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Expires on " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wqN-Gy-7ZT">
-                                            <rect key="frame" x="20" y="104" width="280" height="14"/>
+                                            <rect key="frame" x="20" y="121" width="280" height="13"/>
                                             <fontDescription key="fontDescription" name="DINNextLTPro-Regular" family="DIN Next LT Pro" pointSize="13"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
-                                            <color key="shadowColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <size key="shadowOffset" width="-1" height="-1"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Subscribed" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="33P-x2-glA">
@@ -473,11 +465,13 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="QAR 350" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mnl-xw-d0F">
-                                            <rect key="frame" x="20" y="81" width="280" height="18"/>
+                                            <rect key="frame" x="20" y="81" width="280" height="35"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="35" id="kN1-C6-GTu"/>
+                                            </constraints>
                                             <fontDescription key="fontDescription" name="DINNextLTPro-Regular" family="DIN Next LT Pro" pointSize="17"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
-                                            <color key="shadowColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <size key="shadowOffset" width="-1" height="-1"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Family" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XdM-v3-qbO">
@@ -1717,11 +1711,11 @@
             <objects>
                 <viewController storyboardIdentifier="MembershipPurchasedViewController" id="cOo-J4-Kuw" customClass="MembershipPurchasedViewController" customModule="QatarMuseumTicketingLib" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="BFN-Tf-c1G">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="456-wJ-29N">
-                                <rect key="frame" x="0.0" y="20" width="320" height="150"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="150"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MEMBERSHIP PURCHASED SUCCESSFULLY" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g87-2a-Cjn">
                                         <rect key="frame" x="0.0" y="25" width="320" height="16"/>
@@ -1796,7 +1790,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cb7-4A-5lH">
-                                <rect key="frame" x="20" y="170" width="280" height="200"/>
+                                <rect key="frame" x="20" y="150" width="280" height="200"/>
                                 <subviews>
                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QEH-hJ-sSj">
                                         <rect key="frame" x="0.0" y="0.0" width="280" height="100"/>
@@ -1888,7 +1882,7 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MXc-wG-SIc">
-                                <rect key="frame" x="25" y="508" width="270" height="50"/>
+                                <rect key="frame" x="25" y="395" width="270" height="50"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="5Jd-PX-AiM"/>
@@ -1944,7 +1938,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="QMTLCartTableTableViewController" id="oPW-sC-WMe" customClass="QMTLCartTableTableViewController" customModule="QatarMuseumTicketingLib" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="mB2-4k-Om4">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.91372549020000005" green="0.93333333330000001" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" misplaced="YES" id="ZXj-63-PKq">
@@ -1961,10 +1955,10 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JWi-Fw-ESb">
-                                            <rect key="frame" x="160" y="7.5" width="130" height="45"/>
+                                            <rect key="frame" x="140" y="7.5" width="150" height="45"/>
                                             <color key="backgroundColor" red="0.93333333333333335" green="0.94901960784313721" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="130" id="125-qL-xP9"/>
+                                                <constraint firstAttribute="width" constant="150" id="125-qL-xP9"/>
                                                 <constraint firstAttribute="height" constant="45" id="yUR-Y2-8gr"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" name="DINNextLTPro-Regular" family="DIN Next LT Pro" pointSize="17"/>
@@ -2223,7 +2217,7 @@
             <objects>
                 <viewController storyboardIdentifier="QMTLGuestUserViewController" id="Pva-RM-x1w" customClass="QMTLGuestUserViewController" customModule="QatarMuseumTicketingLib" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="jrj-eD-Ljx">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kb8-6H-FMg">
@@ -2233,19 +2227,19 @@
                                         <rect key="frame" x="0.0" y="0.0" width="300" height="505"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="GUEST CHECKOUT" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MLN-85-fh0">
-                                                <rect key="frame" x="5" y="50" width="290" height="20"/>
+                                                <rect key="frame" x="5" y="50" width="290" height="17"/>
                                                 <fontDescription key="fontDescription" name="DINNextLTPro-Bold" family="DIN Next LT Pro" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Continue without logging in" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="apc-Y6-Exj">
-                                                <rect key="frame" x="5" y="75" width="290" height="17.5"/>
+                                                <rect key="frame" x="5" y="72" width="290" height="15"/>
                                                 <fontDescription key="fontDescription" name="DINNextLTPro-Bold" family="DIN Next LT Pro" pointSize="15"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6UE-XU-VNC">
-                                                <rect key="frame" x="22.5" y="122.5" width="255" height="202"/>
+                                                <rect key="frame" x="22.5" y="117" width="255" height="202"/>
                                                 <subviews>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Name*" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="d2u-oy-J4V">
                                                         <rect key="frame" x="10" y="0.0" width="235" height="50"/>
@@ -2341,7 +2335,7 @@
                                                 </constraints>
                                             </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mPo-G1-WuW">
-                                                <rect key="frame" x="22" y="334.5" width="20" height="20"/>
+                                                <rect key="frame" x="22" y="329" width="20" height="20"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="20" id="Vjq-qu-XvQ"/>
@@ -2352,30 +2346,23 @@
                                                     <action selector="tANDcBtnAction:" destination="Pva-RM-x1w" eventType="touchUpInside" id="aA4-ap-9lM"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Noa-Jh-zZF">
-                                                <rect key="frame" x="25" y="371" width="250" height="40"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Noa-Jh-zZF">
+                                                <rect key="frame" x="25" y="365.5" width="250" height="40"/>
                                                 <color key="backgroundColor" red="0.93333333333333335" green="0.94901960784313721" blue="0.96470588235294119" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="c4P-3e-T3C"/>
                                                     <constraint firstAttribute="width" constant="250" id="rRH-0T-Hd1"/>
                                                 </constraints>
-                                                <state key="normal">
-                                                    <attributedString key="attributedTitle">
-                                                        <fragment content="Existing Culture Pass Member?">
-                                                            <attributes>
-                                                                <color key="NSColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                <font key="NSFont" size="18" name="DINAlternate-Bold"/>
-                                                                <integer key="NSUnderline" value="1"/>
-                                                            </attributes>
-                                                        </fragment>
-                                                    </attributedString>
+                                                <fontDescription key="fontDescription" name="DINAlternate-Bold" family="DIN Alternate" pointSize="18"/>
+                                                <state key="normal" title="Existing Culture Pass Member?">
+                                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
                                                     <action selector="alreadyMemberBtnAction:" destination="Pva-RM-x1w" eventType="touchUpInside" id="CmR-zU-n6G"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BAY-RT-jBD">
-                                                <rect key="frame" x="47" y="332" width="175" height="25"/>
+                                                <rect key="frame" x="47" y="326.5" width="167" height="25"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="25" id="rI5-CM-mbq"/>
                                                 </constraints>
@@ -2388,7 +2375,7 @@
                                                 </connections>
                                             </button>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kcz-3G-C9H">
-                                                <rect key="frame" x="47" y="357" width="175" height="1"/>
+                                                <rect key="frame" x="47" y="351.5" width="167" height="1"/>
                                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="1" id="27i-bY-H6U"/>
@@ -2489,7 +2476,7 @@
             <objects>
                 <viewController storyboardIdentifier="QMTLSignInUserViewController" id="sG2-d5-JUd" customClass="QMTLSignInUserViewController" customModule="QatarMuseumTicketingLib" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="UAD-zc-x8k">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sJS-C0-iJW">
@@ -2547,14 +2534,14 @@
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LOG IN" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ic1-6N-iK8">
-                                                <rect key="frame" x="131.5" y="74.5" width="57" height="20"/>
+                                                <rect key="frame" x="135" y="80" width="50.5" height="17"/>
                                                 <fontDescription key="fontDescription" name="DINNextLTPro-Bold" family="DIN Next LT Pro" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Log in to your Culture Pass account" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xKs-LX-jnV">
-                                                <rect key="frame" x="40" y="99.5" width="240.5" height="17.5"/>
-                                                <fontDescription key="fontDescription" name="DINNextLTPro-Bold" family="DIN Next LT Pro" pointSize="15"/>
+                                                <rect key="frame" x="46" y="102" width="228" height="15"/>
+                                                <fontDescription key="fontDescription" name="DINNextLTPro-Regular" family="DIN Next LT Pro" pointSize="15"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
@@ -2786,11 +2773,11 @@
             <objects>
                 <viewController id="ZEm-je-uRK" customClass="TermsAndConditionViewController" customModule="QatarMuseumTicketingLib" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="UEU-A1-WU6">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2HT-PR-tnf">
-                                <rect key="frame" x="25" y="508" width="270" height="50"/>
+                                <rect key="frame" x="25" y="395" width="270" height="50"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="R5W-Ru-BH2"/>
@@ -2811,16 +2798,16 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TERMS &amp; CONDITIONS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FbF-Kc-9Fn">
-                                <rect key="frame" x="77.5" y="70" width="165" height="17"/>
+                                <rect key="frame" x="77.5" y="50" width="165" height="17"/>
                                 <fontDescription key="fontDescription" name="DINNextLTPro-Bold" family="DIN Next LT Pro" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CoZ-34-eLC">
-                                <rect key="frame" x="20" y="117" width="280" height="361"/>
+                                <rect key="frame" x="20" y="97" width="280" height="268"/>
                                 <subviews>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Lye-Bv-o1a">
-                                        <rect key="frame" x="10" y="0.0" width="260" height="361"/>
+                                        <rect key="frame" x="10" y="0.0" width="260" height="268"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -2865,7 +2852,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="SignUpTableViewController" id="CNs-bp-1ZL" customClass="SignUpTableViewController" customModule="QatarMuseumTicketingLib" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="6xR-Zv-zLI">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.91372549020000005" green="0.93333333330000001" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" misplaced="YES" id="fwA-h7-xL9">
@@ -3557,12 +3544,12 @@
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="65" id="Z7l-OW-rJr">
                                         <rect key="frame" x="0.0" y="62" width="320" height="65"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Z7l-OW-rJr" id="dAV-Ca-IdA">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Z7l-OW-rJr" id="dAV-Ca-IdA">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="65"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="so7-zS-dJZ">
-                                                    <rect key="frame" x="15" y="14" width="290" height="51"/>
+                                                    <rect key="frame" x="15" y="17" width="290" height="51"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="membershipThumbnailSmall.png" translatesAutoresizingMaskIntoConstraints="NO" id="T9C-YI-8YM">
                                                             <rect key="frame" x="20" y="8" width="50" height="35"/>
@@ -3572,7 +3559,7 @@
                                                             </constraints>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Membership" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tf4-Ye-uba">
-                                                            <rect key="frame" x="75" y="0.5" width="95.5" height="20"/>
+                                                            <rect key="frame" x="75" y="6" width="92" height="18.5"/>
                                                             <fontDescription key="fontDescription" name="DINNextLTPro-Regular" family="DIN Next LT Pro" pointSize="17"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
@@ -3589,17 +3576,21 @@
                                                     </subviews>
                                                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
+                                                        <constraint firstItem="tf4-Ye-uba" firstAttribute="top" secondItem="so7-zS-dJZ" secondAttribute="top" constant="6" id="4da-YM-bBN"/>
                                                         <constraint firstItem="T9C-YI-8YM" firstAttribute="centerY" secondItem="so7-zS-dJZ" secondAttribute="centerY" id="BST-hd-8Za"/>
                                                         <constraint firstItem="r6e-hb-MIt" firstAttribute="leading" secondItem="T9C-YI-8YM" secondAttribute="trailing" constant="5" id="C6r-S0-afw"/>
                                                         <constraint firstItem="r6e-hb-MIt" firstAttribute="top" secondItem="tf4-Ye-uba" secondAttribute="bottom" constant="1.5" id="FZO-hN-qUn"/>
                                                         <constraint firstItem="tf4-Ye-uba" firstAttribute="leading" secondItem="T9C-YI-8YM" secondAttribute="trailing" constant="5" id="KrC-u1-zuB"/>
                                                         <constraint firstItem="T9C-YI-8YM" firstAttribute="leading" secondItem="so7-zS-dJZ" secondAttribute="leading" constant="20" id="Uv9-TT-IRJ"/>
                                                         <constraint firstAttribute="height" constant="51" id="vtC-bR-yHA"/>
-                                                        <constraint firstAttribute="bottom" secondItem="r6e-hb-MIt" secondAttribute="bottom" constant="9" id="xVO-AJ-QQv"/>
+                                                        <constraint firstAttribute="bottom" secondItem="r6e-hb-MIt" secondAttribute="bottom" constant="5" id="xVO-AJ-QQv"/>
                                                     </constraints>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your Membership Plan*" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dtb-23-HnZ">
-                                                    <rect key="frame" x="15" y="0.0" width="147" height="9"/>
+                                                    <rect key="frame" x="15" y="0.0" width="142" height="12"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="12" id="8Ef-RO-F8D"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" name="DINNextLTPro-Regular" family="DIN Next LT Pro" pointSize="14"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -4045,7 +4036,7 @@
             <objects>
                 <viewController storyboardIdentifier="cardViewId" id="7Q2-op-uZi" customClass="CulturePassCardViewController" customModule="QatarMuseumTicketingLib" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="h9X-GR-pcs">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="culturepass_front.png" translatesAutoresizingMaskIntoConstraints="NO" id="aT2-de-Ud0">
@@ -4323,11 +4314,11 @@
         <image name="yes.png" width="67" height="54"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Sms-ob-x3v"/>
+        <segue reference="hdo-Wz-xX9"/>
         <segue reference="Lpv-Zc-Li3"/>
-        <segue reference="jCa-yk-EhS"/>
-        <segue reference="mIH-ey-kcV"/>
-        <segue reference="Nhf-Bu-nAf"/>
+        <segue reference="ihf-jg-C3m"/>
+        <segue reference="1vx-Lg-GDN"/>
+        <segue reference="dWn-sD-scb"/>
         <segue reference="BEn-Gk-AaP"/>
         <segue reference="XIx-Ru-dpJ"/>
     </inferredMetricsTieBreakers>

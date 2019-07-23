@@ -177,6 +177,13 @@ class MyVisitsTableViewController: UITableViewController,QMTLTabViewControllerDe
     func dateToString(date : Date) -> String{
         
         let dateFormatter = DateFormatter()
+        // set locale to "ar_DZ" and format as per your specifications
+         if QMTLLocalizationLanguage.currentAppleLanguage() == QMTLConstants.Language.AR_LANGUAGE {
+        dateFormatter.locale = NSLocale(localeIdentifier: "ar") as Locale
+        }
+         else{
+             dateFormatter.locale = NSLocale(localeIdentifier: "en") as Locale
+        }
         dateFormatter.dateFormat = "dd MMMM yyyy"
         let dateString = dateFormatter.string(from: date)
         return dateString
@@ -198,16 +205,34 @@ class MyVisitsTableViewController: UITableViewController,QMTLTabViewControllerDe
     }
     
     //MARK:- Show Toast
-    
-    func showToast(message : String){
+    func showToast(message : String) {
         
-  
-        
-        self.view.makeToast(getLocalizedStr(str: message) , duration: 2.0, position: .center, style: toastStyle)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute: {
-            self.view.hideAllToasts()
-        }) 
+        let toastLabel = UILabel(frame: CGRect(x: self.view.frame.size.width/2 - 125, y: self.view.frame.size.height/2 - 17, width: 250, height: 35))
+        toastLabel.backgroundColor = UIColor.darkGray
+        toastLabel.textColor = UIColor.white
+        toastLabel.textAlignment = .center;
+        toastLabel.font = UIFont(name: "Montserrat-Light", size: 12.0)
+        toastLabel.text = getLocalizedStr(str: message)
+        toastLabel.alpha = 1.0
+        toastLabel.layer.cornerRadius = 10;
+        toastLabel.clipsToBounds  =  true
+        self.view.addSubview(toastLabel)
+        UIView.animate(withDuration: 3.0, delay: 0.1, options: .curveEaseOut, animations: {
+            toastLabel.alpha = 0.0
+        }, completion: {(isCompleted) in
+            toastLabel.removeFromSuperview()
+        })
     }
+    
+//    func showToast(message : String){
+//
+//
+//
+//        self.view.makeToast(getLocalizedStr(str: message) , duration: 2.0, position: .center, style: toastStyle)
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute: {
+//            self.view.hideAllToasts()
+//        })
+//    }
     
     // MARK: - Table view data source
 
@@ -238,10 +263,10 @@ class MyVisitsTableViewController: UITableViewController,QMTLTabViewControllerDe
         let statusLbl = cell.viewWithTag(10) as! UILabel
         let museumNameLbl = cell.viewWithTag(11) as! UILabel
         let dateLbl = cell.viewWithTag(12) as! UILabel
-        let ticketIdLbl = cell.viewWithTag(13) as! UILabel
+        //let ticketIdLbl = cell.viewWithTag(13) as! UILabel
         let ticketInfo = cell.viewWithTag(14) as! UILabel
 
-        ticketIdLbl.text = ""
+        //ticketIdLbl.text = ""
         
         containerView?.layer.cornerRadius = 10.0
         statusContainerView?.layer.cornerRadius = 10.0
@@ -283,7 +308,7 @@ class MyVisitsTableViewController: UITableViewController,QMTLTabViewControllerDe
         
         museumNameLbl.decideTextDirection()
         dateLbl.decideTextDirection()
-        ticketIdLbl.decideTextDirection()
+        //ticketIdLbl.decideTextDirection()
         
         return cell
     }

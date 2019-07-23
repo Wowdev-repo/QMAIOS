@@ -30,7 +30,7 @@ class MuseumListViewController: UIViewController,UITableViewDelegate, UITableVie
     var selectedIndexPath = 0
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        UserDefaults.standard.set(false, forKey: "FromSignin")
         museumListTableView.dataSource = self
         museumListTableView.delegate = self
         

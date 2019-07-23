@@ -479,10 +479,28 @@ class QMTLTicketCounterContainerViewController: UIViewController,UICollectionVie
     
     //MARK:- Show Toast
     
-    func showToast(message : String){
-        self.view.makeToast(getLocalizedStr(str: message), duration: 2.0, position: .center, style: toastStyle)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute: {
-            self.view.hideAllToasts()
+//    func showToast(message : String){
+//        self.view.makeToast(getLocalizedStr(str: message), duration: 2.0, position: .center, style: toastStyle)
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute: {
+//            self.view.hideAllToasts()
+//        })
+//    }
+    func showToast(message : String) {
+        
+        let toastLabel = UILabel(frame: CGRect(x: self.view.frame.size.width/2 - 125, y: self.view.frame.size.height/2 - 17, width: 250, height: 35))
+        toastLabel.backgroundColor = UIColor.darkGray
+        toastLabel.textColor = UIColor.white
+        toastLabel.textAlignment = .center;
+        toastLabel.font = UIFont(name: "Montserrat-Light", size: 12.0)
+        toastLabel.text = getLocalizedStr(str: message)
+        toastLabel.alpha = 1.0
+        toastLabel.layer.cornerRadius = 10;
+        toastLabel.clipsToBounds  =  true
+        self.view.addSubview(toastLabel)
+        UIView.animate(withDuration: 3.0, delay: 0.1, options: .curveEaseOut, animations: {
+            toastLabel.alpha = 0.0
+        }, completion: {(isCompleted) in
+            toastLabel.removeFromSuperview()
         })
     }
     

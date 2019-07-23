@@ -350,7 +350,7 @@
 "Upcoming" = "القادمة";
 "Today" = "اليوم";
 "CART" = "سله التسوق";
-"Clear cart" = "تفريغ محتويات السله";
+"Clear cart" = "تفريغ محتويات السلة";
 "Expires in" = "ينتهي في";
 "Months" = "الشهور";
 "Month" = "شهر";
@@ -375,13 +375,14 @@
 "Adult (Resident of Qatar)" = "الكبار (مقيم في قطر)";
 "Adult" = "الكبار";
 "Child 0-16 years" = "الاطفال 0-16 سنة";
-"Child 0-16" = "الاطفال 0-16 ";
+"Child 0-16" = "الاطفال 0-16";
 "Student" = "طالب";
 "Student (Resident of Qatar)" = "طالب (مقيم في قطر)";
 "Child 0 - 16 years (Resident of Qatar)" = "الاطفال من 0 إلى 16 سنة (مقيم في قطر)";
 "Free Entry" = "دخول مجاني";
 "Museum Pass" = "دخول المتاحف";
-"Culture Pass Plus card holder" = "حامل بطاقة باس بلس";
+"Culture Pass Plus card holder" = "حامل بطاقة الثقافة باس بلس";
+
 "Culture Pass Family card holder" = "حامل بطاقة العائلة الثقافية";
 "Family" = "عائلة";
 "Family (Resident of Qatar)" = "عائلة (مقيم في قطر)";
@@ -503,7 +504,7 @@
 "1" ="١";
 "2"="٢";
 "3"="٣";
-
+"Alert" = "تنبيه";
 "AppRegularFont" = "DINNextLTArabic-Regular";
 "AppBoldFont" = "DINNextLTArabic-Bold";
 "Change  Subscription" = "تغيير الاشتراك؟";

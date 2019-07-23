@@ -64,6 +64,11 @@ class HomeViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(false)
+        if ((LocalizationLanguage.currentAppleLanguage()) == "en") {
+            buyYourTicketsLabel.font = UIFont.init(name: "DINNextLTPro-Bold", size: 17)!
+        } else{
+            buyYourTicketsLabel.font = UIFont.init(name: "DINNextLTArabic-Bold", size:18)!
+        }
     }
     
     override func didReceiveMemoryWarning() {
