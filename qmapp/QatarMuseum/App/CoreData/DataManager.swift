@@ -713,12 +713,12 @@ extension DataManager {
     static func updateDinings(managedContext: NSManagedObjectContext,
                               diningListArray : [Dining]?,
                               language: String) {
-        var fetchData = [DiningEntity]()
-        fetchData = DataManager.checkAddedToCoredata(entityName: "DiningEntity",
-                                                     idKey: "lang",
-                                                     idValue: Utils.getLanguageCode(language),
-                                                     managedContext: managedContext) as! [DiningEntity]
-        if let diningList = diningListArray, !fetchData.isEmpty {
+//        var fetchData = [DiningEntity]()
+//        fetchData = DataManager.checkAddedToCoredata(entityName: "DiningEntity",
+//                                                     idKey: "lang",
+//                                                     idValue: Utils.getLanguageCode(language),
+//                                                     managedContext: managedContext) as! [DiningEntity]
+        if let diningList = diningListArray{ //}, !fetchData.isEmpty {
             for diningListDict in diningList {
                 let fetchResult = DataManager.checkAddedToCoredata(entityName: "DiningEntity",
                                                                    idKey: "id",
@@ -739,14 +739,14 @@ extension DataManager {
                                                      language: Utils.getLanguageCode(language))
                 }
             }
-        } else if let diningList = diningListArray {
-            for diningListDict in diningList {
-                DataManager.saveToDiningCoreData(diningListDict: diningListDict,
-                                                 managedObjContext: managedContext,
-                                                 entity: nil,
-                                                 language: Utils.getLanguageCode(language))
-            }
-        }
+        } //else if let diningList = diningListArray {
+//            for diningListDict in diningList {
+//                DataManager.saveToDiningCoreData(diningListDict: diningListDict,
+//                                                 managedObjContext: managedContext,
+//                                                 entity: nil,
+//                                                 language: Utils.getLanguageCode(language))
+//            }
+//        }
     }
     
     /// Save dining entity to coredata

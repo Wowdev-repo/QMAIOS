@@ -125,11 +125,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     
     func registerForPushNotifications() {
         if #available(iOS 10.0, *) {
-            UNUserNotificationCenter.current().delegate = self as? UNUserNotificationCenterDelegate
-        } else {
-            // Fallback on earlier versions
-        }
-        if #available(iOS 10.0, *) {
+            UNUserNotificationCenter.current().delegate = self ///as? UNUserNotificationCenterDelegate
+//        } else {
+//            // Fallback on earlier versions
+//        }
+//        if #available(iOS 10.0, *) {
             UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) {
                 (granted, error) in
                 print("Permission granted: \(granted)")

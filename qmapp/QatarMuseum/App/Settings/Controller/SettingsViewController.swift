@@ -250,7 +250,7 @@ class SettingsViewController: UIViewController {
         {
             (result : UIAlertAction) -> Void in
             DDLogInfo("You pressed OK on send email confirmation")
-            self.openEmail(email: "mgkhan@qm.org.qa")
+            self.openEmail(email: "mobileApp@qm.org.qa")
         }
         
         sendMailConfirmAlert.addAction(okAction)

@@ -156,7 +156,7 @@ class DateMigrationPolicyFrom3To4: NSEntityMigrationPolicy {
         if let modelVersion = mapping.userInfo?["modelVersion"] as? String, modelVersion == "4" {
             
             var lang = "0"
-            var langKey = "lang"
+            let langKey = "lang"
             let sourceRelationNames = ["endDateRelation","fieldRepeatDates","startDateRelation"]
             let destinationRelationNames = ["endDateRelation","fieldRepeatDates","startDateRelation"]
             let sourceRelationDateAttributeKeys = ["endDate","fieldRepeatDate","startDate"]
