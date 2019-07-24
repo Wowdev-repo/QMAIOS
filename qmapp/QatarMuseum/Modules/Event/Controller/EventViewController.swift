@@ -139,12 +139,12 @@ class EventViewController: UIViewController,UIViewControllerTransitioningDelegat
             
         }
         else {
-            //For RTL
             headerView.headerBackButton.setImage(UIImage(named: "back_mirrorX1"), for: .normal)
+            //For RTL
             calendarView?.locale = Locale(identifier: "ar")
             calendarView?.firstWeekday = 7
             calendarView.calendarHeaderView.collectionViewLayout.collectionView?.semanticContentAttribute = .forceLeftToRight
-            self.calendarView.transform = CGAffineTransform(scaleX: -1, y: 1)
+//            self.calendarView.transform = CGAffineTransform(scaleX: -1, y: 1)
             calendarView.setCurrentPage(Date(), animated: false)
             UserDefaults.standard.set(true, forKey: "Arabic")
             calendarView.appearance.titleFont = UIFont.init(name: "DINNextLTArabic-Bold", size: 18)
@@ -537,6 +537,38 @@ extension EventViewController: FSCalendarDelegate,FSCalendarDataSource {
         default:
             break
         }
+    }
+    
+    func showArabicSubTitle(date: Date!) -> String!
+    {
+        
+        let dateFormater = DateFormatter()
+        dateFormater.dateFormat = "dd"
+        
+        let calendarDate = dateFormater.string(from: date as Date)
+        
+        var characters = Array(calendarDate)
+        if characters[0] == "0" {
+            characters.removeFirst()
+        }
+        
+        let substituteArabic = ["0":"٠", "1":"١", "2":"٢", "3":"٣", "4":"٤", "5":"٥", "6":"٦", "7":"٧", "8":"٨", "9":"٩"]
+        var arabicDate =  ""
+        for i in characters {
+            if let subs = substituteArabic[String(i)] {
+                arabicDate += subs
+            } else {
+                arabicDate += String(i)
+            }
+        }
+        
+        return arabicDate
+    }
+    
+    //MARK: - FSCalendarDelegate
+    
+    func calendar(_ calendar: FSCalendar, titleFor date: Date) -> String? {
+        return ((LocalizationLanguage.currentAppleLanguage()) == AR_LANGUAGE) ? self.showArabicSubTitle(date: date) : ""
     }
 }
 
