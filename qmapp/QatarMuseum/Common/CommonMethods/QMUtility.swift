@@ -123,7 +123,7 @@ func handleAFError(viewController: UIViewController, error: AFError) {
 func convertDMSToDDCoordinate(latLongString : String) -> Double {
     DDLogInfo("File: \(#file)" + "Function: \(#function)")
     var latLong = latLongString
-    var delimiter = "°"
+    let delimiter = "°"
     var latLongArray = latLong.components(separatedBy: delimiter)
     var degreeString : String?
     var minString : String?
@@ -134,8 +134,12 @@ func convertDMSToDDCoordinate(latLongString : String) -> Double {
     if ((latLongArray.count) > 1) {
         latLong = latLongArray[1]
         latLongArray = latLong.components(separatedBy: delimiter)
-        minString = latLongArray[0]
-        secString = latLongArray[1]
+        if ((latLongArray.count) > 0) {
+            minString = latLongArray[0]
+        }
+        if ((latLongArray.count) > 1) {
+            secString = latLongArray[1]
+        }
     }
     let degree = (degreeString! as NSString).doubleValue
     let min = ((minString ?? "0") as NSString).doubleValue

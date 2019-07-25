@@ -141,7 +141,7 @@ extension CommonDetailViewController: UITableViewDelegate,UITableViewDataSource 
                 longitudeString = diningDetailtArray[indexPath.row].longitude!
             }
             if latitudeString != nil && longitudeString != nil && latitudeString != "" && longitudeString != ""{
-                if ((pageNameString == PageName.publicArtsDetail) || (pageNameString == PageName.DiningDetail))  {
+                if (latitudeString != "0° 0\' 0\" N" && longitudeString != "0° 0\' 0\" E")  {
                     if let lat : Double = Double(latitudeString) {
                         latitude = lat
                     }
@@ -194,7 +194,7 @@ extension CommonDetailViewController: UITableViewDelegate,UITableViewDataSource 
                 longitudeString = diningDetailtArray[indexPath.row].longitude!
             }
             if latitudeString != nil && longitudeString != nil && latitudeString != "" && longitudeString != ""{
-                if ((pageNameString == PageName.publicArtsDetail) || (pageNameString == PageName.DiningDetail))  {
+                if (latitudeString != "0° 0\' 0\" N" && longitudeString != "0° 0\' 0\" E")  {
                     if let lat : Double = Double(latitudeString) {
                         latitude = lat
                     }

@@ -16,7 +16,6 @@ target 'QatarMuseums' do
  pod 'SwiftyJSON'
  pod 'FSPagerView'
  pod 'Toast-Swift', '~> 4.0.0'
- pod 'FSCalendar'
  pod 'ActionSheetPicker-3.0', '~> 2.3.0'
  pod 'QRCode'
  pod 'ReachabilitySwift'

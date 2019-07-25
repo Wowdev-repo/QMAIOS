@@ -133,8 +133,6 @@
 		B857BB6922E1B36300417A64 /* EventCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B857BB6722E1B36300417A64 /* EventCollectionViewCell.swift */; };
 		B857BB6C22E1B38500417A64 /* ArtifactNumberPadCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B857BB6A22E1B38500417A64 /* ArtifactNumberPadCell.swift */; };
 		B857BB6D22E1B38500417A64 /* ArtifactNumberPadCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B857BB6B22E1B38500417A64 /* ArtifactNumberPadCell.xib */; };
-		B857BB7222E6D29100417A64 /* QatarMuseumTicketingLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B857BB7122E6D29100417A64 /* QatarMuseumTicketingLib.framework */; };
-		B857BB7322E6D29100417A64 /* QatarMuseumTicketingLib.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B857BB7122E6D29100417A64 /* QatarMuseumTicketingLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B857BB9B22E6EFC200417A64 /* FSCalendarCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = B857BB7522E6EFC200417A64 /* FSCalendarCollectionView.m */; };
 		B857BB9C22E6EFC200417A64 /* FSCalendarDelegationProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = B857BB7B22E6EFC200417A64 /* FSCalendarDelegationProxy.m */; };
 		B857BB9D22E6EFC200417A64 /* FSCalendarDelegationFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = B857BB7D22E6EFC200417A64 /* FSCalendarDelegationFactory.m */; };
@@ -255,6 +253,8 @@
 		B8F00C8521787D0D00320DF1 /* LoginPopupPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F00C8421787D0D00320DF1 /* LoginPopupPage.swift */; };
 		B8F00C872178D74800320DF1 /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F00C862178D74800320DF1 /* RegistrationViewController.swift */; };
 		B8F3A940212728EE005360AD /* CommonStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F3A93F212728EE005360AD /* CommonStrings.swift */; };
+		B8FB553B22E87B5B00285CBF /* QatarMuseumTicketingLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8FB553A22E87B5B00285CBF /* QatarMuseumTicketingLib.framework */; };
+		B8FB553C22E87B5B00285CBF /* QatarMuseumTicketingLib.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B8FB553A22E87B5B00285CBF /* QatarMuseumTicketingLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B8FEC77C2112E57100648F66 /* Dining.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8FEC77B2112E57100648F66 /* Dining.swift */; };
 		DA51D58A8DA63CE54CFF0485 /* Pods_QatarMuseums.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94F5559C89E84E914A76D7A7 /* Pods_QatarMuseums.framework */; };
 /* End PBXBuildFile section */
@@ -283,7 +283,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				B857BB7322E6D29100417A64 /* QatarMuseumTicketingLib.framework in Embed Frameworks */,
+				B8FB553C22E87B5B00285CBF /* QatarMuseumTicketingLib.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -434,7 +434,6 @@
 		B857BB6722E1B36300417A64 /* EventCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EventCollectionViewCell.swift; path = QatarMuseum/Modules/Event/View/EventCollectionCell/EventCollectionViewCell.swift; sourceTree = SOURCE_ROOT; };
 		B857BB6A22E1B38500417A64 /* ArtifactNumberPadCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ArtifactNumberPadCell.swift; path = QatarMuseum/Modules/ArtificialNumberPad/View/ArtifactNumberPadCell/ArtifactNumberPadCell.swift; sourceTree = SOURCE_ROOT; };
 		B857BB6B22E1B38500417A64 /* ArtifactNumberPadCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ArtifactNumberPadCell.xib; path = QatarMuseum/Modules/ArtificialNumberPad/View/ArtifactNumberPadCell/ArtifactNumberPadCell.xib; sourceTree = SOURCE_ROOT; };
-		B857BB7122E6D29100417A64 /* QatarMuseumTicketingLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QatarMuseumTicketingLib.framework; sourceTree = "<group>"; };
 		B857BB7522E6EFC200417A64 /* FSCalendarCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSCalendarCollectionView.m; sourceTree = "<group>"; };
 		B857BB7622E6EFC200417A64 /* FSCalendarWeekdayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSCalendarWeekdayView.h; sourceTree = "<group>"; };
 		B857BB7722E6EFC200417A64 /* NSString+Category.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Category.h"; sourceTree = "<group>"; };
@@ -579,6 +578,7 @@
 		B8F00C862178D74800320DF1 /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
 		B8F305F42256136500117478 /* QatarMuseums_V3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = QatarMuseums_V3.xcdatamodel; sourceTree = "<group>"; };
 		B8F3A93F212728EE005360AD /* CommonStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonStrings.swift; sourceTree = "<group>"; };
+		B8FB553A22E87B5B00285CBF /* QatarMuseumTicketingLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QatarMuseumTicketingLib.framework; sourceTree = "<group>"; };
 		B8FEC77B2112E57100648F66 /* Dining.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dining.swift; sourceTree = "<group>"; };
 		FF0C898808E8CD16BED3F913 /* Pods-QatarMuseums.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QatarMuseums.release.xcconfig"; path = "Pods/Target Support Files/Pods-QatarMuseums/Pods-QatarMuseums.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -598,7 +598,7 @@
 				B806B7BF2124534200F9F338 /* CoreText.framework in Frameworks */,
 				B806B7BD2124533B00F9F338 /* GLKit.framework in Frameworks */,
 				B806B7BB2124533300F9F338 /* ImageIO.framework in Frameworks */,
-				B857BB7222E6D29100417A64 /* QatarMuseumTicketingLib.framework in Frameworks */,
+				B8FB553B22E87B5B00285CBF /* QatarMuseumTicketingLib.framework in Frameworks */,
 				B806B7B92124532D00F9F338 /* libc++.tbd in Frameworks */,
 				B806B7B72124532300F9F338 /* libz.tbd in Frameworks */,
 				B806B7B52124531B00F9F338 /* OpenGLES.framework in Frameworks */,
@@ -993,7 +993,7 @@
 		B80DC04C20C792E400E28034 = {
 			isa = PBXGroup;
 			children = (
-				B857BB7122E6D29100417A64 /* QatarMuseumTicketingLib.framework */,
+				B8FB553A22E87B5B00285CBF /* QatarMuseumTicketingLib.framework */,
 				49504222226311B000F320EF /* qmcert.cer */,
 				49273F602185A74800D3057A /* QatarMuseums.entitlements */,
 				B8EAA3582158D4520060D168 /* GoogleService-Info.plist */,
@@ -1329,43 +1329,43 @@
 		B857BB7422E6EFC200417A64 /* FSCalendar */ = {
 			isa = PBXGroup;
 			children = (
-				B857BB7522E6EFC200417A64 /* FSCalendarCollectionView.m */,
-				B857BB7622E6EFC200417A64 /* FSCalendarWeekdayView.h */,
-				B857BB7722E6EFC200417A64 /* NSString+Category.h */,
-				B857BB7822E6EFC200417A64 /* FSCalendarCollectionViewLayout.h */,
-				B857BB7922E6EFC200417A64 /* FSCalendarScopeHandle.h */,
-				B857BB7A22E6EFC200417A64 /* NSLocale+Category.h */,
-				B857BB7B22E6EFC200417A64 /* FSCalendarDelegationProxy.m */,
-				B857BB7C22E6EFC200417A64 /* FSCalendarExtensions.h */,
-				B857BB7D22E6EFC200417A64 /* FSCalendarDelegationFactory.m */,
-				B857BB7E22E6EFC200417A64 /* FSCalendarCalculator.h */,
-				B857BB7F22E6EFC200417A64 /* FSCalendarHeaderView.h */,
-				B857BB8022E6EFC200417A64 /* FSCalendarConstants.h */,
-				B857BB8122E6EFC200417A64 /* FSCalendarAppearance.h */,
-				B857BB8222E6EFC200417A64 /* FSCalendarTransitionCoordinator.h */,
-				B857BB8322E6EFC200417A64 /* FSCalendarCell.m */,
-				B857BB8422E6EFC200417A64 /* FSCalendarStickyHeader.m */,
-				B857BB8522E6EFC200417A64 /* FSCalendar.m */,
-				B857BB8622E6EFC200417A64 /* NSLocale+Category.m */,
-				B857BB8722E6EFC200417A64 /* FSCalendarCollectionViewLayout.m */,
-				B857BB8822E6EFC200417A64 /* FSCalendarScopeHandle.m */,
-				B857BB8922E6EFC200417A64 /* NSString+Category.m */,
-				B857BB8A22E6EFC200417A64 /* FSCalendarWeekdayView.m */,
-				B857BB8B22E6EFC200417A64 /* FSCalendarCollectionView.h */,
-				B857BB8C22E6EFC200417A64 /* FSCalendarDynamicHeader.h */,
-				B857BB8D22E6EFC200417A64 /* FSCalendarDelegationFactory.h */,
-				B857BB8E22E6EFC200417A64 /* FSCalendarExtensions.m */,
-				B857BB8F22E6EFC200417A64 /* FSCalendarDelegationProxy.h */,
-				B857BB9022E6EFC200417A64 /* QatarMuseum-Bridging-Header.h */,
-				B857BB9122E6EFC200417A64 /* FSCalendar+Deprecated.m */,
-				B857BB9222E6EFC200417A64 /* FSCalendarConstants.m */,
-				B857BB9322E6EFC200417A64 /* FSCalendarCalculator.m */,
-				B857BB9422E6EFC200417A64 /* FSCalendarHeaderView.m */,
-				B857BB9522E6EFC200417A64 /* FSCalendarStickyHeader.h */,
 				B857BB9622E6EFC200417A64 /* FSCalendar.h */,
-				B857BB9722E6EFC200417A64 /* FSCalendarCell.h */,
-				B857BB9822E6EFC200417A64 /* FSCalendarTransitionCoordinator.m */,
+				B857BB8522E6EFC200417A64 /* FSCalendar.m */,
+				B857BB9122E6EFC200417A64 /* FSCalendar+Deprecated.m */,
+				B857BB8122E6EFC200417A64 /* FSCalendarAppearance.h */,
 				B857BB9A22E6EFC200417A64 /* FSCalendarAppearance.m */,
+				B857BB7E22E6EFC200417A64 /* FSCalendarCalculator.h */,
+				B857BB9322E6EFC200417A64 /* FSCalendarCalculator.m */,
+				B857BB9722E6EFC200417A64 /* FSCalendarCell.h */,
+				B857BB8322E6EFC200417A64 /* FSCalendarCell.m */,
+				B857BB8B22E6EFC200417A64 /* FSCalendarCollectionView.h */,
+				B857BB7522E6EFC200417A64 /* FSCalendarCollectionView.m */,
+				B857BB7822E6EFC200417A64 /* FSCalendarCollectionViewLayout.h */,
+				B857BB8722E6EFC200417A64 /* FSCalendarCollectionViewLayout.m */,
+				B857BB8022E6EFC200417A64 /* FSCalendarConstants.h */,
+				B857BB9222E6EFC200417A64 /* FSCalendarConstants.m */,
+				B857BB8D22E6EFC200417A64 /* FSCalendarDelegationFactory.h */,
+				B857BB7D22E6EFC200417A64 /* FSCalendarDelegationFactory.m */,
+				B857BB8F22E6EFC200417A64 /* FSCalendarDelegationProxy.h */,
+				B857BB7B22E6EFC200417A64 /* FSCalendarDelegationProxy.m */,
+				B857BB8C22E6EFC200417A64 /* FSCalendarDynamicHeader.h */,
+				B857BB7C22E6EFC200417A64 /* FSCalendarExtensions.h */,
+				B857BB8E22E6EFC200417A64 /* FSCalendarExtensions.m */,
+				B857BB7F22E6EFC200417A64 /* FSCalendarHeaderView.h */,
+				B857BB9422E6EFC200417A64 /* FSCalendarHeaderView.m */,
+				B857BB7922E6EFC200417A64 /* FSCalendarScopeHandle.h */,
+				B857BB8822E6EFC200417A64 /* FSCalendarScopeHandle.m */,
+				B857BB9522E6EFC200417A64 /* FSCalendarStickyHeader.h */,
+				B857BB8422E6EFC200417A64 /* FSCalendarStickyHeader.m */,
+				B857BB8222E6EFC200417A64 /* FSCalendarTransitionCoordinator.h */,
+				B857BB9822E6EFC200417A64 /* FSCalendarTransitionCoordinator.m */,
+				B857BB7622E6EFC200417A64 /* FSCalendarWeekdayView.h */,
+				B857BB8A22E6EFC200417A64 /* FSCalendarWeekdayView.m */,
+				B857BB7A22E6EFC200417A64 /* NSLocale+Category.h */,
+				B857BB8622E6EFC200417A64 /* NSLocale+Category.m */,
+				B857BB7722E6EFC200417A64 /* NSString+Category.h */,
+				B857BB8922E6EFC200417A64 /* NSString+Category.m */,
+				B857BB9022E6EFC200417A64 /* QatarMuseum-Bridging-Header.h */,
 			);
 			path = FSCalendar;
 			sourceTree = "<group>";
@@ -2283,7 +2283,6 @@
 				"${BUILT_PRODUCTS_DIR}/ActionSheetPicker-3.0/ActionSheetPicker_3_0.framework",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/CocoaLumberjack/CocoaLumberjack.framework",
-				"${BUILT_PRODUCTS_DIR}/FSCalendar/FSCalendar.framework",
 				"${BUILT_PRODUCTS_DIR}/FSPagerView/FSPagerView.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/JGProgressHUD/JGProgressHUD.framework",
@@ -2304,7 +2303,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ActionSheetPicker_3_0.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaLumberjack.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FSCalendar.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FSPagerView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JGProgressHUD.framework",

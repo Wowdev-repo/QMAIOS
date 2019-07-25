@@ -4,7 +4,7 @@
 //
 //  Created by Wenchao Ding on 29/1/15.
 //  Copyright © 2016 Wenchao Ding. All rights reserved.
-// 
+//
 //  https://github.com/Husseinhj
 //
 //  FSCalendar is a superior awesome calendar control with high performance, high customizablility and very simple usage.
@@ -290,13 +290,13 @@ IB_DESIGNABLE
  * The locale of month and weekday symbols. Change it to display them in your own language.
  *
  * e.g. To display them in Chinese:
- * 
+ *
  *    calendar.locale = [NSLocale localeWithLocaleIdentifier:@"zh-CN"];
  */
 @property (copy, nonatomic) NSLocale *locale;
 
 /**
- * The scroll direction of FSCalendar. 
+ * The scroll direction of FSCalendar.
  *
  * e.g. To make the calendar scroll vertically
  *
@@ -305,7 +305,7 @@ IB_DESIGNABLE
 @property (assign, nonatomic) FSCalendarScrollDirection scrollDirection;
 
 /**
- * The scope of calendar, change scope will trigger an inner frame change, make sure the frame has been correctly adjusted in 
+ * The scope of calendar, change scope will trigger an inner frame change, make sure the frame has been correctly adjusted in
  *
  *    - (void)calendar:(FSCalendar *)calendar boundingRectWillChange:(CGRect)bounds animated:(BOOL)animated;
  */

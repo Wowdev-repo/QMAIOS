@@ -392,7 +392,7 @@
 "Child 0 - 16 years (Resident of Qatar)" = "الاطفال من 0 إلى 16 سنة (مقيم في قطر)";
 "Free Entry" = "دخول مجاني";
 "Museum Pass" = "دخول المتاحف";
-"Culture Pass Plus card holder" = "حامل بطاقة باس بلس";
+"Culture Pass Plus card holder" = "حامل بطاقة الثقافة باس بلس";
 "Culture Pass Family card holder" = "حامل بطاقة العائلة الثقافية";
 "Family" = "عائلة";
 "Family (Resident of Qatar)" = "عائلة (مقيم في قطر)";
@@ -518,3 +518,8 @@
 "AppRegularFont" = "DINNextLTArabic-Regular";
 "AppBoldFont" = "DINNextLTArabic-Bold";
 "Change  Subscription" = "تغيير الاشتراك؟";
+
+//Extra ones from mannai branch
+"NMoQ_SELF_GUIDED_TOUR_TITLE" = "تجول كما يحلو لك";
+"NMoQ_SELF_GUIDED_TEXT1" = "";
+"NMoQ_SELF_GUIDED_TEXT2" = "استخدم الدليل الصوتي، واستمتع بالرحلة التي أعددناها لك خصيصًا.";

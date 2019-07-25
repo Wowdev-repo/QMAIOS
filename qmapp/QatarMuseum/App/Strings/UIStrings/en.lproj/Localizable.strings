@@ -563,7 +563,12 @@
 "1" ="1";
 "2"="2";
 "3"="3";
-
+"Alert" = "Alert";
 "AppRegularFont" = "DINNextLTPro-Regular";
 "AppBoldFont" = "DINNextLTPro-Bold";
 "Change  Subscription" = "Change Subscription?";
+
+//Extra ones from mannai branch
+"NMoQ_SELF_GUIDED_TOUR_TITLE" = "Self Guided Tours";
+"NMoQ_SELF_GUIDED_TEXT1" = "";
+"NMoQ_SELF_GUIDED_TEXT2" = "Try our audio tour. Immerse yourself into the journey curated specially for you.";
