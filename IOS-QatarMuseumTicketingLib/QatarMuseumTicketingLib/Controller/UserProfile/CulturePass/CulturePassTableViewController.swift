@@ -46,6 +46,7 @@ class CulturePassTableViewController: UITableViewController,QMTLTabViewControlle
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        
                 
         self.tableView.register(UINib(nibName: QMTLConstants.NibName.culturePassTableViewCell, bundle: QMTLSingleton.sharedInstance.bundle), forCellReuseIdentifier: QMTLConstants.CellId.CulturePassTableViewCellID)
         
@@ -57,8 +58,8 @@ class CulturePassTableViewController: UITableViewController,QMTLTabViewControlle
         tabViewController.qmtlTabViewControllerDelegate = self
         tabViewController.topTabBarView.backBtn.isHidden = false
         tabViewController.topTabBarView.myProfileBtn.isHidden = true
-
-        if isFromSignUpPage {
+        //print ("bool is",isFromSignUpPage);
+        if (isFromSignUpPage || QMTLSingleton.sharedInstance.userInfo.currentSubscribtion.id == "")  {
             titleLbl.text = "\(getLocalizedStr(str: "CHOOSE MEMBERSHIP TYPE"))"
         }else{
             titleLbl.text = "\(getLocalizedStr(str: "UPGRADE CULTURE PASS TYPE"))"
@@ -212,6 +213,9 @@ class CulturePassTableViewController: UITableViewController,QMTLTabViewControlle
         }
         
         if !isFromSignUpPage {
+            
+            
+            
             if subscriptionArticle.id == QMTLSingleton.sharedInstance.userInfo.currentSubscribtion.id{
                 print ("in if")
                 cell.subscribedIndicatorLbl.isHidden = false

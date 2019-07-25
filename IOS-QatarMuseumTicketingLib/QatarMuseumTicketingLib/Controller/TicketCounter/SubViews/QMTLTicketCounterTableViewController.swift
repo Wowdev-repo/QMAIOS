@@ -37,13 +37,17 @@ class QMTLTicketCounterTableViewController: UITableViewController,TicketPickerVi
     @IBOutlet weak var grandTotalLbl: UILabel!
     @IBOutlet weak var i_1: UILabel!
     
+    var isFromGuestUserPage = false
+    
     //MARK:- View Defaults
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        UserDefaults.standard.set(false, forKey: "FromSignin")
         self.navigationItem.setHidesBackButton(true, animated:false)
         self.navigationItem.title = ""
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -66,10 +70,23 @@ class QMTLTicketCounterTableViewController: UITableViewController,TicketPickerVi
     override func viewDidAppear(_ animated: Bool) {
         localizationSetup()
     }
+    override func viewDidDisappear(_ animated: Bool) {
+        //resetCollaps()
+        let signin = QMTLSignInUserViewController()
+        signin.isFromSelectTicketPage = true
+        UserDefaults.standard.set(true, forKey: "FromTicket")
+        
+    }
+    
+//    override func viewWillDisappear(_ animated: Bool) {
+//        let signin = QMTLSignInUserViewController()
+//        signin.isFromSelectTicketPage = true
+//        UserDefaults.standard.set(true, forKey: "FromTicket")
+//    }
     
     func setUpView(){
         
-        
+         if !UserDefaults.standard.bool(forKey: "FromSignin"){
         ticketPickerView.isHidden = true
         
         prices.removeAll()
@@ -90,10 +107,16 @@ class QMTLTicketCounterTableViewController: UITableViewController,TicketPickerVi
             prices.append(priceItem)
         }
         
+       
         self.tableView.reloadData()
+
         calculateGrandTotal()
         
         apiServices.getArticleList(searchCriteria: [:], serviceFor: QMTLConstants.ServiceFor.findArticles, view: self.view)
+        }
+         else{
+            UserDefaults.standard.set(false, forKey: "FromSignin")
+        }
     }
     
     //MARK:- API Service Delegate
@@ -593,7 +616,7 @@ class QMTLTicketCounterTableViewController: UITableViewController,TicketPickerVi
    
             if !priceItem.isUserCanBuyThis {
                      if (priceItem.cantBuyErrMsgStr != ""){
-                let alert = UIAlertController(title: "", message: msgStr, preferredStyle: .alert)
+                let alert = UIAlertController(title: getLocalizedStr(str:"Alert"), message: msgStr, preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: getLocalizedStr(str:"OK"), style: .default, handler: { action in
                     switch action.style{
                     case .default:

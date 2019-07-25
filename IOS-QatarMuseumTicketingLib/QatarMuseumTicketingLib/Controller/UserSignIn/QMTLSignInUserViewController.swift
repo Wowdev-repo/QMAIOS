@@ -29,6 +29,7 @@ class QMTLSignInUserViewController: UIViewController, UITextFieldDelegate, APISe
     var userAuthResponseJsonValue : JSON = []
     
     var isFromGuestUserPage = false
+     var isFromSelectTicketPage = false
 
     //MARK:- IBOutlet
     
@@ -53,6 +54,7 @@ class QMTLSignInUserViewController: UIViewController, UITextFieldDelegate, APISe
     //MARK:- Controller Defaults
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         self.navigationItem.setHidesBackButton(true, animated:false)
         self.navigationItem.title = ""
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
@@ -159,7 +161,7 @@ class QMTLSignInUserViewController: UIViewController, UITextFieldDelegate, APISe
             showToast(message: "Username or password is wrong")
             //emailIdTxt.text = ""
             //passwordTxt.text = ""
-            emailIdTxt.becomeFirstResponder()
+            //emailIdTxt.becomeFirstResponder()
         }
     }
     
@@ -178,10 +180,28 @@ class QMTLSignInUserViewController: UIViewController, UITextFieldDelegate, APISe
     
     //MARK:- Show Toast
     
-    func showToast(message : String){
-        self.view.makeToast(getLocalizedStr(str: message), duration: 2.0, position: .center, style: toastStyle)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute: {
-            self.view.hideAllToasts()
+//    func showToast(message : String){
+//        self.view.makeToast(getLocalizedStr(str: message), duration: 2.0, position: .center, style: toastStyle)
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute: {
+//            self.view.hideAllToasts()
+//        })
+//    }
+    func showToast(message : String) {
+        
+        let toastLabel = UILabel(frame: CGRect(x: self.view.frame.size.width/2 - 125, y: self.view.frame.size.height/2 - 17, width: 250, height: 35))
+        toastLabel.backgroundColor = UIColor.darkGray
+        toastLabel.textColor = UIColor.white
+        toastLabel.textAlignment = .center;
+        toastLabel.font = UIFont(name: "Montserrat-Light", size: 12.0)
+        toastLabel.text = getLocalizedStr(str: message)
+        toastLabel.alpha = 1.0
+        toastLabel.layer.cornerRadius = 10;
+        toastLabel.clipsToBounds  =  true
+        self.view.addSubview(toastLabel)
+        UIView.animate(withDuration: 3.0, delay: 0.1, options: .curveEaseOut, animations: {
+            toastLabel.alpha = 0.0
+        }, completion: {(isCompleted) in
+            toastLabel.removeFromSuperview()
         })
     }
     
@@ -209,15 +229,15 @@ class QMTLSignInUserViewController: UIViewController, UITextFieldDelegate, APISe
         
         if usernameStr?.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines) == "" {
             returnVal = false
-            emailIdTxt.becomeFirstResponder()
-            showToast(message: "Please enter Email Id")
+            //emailIdTxt.becomeFirstResponder()
+            showToast(message: "Please enter email id")
         }else if !isValidEmail(emailAddressString: usernameStr ?? ""){
             returnVal = false
-            emailIdTxt.becomeFirstResponder()
+            //emailIdTxt.becomeFirstResponder()
             showToast(message: "Please enter Valid Email Id")
         }else if passwordStr?.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines) == "" {
             returnVal = false
-            passwordTxt.becomeFirstResponder()
+            //passwordTxt.becomeFirstResponder()
             showToast(message: "Please enter password")
         }
         
@@ -319,7 +339,13 @@ class QMTLSignInUserViewController: UIViewController, UITextFieldDelegate, APISe
             
             if isFromGuestUserPage {
                 self.navigationController?.popViewController(animated: true)
-            } else if (QMTLSingleton.sharedInstance.isGuestCheckout) {
+            }
+            else if UserDefaults.standard.bool(forKey: "FromTicket"){
+                tabViewController.selectedIndex = 0
+                UserDefaults.standard.set(false, forKey: "FromTicket")
+                 UserDefaults.standard.set(true, forKey: "FromSignin")
+            }
+            else if (QMTLSingleton.sharedInstance.isGuestCheckout) {
                     QMTLSingleton.sharedInstance.isGuestCheckout = false
                     tabViewController.selectedIndex = 0
                 } else {

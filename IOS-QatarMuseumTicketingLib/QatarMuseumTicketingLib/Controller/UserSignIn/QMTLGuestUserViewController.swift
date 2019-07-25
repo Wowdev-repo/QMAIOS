@@ -43,6 +43,12 @@ class QMTLGuestUserViewController: UIViewController,QMTLSignInUserViewController
     @IBOutlet weak var i_3_TandCBtn: UIButton!
     @IBOutlet weak var nextBtn: UIButton!
     
+    var attrs = [
+        NSAttributedString.Key.font : UIFont.init(name: "DINNextLTArabic-Regular", size: 18) as Any,
+        NSAttributedString.Key.foregroundColor : UIColor.black,
+        NSAttributedString.Key.underlineStyle : 1] as [NSAttributedString.Key : Any]
+    
+    var attributedString = NSMutableAttributedString(string:"")
     
     //MARK:- Decleration
     var tabViewController = QMTLTabViewController()
@@ -173,16 +179,36 @@ class QMTLGuestUserViewController: UIViewController,QMTLSignInUserViewController
     
     //MARK:- Show Toast
     
-    func showToast(message : String){
-        var style = ToastStyle()
-        style.messageColor = .white
-        style.backgroundColor = .darkGray
+    func showToast(message : String) {
         
-        self.view.makeToast(getLocalizedStr(str: message), duration: 2.0, position: .center, style: style)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute: {
-            self.view.hideAllToasts()
+        let toastLabel = UILabel(frame: CGRect(x: self.view.frame.size.width/2 - 125, y: self.view.frame.size.height/2 - 17, width: 250, height: 35))
+        toastLabel.backgroundColor = UIColor.darkGray
+        toastLabel.textColor = UIColor.white
+        toastLabel.textAlignment = .center;
+        toastLabel.font = UIFont(name: "Montserrat-Light", size: 12.0)
+        toastLabel.text = getLocalizedStr(str: message)
+        toastLabel.alpha = 1.0
+        toastLabel.layer.cornerRadius = 10;
+        toastLabel.clipsToBounds  =  true
+        self.view.addSubview(toastLabel)
+        UIView.animate(withDuration: 3.0, delay: 0.1, options: .curveEaseOut, animations: {
+            toastLabel.alpha = 0.0
+        }, completion: {(isCompleted) in
+            toastLabel.removeFromSuperview()
         })
     }
+    
+//    func showToast(message : String){
+//        var style = ToastStyle()
+//        style.messageColor = .white
+//        style.backgroundColor = .darkGray
+//        style.maxHeightPercentage = 10
+//
+//        self.view.makeToast(getLocalizedStr(str: message), duration: 2.0, position: .center, style: style)
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute: {
+//            self.view.hideAllToasts()
+//        })
+//    }
     //MARK:- Check Internet
     
     
@@ -228,7 +254,7 @@ class QMTLGuestUserViewController: UIViewController,QMTLSignInUserViewController
             }
         }
         else{
-            self.showToast(message: getLocalizedStr(str: "CHECK_INTERNET"))
+            self.showToast(message:"CHECK_INTERNET")
         }
        
         
@@ -262,15 +288,15 @@ class QMTLGuestUserViewController: UIViewController,QMTLSignInUserViewController
         
         if nameStr?.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines) == "" {
             returnVal = false
-            nameTxtFld.becomeFirstResponder()
+            //nameTxtFld.becomeFirstResponder()
             showToast(message: "Please enter name")
         }else if emailStr?.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines) == "" {
             returnVal = false
-            emailTxtFld.becomeFirstResponder()
+            //emailTxtFld.becomeFirstResponder()
             showToast(message: "Please enter email id")
         }else if !isValidEmail(emailAddressString: emailStr ?? ""){
             returnVal = false
-            emailTxtFld.becomeFirstResponder()
+            //emailTxtFld.becomeFirstResponder()
             showToast(message: "Please enter valid email id")
         }else if !isAgreementChecked {
             returnVal = false
@@ -477,17 +503,22 @@ class QMTLGuestUserViewController: UIViewController,QMTLSignInUserViewController
         i_2.text = getLocalizedStr(str: i_2.text!)
         i_3_TandCBtn.setTitle(getLocalizedStr(str: i_3_TandCBtn.titleLabel!.text!), for: .normal)
         nextBtn.setTitle(getLocalizedStr(str: nextBtn.titleLabel!.text!), for: .normal)
+      
+        let buttonTitleStr = NSMutableAttributedString(string:getLocalizedStr(str: "Existing Culture Pass Member?"), attributes:attrs)
         
-        alreadyMemberBtn.setTitle(getLocalizedStr(str: alreadyMemberBtn.titleLabel!.text!), for: .normal)
+        attributedString.append(buttonTitleStr)
+        alreadyMemberBtn.setAttributedTitle(attributedString, for: .normal)
+        
         
         if ((QMTLLocalizationLanguage.currentAppleLanguage()) == "en") {
             alreadyMemberBtn.titleLabelFont =  UIFont.init(name: "DINNextLTPro-Regular", size: 18)
-            //nxtBtn.setTitle ("Next", for: .normal);
+            i_3_TandCBtn.titleLabelFont =  UIFont.init(name: "DINNextLTPro-Bold", size: 15)
              nextBtn.titleLabelFont =  UIFont.init(name: "DINNextLTPro-Bold", size: 18)
             
         }
         else{
             alreadyMemberBtn.titleLabelFont = UIFont.init(name: "DINNextLTArabic-Regular", size: 18)
+            i_3_TandCBtn.titleLabelFont = UIFont.init(name: "DINNextLTArabic-Bold", size: 15)
             nextBtn.titleLabelFont =  UIFont.init(name: "DINNextLTArabic-Bold", size: 18)
             //nxtBtn.setTitle ("التالي", for: .normal);
         }

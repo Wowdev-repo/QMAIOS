@@ -18,6 +18,6 @@ class PriceItem: NSObject {
     var isToShowDesc = false
     var ticketCellHeight = 111
     var maxTicketAllowed = 25
-    var isUserCanBuyThis = false
+    var isUserCanBuyThis = true
     var cantBuyErrMsgStr = ""
 }

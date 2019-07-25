@@ -30,13 +30,22 @@ class MuseumListViewController: UIViewController,UITableViewDelegate, UITableVie
     var selectedIndexPath = 0
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        UserDefaults.standard.set(false, forKey: "FromSignin")
         museumListTableView.dataSource = self
         museumListTableView.delegate = self
         
         self.popTitleLabel.text = self.getLocalizedStr(str: "PLEASE SELECT A MUSEUM")
         self.cancelButtonClick.setTitle(self.getLocalizedStr(str: "Cancel"), for: .normal)
         self.nextButtonClick.setTitle(NSLocalizedString("Next", comment: ""), for: .normal)
+        
+        if ((QMTLLocalizationLanguage.currentAppleLanguage()) == "en") {
+             self.nextButtonClick?.titleLabelFont = UIFont.init(name: "DINNextLTPro-Bold", size: 16)
+            self.cancelButtonClick?.titleLabelFont = UIFont.init(name: "DINNextLTPro-Bold", size: 16)
+        }
+        else{
+            self.nextButtonClick?.titleLabelFont = UIFont.init(name: "DINNextLTArabic-Bold", size: 16)
+            self.cancelButtonClick?.titleLabelFont = UIFont.init(name: "DINNextLTArabic-Bold", size: 16)
+        }
         //self.cancelButtonClick.titleLabel?.text = self.getLocalizedStr(str: "Cancel")
         //self.nextButtonClick.titleLabel?.text = self.getLocalizedStr(str: "Next")
         
