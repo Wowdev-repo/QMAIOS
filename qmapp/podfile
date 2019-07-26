@@ -20,4 +20,5 @@ target 'QatarMuseums' do
  pod 'QRCode'
  pod 'ReachabilitySwift'
  pod 'TTTAttributedLabel'
+ pod 'IQKeyboardManagerSwift'
 end
