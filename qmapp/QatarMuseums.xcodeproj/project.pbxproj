@@ -27,9 +27,9 @@
 		1E63D51322BC9F3E00E2E1A5 /* PanelDiscussionDetailViewController+Tableview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E63D51222BC9F3E00E2E1A5 /* PanelDiscussionDetailViewController+Tableview.swift */; };
 		1E87D19B22BCDB5F00F1C96F /* PanelDiscussionDetailViewController+WebServices&Coredata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E87D19A22BCDB5F00F1C96F /* PanelDiscussionDetailViewController+WebServices&Coredata.swift */; };
 		1EECB2EA22C08BC000A0AB6B /* HomeViewController+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EECB2E922C08BC000A0AB6B /* HomeViewController+TableView.swift */; };
-		4928F29622ED984F00661AC9 /* QatarMuseumTicketingLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4928F29522ED984F00661AC9 /* QatarMuseumTicketingLib.framework */; };
-		4928F29722ED985900661AC9 /* QatarMuseumTicketingLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4928F29522ED984F00661AC9 /* QatarMuseumTicketingLib.framework */; };
-		4928F29822ED985900661AC9 /* QatarMuseumTicketingLib.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4928F29522ED984F00661AC9 /* QatarMuseumTicketingLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		494F8F2A22EDA95800972474 /* QatarMuseumTicketingLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 494F8F2922EDA95800972474 /* QatarMuseumTicketingLib.framework */; };
+		494F8F2B22EDA95D00972474 /* QatarMuseumTicketingLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 494F8F2922EDA95800972474 /* QatarMuseumTicketingLib.framework */; };
+		494F8F2C22EDA95D00972474 /* QatarMuseumTicketingLib.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 494F8F2922EDA95800972474 /* QatarMuseumTicketingLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		49504224226311EC00F320EF /* CPSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49504223226311EC00F320EF /* CPSessionManager.swift */; };
 		495FA4A722639DE4006B228F /* qmcert.cer in Resources */ = {isa = PBXBuildFile; fileRef = 49504222226311B000F320EF /* qmcert.cer */; };
 		496DF32A225B08EF00BD8BD1 /* CPLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4929CA0B22377CDA001C42C8 /* CPLogger.swift */; };
@@ -285,7 +285,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				4928F29822ED985900661AC9 /* QatarMuseumTicketingLib.framework in Embed Frameworks */,
+				494F8F2C22EDA95D00972474 /* QatarMuseumTicketingLib.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -314,9 +314,9 @@
 		1E87D19A22BCDB5F00F1C96F /* PanelDiscussionDetailViewController+WebServices&Coredata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PanelDiscussionDetailViewController+WebServices&Coredata.swift"; sourceTree = "<group>"; };
 		1EECB2E922C08BC000A0AB6B /* HomeViewController+TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeViewController+TableView.swift"; sourceTree = "<group>"; };
 		49273F602185A74800D3057A /* QatarMuseums.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = QatarMuseums.entitlements; sourceTree = "<group>"; };
-		4928F29522ED984F00661AC9 /* QatarMuseumTicketingLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QatarMuseumTicketingLib.framework; sourceTree = "<group>"; };
 		4929CA0B22377CDA001C42C8 /* CPLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPLogger.swift; sourceTree = "<group>"; };
 		4929CA0D2238C369001C42C8 /* libz.1.2.5.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.1.2.5.tbd; path = usr/lib/libz.1.2.5.tbd; sourceTree = SDKROOT; };
+		494F8F2922EDA95800972474 /* QatarMuseumTicketingLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QatarMuseumTicketingLib.framework; sourceTree = "<group>"; };
 		49504222226311B000F320EF /* qmcert.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = qmcert.cer; sourceTree = "<group>"; };
 		49504223226311EC00F320EF /* CPSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPSessionManager.swift; sourceTree = "<group>"; };
 		49C0458A223302A600FB96EF /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
@@ -594,7 +594,7 @@
 				B8BD3A6D212C77B9006D440A /* EventKit.framework in Frameworks */,
 				B806B7CB2124536F00F9F338 /* Accelerate.framework in Frameworks */,
 				B806B7C92124536600F9F338 /* CoreData.framework in Frameworks */,
-				4928F29722ED985900661AC9 /* QatarMuseumTicketingLib.framework in Frameworks */,
+				494F8F2B22EDA95D00972474 /* QatarMuseumTicketingLib.framework in Frameworks */,
 				B806B7C72124535F00F9F338 /* CoreGraphics.framework in Frameworks */,
 				B806B7C52124535600F9F338 /* CoreImage.framework in Frameworks */,
 				B806B7C32124534E00F9F338 /* CoreLocation.framework in Frameworks */,
@@ -602,7 +602,7 @@
 				B806B7BF2124534200F9F338 /* CoreText.framework in Frameworks */,
 				B806B7BD2124533B00F9F338 /* GLKit.framework in Frameworks */,
 				B806B7BB2124533300F9F338 /* ImageIO.framework in Frameworks */,
-				4928F29622ED984F00661AC9 /* QatarMuseumTicketingLib.framework in Frameworks */,
+				494F8F2A22EDA95800972474 /* QatarMuseumTicketingLib.framework in Frameworks */,
 				B806B7B92124532D00F9F338 /* libc++.tbd in Frameworks */,
 				B806B7B72124532300F9F338 /* libz.tbd in Frameworks */,
 				B806B7B52124531B00F9F338 /* OpenGLES.framework in Frameworks */,
@@ -997,7 +997,7 @@
 		B80DC04C20C792E400E28034 = {
 			isa = PBXGroup;
 			children = (
-				4928F29522ED984F00661AC9 /* QatarMuseumTicketingLib.framework */,
+				494F8F2922EDA95800972474 /* QatarMuseumTicketingLib.framework */,
 				49504222226311B000F320EF /* qmcert.cer */,
 				49273F602185A74800D3057A /* QatarMuseums.entitlements */,
 				B8EAA3582158D4520060D168 /* GoogleService-Info.plist */,
@@ -2118,7 +2118,7 @@
 					B80DC05420C792E400E28034 = {
 						CreatedOnToolsVersion = 9.3;
 						LastSwiftMigration = 0930;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -2709,9 +2709,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = QatarMuseums.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: QATAR MUSEUMS (DNV2Z9FR68)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: QATAR MUSEUMS (DNV2Z9FR68)";
+				CODE_SIGN_STYLE = Manual;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = DNV2Z9FR68;
 				ENABLE_BITCODE = NO;
@@ -2724,7 +2724,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.qatarmuseums.qatarmuseumsapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = QatarMuseumsDistributionProfile;
 				SWIFT_OBJC_BRIDGING_HEADER = "QatarMuseum/Common/ReusableViews/FSCalendar/QatarMuseum-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
@@ -2739,9 +2739,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = QatarMuseums.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: QATAR MUSEUMS (DNV2Z9FR68)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: QATAR MUSEUMS (DNV2Z9FR68)";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = DNV2Z9FR68;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2753,7 +2753,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.qatarmuseums.qatarmuseumsapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = QatarMuseumsDistributionProfile;
 				SWIFT_OBJC_BRIDGING_HEADER = "QatarMuseum/Common/ReusableViews/FSCalendar/QatarMuseum-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;

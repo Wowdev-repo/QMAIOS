@@ -686,22 +686,44 @@ class SignUpTableViewController: UITableViewController, UITextFieldDelegate,QMTL
         }
         
         
-        ActionSheetMultipleStringPicker.show(withTitle: titleStr, rows: [
-            itemsArr], initialSelection: nil, doneBlock: {
-                picker, indexes, values in
-                
-                let countStr = "\(String(describing: indexes![0]))"
-                let count =  Int(countStr) ?? 0
-                if titleStr == self.getLocalizedStr(str: "Code") {
-                    textField.text = countryDialCodeArray[count]
-                } else {
-                    textField.text = itemsArr[count]
-                }
-                
-                
-                
-                return
+        let acp = ActionSheetMultipleStringPicker(title: titleStr, rows: [itemsArr], initialSelection:nil, doneBlock: {
+            picker, indexes, values in
+            
+            let countStr = "\(String(describing: indexes![0]))"
+            let count =  Int(countStr) ?? 0
+            if titleStr == self.getLocalizedStr(str: "Code") {
+                textField.text = countryDialCodeArray[count]
+            } else {
+                textField.text = itemsArr[count]
+            }
+            return
         }, cancel: { ActionMultipleStringCancelBlock in return }, origin: self.view)
+        
+        let doneButton = UIBarButtonItem(title: getLocalizedStr(str: "Done"), style: .plain, target: nil, action: nil)
+        
+        acp?.setDoneButton(doneButton)
+        
+        let cancelButton = UIBarButtonItem(title: getLocalizedStr(str: "Cancel"), style: .plain, target: nil, action: nil)
+        
+        acp?.setCancelButton(cancelButton)
+        acp?.show()
+        
+//        ActionSheetMultipleStringPicker.show(withTitle: titleStr, rows: [
+//            itemsArr], initialSelection: nil, doneBlock: {
+//                picker, indexes, values in
+//
+//                let countStr = "\(String(describing: indexes![0]))"
+//                let count =  Int(countStr) ?? 0
+//                if titleStr == self.getLocalizedStr(str: "Code") {
+//                    textField.text = countryDialCodeArray[count]
+//                } else {
+//                    textField.text = itemsArr[count]
+//                }
+//
+//
+//
+//                return
+//        }, cancel: { ActionMultipleStringCancelBlock in return }, origin: self.view)
         
     }
     
