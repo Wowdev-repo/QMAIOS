@@ -75,6 +75,13 @@ class HomeViewController: UIViewController, UIViewControllerTransitioningDelegat
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if ((LocalizationLanguage.currentAppleLanguage()) == "en") {
+            buyYourTicketsLabel.font = UIFont.init(name: "DINNextLTPro-Bold", size: 17)!
+        } else{
+            buyYourTicketsLabel.font = UIFont.init(name: "DINNextLTArabic-Bold", size:18)!
+        }
+        
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
         registerNib()
         setUpUI()
@@ -86,11 +93,11 @@ class HomeViewController: UIViewController, UIViewControllerTransitioningDelegat
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(false)
         
-        if ((LocalizationLanguage.currentAppleLanguage()) == "en") {
-            buyYourTicketsLabel.font = UIFont.init(name: "DINNextLTPro-Bold", size: 17)!
-        } else{
-            buyYourTicketsLabel.font = UIFont.init(name: "DINNextLTArabic-Bold", size:18)!
-        }
+//        if ((LocalizationLanguage.currentAppleLanguage()) == "en") {
+//            buyYourTicketsLabel.font = UIFont.init(name: "DINNextLTPro-Bold", size: 17)!
+//        } else{
+//            buyYourTicketsLabel.font = UIFont.init(name: "DINNextLTArabic-Bold", size:18)!
+//        }
 
     }
     

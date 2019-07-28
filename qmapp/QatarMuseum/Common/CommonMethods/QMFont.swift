@@ -191,6 +191,15 @@ extension UIFont {
             return UIFont.init(name: "DINNextLTArabic-Bold", size:38)!
         }
     }
+    
+    static var nmoqtourGuideFont: UIFont {
+        if ((LocalizationLanguage.currentAppleLanguage()) == "en") {
+            return UIFont.init(name: "DINNextLTPro-Bold", size: 38)!
+        } else{
+            return UIFont.init(name: "DINNextLTArabic-Bold", size:34)!
+        }
+    }
+    
     static var startTourFont: UIFont {
         if ((LocalizationLanguage.currentAppleLanguage()) == "en") {
             return UIFont.init(name: "DINNextLTPro-Bold", size: 19)!

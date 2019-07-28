@@ -77,6 +77,11 @@ class EducationViewController: UIViewController, TTTAttributedLabelDelegate {
         loadingView.stopLoading()
         loadingView.isHidden = true
     }
+    
+    func attributedLabel(_ label: TTTAttributedLabel!, didSelectLinkWith url: URL!) {
+        UIApplication.shared.openURL(url as URL)
+    }
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
