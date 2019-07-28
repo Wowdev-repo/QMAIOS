@@ -331,6 +331,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="buyYourTicketsLabel" destination="538-FH-s1Z" id="A00-El-ueg"/>
                         <outlet property="culturePassButton" destination="GA6-kJ-Aew" id="2sQ-Wn-nUN"/>
                         <outlet property="culturePassLabel" destination="7ZM-f1-ri1" id="XWY-Qa-e1A"/>
                         <outlet property="diningLabel" destination="gJN-vr-oTl" id="UNX-ia-nuh"/>
@@ -2261,7 +2262,7 @@
                                 <rect key="frame" x="0.0" y="85" width="414" height="651"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TU4-wX-Kh5">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="472"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="474"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="KNOWLEDGE IN ACTION" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OjR-xm-nbv">
                                                 <rect key="frame" x="105" y="25" width="204" height="20"/>
@@ -2315,13 +2316,13 @@
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="All of our education parameters privide interactive " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SHx-NL-C4b" customClass="TTTAttributedLabel">
-                                                <rect key="frame" x="21" y="355" width="372.33333333333331" height="17"/>
+                                                <rect key="frame" x="22" y="355" width="370" height="19"/>
                                                 <fontDescription key="fontDescription" name="DINNextLTPro-Regular" family="DIN Next LT Pro" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5DT-BC-Fnr">
-                                                <rect key="frame" x="25" y="402" width="364" height="50"/>
+                                                <rect key="frame" x="25" y="404" width="364" height="50"/>
                                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="IQe-k4-Y99"/>
@@ -6171,7 +6172,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X4C-ek-GdL" customClass="VersaStatefulButton" customModule="VersaPlayer">
-                            <rect key="frame" x="164.66666666666666" y="139" width="50" height="50"/>
+                            <rect key="frame" x="164.66666666666666" y="145" width="50" height="50"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="50" id="eTh-AH-ThL"/>
                                 <constraint firstAttribute="height" constant="50" id="unA-A3-R8Z"/>
@@ -6184,7 +6185,7 @@
                             </userDefinedRuntimeAttributes>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lfk-B4-5a9" customClass="VersaStatefulButton" customModule="VersaPlayer">
-                            <rect key="frame" x="268.66666666666669" y="139" width="30" height="50"/>
+                            <rect key="frame" x="270.66666666666669" y="145" width="30" height="50"/>
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="image" keyPath="activeImage" value="fastforward"/>
@@ -6192,7 +6193,7 @@
                             </userDefinedRuntimeAttributes>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q9y-LN-gAR" customClass="VersaStatefulButton" customModule="QatarMuseums">
-                            <rect key="frame" x="226.66666666666666" y="139" width="29.999999999999972" height="50"/>
+                            <rect key="frame" x="226.66666666666666" y="145" width="31.999999999999972" height="50"/>
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="image" keyPath="activeImage" value="skipForward"/>
@@ -6200,7 +6201,7 @@
                             </userDefinedRuntimeAttributes>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Se1-zt-j2t" customClass="VersaStatefulButton" customModule="QatarMuseums">
-                            <rect key="frame" x="122.66666666666669" y="139" width="30" height="50"/>
+                            <rect key="frame" x="120.66666666666669" y="145" width="32" height="50"/>
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="image" keyPath="activeImage" value="skipBackward"/>
@@ -6208,7 +6209,7 @@
                             </userDefinedRuntimeAttributes>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uvj-ca-wHT" customClass="VersaTimeLabel" customModule="QatarMuseums">
-                            <rect key="frame" x="20" y="209" width="70" height="30"/>
+                            <rect key="frame" x="20" y="215" width="70" height="24"/>
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="70" id="g6M-OD-Uvv"/>
@@ -6218,14 +6219,14 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zKO-96-byM" customClass="VersaTimeLabel" customModule="QatarMuseums">
-                            <rect key="frame" x="205" y="209" width="70" height="30"/>
+                            <rect key="frame" x="217" y="215" width="70" height="24"/>
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <slider opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Qgo-wK-TZd" customClass="VersaSeekbarSlider" customModule="QatarMuseums">
-                            <rect key="frame" x="100" y="209" width="95" height="31"/>
+                            <rect key="frame" x="100" y="215" width="107" height="25"/>
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="image" keyPath="thumbImage" value="playhead"/>
@@ -6236,7 +6237,7 @@
                             <color key="color" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </activityIndicatorView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SGW-Ip-eSp" customClass="VersaStatefulButton" customModule="QatarMuseums">
-                            <rect key="frame" x="329" y="209" width="30" height="30"/>
+                            <rect key="frame" x="335" y="215" width="24" height="24"/>
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <state key="normal">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -6247,7 +6248,7 @@
                             </userDefinedRuntimeAttributes>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wvl-Vg-bjN" customClass="VersaStatefulButton" customModule="QatarMuseums">
-                            <rect key="frame" x="287" y="209" width="30" height="30"/>
+                            <rect key="frame" x="299" y="215" width="24" height="24"/>
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <state key="normal">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -6258,7 +6259,7 @@
                             </userDefinedRuntimeAttributes>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q9a-5t-DtH" customClass="VersaStatefulButton" customModule="QatarMuseums">
-                            <rect key="frame" x="80.666666666666671" y="139" width="30" height="50"/>
+                            <rect key="frame" x="60.666666666666657" y="145" width="48" height="50"/>
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="image" keyPath="activeImage" value="rewind"/>
@@ -6415,6 +6416,6 @@
         <segue reference="flV-LF-tzN"/>
         <segue reference="rjQ-yI-tVc"/>
         <segue reference="tXC-tz-XiI"/>
-        <segue reference="Nmg-Zy-CKp"/>
+        <segue reference="YLB-FU-qXW"/>
     </inferredMetricsTieBreakers>
 </document>

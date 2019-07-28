@@ -30,7 +30,8 @@ enum HomePageName {
 
 class HomeViewController: UIViewController, UIViewControllerTransitioningDelegate {
     
-
+    @IBOutlet weak var buyYourTicketsLabel: UILabel!
+    
     @IBOutlet weak var restaurantButton: UIButton!
     @IBOutlet weak var giftShopButton: UIButton!
     @IBOutlet weak var moreButton: UIButton!
@@ -84,6 +85,13 @@ class HomeViewController: UIViewController, UIViewControllerTransitioningDelegat
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(false)
+        
+        if ((LocalizationLanguage.currentAppleLanguage()) == "en") {
+            buyYourTicketsLabel.font = UIFont.init(name: "DINNextLTPro-Bold", size: 17)!
+        } else{
+            buyYourTicketsLabel.font = UIFont.init(name: "DINNextLTArabic-Bold", size:18)!
+        }
+
     }
     
     override func didReceiveMemoryWarning() {
