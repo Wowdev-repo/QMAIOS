@@ -11,21 +11,30 @@ import JGProgressHUD
 import WebKit
 import PDFKit
 import Toast_Swift
+var documentInteractionController:UIDocumentInteractionController!
+
+extension URL {
+
+    var uti: String {
+        return (try? self.resourceValues(forKeys: [.typeIdentifierKey]))?.typeIdentifier ?? "public.data"
+    }
+
+}
 
 class PrintTicketViewController: UIViewController {
 
     //MARK:- Decleration
     var toastStyle = ToastStyle()
-    
+    var url: URL!
     let pdfView = PDFView()
-
+    //var url: URL
     let hud = JGProgressHUD(style: .extraLight)
     var tabViewController = QMTLTabViewController()
         
     var isFromMyVisits = false
     var ticketForIdStr = ""
     
-    
+    var urlStr = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,13 +83,18 @@ class PrintTicketViewController: UIViewController {
         // Fit content in PDFView.
         pdfView.autoScales = true
         
-        var urlStr = ""
+        
         
         if isFromMyVisits {
             urlStr = "\(QMTLConstants.GantnerAPI.PDFGenETicketByOrganisedVisit)\(QMTLConstants.AuthCreds.shopID)/en/\(ticketForIdStr)"
             
+             url = Foundation.URL(string: urlStr)
+
+            
         }else{
             urlStr = "\(QMTLConstants.GantnerAPI.PDFGenETickets)\(QMTLConstants.AuthCreds.shopID)/en/\(ticketForIdStr)"
+          url = Foundation.URL(string: urlStr)
+
         }
         
         print("print ticket url = \(urlStr)")
@@ -119,10 +133,24 @@ class PrintTicketViewController: UIViewController {
     {
        if (pdfView.document != nil) {
          NSLog("share button click");
-            let documento = pdfView.document?.dataRepresentation()
-            let activityViewController: UIActivityViewController = UIActivityViewController(activityItems: [documento!], applicationActivities: nil)
+            //let documento = pdfView.document?.dataRepresentation()
+        
+       // let text = "This is the text....."
+        
+        
+        let myWebsite = NSURL(string:urlStr)
+        let textShare = [myWebsite]
+        
+        let activityViewController: UIActivityViewController = UIActivityViewController(activityItems: textShare as [Any], applicationActivities: nil)
             activityViewController.popoverPresentationController?.sourceView=self.view
             present(activityViewController, animated: true, completion: nil)
+        
+        
+//        documentInteractionController = UIDocumentInteractionController()
+//        documentInteractionController.url =  URL.init(fileURLWithPath: urlStr)
+//        documentInteractionController.uti = documentInteractionController.url?.uti
+//        documentInteractionController.presentOptionsMenu(from: sender, animated: true)
+        
        }
     }
     
