@@ -78,7 +78,7 @@ class ExhibitionDetailTableViewCell: UITableViewCell {
         phoneNumberLbl.addGestureRecognizer(phoneTap)
     }
     
-    func setHomeExhibitionDetail(exhibition: Exhibition) {
+    func setHomeExhibitionDetail(exhibition: CPExhibition) {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         
         titleLabel.text = exhibition.name?.uppercased()

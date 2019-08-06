@@ -304,10 +304,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         }
         if let topController = UIApplication.topViewController() {
             print(topController)
-            if topController is HomeViewController {
-                (topController as! HomeViewController).updateNotificationBadge()
-            } else if topController is MuseumsViewController {
-                (topController as! MuseumsViewController).updateNotificationBadge()
+            if topController is CPHomeViewController {
+                (topController as! CPHomeViewController).updateNotificationBadge()
+            } else if topController is CPMuseumsViewController {
+                (topController as! CPMuseumsViewController).updateNotificationBadge()
             } else if topController is NotificationsViewController {
                 (topController as! NotificationsViewController).updateNotificationTableView()
             }
@@ -419,7 +419,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         }
     }
     //MARK: Exhibitions Coredata Method
-    func saveOrUpdateExhibitionsCoredata(exhibition: [Exhibition], language: String) {
+    func saveOrUpdateExhibitionsCoredata(exhibition: [CPExhibition], language: String) {
         if !exhibition.isEmpty {
             if #available(iOS 10.0, *) {
                 let container = CoreDataManager.shared.persistentContainer

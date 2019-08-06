@@ -31,7 +31,7 @@ class CommonListViewController: UIViewController {
     @IBOutlet weak var commonListTableView: UITableView!
     @IBOutlet weak var commonListLoadingView: LoadingView!
     
-    var exhibition: [Exhibition]! = []
+    var exhibition: [CPExhibition]! = []
     var heritageListArray: [Heritage]! = []
     var publicArtsListArray: [PublicArtsList]! = []
     var collection: [Collection] = []
@@ -227,7 +227,7 @@ class CommonListViewController: UIViewController {
     }
     func loadCollectionDetail(currentRow: Int?) {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
-        let collectionDetailView =  self.storyboard?.instantiateViewController(withIdentifier: "paneldetailViewId") as! PanelDiscussionDetailViewController
+        let collectionDetailView =  self.storyboard?.instantiateViewController(withIdentifier: "paneldetailViewId") as! CPPanelDiscussionDetailViewController
         collectionDetailView.pageNameString = NMoQPanelPage.CollectionDetail
         collectionDetailView.collectionName = collection[currentRow!].name?.replacingOccurrences(of: "<[^>]+>|&nbsp;|&|#039;", with: "", options: .regularExpression, range: nil)
         let transition = CATransition()
@@ -290,7 +290,7 @@ class CommonListViewController: UIViewController {
     func loadTourSecondDetailPage(selectedRow: Int?,fromTour:Bool?,pageName: ExhbitionPageName?) {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
 
-        let panelView =  self.storyboard?.instantiateViewController(withIdentifier: "paneldetailViewId") as! PanelDiscussionDetailViewController
+        let panelView =  self.storyboard?.instantiateViewController(withIdentifier: "paneldetailViewId") as! CPPanelDiscussionDetailViewController
 
         panelView.selectedRow = selectedRow
 
@@ -358,7 +358,7 @@ class CommonListViewController: UIViewController {
                                                              longitude: longitude!)
             let destinationPlacemark = MKPlacemark(coordinate: destinationLocation, addressDictionary: nil)
             let destination = MKMapItem(placemark: destinationPlacemark)
-            let mapDetailView = self.storyboard?.instantiateViewController(withIdentifier: "mapViewId") as! MapViewController
+            let mapDetailView = self.storyboard?.instantiateViewController(withIdentifier: "mapViewId") as! CPMapViewController
             mapDetailView.latitudeString = mobileLatitude
             mapDetailView.longiudeString = mobileLongitude
             mapDetailView.destination = destination
@@ -494,7 +494,7 @@ extension CommonListViewController {
                 commonDetail.parkDetailId = nmoqParks[selectedRow! - 1].nid
             }
         } else if (segue.identifier == "commonListToPanelDetailSegue") {
-            let panelDetail = segue.destination as! PanelDiscussionDetailViewController
+            let panelDetail = segue.destination as! CPPanelDiscussionDetailViewController
             if (exhibitionsPageNameString == ExhbitionPageName.museumCollectionsList) {
                 panelDetail.pageNameString = NMoQPanelPage.CollectionDetail
                 panelDetail.collectionName = collection[selectedRow!].name?.replacingOccurrences(of: "<[^>]+>|&nbsp;|&|#039;", with: "", options: .regularExpression, range: nil)
@@ -518,13 +518,13 @@ extension CommonListViewController {
                 panelDetail.nid = nmoqParks[selectedRow! - 1].nid
             }
         } else if (segue.identifier == "commonListToMiaTourSegue") {
-            let miaTouguideView = segue.destination as! MiaTourDetailViewController
+            let miaTouguideView = segue.destination as! CPMiaTourDetailViewController
             miaTouguideView.museumId = museumId ?? "0"
             if (miaTourDataFullArray != nil) {
                 miaTouguideView.tourGuideDetail = miaTourDataFullArray[selectedRow! - 1]
             }
         } else if (segue.identifier == "commonListToFloormapSegue") {
-            let floorMapView = segue.destination as! FloorMapViewController
+            let floorMapView = segue.destination as! CPFloorMapViewController
             floorMapView.fromTourString = fromTour.exploreTour
         }
     }

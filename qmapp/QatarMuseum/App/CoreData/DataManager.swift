@@ -1597,7 +1597,7 @@ extension DataManager {
     }
     
     static func updateExhibitionsEntity(managedContext: NSManagedObjectContext,
-                                 exhibition: [Exhibition],
+                                 exhibition: [CPExhibition],
                                  isHomeExhibition : String?,
                                  language: String) {
         let fetchData = DataManager.checkAddedToCoredata(entityName: "ExhibitionsEntity",
@@ -1638,7 +1638,7 @@ extension DataManager {
         }
     }
     
-    static func saveExhibitionsEntity(exhibitionDict: Exhibition,
+    static func saveExhibitionsEntity(exhibitionDict: CPExhibition,
                                managedObjContext: NSManagedObjectContext,
                                isHomeExhibition : String?,
                                entity: ExhibitionsEntity?, language: String) {

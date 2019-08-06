@@ -914,7 +914,7 @@ extension CommonListViewController {
         }
     }
     //MARK: Coredata Method
-    func saveOrUpdateExhibitionsCoredata(exhibition:[Exhibition], isHomeExhibition : String?) {
+    func saveOrUpdateExhibitionsCoredata(exhibition:[CPExhibition], isHomeExhibition : String?) {
         if !exhibition.isEmpty {
             let appDelegate =  UIApplication.shared.delegate as? AppDelegate
             if #available(iOS 10.0, *) {
@@ -955,7 +955,7 @@ extension CommonListViewController {
                     }
                 }
                 for entity in exhibitionArray {
-                    self.exhibition.append(Exhibition(entity: entity))
+                    self.exhibition.append(CPExhibition(entity: entity))
                 }
                 
                 if(exhibition.count == 0){
@@ -994,7 +994,7 @@ extension CommonListViewController {
                                                                managedContext: managedContext) as! [ExhibitionsEntity]
             if (exhibitionArray.count > 0) {
                 for entity in exhibitionArray {
-                    self.exhibition.append(Exhibition(entity: entity))
+                    self.exhibition.append(CPExhibition(entity: entity))
                 }
                 
                 if(exhibition.count == 0){

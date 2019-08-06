@@ -14,7 +14,7 @@
         </array>
     </customFonts>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SideMenuView" customModule="QatarMuseums" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CPSideMenuView" customModule="QatarMuseums" customModuleProvider="target">
             <connections>
                 <outlet property="diningButton" destination="0rg-Jx-tIC" id="G4d-7w-pxz"/>
                 <outlet property="diningLabel" destination="ZgD-kd-Ifi" id="v7W-4w-sLZ"/>

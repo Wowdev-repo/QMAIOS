@@ -9,7 +9,7 @@
 import UIKit
 
 
-class CollectionDetailCell: UITableViewCell {
+class CPCollectionDetailCell: UITableViewCell {
     @IBOutlet weak var firstTitle: UILabel!
     @IBOutlet weak var firstDescription: UITextView!
     @IBOutlet weak var secondTitle: UITextView!

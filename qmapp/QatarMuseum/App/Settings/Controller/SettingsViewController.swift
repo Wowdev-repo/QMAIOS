@@ -299,7 +299,7 @@ extension SettingsViewController: HeaderViewProtocol,EventPopUpProtocol {
             if #available(iOS 9.0, *) {
                 UIView.appearance().semanticContentAttribute = .forceRightToLeft
                 //                self.view.window!.rootViewController?.dismiss(animated: false, completion: nil)
-                let homeViewController = self.storyboard?.instantiateViewController(withIdentifier: "homeId") as! HomeViewController
+                let homeViewController = self.storyboard?.instantiateViewController(withIdentifier: "homeId") as! CPHomeViewController
                 
                 let appDelegate = UIApplication.shared.delegate
                 appDelegate?.window??.rootViewController = homeViewController
@@ -316,7 +316,7 @@ extension SettingsViewController: HeaderViewProtocol,EventPopUpProtocol {
             if #available(iOS 9.0, *) {
                 UIView.appearance().semanticContentAttribute = .forceLeftToRight
                 //                self.view.window!.rootViewController?.dismiss(animated: false, completion: nil)
-                let homeViewController = self.storyboard?.instantiateViewController(withIdentifier: "homeId") as! HomeViewController
+                let homeViewController = self.storyboard?.instantiateViewController(withIdentifier: "homeId") as! CPHomeViewController
                 let appDelegate = UIApplication.shared.delegate
                 appDelegate?.window??.rootViewController = homeViewController
                 // self.dismiss(animated: false, completion: nil)

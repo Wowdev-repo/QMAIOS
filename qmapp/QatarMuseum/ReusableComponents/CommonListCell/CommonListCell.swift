@@ -48,7 +48,7 @@ class CommonListCell: UITableViewCell {
         }
     }
     //MARK: HomeExhibitionList data
-    func setExhibitionCellValues(exhibition: Exhibition) {
+    func setExhibitionCellValues(exhibition: CPExhibition) {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         openCloseView.layer.cornerRadius = 12
         titleLabel.text = exhibition.name?.uppercased()
@@ -87,7 +87,7 @@ class CommonListCell: UITableViewCell {
     }
     
     //MARK: MuseumExhibitionList data
-    func setMuseumExhibitionCellValues(exhibition: Exhibition) {
+    func setMuseumExhibitionCellValues(exhibition: CPExhibition) {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         openCloseView.layer.cornerRadius = 12
         titleLabel.text = exhibition.name?.uppercased()

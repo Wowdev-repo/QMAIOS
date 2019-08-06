@@ -271,7 +271,7 @@ extension CommonDetailViewController {
                 && (exhibitionDict.detailLongDesc != nil)
                 && (exhibitionDict.detailShortDesc != nil)) {
                 
-                self.exhibition.append(Exhibition(entity: exhibitionDict))
+                self.exhibition.append(CPExhibition(entity: exhibitionDict))
                 
                 if(self.exhibition.count == 0){
                     if(self.networkReachability?.isReachable == false) {

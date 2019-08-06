@@ -31,7 +31,7 @@ class CommonDetailViewController: UIViewController {
     var pageNameString : PageName?
     var heritageDetailtArray: [Heritage] = []
     var publicArtsDetailtArray: [PublicArtsDetail] = []
-    var exhibition: [Exhibition] = []
+    var exhibition: [CPExhibition] = []
     var parksListArray: [ParksList]! = []
     var nmoqParkDetailArray: [NMoQParkDetail]! = []
     var diningDetailtArray: [Dining] = []
@@ -301,7 +301,7 @@ class CommonDetailViewController: UIViewController {
                 latitude = convertDMSToDDCoordinate(latLongString: latitudeString)
                 longitude = convertDMSToDDCoordinate(latLongString: longitudeString)
             }
-            let mapDetailView = self.storyboard?.instantiateViewController(withIdentifier: "mapViewId") as! MapViewController
+            let mapDetailView = self.storyboard?.instantiateViewController(withIdentifier: "mapViewId") as! CPMapViewController
             mapDetailView.latitudeString = String(latitude ?? 0.0)
             mapDetailView.longiudeString = String(longitude ?? 0.0)
 //            mapDetailView.destination = destination
