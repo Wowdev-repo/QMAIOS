@@ -7,7 +7,7 @@
 //
 
 import Foundation
-struct TokenData: ResponseObjectSerializable {
+struct CPTokenData: ResponseObjectSerializable {
     var accessToken: String? = nil
     
     public init?(response: HTTPURLResponse, representation: AnyObject) {

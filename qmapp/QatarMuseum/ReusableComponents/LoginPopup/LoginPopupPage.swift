@@ -1,5 +1,5 @@
 //
-//  LoginPopupPage.swift
+//  CPLoginPopupPage.swift
 //  QatarMuseums
 //
 //  Created by Wakralab Software Labs on 18/10/18.
@@ -13,7 +13,7 @@ import UIKit
     func loginButtonPressed()
     @objc optional func forgotButtonPressed()
 }
-class LoginPopupPage: UIView {
+class CPLoginPopupPage: UIView {
     
     @IBOutlet var loginPopup: UIView!
     

@@ -29,17 +29,17 @@ class CommonDetailViewController: UIViewController {
     let closeButton = UIButton()
     var blurView = UIVisualEffectView()
     var pageNameString : PageName?
-    var heritageDetailtArray: [Heritage] = []
-    var publicArtsDetailtArray: [PublicArtsDetail] = []
+    var heritageDetailtArray: [CPHeritage] = []
+    var publicArtsDetailtArray: [CPPublicArtsDetail] = []
     var exhibition: [CPExhibition] = []
-    var parksListArray: [ParksList]! = []
-    var nmoqParkDetailArray: [NMoQParkDetail]! = []
-    var diningDetailtArray: [Dining] = []
+    var parksListArray: [CPParksList]! = []
+    var nmoqParkDetailArray: [CPNMoQParkDetail]! = []
+    var diningDetailtArray: [CPDining] = []
     var diningDetailId : String? = nil
     var heritageDetailId : String? = nil
     var publicArtsDetailId : String? = nil
     let networkReachability = NetworkReachabilityManager()
-    var popupView : ComingSoonPopUp = ComingSoonPopUp()
+    var popupView : CPComingSoonPopUp = CPComingSoonPopUp()
     var museumId : String? = nil
     var carousel = iCarousel()
     var transparentView = UIView()
@@ -242,7 +242,7 @@ class CommonDetailViewController: UIViewController {
     }
     func addCloseButton() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
-        if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
+        if ((CPLocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
             closeButton.frame = CGRect(x: 10, y: 30, width: 40, height: 40)
         } else {
             closeButton.frame = CGRect(x: self.view.frame.width-50, y: 30, width: 40, height: 40)
@@ -390,7 +390,7 @@ class CommonDetailViewController: UIViewController {
         return false
     }
     
-    func setFavouritesAction(cellObj :DiningDetailTableViewCell) {
+    func setFavouritesAction(cellObj :CPDiningDetailTableViewCell) {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
 
         if (cellObj.favoriteButton.tag == 0) {
@@ -402,7 +402,7 @@ class CommonDetailViewController: UIViewController {
         }
     }
     
-    func setShareAction(cellObj :DiningDetailTableViewCell) {
+    func setShareAction(cellObj :CPDiningDetailTableViewCell) {
         
     }
     
@@ -458,7 +458,7 @@ class CommonDetailViewController: UIViewController {
 }
 
 //MARK:- ReusableView methods
-extension CommonDetailViewController: comingSoonPopUpProtocol,LoadingViewProtocol {
+extension CommonDetailViewController: CPComingSoonPopUpProtocol,LoadingViewProtocol {
     func showNodata() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
         var errorMessage: String
@@ -483,7 +483,7 @@ extension CommonDetailViewController: comingSoonPopUpProtocol,LoadingViewProtoco
             } else if (pageNameString == PageName.exhibitionDetail) {
                 self.getExhibitionDetail()
             } else if (pageNameString == PageName.SideMenuPark) {
-                appDelegate?.getParksDataFromServer(lang: LocalizationLanguage.currentAppleLanguage())
+                appDelegate?.getParksDataFromServer(lang: CPLocalizationLanguage.currentAppleLanguage())
             } else if (pageNameString == PageName.NMoQPark) {
                 getNMoQParkDetailFromServer()
             } else if (pageNameString == PageName.DiningDetail) {
@@ -501,7 +501,7 @@ extension CommonDetailViewController: comingSoonPopUpProtocol,LoadingViewProtoco
     
     func showLocationErrorPopup() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-        popupView  = ComingSoonPopUp(frame: self.view.frame)
+        popupView  = CPComingSoonPopUp(frame: self.view.frame)
         popupView.comingSoonPopupDelegate = self
         popupView.loadLocationErrorPopup()
         self.view.addSubview(popupView)
@@ -518,15 +518,15 @@ extension CommonDetailViewController: comingSoonPopUpProtocol,LoadingViewProtoco
 extension CommonDetailViewController {
     @objc func receiveParksNotificationEn(notification: NSNotification) {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
-        if ((LocalizationLanguage.currentAppleLanguage() == ENG_LANGUAGE ) && (parksListArray.count == 0)){
+        if ((CPLocalizationLanguage.currentAppleLanguage() == ENG_LANGUAGE ) && (parksListArray.count == 0)){
             self.fetchParksFromCoredata()
-        } else if ((LocalizationLanguage.currentAppleLanguage() == AR_LANGUAGE ) && (parksListArray.count == 0)){
+        } else if ((CPLocalizationLanguage.currentAppleLanguage() == AR_LANGUAGE ) && (parksListArray.count == 0)){
             self.fetchParksFromCoredata()
         }
     }
     @objc func receiveParksNotificationAr(notification: NSNotification) {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
-        if ((LocalizationLanguage.currentAppleLanguage() == AR_LANGUAGE ) && (parksListArray.count == 0)){
+        if ((CPLocalizationLanguage.currentAppleLanguage() == AR_LANGUAGE ) && (parksListArray.count == 0)){
             self.fetchParksFromCoredata()
         }
     }

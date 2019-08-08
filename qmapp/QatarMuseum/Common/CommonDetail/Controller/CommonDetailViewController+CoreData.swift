@@ -14,7 +14,7 @@ extension CommonDetailViewController {
     //MARK: WebServiceCall
     func getHeritageDetailsFromServer() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
-        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.HeritageDetail(["nid": heritageDetailId!])).responseObject { [weak self] (response: DataResponse<Heritages>) -> Void in
+        _ = CPSessionManager.sharedInstance.apiManager()?.request(CPQatarMuseumRouter.HeritageDetail(["nid": heritageDetailId!])).responseObject { [weak self] (response: DataResponse<Heritages>) -> Void in
             switch response.result {
             case .success(let data):
                 self?.heritageDetailtArray = data.heritage!
@@ -45,7 +45,7 @@ extension CommonDetailViewController {
     //MARK: PublicArts webservice call
     func getPublicArtsDetailsFromServer() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
-        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.GetPublicArtsDetail(["nid": publicArtsDetailId!])).responseObject { [weak self] (response: DataResponse<PublicArtsDetails>) -> Void in
+        _ = CPSessionManager.sharedInstance.apiManager()?.request(CPQatarMuseumRouter.GetPublicArtsDetail(["nid": publicArtsDetailId!])).responseObject { [weak self] (response: DataResponse<PublicArtsDetails>) -> Void in
             switch response.result {
             case .success(let data):
                 self?.publicArtsDetailtArray = data.publicArtsDetail!
@@ -80,16 +80,16 @@ extension CommonDetailViewController {
             if #available(iOS 10.0, *) {
                 let container = appDelegate!.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
-                    DataManager.updateHeritage(managedContext : managedContext,
+                    CPDataManager.updateHeritage(managedContext : managedContext,
                                                heritageListArray: self.heritageDetailtArray,
-                                               language: Utils.getLanguage())
+                                               language: CPUtils.getLanguage())
                 }
             } else {
                 let managedContext = appDelegate!.managedObjectContext
                 managedContext.perform {
-                    DataManager.updateHeritage(managedContext : managedContext,
+                    CPDataManager.updateHeritage(managedContext : managedContext,
                                                heritageListArray: self.heritageDetailtArray,
-                                               language: Utils.getLanguage())
+                                               language: CPUtils.getLanguage())
                 }
             }
         }
@@ -100,7 +100,7 @@ extension CommonDetailViewController {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
         let managedContext = getContext()
         do {
-            let heritageArray = DataManager.checkAddedToCoredata(entityName: "HeritageEntity",
+            let heritageArray = CPDataManager.checkAddedToCoredata(entityName: "HeritageEntity",
                                                                  idKey: "listid",
                                                                  idValue: heritageDetailId,
                                                                  managedContext: managedContext) as! [HeritageEntity]
@@ -108,7 +108,7 @@ extension CommonDetailViewController {
             if (heritageArray.count > 0) {
                 let heritageDict = heritageArray[0]
                 if((heritageDict.detailshortdescription != nil) && (heritageDict.detaillongdescription != nil) ) {
-                    self.heritageDetailtArray.append(Heritage(entity: heritageDict))
+                    self.heritageDetailtArray.append(CPHeritage(entity: heritageDict))
                     
                     if(heritageDetailtArray.count == 0){
                         if(self.networkReachability?.isReachable == false) {
@@ -146,12 +146,12 @@ extension CommonDetailViewController {
             if #available(iOS 10.0, *) {
                 let container = appDelegate!.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
-                    DataManager.updatePublicArtsDetailsEntity(managedContext: managedContext,
+                    CPDataManager.updatePublicArtsDetailsEntity(managedContext: managedContext,
                                                               publicArtsListArray: self.publicArtsDetailtArray)                }
             } else {
                 let managedContext = appDelegate!.managedObjectContext
                 managedContext.perform {
-                    DataManager.updatePublicArtsDetailsEntity(managedContext: managedContext,
+                    CPDataManager.updatePublicArtsDetailsEntity(managedContext: managedContext,
                                                               publicArtsListArray: self.publicArtsDetailtArray)
                 }
             }
@@ -171,7 +171,7 @@ extension CommonDetailViewController {
                 if (publicArtsArray.count > 0) {
                     let publicArtsDict = publicArtsArray[0]
                     if((publicArtsDict.detaildescription != nil) && (publicArtsDict.shortdescription != nil) ) {
-                        self.publicArtsDetailtArray.append(PublicArtsDetail(entity: publicArtsDict))
+                        self.publicArtsDetailtArray.append(CPPublicArtsDetail(entity: publicArtsDict))
                         
                         if(publicArtsDetailtArray.count == 0){
                             if(self.networkReachability?.isReachable == false) {
@@ -205,7 +205,7 @@ extension CommonDetailViewController {
     //MARK: ExhibitionDetail Webservice call
     func getExhibitionDetail() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.ExhibitionDetail(["nid": exhibitionId!])).responseObject { [weak self] (response: DataResponse<Exhibitions>) -> Void in
+        _ = CPSessionManager.sharedInstance.apiManager()?.request(CPQatarMuseumRouter.ExhibitionDetail(["nid": exhibitionId!])).responseObject { [weak self] (response: DataResponse<Exhibitions>) -> Void in
             switch response.result {
             case .success(let data):
                 self?.exhibition = data.exhibitions!
@@ -240,18 +240,18 @@ extension CommonDetailViewController {
             if #available(iOS 10.0, *) {
                 let container = appDelegate!.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
-                    DataManager.updateExhibitionsEntity(managedContext : managedContext,
+                    CPDataManager.updateExhibitionsEntity(managedContext : managedContext,
                                                         exhibition: self.exhibition,
                                                         isHomeExhibition:"0",
-                                                        language: Utils.getLanguage())
+                                                        language: CPUtils.getLanguage())
                 }
             } else {
                 let managedContext = appDelegate!.managedObjectContext
                 managedContext.perform {
-                    DataManager.updateExhibitionsEntity(managedContext: managedContext,
+                    CPDataManager.updateExhibitionsEntity(managedContext: managedContext,
                                                         exhibition: self.exhibition,
                                                         isHomeExhibition: "0",
-                                                        language: Utils.getLanguage())
+                                                        language: CPUtils.getLanguage())
                 }
             }
         }
@@ -261,7 +261,7 @@ extension CommonDetailViewController {
         let managedContext = getContext()
         do {
             
-            let exhibitionArray = DataManager.checkAddedToCoredata(entityName: "ExhibitionsEntity",
+            let exhibitionArray = CPDataManager.checkAddedToCoredata(entityName: "ExhibitionsEntity",
                                                                    idKey: "id",
                                                                    idValue: self.exhibitionId,
                                                                    managedContext: managedContext) as! [ExhibitionsEntity]
@@ -298,7 +298,7 @@ extension CommonDetailViewController {
     func getParksDataFromServer()
     {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
-        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.ParksList(LocalizationLanguage.currentAppleLanguage())).responseObject { [weak self] (response: DataResponse<ParksLists>) -> Void in
+        _ = CPSessionManager.sharedInstance.apiManager()?.request(CPQatarMuseumRouter.ParksList(CPLocalizationLanguage.currentAppleLanguage())).responseObject { [weak self] (response: DataResponse<ParksLists>) -> Void in
             switch response.result {
             case .success(let data):
                 if (self?.parksListArray.count == 0) {
@@ -342,23 +342,23 @@ extension CommonDetailViewController {
         }
     }
     //MARK: Coredata Method
-    func saveOrUpdateParksCoredata(parksListArray: [ParksList] ) {
+    func saveOrUpdateParksCoredata(parksListArray: [CPParksList] ) {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
         if !parksListArray.isEmpty {
             let appDelegate =  UIApplication.shared.delegate as? AppDelegate
             if #available(iOS 10.0, *) {
                 let container = appDelegate!.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
-                    DataManager.updateParks(managedContext: managedContext,
+                    CPDataManager.updateParks(managedContext: managedContext,
                                             parksListArray: parksListArray,
-                                            language: Utils.getLanguage())
+                                            language: CPUtils.getLanguage())
                 }
             } else {
                 let managedContext = appDelegate!.managedObjectContext
                 managedContext.perform {
-                    DataManager.updateParks(managedContext : managedContext,
+                    CPDataManager.updateParks(managedContext : managedContext,
                                             parksListArray: parksListArray,
-                                            language: Utils.getLanguage())
+                                            language: CPUtils.getLanguage())
                 }
             }
         }
@@ -372,9 +372,9 @@ extension CommonDetailViewController {
 //            let parksFetchRequest =  NSFetchRequest<NSFetchRequestResult>(entityName: "ParksEntity")
 //            parksArray = (try managedContext.fetch(parksFetchRequest) as? [ParksEntity])!
             
-            let parksArray = DataManager.checkAddedToCoredata(entityName: "ParksEntity",
+            let parksArray = CPDataManager.checkAddedToCoredata(entityName: "ParksEntity",
                                                                    idKey: "language",
-                                                                   idValue: Utils.getLanguage(),
+                                                                   idValue: CPUtils.getLanguage(),
                                                                    managedContext: managedContext) as! [ParksEntity]
             
             if (parksArray.count > 0) {
@@ -384,7 +384,7 @@ extension CommonDetailViewController {
                     }
                 }
                 for entity in parksArray {
-                    self.parksListArray.append(ParksList(title: entity.title,
+                    self.parksListArray.append(CPParksList(title: entity.title,
                                                          description: entity.parksDescription,
                                                          sortId: entity.sortId,
                                                          image: entity.image,
@@ -428,7 +428,7 @@ extension CommonDetailViewController {
     func getNMoQParkDetailFromServer() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
         if (parkDetailId != nil) {
-            _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.GetNMoQPlaygroundDetail(LocalizationLanguage.currentAppleLanguage(), ["nid": parkDetailId!])).responseObject { [weak self] (response: DataResponse<NMoQParksDetail>) -> Void in
+            _ = CPSessionManager.sharedInstance.apiManager()?.request(CPQatarMuseumRouter.GetNMoQPlaygroundDetail(CPLocalizationLanguage.currentAppleLanguage(), ["nid": parkDetailId!])).responseObject { [weak self] (response: DataResponse<NMoQParksDetail>) -> Void in
                 switch response.result {
                 case .success(let data):
                     self?.nmoqParkDetailArray = data.nmoqParksDetail
@@ -470,20 +470,20 @@ extension CommonDetailViewController {
         
     }
     //MARK: NMoq Playground Parks Detail Coredata Method
-    func saveOrUpdateNmoqParkDetailCoredata(nmoqParkList: [NMoQParkDetail]) {
+    func saveOrUpdateNmoqParkDetailCoredata(nmoqParkList: [CPNMoQParkDetail]) {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
         if !nmoqParkList.isEmpty {
             let appDelegate =  UIApplication.shared.delegate as? AppDelegate
             if #available(iOS 10.0, *) {
                 let container = appDelegate!.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
-                    DataManager.updateNmoqParkDetail(nmoqParkList: nmoqParkList,
+                    CPDataManager.updateNmoqParkDetail(nmoqParkList: nmoqParkList,
                                                      managedContext: managedContext)
                 }
             } else {
                 let managedContext = appDelegate!.managedObjectContext
                 managedContext.perform {
-                    DataManager.updateNmoqParkDetail(nmoqParkList: nmoqParkList,
+                    CPDataManager.updateNmoqParkDetail(nmoqParkList: nmoqParkList,
                                                      managedContext : managedContext)
                 }
             }
@@ -496,13 +496,13 @@ extension CommonDetailViewController {
         let managedContext = getContext()
         do {
             var parkListArray = [NMoQParkDetailEntity]()
-            parkListArray = DataManager.checkAddedToCoredata(entityName: "NMoQParkDetailEntity",
+            parkListArray = CPDataManager.checkAddedToCoredata(entityName: "NMoQParkDetailEntity",
                                                              idKey: "nid",
                                                              idValue: parkDetailId,
                                                              managedContext: managedContext) as! [NMoQParkDetailEntity]
             if (parkListArray.count > 0) {
                 for parkListDict in parkListArray {
-                    self.nmoqParkDetailArray.append(NMoQParkDetail(entity: parkListDict))
+                    self.nmoqParkDetailArray.append(CPNMoQParkDetail(entity: parkListDict))
                 }
                 
                 if(nmoqParkDetailArray.count == 0){
@@ -543,7 +543,7 @@ extension CommonDetailViewController {
     //MARK: Dining WebServiceCall
     func getDiningDetailsFromServer() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
-        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.GetDiningDetail(["nid": diningDetailId!])).responseObject { [weak self] (response: DataResponse<Dinings>) -> Void in
+        _ = CPSessionManager.sharedInstance.apiManager()?.request(CPQatarMuseumRouter.GetDiningDetail(["nid": diningDetailId!])).responseObject { [weak self] (response: DataResponse<Dinings>) -> Void in
             switch response.result {
             case .success(let data):
                 self?.diningDetailtArray = data.dinings!
@@ -591,23 +591,23 @@ extension CommonDetailViewController {
     
     func diningCoreDataInBackgroundThread(managedContext: NSManagedObjectContext) {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
-        let fetchData = DataManager.checkAddedToCoredata(entityName: "DiningEntity",
+        let fetchData = CPDataManager.checkAddedToCoredata(entityName: "DiningEntity",
                                                          idKey: "id",
                                                          idValue: diningDetailtArray[0].id,
                                                          managedContext: managedContext) as! [DiningEntity]
         let diningDetailDict = diningDetailtArray[0]
         if (fetchData.count > 0) {
             let diningdbDict = fetchData[0]
-            DataManager.saveToDiningCoreData(diningListDict: diningDetailDict,
+            CPDataManager.saveToDiningCoreData(diningListDict: diningDetailDict,
                                              managedObjContext: managedContext,
                                              entity: diningdbDict,
-                                             language: Utils.getLanguage())
+                                             language: CPUtils.getLanguage())
             
         } else {
-            DataManager.saveToDiningCoreData(diningListDict: diningDetailDict,
+            CPDataManager.saveToDiningCoreData(diningListDict: diningDetailDict,
                                              managedObjContext: managedContext,
                                              entity: nil,
-                                             language: Utils.getLanguage())
+                                             language: CPUtils.getLanguage())
         }
     }
     
@@ -615,7 +615,7 @@ extension CommonDetailViewController {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
         let managedContext = getContext()
         do {
-            let diningArray = DataManager.checkAddedToCoredata(entityName: "DiningEntity",
+            let diningArray = CPDataManager.checkAddedToCoredata(entityName: "DiningEntity",
                                                                idKey: "id",
                                                                idValue: diningDetailId!,
                                                                managedContext: managedContext) as! [DiningEntity]
@@ -623,7 +623,7 @@ extension CommonDetailViewController {
             let diningDict = diningArray[0]
             if ((diningArray.count > 0) && (diningDict.diningdescription != nil)) {
                 
-                self.diningDetailtArray.append(Dining(entity: diningDict))
+                self.diningDetailtArray.append(CPDining(entity: diningDict))
                 
                 if diningDetailtArray.isEmpty {
                     if(self.networkReachability?.isReachable == false) {

@@ -172,7 +172,7 @@ class CPMuseumAboutCell: UITableViewCell,iCarouselDelegate,iCarouselDataSource,U
         midTitleDescriptionLabel.isEditable = false
     }
     
-    func setHeritageDetailData(heritageDetail: Heritage) {
+    func setHeritageDetailData(heritageDetail: CPHeritage) {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
        // titleBottomOnlyConstraint.isActive = false
         //titleBottomOnlyConstraint.constant = 45
@@ -210,7 +210,7 @@ class CPMuseumAboutCell: UITableViewCell,iCarouselDelegate,iCarouselDataSource,U
 //        locationButton.setTitle(mapRedirectionMessage, for: .normal)
     }
     
-    func setPublicArtsDetailValues(publicArsDetail: PublicArtsDetail) {
+    func setPublicArtsDetailValues(publicArsDetail: CPPublicArtsDetail) {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         titleLabel.text = publicArsDetail.name?.uppercased()
         //subTitleLabel.text =
@@ -239,7 +239,7 @@ class CPMuseumAboutCell: UITableViewCell,iCarouselDelegate,iCarouselDataSource,U
         //fridayLabel.text =
     }
     
-    func setMuseumAboutCellData(aboutData: Museum) {
+    func setMuseumAboutCellData(aboutData: CPMuseum) {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
        // titleBottomOnlyConstraint.isActive = false
 //        locationTotalTopConstraint.isActive = false
@@ -339,7 +339,7 @@ class CPMuseumAboutCell: UITableViewCell,iCarouselDelegate,iCarouselDataSource,U
         }
     }
     
-    func setNMoQAboutCellData(aboutData: Museum) {
+    func setNMoQAboutCellData(aboutData: CPMuseum) {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         middleTitleLabel.isHidden = false
         midTitleDescriptionLabel.isHidden = false
@@ -471,9 +471,9 @@ class CPMuseumAboutCell: UITableViewCell,iCarouselDelegate,iCarouselDataSource,U
         
     }
     
-    func setNMoQTravelCellData(travelDetailData: HomeBanner) {
+    func setNMoQTravelCellData(travelDetailData: CPHomeBanner) {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-        if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
+        if ((CPLocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
             titleDescriptionLabel.textAlignment = .left
         } else {
             titleDescriptionLabel.textAlignment = .right

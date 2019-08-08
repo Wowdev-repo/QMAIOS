@@ -1,5 +1,5 @@
 //
-//  LoginPopupPage.swift
+//  CPAcceptDeclinePopup.swift
 //  QatarMuseums
 //
 //  Created by Wakralab Software Labs on 18/10/18.

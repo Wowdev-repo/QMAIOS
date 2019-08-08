@@ -9,7 +9,7 @@
 import Foundation
 
 
-struct CoreDataMigrationStep {
+struct CPCoreDataMigrationStep {
     
     let source: NSManagedObjectModel
     let destination: NSManagedObjectModel

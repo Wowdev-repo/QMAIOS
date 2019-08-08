@@ -21,24 +21,24 @@ enum NMoQPanelPage {
     case PlayGroundPark
     case CollectionDetail
 }
-class CPPanelDiscussionDetailViewController: UIViewController,LoadingViewProtocol,HeaderViewProtocol,comingSoonPopUpProtocol,CPDeclinePopupProtocol, MFMailComposeViewControllerDelegate,UIPickerViewDelegate,UIPickerViewDataSource,UIGestureRecognizerDelegate,EventPopUpProtocol {
+class CPPanelDiscussionDetailViewController: UIViewController,LoadingViewProtocol,CPHeaderViewProtocol,CPComingSoonPopUpProtocol,CPDeclinePopupProtocol, MFMailComposeViewControllerDelegate,UIPickerViewDelegate,UIPickerViewDataSource,UIGestureRecognizerDelegate,CPEventPopUpProtocol {
     
     @IBOutlet weak var panelDetailTableView: UITableView!
     @IBOutlet weak var loadingView: LoadingView!
-    @IBOutlet weak var headerView: CommonHeaderView!
+    @IBOutlet weak var headerView: CPCommonHeaderView!
     @IBOutlet weak var overlayView: UIView!
     var panelTitle : String? = ""
     var pageNameString : NMoQPanelPage?
     var panelDetailId : String? = nil
-    var nmoqSpecialEventDetail: [NMoQTour]! = []
-    var nmoqTourDetail: [NMoQTourDetail]! = []
-    var entityRegistration : NMoQEntityRegistration?
-    var completedEntityReg : NMoQEntityRegistration?
-    var userEventList: [NMoQUserEventList]! = []
-    var facilitiesDetail = [FacilitiesDetail]()
-    var collectionDetailArray: [CollectionDetail] = []
-    var nmoqParkDetailArray: [NMoQParkDetail]! = []
-    var popupView : ComingSoonPopUp = ComingSoonPopUp()
+    var nmoqSpecialEventDetail: [CPNMoQTour]! = []
+    var nmoqTourDetail: [CPNMoQTourDetail]! = []
+    var entityRegistration : CPNMoQEntityRegistration?
+    var completedEntityReg : CPNMoQEntityRegistration?
+    var userEventList: [CPNMoQUserEventList]! = []
+    var facilitiesDetail = [CPFacilitiesDetail]()
+    var collectionDetailArray: [CPCollectionDetail] = []
+    var nmoqParkDetailArray: [CPNMoQParkDetail]! = []
+    var popupView : CPComingSoonPopUp = CPComingSoonPopUp()
     var selectedRow : Int?
     var unRegisterPopupView : CPAcceptDeclinePopup = CPAcceptDeclinePopup()
     var selectedPanelCell : CPPanelDetailCell?
@@ -48,7 +48,7 @@ class CPPanelDiscussionDetailViewController: UIViewController,LoadingViewProtoco
     var countArray = [String]()
     var currentPanelRow : Int?
     var selectedCount : String? = "1"
-    var addToCalendarPopup : EventPopupView = EventPopupView()
+    var addToCalendarPopup : CPEventPopupView = CPEventPopupView()
     let store = EKEventStore()
     var fromCafeOrDining : Bool? = false
     var collectionName: String? = nil
@@ -232,7 +232,7 @@ class CPPanelDiscussionDetailViewController: UIViewController,LoadingViewProtoco
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         if(panelDetailId != nil) {
             _ = CPSessionManager.sharedInstance.apiManager()?
-                .request(QatarMuseumRouter.GetNMoQSpecialEventDetail(["event_id" : panelDetailId!]))
+                .request(CPQatarMuseumRouter.GetNMoQSpecialEventDetail(["event_id" : panelDetailId!]))
                 .responseObject { [weak self] (response: DataResponse<NMoQTourList>) -> Void in
                 switch response.result {
                 case .success(let data):
@@ -264,7 +264,7 @@ class CPPanelDiscussionDetailViewController: UIViewController,LoadingViewProtoco
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         if(panelDetailId != nil) {
             _ = CPSessionManager.sharedInstance.apiManager()?
-                .request(QatarMuseumRouter.GetNMoQTourDetail(["event_id" : panelDetailId!]))
+                .request(CPQatarMuseumRouter.GetNMoQTourDetail(["event_id" : panelDetailId!]))
                 .responseObject { [weak self] (response: DataResponse<NMoQTourDetailList>) -> Void in
                 switch response.result {
                 case .success(let data):
@@ -355,8 +355,8 @@ class CPPanelDiscussionDetailViewController: UIViewController,LoadingViewProtoco
                 let timestamp = Int(NSDate().timeIntervalSince1970)
                 let timestampInString = String(timestamp)
                 _ = CPSessionManager.sharedInstance.apiManager()?
-                    .request(QatarMuseumRouter.NMoQEntityRegistration(["type" : "nmoq_event_registration","entity_id": entityId!,"entity_type" :"node","user_uid": userId,"count": selectedCount!,"author_uid": userId,"state": "pending","created": timestampInString,"updated": timestampInString,"field_confirm_attendance" :fieldConfirmAttendance,"field_number_of_attendees" : fieldNumberOfAttendees, "field_first_name_": fieldFirstName,"field_nmoq_last_name" : fieldNmoqLastName,"field_membership_number": fieldMembershipNumber,"field_qma_edu_reg_date":fieldQmaEduRegDate]))
-                    .responseObject { [weak self] (response: DataResponse<NMoQEntityRegistration>) -> Void in
+                    .request(CPQatarMuseumRouter.NMoQEntityRegistration(["type" : "nmoq_event_registration","entity_id": entityId!,"entity_type" :"node","user_uid": userId,"count": selectedCount!,"author_uid": userId,"state": "pending","created": timestampInString,"updated": timestampInString,"field_confirm_attendance" :fieldConfirmAttendance,"field_number_of_attendees" : fieldNumberOfAttendees, "field_first_name_": fieldFirstName,"field_nmoq_last_name" : fieldNmoqLastName,"field_membership_number": fieldMembershipNumber,"field_qma_edu_reg_date":fieldQmaEduRegDate]))
+                    .responseObject { [weak self] (response: DataResponse<CPNMoQEntityRegistration>) -> Void in
                     switch response.result {
                     case .success(let data):
                         self?.entityRegistration = data
@@ -432,14 +432,14 @@ class CPPanelDiscussionDetailViewController: UIViewController,LoadingViewProtoco
                             ]]
                 ]
                 _ = CPSessionManager.sharedInstance.apiManager()?
-                    .request(QatarMuseumRouter.SetUserRegistrationComplete(regId!,["registration_id": regId!,"type" : "nmoq_event_registration","entity_id": entityId!,"entity_type" :"node","user_uid": userId,"count": selectedCount!,"author_uid": userId,"state": "complete","created": timestamp,"updated": timestamp,"field_confirm_attendance" :fieldConfirmAttendance,"field_number_of_attendees" : fieldNumberOfAttendees, "field_first_name_": fieldFirstName,"field_nmoq_last_name" : fieldNmoqLastName,"field_membership_number": fieldMembershipNumber,"field_qma_edu_reg_date":fieldQmaEduRegDate]))
-                    .responseObject { [weak self] (response: DataResponse<NMoQEntityRegistration>) -> Void in
+                    .request(CPQatarMuseumRouter.SetUserRegistrationComplete(regId!,["registration_id": regId!,"type" : "nmoq_event_registration","entity_id": entityId!,"entity_type" :"node","user_uid": userId,"count": selectedCount!,"author_uid": userId,"state": "complete","created": timestamp,"updated": timestamp,"field_confirm_attendance" :fieldConfirmAttendance,"field_number_of_attendees" : fieldNumberOfAttendees, "field_first_name_": fieldFirstName,"field_nmoq_last_name" : fieldNmoqLastName,"field_membership_number": fieldMembershipNumber,"field_qma_edu_reg_date":fieldQmaEduRegDate]))
+                    .responseObject { [weak self] (response: DataResponse<CPNMoQEntityRegistration>) -> Void in
                     switch response.result {
                     case .success(let data):
                         self?.loadingView.stopLoading()
                         self?.loadingView.isHidden = true
                         self?.completedEntityReg = data
-                        self?.userEventList.append(NMoQUserEventList(title: self?.panelTitle, eventID: self?.completedEntityReg?.entityId, regID: self?.completedEntityReg?.registrationId,seats:self?.selectedCount))
+                        self?.userEventList.append(CPNMoQUserEventList(title: self?.panelTitle, eventID: self?.completedEntityReg?.entityId, regID: self?.completedEntityReg?.registrationId,seats:self?.selectedCount))
                         if let detail = self?.nmoqTourDetail[currentRow] {
                             self?.saveOrUpdateEventReistratedCoredata(tourEntity: detail,
                                                                       registrationId: self?.completedEntityReg?.registrationId)
@@ -478,7 +478,7 @@ class CPPanelDiscussionDetailViewController: UIViewController,LoadingViewProtoco
             let pwd = (keychain.get(UserProfileInfo.user_password))! 
             
             _ = CPSessionManager.sharedInstance.apiManager()?
-                .request(QatarMuseumRouter.SetUserUnRegistration(regId!,["name":userName,"pass":pwd]))
+                .request(CPQatarMuseumRouter.SetUserUnRegistration(regId!,["name":userName,"pass":pwd]))
                 .responseData { [weak self] (response) -> Void in
                 switch response.result {
                 case .success( _):
@@ -503,7 +503,7 @@ class CPPanelDiscussionDetailViewController: UIViewController,LoadingViewProtoco
     }
     
     //MARK: EventRegistrationCoreData
-    func saveOrUpdateEventReistratedCoredata(tourEntity: NMoQTourDetail,registrationId: String?) {
+    func saveOrUpdateEventReistratedCoredata(tourEntity: CPNMoQTourDetail,registrationId: String?) {
         if (userEventList.count > 0) {
             let appDelegate =  UIApplication.shared.delegate as? AppDelegate
             if #available(iOS 10.0, *) {
@@ -520,8 +520,8 @@ class CPPanelDiscussionDetailViewController: UIViewController,LoadingViewProtoco
         }
     }
     
-    func userEventCoreDataInBackgroundThread(managedContext: NSManagedObjectContext,tourEntity: NMoQTourDetail,registrationId: String?) {
-        if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
+    func userEventCoreDataInBackgroundThread(managedContext: NSManagedObjectContext,tourEntity: CPNMoQTourDetail,registrationId: String?) {
+        if ((CPLocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
             if (userEventList.count > 0) {
                 let userEventInfo: RegisteredEventListEntity = NSEntityDescription.insertNewObject(forEntityName: "RegisteredEventListEntity", into: managedContext) as! RegisteredEventListEntity
                 userEventInfo.title = tourEntity.title
@@ -616,7 +616,7 @@ class CPPanelDiscussionDetailViewController: UIViewController,LoadingViewProtoco
     }
     func checkConflictWithAlreadyRegisteredEvent(currentRow: Int?) -> Bool? {
         let selectedEventId = nmoqTourDetail[currentRow!].nid
-        var conflictIdArray: [NMoQTourDetail]! = []
+        var conflictIdArray: [CPNMoQTourDetail]! = []
         for i in  0 ... nmoqTourDetail.count-1 {
             if(selectedEventId == nmoqTourDetail[i].nid) {
                 conflictIdArray = nmoqTourDetail
@@ -627,7 +627,7 @@ class CPPanelDiscussionDetailViewController: UIViewController,LoadingViewProtoco
         
         for i  in 0 ... userEventList.count-1 {
             if let idArray = conflictIdArray.first(where: {$0.nid == userEventList[i].eventID}) {
-                var timeEvents :[NMoQTourDetail] = []
+                var timeEvents :[CPNMoQTourDetail] = []
                 timeEvents.append(idArray)
                 timeEvents.append(nmoqTourDetail[currentRow!])
                 let haveConflict = self.setTimeArray( selectedEvent: timeEvents)
@@ -638,7 +638,7 @@ class CPPanelDiscussionDetailViewController: UIViewController,LoadingViewProtoco
         
         
     }
-    func setTimeArray(selectedEvent: [NMoQTourDetail])-> Bool? {
+    func setTimeArray(selectedEvent: [CPNMoQTourDetail])-> Bool? {
         var times: [[String : String]] = []
         for i in 0 ... selectedEvent.count-1 {
             let time = selectedEvent[i].date?.replacingOccurrences(of: "<[^>]+>|&nbsp;|&|#039;", with: "", options: .regularExpression, range: nil)
@@ -667,13 +667,13 @@ class CPPanelDiscussionDetailViewController: UIViewController,LoadingViewProtoco
         
         let managedContext = getContext()
         do {
-            if ((LocalizationLanguage.currentAppleLanguage()) == "en") {
+            if ((CPLocalizationLanguage.currentAppleLanguage()) == "en") {
                 var eventArray = [RegisteredEventListEntity]()
                 let fetchRequest =  NSFetchRequest<NSFetchRequestResult>(entityName: "RegisteredEventListEntity")
                 eventArray = (try managedContext.fetch(fetchRequest) as? [RegisteredEventListEntity])!
                 if (eventArray.count > 0) {
                     for event in eventArray {
-                        self.userEventList.append(NMoQUserEventList(title: event.title,
+                        self.userEventList.append(CPNMoQUserEventList(title: event.title,
                                                                     eventID: event.eventId,
                                                                     regID: event.regId,
                                                                     seats: event.seats))
@@ -735,7 +735,7 @@ class CPPanelDiscussionDetailViewController: UIViewController,LoadingViewProtoco
     func loadAddToCalendarPopup() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         addToCalendarPopup.tag = 0
-        addToCalendarPopup  = EventPopupView(frame: self.view.frame)
+        addToCalendarPopup  = CPEventPopupView(frame: self.view.frame)
         addToCalendarPopup.eventPopupDelegate = self
         addToCalendarPopup.eventTitle.isHidden = true
         addToCalendarPopup.loadRegistrationPopup()
@@ -743,7 +743,7 @@ class CPPanelDiscussionDetailViewController: UIViewController,LoadingViewProtoco
     }
     func loadAlreadyRegisteredPopup() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-        popupView  = ComingSoonPopUp(frame: self.view.frame)
+        popupView  = CPComingSoonPopUp(frame: self.view.frame)
         popupView.comingSoonPopupDelegate = self
         popupView.tag = 1
         popupView.loadAlreadyRegisteredPopupMessage()
@@ -751,7 +751,7 @@ class CPPanelDiscussionDetailViewController: UIViewController,LoadingViewProtoco
     }
     func loadNoEndTimePopup() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-        popupView  = ComingSoonPopUp(frame: self.view.frame)
+        popupView  = CPComingSoonPopUp(frame: self.view.frame)
         popupView.comingSoonPopupDelegate = self
         popupView.tag = 2
         popupView.loadNoEndTimePopupMessage()
@@ -775,7 +775,7 @@ class CPPanelDiscussionDetailViewController: UIViewController,LoadingViewProtoco
     }
     func loadNoSeatAvailablePopup() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-        popupView  = ComingSoonPopUp(frame: self.view.frame)
+        popupView  = CPComingSoonPopUp(frame: self.view.frame)
         popupView.comingSoonPopupDelegate = self
         popupView.tag = 0
         popupView.loadNoSeatAvailableMessage()
@@ -798,7 +798,7 @@ class CPPanelDiscussionDetailViewController: UIViewController,LoadingViewProtoco
     }
     func showLocationErrorPopup() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-        popupView  = ComingSoonPopUp(frame: self.view.frame)
+        popupView  = CPComingSoonPopUp(frame: self.view.frame)
         popupView.comingSoonPopupDelegate = self
         popupView.loadMapKitLocationErrorPopup()
         self.view.addSubview(popupView)
@@ -1051,7 +1051,7 @@ class CPPanelDiscussionDetailViewController: UIViewController,LoadingViewProtoco
     }
     func loadCalendarPermissionPopup() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-        addToCalendarPopup  = EventPopupView(frame: self.view.frame)
+        addToCalendarPopup  = CPEventPopupView(frame: self.view.frame)
         addToCalendarPopup.eventPopupDelegate = self
         
         addToCalendarPopup.eventTitle.text = NSLocalizedString("PERMISSION_TITLE", comment: "PERMISSION_TITLE  in the popup view")
@@ -1065,7 +1065,7 @@ class CPPanelDiscussionDetailViewController: UIViewController,LoadingViewProtoco
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         if(panelDetailId != nil) {
             _ = CPSessionManager.sharedInstance.apiManager()?
-                .request(QatarMuseumRouter.GetFacilitiesDetail(["category_id" : panelDetailId!]))
+                .request(CPQatarMuseumRouter.GetFacilitiesDetail(["category_id" : panelDetailId!]))
                 .responseObject { [weak self] (response: DataResponse<FacilitiesDetailData>) -> Void in
                 switch response.result {
                 case .success(let data):
@@ -1112,14 +1112,14 @@ class CPPanelDiscussionDetailViewController: UIViewController,LoadingViewProtoco
         
     }
     @objc func receiveNmoqParkDetailNotificationEn(notification: NSNotification) {
-        if ((LocalizationLanguage.currentAppleLanguage() == ENG_LANGUAGE ) && (nmoqParkDetailArray.count == 0)){
+        if ((CPLocalizationLanguage.currentAppleLanguage() == ENG_LANGUAGE ) && (nmoqParkDetailArray.count == 0)){
             self.fetchNMoQParkDetailFromCoredata()
         }
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
     }
     
     @objc func receiveNmoqParkDetailNotificationAr(notification: NSNotification) {
-        if ((LocalizationLanguage.currentAppleLanguage() == AR_LANGUAGE ) && (nmoqParkDetailArray.count == 0)){
+        if ((CPLocalizationLanguage.currentAppleLanguage() == AR_LANGUAGE ) && (nmoqParkDetailArray.count == 0)){
             self.fetchNMoQParkDetailFromCoredata()
         }
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")

@@ -18,14 +18,14 @@ extension CPPreviewContainerViewController {
             if #available(iOS 10.0, *) {
                 let container = appDelegate!.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
-                    DataManager.updateFloorMap(managedContext : managedContext,
+                    CPDataManager.updateFloorMap(managedContext : managedContext,
                                                floorMapArray: self.tourGuideArray,
                                                tourGuideID: self.tourGuideId)
                 }
             } else {
                 let managedContext = appDelegate!.managedObjectContext
                 managedContext.perform {
-                    DataManager.updateFloorMap(managedContext : managedContext,
+                    CPDataManager.updateFloorMap(managedContext : managedContext,
                                                floorMapArray: self.tourGuideArray,
                                                tourGuideID: self.tourGuideId)
                 }
@@ -39,7 +39,7 @@ extension CPPreviewContainerViewController {
         let managedContext = getContext()
         do {
             var tourGuideArray = [FloorMapTourGuideEntity]()
-            tourGuideArray = DataManager.checkAddedToCoredata(entityName: "FloorMapTourGuideEntity",
+            tourGuideArray = CPDataManager.checkAddedToCoredata(entityName: "FloorMapTourGuideEntity",
                                                               idKey: "tourGuideId",
                                                               idValue: tourGuideId,
                                                               managedContext: managedContext) as! [FloorMapTourGuideEntity]
@@ -47,7 +47,7 @@ extension CPPreviewContainerViewController {
                 for tourGuideDict in tourGuideArray {
                     if self.tourGuideArray.first(where: {$0.nid == tourGuideDict.nid}) != nil {
                     } else {
-                        self.tourGuideArray.append(TourGuideFloorMap(entity: tourGuideDict))
+                        self.tourGuideArray.append(CPTourGuideFloorMap(entity: tourGuideDict))
                     }
                 }
                 self.loadingView.stopLoading()
@@ -86,7 +86,7 @@ extension CPPreviewContainerViewController {
 extension CPPreviewContainerViewController {
     func getTourGuideDataFromServer() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.CollectionByTourGuide(LocalizationLanguage.currentAppleLanguage(),["tour_guide_id": tourGuideId!])).responseObject { [weak self] (response: DataResponse<TourGuideFloorMaps>) -> Void in
+        _ = CPSessionManager.sharedInstance.apiManager()?.request(CPQatarMuseumRouter.CollectionByTourGuide(CPLocalizationLanguage.currentAppleLanguage(),["tour_guide_id": tourGuideId!])).responseObject { [weak self] (response: DataResponse<TourGuideFloorMaps>) -> Void in
             switch response.result {
             case .success(let data):
                 self?.tourGuideArray = data.tourGuideFloorMap
@@ -129,7 +129,7 @@ extension CPPreviewContainerViewController {
     func getTourGuideDataFromServerInBackgound() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         let queue = DispatchQueue(label: "", qos: .background, attributes: .concurrent)
-        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.CollectionByTourGuide(LocalizationLanguage.currentAppleLanguage(),["tour_guide_id": tourGuideId!])).responseObject(queue: queue) { [weak self] (response: DataResponse<TourGuideFloorMaps>) -> Void in
+        _ = CPSessionManager.sharedInstance.apiManager()?.request(CPQatarMuseumRouter.CollectionByTourGuide(CPLocalizationLanguage.currentAppleLanguage(),["tour_guide_id": tourGuideId!])).responseObject(queue: queue) { [weak self] (response: DataResponse<TourGuideFloorMaps>) -> Void in
             switch response.result {
             case .success(let data):
                 if(data.tourGuideFloorMap?.count != 0) {

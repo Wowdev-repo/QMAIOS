@@ -15,18 +15,18 @@ import Firebase
 import KeychainSwift
 
 extension CPHomeViewController {
-    func saveOrUpdateHomeCoredata(homeList: [Home]) {
+    func saveOrUpdateHomeCoredata(homeList: [CPHome]) {
         if !homeList.isEmpty {
             let appDelegate =  UIApplication.shared.delegate as? AppDelegate
             if #available(iOS 10.0, *) {
                 let container = appDelegate!.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
-                    DataManager.updateHomeEntity(managedContext: managedContext, homeList: homeList, language: Utils.getLanguage())
+                    CPDataManager.updateHomeEntity(managedContext: managedContext, homeList: homeList, language: CPUtils.getLanguage())
                 }
             } else {
                 let managedContext = appDelegate!.managedObjectContext
                 managedContext.perform {
-                    DataManager.updateHomeEntity(managedContext: managedContext, homeList: homeList, language: Utils.getLanguage())
+                    CPDataManager.updateHomeEntity(managedContext: managedContext, homeList: homeList, language: CPUtils.getLanguage())
                 }
             }
         }
@@ -38,9 +38,9 @@ extension CPHomeViewController {
             let managedContext = getContext()
             // let panelAndTalksName = NSLocalizedString("PANEL_AND_TALKS",comment: "PANEL_AND_TALKS in Home Page")
             do {
-                let homeArray = DataManager.checkAddedToCoredata(entityName: "HomeEntity",
+                let homeArray = CPDataManager.checkAddedToCoredata(entityName: "HomeEntity",
                                                                  idKey: "lang",
-                                                                 idValue: Utils.getLanguage(),
+                                                                 idValue: CPUtils.getLanguage(),
                                                                  managedContext: managedContext) as! [HomeEntity]
                 if (homeArray.count > 0) {
                     if((self.networkReachability?.isReachable)!) {
@@ -52,7 +52,7 @@ extension CPHomeViewController {
                     for entity in homeArray {
                         if homeList.first(where: {$0.id == entity.id}) != nil {
                         } else {
-                            self.homeList.append(Home(entity: entity))
+                            self.homeList.append(CPHome(entity: entity))
                         }
                         
                     }
@@ -69,7 +69,7 @@ extension CPHomeViewController {
                         self.homeList = self.homeList.sorted(by: { Int16($0.sortId!)! < Int16($1.sortId!)! })
                     }
                     if(self.homeBannerList.count > 0) {
-                        self.homeList.insert(Home(id:self.homeBannerList[0].fullContentID , name: self.homeBannerList[0].bannerTitle,image: self.homeBannerList[0].bannerLink,
+                        self.homeList.insert(CPHome(id:self.homeBannerList[0].fullContentID , name: self.homeBannerList[0].bannerTitle,image: self.homeBannerList[0].bannerLink,
                                                   tourguide_available: "false", sort_id: nil),
                                              at: 0)
                     }
@@ -106,13 +106,13 @@ extension CPHomeViewController {
             if #available(iOS 10.0, *) {
                 let container = appDelegate!.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
-                    DataManager.saveRegisteredEventListEntity(managedContext: managedContext,
+                    CPDataManager.saveRegisteredEventListEntity(managedContext: managedContext,
                                                               list: self.userEventList)
                 }
             } else {
                 let managedContext = appDelegate!.managedObjectContext
                 managedContext.perform {
-                    DataManager.saveRegisteredEventListEntity(managedContext : managedContext,
+                    CPDataManager.saveRegisteredEventListEntity(managedContext : managedContext,
                                                               list: self.userEventList)
                 }
             }
@@ -127,12 +127,12 @@ extension CPHomeViewController {
             if #available(iOS 10.0, *) {
                 let container = appDelegate!.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
-                    DataManager.updateHomeBanner(managedContext: managedContext, list: self.homeBannerList!)
+                    CPDataManager.updateHomeBanner(managedContext: managedContext, list: self.homeBannerList!)
                 }
             } else {
                 let managedContext = appDelegate!.managedObjectContext
                 managedContext.perform {
-                    DataManager.updateHomeBanner(managedContext : managedContext, list: self.homeBannerList!)
+                    CPDataManager.updateHomeBanner(managedContext : managedContext, list: self.homeBannerList!)
                 }
             }
         }
@@ -147,7 +147,7 @@ extension CPHomeViewController {
             homeArray = (try managedContext.fetch(homeFetchRequest) as? [HomeBannerEntity])!
             if (homeArray.count > 0) {
                 for homeBannerDict in homeArray {
-                    self.homeBannerList.append(HomeBanner(entity: homeBannerDict))
+                    self.homeBannerList.append(CPHomeBanner(entity: homeBannerDict))
                 }
                 self.homeTableView.reloadData()
             } else{
@@ -163,8 +163,8 @@ extension CPHomeViewController {
 extension CPHomeViewController {
     func getCulturePassTokenFromServer(login: Bool? = false) {
         _ = CPSessionManager.sharedInstance.apiManager()?
-            .request(QatarMuseumRouter.GetToken(["name": loginPopUpView.userNameText.text!,"pass":loginPopUpView.passwordText.text!]))
-            .responseObject { [weak self] (response: DataResponse<TokenData>) -> Void in
+            .request(CPQatarMuseumRouter.GetToken(["name": loginPopUpView.userNameText.text!,"pass":loginPopUpView.passwordText.text!]))
+            .responseObject { [weak self] (response: DataResponse<CPTokenData>) -> Void in
                 switch response.result {
                 case .success(let data):
                     self?.accessToken = data.accessToken
@@ -182,8 +182,8 @@ extension CPHomeViewController {
         let titleString = NSLocalizedString("WEBVIEW_TITLE",comment: "Set the title for Alert")
         if(accessToken != nil) {
             _ = CPSessionManager.sharedInstance.apiManager()?
-                .request(QatarMuseumRouter.Login(["name" : loginPopUpView.userNameText.text!,"pass": loginPopUpView.passwordText.text!]))
-                .responseObject { [weak self](response: DataResponse<LoginData>) -> Void in
+                .request(CPQatarMuseumRouter.Login(["name" : loginPopUpView.userNameText.text!,"pass": loginPopUpView.passwordText.text!]))
+                .responseObject { [weak self](response: DataResponse<CPLoginData>) -> Void in
                     switch response.result {
                     case .success(let data):
                         self?.loginPopUpView.loadingView.stopLoading()
@@ -224,7 +224,7 @@ extension CPHomeViewController {
     //RSVP Service call
     func checkRSVPUserFromServer(userId: String?) {
         _ = CPSessionManager.sharedInstance.apiManager()?
-            .request(QatarMuseumRouter.GetUser(userId!))
+            .request(CPQatarMuseumRouter.GetUser(userId!))
             .responseObject { [weak self] (response: DataResponse<UserInfoData>) -> Void in
                 switch response.result {
                 case .success(let data):
@@ -262,7 +262,7 @@ extension CPHomeViewController {
         if((accessToken != nil) && ((keychain.get(UserProfileInfo.user_id) != nil) && (keychain.get(UserProfileInfo.user_id) != nil))){
             let userId = keychain.get(UserProfileInfo.user_id) ?? ""
             _ = CPSessionManager.sharedInstance.apiManager()?
-                .request(QatarMuseumRouter.NMoQEventListUserRegistration(["uid" : userId]))
+                .request(CPQatarMuseumRouter.NMoQEventListUserRegistration(["uid" : userId]))
                 .responseObject { [weak self] (response: DataResponse<NMoQUserEventListValues>) -> Void in
                     switch response.result {
                     case .success(let data):

@@ -48,7 +48,7 @@ extension CPPreviewContentViewController: UITableViewDelegate, UITableViewDataSo
             objectImageView.isUserInteractionEnabled = true
             return cell
         } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "objectDetailCellId", for: indexPath) as! ObjectDetailTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "objectDetailCellId", for: indexPath) as! CPObjectDetailTableViewCell
             if (indexPath.row == 1) {
                 cell.setObjectDetail(objectDetail: tourGuideDict)
             } else if (indexPath.row == 2) {

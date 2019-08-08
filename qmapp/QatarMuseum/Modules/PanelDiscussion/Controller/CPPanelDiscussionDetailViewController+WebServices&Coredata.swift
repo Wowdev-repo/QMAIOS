@@ -19,14 +19,14 @@ extension CPPanelDiscussionDetailViewController {
             if #available(iOS 10.0, *) {
                 let container = appDelegate!.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
-                    DataManager.updateFacilitiesDetails(managedContext : managedContext,
+                    CPDataManager.updateFacilitiesDetails(managedContext : managedContext,
                                                         category: self.panelDetailId,
                                                         facilities: self.facilitiesDetail)
                 }
             } else {
                 let managedContext = appDelegate!.managedObjectContext
                 managedContext.perform {
-                    DataManager.updateFacilitiesDetails(managedContext : managedContext,
+                    CPDataManager.updateFacilitiesDetails(managedContext : managedContext,
                                                         category: self.panelDetailId,
                                                         facilities: self.facilitiesDetail)
                 }
@@ -40,13 +40,13 @@ extension CPPanelDiscussionDetailViewController {
         let managedContext = getContext()
         do {
             var facilitiesDetailArray = [FacilitiesDetailEntity]()
-            facilitiesDetailArray = DataManager.checkAddedToCoredata(entityName: "FacilitiesDetailEntity",
+            facilitiesDetailArray = CPDataManager.checkAddedToCoredata(entityName: "FacilitiesDetailEntity",
                                                                      idKey: "category",
                                                                      idValue: panelDetailId,
                                                                      managedContext: managedContext) as! [FacilitiesDetailEntity]
             
             for facilities in facilitiesDetailArray {
-                self.facilitiesDetail.append(FacilitiesDetail(entity: facilities))
+                self.facilitiesDetail.append(CPFacilitiesDetail(entity: facilities))
             }
             
             if facilitiesDetail.isEmpty {
@@ -67,7 +67,7 @@ extension CPPanelDiscussionDetailViewController {
     func getCollectioDetailsFromServer() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         _ = CPSessionManager.sharedInstance.apiManager()?
-            .request(QatarMuseumRouter.CollectionDetail(["category": collectionName!]))
+            .request(CPQatarMuseumRouter.CollectionDetail(["category": collectionName!]))
             .responseObject { [weak self] (response: DataResponse<CollectionDetails>) -> Void in
             switch response.result {
             case .success(let data):
@@ -99,7 +99,7 @@ extension CPPanelDiscussionDetailViewController {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         if (nid != nil) {
             _ = CPSessionManager.sharedInstance.apiManager()?
-                .request(QatarMuseumRouter.GetNMoQPlaygroundDetail(LocalizationLanguage.currentAppleLanguage(), ["nid": nid!]))
+                .request(CPQatarMuseumRouter.GetNMoQPlaygroundDetail(CPLocalizationLanguage.currentAppleLanguage(), ["nid": nid!]))
                 .responseObject { [weak self] (response: DataResponse<NMoQParksDetail>) -> Void in
                 switch response.result {
                 case .success(let data):
@@ -141,14 +141,14 @@ extension CPPanelDiscussionDetailViewController {
             if #available(iOS 10.0, *) {
                 let container = appDelegate!.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
-                    DataManager.updateCollectionDetailsEntity(managedContext: managedContext,
+                    CPDataManager.updateCollectionDetailsEntity(managedContext: managedContext,
                                                               collectionDetailArray: self.collectionDetailArray,
                                                               collectionName: self.collectionName)
                 }
             } else {
                 let managedContext = appDelegate!.managedObjectContext
                 managedContext.perform {
-                    DataManager.updateCollectionDetailsEntity(managedContext : managedContext,
+                    CPDataManager.updateCollectionDetailsEntity(managedContext : managedContext,
                                                               collectionDetailArray: self.collectionDetailArray,
                                                               collectionName: self.collectionName)
                 }
@@ -162,7 +162,7 @@ extension CPPanelDiscussionDetailViewController {
     func fetchCollectionDetailsFromCoredata() {
         let managedContext = getContext()
         do {
-            if let collectionArray = DataManager.checkAddedToCoredata(entityName: "CollectionDetailsEntity",
+            if let collectionArray = CPDataManager.checkAddedToCoredata(entityName: "CollectionDetailsEntity",
                                                                       idKey: "categoryCollection",
                                                                       idValue: collectionName,
                                                                       managedContext: managedContext) as? [CollectionDetailsEntity],
@@ -171,7 +171,7 @@ extension CPPanelDiscussionDetailViewController {
                     if collectionDict.title == nil && collectionDict.body == nil {
                         self.showNodata()
                     } else {
-                        self.collectionDetailArray.insert(CollectionDetail(entity: collectionDict), at: 0)
+                        self.collectionDetailArray.insert(CPCollectionDetail(entity: collectionDict), at: 0)
                     }
                 }
             } else {
@@ -189,19 +189,19 @@ extension CPPanelDiscussionDetailViewController {
     }
     
     //MARK: NMoq Playground Parks Detail Coredata Method
-    func saveOrUpdateNmoqParkDetailCoredata(nmoqParkList: [NMoQParkDetail]) {
+    func saveOrUpdateNmoqParkDetailCoredata(nmoqParkList: [CPNMoQParkDetail]) {
         if !nmoqParkList.isEmpty {
             let appDelegate =  UIApplication.shared.delegate as? AppDelegate
             if #available(iOS 10.0, *) {
                 let container = appDelegate!.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
-                    DataManager.updateNmoqParkDetail(nmoqParkList: nmoqParkList,
+                    CPDataManager.updateNmoqParkDetail(nmoqParkList: nmoqParkList,
                                                      managedContext: managedContext)
                 }
             } else {
                 let managedContext = appDelegate!.managedObjectContext
                 managedContext.perform {
-                    DataManager.updateNmoqParkDetail(nmoqParkList: nmoqParkList,
+                    CPDataManager.updateNmoqParkDetail(nmoqParkList: nmoqParkList,
                                                      managedContext: managedContext)                }
             }
         }
@@ -213,14 +213,14 @@ extension CPPanelDiscussionDetailViewController {
         let managedContext = getContext()
         do {
             var parkListArray = [NMoQParkDetailEntity]()
-            parkListArray = DataManager.checkAddedToCoredata(entityName: "NMoQParkDetailEntity",
+            parkListArray = CPDataManager.checkAddedToCoredata(entityName: "NMoQParkDetailEntity",
                                                              idKey: "nid",
                                                              idValue: nid,
                                                              managedContext: managedContext) as! [NMoQParkDetailEntity]
             
             if (parkListArray.count > 0) {
                 for parkListDict in parkListArray {
-                    self.nmoqParkDetailArray.append(NMoQParkDetail(entity: parkListDict))
+                    self.nmoqParkDetailArray.append(CPNMoQParkDetail(entity: parkListDict))
                 }
                 
                 if(nmoqParkDetailArray.count == 0){

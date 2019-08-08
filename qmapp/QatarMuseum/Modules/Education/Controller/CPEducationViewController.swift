@@ -16,7 +16,7 @@ import TTTAttributedLabel
 
 
 class CPEducationViewController: UIViewController, TTTAttributedLabelDelegate {
-    @IBOutlet weak var headerView: CommonHeaderView!
+    @IBOutlet weak var headerView: CPCommonHeaderView!
     @IBOutlet weak var educationTitle: UILabel!
     @IBOutlet weak var videoView: YouTubePlayerView!
     @IBOutlet weak var firstDescriptionLabel: UILabel!
@@ -49,7 +49,7 @@ class CPEducationViewController: UIViewController, TTTAttributedLabelDelegate {
         secondDescriptionLabel.delegate = self
         secondDescriptionLabel.text = str
         
-        if ((LocalizationLanguage.currentAppleLanguage()) == "en") {
+        if ((CPLocalizationLanguage.currentAppleLanguage()) == "en") {
             let range : NSRange = str.range(of: "Knowledge in Action")
             secondDescriptionLabel.addLink(to: NSURL(string: "https://www.qm.org.qa/sites/default/files/education/uploads/kina_2019_summer.pdf")! as URL, with: range)
         }else{
@@ -63,7 +63,7 @@ class CPEducationViewController: UIViewController, TTTAttributedLabelDelegate {
         let buttonLabel = NSLocalizedString("DISCOVER", comment: "DISCOVER in the education page")
         discoverButton.setTitle(buttonLabel, for: .normal)
         
-        if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
+        if ((CPLocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
             
             headerView.headerBackButton.setImage(UIImage(named: "back_buttonX1"), for: .normal)
         }
@@ -169,7 +169,7 @@ extension CPEducationViewController: AVPlayerViewControllerDelegate {
 }
 
 //MARK:- header delegate
-extension CPEducationViewController: HeaderViewProtocol {
+extension CPEducationViewController: CPHeaderViewProtocol {
     func headerCloseButtonPressed() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
         let transition = CATransition()

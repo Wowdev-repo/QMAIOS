@@ -23,7 +23,7 @@ extension CPHomeViewController: UITableViewDelegate,UITableViewDataSource {
                 cell.setBannerData(bannerData: homeBannerList[0])
                 return cell
             } else {
-                let cell = homeTableView.dequeueReusableCell(withIdentifier: "commonListCellId", for: indexPath) as! CommonListCell
+                let cell = homeTableView.dequeueReusableCell(withIdentifier: "commonListCellId", for: indexPath) as! CPCommonListCell
                 cell.setHomeCellData(home: homeList[indexPath.row])
                 
                 loadingView.stopLoading()
@@ -31,7 +31,7 @@ extension CPHomeViewController: UITableViewDelegate,UITableViewDataSource {
                 return cell
             }
         }else {
-            let cell = homeTableView.dequeueReusableCell(withIdentifier: "commonListCellId", for: indexPath) as! CommonListCell
+            let cell = homeTableView.dequeueReusableCell(withIdentifier: "commonListCellId", for: indexPath) as! CPCommonListCell
             cell.setHomeCellData(home: homeList[indexPath.row])
             return cell
         }
@@ -46,8 +46,8 @@ extension CPHomeViewController: UITableViewDelegate,UITableViewDataSource {
                 homePageNameString = CPHomePageName.bannerMuseumLandingPage
                 self.performSegue(withIdentifier: "homeToMuseumLandingSegue", sender: self)
             } else {
-                if ((LocalizationLanguage.currentAppleLanguage()) == "en") {
-                    DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), lang: \(LocalizationLanguage.currentAppleLanguage())")
+                if ((CPLocalizationLanguage.currentAppleLanguage()) == "en") {
+                    DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), lang: \(CPLocalizationLanguage.currentAppleLanguage())")
                     
                     if (homeList[indexPath.row].id == "12181") {
                         loadExhibitionPage()
@@ -58,7 +58,7 @@ extension CPHomeViewController: UITableViewDelegate,UITableViewDataSource {
                     }
                 }
                 else {
-                    DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), lang: \(LocalizationLanguage.currentAppleLanguage())")
+                    DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), lang: \(CPLocalizationLanguage.currentAppleLanguage())")
                     if (homeList[indexPath.row].id == "12186") {
                         loadExhibitionPage()
                     } else if (homeList[indexPath.row].id == "15631") {
@@ -70,8 +70,8 @@ extension CPHomeViewController: UITableViewDelegate,UITableViewDataSource {
                 }
             }
         } else {
-            if ((LocalizationLanguage.currentAppleLanguage()) == "en") {
-                DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), lang: \(LocalizationLanguage.currentAppleLanguage())")
+            if ((CPLocalizationLanguage.currentAppleLanguage()) == "en") {
+                DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), lang: \(CPLocalizationLanguage.currentAppleLanguage())")
                 if (homeList[indexPath.row].id == "12181") {
                     loadExhibitionPage()
                 } else if (homeList[indexPath.row].id == "13976") {
@@ -82,7 +82,7 @@ extension CPHomeViewController: UITableViewDelegate,UITableViewDataSource {
                 }
             }
             else {
-                DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), lang: \(LocalizationLanguage.currentAppleLanguage())")
+                DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), lang: \(CPLocalizationLanguage.currentAppleLanguage())")
                 if (homeList[indexPath.row].id == "12186") {
                     loadExhibitionPage()
                 }

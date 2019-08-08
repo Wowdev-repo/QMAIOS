@@ -16,7 +16,7 @@ extension CPEventViewController {
         let getDate = toDayMonthYear()
         if ((getDate.day != nil) && (getDate.month != nil) && (getDate.year != nil)) {
             _ = CPSessionManager.sharedInstance.apiManager()?
-                .request(QatarMuseumRouter.EducationEvent(["field_eduprog_repeat_field_date_value[value][month]" : getDate.month!, "field_eduprog_repeat_field_date_value[value][day]" : getDate.day!,"field_eduprog_repeat_field_date_value[value][year]" : getDate.year!,"cck_multiple_field_remove_fields" : "All","institution" : institutionType ?? "All","age" : ageGroupType ?? "All", "programe" : programmeType ?? "All"] ))
+                .request(CPQatarMuseumRouter.EducationEvent(["field_eduprog_repeat_field_date_value[value][month]" : getDate.month!, "field_eduprog_repeat_field_date_value[value][day]" : getDate.day!,"field_eduprog_repeat_field_date_value[value][year]" : getDate.year!,"cck_multiple_field_remove_fields" : "All","institution" : institutionType ?? "All","age" : ageGroupType ?? "All", "programe" : programmeType ?? "All"] ))
                 .responseObject { [weak self] (response: DataResponse<EducationEventList>) -> Void in
                 switch response.result {
                 case .success(let data):
@@ -98,14 +98,14 @@ extension CPEventViewController {
             if #available(iOS 10.0, *) {
                 let container = appDelegate!.persistentContainer
                 container.performBackgroundTask() { managedContext in
-                    DataManager.saveEducationEvents(self.educationEventArray,
+                    CPDataManager.saveEducationEvents(self.educationEventArray,
                                                     date: self.selectedDateForEvent,
                                                     managedContext: managedContext)
                 }
             } else {
                 let managedContext = appDelegate!.managedObjectContext
                 managedContext.perform {
-                    DataManager.saveEducationEvents(self.educationEventArray,
+                    CPDataManager.saveEducationEvents(self.educationEventArray,
                                                     date: self.selectedDateForEvent,
                                                     managedContext: managedContext)
                 }
@@ -120,18 +120,18 @@ extension CPEventViewController {
             if #available(iOS 10.0, *) {
                 let container = appDelegate!.persistentContainer
                 container.performBackgroundTask() { managedContext in
-                    DataManager.storeEvents(events: self.educationEventArray,
+                    CPDataManager.storeEvents(events: self.educationEventArray,
                                             for: self.selectedDateForEvent,
                                             managedContext: managedContext,
-                                            language: Utils.getLanguage())
+                                            language: CPUtils.getLanguage())
                 }
             } else {
                 let managedContext = appDelegate!.managedObjectContext
                 managedContext.perform {
-                    DataManager.storeEvents(events: self.educationEventArray,
+                    CPDataManager.storeEvents(events: self.educationEventArray,
                                             for: self.selectedDateForEvent,
                                             managedContext: managedContext,
-                                            language: Utils.getLanguage())
+                                            language: CPUtils.getLanguage())
                 }
             }
         }
@@ -145,15 +145,15 @@ extension CPEventViewController {
         do {
             //            if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
             var educationArray = [EducationEventEntity]()
-            let dateID = Utils.uniqueDate(selectedDateForEvent)
-            educationArray = DataManager.checkAddedToCoredata(entityName: "EducationEventEntity",
+            let dateID = CPUtils.uniqueDate(selectedDateForEvent)
+            educationArray = CPDataManager.checkAddedToCoredata(entityName: "EducationEventEntity",
                                                               idKey: "dateId",
                                                               idValue: dateID,
                                                               managedContext: managedContext) as! [EducationEventEntity]
             
             if (educationArray.count > 0) {
                 for educationInfo in educationArray {
-                    self.educationEventArray.append(EducationEvent(entity: educationInfo))
+                    self.educationEventArray.append(CPEducationEvent(entity: educationInfo))
                 }
                 
                 if self.educationEventArray.isEmpty {
@@ -179,11 +179,11 @@ extension CPEventViewController {
     
     func fetchEventFromCoredata() {
         let managedContext = getContext()
-        _ = DataManager.fetchEvents(managedContext, for: selectedDateForEvent)
+        _ = CPDataManager.fetchEvents(managedContext, for: selectedDateForEvent)
         
         do {
-            let dateID = Utils.uniqueDate(selectedDateForEvent)
-            let educationArray = DataManager.checkAddedToCoredata(entityName: "EventEntity",
+            let dateID = CPUtils.uniqueDate(selectedDateForEvent)
+            let educationArray = CPDataManager.checkAddedToCoredata(entityName: "EventEntity",
                                                                   idKey: "dateId",
                                                                   idValue: dateID,
                                                                   managedContext: managedContext)  as! [EventEntity]
@@ -218,7 +218,7 @@ extension CPEventViewController {
                     }
                     
                     
-                    self.educationEventArray.insert(EducationEvent(itemId: educationArray[i].itemId, introductionText: educationArray[i].introductionText, register: educationArray[i].register, fieldRepeatDate: dateArray, title: educationArray[i].title, programType: educationArray[i].pgmType, mainDescription: educationArray[i].mainDesc, ageGroup: ageGrpArray, associatedTopics: topicsArray, museumDepartMent: educationArray[i].museumDepartMent, startDate: startDateArray, endDate: endDateArray), at: i)
+                    self.educationEventArray.insert(CPEducationEvent(itemId: educationArray[i].itemId, introductionText: educationArray[i].introductionText, register: educationArray[i].register, fieldRepeatDate: dateArray, title: educationArray[i].title, programType: educationArray[i].pgmType, mainDescription: educationArray[i].mainDesc, ageGroup: ageGrpArray, associatedTopics: topicsArray, museumDepartMent: educationArray[i].museumDepartMent, startDate: startDateArray, endDate: endDateArray), at: i)
                 }
                 if(educationEventArray.count == 0){
                     if(self.networkReachability?.isReachable == false) {

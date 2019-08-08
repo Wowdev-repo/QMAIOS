@@ -27,11 +27,11 @@ protocol CPSideMenuProtocol
     func menuClosePressed()
     
 }
-class CPSideMenuView: UIView,TopBarProtocol {
+class CPSideMenuView: UIView,CPTopBarProtocol {
     
    
     @IBOutlet weak var sideMenuContentView: UIView!
-    @IBOutlet weak var topBarView: TopBarView!
+    @IBOutlet weak var topBarView: CPTopBarView!
     
     @IBOutlet weak var exhibitionButton: UIButton!
     @IBOutlet weak var eventButton: UIButton!

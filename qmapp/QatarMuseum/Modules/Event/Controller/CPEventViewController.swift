@@ -22,7 +22,7 @@ class CPEventViewController: UIViewController,UIViewControllerTransitioningDeleg
 
     @IBOutlet weak var calendarHeight: NSLayoutConstraint!
     @IBOutlet weak var innerView: UIView!
-    @IBOutlet weak var headerView: CommonHeaderView!
+    @IBOutlet weak var headerView: CPCommonHeaderView!
     @IBOutlet weak var calendarInnerView: UIView!
     @IBOutlet weak var previousButton: UIButton!
     @IBOutlet weak var nextButton: UIButton!
@@ -33,14 +33,14 @@ class CPEventViewController: UIViewController,UIViewControllerTransitioningDeleg
     @IBOutlet weak var nextConstraint: NSLayoutConstraint!
     @IBOutlet weak var loadingView: LoadingView!
     var effect:UIVisualEffect!
-    var eventPopup : EventPopupView = EventPopupView()
+    var eventPopup : CPEventPopupView = CPEventPopupView()
     var selectedDateForEvent : Date = Date()
     var fromHome : Bool = false
     var fromSideMenu : Bool = false
     var isLoadEventPage : Bool = false
-    var popupView : ComingSoonPopUp = ComingSoonPopUp()
-    var educationEventArray: [EducationEvent] = []
-    var selectedEvent: EducationEvent?
+    var popupView : CPComingSoonPopUp = CPComingSoonPopUp()
+    var educationEventArray: [CPEducationEvent] = []
+    var selectedEvent: CPEducationEvent?
     var needToRegister : String? = "false"
     let networkReachability = NetworkReachabilityManager()
     let store = EKEventStore()
@@ -84,7 +84,7 @@ class CPEventViewController: UIViewController,UIViewControllerTransitioningDeleg
         loadingView.loadingViewDelegate = self
         headerView.settingsButton.isEnabled = false
         headerView.settingsButton.isUserInteractionEnabled = false
-        self.educationEventArray = [EducationEvent]()
+        self.educationEventArray = [CPEducationEvent]()
         headerView.headerViewDelegate = self
         headerView.headerBackButton.setImage(UIImage(named: "back_buttonX1"), for: .normal)
         self.view.addGestureRecognizer(self.scopeGesture)
@@ -124,7 +124,7 @@ class CPEventViewController: UIViewController,UIViewControllerTransitioningDeleg
         previousConstraint.constant = 30
         nextConstraint.constant = 30
         
-        if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
+        if ((CPLocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
             UserDefaults.standard.set(false, forKey: "Arabic")
             headerView.headerBackButton.setImage(UIImage(named: "back_buttonX1"), for: .normal)
             previousButton.setImage(UIImage(named: "previousImg"), for: .normal)
@@ -164,7 +164,7 @@ class CPEventViewController: UIViewController,UIViewControllerTransitioningDeleg
     }
     fileprivate let formatter: DateFormatter = {
         let formatter = DateFormatter()
-        if ((LocalizationLanguage.currentAppleLanguage()) == AR_LANGUAGE) {
+        if ((CPLocalizationLanguage.currentAppleLanguage()) == AR_LANGUAGE) {
             formatter.locale = NSLocale(localeIdentifier: "ar") as Locale?
         }
         formatter.dateFormat = "yyyy-MM-dd"
@@ -179,7 +179,7 @@ class CPEventViewController: UIViewController,UIViewControllerTransitioningDeleg
     
     @IBAction func previoudDateSelected(_ sender: UIButton) {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
-        if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
+        if ((CPLocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
             let _calendar = Calendar.current
             var dateComponents = DateComponents()
             dateComponents.month = -1 // For prev button
@@ -197,7 +197,7 @@ class CPEventViewController: UIViewController,UIViewControllerTransitioningDeleg
     
     @IBAction func nextDateSelected(_ sender: UIButton) {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
-        if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
+        if ((CPLocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
             let _calendar = Calendar.current
             var dateComponents = DateComponents()
             dateComponents.month = 1 // For next button
@@ -220,8 +220,8 @@ class CPEventViewController: UIViewController,UIViewControllerTransitioningDeleg
 }
 
 //MARK:- ReusableView methods
-extension CPEventViewController: HeaderViewProtocol,comingSoonPopUpProtocol,
-LoadingViewProtocol,EventPopUpProtocol {
+extension CPEventViewController: CPHeaderViewProtocol,CPComingSoonPopUpProtocol,
+LoadingViewProtocol,CPEventPopUpProtocol {
     //MARK: header delegate
     func headerCloseButtonPressed() {
         let transition = CATransition()
@@ -264,7 +264,7 @@ LoadingViewProtocol,EventPopUpProtocol {
     }
     func loadEventPopup(currentRow: Int) {
         eventPopup.tag = 0
-        eventPopup  = EventPopupView(frame: self.view.frame)
+        eventPopup  = CPEventPopupView(frame: self.view.frame)
         eventPopup.eventPopupDelegate = self
         selectedEvent = educationEventArray[currentRow]
         needToRegister = educationEventArray[currentRow].register
@@ -325,7 +325,7 @@ LoadingViewProtocol,EventPopUpProtocol {
         if (eventPopup.tag == 0) {
             if(needToRegister == "true") {
                 self.eventPopup.removeFromSuperview()
-                popupView  = ComingSoonPopUp(frame: self.view.frame)
+                popupView  = CPComingSoonPopUp(frame: self.view.frame)
                 popupView.comingSoonPopupDelegate = self
                 popupView.loadPopup()
                 self.view.addSubview(popupView)
@@ -405,7 +405,7 @@ LoadingViewProtocol,EventPopUpProtocol {
     //MARK: Event Popup Delegate
     func loadPermissionPopup() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
-        eventPopup  = EventPopupView(frame: self.view.frame)
+        eventPopup  = CPEventPopupView(frame: self.view.frame)
         eventPopup.eventPopupDelegate = self
         eventPopup.eventTitle.text = NSLocalizedString("PERMISSION_TITLE", comment: "PERMISSION_TITLE  in the popup view")
         eventPopup.eventDescription.text = NSLocalizedString("CALENDAR_PERMISSION", comment: "CALENDAR_PERMISSION  in the popup view")

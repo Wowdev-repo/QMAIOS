@@ -7,22 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1B10D12D2244136100AA77E9 /* NMoQParkDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B10D12C2244136100AA77E9 /* NMoQParkDetail.swift */; };
+		1B10D12D2244136100AA77E9 /* CPNMoQParkDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B10D12C2244136100AA77E9 /* CPNMoQParkDetail.swift */; };
 		1B373E95212C794700EE8DD1 /* CPCulturePassViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B373E94212C794600EE8DD1 /* CPCulturePassViewController.swift */; };
 		1B3C505721270F260034E560 /* CPArtifactNumberPadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B3C505621270F260034E560 /* CPArtifactNumberPadViewController.swift */; };
 		1B444A3A21AE9F03009FF40F /* CPTourAndPanelListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B444A3921AE9F03009FF40F /* CPTourAndPanelListViewController.swift */; };
-		1B51411E215B892E0055AAF5 /* TourGuide.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B51411D215B892D0055AAF5 /* TourGuide.swift */; };
+		1B51411E215B892E0055AAF5 /* CPTourGuide.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B51411D215B892D0055AAF5 /* CPTourGuide.swift */; };
 		1B51B3D221219367002B84AA /* CPObjectDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B51B3D121219366002B84AA /* CPObjectDetailViewController.swift */; };
-		1B51B3D52121B6A9002B84AA /* ObjectDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B51B3D42121B6A9002B84AA /* ObjectDetailTableViewCell.swift */; };
-		1B7031EE218AFDB200B0E05B /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B7031ED218AFDB200B0E05B /* Notification.swift */; };
+		1B51B3D52121B6A9002B84AA /* CPObjectDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B51B3D42121B6A9002B84AA /* CPObjectDetailTableViewCell.swift */; };
+		1B7031EE218AFDB200B0E05B /* CPNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B7031ED218AFDB200B0E05B /* CPNotification.swift */; };
 		1BAA2FCB2125FCC600D785DD /* ObjectImageXib.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BAA2FCA2125FCC500D785DD /* ObjectImageXib.xib */; };
-		1BAA2FCD2125FD8200D785DD /* ObjectImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BAA2FCC2125FD8200D785DD /* ObjectImageView.swift */; };
-		1BAA2FCF2126D15D00D785DD /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BAA2FCE2126D15D00D785DD /* Collection.swift */; };
+		1BAA2FCD2125FD8200D785DD /* CPObjectImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BAA2FCC2125FD8200D785DD /* CPObjectImageView.swift */; };
+		1BAA2FCF2126D15D00D785DD /* CPCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BAA2FCE2126D15D00D785DD /* CPCollection.swift */; };
 		1BC909D02108E3C700D6C00B /* QMUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC909CF2108E3C700D6C00B /* QMUtility.swift */; };
-		1BC909D2210B277F00D6C00B /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC909D1210B277F00D6C00B /* Home.swift */; };
-		1BE526D0210739BF00C8CD51 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BE526CF210739BE00C8CD51 /* Request.swift */; };
-		1BE526D22107460F00C8CD51 /* QatarMuseumRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BE526D12107460F00C8CD51 /* QatarMuseumRouter.swift */; };
-		1BE526D42107470700C8CD51 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BE526D32107470700C8CD51 /* Config.swift */; };
+		1BC909D2210B277F00D6C00B /* CPHome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC909D1210B277F00D6C00B /* CPHome.swift */; };
+		1BE526D0210739BF00C8CD51 /* CPRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BE526CF210739BE00C8CD51 /* CPRequest.swift */; };
+		1BE526D22107460F00C8CD51 /* CPQatarMuseumRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BE526D12107460F00C8CD51 /* CPQatarMuseumRouter.swift */; };
+		1BE526D42107470700C8CD51 /* CPConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BE526D32107470700C8CD51 /* CPConfig.swift */; };
 		1BE526D72107896600C8CD51 /* CPExhibition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BE526D62107896600C8CD51 /* CPExhibition.swift */; };
 		1E63D51322BC9F3E00E2E1A5 /* CPPanelDiscussionDetailViewController+Tableview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E63D51222BC9F3E00E2E1A5 /* CPPanelDiscussionDetailViewController+Tableview.swift */; };
 		1E87D19B22BCDB5F00F1C96F /* CPPanelDiscussionDetailViewController+WebServices&Coredata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E87D19A22BCDB5F00F1C96F /* CPPanelDiscussionDetailViewController+WebServices&Coredata.swift */; };
@@ -33,9 +33,9 @@
 		49504224226311EC00F320EF /* CPSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49504223226311EC00F320EF /* CPSessionManager.swift */; };
 		495FA4A722639DE4006B228F /* qmcert.cer in Resources */ = {isa = PBXBuildFile; fileRef = 49504222226311B000F320EF /* qmcert.cer */; };
 		496DF32A225B08EF00BD8BD1 /* CPLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4929CA0B22377CDA001C42C8 /* CPLogger.swift */; };
-		B317C5362294710E0054CDDA /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B317C5352294710E0054CDDA /* Utils.swift */; };
-		B32B8C5622A96B7200D728BD /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32B8C5522A96B7200D728BD /* DataManager.swift */; };
-		B37E794822B498A400125CA8 /* DataManager+Fetch.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37E794722B498A400125CA8 /* DataManager+Fetch.swift */; };
+		B317C5362294710E0054CDDA /* CPUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B317C5352294710E0054CDDA /* CPUtils.swift */; };
+		B32B8C5622A96B7200D728BD /* CPDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32B8C5522A96B7200D728BD /* CPDataManager.swift */; };
+		B37E794822B498A400125CA8 /* CPDataManager+Fetch.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37E794722B498A400125CA8 /* CPDataManager+Fetch.swift */; };
 		B80674302240CFCF00885544 /* ParkListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B806742F2240CFCF00885544 /* ParkListView.xib */; };
 		B80674322240CFF000885544 /* ParkListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80674312240CFF000885544 /* ParkListTableViewCell.swift */; };
 		B806B7A5212451B200F9F338 /* CPFloorMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B806B7A4212451B200F9F338 /* CPFloorMapViewController.swift */; };
@@ -59,7 +59,7 @@
 		B806B7C92124536600F9F338 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B806B7C82124536600F9F338 /* CoreData.framework */; };
 		B806B7CB2124536F00F9F338 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B806B7CA2124536E00F9F338 /* Accelerate.framework */; };
 		B806B7CD21247FB400F9F338 /* MapStyle.json in Resources */ = {isa = PBXBuildFile; fileRef = B806B7CC21247FB400F9F338 /* MapStyle.json */; };
-		B806B7D72152BE6A00F9534F /* CollectionDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = B806B7D62152BE6A00F9534F /* CollectionDetail.swift */; };
+		B806B7D72152BE6A00F9534F /* CPCollectionDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = B806B7D62152BE6A00F9534F /* CPCollectionDetail.swift */; };
 		B807FCCF218EA8FD003CC51E /* CountryListArabic.json in Resources */ = {isa = PBXBuildFile; fileRef = B807FCCE218EA8FD003CC51E /* CountryListArabic.json */; };
 		B807FCD1218ECFE5003CC51E /* CPCulturePassCardBackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B807FCD0218ECFE5003CC51E /* CPCulturePassCardBackViewController.swift */; };
 		B80B76AA218AD6AC00190967 /* CPAcceptDeclinePopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80B76A4218AD6AC00190967 /* CPAcceptDeclinePopup.swift */; };
@@ -72,21 +72,21 @@
 		B80DC07920C792E600E28034 /* QatarMuseumUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80DC07820C792E600E28034 /* QatarMuseumUITests.swift */; };
 		B80DC08C20C798BA00E28034 /* CPHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80DC08B20C798BA00E28034 /* CPHomeViewController.swift */; };
 		B80DC09220C7A9CE00E28034 /* TopBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B80DC09120C7A9CE00E28034 /* TopBarView.xib */; };
-		B80DC09420C7A9F500E28034 /* TopBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80DC09320C7A9F500E28034 /* TopBarView.swift */; };
-		B80DFF2F2251F6A1004E8EA6 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80DFF2E2251F6A1004E8EA6 /* CoreDataManager.swift */; };
-		B80DFF312251F6BF004E8EA6 /* CoreDataMigrationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80DFF302251F6BF004E8EA6 /* CoreDataMigrationModel.swift */; };
-		B80DFF332251F6D6004E8EA6 /* CoreDataMigrationStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80DFF322251F6D6004E8EA6 /* CoreDataMigrationStep.swift */; };
-		B80DFF352251F6ED004E8EA6 /* CoreDataVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80DFF342251F6ED004E8EA6 /* CoreDataVersion.swift */; };
-		B80DFF372251F70C004E8EA6 /* CoreDataMigrator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80DFF362251F70C004E8EA6 /* CoreDataMigrator.swift */; };
+		B80DC09420C7A9F500E28034 /* CPTopBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80DC09320C7A9F500E28034 /* CPTopBarView.swift */; };
+		B80DFF2F2251F6A1004E8EA6 /* CPCoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80DFF2E2251F6A1004E8EA6 /* CPCoreDataManager.swift */; };
+		B80DFF312251F6BF004E8EA6 /* CPCoreDataMigrationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80DFF302251F6BF004E8EA6 /* CPCoreDataMigrationModel.swift */; };
+		B80DFF332251F6D6004E8EA6 /* CPCoreDataMigrationStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80DFF322251F6D6004E8EA6 /* CPCoreDataMigrationStep.swift */; };
+		B80DFF352251F6ED004E8EA6 /* CPCoreDataVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80DFF342251F6ED004E8EA6 /* CPCoreDataVersion.swift */; };
+		B80DFF372251F70C004E8EA6 /* CPCoreDataMigrator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80DFF362251F70C004E8EA6 /* CPCoreDataMigrator.swift */; };
 		B80DFF392251F882004E8EA6 /* MIgration1.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = B80DFF382251F882004E8EA6 /* MIgration1.xcmappingmodel */; };
 		B811FBC62103406100960246 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = B811FBC82103406100960246 /* Localizable.strings */; };
 		B811FBCC2103811400960246 /* QMColours.swift in Sources */ = {isa = PBXBuildFile; fileRef = B811FBCB2103811400960246 /* QMColours.swift */; };
 		B812BA04210AF3540083E0E2 /* QMFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = B812BA03210AF3540083E0E2 /* QMFont.swift */; };
-		B816029E215A239900786F94 /* TourGuideFloorMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = B816029D215A239900786F94 /* TourGuideFloorMap.swift */; };
+		B816029E215A239900786F94 /* CPTourGuideFloorMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = B816029D215A239900786F94 /* CPTourGuideFloorMap.swift */; };
 		B81FF06B21AFBA1B006A968B /* NMoHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B81FF06A21AFBA1B006A968B /* NMoHeaderView.xib */; };
 		B81FF06D21AFBA36006A968B /* NMoQHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81FF06C21AFBA36006A968B /* NMoQHeaderCell.swift */; };
-		B8234F4921BA6D3800760DEC /* NMoQUserEventList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8234F4821BA6D3800760DEC /* NMoQUserEventList.swift */; };
-		B8234F4B21BA7D8600760DEC /* NMoQEntityRegistration.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8234F4A21BA7D8600760DEC /* NMoQEntityRegistration.swift */; };
+		B8234F4921BA6D3800760DEC /* CPNMoQUserEventList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8234F4821BA6D3800760DEC /* CPNMoQUserEventList.swift */; };
+		B8234F4B21BA7D8600760DEC /* CPNMoQEntityRegistration.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8234F4A21BA7D8600760DEC /* CPNMoQEntityRegistration.swift */; };
 		B82729B021778B2F0017EC71 /* VPlayerLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B827299721778B2F0017EC71 /* VPlayerLayer.swift */; };
 		B82729B121778B2F0017EC71 /* VPlayerRenderingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B827299821778B2F0017EC71 /* VPlayerRenderingView.swift */; };
 		B82729B221778B2F0017EC71 /* VersaPlayerPlaybackDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B827299A21778B2F0017EC71 /* VersaPlayerPlaybackDelegate.swift */; };
@@ -103,7 +103,7 @@
 		B82729BE21778B2F0017EC71 /* VersaSeekbarSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B82729AB21778B2F0017EC71 /* VersaSeekbarSlider.swift */; };
 		B82729BF21778B2F0017EC71 /* VersaPlayerControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = B82729AC21778B2F0017EC71 /* VersaPlayerControls.swift */; };
 		B82729C021778B2F0017EC71 /* VersaPlayerControlsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B82729AD21778B2F0017EC71 /* VersaPlayerControlsCoordinator.swift */; };
-		B82E1B3321808229006623A6 /* LogoutData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B82E1B3221808229006623A6 /* LogoutData.swift */; };
+		B82E1B3321808229006623A6 /* CPLogoutData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B82E1B3221808229006623A6 /* CPLogoutData.swift */; };
 		B832790C22C09C7700B6996D /* CPTourAndPanelListViewController+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B832790B22C09C7700B6996D /* CPTourAndPanelListViewController+TableView.swift */; };
 		B832790E22C09D1800B6996D /* CPTourAndPanelListViewController+CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B832790D22C09D1800B6996D /* CPTourAndPanelListViewController+CoreData.swift */; };
 		B832791422C0A1FE00B6996D /* CPRegistrationViewController+PickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B832791322C0A1FE00B6996D /* CPRegistrationViewController+PickerView.swift */; };
@@ -116,21 +116,21 @@
 		B832792622C0B31D00B6996D /* CPMuseumAboutViewConroller+Carousel+Mail.swift in Sources */ = {isa = PBXBuildFile; fileRef = B832792522C0B31D00B6996D /* CPMuseumAboutViewConroller+Carousel+Mail.swift */; };
 		B832792922C0B4F200B6996D /* CPCulturePassViewController+Webcall+CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B832792822C0B4F200B6996D /* CPCulturePassViewController+Webcall+CoreData.swift */; };
 		B832792C22C0C16000B6996D /* CPArtificialNumberPadViewController+CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B832792B22C0C16000B6996D /* CPArtificialNumberPadViewController+CollectionView.swift */; };
-		B841715F224256D400B58E27 /* NMoQActivitiesList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B841715E224256D300B58E27 /* NMoQActivitiesList.swift */; };
+		B841715F224256D400B58E27 /* CPNMoQActivitiesList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B841715E224256D300B58E27 /* CPNMoQActivitiesList.swift */; };
 		B8436A9121C264CA00045242 /* CPGoogleMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8436A9021C264CA00045242 /* CPGoogleMapViewController.swift */; };
-		B843D9E0223F8E14003C1DF6 /* Facilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = B843D9DF223F8E14003C1DF6 /* Facilities.swift */; };
-		B843D9E2223FAB82003C1DF6 /* FacilitiesDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = B843D9E1223FAB82003C1DF6 /* FacilitiesDetail.swift */; };
-		B84BA060217EE3C000FD2C0D /* TokenData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84BA05F217EE3C000FD2C0D /* TokenData.swift */; };
-		B84BA062217F1A6300FD2C0D /* LoginData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84BA061217F1A6300FD2C0D /* LoginData.swift */; };
-		B84C9D8B21B5497E00DCB95C /* NMoQTour.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84C9D8A21B5497E00DCB95C /* NMoQTour.swift */; };
-		B857BB5622E1AF8600417A64 /* ExhibitionDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B857BB5422E1AF8600417A64 /* ExhibitionDetailTableViewCell.swift */; };
+		B843D9E0223F8E14003C1DF6 /* CPFacilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = B843D9DF223F8E14003C1DF6 /* CPFacilities.swift */; };
+		B843D9E2223FAB82003C1DF6 /* CPFacilitiesDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = B843D9E1223FAB82003C1DF6 /* CPFacilitiesDetail.swift */; };
+		B84BA060217EE3C000FD2C0D /* CPTokenData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84BA05F217EE3C000FD2C0D /* CPTokenData.swift */; };
+		B84BA062217F1A6300FD2C0D /* CPLoginData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84BA061217F1A6300FD2C0D /* CPLoginData.swift */; };
+		B84C9D8B21B5497E00DCB95C /* CPNMoQTour.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84C9D8A21B5497E00DCB95C /* CPNMoQTour.swift */; };
+		B857BB5622E1AF8600417A64 /* CPExhibitionDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B857BB5422E1AF8600417A64 /* CPExhibitionDetailTableViewCell.swift */; };
 		B857BB5722E1AF8600417A64 /* ExhibitionDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B857BB5522E1AF8600417A64 /* ExhibitionDetailView.xib */; };
-		B857BB5A22E1B25F00417A64 /* CommonDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B857BB5822E1B25F00417A64 /* CommonDetailCell.swift */; };
+		B857BB5A22E1B25F00417A64 /* CPCommonDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B857BB5822E1B25F00417A64 /* CPCommonDetailCell.swift */; };
 		B857BB5B22E1B25F00417A64 /* HeritageDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B857BB5922E1B25F00417A64 /* HeritageDetailView.xib */; };
-		B857BB5E22E1B28700417A64 /* ParkTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B857BB5C22E1B28700417A64 /* ParkTableViewCell.swift */; };
+		B857BB5E22E1B28700417A64 /* CPParkTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B857BB5C22E1B28700417A64 /* CPParkTableViewCell.swift */; };
 		B857BB5F22E1B28700417A64 /* ParkTableCellXib.xib in Resources */ = {isa = PBXBuildFile; fileRef = B857BB5D22E1B28700417A64 /* ParkTableCellXib.xib */; };
 		B857BB6222E1B2A900417A64 /* DiningDetailCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B857BB6022E1B2A900417A64 /* DiningDetailCellView.xib */; };
-		B857BB6322E1B2A900417A64 /* DiningDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B857BB6122E1B2A900417A64 /* DiningDetailTableViewCell.swift */; };
+		B857BB6322E1B2A900417A64 /* CPDiningDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B857BB6122E1B2A900417A64 /* CPDiningDetailTableViewCell.swift */; };
 		B857BB6522E1B32C00417A64 /* CPMuseumBottomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B857BB6422E1B32C00417A64 /* CPMuseumBottomCell.swift */; };
 		B857BB6822E1B36300417A64 /* EventCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B857BB6622E1B36300417A64 /* EventCellView.xib */; };
 		B857BB6922E1B36300417A64 /* CPEventCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B857BB6722E1B36300417A64 /* CPEventCollectionViewCell.swift */; };
@@ -155,7 +155,7 @@
 		B857BBAB22E6EFC200417A64 /* FSCalendarTransitionCoordinator.m in Sources */ = {isa = PBXBuildFile; fileRef = B857BB9822E6EFC200417A64 /* FSCalendarTransitionCoordinator.m */; };
 		B857BBAD22E6EFC200417A64 /* FSCalendarAppearance.m in Sources */ = {isa = PBXBuildFile; fileRef = B857BB9A22E6EFC200417A64 /* FSCalendarAppearance.m */; };
 		B85AE812217744D600A658A2 /* CPMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85AE811217744D600A658A2 /* CPMapViewController.swift */; };
-		B85BA4B020D01D1C00E7F4D1 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85BA4AF20D01D1C00E7F4D1 /* SplashViewController.swift */; };
+		B85BA4B020D01D1C00E7F4D1 /* CPSplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85BA4AF20D01D1C00E7F4D1 /* CPSplashViewController.swift */; };
 		B85BA4B720D03CE500E7F4D1 /* iOSDevCenters+GIF.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85BA4B620D03CE500E7F4D1 /* iOSDevCenters+GIF.swift */; };
 		B87F62EB225E2E6100ADCB1F /* Migration2to3.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = B87F62EA225E2E6100ADCB1F /* Migration2to3.xcmappingmodel */; };
 		B88F07E8217DD5F600B16875 /* CPCulturePassCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88F07E7217DD5F600B16875 /* CPCulturePassCardViewController.swift */; };
@@ -164,7 +164,7 @@
 		B8914A2C22D70673005C4BCC /* CPHomeViewController+CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8914A2B22D70673005C4BCC /* CPHomeViewController+CoreData.swift */; };
 		B8914A4522DC549D005C4BCC /* Migration3to4.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = B8914A4422DC549D005C4BCC /* Migration3to4.xcmappingmodel */; };
 		B8914A4722DD8801005C4BCC /* MigrationMappingPlocies.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8914A4622DD8800005C4BCC /* MigrationMappingPlocies.swift */; };
-		B897351321B81C3200BB812C /* NMoQTourDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = B897351221B81C3200BB812C /* NMoQTourDetail.swift */; };
+		B897351321B81C3200BB812C /* CPNMoQTourDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = B897351221B81C3200BB812C /* CPNMoQTourDetail.swift */; };
 		B8ADA8AB2164CC2E00127F9A /* CPPreviewContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8ADA8AA2164CC2E00127F9A /* CPPreviewContentViewController.swift */; };
 		B8ADA8AD2164CD4100127F9A /* CPPreviewContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8ADA8AC2164CD4100127F9A /* CPPreviewContainerViewController.swift */; };
 		B8AFA2EB20E78BA9008838A6 /* DINNextLTArabic-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B8AFA2E820E78BA1008838A6 /* DINNextLTArabic-Bold.ttf */; };
@@ -175,32 +175,32 @@
 		B8AFA2F320E78E09008838A6 /* DINNextLTPro-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = B8AFA2F020E78E06008838A6 /* DINNextLTPro-Bold.otf */; };
 		B8B2A18120D1491900E053A9 /* QMLogo.gif in Resources */ = {isa = PBXBuildFile; fileRef = B8B2A18020D1491900E053A9 /* QMLogo.gif */; };
 		B8B4943A212EDDE300203C7F /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B49439212EDDE300203C7F /* ToastView.swift */; };
-		B8B49561212DBAD8006F509B /* Museum.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B49560212DBAD8006F509B /* Museum.swift */; };
+		B8B49561212DBAD8006F509B /* CPMuseum.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B49560212DBAD8006F509B /* CPMuseum.swift */; };
 		B8B54D6C20FF514E00B21348 /* CollectionDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8B54D6B20FF514E00B21348 /* CollectionDetailView.xib */; };
 		B8B54D6E20FF516B00B21348 /* CPCollectionDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B54D6D20FF516B00B21348 /* CPCollectionDetailCell.swift */; };
-		B8B7604C2100E7FC00CEE280 /* NotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B7604B2100E7FC00CEE280 /* NotificationsViewController.swift */; };
-		B8B760512100E88E00CEE280 /* NotificationsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B760502100E88E00CEE280 /* NotificationsTableViewCell.swift */; };
+		B8B7604C2100E7FC00CEE280 /* CPNotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B7604B2100E7FC00CEE280 /* CPNotificationsViewController.swift */; };
+		B8B760512100E88E00CEE280 /* CPNotificationsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B760502100E88E00CEE280 /* CPNotificationsTableViewCell.swift */; };
 		B8B79AC12189B75900370AAB /* CountryList.json in Resources */ = {isa = PBXBuildFile; fileRef = B8B79AC02189B75900370AAB /* CountryList.json */; };
 		B8B81FE320DE2C8A004885D0 /* CPMuseumsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B81FE220DE2C8A004885D0 /* CPMuseumsViewController.swift */; };
 		B8B81FE720DE2E47004885D0 /* KASlideShow.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B81FE620DE2E47004885D0 /* KASlideShow.m */; };
 		B8BA80B520CCDDA3007E880A /* CPProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8BA80B420CCDDA3007E880A /* CPProfileViewController.swift */; };
-		B8BA80B720CD8297007E880A /* CommonListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8BA80B620CD8297007E880A /* CommonListViewController.swift */; };
+		B8BA80B720CD8297007E880A /* CPCommonListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8BA80B620CD8297007E880A /* CPCommonListViewController.swift */; };
 		B8BA80BA20CD8305007E880A /* CommonListCellXib.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8BA80B920CD8305007E880A /* CommonListCellXib.xib */; };
-		B8BA80BC20CD831D007E880A /* CommonListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8BA80BB20CD831D007E880A /* CommonListCell.swift */; };
-		B8BBF459211C1AC000352706 /* ParksList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8BBF458211C1AC000352706 /* ParksList.swift */; };
-		B8BCE8A021C28ED20083DC35 /* GoogleDirections.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8BCE89F21C28ED20083DC35 /* GoogleDirections.swift */; };
-		B8BD1DA721298AA500150A01 /* EducationEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8BD1DA621298AA500150A01 /* EducationEvent.swift */; };
+		B8BA80BC20CD831D007E880A /* CPCommonListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8BA80BB20CD831D007E880A /* CPCommonListCell.swift */; };
+		B8BBF459211C1AC000352706 /* CPParksList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8BBF458211C1AC000352706 /* CPParksList.swift */; };
+		B8BCE8A021C28ED20083DC35 /* CPGoogleDirections.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8BCE89F21C28ED20083DC35 /* CPGoogleDirections.swift */; };
+		B8BD1DA721298AA500150A01 /* CPEducationEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8BD1DA621298AA500150A01 /* CPEducationEvent.swift */; };
 		B8BD3A6D212C77B9006D440A /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8BD3A6C212C77B8006D440A /* EventKit.framework */; };
-		B8C1C2BD21160B7300531AB3 /* PublicArtsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C1C2BC21160B7300531AB3 /* PublicArtsList.swift */; };
+		B8C1C2BD21160B7300531AB3 /* CPPublicArtsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C1C2BC21160B7300531AB3 /* CPPublicArtsList.swift */; };
 		B8C31CE2216243F800AE7788 /* iCarousel.m in Sources */ = {isa = PBXBuildFile; fileRef = B8C31CE0216243F700AE7788 /* iCarousel.m */; };
 		B8C31CE421626E9100AE7788 /* CPMuseumAboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C31CE321626E9100AE7788 /* CPMuseumAboutViewController.swift */; };
 		B8C31CE62162821300AE7788 /* CPMuseumAboutCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C31CE52162821300AE7788 /* CPMuseumAboutCell.swift */; };
 		B8C367F82254D325005E4305 /* MiaTourHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8C367F72254D325005E4305 /* MiaTourHeaderView.xib */; };
 		B8C64C9C20FE380D00D7CD63 /* CPMiaTourDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C64C9B20FE380D00D7CD63 /* CPMiaTourDetailViewController.swift */; };
 		B8C64D4D20FDDBB700C2D51A /* MiaCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C64D4C20FDDBB700C2D51A /* MiaCollectionReusableView.swift */; };
-		B8C700852116F833006F3653 /* PublicArtsDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C700842116F833006F3653 /* PublicArtsDetail.swift */; };
-		B8CA08DF2146D38400783642 /* ObjectPopupTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CA08D62146D38400783642 /* ObjectPopupTableViewCell.swift */; };
-		B8CA08E02146D38400783642 /* MapDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CA08D72146D38400783642 /* MapDetailView.swift */; };
+		B8C700852116F833006F3653 /* CPPublicArtsDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C700842116F833006F3653 /* CPPublicArtsDetail.swift */; };
+		B8CA08DF2146D38400783642 /* CPObjectPopupTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CA08D62146D38400783642 /* CPObjectPopupTableViewCell.swift */; };
+		B8CA08E02146D38400783642 /* CPMapDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CA08D72146D38400783642 /* CPMapDetailView.swift */; };
 		B8CA08E42146D38400783642 /* ObjectPopupView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8CA08DB2146D38400783642 /* ObjectPopupView.xib */; };
 		B8CA08E52146D38400783642 /* MapDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8CA08DC2146D38400783642 /* MapDetailCell.xib */; };
 		B8CA08E72146D38400783642 /* MapDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8CA08DE2146D38400783642 /* MapDetailView.xib */; };
@@ -214,9 +214,9 @@
 		B8D2FC5122C0C70A00A570BD /* CPObjectDetailViewController+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D2FC5022C0C70A00A570BD /* CPObjectDetailViewController+TableView.swift */; };
 		B8D2FC5522C0CC7F00A570BD /* CPEventViewController+CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D2FC5422C0CC7F00A570BD /* CPEventViewController+CoreData.swift */; };
 		B8D2FC5722C0CCBB00A570BD /* CPEventViewController+CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D2FC5622C0CCBB00A570BD /* CPEventViewController+CollectionView.swift */; };
-		B8D2FC5A22C0DC7C00A570BD /* CommonLisViewController+CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D2FC5922C0DC7C00A570BD /* CommonLisViewController+CoreData.swift */; };
-		B8D2FC5C22C0DCAD00A570BD /* CommonListViewController+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D2FC5B22C0DCAD00A570BD /* CommonListViewController+TableView.swift */; };
-		B8D2FC5E22C0DE4400A570BD /* CommonListViewController+ReusableViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D2FC5D22C0DE4400A570BD /* CommonListViewController+ReusableViews.swift */; };
+		B8D2FC5A22C0DC7C00A570BD /* CPCommonLisViewController+CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D2FC5922C0DC7C00A570BD /* CPCommonLisViewController+CoreData.swift */; };
+		B8D2FC5C22C0DCAD00A570BD /* CPCommonListViewController+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D2FC5B22C0DCAD00A570BD /* CPCommonListViewController+TableView.swift */; };
+		B8D2FC5E22C0DE4400A570BD /* CPCommonListViewController+ReusableViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D2FC5D22C0DE4400A570BD /* CPCommonListViewController+ReusableViews.swift */; };
 		B8D2FC6A22C1BE4F00A570BD /* CommonDetailViewController+CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D2FC6922C1BE4F00A570BD /* CommonDetailViewController+CoreData.swift */; };
 		B8D2FC6C22C1BE6500A570BD /* CommonDetailViewController+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D2FC6B22C1BE6500A570BD /* CommonDetailViewController+TableView.swift */; };
 		B8D2FC6E22C1BEB200A570BD /* CommonDetailViewController+Mail+Carousel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D2FC6D22C1BEB200A570BD /* CommonDetailViewController+Mail+Carousel.swift */; };
@@ -224,11 +224,11 @@
 		B8D2FC7222C1C3ED00A570BD /* CPFloorMapViewController+CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D2FC7122C1C3ED00A570BD /* CPFloorMapViewController+CoreData.swift */; };
 		B8D2FC7422C1E0B700A570BD /* CPMuseumsViewController+CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D2FC7322C1E0B700A570BD /* CPMuseumsViewController+CollectionView.swift */; };
 		B8D2FC7622C1E2B100A570BD /* CPMuseumsViewController+CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D2FC7522C1E2B100A570BD /* CPMuseumsViewController+CoreData.swift */; };
-		B8D2FC7822C1E58600A570BD /* NotificationsViewController+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D2FC7722C1E58600A570BD /* NotificationsViewController+TableView.swift */; };
-		B8D2FC7A22C1E65E00A570BD /* NotificationsViewController+CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D2FC7922C1E65E00A570BD /* NotificationsViewController+CoreData.swift */; };
+		B8D2FC7822C1E58600A570BD /* CPNotificationsViewController+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D2FC7722C1E58600A570BD /* CPNotificationsViewController+TableView.swift */; };
+		B8D2FC7A22C1E65E00A570BD /* CPNotificationsViewController+CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D2FC7922C1E65E00A570BD /* CPNotificationsViewController+CoreData.swift */; };
 		B8D2FC7C22C1EDDB00A570BD /* CPFilterViewController+PickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D2FC7B22C1EDDB00A570BD /* CPFilterViewController+PickerView.swift */; };
-		B8D2FC7E22C1F03000A570BD /* SettingsViewController+Mail.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D2FC7D22C1F03000A570BD /* SettingsViewController+Mail.swift */; };
-		B8D4B8D72114465100937180 /* Heritage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D4B8D62114465100937180 /* Heritage.swift */; };
+		B8D2FC7E22C1F03000A570BD /* CPSettingsViewController+Mail.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D2FC7D22C1F03000A570BD /* CPSettingsViewController+Mail.swift */; };
+		B8D4B8D72114465100937180 /* CPHeritage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D4B8D62114465100937180 /* CPHeritage.swift */; };
 		B8D4C536210453FB0096912C /* CPFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D4C535210453FB0096912C /* CPFilterViewController.swift */; };
 		B8D713002250B463000ED7AA /* QatarMuseums.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B8D712FE2250B463000ED7AA /* QatarMuseums.xcdatamodeld */; };
 		B8D7BF452101A12E0085EF49 /* CPEducationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D7BF442101A12E0085EF49 /* CPEducationViewController.swift */; };
@@ -236,14 +236,14 @@
 		B8DB500221B25D9000C5DD10 /* PanelDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8DB500121B25D9000C5DD10 /* PanelDetailView.xib */; };
 		B8DB500621B2A36E00C5DD10 /* CPPanelDiscussionDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8DB500521B2A36E00C5DD10 /* CPPanelDiscussionDetailViewController.swift */; };
 		B8DC40A520C9A3230044134D /* CommonHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8DC40A420C9A3230044134D /* CommonHeader.xib */; };
-		B8DC40A720C9A33A0044134D /* CommonHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8DC40A620C9A33A0044134D /* CommonHeaderView.swift */; };
+		B8DC40A720C9A33A0044134D /* CPCommonHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8DC40A620C9A33A0044134D /* CPCommonHeaderView.swift */; };
 		B8DC40A920C9A5760044134D /* CPEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8DC40A820C9A5760044134D /* CPEventViewController.swift */; };
-		B8DDBC7D21AD78AA007B3A06 /* HomeBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8DDBC7C21AD78AA007B3A06 /* HomeBanner.swift */; };
-		B8E01BF92105EDFB008D7F33 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E01BF82105EDFB008D7F33 /* SettingsViewController.swift */; };
-		B8E01BFD21060FDC008D7F33 /* AppLocalizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E01BFB21060FDC008D7F33 /* AppLocalizer.swift */; };
-		B8E01BFE21060FDC008D7F33 /* LocalizationLanguage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E01BFC21060FDC008D7F33 /* LocalizationLanguage.swift */; };
+		B8DDBC7D21AD78AA007B3A06 /* CPHomeBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8DDBC7C21AD78AA007B3A06 /* CPHomeBanner.swift */; };
+		B8E01BF92105EDFB008D7F33 /* CPSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E01BF82105EDFB008D7F33 /* CPSettingsViewController.swift */; };
+		B8E01BFD21060FDC008D7F33 /* CPAppLocalizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E01BFB21060FDC008D7F33 /* CPAppLocalizer.swift */; };
+		B8E01BFE21060FDC008D7F33 /* CPLocalizationLanguage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E01BFC21060FDC008D7F33 /* CPLocalizationLanguage.swift */; };
 		B8E2C00E20C7E9CA00F3CE41 /* ComingSoonpopup.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8E2C00D20C7E9CA00F3CE41 /* ComingSoonpopup.xib */; };
-		B8E2C01020C7E9E900F3CE41 /* ComingSoonPopUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E2C00F20C7E9E900F3CE41 /* ComingSoonPopUp.swift */; };
+		B8E2C01020C7E9E900F3CE41 /* CPComingSoonPopUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E2C00F20C7E9E900F3CE41 /* CPComingSoonPopUp.swift */; };
 		B8E2C01320C7FD0000F3CE41 /* SideMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8E2C01220C7FD0000F3CE41 /* SideMenu.xib */; };
 		B8E2C01520C7FD6800F3CE41 /* CPSideMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E2C01420C7FD6800F3CE41 /* CPSideMenuView.swift */; };
 		B8EAA3592158D4520060D168 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B8EAA3582158D4520060D168 /* GoogleService-Info.plist */; };
@@ -252,12 +252,12 @@
 		B8EAB7BC20CA424300C001B2 /* CalendarConfigViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8EAB7B720CA424300C001B2 /* CalendarConfigViewController.swift */; };
 		B8EAB7BD20CA424300C001B2 /* LunarFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8EAB7B820CA424300C001B2 /* LunarFormatter.swift */; };
 		B8EAB7C020CA67CD00C001B2 /* EventPopUp.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8EAB7BF20CA67CD00C001B2 /* EventPopUp.xib */; };
-		B8EAB7C220CA67E000C001B2 /* EventPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8EAB7C120CA67E000C001B2 /* EventPopupView.swift */; };
+		B8EAB7C220CA67E000C001B2 /* CPEventPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8EAB7C120CA67E000C001B2 /* CPEventPopupView.swift */; };
 		B8F00C8321787CF800320DF1 /* LoginPopupView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F00C8221787CF800320DF1 /* LoginPopupView.xib */; };
-		B8F00C8521787D0D00320DF1 /* LoginPopupPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F00C8421787D0D00320DF1 /* LoginPopupPage.swift */; };
+		B8F00C8521787D0D00320DF1 /* CPLoginPopupPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F00C8421787D0D00320DF1 /* CPLoginPopupPage.swift */; };
 		B8F00C872178D74800320DF1 /* CPRegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F00C862178D74800320DF1 /* CPRegistrationViewController.swift */; };
 		B8F3A940212728EE005360AD /* CommonStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F3A93F212728EE005360AD /* CommonStrings.swift */; };
-		B8FEC77C2112E57100648F66 /* Dining.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8FEC77B2112E57100648F66 /* Dining.swift */; };
+		B8FEC77C2112E57100648F66 /* CPDining.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8FEC77B2112E57100648F66 /* CPDining.swift */; };
 		DA51D58A8DA63CE54CFF0485 /* Pods_QatarMuseums.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94F5559C89E84E914A76D7A7 /* Pods_QatarMuseums.framework */; };
 /* End PBXBuildFile section */
 
@@ -293,22 +293,22 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		1B10D12C2244136100AA77E9 /* NMoQParkDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NMoQParkDetail.swift; sourceTree = "<group>"; };
+		1B10D12C2244136100AA77E9 /* CPNMoQParkDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPNMoQParkDetail.swift; sourceTree = "<group>"; };
 		1B373E94212C794600EE8DD1 /* CPCulturePassViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPCulturePassViewController.swift; sourceTree = "<group>"; };
 		1B3C505621270F260034E560 /* CPArtifactNumberPadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPArtifactNumberPadViewController.swift; sourceTree = "<group>"; };
 		1B444A3921AE9F03009FF40F /* CPTourAndPanelListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPTourAndPanelListViewController.swift; sourceTree = "<group>"; };
-		1B51411D215B892D0055AAF5 /* TourGuide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TourGuide.swift; sourceTree = "<group>"; };
+		1B51411D215B892D0055AAF5 /* CPTourGuide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPTourGuide.swift; sourceTree = "<group>"; };
 		1B51B3D121219366002B84AA /* CPObjectDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPObjectDetailViewController.swift; sourceTree = "<group>"; };
-		1B51B3D42121B6A9002B84AA /* ObjectDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectDetailTableViewCell.swift; sourceTree = "<group>"; };
-		1B7031ED218AFDB200B0E05B /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
+		1B51B3D42121B6A9002B84AA /* CPObjectDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPObjectDetailTableViewCell.swift; sourceTree = "<group>"; };
+		1B7031ED218AFDB200B0E05B /* CPNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPNotification.swift; sourceTree = "<group>"; };
 		1BAA2FCA2125FCC500D785DD /* ObjectImageXib.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ObjectImageXib.xib; sourceTree = "<group>"; };
-		1BAA2FCC2125FD8200D785DD /* ObjectImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectImageView.swift; sourceTree = "<group>"; };
-		1BAA2FCE2126D15D00D785DD /* Collection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collection.swift; sourceTree = "<group>"; };
+		1BAA2FCC2125FD8200D785DD /* CPObjectImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPObjectImageView.swift; sourceTree = "<group>"; };
+		1BAA2FCE2126D15D00D785DD /* CPCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPCollection.swift; sourceTree = "<group>"; };
 		1BC909CF2108E3C700D6C00B /* QMUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QMUtility.swift; sourceTree = "<group>"; };
-		1BC909D1210B277F00D6C00B /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
-		1BE526CF210739BE00C8CD51 /* Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
-		1BE526D12107460F00C8CD51 /* QatarMuseumRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QatarMuseumRouter.swift; sourceTree = "<group>"; };
-		1BE526D32107470700C8CD51 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		1BC909D1210B277F00D6C00B /* CPHome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPHome.swift; sourceTree = "<group>"; };
+		1BE526CF210739BE00C8CD51 /* CPRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPRequest.swift; sourceTree = "<group>"; };
+		1BE526D12107460F00C8CD51 /* CPQatarMuseumRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPQatarMuseumRouter.swift; sourceTree = "<group>"; };
+		1BE526D32107470700C8CD51 /* CPConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPConfig.swift; sourceTree = "<group>"; };
 		1BE526D62107896600C8CD51 /* CPExhibition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPExhibition.swift; sourceTree = "<group>"; };
 		1E63D51222BC9F3E00E2E1A5 /* CPPanelDiscussionDetailViewController+Tableview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CPPanelDiscussionDetailViewController+Tableview.swift"; sourceTree = "<group>"; };
 		1E87D19A22BCDB5F00F1C96F /* CPPanelDiscussionDetailViewController+WebServices&Coredata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CPPanelDiscussionDetailViewController+WebServices&Coredata.swift"; sourceTree = "<group>"; };
@@ -322,9 +322,9 @@
 		49C0458A223302A600FB96EF /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		80387D6C7EDA0B5C9B3AB21C /* Pods-QatarMuseums.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QatarMuseums.debug.xcconfig"; path = "Pods/Target Support Files/Pods-QatarMuseums/Pods-QatarMuseums.debug.xcconfig"; sourceTree = "<group>"; };
 		94F5559C89E84E914A76D7A7 /* Pods_QatarMuseums.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_QatarMuseums.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		B317C5352294710E0054CDDA /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
-		B32B8C5522A96B7200D728BD /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
-		B37E794722B498A400125CA8 /* DataManager+Fetch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataManager+Fetch.swift"; sourceTree = "<group>"; };
+		B317C5352294710E0054CDDA /* CPUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPUtils.swift; sourceTree = "<group>"; };
+		B32B8C5522A96B7200D728BD /* CPDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPDataManager.swift; sourceTree = "<group>"; };
+		B37E794722B498A400125CA8 /* CPDataManager+Fetch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CPDataManager+Fetch.swift"; sourceTree = "<group>"; };
 		B806742F2240CFCF00885544 /* ParkListView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ParkListView.xib; sourceTree = "<group>"; };
 		B80674312240CFF000885544 /* ParkListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParkListTableViewCell.swift; sourceTree = "<group>"; };
 		B806B7A4212451B200F9F338 /* CPFloorMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPFloorMapViewController.swift; sourceTree = "<group>"; };
@@ -348,7 +348,7 @@
 		B806B7C82124536600F9F338 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		B806B7CA2124536E00F9F338 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		B806B7CC21247FB400F9F338 /* MapStyle.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = MapStyle.json; sourceTree = "<group>"; };
-		B806B7D62152BE6A00F9534F /* CollectionDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionDetail.swift; sourceTree = "<group>"; };
+		B806B7D62152BE6A00F9534F /* CPCollectionDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPCollectionDetail.swift; sourceTree = "<group>"; };
 		B807FCCE218EA8FD003CC51E /* CountryListArabic.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = CountryListArabic.json; sourceTree = "<group>"; };
 		B807FCD0218ECFE5003CC51E /* CPCulturePassCardBackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPCulturePassCardBackViewController.swift; sourceTree = "<group>"; };
 		B80B76A4218AD6AC00190967 /* CPAcceptDeclinePopup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPAcceptDeclinePopup.swift; sourceTree = "<group>"; };
@@ -367,12 +367,12 @@
 		B80DC07A20C792E600E28034 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B80DC08B20C798BA00E28034 /* CPHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPHomeViewController.swift; sourceTree = "<group>"; };
 		B80DC09120C7A9CE00E28034 /* TopBarView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TopBarView.xib; sourceTree = "<group>"; };
-		B80DC09320C7A9F500E28034 /* TopBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopBarView.swift; sourceTree = "<group>"; };
-		B80DFF2E2251F6A1004E8EA6 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
-		B80DFF302251F6BF004E8EA6 /* CoreDataMigrationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataMigrationModel.swift; sourceTree = "<group>"; };
-		B80DFF322251F6D6004E8EA6 /* CoreDataMigrationStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataMigrationStep.swift; sourceTree = "<group>"; };
-		B80DFF342251F6ED004E8EA6 /* CoreDataVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataVersion.swift; sourceTree = "<group>"; };
-		B80DFF362251F70C004E8EA6 /* CoreDataMigrator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataMigrator.swift; sourceTree = "<group>"; };
+		B80DC09320C7A9F500E28034 /* CPTopBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPTopBarView.swift; sourceTree = "<group>"; };
+		B80DFF2E2251F6A1004E8EA6 /* CPCoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPCoreDataManager.swift; sourceTree = "<group>"; };
+		B80DFF302251F6BF004E8EA6 /* CPCoreDataMigrationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPCoreDataMigrationModel.swift; sourceTree = "<group>"; };
+		B80DFF322251F6D6004E8EA6 /* CPCoreDataMigrationStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPCoreDataMigrationStep.swift; sourceTree = "<group>"; };
+		B80DFF342251F6ED004E8EA6 /* CPCoreDataVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPCoreDataVersion.swift; sourceTree = "<group>"; };
+		B80DFF362251F70C004E8EA6 /* CPCoreDataMigrator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPCoreDataMigrator.swift; sourceTree = "<group>"; };
 		B80DFF382251F882004E8EA6 /* MIgration1.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = MIgration1.xcmappingmodel; sourceTree = "<group>"; };
 		B811FBC221033FD900960246 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Main.strings; sourceTree = "<group>"; };
 		B811FBC321033FD900960246 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
@@ -381,11 +381,11 @@
 		B811FBCB2103811400960246 /* QMColours.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QMColours.swift; sourceTree = "<group>"; };
 		B812BA03210AF3540083E0E2 /* QMFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QMFont.swift; sourceTree = "<group>"; };
 		B812BA06210B2FE20083E0E2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
-		B816029D215A239900786F94 /* TourGuideFloorMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TourGuideFloorMap.swift; sourceTree = "<group>"; };
+		B816029D215A239900786F94 /* CPTourGuideFloorMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPTourGuideFloorMap.swift; sourceTree = "<group>"; };
 		B81FF06A21AFBA1B006A968B /* NMoHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NMoHeaderView.xib; sourceTree = "<group>"; };
 		B81FF06C21AFBA36006A968B /* NMoQHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NMoQHeaderCell.swift; sourceTree = "<group>"; };
-		B8234F4821BA6D3800760DEC /* NMoQUserEventList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NMoQUserEventList.swift; sourceTree = "<group>"; };
-		B8234F4A21BA7D8600760DEC /* NMoQEntityRegistration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NMoQEntityRegistration.swift; sourceTree = "<group>"; };
+		B8234F4821BA6D3800760DEC /* CPNMoQUserEventList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPNMoQUserEventList.swift; sourceTree = "<group>"; };
+		B8234F4A21BA7D8600760DEC /* CPNMoQEntityRegistration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPNMoQEntityRegistration.swift; sourceTree = "<group>"; };
 		B827299721778B2F0017EC71 /* VPlayerLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VPlayerLayer.swift; sourceTree = "<group>"; };
 		B827299821778B2F0017EC71 /* VPlayerRenderingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VPlayerRenderingView.swift; sourceTree = "<group>"; };
 		B827299A21778B2F0017EC71 /* VersaPlayerPlaybackDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VersaPlayerPlaybackDelegate.swift; sourceTree = "<group>"; };
@@ -404,7 +404,7 @@
 		B82729AC21778B2F0017EC71 /* VersaPlayerControls.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VersaPlayerControls.swift; sourceTree = "<group>"; };
 		B82729AD21778B2F0017EC71 /* VersaPlayerControlsCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VersaPlayerControlsCoordinator.swift; sourceTree = "<group>"; };
 		B82729AF21778B2F0017EC71 /* .gitkeep */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
-		B82E1B3221808229006623A6 /* LogoutData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutData.swift; sourceTree = "<group>"; };
+		B82E1B3221808229006623A6 /* CPLogoutData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPLogoutData.swift; sourceTree = "<group>"; };
 		B832790B22C09C7700B6996D /* CPTourAndPanelListViewController+TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CPTourAndPanelListViewController+TableView.swift"; sourceTree = "<group>"; };
 		B832790D22C09D1800B6996D /* CPTourAndPanelListViewController+CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CPTourAndPanelListViewController+CoreData.swift"; sourceTree = "<group>"; };
 		B832791322C0A1FE00B6996D /* CPRegistrationViewController+PickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CPRegistrationViewController+PickerView.swift"; sourceTree = "<group>"; };
@@ -417,21 +417,21 @@
 		B832792522C0B31D00B6996D /* CPMuseumAboutViewConroller+Carousel+Mail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CPMuseumAboutViewConroller+Carousel+Mail.swift"; sourceTree = "<group>"; };
 		B832792822C0B4F200B6996D /* CPCulturePassViewController+Webcall+CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CPCulturePassViewController+Webcall+CoreData.swift"; sourceTree = "<group>"; };
 		B832792B22C0C16000B6996D /* CPArtificialNumberPadViewController+CollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CPArtificialNumberPadViewController+CollectionView.swift"; sourceTree = "<group>"; };
-		B841715E224256D300B58E27 /* NMoQActivitiesList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NMoQActivitiesList.swift; sourceTree = "<group>"; };
+		B841715E224256D300B58E27 /* CPNMoQActivitiesList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPNMoQActivitiesList.swift; sourceTree = "<group>"; };
 		B8436A9021C264CA00045242 /* CPGoogleMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CPGoogleMapViewController.swift; path = ../../CPGoogleMapViewController.swift; sourceTree = "<group>"; };
-		B843D9DF223F8E14003C1DF6 /* Facilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Facilities.swift; sourceTree = "<group>"; };
-		B843D9E1223FAB82003C1DF6 /* FacilitiesDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacilitiesDetail.swift; sourceTree = "<group>"; };
-		B84BA05F217EE3C000FD2C0D /* TokenData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenData.swift; sourceTree = "<group>"; };
-		B84BA061217F1A6300FD2C0D /* LoginData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginData.swift; sourceTree = "<group>"; };
-		B84C9D8A21B5497E00DCB95C /* NMoQTour.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NMoQTour.swift; sourceTree = "<group>"; };
-		B857BB5422E1AF8600417A64 /* ExhibitionDetailTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ExhibitionDetailTableViewCell.swift; path = QatarMuseum/Common/CommonDetail/View/Exhibitionsdetail/ExhibitionDetailTableViewCell.swift; sourceTree = SOURCE_ROOT; };
+		B843D9DF223F8E14003C1DF6 /* CPFacilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPFacilities.swift; sourceTree = "<group>"; };
+		B843D9E1223FAB82003C1DF6 /* CPFacilitiesDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPFacilitiesDetail.swift; sourceTree = "<group>"; };
+		B84BA05F217EE3C000FD2C0D /* CPTokenData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPTokenData.swift; sourceTree = "<group>"; };
+		B84BA061217F1A6300FD2C0D /* CPLoginData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPLoginData.swift; sourceTree = "<group>"; };
+		B84C9D8A21B5497E00DCB95C /* CPNMoQTour.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPNMoQTour.swift; sourceTree = "<group>"; };
+		B857BB5422E1AF8600417A64 /* CPExhibitionDetailTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CPExhibitionDetailTableViewCell.swift; path = QatarMuseum/Common/CommonDetail/View/Exhibitionsdetail/CPExhibitionDetailTableViewCell.swift; sourceTree = SOURCE_ROOT; };
 		B857BB5522E1AF8600417A64 /* ExhibitionDetailView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ExhibitionDetailView.xib; path = QatarMuseum/Common/CommonDetail/View/Exhibitionsdetail/ExhibitionDetailView.xib; sourceTree = SOURCE_ROOT; };
-		B857BB5822E1B25F00417A64 /* CommonDetailCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommonDetailCell.swift; path = QatarMuseum/Common/CommonDetail/View/HeritageDetailCell/CommonDetailCell.swift; sourceTree = SOURCE_ROOT; };
+		B857BB5822E1B25F00417A64 /* CPCommonDetailCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CPCommonDetailCell.swift; path = QatarMuseum/Common/CommonDetail/View/HeritageDetailCell/CPCommonDetailCell.swift; sourceTree = SOURCE_ROOT; };
 		B857BB5922E1B25F00417A64 /* HeritageDetailView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HeritageDetailView.xib; path = QatarMuseum/Common/CommonDetail/View/HeritageDetailCell/HeritageDetailView.xib; sourceTree = SOURCE_ROOT; };
-		B857BB5C22E1B28700417A64 /* ParkTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ParkTableViewCell.swift; path = QatarMuseum/Common/CommonDetail/View/ParkCell/ParkTableViewCell.swift; sourceTree = SOURCE_ROOT; };
+		B857BB5C22E1B28700417A64 /* CPParkTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CPParkTableViewCell.swift; path = QatarMuseum/Common/CommonDetail/View/ParkCell/CPParkTableViewCell.swift; sourceTree = SOURCE_ROOT; };
 		B857BB5D22E1B28700417A64 /* ParkTableCellXib.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ParkTableCellXib.xib; path = QatarMuseum/Common/CommonDetail/View/ParkCell/ParkTableCellXib.xib; sourceTree = SOURCE_ROOT; };
 		B857BB6022E1B2A900417A64 /* DiningDetailCellView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = DiningDetailCellView.xib; path = QatarMuseum/Common/CommonDetail/View/DiningDetailCell/DiningDetailCellView.xib; sourceTree = SOURCE_ROOT; };
-		B857BB6122E1B2A900417A64 /* DiningDetailTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DiningDetailTableViewCell.swift; path = QatarMuseum/Common/CommonDetail/View/DiningDetailCell/DiningDetailTableViewCell.swift; sourceTree = SOURCE_ROOT; };
+		B857BB6122E1B2A900417A64 /* CPDiningDetailTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CPDiningDetailTableViewCell.swift; path = QatarMuseum/Common/CommonDetail/View/DiningDetailCell/CPDiningDetailTableViewCell.swift; sourceTree = SOURCE_ROOT; };
 		B857BB6422E1B32C00417A64 /* CPMuseumBottomCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CPMuseumBottomCell.swift; path = QatarMuseum/Modules/Museums/View/MuseumBottomCell/CPMuseumBottomCell.swift; sourceTree = SOURCE_ROOT; };
 		B857BB6622E1B36300417A64 /* EventCellView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = EventCellView.xib; path = QatarMuseum/Modules/Event/View/EventCollectionCell/EventCellView.xib; sourceTree = SOURCE_ROOT; };
 		B857BB6722E1B36300417A64 /* CPEventCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CPEventCollectionViewCell.swift; path = QatarMuseum/Modules/Event/View/EventCollectionCell/CPEventCollectionViewCell.swift; sourceTree = SOURCE_ROOT; };
@@ -475,7 +475,7 @@
 		B857BB9822E6EFC200417A64 /* FSCalendarTransitionCoordinator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSCalendarTransitionCoordinator.m; sourceTree = "<group>"; };
 		B857BB9A22E6EFC200417A64 /* FSCalendarAppearance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSCalendarAppearance.m; sourceTree = "<group>"; };
 		B85AE811217744D600A658A2 /* CPMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPMapViewController.swift; sourceTree = "<group>"; };
-		B85BA4AF20D01D1C00E7F4D1 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
+		B85BA4AF20D01D1C00E7F4D1 /* CPSplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPSplashViewController.swift; sourceTree = "<group>"; };
 		B85BA4B620D03CE500E7F4D1 /* iOSDevCenters+GIF.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "iOSDevCenters+GIF.swift"; sourceTree = "<group>"; };
 		B87F62EA225E2E6100ADCB1F /* Migration2to3.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = Migration2to3.xcmappingmodel; sourceTree = "<group>"; };
 		B88F07E7217DD5F600B16875 /* CPCulturePassCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPCulturePassCardViewController.swift; sourceTree = "<group>"; };
@@ -485,7 +485,7 @@
 		B8914A4322DB0B9B005C4BCC /* QatarMuseums_V4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = QatarMuseums_V4.xcdatamodel; sourceTree = "<group>"; };
 		B8914A4422DC549D005C4BCC /* Migration3to4.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = Migration3to4.xcmappingmodel; sourceTree = "<group>"; };
 		B8914A4622DD8800005C4BCC /* MigrationMappingPlocies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MigrationMappingPlocies.swift; sourceTree = "<group>"; };
-		B897351221B81C3200BB812C /* NMoQTourDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NMoQTourDetail.swift; sourceTree = "<group>"; };
+		B897351221B81C3200BB812C /* CPNMoQTourDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPNMoQTourDetail.swift; sourceTree = "<group>"; };
 		B8ADA8AA2164CC2E00127F9A /* CPPreviewContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPPreviewContentViewController.swift; sourceTree = "<group>"; };
 		B8ADA8AC2164CD4100127F9A /* CPPreviewContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPPreviewContainerViewController.swift; sourceTree = "<group>"; };
 		B8AFA2E820E78BA1008838A6 /* DINNextLTArabic-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DINNextLTArabic-Bold.ttf"; sourceTree = "<group>"; };
@@ -496,24 +496,24 @@
 		B8AFA2F020E78E06008838A6 /* DINNextLTPro-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DINNextLTPro-Bold.otf"; sourceTree = "<group>"; };
 		B8B2A18020D1491900E053A9 /* QMLogo.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = QMLogo.gif; sourceTree = "<group>"; };
 		B8B49439212EDDE300203C7F /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
-		B8B49560212DBAD8006F509B /* Museum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Museum.swift; sourceTree = "<group>"; };
+		B8B49560212DBAD8006F509B /* CPMuseum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPMuseum.swift; sourceTree = "<group>"; };
 		B8B54D6B20FF514E00B21348 /* CollectionDetailView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollectionDetailView.xib; sourceTree = "<group>"; };
 		B8B54D6D20FF516B00B21348 /* CPCollectionDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPCollectionDetailCell.swift; sourceTree = "<group>"; };
-		B8B7604B2100E7FC00CEE280 /* NotificationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsViewController.swift; sourceTree = "<group>"; };
-		B8B760502100E88E00CEE280 /* NotificationsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsTableViewCell.swift; sourceTree = "<group>"; };
+		B8B7604B2100E7FC00CEE280 /* CPNotificationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPNotificationsViewController.swift; sourceTree = "<group>"; };
+		B8B760502100E88E00CEE280 /* CPNotificationsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPNotificationsTableViewCell.swift; sourceTree = "<group>"; };
 		B8B79AC02189B75900370AAB /* CountryList.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = CountryList.json; sourceTree = "<group>"; };
 		B8B81FE220DE2C8A004885D0 /* CPMuseumsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPMuseumsViewController.swift; sourceTree = "<group>"; };
 		B8B81FE520DE2E47004885D0 /* KASlideShow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KASlideShow.h; sourceTree = "<group>"; };
 		B8B81FE620DE2E47004885D0 /* KASlideShow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KASlideShow.m; sourceTree = "<group>"; };
 		B8BA80B420CCDDA3007E880A /* CPProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPProfileViewController.swift; sourceTree = "<group>"; };
-		B8BA80B620CD8297007E880A /* CommonListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonListViewController.swift; sourceTree = "<group>"; };
+		B8BA80B620CD8297007E880A /* CPCommonListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPCommonListViewController.swift; sourceTree = "<group>"; };
 		B8BA80B920CD8305007E880A /* CommonListCellXib.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CommonListCellXib.xib; sourceTree = "<group>"; };
-		B8BA80BB20CD831D007E880A /* CommonListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonListCell.swift; sourceTree = "<group>"; };
-		B8BBF458211C1AC000352706 /* ParksList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParksList.swift; sourceTree = "<group>"; };
-		B8BCE89F21C28ED20083DC35 /* GoogleDirections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleDirections.swift; sourceTree = "<group>"; };
-		B8BD1DA621298AA500150A01 /* EducationEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EducationEvent.swift; sourceTree = "<group>"; };
+		B8BA80BB20CD831D007E880A /* CPCommonListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPCommonListCell.swift; sourceTree = "<group>"; };
+		B8BBF458211C1AC000352706 /* CPParksList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPParksList.swift; sourceTree = "<group>"; };
+		B8BCE89F21C28ED20083DC35 /* CPGoogleDirections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPGoogleDirections.swift; sourceTree = "<group>"; };
+		B8BD1DA621298AA500150A01 /* CPEducationEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPEducationEvent.swift; sourceTree = "<group>"; };
 		B8BD3A6C212C77B8006D440A /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
-		B8C1C2BC21160B7300531AB3 /* PublicArtsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicArtsList.swift; sourceTree = "<group>"; };
+		B8C1C2BC21160B7300531AB3 /* CPPublicArtsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPPublicArtsList.swift; sourceTree = "<group>"; };
 		B8C31CE0216243F700AE7788 /* iCarousel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iCarousel.m; sourceTree = "<group>"; };
 		B8C31CE1216243F700AE7788 /* iCarousel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iCarousel.h; sourceTree = "<group>"; };
 		B8C31CE321626E9100AE7788 /* CPMuseumAboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPMuseumAboutViewController.swift; sourceTree = "<group>"; };
@@ -521,9 +521,9 @@
 		B8C367F72254D325005E4305 /* MiaTourHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MiaTourHeaderView.xib; sourceTree = "<group>"; };
 		B8C64C9B20FE380D00D7CD63 /* CPMiaTourDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPMiaTourDetailViewController.swift; sourceTree = "<group>"; };
 		B8C64D4C20FDDBB700C2D51A /* MiaCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiaCollectionReusableView.swift; sourceTree = "<group>"; };
-		B8C700842116F833006F3653 /* PublicArtsDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicArtsDetail.swift; sourceTree = "<group>"; };
-		B8CA08D62146D38400783642 /* ObjectPopupTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectPopupTableViewCell.swift; sourceTree = "<group>"; };
-		B8CA08D72146D38400783642 /* MapDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapDetailView.swift; sourceTree = "<group>"; };
+		B8C700842116F833006F3653 /* CPPublicArtsDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPPublicArtsDetail.swift; sourceTree = "<group>"; };
+		B8CA08D62146D38400783642 /* CPObjectPopupTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPObjectPopupTableViewCell.swift; sourceTree = "<group>"; };
+		B8CA08D72146D38400783642 /* CPMapDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPMapDetailView.swift; sourceTree = "<group>"; };
 		B8CA08DB2146D38400783642 /* ObjectPopupView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ObjectPopupView.xib; sourceTree = "<group>"; };
 		B8CA08DC2146D38400783642 /* MapDetailCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MapDetailCell.xib; sourceTree = "<group>"; };
 		B8CA08DE2146D38400783642 /* MapDetailView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MapDetailView.xib; sourceTree = "<group>"; };
@@ -537,9 +537,9 @@
 		B8D2FC5022C0C70A00A570BD /* CPObjectDetailViewController+TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CPObjectDetailViewController+TableView.swift"; sourceTree = "<group>"; };
 		B8D2FC5422C0CC7F00A570BD /* CPEventViewController+CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CPEventViewController+CoreData.swift"; sourceTree = "<group>"; };
 		B8D2FC5622C0CCBB00A570BD /* CPEventViewController+CollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CPEventViewController+CollectionView.swift"; sourceTree = "<group>"; };
-		B8D2FC5922C0DC7C00A570BD /* CommonLisViewController+CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CommonLisViewController+CoreData.swift"; sourceTree = "<group>"; };
-		B8D2FC5B22C0DCAD00A570BD /* CommonListViewController+TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CommonListViewController+TableView.swift"; sourceTree = "<group>"; };
-		B8D2FC5D22C0DE4400A570BD /* CommonListViewController+ReusableViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CommonListViewController+ReusableViews.swift"; sourceTree = "<group>"; };
+		B8D2FC5922C0DC7C00A570BD /* CPCommonLisViewController+CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CPCommonLisViewController+CoreData.swift"; sourceTree = "<group>"; };
+		B8D2FC5B22C0DCAD00A570BD /* CPCommonListViewController+TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CPCommonListViewController+TableView.swift"; sourceTree = "<group>"; };
+		B8D2FC5D22C0DE4400A570BD /* CPCommonListViewController+ReusableViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CPCommonListViewController+ReusableViews.swift"; sourceTree = "<group>"; };
 		B8D2FC6922C1BE4F00A570BD /* CommonDetailViewController+CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CommonDetailViewController+CoreData.swift"; sourceTree = "<group>"; };
 		B8D2FC6B22C1BE6500A570BD /* CommonDetailViewController+TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CommonDetailViewController+TableView.swift"; sourceTree = "<group>"; };
 		B8D2FC6D22C1BEB200A570BD /* CommonDetailViewController+Mail+Carousel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CommonDetailViewController+Mail+Carousel.swift"; sourceTree = "<group>"; };
@@ -547,11 +547,11 @@
 		B8D2FC7122C1C3ED00A570BD /* CPFloorMapViewController+CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CPFloorMapViewController+CoreData.swift"; sourceTree = "<group>"; };
 		B8D2FC7322C1E0B700A570BD /* CPMuseumsViewController+CollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CPMuseumsViewController+CollectionView.swift"; sourceTree = "<group>"; };
 		B8D2FC7522C1E2B100A570BD /* CPMuseumsViewController+CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CPMuseumsViewController+CoreData.swift"; sourceTree = "<group>"; };
-		B8D2FC7722C1E58600A570BD /* NotificationsViewController+TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationsViewController+TableView.swift"; sourceTree = "<group>"; };
-		B8D2FC7922C1E65E00A570BD /* NotificationsViewController+CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationsViewController+CoreData.swift"; sourceTree = "<group>"; };
+		B8D2FC7722C1E58600A570BD /* CPNotificationsViewController+TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CPNotificationsViewController+TableView.swift"; sourceTree = "<group>"; };
+		B8D2FC7922C1E65E00A570BD /* CPNotificationsViewController+CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CPNotificationsViewController+CoreData.swift"; sourceTree = "<group>"; };
 		B8D2FC7B22C1EDDB00A570BD /* CPFilterViewController+PickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CPFilterViewController+PickerView.swift"; sourceTree = "<group>"; };
-		B8D2FC7D22C1F03000A570BD /* SettingsViewController+Mail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SettingsViewController+Mail.swift"; sourceTree = "<group>"; };
-		B8D4B8D62114465100937180 /* Heritage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Heritage.swift; sourceTree = "<group>"; };
+		B8D2FC7D22C1F03000A570BD /* CPSettingsViewController+Mail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CPSettingsViewController+Mail.swift"; sourceTree = "<group>"; };
+		B8D4B8D62114465100937180 /* CPHeritage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPHeritage.swift; sourceTree = "<group>"; };
 		B8D4C535210453FB0096912C /* CPFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPFilterViewController.swift; sourceTree = "<group>"; };
 		B8D712FF2250B463000ED7AA /* QatarMuseums.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = QatarMuseums.xcdatamodel; sourceTree = "<group>"; };
 		B8D713012250B4AB000ED7AA /* QatarMuseums_V2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = QatarMuseums_V2.xcdatamodel; sourceTree = "<group>"; };
@@ -560,14 +560,14 @@
 		B8DB500121B25D9000C5DD10 /* PanelDetailView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PanelDetailView.xib; sourceTree = "<group>"; };
 		B8DB500521B2A36E00C5DD10 /* CPPanelDiscussionDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPPanelDiscussionDetailViewController.swift; sourceTree = "<group>"; };
 		B8DC40A420C9A3230044134D /* CommonHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CommonHeader.xib; sourceTree = "<group>"; };
-		B8DC40A620C9A33A0044134D /* CommonHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonHeaderView.swift; sourceTree = "<group>"; };
+		B8DC40A620C9A33A0044134D /* CPCommonHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPCommonHeaderView.swift; sourceTree = "<group>"; };
 		B8DC40A820C9A5760044134D /* CPEventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPEventViewController.swift; sourceTree = "<group>"; };
-		B8DDBC7C21AD78AA007B3A06 /* HomeBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeBanner.swift; sourceTree = "<group>"; };
-		B8E01BF82105EDFB008D7F33 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
-		B8E01BFB21060FDC008D7F33 /* AppLocalizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppLocalizer.swift; sourceTree = "<group>"; };
-		B8E01BFC21060FDC008D7F33 /* LocalizationLanguage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalizationLanguage.swift; sourceTree = "<group>"; };
+		B8DDBC7C21AD78AA007B3A06 /* CPHomeBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPHomeBanner.swift; sourceTree = "<group>"; };
+		B8E01BF82105EDFB008D7F33 /* CPSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPSettingsViewController.swift; sourceTree = "<group>"; };
+		B8E01BFB21060FDC008D7F33 /* CPAppLocalizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPAppLocalizer.swift; sourceTree = "<group>"; };
+		B8E01BFC21060FDC008D7F33 /* CPLocalizationLanguage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPLocalizationLanguage.swift; sourceTree = "<group>"; };
 		B8E2C00D20C7E9CA00F3CE41 /* ComingSoonpopup.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ComingSoonpopup.xib; sourceTree = "<group>"; };
-		B8E2C00F20C7E9E900F3CE41 /* ComingSoonPopUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComingSoonPopUp.swift; sourceTree = "<group>"; };
+		B8E2C00F20C7E9E900F3CE41 /* CPComingSoonPopUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPComingSoonPopUp.swift; sourceTree = "<group>"; };
 		B8E2C01220C7FD0000F3CE41 /* SideMenu.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SideMenu.xib; sourceTree = "<group>"; };
 		B8E2C01420C7FD6800F3CE41 /* CPSideMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPSideMenuView.swift; sourceTree = "<group>"; };
 		B8EAA3582158D4520060D168 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -576,13 +576,13 @@
 		B8EAB7B720CA424300C001B2 /* CalendarConfigViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarConfigViewController.swift; sourceTree = "<group>"; };
 		B8EAB7B820CA424300C001B2 /* LunarFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LunarFormatter.swift; sourceTree = "<group>"; };
 		B8EAB7BF20CA67CD00C001B2 /* EventPopUp.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EventPopUp.xib; sourceTree = "<group>"; };
-		B8EAB7C120CA67E000C001B2 /* EventPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventPopupView.swift; sourceTree = "<group>"; };
+		B8EAB7C120CA67E000C001B2 /* CPEventPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPEventPopupView.swift; sourceTree = "<group>"; };
 		B8F00C8221787CF800320DF1 /* LoginPopupView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginPopupView.xib; sourceTree = "<group>"; };
-		B8F00C8421787D0D00320DF1 /* LoginPopupPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPopupPage.swift; sourceTree = "<group>"; };
+		B8F00C8421787D0D00320DF1 /* CPLoginPopupPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPLoginPopupPage.swift; sourceTree = "<group>"; };
 		B8F00C862178D74800320DF1 /* CPRegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPRegistrationViewController.swift; sourceTree = "<group>"; };
 		B8F305F42256136500117478 /* QatarMuseums_V3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = QatarMuseums_V3.xcdatamodel; sourceTree = "<group>"; };
 		B8F3A93F212728EE005360AD /* CommonStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonStrings.swift; sourceTree = "<group>"; };
-		B8FEC77B2112E57100648F66 /* Dining.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dining.swift; sourceTree = "<group>"; };
+		B8FEC77B2112E57100648F66 /* CPDining.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPDining.swift; sourceTree = "<group>"; };
 		FF0C898808E8CD16BED3F913 /* Pods-QatarMuseums.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QatarMuseums.release.xcconfig"; path = "Pods/Target Support Files/Pods-QatarMuseums/Pods-QatarMuseums.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -699,7 +699,7 @@
 		1B51B3D32121B658002B84AA /* ObjectDetailCell */ = {
 			isa = PBXGroup;
 			children = (
-				1B51B3D42121B6A9002B84AA /* ObjectDetailTableViewCell.swift */,
+				1B51B3D42121B6A9002B84AA /* CPObjectDetailTableViewCell.swift */,
 			);
 			name = ObjectDetailCell;
 			path = ../../ReusableComponents/ObjectDetailCell;
@@ -709,7 +709,7 @@
 			isa = PBXGroup;
 			children = (
 				1BAA2FCA2125FCC500D785DD /* ObjectImageXib.xib */,
-				1BAA2FCC2125FD8200D785DD /* ObjectImageView.swift */,
+				1BAA2FCC2125FD8200D785DD /* CPObjectImageView.swift */,
 			);
 			name = ObjectImageView;
 			path = ../../ReusableComponents/ObjectImageView;
@@ -729,9 +729,9 @@
 		1BE526CE210738B600C8CD51 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				1BE526CF210739BE00C8CD51 /* Request.swift */,
-				1BE526D12107460F00C8CD51 /* QatarMuseumRouter.swift */,
-				1BE526D32107470700C8CD51 /* Config.swift */,
+				1BE526CF210739BE00C8CD51 /* CPRequest.swift */,
+				1BE526D12107460F00C8CD51 /* CPQatarMuseumRouter.swift */,
+				1BE526D32107470700C8CD51 /* CPConfig.swift */,
 				49504223226311EC00F320EF /* CPSessionManager.swift */,
 				B8914A2522D616C0005C4BCC /* AppConstants.swift */,
 			);
@@ -742,32 +742,32 @@
 			isa = PBXGroup;
 			children = (
 				1BE526D62107896600C8CD51 /* CPExhibition.swift */,
-				1BC909D1210B277F00D6C00B /* Home.swift */,
-				B8FEC77B2112E57100648F66 /* Dining.swift */,
-				B8D4B8D62114465100937180 /* Heritage.swift */,
-				B8C1C2BC21160B7300531AB3 /* PublicArtsList.swift */,
-				B8C700842116F833006F3653 /* PublicArtsDetail.swift */,
-				B8BBF458211C1AC000352706 /* ParksList.swift */,
-				1BAA2FCE2126D15D00D785DD /* Collection.swift */,
-				B8BD1DA621298AA500150A01 /* EducationEvent.swift */,
-				B8B49560212DBAD8006F509B /* Museum.swift */,
-				B806B7D62152BE6A00F9534F /* CollectionDetail.swift */,
-				1B51411D215B892D0055AAF5 /* TourGuide.swift */,
-				B816029D215A239900786F94 /* TourGuideFloorMap.swift */,
-				B84BA05F217EE3C000FD2C0D /* TokenData.swift */,
-				B84BA061217F1A6300FD2C0D /* LoginData.swift */,
-				B82E1B3221808229006623A6 /* LogoutData.swift */,
-				1B7031ED218AFDB200B0E05B /* Notification.swift */,
-				B8DDBC7C21AD78AA007B3A06 /* HomeBanner.swift */,
-				B84C9D8A21B5497E00DCB95C /* NMoQTour.swift */,
-				B897351221B81C3200BB812C /* NMoQTourDetail.swift */,
-				B8234F4821BA6D3800760DEC /* NMoQUserEventList.swift */,
-				B8234F4A21BA7D8600760DEC /* NMoQEntityRegistration.swift */,
-				B8BCE89F21C28ED20083DC35 /* GoogleDirections.swift */,
-				B843D9DF223F8E14003C1DF6 /* Facilities.swift */,
-				B843D9E1223FAB82003C1DF6 /* FacilitiesDetail.swift */,
-				B841715E224256D300B58E27 /* NMoQActivitiesList.swift */,
-				1B10D12C2244136100AA77E9 /* NMoQParkDetail.swift */,
+				1BC909D1210B277F00D6C00B /* CPHome.swift */,
+				B8FEC77B2112E57100648F66 /* CPDining.swift */,
+				B8D4B8D62114465100937180 /* CPHeritage.swift */,
+				B8C1C2BC21160B7300531AB3 /* CPPublicArtsList.swift */,
+				B8C700842116F833006F3653 /* CPPublicArtsDetail.swift */,
+				B8BBF458211C1AC000352706 /* CPParksList.swift */,
+				1BAA2FCE2126D15D00D785DD /* CPCollection.swift */,
+				B8BD1DA621298AA500150A01 /* CPEducationEvent.swift */,
+				B8B49560212DBAD8006F509B /* CPMuseum.swift */,
+				B806B7D62152BE6A00F9534F /* CPCollectionDetail.swift */,
+				1B51411D215B892D0055AAF5 /* CPTourGuide.swift */,
+				B816029D215A239900786F94 /* CPTourGuideFloorMap.swift */,
+				B84BA05F217EE3C000FD2C0D /* CPTokenData.swift */,
+				B84BA061217F1A6300FD2C0D /* CPLoginData.swift */,
+				B82E1B3221808229006623A6 /* CPLogoutData.swift */,
+				1B7031ED218AFDB200B0E05B /* CPNotification.swift */,
+				B8DDBC7C21AD78AA007B3A06 /* CPHomeBanner.swift */,
+				B84C9D8A21B5497E00DCB95C /* CPNMoQTour.swift */,
+				B897351221B81C3200BB812C /* CPNMoQTourDetail.swift */,
+				B8234F4821BA6D3800760DEC /* CPNMoQUserEventList.swift */,
+				B8234F4A21BA7D8600760DEC /* CPNMoQEntityRegistration.swift */,
+				B8BCE89F21C28ED20083DC35 /* CPGoogleDirections.swift */,
+				B843D9DF223F8E14003C1DF6 /* CPFacilities.swift */,
+				B843D9E1223FAB82003C1DF6 /* CPFacilitiesDetail.swift */,
+				B841715E224256D300B58E27 /* CPNMoQActivitiesList.swift */,
+				1B10D12C2244136100AA77E9 /* CPNMoQParkDetail.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -871,7 +871,7 @@
 		B317C534229470EE0054CDDA /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				B317C5352294710E0054CDDA /* Utils.swift */,
+				B317C5352294710E0054CDDA /* CPUtils.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -985,7 +985,7 @@
 			isa = PBXGroup;
 			children = (
 				B80DC09120C7A9CE00E28034 /* TopBarView.xib */,
-				B80DC09320C7A9F500E28034 /* TopBarView.swift */,
+				B80DC09320C7A9F500E28034 /* CPTopBarView.swift */,
 			);
 			path = TopBarView;
 			sourceTree = "<group>";
@@ -993,13 +993,13 @@
 		B80DFF2D2251F68C004E8EA6 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				B32B8C5522A96B7200D728BD /* DataManager.swift */,
-				B37E794722B498A400125CA8 /* DataManager+Fetch.swift */,
-				B80DFF2E2251F6A1004E8EA6 /* CoreDataManager.swift */,
-				B80DFF302251F6BF004E8EA6 /* CoreDataMigrationModel.swift */,
-				B80DFF322251F6D6004E8EA6 /* CoreDataMigrationStep.swift */,
-				B80DFF342251F6ED004E8EA6 /* CoreDataVersion.swift */,
-				B80DFF362251F70C004E8EA6 /* CoreDataMigrator.swift */,
+				B32B8C5522A96B7200D728BD /* CPDataManager.swift */,
+				B37E794722B498A400125CA8 /* CPDataManager+Fetch.swift */,
+				B80DFF2E2251F6A1004E8EA6 /* CPCoreDataManager.swift */,
+				B80DFF302251F6BF004E8EA6 /* CPCoreDataMigrationModel.swift */,
+				B80DFF322251F6D6004E8EA6 /* CPCoreDataMigrationStep.swift */,
+				B80DFF342251F6ED004E8EA6 /* CPCoreDataVersion.swift */,
+				B80DFF362251F70C004E8EA6 /* CPCoreDataMigrator.swift */,
 				B80DFF382251F882004E8EA6 /* MIgration1.xcmappingmodel */,
 				B87F62EA225E2E6100ADCB1F /* Migration2to3.xcmappingmodel */,
 				B8914A4422DC549D005C4BCC /* Migration3to4.xcmappingmodel */,
@@ -1135,7 +1135,7 @@
 			isa = PBXGroup;
 			children = (
 				B857BB6022E1B2A900417A64 /* DiningDetailCellView.xib */,
-				B857BB6122E1B2A900417A64 /* DiningDetailTableViewCell.swift */,
+				B857BB6122E1B2A900417A64 /* CPDiningDetailTableViewCell.swift */,
 			);
 			name = DiningDetailCell;
 			path = ../../../ReusableComponents/DiningDetailCell;
@@ -1307,7 +1307,7 @@
 		B8B7604D2100E86600CEE280 /* NotificationsList */ = {
 			isa = PBXGroup;
 			children = (
-				B8B760502100E88E00CEE280 /* NotificationsTableViewCell.swift */,
+				B8B760502100E88E00CEE280 /* CPNotificationsTableViewCell.swift */,
 			);
 			path = NotificationsList;
 			sourceTree = "<group>";
@@ -1325,7 +1325,7 @@
 			isa = PBXGroup;
 			children = (
 				B8BA80B920CD8305007E880A /* CommonListCellXib.xib */,
-				B8BA80BB20CD831D007E880A /* CommonListCell.swift */,
+				B8BA80BB20CD831D007E880A /* CPCommonListCell.swift */,
 			);
 			name = CommonListCell;
 			path = ../../ReusableComponents/CommonListCell;
@@ -1353,8 +1353,8 @@
 		B8CA08D52146D38400783642 /* BottomSheet */ = {
 			isa = PBXGroup;
 			children = (
-				B8CA08D62146D38400783642 /* ObjectPopupTableViewCell.swift */,
-				B8CA08D72146D38400783642 /* MapDetailView.swift */,
+				B8CA08D62146D38400783642 /* CPObjectPopupTableViewCell.swift */,
+				B8CA08D72146D38400783642 /* CPMapDetailView.swift */,
 				B8CA08DB2146D38400783642 /* ObjectPopupView.xib */,
 				B8CA08DC2146D38400783642 /* MapDetailCell.xib */,
 				B8CA08DE2146D38400783642 /* MapDetailView.xib */,
@@ -1365,7 +1365,7 @@
 		B8CAA93920DC1557009A936D /* HeritageDetailCell */ = {
 			isa = PBXGroup;
 			children = (
-				B857BB5822E1B25F00417A64 /* CommonDetailCell.swift */,
+				B857BB5822E1B25F00417A64 /* CPCommonDetailCell.swift */,
 				B857BB5922E1B25F00417A64 /* HeritageDetailView.xib */,
 			);
 			name = HeritageDetailCell;
@@ -1527,10 +1527,10 @@
 		B8D2FC8322C1F13400A570BD /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				B8BA80B620CD8297007E880A /* CommonListViewController.swift */,
-				B8D2FC5922C0DC7C00A570BD /* CommonLisViewController+CoreData.swift */,
-				B8D2FC5B22C0DCAD00A570BD /* CommonListViewController+TableView.swift */,
-				B8D2FC5D22C0DE4400A570BD /* CommonListViewController+ReusableViews.swift */,
+				B8BA80B620CD8297007E880A /* CPCommonListViewController.swift */,
+				B8D2FC5922C0DC7C00A570BD /* CPCommonLisViewController+CoreData.swift */,
+				B8D2FC5B22C0DCAD00A570BD /* CPCommonListViewController+TableView.swift */,
+				B8D2FC5D22C0DE4400A570BD /* CPCommonListViewController+ReusableViews.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1538,7 +1538,7 @@
 		B8D2FC8422C1F14200A570BD /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				B85BA4AF20D01D1C00E7F4D1 /* SplashViewController.swift */,
+				B85BA4AF20D01D1C00E7F4D1 /* CPSplashViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1575,9 +1575,9 @@
 		B8D2FC8822C1F18300A570BD /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				B8B7604B2100E7FC00CEE280 /* NotificationsViewController.swift */,
-				B8D2FC7722C1E58600A570BD /* NotificationsViewController+TableView.swift */,
-				B8D2FC7922C1E65E00A570BD /* NotificationsViewController+CoreData.swift */,
+				B8B7604B2100E7FC00CEE280 /* CPNotificationsViewController.swift */,
+				B8D2FC7722C1E58600A570BD /* CPNotificationsViewController+TableView.swift */,
+				B8D2FC7922C1E65E00A570BD /* CPNotificationsViewController+CoreData.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1602,8 +1602,8 @@
 		B8D2FC8B22C1F1B300A570BD /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				B8E01BF82105EDFB008D7F33 /* SettingsViewController.swift */,
-				B8D2FC7D22C1F03000A570BD /* SettingsViewController+Mail.swift */,
+				B8E01BF82105EDFB008D7F33 /* CPSettingsViewController.swift */,
+				B8D2FC7D22C1F03000A570BD /* CPSettingsViewController+Mail.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1830,7 +1830,7 @@
 			isa = PBXGroup;
 			children = (
 				B8DC40A420C9A3230044134D /* CommonHeader.xib */,
-				B8DC40A620C9A33A0044134D /* CommonHeaderView.swift */,
+				B8DC40A620C9A33A0044134D /* CPCommonHeaderView.swift */,
 			);
 			path = CommonHeader;
 			sourceTree = "<group>";
@@ -1839,7 +1839,7 @@
 			isa = PBXGroup;
 			children = (
 				B857BB5D22E1B28700417A64 /* ParkTableCellXib.xib */,
-				B857BB5C22E1B28700417A64 /* ParkTableViewCell.swift */,
+				B857BB5C22E1B28700417A64 /* CPParkTableViewCell.swift */,
 			);
 			name = ParkCell;
 			path = ../../../ReusableComponents/ParkCell;
@@ -1848,8 +1848,8 @@
 		B8E01BFA21060FBC008D7F33 /* RTLSupportFiles */ = {
 			isa = PBXGroup;
 			children = (
-				B8E01BFB21060FDC008D7F33 /* AppLocalizer.swift */,
-				B8E01BFC21060FDC008D7F33 /* LocalizationLanguage.swift */,
+				B8E01BFB21060FDC008D7F33 /* CPAppLocalizer.swift */,
+				B8E01BFC21060FDC008D7F33 /* CPLocalizationLanguage.swift */,
 			);
 			name = RTLSupportFiles;
 			path = ../ReusableComponents/RTLSupportFiles;
@@ -1858,7 +1858,7 @@
 		B8E284FA20CE3AC2007867BE /* Exhibitionsdetail */ = {
 			isa = PBXGroup;
 			children = (
-				B857BB5422E1AF8600417A64 /* ExhibitionDetailTableViewCell.swift */,
+				B857BB5422E1AF8600417A64 /* CPExhibitionDetailTableViewCell.swift */,
 				B857BB5522E1AF8600417A64 /* ExhibitionDetailView.xib */,
 			);
 			name = Exhibitionsdetail;
@@ -1869,7 +1869,7 @@
 			isa = PBXGroup;
 			children = (
 				B8E2C00D20C7E9CA00F3CE41 /* ComingSoonpopup.xib */,
-				B8E2C00F20C7E9E900F3CE41 /* ComingSoonPopUp.swift */,
+				B8E2C00F20C7E9E900F3CE41 /* CPComingSoonPopUp.swift */,
 			);
 			path = ComingSoonPopup;
 			sourceTree = "<group>";
@@ -1907,7 +1907,7 @@
 			isa = PBXGroup;
 			children = (
 				B8EAB7BF20CA67CD00C001B2 /* EventPopUp.xib */,
-				B8EAB7C120CA67E000C001B2 /* EventPopupView.swift */,
+				B8EAB7C120CA67E000C001B2 /* CPEventPopupView.swift */,
 			);
 			name = EventPopup;
 			path = ../../ReusableComponents/EventPopup;
@@ -1917,7 +1917,7 @@
 			isa = PBXGroup;
 			children = (
 				B8F00C8221787CF800320DF1 /* LoginPopupView.xib */,
-				B8F00C8421787D0D00320DF1 /* LoginPopupPage.swift */,
+				B8F00C8421787D0D00320DF1 /* CPLoginPopupPage.swift */,
 			);
 			name = LoginPopup;
 			path = ../../ReusableComponents/LoginPopup;
@@ -2228,36 +2228,36 @@
 			files = (
 				496DF32A225B08EF00BD8BD1 /* CPLogger.swift in Sources */,
 				B8B81FE320DE2C8A004885D0 /* CPMuseumsViewController.swift in Sources */,
-				B8C1C2BD21160B7300531AB3 /* PublicArtsList.swift in Sources */,
-				B857BB5E22E1B28700417A64 /* ParkTableViewCell.swift in Sources */,
-				B80DC09420C7A9F500E28034 /* TopBarView.swift in Sources */,
-				B8E01BFE21060FDC008D7F33 /* LocalizationLanguage.swift in Sources */,
+				B8C1C2BD21160B7300531AB3 /* CPPublicArtsList.swift in Sources */,
+				B857BB5E22E1B28700417A64 /* CPParkTableViewCell.swift in Sources */,
+				B80DC09420C7A9F500E28034 /* CPTopBarView.swift in Sources */,
+				B8E01BFE21060FDC008D7F33 /* CPLocalizationLanguage.swift in Sources */,
 				B857BBAD22E6EFC200417A64 /* FSCalendarAppearance.m in Sources */,
 				B82729B921778B2F0017EC71 /* VersaPlayerGestureRecieverView.swift in Sources */,
 				B85BA4B720D03CE500E7F4D1 /* iOSDevCenters+GIF.swift in Sources */,
 				B857BBA822E6EFC200417A64 /* FSCalendarConstants.m in Sources */,
 				B82729BF21778B2F0017EC71 /* VersaPlayerControls.swift in Sources */,
-				B84C9D8B21B5497E00DCB95C /* NMoQTour.swift in Sources */,
-				B8E01BFD21060FDC008D7F33 /* AppLocalizer.swift in Sources */,
+				B84C9D8B21B5497E00DCB95C /* CPNMoQTour.swift in Sources */,
+				B8E01BFD21060FDC008D7F33 /* CPAppLocalizer.swift in Sources */,
 				B8C64C9C20FE380D00D7CD63 /* CPMiaTourDetailViewController.swift in Sources */,
 				B8DB500621B2A36E00C5DD10 /* CPPanelDiscussionDetailViewController.swift in Sources */,
 				B832791C22C0AADB00B6996D /* CPPreviewContaineriewController+CoreDara.swift in Sources */,
-				1B51B3D52121B6A9002B84AA /* ObjectDetailTableViewCell.swift in Sources */,
+				1B51B3D52121B6A9002B84AA /* CPObjectDetailTableViewCell.swift in Sources */,
 				B8D7BF452101A12E0085EF49 /* CPEducationViewController.swift in Sources */,
 				1B51B3D221219367002B84AA /* CPObjectDetailViewController.swift in Sources */,
-				1BAA2FCF2126D15D00D785DD /* Collection.swift in Sources */,
-				B80DFF2F2251F6A1004E8EA6 /* CoreDataManager.swift in Sources */,
+				1BAA2FCF2126D15D00D785DD /* CPCollection.swift in Sources */,
+				B80DFF2F2251F6A1004E8EA6 /* CPCoreDataManager.swift in Sources */,
 				B82729B521778B2F0017EC71 /* VPlayer.swift in Sources */,
 				B8C31CE2216243F800AE7788 /* iCarousel.m in Sources */,
-				B8CA08E02146D38400783642 /* MapDetailView.swift in Sources */,
+				B8CA08E02146D38400783642 /* CPMapDetailView.swift in Sources */,
 				B8C31CE421626E9100AE7788 /* CPMuseumAboutViewController.swift in Sources */,
 				B80DFF392251F882004E8EA6 /* MIgration1.xcmappingmodel in Sources */,
 				B8B4943A212EDDE300203C7F /* ToastView.swift in Sources */,
 				B8D2FC7622C1E2B100A570BD /* CPMuseumsViewController+CoreData.swift in Sources */,
-				B82E1B3321808229006623A6 /* LogoutData.swift in Sources */,
-				B897351321B81C3200BB812C /* NMoQTourDetail.swift in Sources */,
-				B8234F4B21BA7D8600760DEC /* NMoQEntityRegistration.swift in Sources */,
-				B8BBF459211C1AC000352706 /* ParksList.swift in Sources */,
+				B82E1B3321808229006623A6 /* CPLogoutData.swift in Sources */,
+				B897351321B81C3200BB812C /* CPNMoQTourDetail.swift in Sources */,
+				B8234F4B21BA7D8600760DEC /* CPNMoQEntityRegistration.swift in Sources */,
+				B8BBF459211C1AC000352706 /* CPParksList.swift in Sources */,
 				B811FBCC2103811400960246 /* QMColours.swift in Sources */,
 				1EECB2EA22C08BC000A0AB6B /* CPHomeViewController+TableView.swift in Sources */,
 				B8F3A940212728EE005360AD /* CommonStrings.swift in Sources */,
@@ -2266,28 +2266,28 @@
 				1BE526D72107896600C8CD51 /* CPExhibition.swift in Sources */,
 				1B444A3A21AE9F03009FF40F /* CPTourAndPanelListViewController.swift in Sources */,
 				B82729B821778B2F0017EC71 /* VersaPlayerControlsBehaviour.swift in Sources */,
-				B85BA4B020D01D1C00E7F4D1 /* SplashViewController.swift in Sources */,
+				B85BA4B020D01D1C00E7F4D1 /* CPSplashViewController.swift in Sources */,
 				B80674322240CFF000885544 /* ParkListTableViewCell.swift in Sources */,
 				B806B7A5212451B200F9F338 /* CPFloorMapViewController.swift in Sources */,
-				B8D2FC5C22C0DCAD00A570BD /* CommonListViewController+TableView.swift in Sources */,
+				B8D2FC5C22C0DCAD00A570BD /* CPCommonListViewController+TableView.swift in Sources */,
 				B8DC40A920C9A5760044134D /* CPEventViewController.swift in Sources */,
 				B832792C22C0C16000B6996D /* CPArtificialNumberPadViewController+CollectionView.swift in Sources */,
 				B832792922C0B4F200B6996D /* CPCulturePassViewController+Webcall+CoreData.swift in Sources */,
-				B8D2FC5E22C0DE4400A570BD /* CommonListViewController+ReusableViews.swift in Sources */,
-				1B51411E215B892E0055AAF5 /* TourGuide.swift in Sources */,
-				B80DFF352251F6ED004E8EA6 /* CoreDataVersion.swift in Sources */,
+				B8D2FC5E22C0DE4400A570BD /* CPCommonListViewController+ReusableViews.swift in Sources */,
+				1B51411E215B892E0055AAF5 /* CPTourGuide.swift in Sources */,
+				B80DFF352251F6ED004E8EA6 /* CPCoreDataVersion.swift in Sources */,
 				B832790C22C09C7700B6996D /* CPTourAndPanelListViewController+TableView.swift in Sources */,
 				B857BB6C22E1B38500417A64 /* CPArtifactNumberPadCell.swift in Sources */,
-				B8BA80B720CD8297007E880A /* CommonListViewController.swift in Sources */,
-				B8BA80BC20CD831D007E880A /* CommonListCell.swift in Sources */,
-				B8B49561212DBAD8006F509B /* Museum.swift in Sources */,
+				B8BA80B720CD8297007E880A /* CPCommonListViewController.swift in Sources */,
+				B8BA80BC20CD831D007E880A /* CPCommonListCell.swift in Sources */,
+				B8B49561212DBAD8006F509B /* CPMuseum.swift in Sources */,
 				B857BB9B22E6EFC200417A64 /* FSCalendarCollectionView.m in Sources */,
 				B82729B021778B2F0017EC71 /* VPlayerLayer.swift in Sources */,
-				B857BB5A22E1B25F00417A64 /* CommonDetailCell.swift in Sources */,
+				B857BB5A22E1B25F00417A64 /* CPCommonDetailCell.swift in Sources */,
 				B8D2FC6C22C1BE6500A570BD /* CommonDetailViewController+TableView.swift in Sources */,
 				B8C31CE62162821300AE7788 /* CPMuseumAboutCell.swift in Sources */,
 				B857BBA522E6EFC200417A64 /* FSCalendarWeekdayView.m in Sources */,
-				B80DFF372251F70C004E8EA6 /* CoreDataMigrator.swift in Sources */,
+				B80DFF372251F70C004E8EA6 /* CPCoreDataMigrator.swift in Sources */,
 				B8D2FC7022C1C35D00A570BD /* CPFloorMapViewController+MapMethods.swift in Sources */,
 				B81FF06D21AFBA36006A968B /* NMoQHeaderCell.swift in Sources */,
 				B82729BD21778B2F0017EC71 /* VersaStatefulButton.swift in Sources */,
@@ -2297,50 +2297,50 @@
 				B832791F22C0AC3700B6996D /* CPPreviewContentViewController+TableView.swift in Sources */,
 				B8914A2622D616C0005C4BCC /* AppConstants.swift in Sources */,
 				B82729B121778B2F0017EC71 /* VPlayerRenderingView.swift in Sources */,
-				B857BB5622E1AF8600417A64 /* ExhibitionDetailTableViewCell.swift in Sources */,
-				B8EAB7C220CA67E000C001B2 /* EventPopupView.swift in Sources */,
+				B857BB5622E1AF8600417A64 /* CPExhibitionDetailTableViewCell.swift in Sources */,
+				B8EAB7C220CA67E000C001B2 /* CPEventPopupView.swift in Sources */,
 				B8D2FC7C22C1EDDB00A570BD /* CPFilterViewController+PickerView.swift in Sources */,
 				B8E2C01520C7FD6800F3CE41 /* CPSideMenuView.swift in Sources */,
-				1BE526D0210739BF00C8CD51 /* Request.swift in Sources */,
+				1BE526D0210739BF00C8CD51 /* CPRequest.swift in Sources */,
 				B857BBAA22E6EFC200417A64 /* FSCalendarHeaderView.m in Sources */,
-				B80DFF312251F6BF004E8EA6 /* CoreDataMigrationModel.swift in Sources */,
-				B37E794822B498A400125CA8 /* DataManager+Fetch.swift in Sources */,
+				B80DFF312251F6BF004E8EA6 /* CPCoreDataMigrationModel.swift in Sources */,
+				B37E794822B498A400125CA8 /* CPDataManager+Fetch.swift in Sources */,
 				B80DC05920C792E400E28034 /* AppDelegate.swift in Sources */,
 				B80DC08C20C798BA00E28034 /* CPHomeViewController.swift in Sources */,
 				B807FCD1218ECFE5003CC51E /* CPCulturePassCardBackViewController.swift in Sources */,
-				1B10D12D2244136100AA77E9 /* NMoQParkDetail.swift in Sources */,
+				1B10D12D2244136100AA77E9 /* CPNMoQParkDetail.swift in Sources */,
 				B8914A4722DD8801005C4BCC /* MigrationMappingPlocies.swift in Sources */,
 				B8EAB7BD20CA424300C001B2 /* LunarFormatter.swift in Sources */,
 				B82729BB21778B2F0017EC71 /* VersaPlayerControlsExtension.swift in Sources */,
 				B8B81FE720DE2E47004885D0 /* KASlideShow.m in Sources */,
-				B8E2C01020C7E9E900F3CE41 /* ComingSoonPopUp.swift in Sources */,
+				B8E2C01020C7E9E900F3CE41 /* CPComingSoonPopUp.swift in Sources */,
 				B8B54D6E20FF516B00B21348 /* CPCollectionDetailCell.swift in Sources */,
 				B8ADA8AD2164CD4100127F9A /* CPPreviewContainerViewController.swift in Sources */,
-				B8D2FC7A22C1E65E00A570BD /* NotificationsViewController+CoreData.swift in Sources */,
-				B8D2FC7822C1E58600A570BD /* NotificationsViewController+TableView.swift in Sources */,
+				B8D2FC7A22C1E65E00A570BD /* CPNotificationsViewController+CoreData.swift in Sources */,
+				B8D2FC7822C1E58600A570BD /* CPNotificationsViewController+TableView.swift in Sources */,
 				B857BB6522E1B32C00417A64 /* CPMuseumBottomCell.swift in Sources */,
 				1E87D19B22BCDB5F00F1C96F /* CPPanelDiscussionDetailViewController+WebServices&Coredata.swift in Sources */,
 				B8D1228D20C8EE8600772507 /* CPWebViewController.swift in Sources */,
 				B832791A22C0A66C00B6996D /* CPPreviewConainerViewCOntroller+PageView.swift in Sources */,
 				B82729B221778B2F0017EC71 /* VersaPlayerPlaybackDelegate.swift in Sources */,
-				B843D9E2223FAB82003C1DF6 /* FacilitiesDetail.swift in Sources */,
-				1B7031EE218AFDB200B0E05B /* Notification.swift in Sources */,
+				B843D9E2223FAB82003C1DF6 /* CPFacilitiesDetail.swift in Sources */,
+				1B7031EE218AFDB200B0E05B /* CPNotification.swift in Sources */,
 				B8CF5B012244C80B008E663E /* NMoQParkTopTableViewCell.swift in Sources */,
-				B8DC40A720C9A33A0044134D /* CommonHeaderView.swift in Sources */,
+				B8DC40A720C9A33A0044134D /* CPCommonHeaderView.swift in Sources */,
 				1BC909D02108E3C700D6C00B /* QMUtility.swift in Sources */,
 				B8D2FC6E22C1BEB200A570BD /* CommonDetailViewController+Mail+Carousel.swift in Sources */,
-				B843D9E0223F8E14003C1DF6 /* Facilities.swift in Sources */,
+				B843D9E0223F8E14003C1DF6 /* CPFacilities.swift in Sources */,
 				B857BB6922E1B36300417A64 /* CPEventCollectionViewCell.swift in Sources */,
 				B857BBA322E6EFC200417A64 /* FSCalendarScopeHandle.m in Sources */,
-				B8B760512100E88E00CEE280 /* NotificationsTableViewCell.swift in Sources */,
-				B8DDBC7D21AD78AA007B3A06 /* HomeBanner.swift in Sources */,
-				B317C5362294710E0054CDDA /* Utils.swift in Sources */,
-				B857BB6322E1B2A900417A64 /* DiningDetailTableViewCell.swift in Sources */,
+				B8B760512100E88E00CEE280 /* CPNotificationsTableViewCell.swift in Sources */,
+				B8DDBC7D21AD78AA007B3A06 /* CPHomeBanner.swift in Sources */,
+				B317C5362294710E0054CDDA /* CPUtils.swift in Sources */,
+				B857BB6322E1B2A900417A64 /* CPDiningDetailTableViewCell.swift in Sources */,
 				B82729B321778B2F0017EC71 /* VersaPlayerExtension.swift in Sources */,
 				B8C64D4D20FDDBB700C2D51A /* MiaCollectionReusableView.swift in Sources */,
 				B8ADA8AB2164CC2E00127F9A /* CPPreviewContentViewController.swift in Sources */,
 				B87F62EB225E2E6100ADCB1F /* Migration2to3.xcmappingmodel in Sources */,
-				B8234F4921BA6D3800760DEC /* NMoQUserEventList.swift in Sources */,
+				B8234F4921BA6D3800760DEC /* CPNMoQUserEventList.swift in Sources */,
 				B8EAB7BC20CA424300C001B2 /* CalendarConfigViewController.swift in Sources */,
 				B82729BA21778B2F0017EC71 /* VersaPlayerGestureRecieverViewDelegate.swift in Sources */,
 				B88F07E8217DD5F600B16875 /* CPCulturePassCardViewController.swift in Sources */,
@@ -2348,19 +2348,19 @@
 				B857BBA222E6EFC200417A64 /* FSCalendarCollectionViewLayout.m in Sources */,
 				B832790E22C09D1800B6996D /* CPTourAndPanelListViewController+CoreData.swift in Sources */,
 				B82729B621778B2F0017EC71 /* VersaPlayer.swift in Sources */,
-				B84BA062217F1A6300FD2C0D /* LoginData.swift in Sources */,
-				B80DFF332251F6D6004E8EA6 /* CoreDataMigrationStep.swift in Sources */,
-				B8D4B8D72114465100937180 /* Heritage.swift in Sources */,
-				1BAA2FCD2125FD8200D785DD /* ObjectImageView.swift in Sources */,
+				B84BA062217F1A6300FD2C0D /* CPLoginData.swift in Sources */,
+				B80DFF332251F6D6004E8EA6 /* CPCoreDataMigrationStep.swift in Sources */,
+				B8D4B8D72114465100937180 /* CPHeritage.swift in Sources */,
+				1BAA2FCD2125FD8200D785DD /* CPObjectImageView.swift in Sources */,
 				B857BBA622E6EFC200417A64 /* FSCalendarExtensions.m in Sources */,
-				B8B7604C2100E7FC00CEE280 /* NotificationsViewController.swift in Sources */,
-				B8FEC77C2112E57100648F66 /* Dining.swift in Sources */,
+				B8B7604C2100E7FC00CEE280 /* CPNotificationsViewController.swift in Sources */,
+				B8FEC77C2112E57100648F66 /* CPDining.swift in Sources */,
 				B8D2FC5522C0CC7F00A570BD /* CPEventViewController+CoreData.swift in Sources */,
-				1BE526D22107460F00C8CD51 /* QatarMuseumRouter.swift in Sources */,
-				B8D2FC5A22C0DC7C00A570BD /* CommonLisViewController+CoreData.swift in Sources */,
-				B84BA060217EE3C000FD2C0D /* TokenData.swift in Sources */,
+				1BE526D22107460F00C8CD51 /* CPQatarMuseumRouter.swift in Sources */,
+				B8D2FC5A22C0DC7C00A570BD /* CPCommonLisViewController+CoreData.swift in Sources */,
+				B84BA060217EE3C000FD2C0D /* CPTokenData.swift in Sources */,
 				B857BB9F22E6EFC200417A64 /* FSCalendarStickyHeader.m in Sources */,
-				1BC909D2210B277F00D6C00B /* Home.swift in Sources */,
+				1BC909D2210B277F00D6C00B /* CPHome.swift in Sources */,
 				B8EAB7BB20CA424300C001B2 /* LoadViewExampleViewController.swift in Sources */,
 				B857BB9D22E6EFC200417A64 /* FSCalendarDelegationFactory.m in Sources */,
 				B857BBAB22E6EFC200417A64 /* FSCalendarTransitionCoordinator.m in Sources */,
@@ -2368,24 +2368,24 @@
 				B8D2FC6A22C1BE4F00A570BD /* CommonDetailViewController+CoreData.swift in Sources */,
 				B832792622C0B31D00B6996D /* CPMuseumAboutViewConroller+Carousel+Mail.swift in Sources */,
 				B8914A4522DC549D005C4BCC /* Migration3to4.xcmappingmodel in Sources */,
-				B8BCE8A021C28ED20083DC35 /* GoogleDirections.swift in Sources */,
-				B841715F224256D400B58E27 /* NMoQActivitiesList.swift in Sources */,
+				B8BCE8A021C28ED20083DC35 /* CPGoogleDirections.swift in Sources */,
+				B841715F224256D400B58E27 /* CPNMoQActivitiesList.swift in Sources */,
 				B8D713002250B463000ED7AA /* QatarMuseums.xcdatamodeld in Sources */,
 				B8D2FC5122C0C70A00A570BD /* CPObjectDetailViewController+TableView.swift in Sources */,
-				B32B8C5622A96B7200D728BD /* DataManager.swift in Sources */,
+				B32B8C5622A96B7200D728BD /* CPDataManager.swift in Sources */,
 				B857BB9C22E6EFC200417A64 /* FSCalendarDelegationProxy.m in Sources */,
 				B8BA80B520CCDDA3007E880A /* CPProfileViewController.swift in Sources */,
 				B857BBA922E6EFC200417A64 /* FSCalendarCalculator.m in Sources */,
 				1B373E95212C794700EE8DD1 /* CPCulturePassViewController.swift in Sources */,
-				B8BD1DA721298AA500150A01 /* EducationEvent.swift in Sources */,
+				B8BD1DA721298AA500150A01 /* CPEducationEvent.swift in Sources */,
 				B82729BE21778B2F0017EC71 /* VersaSeekbarSlider.swift in Sources */,
 				1B3C505721270F260034E560 /* CPArtifactNumberPadViewController.swift in Sources */,
-				B8E01BF92105EDFB008D7F33 /* SettingsViewController.swift in Sources */,
-				B816029E215A239900786F94 /* TourGuideFloorMap.swift in Sources */,
+				B8E01BF92105EDFB008D7F33 /* CPSettingsViewController.swift in Sources */,
+				B816029E215A239900786F94 /* CPTourGuideFloorMap.swift in Sources */,
 				B8D1229220C9095B00772507 /* LoadingView.swift in Sources */,
 				B857BBA122E6EFC200417A64 /* NSLocale+Category.m in Sources */,
 				B8436A9121C264CA00045242 /* CPGoogleMapViewController.swift in Sources */,
-				B8C700852116F833006F3653 /* PublicArtsDetail.swift in Sources */,
+				B8C700852116F833006F3653 /* CPPublicArtsDetail.swift in Sources */,
 				B8D4C536210453FB0096912C /* CPFilterViewController.swift in Sources */,
 				B8DB500021B25D5B00C5DD10 /* CPPanelDetailCell.swift in Sources */,
 				B857BBA722E6EFC200417A64 /* FSCalendar+Deprecated.m in Sources */,
@@ -2396,19 +2396,19 @@
 				B82729BC21778B2F0017EC71 /* VersaTimeLabel.swift in Sources */,
 				B8CAA93F20DC186E009A936D /* CommonDetailViewController.swift in Sources */,
 				B832792222C0AEB800B6996D /* CPMuseumAboutViewController+TableView.swift in Sources */,
-				1BE526D42107470700C8CD51 /* Config.swift in Sources */,
+				1BE526D42107470700C8CD51 /* CPConfig.swift in Sources */,
 				B82729C021778B2F0017EC71 /* VersaPlayerControlsCoordinator.swift in Sources */,
 				B85AE812217744D600A658A2 /* CPMapViewController.swift in Sources */,
-				B8D2FC7E22C1F03000A570BD /* SettingsViewController+Mail.swift in Sources */,
-				B8F00C8521787D0D00320DF1 /* LoginPopupPage.swift in Sources */,
+				B8D2FC7E22C1F03000A570BD /* CPSettingsViewController+Mail.swift in Sources */,
+				B8F00C8521787D0D00320DF1 /* CPLoginPopupPage.swift in Sources */,
 				B812BA04210AF3540083E0E2 /* QMFont.swift in Sources */,
 				B857BBA422E6EFC200417A64 /* NSString+Category.m in Sources */,
 				B8D2FC7222C1C3ED00A570BD /* CPFloorMapViewController+CoreData.swift in Sources */,
-				B806B7D72152BE6A00F9534F /* CollectionDetail.swift in Sources */,
+				B806B7D72152BE6A00F9534F /* CPCollectionDetail.swift in Sources */,
 				B832791622C0A39500B6996D /* CPRegistrationViewController+TextField.swift in Sources */,
 				B8D2FC5722C0CCBB00A570BD /* CPEventViewController+CollectionView.swift in Sources */,
 				49504224226311EC00F320EF /* CPSessionManager.swift in Sources */,
-				B8CA08DF2146D38400783642 /* ObjectPopupTableViewCell.swift in Sources */,
+				B8CA08DF2146D38400783642 /* CPObjectPopupTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

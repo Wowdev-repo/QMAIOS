@@ -16,7 +16,7 @@ import KeychainSwift
 
 
 class CPProfileViewController: UIViewController {
-    @IBOutlet weak var headerView: CommonHeaderView!
+    @IBOutlet weak var headerView: CPCommonHeaderView!
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var viewmyCulturePassButton: UIButton!
     @IBOutlet weak var viewMyFavoriteButton: UIButton!
@@ -34,9 +34,9 @@ class CPProfileViewController: UIViewController {
     @IBOutlet weak var nationalityKeyLabel: UILabel!
     //VIP Inviation controls
     var membershipNum = Int()
-    var popupView : ComingSoonPopUp = ComingSoonPopUp()
+    var popupView : CPComingSoonPopUp = CPComingSoonPopUp()
     var fromHome : Bool = false
-    var loginInfo : LoginData?
+    var loginInfo : CPLoginData?
     var logoutToken : String? = nil
     var countryListsArray : NSArray!
     var fromCulturePass : Bool = false
@@ -48,7 +48,7 @@ class CPProfileViewController: UIViewController {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
 
         super.viewDidLoad()
-        if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
+        if ((CPLocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
             getCountryListsFromJson()
         } else {
            getCountryListsArabicFromJson()
@@ -63,7 +63,7 @@ class CPProfileViewController: UIViewController {
         headerView.headerTitle.text = NSLocalizedString("PROFILE_TITLE", comment: "PROFILE_TITLE Label in the PROFILE page")
         headerView.headerBackButton.setImage(UIImage(named: "back_buttonX1"), for: .normal)
         profileImageView.image = UIImage(named: "profile_pic_round")
-        if ((LocalizationLanguage.currentAppleLanguage()) == "en") {
+        if ((CPLocalizationLanguage.currentAppleLanguage()) == "en") {
             headerView.headerBackButton.setImage(UIImage(named: "back_buttonX1"), for: .normal)
         } else {
             headerView.headerBackButton.setImage(UIImage(named: "back_mirrorX1"), for: .normal)
@@ -135,7 +135,7 @@ class CPProfileViewController: UIViewController {
         }
         if((keychain.get(UserProfileInfo.user_country) != nil) && (keychain.get(UserProfileInfo.user_country) != "") && (keychain.get(UserProfileInfo.user_country) != nil) && (keychain.get(UserProfileInfo.user_country) != "")) {
             let countryKey = (keychain.get(UserProfileInfo.user_country))
-            if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
+            if ((CPLocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
                 if(countryListsArray != nil) {
                     for country in countryListsArray {
                         let countryDict = country as! NSDictionary
@@ -154,7 +154,7 @@ class CPProfileViewController: UIViewController {
         }
         if(keychain.get(UserProfileInfo.user_nationality) != nil) && (keychain.get(UserProfileInfo.user_nationality) != "") {
             let nationalityKey = (keychain.get(UserProfileInfo.user_nationality))
-            if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
+            if ((CPLocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
             if(countryListsArray != nil) {
                 for country in countryListsArray {
                     let countryDict = country as! NSDictionary
@@ -174,7 +174,7 @@ class CPProfileViewController: UIViewController {
         
         DDLogInfo(NSStringFromClass(type(of: self)) +
             "Function: \(#function)" +
-            "Language: \(LocalizationLanguage.currentAppleLanguage())" +
+            "Language: \(CPLocalizationLanguage.currentAppleLanguage())" +
             "User: \(String(describing: userNameText.text))" +
             "MembershipNumber: \(membershipNum)" +
             "User Id: \(String(describing: userId))" +
@@ -243,7 +243,7 @@ class CPProfileViewController: UIViewController {
 }
 
 //MARK:- ReusableViews methods
-extension CPProfileViewController: HeaderViewProtocol,comingSoonPopUpProtocol {
+extension CPProfileViewController: CPHeaderViewProtocol,CPComingSoonPopUpProtocol {
     //MARK: headerView Protocol
     func headerCloseButtonPressed() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
@@ -259,7 +259,7 @@ extension CPProfileViewController: HeaderViewProtocol,comingSoonPopUpProtocol {
     
     //    MARK: ComingSoonPopUp delegate
     func loadComingSoonPopup() {
-        popupView  = ComingSoonPopUp(frame: self.view.frame)
+        popupView  = CPComingSoonPopUp(frame: self.view.frame)
         popupView.comingSoonPopupDelegate = self
         popupView.loadPopup()
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
@@ -298,8 +298,8 @@ extension CPProfileViewController {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function) + Action: Logout")
         if(UserDefaults.standard.value(forKey: "accessToken") as? String != nil) {
             _ = CPSessionManager.sharedInstance.apiManager()?
-                .request(QatarMuseumRouter.Logout())
-                .responseObject { [weak self] (response: DataResponse<LogoutData>) -> Void in
+                .request(CPQatarMuseumRouter.Logout())
+                .responseObject { [weak self] (response: DataResponse<CPLogoutData>) -> Void in
                 switch response.result {
                 case .success( _):
                     if(response.response?.statusCode == 200) {
@@ -320,7 +320,7 @@ extension CPProfileViewController {
                         
                         if((UserDefaults.standard.value(forKey: "acceptOrDecline") as? String != nil) && (UserDefaults.standard.value(forKey: "acceptOrDecline") as? String != "")) {
                             let managedContext = getContext()
-                            DataManager.delete(managedContext: managedContext, entityName: "RegisteredEventListEntity")
+                            CPDataManager.delete(managedContext: managedContext, entityName: "RegisteredEventListEntity")
                         }
                         
                         if let presenter = self?.presentingViewController as? CPCulturePassViewController {

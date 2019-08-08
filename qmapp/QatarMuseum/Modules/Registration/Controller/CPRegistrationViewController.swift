@@ -10,7 +10,7 @@ import UIKit
 
 
 class CPRegistrationViewController: UIViewController {
-    @IBOutlet weak var headerView: CommonHeaderView!
+    @IBOutlet weak var headerView: CPCommonHeaderView!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var mainTitleLabel: UILabel!
     @IBOutlet weak var userNameLabel: UILabel!
@@ -218,7 +218,7 @@ class CPRegistrationViewController: UIViewController {
     }
 }
 
-extension CPRegistrationViewController: HeaderViewProtocol {
+extension CPRegistrationViewController: CPHeaderViewProtocol {
     
     //MARK: Header delegate
     func headerCloseButtonPressed() {

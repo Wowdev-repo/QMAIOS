@@ -27,7 +27,7 @@ extension CPFloorMapViewController {
     //    }
     func getFloorMapDataFromServer()
     {
-        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.CollectionByTourGuide(LocalizationLanguage.currentAppleLanguage(),["tour_guide_id": tourGuideId!])).responseObject { [weak self] (response: DataResponse<TourGuideFloorMaps>) -> Void in
+        _ = CPSessionManager.sharedInstance.apiManager()?.request(CPQatarMuseumRouter.CollectionByTourGuide(CPLocalizationLanguage.currentAppleLanguage(),["tour_guide_id": tourGuideId!])).responseObject { [weak self] (response: DataResponse<TourGuideFloorMaps>) -> Void in
             switch response.result {
             case .success(let data):
                 self?.floorMapArray = data.tourGuideFloorMap
@@ -74,20 +74,20 @@ extension CPFloorMapViewController {
     }
     
     //MARK: TourGuide DataBase
-    func saveOrUpdateFloormapCoredata(floorMapArray: [TourGuideFloorMap]) {
+    func saveOrUpdateFloormapCoredata(floorMapArray: [CPTourGuideFloorMap]) {
         if !floorMapArray.isEmpty {
             let appDelegate =  UIApplication.shared.delegate as? AppDelegate
             if #available(iOS 10.0, *) {
                 let container = appDelegate?.persistentContainer
                 container?.performBackgroundTask() {(managedContext) in
-                    DataManager.updateFloorMap(managedContext : managedContext,
+                    CPDataManager.updateFloorMap(managedContext : managedContext,
                                                floorMapArray: floorMapArray,
                                                tourGuideID: self.tourGuideId)
                 }
             } else {
                 let managedContext = appDelegate?.managedObjectContext
                 managedContext?.perform {
-                    DataManager.updateFloorMap(managedContext : managedContext!,
+                    CPDataManager.updateFloorMap(managedContext : managedContext!,
                                                floorMapArray: floorMapArray,
                                                tourGuideID: self.tourGuideId)
                 }
@@ -102,14 +102,14 @@ extension CPFloorMapViewController {
         let managedContext = getContext()
         do {
             var tourGuideArray = [FloorMapTourGuideEntity]()
-            tourGuideArray = DataManager.checkAddedToCoredata(entityName: "FloorMapTourGuideEntity",
+            tourGuideArray = CPDataManager.checkAddedToCoredata(entityName: "FloorMapTourGuideEntity",
                                                               idKey: "tourGuideId",
                                                               idValue: tourGuideId,
                                                               managedContext: managedContext) as! [FloorMapTourGuideEntity]
             
             if (tourGuideArray.count > 0) {
                 for tourGuideDict in tourGuideArray {
-                    self.floorMapArray.append(TourGuideFloorMap(entity: tourGuideDict))
+                    self.floorMapArray.append(CPTourGuideFloorMap(entity: tourGuideDict))
                 }
                 
                 if (self.floorMapArray.count > 0) {

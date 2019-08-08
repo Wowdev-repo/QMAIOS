@@ -16,13 +16,13 @@ import UIKit
 
 class CPGoogleMapViewController: UIViewController,CLLocationManagerDelegate,GMSMapViewDelegate {
 
-    @IBOutlet weak var headerView: CommonHeaderView!
+    @IBOutlet weak var headerView: CPCommonHeaderView!
     @IBOutlet weak var mapView: GMSMapView!
     var locationManager = CLLocationManager()
     var didFindMyLocation = false
     var locationStart = CLLocation()
     var locationEnd = CLLocation()
-    var directionArray : GoogleDirections?
+    var directionArray : CPGoogleDirections?
     let apiKey = "AIzaSyAbuv0Gx0vwyZdr90LFKeUFmMesorNZHKQ"
     override func viewDidLoad() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
@@ -111,7 +111,7 @@ class CPGoogleMapViewController: UIViewController,CLLocationManagerDelegate,GMSM
         
         let url = "https://maps.googleapis.com/maps/api/directions/json?origin=\(origin)&destination=\(destination)&mode=driving&key=\(apiKey)"
         
-        CPSessionManager.sharedInstance.apiManager()?.request(url).responseObject { [weak self] (response: DataResponse<GoogleDirections>) -> Void in
+        CPSessionManager.sharedInstance.apiManager()?.request(url).responseObject { [weak self] (response: DataResponse<CPGoogleDirections>) -> Void in
             switch response.result {
             case .success(let data):
                 print(data)

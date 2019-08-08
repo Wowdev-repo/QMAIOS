@@ -11,7 +11,7 @@ import AVKit
 import UIKit
 
 
-class ObjectDetailTableViewCell: UITableViewCell,UITextViewDelegate,MapDetailProtocol {
+class CPObjectDetailTableViewCell: UITableViewCell,UITextViewDelegate,MapDetailProtocol {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var detailSecondLabel: UILabel!
@@ -66,15 +66,15 @@ class ObjectDetailTableViewCell: UITableViewCell,UITextViewDelegate,MapDetailPro
         detailSecondLabel.font = UIFont.englishTitleFont
         imageDetailLabel.font = UIFont.sideMenuLabelFont
         isPaused = true
-        if ((LocalizationLanguage.currentAppleLanguage()) != ENG_LANGUAGE) {
+        if ((CPLocalizationLanguage.currentAppleLanguage()) != ENG_LANGUAGE) {
             self.playerSlider.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
         }
 
     }
     
-    func setObjectDetail(objectDetail:TourGuideFloorMap) {
+    func setObjectDetail(objectDetail:CPTourGuideFloorMap) {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-        if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
+        if ((CPLocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
             titleLabel.textAlignment = .left
             accessNumberLabel.textAlignment = .left
             descriptionLabel.textAlignment = .left
@@ -112,7 +112,7 @@ class ObjectDetailTableViewCell: UITableViewCell,UITextViewDelegate,MapDetailPro
         
     }
     
-    func setObjectHistoryDetail(historyDetail:TourGuideFloorMap) {
+    func setObjectHistoryDetail(historyDetail:CPTourGuideFloorMap) {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         playButton.isHidden = true
         playerSlider.isHidden = true
@@ -259,7 +259,7 @@ class ObjectDetailTableViewCell: UITableViewCell,UITextViewDelegate,MapDetailPro
     //    }
     func setupTimer(){
         NotificationCenter.default.addObserver(self, selector: #selector(self.didPlayToEnd), name: .AVPlayerItemDidPlayToEndTime, object: nil)
-        timer = Timer(timeInterval: 0.001, target: self, selector: #selector(ObjectDetailTableViewCell.tick), userInfo: nil, repeats: true)
+        timer = Timer(timeInterval: 0.001, target: self, selector: #selector(CPObjectDetailTableViewCell.tick), userInfo: nil, repeats: true)
         RunLoop.current.add(timer!, forMode: RunLoopMode.commonModes)
     }
     

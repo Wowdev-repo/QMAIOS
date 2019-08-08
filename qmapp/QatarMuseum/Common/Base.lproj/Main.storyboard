@@ -20,7 +20,7 @@
         <!--Splash View Controller-->
         <scene sceneID="T35-nM-Vo2">
             <objects>
-                <viewController id="ru4-0J-FCz" customClass="SplashViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="ru4-0J-FCz" customClass="CPSplashViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="aeN-V1-jK8"/>
                         <viewControllerLayoutGuide type="bottom" id="grr-Uw-dev"/>
@@ -97,7 +97,7 @@
                                     <constraint firstAttribute="trailing" secondItem="xWg-V3-83E" secondAttribute="trailing" id="tmC-41-KbN"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NkB-Zv-8hj" customClass="TopBarView" customModule="QatarMuseums" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NkB-Zv-8hj" customClass="CPTopBarView" customModule="QatarMuseums" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="20" width="600" height="65"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -450,7 +450,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="09Z-XO-Tiu" customClass="CommonHeaderView" customModule="QatarMuseums" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="09Z-XO-Tiu" customClass="CPCommonHeaderView" customModule="QatarMuseums" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="20" width="600" height="65"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -615,7 +615,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SI5-a7-Lx7" customClass="CommonHeaderView" customModule="QatarMuseums" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SI5-a7-Lx7" customClass="CPCommonHeaderView" customModule="QatarMuseums" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="20" width="600" height="65"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -1018,7 +1018,7 @@
                                 <rect key="frame" x="0.0" y="20" width="414" height="690"/>
                                 <color key="backgroundColor" red="0.90196078430000004" green="0.90196078430000004" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="exhibitionDetailCellId" rowHeight="867" id="MCG-ym-WQ9" customClass="ExhibitionDetailTableViewCell" customModule="QatarMuseums" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="exhibitionDetailCellId" rowHeight="867" id="MCG-ym-WQ9" customClass="CPExhibitionDetailTableViewCell" customModule="QatarMuseums" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="1" width="414" height="867"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="MCG-ym-WQ9" id="FJz-z9-Qhw">
@@ -1371,7 +1371,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="01e-Wo-Yjv" customClass="TopBarView" customModule="QatarMuseums" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="01e-Wo-Yjv" customClass="CPTopBarView" customModule="QatarMuseums" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="20" width="600" height="65"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -1588,7 +1588,7 @@
                                 <rect key="frame" x="0.0" y="20" width="414" height="716"/>
                                 <color key="backgroundColor" red="0.90196078431372551" green="0.90196078431372551" blue="0.89803921568627454" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="diningDetailCellId" rowHeight="691" id="NTz-dY-WoN" customClass="DiningDetailTableViewCell" customModule="QatarMuseums" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="diningDetailCellId" rowHeight="691" id="NTz-dY-WoN" customClass="CPDiningDetailTableViewCell" customModule="QatarMuseums" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="691"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="NTz-dY-WoN" id="vUr-Lh-l5h">
@@ -1873,15 +1873,15 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fLs-aV-Rgq">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="157"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="157"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TOUR GUIDES" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wvM-rU-LBj">
-                                                    <rect key="frame" x="92.5" y="20" width="229" height="40"/>
+                                                    <rect key="frame" x="185.5" y="20" width="229" height="40"/>
                                                     <fontDescription key="fontDescription" name="DINNextLTPro-Bold" family="DIN Next LT Pro" pointSize="34"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" editable="NO" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M5m-HF-9dd">
-                                                    <rect key="frame" x="12" y="60" width="390" height="93"/>
+                                                    <rect key="frame" x="12" y="60" width="576" height="93"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <fontDescription key="fontDescription" name="DINNextLTPro-Regular" family="DIN Next LT Pro" pointSize="18"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -1914,7 +1914,7 @@
                                     <outlet property="delegate" destination="gvg-jw-f93" id="0IW-HD-kWb"/>
                                 </connections>
                             </collectionView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GcL-iI-otd" customClass="CommonHeaderView" customModule="QatarMuseums" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GcL-iI-otd" customClass="CPCommonHeaderView" customModule="QatarMuseums" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="20" width="600" height="65"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -1970,7 +1970,7 @@
                                     <constraint firstAttribute="height" constant="20" id="Qv3-lu-WFI"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wa7-YK-iHP" customClass="CommonHeaderView" customModule="QatarMuseums" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wa7-YK-iHP" customClass="CPCommonHeaderView" customModule="QatarMuseums" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="20" width="600" height="65"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -2098,7 +2098,7 @@
         <!--Notifications View Controller-->
         <scene sceneID="cOj-qU-XgT">
             <objects>
-                <viewController storyboardIdentifier="notificationId" id="izA-Uf-h7O" customClass="NotificationsViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="notificationId" id="izA-Uf-h7O" customClass="CPNotificationsViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ZQb-nb-0lM"/>
                         <viewControllerLayoutGuide type="bottom" id="Y38-IJ-kQc"/>
@@ -2107,7 +2107,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pIh-Ff-7W8" customClass="CommonHeaderView" customModule="QatarMuseums" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pIh-Ff-7W8" customClass="CPCommonHeaderView" customModule="QatarMuseums" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="20" width="600" height="65"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -2118,7 +2118,7 @@
                                 <rect key="frame" x="0.0" y="85" width="600" height="515"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="notificationCellId" rowHeight="96" id="lUf-bt-UnF" customClass="NotificationsTableViewCell" customModule="QatarMuseums" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="notificationCellId" rowHeight="96" id="lUf-bt-UnF" customClass="CPNotificationsTableViewCell" customModule="QatarMuseums" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="600" height="96"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="lUf-bt-UnF" id="qyP-k0-RKV">
@@ -2126,7 +2126,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6tM-6j-Xve">
-                                                    <rect key="frame" x="0.0" y="0.0" width="414" height="96"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="96"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="notificationX1" translatesAutoresizingMaskIntoConstraints="NO" id="Ne4-SG-IPq">
                                                             <rect key="frame" x="20" y="35.5" width="20" height="25"/>
@@ -2136,13 +2136,13 @@
                                                             </constraints>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M9l-PM-ATY">
-                                                            <rect key="frame" x="65" y="48" width="295" height="0.0"/>
+                                                            <rect key="frame" x="65" y="48" width="481" height="0.0"/>
                                                             <fontDescription key="fontDescription" name="DINNextLTPro-Light" family="DIN Next LT Pro" pointSize="18"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Eb4-y1-Jq9">
-                                                            <rect key="frame" x="364" y="23" width="50" height="50"/>
+                                                            <rect key="frame" x="550" y="23" width="50" height="50"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="50" id="XOH-hX-Fih"/>
                                                                 <constraint firstAttribute="height" constant="50" id="uNC-w5-xhq"/>
@@ -2156,7 +2156,7 @@
                                                             </connections>
                                                         </button>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GVe-0b-Nyv">
-                                                            <rect key="frame" x="0.0" y="94" width="414" height="1"/>
+                                                            <rect key="frame" x="0.0" y="94" width="600" height="1"/>
                                                             <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="1" id="VJJ-Rc-RJZ"/>
@@ -2248,7 +2248,7 @@
                                     <constraint firstAttribute="height" constant="20" id="ANm-pe-cJT"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9RQ-ur-qCZ" customClass="CommonHeaderView" customModule="QatarMuseums" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9RQ-ur-qCZ" customClass="CPCommonHeaderView" customModule="QatarMuseums" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="20" width="600" height="65"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -2435,7 +2435,7 @@
                                     <constraint firstAttribute="height" constant="20" id="lnG-9w-swD"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rTT-Ip-gdI" customClass="CommonHeaderView" customModule="QatarMuseums" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rTT-Ip-gdI" customClass="CPCommonHeaderView" customModule="QatarMuseums" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="20" width="600" height="65"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -2813,7 +2813,7 @@
         <!--Settings View Controller-->
         <scene sceneID="L86-BL-38A">
             <objects>
-                <viewController storyboardIdentifier="settingsId" id="GHA-qU-agt" customClass="SettingsViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="settingsId" id="GHA-qU-agt" customClass="CPSettingsViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="da2-Zw-Dgi"/>
                         <viewControllerLayoutGuide type="bottom" id="lcV-Dk-Vyp"/>
@@ -2822,7 +2822,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9d8-ls-ZJX" customClass="CommonHeaderView" customModule="QatarMuseums" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9d8-ls-ZJX" customClass="CPCommonHeaderView" customModule="QatarMuseums" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="20" width="600" height="65"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -3174,7 +3174,7 @@
                                 <rect key="frame" x="0.0" y="20" width="414" height="650"/>
                                 <color key="backgroundColor" red="0.90196078430000004" green="0.90196078430000004" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="objectDetailCellId" rowHeight="623" id="6WP-0w-5LJ" customClass="ObjectDetailTableViewCell" customModule="QatarMuseums" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="objectDetailCellId" rowHeight="623" id="6WP-0w-5LJ" customClass="CPObjectDetailTableViewCell" customModule="QatarMuseums" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="623"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="6WP-0w-5LJ" id="yVy-8A-c8i">
@@ -3417,7 +3417,7 @@
                                 <rect key="frame" x="0.0" y="128" width="600" height="472"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fxx-YZ-9gH" customClass="CommonHeaderView" customModule="QatarMuseums" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fxx-YZ-9gH" customClass="CPCommonHeaderView" customModule="QatarMuseums" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="20" width="600" height="65"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -3731,7 +3731,7 @@
                                         <rect key="frame" x="0.0" y="41" width="414" height="579"/>
                                         <color key="backgroundColor" red="0.90196078430000004" green="0.90196078430000004" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="objectDetailCellId" rowHeight="623" id="syP-sE-CpL" customClass="ObjectDetailTableViewCell" customModule="QatarMuseums" customModuleProvider="target">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="objectDetailCellId" rowHeight="623" id="syP-sE-CpL" customClass="CPObjectDetailTableViewCell" customModule="QatarMuseums" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="28" width="414" height="623"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="syP-sE-CpL" id="jew-Mm-ZXq">
@@ -4001,7 +4001,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jf5-dA-4V6" customClass="CommonHeaderView" customModule="QatarMuseums" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jf5-dA-4V6" customClass="CPCommonHeaderView" customModule="QatarMuseums" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="20" width="600" height="65"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -4279,7 +4279,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="800"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s8I-0G-hPd" customClass="CommonHeaderView" customModule="QatarMuseums" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s8I-0G-hPd" customClass="CPCommonHeaderView" customModule="QatarMuseums" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="20" width="414" height="65"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -4467,7 +4467,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H9t-XG-BRU" customClass="CommonHeaderView" customModule="QatarMuseums" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H9t-XG-BRU" customClass="CPCommonHeaderView" customModule="QatarMuseums" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="20" width="600" height="65"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -4681,7 +4681,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="1300"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Zl-g9-4Ta" customClass="CommonHeaderView" customModule="QatarMuseums" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Zl-g9-4Ta" customClass="CPCommonHeaderView" customModule="QatarMuseums" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="20" width="414" height="65"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -5403,7 +5403,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xNF-Cw-Q8D" customClass="CommonHeaderView" customModule="QatarMuseums" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xNF-Cw-Q8D" customClass="CPCommonHeaderView" customModule="QatarMuseums" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="20" width="600" height="65"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -5459,7 +5459,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="T1S-8X-1eP" customClass="CommonHeaderView" customModule="QatarMuseums" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="T1S-8X-1eP" customClass="CPCommonHeaderView" customModule="QatarMuseums" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="20" width="600" height="65"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -5512,7 +5512,7 @@
         <!--Common List View Controller-->
         <scene sceneID="7rW-gk-kcf">
             <objects>
-                <viewController storyboardIdentifier="exhibitionViewId" id="QCk-26-GoW" customClass="CommonListViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="exhibitionViewId" id="QCk-26-GoW" customClass="CPCommonListViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="R57-Bi-f0V"/>
                         <viewControllerLayoutGuide type="bottom" id="9vC-2g-b8R"/>
@@ -5521,7 +5521,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V5A-BC-DnQ" customClass="CommonHeaderView" customModule="QatarMuseums" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V5A-BC-DnQ" customClass="CPCommonHeaderView" customModule="QatarMuseums" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="20" width="600" height="65"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -6334,7 +6334,7 @@
                                     <outlet property="delegate" destination="Bhx-9M-Ddr" id="hfh-Gi-eRg"/>
                                 </connections>
                             </mapView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zKM-gx-VCD" customClass="CommonHeaderView" customModule="QatarMuseums" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zKM-gx-VCD" customClass="CPCommonHeaderView" customModule="QatarMuseums" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="20" width="600" height="65"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>

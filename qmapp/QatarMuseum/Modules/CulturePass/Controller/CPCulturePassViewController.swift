@@ -15,7 +15,7 @@ import KeychainSwift
 
 
 class CPCulturePassViewController: UIViewController {
-    @IBOutlet weak var headerView: CommonHeaderView!
+    @IBOutlet weak var headerView: CPCommonHeaderView!
     @IBOutlet weak var loadingView: LoadingView!
     @IBOutlet weak var introLabel: UILabel!
     @IBOutlet weak var secondIntroLabel: UILabel!
@@ -28,8 +28,8 @@ class CPCulturePassViewController: UIViewController {
     
     var fromHome: Bool = false
     var fromProfile : Bool = false
-    var popupView : ComingSoonPopUp = ComingSoonPopUp()
-    var loginPopUpView : LoginPopupPage = LoginPopupPage()
+    var popupView : CPComingSoonPopUp = CPComingSoonPopUp()
+    var loginPopUpView : CPLoginPopupPage = CPLoginPopupPage()
     let benefitList = ["15% Discount at QM Cafe's across all venues",
                        "10% Discount on items in all QM Gift Shops (without minimum purchase)",
                        "10% Discount at Idam Restaurant at lunch time",
@@ -37,10 +37,10 @@ class CPCulturePassViewController: UIViewController {
                        "Get premier access to members only talks &workkshops",
                        "Get exclusive invitation to QM open house access to our world class call center 8AM to 8PM daily"]
     var accessToken : String? = nil
-    var loginArray : LoginData?
+    var loginArray : CPLoginData?
     var userInfoArray : UserInfoData?
     let networkReachability = NetworkReachabilityManager()
-    var userEventList: [NMoQUserEventList] = []
+    var userEventList: [CPNMoQUserEventList] = []
     
     let keychain = KeychainSwift()
     
@@ -56,7 +56,7 @@ class CPCulturePassViewController: UIViewController {
         super.viewWillAppear(false)
         if(fromProfile) {
              fromProfile = false
-            popupView  = ComingSoonPopUp(frame: self.view.frame)
+            popupView  = CPComingSoonPopUp(frame: self.view.frame)
             popupView.comingSoonPopupDelegate = self
             popupView.loadLogoutMessage(message : NSLocalizedString("LOGOUT_SUCCESSFULLY", comment: "LOGOUT_SUCCESSFULLY Label in the Popup"))
             self.view.addSubview(popupView)
@@ -74,7 +74,7 @@ class CPCulturePassViewController: UIViewController {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         headerView.headerViewDelegate = self
         headerView.headerTitle.text = NSLocalizedString("CULTUREPASS_TITLE", comment: "CULTUREPASS_TITLE in the Culture Pass page").uppercased()
-        if ((LocalizationLanguage.currentAppleLanguage()) == "en") {
+        if ((CPLocalizationLanguage.currentAppleLanguage()) == "en") {
             headerView.headerBackButton.setImage(UIImage(named: "back_buttonX1"), for: .normal)
             introLabel.textAlignment = .left
             secondIntroLabel.textAlignment = .left
@@ -113,7 +113,7 @@ class CPCulturePassViewController: UIViewController {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         var registrationUrlString = String()
         
-        if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
+        if ((CPLocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
             registrationUrlString = "http://www.qm.org.qa/en/user/register#user-register-form"
         } else {
             registrationUrlString = "http://www.qm.org.qa/ar/user/register#user-register-form"
@@ -161,7 +161,7 @@ class CPCulturePassViewController: UIViewController {
         self.logInButton.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
     }
     
-    func loadProfilepage(loginInfo : LoginData?) {
+    func loadProfilepage(loginInfo : CPLoginData?) {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         if (loginInfo != nil) {
             let userData = loginInfo?.user
@@ -229,7 +229,7 @@ class CPCulturePassViewController: UIViewController {
 }
 
 //MARK:- ReusableView methods
-extension CPCulturePassViewController: HeaderViewProtocol, comingSoonPopUpProtocol,LoginPopUpProtocol {
+extension CPCulturePassViewController: CPHeaderViewProtocol, CPComingSoonPopUpProtocol,CPLoginPopUpProtocol {
     //MARK: Header delegates
     func headerCloseButtonPressed() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
@@ -249,7 +249,7 @@ extension CPCulturePassViewController: HeaderViewProtocol, comingSoonPopUpProtoc
     }
     func loadLoginPopup() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-        loginPopUpView  = LoginPopupPage(frame: self.view.frame)
+        loginPopUpView  = CPLoginPopupPage(frame: self.view.frame)
         loginPopUpView.loginPopupDelegate = self
         loginPopUpView.userNameText.delegate = self
         loginPopUpView.passwordText.delegate = self
@@ -316,14 +316,14 @@ extension CPCulturePassViewController: HeaderViewProtocol, comingSoonPopUpProtoc
     
     func loadComingSoonPopup() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-        popupView  = ComingSoonPopUp(frame: self.view.frame)
+        popupView  = CPComingSoonPopUp(frame: self.view.frame)
         popupView.comingSoonPopupDelegate = self
         popupView.loadPopup()
         self.view.addSubview(popupView)
     }
     func loadSuccessMessage() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-        popupView  = ComingSoonPopUp(frame: self.view.frame)
+        popupView  = CPComingSoonPopUp(frame: self.view.frame)
         popupView.comingSoonPopupDelegate = self
         popupView.loadLogoutMessage(message : NSLocalizedString("FORGOT_PASSWORD_SENT_SUCCESSFULLY", comment: "FORGOT_PASSWORD_SENT_SUCCESSFULLY Label in the Popup"))
         self.view.addSubview(popupView)

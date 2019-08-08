@@ -15,7 +15,7 @@ class NMoQHeaderCell: UITableViewCell {
     override func awakeFromNib() {
         bannerTitle.font = UIFont.eventPopupTitleFont
     }
-    func setBannerData(bannerData: HomeBanner) {
+    func setBannerData(bannerData: CPHomeBanner) {
         bannerTitle.textColor = UIColor.gray
         bannerTitle.text = bannerData.bannerTitle
         if let imageUrl = bannerData.bannerLink {

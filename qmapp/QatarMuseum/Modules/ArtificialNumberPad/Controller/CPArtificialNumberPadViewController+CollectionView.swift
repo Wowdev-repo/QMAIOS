@@ -23,7 +23,7 @@ UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
         let corner = (cellWidth)/2-15
         cell.innerView.layer.cornerRadius = CGFloat(Int(floorf(Float(corner))))
         if (indexPath.row == 11) {
-            if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
+            if ((CPLocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
                 cell.imageView.image = UIImage(named: "back_mirrorX1")
             } else {
                 cell.imageView.image = UIImage(named: "back_buttonX1")

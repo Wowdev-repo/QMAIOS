@@ -23,7 +23,7 @@ class CPEventCollectionViewCell: UICollectionViewCell {
     
     var viewDetailsBtnAction : (()->())?
     
-    func setEventCellValues(event:EducationEvent) {
+    func setEventCellValues(event:CPEducationEvent) {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         firstTitle.font = UIFont.eventCellTitleFont
         secondTitleLabel.font = UIFont.eventCellTitleFont
@@ -58,7 +58,7 @@ class CPEventCollectionViewCell: UICollectionViewCell {
 //        }
         viewDetails.setTitle(NSLocalizedString("VIEW_DETAIL_BUTTON_TITLE", comment: "VIEW_DETAIL_BUTTON_TITLE  in the event view"), for: .normal)
     }
-    func setEducationCalendarValues(educationEvent: EducationEvent) {
+    func setEducationCalendarValues(educationEvent: CPEducationEvent) {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         firstTitle.font = UIFont.eventCellTitleFont
         secondTitleLabel.font = UIFont.eventCellTitleFont

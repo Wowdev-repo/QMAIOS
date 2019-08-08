@@ -23,16 +23,16 @@ enum CPNMoQPageName {
 class CPTourAndPanelListViewController: UIViewController {
     @IBOutlet weak var collectionTableView: UITableView!
     @IBOutlet weak var loadingView: LoadingView!
-    @IBOutlet weak var headerView: CommonHeaderView!
+    @IBOutlet weak var headerView: CPCommonHeaderView!
     
     var pageNameString : CPNMoQPageName?
     let networkReachability = NetworkReachabilityManager()
     var imageArray: [String] = []
     var titleArray: [String] = []
-    var nmoqTourList: [NMoQTour]! = []
-    var nmoqActivityList: [NMoQActivitiesList]! = []
-    var travelList: [HomeBanner]! = []
-    var facilitiesList: [Facilities]! = []
+    var nmoqTourList: [CPNMoQTour]! = []
+    var nmoqActivityList: [CPNMoQActivitiesList]! = []
+    var travelList: [CPHomeBanner]! = []
+    var facilitiesList: [CPFacilities]! = []
     var sortIdTest = String()
     var bannerId: String? = ""
     override func viewDidLoad() {
@@ -51,7 +51,7 @@ class CPTourAndPanelListViewController: UIViewController {
         loadingView.showLoading()
         loadingView.loadingViewDelegate = self
         headerView.headerViewDelegate = self
-        if ((LocalizationLanguage.currentAppleLanguage()) == "en") {
+        if ((CPLocalizationLanguage.currentAppleLanguage()) == "en") {
             headerView.headerBackButton.setImage(UIImage(named: "back_buttonX1"), for: .normal)
         } else {
             headerView.headerBackButton.setImage(UIImage(named: "back_mirrorX1"), for: .normal)
@@ -113,21 +113,21 @@ class CPTourAndPanelListViewController: UIViewController {
     }
     
     func loadTourViewPage(selectedRow: Int?,isFromTour:Bool?, pageName: CPNMoQPageName?) {
-        let tourView =  self.storyboard?.instantiateViewController(withIdentifier: "exhibitionViewId") as! CommonListViewController
+        let tourView =  self.storyboard?.instantiateViewController(withIdentifier: "exhibitionViewId") as! CPCommonListViewController
         
         if pageName == CPNMoQPageName.Tours {
             tourView.isFromTour = true
-            tourView.exhibitionsPageNameString = ExhbitionPageName.nmoqTourSecondList
+            tourView.exhibitionsPageNameString = CPExhbitionPageName.nmoqTourSecondList
             tourView.tourDetailId = nmoqTourList[selectedRow!].nid
             tourView.headerTitle = nmoqTourList[selectedRow!].subtitle
         } else if pageName == CPNMoQPageName.PanelDiscussion {
             tourView.isFromTour = false
-            tourView.exhibitionsPageNameString = ExhbitionPageName.nmoqTourSecondList
+            tourView.exhibitionsPageNameString = CPExhbitionPageName.nmoqTourSecondList
             tourView.tourDetailId = nmoqActivityList[selectedRow!].nid
             tourView.headerTitle = nmoqActivityList[selectedRow!].subtitle
         } else if pageName == CPNMoQPageName.Facilities {
             tourView.isFromTour = false
-            tourView.exhibitionsPageNameString = ExhbitionPageName.facilitiesSecondList
+            tourView.exhibitionsPageNameString = CPExhbitionPageName.facilitiesSecondList
             tourView.tourDetailId = facilitiesList[selectedRow!].nid
             tourView.headerTitle = facilitiesList[selectedRow!].title
         }
@@ -170,7 +170,7 @@ class CPTourAndPanelListViewController: UIViewController {
 }
 
 //MARK:- Reusable View Methods
-extension CPTourAndPanelListViewController: HeaderViewProtocol,LoadingViewProtocol {
+extension CPTourAndPanelListViewController: CPHeaderViewProtocol,LoadingViewProtocol {
     //    MARK: HeaderView delegate
     func headerCloseButtonPressed() {
         let transition = CATransition()
@@ -204,13 +204,13 @@ extension CPTourAndPanelListViewController: HeaderViewProtocol,LoadingViewProtoc
         if  (networkReachability?.isReachable)! {
             let appDelegate =  UIApplication.shared.delegate as? AppDelegate
             if(pageNameString == CPNMoQPageName.Tours) {
-                appDelegate?.getNMoQTourList(lang: LocalizationLanguage.currentAppleLanguage())
+                appDelegate?.getNMoQTourList(lang: CPLocalizationLanguage.currentAppleLanguage())
             } else if(pageNameString == CPNMoQPageName.PanelDiscussion) {
-                appDelegate?.getNMoQSpecialEventList(lang: LocalizationLanguage.currentAppleLanguage())
+                appDelegate?.getNMoQSpecialEventList(lang: CPLocalizationLanguage.currentAppleLanguage())
             } else if(pageNameString == CPNMoQPageName.TravelArrangementList) {
-                appDelegate?.getTravelList(lang: LocalizationLanguage.currentAppleLanguage())
+                appDelegate?.getTravelList(lang: CPLocalizationLanguage.currentAppleLanguage())
             } else if(pageNameString == CPNMoQPageName.Facilities) {
-                appDelegate?.getFacilitiesListFromServer(lang: LocalizationLanguage.currentAppleLanguage())
+                appDelegate?.getFacilitiesListFromServer(lang: CPLocalizationLanguage.currentAppleLanguage())
             }
             DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         }
@@ -248,25 +248,25 @@ extension CPTourAndPanelListViewController {
     }
     
     @objc func receiveNmoqTravelListNotificationEn(notification: NSNotification) {
-        if ((LocalizationLanguage.currentAppleLanguage() == ENG_LANGUAGE ) && (travelList.count == 0)) {
+        if ((CPLocalizationLanguage.currentAppleLanguage() == ENG_LANGUAGE ) && (travelList.count == 0)) {
             self.fetchTravelInfoFromCoredata()
         }
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
     }
     @objc func receiveNmoqTravelListNotificationAr(notification: NSNotification) {
-        if ((LocalizationLanguage.currentAppleLanguage() == AR_LANGUAGE ) && (travelList.count == 0)) {
+        if ((CPLocalizationLanguage.currentAppleLanguage() == AR_LANGUAGE ) && (travelList.count == 0)) {
             self.fetchTravelInfoFromCoredata()
         }
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
     }
     @objc func receiveFacilitiesListNotificationEn(notification: NSNotification) {
-        if ((LocalizationLanguage.currentAppleLanguage() == ENG_LANGUAGE ) && (facilitiesList.count == 0)) {
+        if ((CPLocalizationLanguage.currentAppleLanguage() == ENG_LANGUAGE ) && (facilitiesList.count == 0)) {
             self.fetchFacilitiesListFromCoredata()
         }
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
     }
     @objc func receiveFacilitiesListNotificationAr(notification: NSNotification) {
-        if ((LocalizationLanguage.currentAppleLanguage() == AR_LANGUAGE ) && (facilitiesList.count == 0)) {
+        if ((CPLocalizationLanguage.currentAppleLanguage() == AR_LANGUAGE ) && (facilitiesList.count == 0)) {
             self.fetchFacilitiesListFromCoredata()
         }
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
@@ -276,13 +276,13 @@ extension CPTourAndPanelListViewController {
         // Dispose of any resources that can be recreated.
     }
     @objc func receiveActivityListNotificationEn(notification: NSNotification) {
-        if ((LocalizationLanguage.currentAppleLanguage() == ENG_LANGUAGE ) && (nmoqActivityList.count == 0)){
+        if ((CPLocalizationLanguage.currentAppleLanguage() == ENG_LANGUAGE ) && (nmoqActivityList.count == 0)){
             self.fetchActivityListFromCoredata()
         }
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
     }
     @objc func receiveActivityListNotificationAr(notification: NSNotification) {
-        if ((LocalizationLanguage.currentAppleLanguage() == AR_LANGUAGE ) && (nmoqActivityList.count == 0)){
+        if ((CPLocalizationLanguage.currentAppleLanguage() == AR_LANGUAGE ) && (nmoqActivityList.count == 0)){
             self.fetchActivityListFromCoredata()
         }
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")

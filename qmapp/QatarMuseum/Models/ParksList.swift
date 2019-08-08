@@ -7,7 +7,7 @@
 //
 
 import Foundation
-struct ParksList: ResponseObjectSerializable, ResponseCollectionSerializable {
+struct CPParksList: ResponseObjectSerializable, ResponseCollectionSerializable {
     var title: String? = nil
     var description: String? = nil
     var sortId: String? = nil
@@ -34,11 +34,11 @@ struct ParksList: ResponseObjectSerializable, ResponseCollectionSerializable {
 }
 
 struct ParksLists: ResponseObjectSerializable {
-    var parkList: [ParksList]? = []
+    var parkList: [CPParksList]? = []
     
     public init?(response: HTTPURLResponse, representation: AnyObject) {
         if let data = representation as? [[String: Any]] {
-            self.parkList = ParksList.collection(response: response, representation: data as AnyObject)
+            self.parkList = CPParksList.collection(response: response, representation: data as AnyObject)
         }
     }
 }

@@ -39,7 +39,7 @@ class CPHomeViewController: UIViewController, UIViewControllerTransitioningDeleg
     
     @IBOutlet weak var homeTableView: UITableView!
     @IBOutlet weak var loadingView: LoadingView!
-    @IBOutlet weak var topbarView: TopBarView!
+    @IBOutlet weak var topbarView: CPTopBarView!
     @IBOutlet weak var visualEffectView: UIVisualEffectView!
     
     @IBOutlet weak var moreLabel: UILabel!
@@ -50,24 +50,24 @@ class CPHomeViewController: UIViewController, UIViewControllerTransitioningDeleg
     
     var homeDataFullArray : NSArray!
     var effect:UIVisualEffect!
-    var popupView : ComingSoonPopUp = ComingSoonPopUp()
+    var popupView : CPComingSoonPopUp = CPComingSoonPopUp()
     var sideView : CPSideMenuView = CPSideMenuView()
     var isSideMenuLoaded : Bool = false
-    var homeList: [Home]! = []
+    var homeList: [CPHome]! = []
     var homeEntity: HomeEntity?
     let networkReachability = NetworkReachabilityManager()
     var homeDBArray:[HomeEntity]?
-    var apnDelegate : APNProtocol?
+    var apnDelegate : CPAPNProtocol?
     let imageView = UIImageView()
     var blurView = UIVisualEffectView()
     var imgButton = UIButton()
     var imgLabel = UITextView()
-    var homeBannerList: [HomeBanner]! = []
-    var loginPopUpView : LoginPopupPage = LoginPopupPage()
+    var homeBannerList: [CPHomeBanner]! = []
+    var loginPopUpView : CPLoginPopupPage = CPLoginPopupPage()
     var accessToken : String? = nil
-    var loginArray : LoginData?
+    var loginArray : CPLoginData?
     var userInfoArray : UserInfoData?
-    var userEventList: [NMoQUserEventList] = []
+    var userEventList: [CPNMoQUserEventList] = []
     var alreadyFetch : Bool? = false
     var selectedRow : Int? = 0
     var homePageNameString : CPHomePageName?
@@ -76,7 +76,7 @@ class CPHomeViewController: UIViewController, UIViewControllerTransitioningDeleg
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if ((LocalizationLanguage.currentAppleLanguage()) == "en") {
+        if ((CPLocalizationLanguage.currentAppleLanguage()) == "en") {
             buyYourTicketsLabel.font = UIFont.init(name: "DINNextLTPro-Bold", size: 17)!
         } else{
             buyYourTicketsLabel.font = UIFont.init(name: "DINNextLTArabic-Bold", size:18)!
@@ -249,7 +249,7 @@ class CPHomeViewController: UIViewController, UIViewControllerTransitioningDeleg
             blurView.alpha  = 0.9
         }
     }
-    @objc func receivedNotification(notification: Notification) {
+    @objc func receivedNotification(notification: CPNotification) {
         homePageNameString = CPHomePageName.notificationsList
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
         self.performSegue(withIdentifier: "homeToNotificationSegue", sender: self)
@@ -287,13 +287,13 @@ class CPHomeViewController: UIViewController, UIViewControllerTransitioningDeleg
     }
     
     func loadExhibitionPage() {
-        let exhibitionView =  self.storyboard?.instantiateViewController(withIdentifier: "exhibitionViewId") as! CommonListViewController
+        let exhibitionView =  self.storyboard?.instantiateViewController(withIdentifier: "exhibitionViewId") as! CPCommonListViewController
         let transition = CATransition()
         transition.duration = 0.25
         transition.type = kCATransitionPush
         transition.subtype = kCATransitionFromRight
         view.window!.layer.add(transition, forKey: kCATransition)
-        exhibitionView.exhibitionsPageNameString = ExhbitionPageName.homeExhibition
+        exhibitionView.exhibitionsPageNameString = CPExhbitionPageName.homeExhibition
         Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
             AnalyticsParameterItemID: FirebaseAnalyticsEvents.tapped_exhibition_item,
             AnalyticsParameterItemName: exhibitionView.exhibitionsPageNameString ?? "",
@@ -304,7 +304,7 @@ class CPHomeViewController: UIViewController, UIViewControllerTransitioningDeleg
     
     func loadComingSoonPopup() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
-        popupView  = ComingSoonPopUp(frame: self.view.frame)
+        popupView  = CPComingSoonPopUp(frame: self.view.frame)
         popupView.comingSoonPopupDelegate = self
         popupView.loadPopup()
         self.view.addSubview(popupView)
@@ -318,7 +318,7 @@ class CPHomeViewController: UIViewController, UIViewControllerTransitioningDeleg
     func getHomeList() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         _ = CPSessionManager.sharedInstance.apiManager()?
-            .request(QatarMuseumRouter.HomeList(LocalizationLanguage.currentAppleLanguage()))
+            .request(CPQatarMuseumRouter.HomeList(CPLocalizationLanguage.currentAppleLanguage()))
             .responseObject { [weak self] (response: DataResponse<HomeList>) -> Void in
             switch response.result {
             case .success(let data):
@@ -345,7 +345,7 @@ class CPHomeViewController: UIViewController, UIViewControllerTransitioningDeleg
                         self?.homeList = self?.homeList.sorted(by: { Int16($0.sortId!)! < Int16($1.sortId!)! })
                     }
                     if let count = self?.homeBannerList.count, count > 0 {
-                        self?.homeList.insert(Home(id:self?.homeBannerList[0].fullContentID , name: self?.homeBannerList[0].bannerTitle,image: self?.homeBannerList[0].bannerLink,
+                        self?.homeList.insert(CPHome(id:self?.homeBannerList[0].fullContentID , name: self?.homeBannerList[0].bannerTitle,image: self?.homeBannerList[0].bannerLink,
                                                   tourguide_available: "false", sort_id: nil),
                                              at: 0)
                     }
@@ -375,7 +375,7 @@ class CPHomeViewController: UIViewController, UIViewControllerTransitioningDeleg
     func getHomeBanner() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         _ = CPSessionManager.sharedInstance.apiManager()?
-            .request(QatarMuseumRouter.GetHomeBanner())
+            .request(CPQatarMuseumRouter.GetHomeBanner())
             .responseObject { [weak self] (response: DataResponse<HomeBannerList>) -> Void in
             switch response.result {
             case .success(let data):
@@ -385,7 +385,7 @@ class CPHomeViewController: UIViewController, UIViewControllerTransitioningDeleg
                     (UserDefaults.standard.value(forKey: "acceptOrDecline") as? String != nil) && (UserDefaults.standard.value(forKey: "acceptOrDecline") as? String != "") &&
                     count > 0 {
                     if let count = self?.homeList.count, count > 0 {
-                        self?.homeList.insert(Home(id:self?.homeBannerList[0].fullContentID , name: self?.homeBannerList[0].bannerTitle,image: self?.homeBannerList[0].bannerLink,
+                        self?.homeList.insert(CPHome(id:self?.homeBannerList[0].fullContentID , name: self?.homeBannerList[0].bannerTitle,image: self?.homeBannerList[0].bannerLink,
                                                   tourguide_available: "false", sort_id: nil),
                                              at: 0)
                     }
@@ -429,10 +429,10 @@ class CPHomeViewController: UIViewController, UIViewControllerTransitioningDeleg
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
         self.performSegue(withIdentifier: "homeToCommonListSegue", sender: self)
         self.culturePassButton.transform = CGAffineTransform(scaleX: 1, y: 1)
-        let diningView =  self.storyboard?.instantiateViewController(withIdentifier: "exhibitionViewId") as! CommonListViewController
+        let diningView =  self.storyboard?.instantiateViewController(withIdentifier: "exhibitionViewId") as! CPCommonListViewController
          diningView.fromHome = true
          diningView.fromSideMenu = false
-         diningView.exhibitionsPageNameString = ExhbitionPageName.diningList
+         diningView.exhibitionsPageNameString = CPExhbitionPageName.diningList
          let transition = CATransition()
          transition.duration = 0.25
          transition.type = kCATransitionPush
@@ -527,7 +527,7 @@ class CPHomeViewController: UIViewController, UIViewControllerTransitioningDeleg
         
     }
     
-    func setProfileDetails(loginInfo : LoginData?) {
+    func setProfileDetails(loginInfo : CPLoginData?) {
         if (loginInfo != nil) {
             let userData = loginInfo?.user
             self.keychain.set(userData?.uid ?? "", forKey: UserProfileInfo.user_id)
@@ -597,7 +597,7 @@ class CPHomeViewController: UIViewController, UIViewControllerTransitioningDeleg
     }
     @objc func receiveHomePageNotificationEn(notification: NSNotification) {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
-        if ((LocalizationLanguage.currentAppleLanguage() == ENG_LANGUAGE ) && (homeList.count == 0)){
+        if ((CPLocalizationLanguage.currentAppleLanguage() == ENG_LANGUAGE ) && (homeList.count == 0)){
             DispatchQueue.main.async{
                 self.fetchHomeInfoFromCoredata()
             }
@@ -606,7 +606,7 @@ class CPHomeViewController: UIViewController, UIViewControllerTransitioningDeleg
     }
     @objc func receiveHomePageNotificationAr(notification: NSNotification) {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
-        if ((LocalizationLanguage.currentAppleLanguage() == AR_LANGUAGE ) && (homeList.count == 0)){
+        if ((CPLocalizationLanguage.currentAppleLanguage() == AR_LANGUAGE ) && (homeList.count == 0)){
             DispatchQueue.main.async{
                 self.fetchHomeInfoFromCoredata()
             }
@@ -627,38 +627,38 @@ class CPHomeViewController: UIViewController, UIViewControllerTransitioningDeleg
 extension CPHomeViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "homeToCommonListSegue") {
-            let commonList = segue.destination as! CommonListViewController
+            let commonList = segue.destination as! CPCommonListViewController
             if((homePageNameString == CPHomePageName.exhibitionList) && ((homeList[selectedRow!].id == "12181") || (homeList[selectedRow!].id == "12186"))){
-                commonList.exhibitionsPageNameString = ExhbitionPageName.homeExhibition
+                commonList.exhibitionsPageNameString = CPExhbitionPageName.homeExhibition
             } else if((homePageNameString == CPHomePageName.panelAndTalksList) && (homeList[selectedRow!].id == "13976") || (homeList[selectedRow!].id == "15631")) {
                 commonList.tourDetailId = homeList[selectedRow!].id
                 commonList.headerTitle = NSLocalizedString("PANEL_AND_TALKS",comment: "PANEL_AND_TALKS in Home Page")
                 commonList.isFromTour = false
-                commonList.exhibitionsPageNameString = ExhbitionPageName.nmoqTourSecondList
+                commonList.exhibitionsPageNameString = CPExhbitionPageName.nmoqTourSecondList
             }  else if(homePageNameString == CPHomePageName.tourguideList){
                 commonList.fromSideMenu = true
-                commonList.exhibitionsPageNameString = ExhbitionPageName.tourGuideList
+                commonList.exhibitionsPageNameString = CPExhbitionPageName.tourGuideList
             } else if(homePageNameString == CPHomePageName.diningList){
                 commonList.fromHome = true
                 commonList.fromSideMenu = false
-                commonList.exhibitionsPageNameString = ExhbitionPageName.diningList
+                commonList.exhibitionsPageNameString = CPExhbitionPageName.diningList
             }
             
         } else if (segue.identifier == "homeToListFadeSegue") {
-            let commonList = segue.destination as! CommonListViewController
+            let commonList = segue.destination as! CPCommonListViewController
             if(homePageNameString == CPHomePageName.exhibitionList){
                 commonList.fromSideMenu = true
-                commonList.exhibitionsPageNameString = ExhbitionPageName.homeExhibition
+                commonList.exhibitionsPageNameString = CPExhbitionPageName.homeExhibition
             } else if(homePageNameString == CPHomePageName.diningList){
                 commonList.fromHome = true
                 commonList.fromSideMenu = true
-                commonList.exhibitionsPageNameString = ExhbitionPageName.diningList
+                commonList.exhibitionsPageNameString = CPExhbitionPageName.diningList
             } else if(homePageNameString == CPHomePageName.heritageList){
                 commonList.fromSideMenu = true
-                commonList.exhibitionsPageNameString = ExhbitionPageName.heritageList
+                commonList.exhibitionsPageNameString = CPExhbitionPageName.heritageList
             } else if(homePageNameString == CPHomePageName.publicArtsList){
                 commonList.fromSideMenu = true
-                commonList.exhibitionsPageNameString = ExhbitionPageName.publicArtsList
+                commonList.exhibitionsPageNameString = CPExhbitionPageName.publicArtsList
             }
         }else if (segue.identifier == "homeToMuseumLandingSegue") {
             let museumsView = segue.destination as! CPMuseumsViewController
@@ -684,7 +684,7 @@ extension CPHomeViewController {
             let commonDetail = segue.destination as! CommonDetailViewController
             commonDetail.pageNameString = PageName.SideMenuPark
         } else if (segue.identifier == "homeToNotificationSegue") {
-            let notificationView = segue.destination as! NotificationsViewController
+            let notificationView = segue.destination as! CPNotificationsViewController
             notificationView.fromHome = true
         } else if(homePageNameString == CPHomePageName.eventList){
             let eventView = segue.destination as! CPEventViewController
@@ -722,7 +722,7 @@ extension CPHomeViewController {
 }
 
 //MARK:- ReusableView methods and delgates
-extension CPHomeViewController: TopBarProtocol,comingSoonPopUpProtocol,CPSideMenuProtocol, LoadingViewProtocol,LoginPopUpProtocol {
+extension CPHomeViewController: CPTopBarProtocol,CPComingSoonPopUpProtocol,CPSideMenuProtocol, LoadingViewProtocol,CPLoginPopUpProtocol {
     //MARK: Topbar Delegate
     func backButtonPressed() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
@@ -750,7 +750,7 @@ extension CPHomeViewController: TopBarProtocol,comingSoonPopUpProtocol,CPSideMen
         //        transition.subtype = kCATransitionFromRight
         //        view.window!.layer.add(transition, forKey: kCATransition)
         //        self.present(notificationsView, animated: false, completion: nil)
-        let notificationsView =  self.storyboard?.instantiateViewController(withIdentifier: "notificationId") as! NotificationsViewController
+        let notificationsView =  self.storyboard?.instantiateViewController(withIdentifier: "notificationId") as! CPNotificationsViewController
         notificationsView.fromHome = true
         let transition = CATransition()
         transition.duration = 0.3
@@ -845,14 +845,14 @@ extension CPHomeViewController: TopBarProtocol,comingSoonPopUpProtocol,CPSideMen
     //        self.performSegue(withIdentifier: "homeToListFadeSegue", sender: self)
     
     func exhibitionButtonPressed() {
-        let exhibitionView =  self.storyboard?.instantiateViewController(withIdentifier: "exhibitionViewId") as! CommonListViewController
+        let exhibitionView =  self.storyboard?.instantiateViewController(withIdentifier: "exhibitionViewId") as! CPCommonListViewController
         exhibitionView.fromSideMenu = true
         let transition = CATransition()
         transition.duration = 0.3
         transition.type = kCATransitionFade
         transition.timingFunction = CAMediaTimingFunction(name:kCAMediaTimingFunctionEaseInEaseOut)
         view.window!.layer.add(transition, forKey: kCATransition)
-        exhibitionView.exhibitionsPageNameString = ExhbitionPageName.homeExhibition
+        exhibitionView.exhibitionsPageNameString = CPExhbitionPageName.homeExhibition
         Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
             AnalyticsParameterItemID: FirebaseAnalyticsEvents.tapped_button_item,
             AnalyticsParameterItemName: "exhibitionButtonPressed_from_Home_Menu",
@@ -896,9 +896,9 @@ extension CPHomeViewController: TopBarProtocol,comingSoonPopUpProtocol,CPSideMen
     }
     
     func tourGuideButtonPressed() {
-        let tourGuideView =  self.storyboard?.instantiateViewController(withIdentifier: "exhibitionViewId") as! CommonListViewController
+        let tourGuideView =  self.storyboard?.instantiateViewController(withIdentifier: "exhibitionViewId") as! CPCommonListViewController
         tourGuideView.fromSideMenu = true
-        tourGuideView.exhibitionsPageNameString = ExhbitionPageName.tourGuideList
+        tourGuideView.exhibitionsPageNameString = CPExhbitionPageName.tourGuideList
         let transition = CATransition()
         transition.duration = 0.3
         transition.type = kCATransitionPush
@@ -913,9 +913,9 @@ extension CPHomeViewController: TopBarProtocol,comingSoonPopUpProtocol,CPSideMen
     }
     
     func heritageButtonPressed() {
-        let heritageView =  self.storyboard?.instantiateViewController(withIdentifier: "exhibitionViewId") as! CommonListViewController
+        let heritageView =  self.storyboard?.instantiateViewController(withIdentifier: "exhibitionViewId") as! CPCommonListViewController
         heritageView.fromSideMenu = true
-        heritageView.exhibitionsPageNameString = ExhbitionPageName.heritageList
+        heritageView.exhibitionsPageNameString = CPExhbitionPageName.heritageList
         let transition = CATransition()
         transition.duration = 0.3
         transition.type = kCATransitionFade
@@ -930,9 +930,9 @@ extension CPHomeViewController: TopBarProtocol,comingSoonPopUpProtocol,CPSideMen
     }
     
     func publicArtsButtonPressed() {
-        let publicArtsView =  self.storyboard?.instantiateViewController(withIdentifier: "exhibitionViewId") as! CommonListViewController
+        let publicArtsView =  self.storyboard?.instantiateViewController(withIdentifier: "exhibitionViewId") as! CPCommonListViewController
         publicArtsView.fromSideMenu = true
-        publicArtsView.exhibitionsPageNameString = ExhbitionPageName.publicArtsList
+        publicArtsView.exhibitionsPageNameString = CPExhbitionPageName.publicArtsList
         let transition = CATransition()
         transition.duration = 0.25
         transition.type = kCATransitionFade
@@ -963,10 +963,10 @@ extension CPHomeViewController: TopBarProtocol,comingSoonPopUpProtocol,CPSideMen
     }
     
     func diningButtonPressed() {
-        let diningView =  self.storyboard?.instantiateViewController(withIdentifier: "exhibitionViewId") as! CommonListViewController
+        let diningView =  self.storyboard?.instantiateViewController(withIdentifier: "exhibitionViewId") as! CPCommonListViewController
         diningView.fromHome = true
         diningView.fromSideMenu = true
-        diningView.exhibitionsPageNameString = ExhbitionPageName.diningList
+        diningView.exhibitionsPageNameString = CPExhbitionPageName.diningList
         let transition = CATransition()
         transition.duration = 0.25
         transition.type = kCATransitionFade
@@ -1052,7 +1052,7 @@ extension CPHomeViewController: TopBarProtocol,comingSoonPopUpProtocol,CPSideMen
     }
     
     func menuNotificationPressed() {
-        let notificationsView =  self.storyboard?.instantiateViewController(withIdentifier: "notificationId") as! NotificationsViewController
+        let notificationsView =  self.storyboard?.instantiateViewController(withIdentifier: "notificationId") as! CPNotificationsViewController
         notificationsView.fromHome = true
         let transition = CATransition()
         transition.duration = 0.3
@@ -1112,7 +1112,7 @@ extension CPHomeViewController: TopBarProtocol,comingSoonPopUpProtocol,CPSideMen
     func tryAgainButtonPressed() {
         if  (networkReachability?.isReachable)! {
             let appDelegate =  UIApplication.shared.delegate as? AppDelegate
-            appDelegate?.getHomeList(lang: LocalizationLanguage.currentAppleLanguage())
+            appDelegate?.getHomeList(lang: CPLocalizationLanguage.currentAppleLanguage())
             if(UserDefaults.standard.value(forKey: "firstTimeLaunch") as? String == nil) {
                 loadLoginPopup()
                 UserDefaults.standard.set("false", forKey: "firstTimeLaunch")
@@ -1121,7 +1121,7 @@ extension CPHomeViewController: TopBarProtocol,comingSoonPopUpProtocol,CPSideMen
     }
     //MARK: Login Details
     func loadLoginPopup() {
-        loginPopUpView  = LoginPopupPage(frame: self.view.frame)
+        loginPopUpView  = CPLoginPopupPage(frame: self.view.frame)
         loginPopUpView.loginPopupDelegate = self
         loginPopUpView.userNameText.delegate = self
         loginPopUpView.passwordText.delegate = self

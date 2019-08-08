@@ -7,7 +7,7 @@
 //
 
 import Foundation
-struct Heritage: ResponseObjectSerializable, ResponseCollectionSerializable {
+struct CPHeritage: ResponseObjectSerializable, ResponseCollectionSerializable {
     var id: String? = nil
     var name: String? = nil
     var location: String? = nil
@@ -63,11 +63,11 @@ struct Heritage: ResponseObjectSerializable, ResponseCollectionSerializable {
 }
 
 struct Heritages: ResponseObjectSerializable {
-    var heritage: [Heritage]? = []
+    var heritage: [CPHeritage]? = []
     
     public init?(response: HTTPURLResponse, representation: AnyObject) {
         if let data = representation as? [[String: Any]] {
-            self.heritage = Heritage.collection(response: response, representation: data as AnyObject)
+            self.heritage = CPHeritage.collection(response: response, representation: data as AnyObject)
         }
     }
 }

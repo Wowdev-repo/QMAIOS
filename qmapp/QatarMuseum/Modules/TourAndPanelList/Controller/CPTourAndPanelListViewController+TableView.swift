@@ -24,7 +24,7 @@ extension CPTourAndPanelListViewController: UITableViewDelegate,UITableViewDataS
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "commonListCellId", for: indexPath) as! CommonListCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "commonListCellId", for: indexPath) as! CPCommonListCell
         if (pageNameString == CPNMoQPageName.Tours) {
             cell.setTourListDate(tourList: nmoqTourList[indexPath.row], isTour: true)
         } else if (pageNameString == CPNMoQPageName.PanelDiscussion){

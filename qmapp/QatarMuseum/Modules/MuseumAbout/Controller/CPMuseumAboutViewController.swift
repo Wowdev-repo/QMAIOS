@@ -30,11 +30,11 @@ class CPMuseumAboutViewController: UIViewController,UIGestureRecognizerDelegate 
     let closeButton = UIButton()
     var blurView = UIVisualEffectView()
     var pageNameString : PageName2?
-    var aboutDetailtArray : [Museum] = []
+    var aboutDetailtArray : [CPMuseum] = []
     var heritageDetailId : String? = nil
     var publicArtsDetailId : String? = nil
     let networkReachability = NetworkReachabilityManager()
-    var popupView : ComingSoonPopUp = ComingSoonPopUp()
+    var popupView : CPComingSoonPopUp = CPComingSoonPopUp()
     var museumId : String? = nil
     var carousel = iCarousel()
     var imgButton = UIButton()
@@ -43,7 +43,7 @@ class CPMuseumAboutViewController: UIViewController,UIGestureRecognizerDelegate 
     var travelImage: String!
     var travelTitle: String!
     var aboutBannerId: String? = nil
-    var travelDetail: HomeBanner?
+    var travelDetail: CPHomeBanner?
 
     override func viewDidLoad() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
@@ -135,7 +135,7 @@ class CPMuseumAboutViewController: UIViewController,UIGestureRecognizerDelegate 
         blurView.alpha = 0
         imageView.addSubview(blurView)
         
-        if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
+        if ((CPLocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
             closeButton.frame = CGRect(x: 10, y: 30, width: 40, height: 40)
         } else {
             closeButton.frame = CGRect(x: self.view.frame.width-50, y: 30, width: 40, height: 40)
@@ -362,7 +362,7 @@ class CPMuseumAboutViewController: UIViewController,UIGestureRecognizerDelegate 
 }
 
 //MARK:- ReusableView Methods
-extension CPMuseumAboutViewController: comingSoonPopUpProtocol,LoadingViewProtocol {
+extension CPMuseumAboutViewController: CPComingSoonPopUpProtocol,LoadingViewProtocol {
     
     func showNodata() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
@@ -391,7 +391,7 @@ extension CPMuseumAboutViewController: comingSoonPopUpProtocol,LoadingViewProtoc
     }
     
     func showLocationErrorPopup() {
-        popupView  = ComingSoonPopUp(frame: self.view.frame)
+        popupView  = CPComingSoonPopUp(frame: self.view.frame)
         popupView.comingSoonPopupDelegate = self
         popupView.loadLocationErrorPopup()
         self.view.addSubview(popupView)

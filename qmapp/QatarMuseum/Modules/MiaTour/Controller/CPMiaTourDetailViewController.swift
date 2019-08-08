@@ -16,7 +16,7 @@ class CPMiaTourDetailViewController: UIViewController {
     @IBOutlet weak var tourGuideDescription: UITextView!
     @IBOutlet weak var startTourButton: UIButton!
     @IBOutlet weak var playButton: UIButton!
-    @IBOutlet weak var headerView: CommonHeaderView!
+    @IBOutlet weak var headerView: CPCommonHeaderView!
     @IBOutlet weak var slideshowView: KASlideShow!
     @IBOutlet weak var pageControl: UIPageControl!
     @IBOutlet weak var scienceTourTitle: UITextView!
@@ -24,11 +24,11 @@ class CPMiaTourDetailViewController: UIViewController {
     @IBOutlet weak var loadingView: LoadingView!
     @IBOutlet weak var overlayView: UIView!
     var slideshowImages : NSArray!
-    var popupView : ComingSoonPopUp = ComingSoonPopUp()
+    var popupView : CPComingSoonPopUp = CPComingSoonPopUp()
     var i = 0
     var museumId :String? = nil
-    var tourGuide: [TourGuide] = []
-    var tourGuideDetail : TourGuide?
+    var tourGuide: [CPTourGuide] = []
+    var tourGuideDetail : CPTourGuide?
     var totalImgCount = Int()
     var sliderImgCount : Int? = 0
     var sliderImgArray = NSMutableArray()
@@ -68,7 +68,7 @@ class CPMiaTourDetailViewController: UIViewController {
 
        // slideshowView.imagesContentMode = .scaleAspectFill
         self.slideshowView.addImage(UIImage(named: "sliderPlaceholder"))
-        if ((LocalizationLanguage.currentAppleLanguage()) == "en") {
+        if ((CPLocalizationLanguage.currentAppleLanguage()) == "en") {
             headerView.headerBackButton.setImage(UIImage(named: "back_buttonX1"), for: .normal)
         } else {
             headerView.headerBackButton.setImage(UIImage(named: "back_mirrorX1"), for: .normal)
@@ -151,7 +151,7 @@ class CPMiaTourDetailViewController: UIViewController {
         self.tourGuideDescription.textContainer.lineBreakMode = .byTruncatingTail;
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
     }
-    func setImageArray(tourGuideImgDict : TourGuide?) {
+    func setImageArray(tourGuideImgDict : CPTourGuide?) {
         self.sliderImgArray[0] = UIImage(named: "sliderPlaceholder")!
         self.sliderImgArray[1] = UIImage(named: "sliderPlaceholder")!
         self.sliderImgArray[2] = UIImage(named: "sliderPlaceholder")!
@@ -206,7 +206,7 @@ class CPMiaTourDetailViewController: UIViewController {
 }
 
 //MARK:- ReusableView methods
-extension CPMiaTourDetailViewController: HeaderViewProtocol, comingSoonPopUpProtocol {
+extension CPMiaTourDetailViewController: CPHeaderViewProtocol, CPComingSoonPopUpProtocol {
     //MARK: Poup Delegate
     func closeButtonPressed() {
         self.popupView.removeFromSuperview()
@@ -219,7 +219,7 @@ extension CPMiaTourDetailViewController: HeaderViewProtocol, comingSoonPopUpProt
     }
     
     func loadComingSoonPopup() {
-        popupView  = ComingSoonPopUp(frame: self.view.frame)
+        popupView  = CPComingSoonPopUp(frame: self.view.frame)
         popupView.comingSoonPopupDelegate = self
         popupView.loadPopup()
         self.view.addSubview(popupView)

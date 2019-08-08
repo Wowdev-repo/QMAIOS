@@ -32,7 +32,7 @@ class CPFloorMapViewController: UIViewController, UIGestureRecognizerDelegate {
     
     
     @IBOutlet weak var viewForMap: GMSMapView!
-    @IBOutlet weak var headerView: CommonHeaderView!
+    @IBOutlet weak var headerView: CPCommonHeaderView!
     @IBOutlet weak var thirdLevelView: UIView!
     @IBOutlet weak var secondLevelView: UIView!
     @IBOutlet weak var firstLevelView: UIView!
@@ -54,8 +54,8 @@ class CPFloorMapViewController: UIViewController, UIGestureRecognizerDelegate {
     
     @IBOutlet weak var loadingView: LoadingView!
     @IBOutlet weak var seekLoadingLabel: UILabel!
-    var bottomSheetVC:MapDetailView = MapDetailView()
-    var floorMapArray: [TourGuideFloorMap]! = []
+    var bottomSheetVC:CPMapDetailView = CPMapDetailView()
+    var floorMapArray: [CPTourGuideFloorMap]! = []
     //var tourGuideArray: [TourGuideFloorMap]! = []
     var selectedScienceTour : String? = ""
     var selectedScienceTourLevel : String? = ""
@@ -360,7 +360,7 @@ class CPFloorMapViewController: UIViewController, UIGestureRecognizerDelegate {
         headerView.headerViewDelegate = self
         headerView.headerTitle.text = NSLocalizedString("FLOOR_MAP_TITLE", comment: "FLOOR_MAP_TITLE  in the Floormap page")
         
-        if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
+        if ((CPLocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
              headerView.headerBackButton.setImage(UIImage(named: "back_buttonX1"), for: .normal)
             if (fromTourString == fromTour.scienceTour) {
                 tourGuideId = "12216"
@@ -1068,7 +1068,7 @@ class CPFloorMapViewController: UIViewController, UIGestureRecognizerDelegate {
         overlayView.isHidden = false
         self.avPlayer = nil
         self.timer?.invalidate()
-        bottomSheetVC = MapDetailView()
+        bottomSheetVC = CPMapDetailView()
         bottomSheetVC.mapdetailDelegate = self
         bottomSheetVC.popUpArray = floorMapArray
         bottomSheetVC.selectedIndex = index
@@ -1590,7 +1590,7 @@ extension AVPlayer {
     }
 }
 
-extension CPFloorMapViewController: HeaderViewProtocol,MapDetailProtocol,LoadingViewProtocol {
+extension CPFloorMapViewController: CPHeaderViewProtocol,CPMapDetailProtocol,LoadingViewProtocol {
     //MARK:Header Protocol
     func headerCloseButtonPressed() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")

@@ -13,7 +13,7 @@ extension CPMuseumsViewController {
     func getMuseumDataFromServer() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         _ = CPSessionManager.sharedInstance.apiManager()?
-            .request(QatarMuseumRouter.LandingPageMuseums(["nid": museumId ?? 0]))
+            .request(CPQatarMuseumRouter.LandingPageMuseums(["nid": museumId ?? 0]))
             .responseObject { [weak self] (response: DataResponse<Museums>) -> Void in
                 switch response.result {
                 case .success(let data):
@@ -31,25 +31,25 @@ extension CPMuseumsViewController {
     }
     
     //MARK: About CoreData
-    func saveOrUpdateAboutCoredata(aboutDetailtArray:[Museum]?) {
+    func saveOrUpdateAboutCoredata(aboutDetailtArray:[CPMuseum]?) {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         if ((aboutDetailtArray?.count)! > 0) {
             let appDelegate =  UIApplication.shared.delegate as? AppDelegate
             if #available(iOS 10.0, *) {
                 let container = appDelegate!.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
-                    DataManager.saveAboutDetails(managedContext: managedContext,
+                    CPDataManager.saveAboutDetails(managedContext: managedContext,
                                                  aboutDetailtArray: aboutDetailtArray,
                                                  fromHomeBanner: self.fromHomeBanner,
-                                                 language: Utils.getLanguage())
+                                                 language: CPUtils.getLanguage())
                 }
             } else {
                 let managedContext = appDelegate!.managedObjectContext
                 managedContext.perform {
-                    DataManager.saveAboutDetails(managedContext : managedContext,
+                    CPDataManager.saveAboutDetails(managedContext : managedContext,
                                                  aboutDetailtArray: aboutDetailtArray,
                                                  fromHomeBanner: self.fromHomeBanner,
-                                                 language: Utils.getLanguage())
+                                                 language: CPUtils.getLanguage())
                 }
             }
         }
@@ -57,7 +57,7 @@ extension CPMuseumsViewController {
     
     func fetchMuseumLandingImagesFromCoredata() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-        self.museumArray = DataManager.fetchMuseumLandingImages(museumId!)
+        self.museumArray = CPDataManager.fetchMuseumLandingImages(museumId!)
         if self.museumArray.isEmpty, let reachable = networkReachability?.isReachable, reachable {
             DispatchQueue.global(qos: .background).async {
                 self.getMuseumDataFromServer()

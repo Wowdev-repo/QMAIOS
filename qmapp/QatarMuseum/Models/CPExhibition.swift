@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct CPExhibition: ResponseObjectSerializable, ResponseCollectionSerializable {
+struct CPExhibition: CPResponseObjectSerializable, CPResponseCollectionSerializable {
     var name: String? = nil
     var id: String? = nil
     var image: String? = nil
@@ -68,7 +68,7 @@ struct CPExhibition: ResponseObjectSerializable, ResponseCollectionSerializable 
     }
 }
 
-struct Exhibitions: ResponseObjectSerializable {
+struct Exhibitions: CPResponseObjectSerializable {
     var exhibitions: [CPExhibition]? = []
     
     public init?(response: HTTPURLResponse, representation: AnyObject) {

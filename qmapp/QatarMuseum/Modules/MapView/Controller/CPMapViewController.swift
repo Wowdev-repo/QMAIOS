@@ -14,9 +14,9 @@ import Firebase
 
 class CPMapViewController: UIViewController {
     @IBOutlet weak var mapView: MKMapView!
-    @IBOutlet weak var headerView: CommonHeaderView!
+    @IBOutlet weak var headerView: CPCommonHeaderView!
     
-    var aboutData : Museum?
+    var aboutData : CPMuseum?
     let locationManager = CLLocationManager()
     var userLocation: CLLocation?
     var destination: MKMapItem?
@@ -125,7 +125,7 @@ class CPMapViewController: UIViewController {
 extension CPMapViewController {
     func setupUI() {
         
-        if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
+        if ((CPLocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
             headerView.headerBackButton.setImage(UIImage(named: "back_buttonX1"), for: .normal)
         }
         else {
@@ -184,7 +184,7 @@ extension CPMapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
     }
 }
 
-extension CPMapViewController: HeaderViewProtocol {
+extension CPMapViewController: CPHeaderViewProtocol {
     func headerCloseButtonPressed() {
         let transition = CATransition()
         transition.duration = 0.3

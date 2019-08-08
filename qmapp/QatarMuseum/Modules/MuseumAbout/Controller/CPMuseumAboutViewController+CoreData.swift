@@ -13,7 +13,7 @@ extension CPMuseumAboutViewController {
     //MARK: ABout Webservice
     func getAboutDetailsFromServer() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.LandingPageMuseums(["nid": museumId ?? 0])).responseObject { [weak self] (response: DataResponse<Museums>) -> Void in
+        _ = CPSessionManager.sharedInstance.apiManager()?.request(CPQatarMuseumRouter.LandingPageMuseums(["nid": museumId ?? 0])).responseObject { [weak self] (response: DataResponse<Museums>) -> Void in
             switch response.result {
             case .success(let data):
                 self?.aboutDetailtArray = data.museum!
@@ -52,7 +52,7 @@ extension CPMuseumAboutViewController {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         if(museumId != nil) {
             
-            _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.GetNMoQAboutEvent(LocalizationLanguage.currentAppleLanguage(),["nid": museumId!]))
+            _ = CPSessionManager.sharedInstance.apiManager()?.request(CPQatarMuseumRouter.GetNMoQAboutEvent(CPLocalizationLanguage.currentAppleLanguage(),["nid": museumId!]))
                 .responseObject { [weak self] (response: DataResponse<Museums>) -> Void in
                 switch response.result {
                 case .success(let data):
@@ -82,24 +82,24 @@ extension CPMuseumAboutViewController {
         }
     }
     //MARK: About CoreData
-    func saveOrUpdateAboutCoredata(aboutDetailtArray:[Museum]?) {
+    func saveOrUpdateAboutCoredata(aboutDetailtArray:[CPMuseum]?) {
         if ((aboutDetailtArray?.count)! > 0) {
             let appDelegate =  UIApplication.shared.delegate as? AppDelegate
             if #available(iOS 10.0, *) {
                 let container = appDelegate!.persistentContainer
                 container.performBackgroundTask() { managedContext in
-                    DataManager.saveAboutDetails(managedContext: managedContext,
+                    CPDataManager.saveAboutDetails(managedContext: managedContext,
                                                  aboutDetailtArray: aboutDetailtArray,
                                                  fromHomeBanner: false,
-                                                 language: Utils.getLanguage())
+                                                 language: CPUtils.getLanguage())
                 }
             } else {
                 let managedContext = appDelegate!.managedObjectContext
                 managedContext.perform {
-                    DataManager.saveAboutDetails(managedContext: managedContext,
+                    CPDataManager.saveAboutDetails(managedContext: managedContext,
                                                  aboutDetailtArray: aboutDetailtArray,
                                                  fromHomeBanner: false,
-                                                 language: Utils.getLanguage())
+                                                 language: CPUtils.getLanguage())
                 }
             }
         }
@@ -164,7 +164,7 @@ extension CPMuseumAboutViewController {
                     } else if (pageNameString == PageName2.museumEvent){
                         nmoqTime = aboutDict.openingTime!
                     }
-                    self.aboutDetailtArray.insert(Museum(name: aboutDict.name, id: aboutDict.id, tourguideAvailable: aboutDict.tourguideAvailable, contactNumber: aboutDict.contactNumber, contactEmail: aboutDict.contactEmail, mobileLongtitude: aboutDict.mobileLongtitude, subtitle: aboutDict.subtitle, openingTime: aboutTime, mobileDescription: descriptionArray, multimediaFile: multimediaArray, mobileLatitude: aboutDict.mobileLatitude, tourGuideAvailability: aboutDict.tourGuideAvailability,multimediaVideo: nil, downloadable:downloadArray,eventDate:nmoqTime),at: 0)
+                    self.aboutDetailtArray.insert(CPMuseum(name: aboutDict.name, id: aboutDict.id, tourguideAvailable: aboutDict.tourguideAvailable, contactNumber: aboutDict.contactNumber, contactEmail: aboutDict.contactEmail, mobileLongtitude: aboutDict.mobileLongtitude, subtitle: aboutDict.subtitle, openingTime: aboutTime, mobileDescription: descriptionArray, multimediaFile: multimediaArray, mobileLatitude: aboutDict.mobileLatitude, tourGuideAvailability: aboutDict.tourGuideAvailability,multimediaVideo: nil, downloadable:downloadArray,eventDate:nmoqTime),at: 0)
                     
                     
                     if(aboutDetailtArray.count == 0){

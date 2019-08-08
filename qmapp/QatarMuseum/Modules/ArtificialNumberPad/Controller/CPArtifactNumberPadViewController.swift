@@ -11,8 +11,8 @@ import Firebase
 import UIKit
 
 
-class CPArtifactNumberPadViewController: UIViewController, HeaderViewProtocol {
-    @IBOutlet weak var artifactHeader: CommonHeaderView!
+class CPArtifactNumberPadViewController: UIViewController, CPHeaderViewProtocol {
+    @IBOutlet weak var artifactHeader: CPCommonHeaderView!
     @IBOutlet weak var numberPadCollectionView: UICollectionView!
     @IBOutlet weak var loadingView: LoadingView!
     @IBOutlet weak var objectTitleLabel: UILabel!
@@ -25,7 +25,7 @@ class CPArtifactNumberPadViewController: UIViewController, HeaderViewProtocol {
     let NUMBER_CELL_WIDTH: CGFloat = 100.0
     var artifactValue: String = ""
     var tourGuideId : String? = nil
-    var objectDetailArray: [TourGuideFloorMap]! = []
+    var objectDetailArray: [CPTourGuideFloorMap]! = []
     override func viewDidLoad() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
         
@@ -120,7 +120,7 @@ extension CPArtifactNumberPadViewController {
     {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)" + "SearchString: \(searchString)")
         if((searchString != "") && (searchString != nil)) {
-            _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.CollectionByTourGuide(LocalizationLanguage.currentAppleLanguage(),["artifact_number": searchString!])).responseObject { [weak self] (response: DataResponse<TourGuideFloorMaps>) -> Void in
+            _ = CPSessionManager.sharedInstance.apiManager()?.request(CPQatarMuseumRouter.CollectionByTourGuide(CPLocalizationLanguage.currentAppleLanguage(),["artifact_number": searchString!])).responseObject { [weak self] (response: DataResponse<TourGuideFloorMaps>) -> Void in
                 switch response.result {
                 case .success(let data):
                     self?.objectDetailArray = data.tourGuideFloorMap

@@ -54,11 +54,11 @@ func presentAlert(_ viewController: UIViewController, title: String, message: St
 }
 
 // Handles common backend errors and returns unhandled internal app errors if any
-func handleError(viewController: UIViewController, errorType: BackendError) -> QatarMuseumError? {
+func handleError(viewController: UIViewController, errorType: CPBackendError) -> CPQatarMuseumError? {
     DDLogInfo("File: \(#file)" + "Function: \(#function)")
     var errorMessage: String? = nil
     var errorTitle: String? = nil
-    var unhandledError: QatarMuseumError? = nil
+    var unhandledError: CPQatarMuseumError? = nil
     switch errorType {
     case .Network(let error):
         errorTitle = "Network error"

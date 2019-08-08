@@ -15,7 +15,7 @@ import UIKit
 
 class CPMuseumsViewController: UIViewController,KASlideShowDelegate {
     
-    @IBOutlet weak var museumsTopbar: TopBarView!
+    @IBOutlet weak var museumsTopbar: CPTopBarView!
     @IBOutlet weak var museumsSlideView: KASlideShow!
     @IBOutlet weak var pageControl: UIPageControl!
     @IBOutlet weak var museumsBottomCollectionView: UICollectionView!
@@ -25,14 +25,14 @@ class CPMuseumsViewController: UIViewController,KASlideShowDelegate {
     
     var collectionViewImages : NSArray!
     var collectionViewNames : NSArray!
-    var popUpView : ComingSoonPopUp = ComingSoonPopUp()
-    var museumArray: [Museum] = []
+    var popUpView : CPComingSoonPopUp = CPComingSoonPopUp()
+    var museumArray: [CPMuseum] = []
     var museumId:String? = nil
     var museumTitleString:String? = nil
     var totalImgCount = Int()
     var sliderImgCount : Int? = 0
     var sliderImgArray = NSMutableArray()
-    var apnDelegate : APNProtocol?
+    var apnDelegate : CPAPNProtocol?
     var fromHomeBanner = false
     var bannerId: String? = nil
     var bannerImageArray : [String]? = []
@@ -77,7 +77,7 @@ class CPMuseumsViewController: UIViewController,KASlideShowDelegate {
         museumsTopbar.backButton.isHidden = false
         museumTitle.text = museumTitleString
         museumTitle.font = UIFont.museumTitleFont
-        if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
+        if ((CPLocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
             museumsTopbar.backButton.setImage(UIImage(named: "back_buttonX1"), for: .normal)
             previousButton.isHidden = true
             nextButton.isHidden = false
@@ -196,7 +196,7 @@ class CPMuseumsViewController: UIViewController,KASlideShowDelegate {
     
     @IBAction func didTapPrevious(_ sender: UIButton) {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-        if ((LocalizationLanguage.currentAppleLanguage()) == "en") {
+        if ((CPLocalizationLanguage.currentAppleLanguage()) == "en") {
             let collectionBounds = self.museumsBottomCollectionView.bounds
             let contentOffset = CGFloat(floor(self.museumsBottomCollectionView.contentOffset.x - collectionBounds.size.width))
             self.moveCollectionToFrame(contentOffset: contentOffset)
@@ -220,7 +220,7 @@ class CPMuseumsViewController: UIViewController,KASlideShowDelegate {
     }
     @IBAction func didTapNext(_ sender: UIButton) {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-        if ((LocalizationLanguage.currentAppleLanguage()) == "en") {
+        if ((CPLocalizationLanguage.currentAppleLanguage()) == "en") {
             self.museumsBottomCollectionView.isScrollEnabled = true
             let collectionBounds = self.museumsBottomCollectionView.bounds
             let contentOffset = CGFloat(floor(self.museumsBottomCollectionView.contentOffset.x + collectionBounds.size.width))
@@ -287,10 +287,10 @@ extension CPMuseumsViewController {
 }
 
 //MARK:- ReusableViews methods
-extension CPMuseumsViewController: TopBarProtocol,comingSoonPopUpProtocol {
+extension CPMuseumsViewController: CPTopBarProtocol,CPComingSoonPopUpProtocol {
     func loadComingSoonPopup(isTour: Bool = false) {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-        popUpView  = ComingSoonPopUp(frame: self.view.frame)
+        popUpView  = CPComingSoonPopUp(frame: self.view.frame)
         popUpView.comingSoonPopupDelegate = self
         if isTour {
             popUpView.loadTourGuidePopup()
@@ -325,7 +325,7 @@ extension CPMuseumsViewController: TopBarProtocol,comingSoonPopUpProtocol {
     
     func notificationbuttonPressed() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-        let notificationsView =  self.storyboard?.instantiateViewController(withIdentifier: "notificationId") as! NotificationsViewController
+        let notificationsView =  self.storyboard?.instantiateViewController(withIdentifier: "notificationId") as! CPNotificationsViewController
         notificationsView.fromHome = false
         let transition = CATransition()
         transition.duration = 0.3
@@ -425,23 +425,23 @@ extension CPMuseumsViewController {
                 tourAndPanelView.pageNameString = CPNMoQPageName.Facilities
             }
         } else if (segue.identifier == "museumsToCommonListSegue") {
-            let commonList = segue.destination as! CommonListViewController
+            let commonList = segue.destination as! CPCommonListViewController
             if ((selectedItemName == "Audio Guide") || (selectedItemName == "الدليل الصوتي")){
-                commonList.exhibitionsPageNameString = ExhbitionPageName.miaTourGuideList
+                commonList.exhibitionsPageNameString = CPExhbitionPageName.miaTourGuideList
                 commonList.museumId = museumId!
             } else if ((selectedItemName == "Exhibitions") || (selectedItemName == "المعارض")){
                 commonList.museumId = museumId
-                commonList.exhibitionsPageNameString = ExhbitionPageName.museumExhibition
+                commonList.exhibitionsPageNameString = CPExhbitionPageName.museumExhibition
             } else if ((selectedItemName == "Collections") || (selectedItemName == "المجموعات")){
                 commonList.museumId = museumId
-                commonList.exhibitionsPageNameString = ExhbitionPageName.museumCollectionsList
+                commonList.exhibitionsPageNameString = CPExhbitionPageName.museumCollectionsList
             } else if ((selectedItemName == "Parks") || (selectedItemName == "الحدائق")){
-                commonList.exhibitionsPageNameString = ExhbitionPageName.parkList
+                commonList.exhibitionsPageNameString = CPExhbitionPageName.parkList
             }else if((selectedItemName == "Dining") || (selectedItemName == "الطعام")) {
                 commonList.museumId = museumId
                 commonList.fromHome = false
                 commonList.fromSideMenu = false
-                commonList.exhibitionsPageNameString = ExhbitionPageName.diningList
+                commonList.exhibitionsPageNameString = CPExhbitionPageName.diningList
             }
         } else if (segue.identifier == "museumToCommonDetailSegue") {
             let commonDetail = segue.destination as! CommonDetailViewController

@@ -455,7 +455,7 @@ public extension UIView {
             messageLabel?.text = message
             messageLabel?.numberOfLines = style.messageNumberOfLines
             if (UIDevice.current.userInterfaceIdiom == .pad) {
-                if ((LocalizationLanguage.currentAppleLanguage()) == "en") {
+                if ((CPLocalizationLanguage.currentAppleLanguage()) == "en") {
                     messageLabel?.font = UIFont(name: "Lato-Bold", size: 22)
                 }
                 else {
@@ -463,7 +463,7 @@ public extension UIView {
                 }
             }
             else{
-                if ((LocalizationLanguage.currentAppleLanguage()) == "en") {
+                if ((CPLocalizationLanguage.currentAppleLanguage()) == "en") {
                     messageLabel?.font = UIFont(name: "Lato-Bold", size: 16)
                 }
                 else {

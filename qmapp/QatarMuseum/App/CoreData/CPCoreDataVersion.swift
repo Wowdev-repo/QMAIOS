@@ -1,0 +1,46 @@
+//
+//  CoreDataVersion.swift
+//  QatarMuseums
+//
+//  Created by Wakralab Software Labs on 27/03/19.
+//  Copyright © 2019 Qatar Museums. All rights reserved.
+//
+
+import Foundation
+
+enum CPCoreDataVersion: Int {
+    case version1 = 1
+    case version2
+    case version3
+    case version4
+    
+    // MARK: - Accessors
+    
+    var name: String {
+        if rawValue == 1 {
+            return "QatarMuseums"
+        } else {
+            return "QatarMuseums_V\(rawValue)"
+        }
+    }
+    
+    static var all: [CPCoreDataVersion] {
+        var versions = [CPCoreDataVersion]()
+        
+        for rawVersionValue in 1...1000 { // A bit of a hack here to avoid manual mapping
+            if let version = CPCoreDataVersion(rawValue: rawVersionValue) {
+                versions.append(version)
+                continue
+            }
+            
+            break
+        }
+        
+        return versions.reversed()
+    }
+    
+    static var latest: CPCoreDataVersion {
+        return all.first!
+    }
+}
+

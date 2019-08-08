@@ -21,17 +21,17 @@ class CPPreviewContentViewController: UIViewController, UIGestureRecognizerDeleg
     
     @IBOutlet weak var tableViewTopConstrain: NSLayoutConstraint!
     
-    var tourGuideDict : TourGuideFloorMap!
+    var tourGuideDict : CPTourGuideFloorMap!
     var pageIndex = Int()
     let imageView = UIImageView()
     var blurView = UIVisualEffectView()
-    var objectImagePopupView : ObjectImageView = ObjectImageView()
+    var objectImagePopupView : CPObjectImageView = CPObjectImageView()
     var playList: String = ""
     var timer: Timer?
     var avPlayer: AVPlayer!
     var isPaused: Bool!
     var firstLoad: Bool = true
-    var selectedCell : ObjectDetailTableViewCell?
+    var selectedCell : CPObjectDetailTableViewCell?
     
     override func viewDidLoad() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
@@ -86,13 +86,13 @@ class CPPreviewContentViewController: UIViewController, UIGestureRecognizerDeleg
     
     @objc func loadObjectImagePopup(imgName: String?) {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-        objectImagePopupView = ObjectImageView(frame: self.view.frame)
+        objectImagePopupView = CPObjectImageView(frame: self.view.frame)
         //objectImagePopupView.objectImageViewDelegate = self as! ObjectImageViewProtocol
         objectImagePopupView.loadPopup(image : imgName!)
         self.view.addSubview(objectImagePopupView)
     }
 
-    func setFavouritesAction(cellObj: ObjectDetailTableViewCell) {
+    func setFavouritesAction(cellObj: CPObjectDetailTableViewCell) {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         if (cellObj.favoriteButton.tag == 0) {
             cellObj.favoriteButton.tag = 1
@@ -103,11 +103,11 @@ class CPPreviewContentViewController: UIViewController, UIGestureRecognizerDeleg
         }
     }
     
-    func setShareAction(cellObj: ObjectDetailTableViewCell) {
+    func setShareAction(cellObj: CPObjectDetailTableViewCell) {
         
     }
     
-    func setPlayButtonAction(cellObj: ObjectDetailTableViewCell) {
+    func setPlayButtonAction(cellObj: CPObjectDetailTableViewCell) {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         selectedCell  = cellObj
         

@@ -10,11 +10,11 @@ import Foundation
 
 
 
-class CoreDataMigrator {
+class CPCoreDataMigrator {
     
     // MARK: - Check
     
-    func requiresMigration(at storeURL: URL, currentMigrationModel: CoreDataMigrationModel = CoreDataMigrationModel.current) -> Bool {
+    func requiresMigration(at storeURL: URL, currentMigrationModel: CPCoreDataMigrationModel = CPCoreDataMigrationModel.current) -> Bool {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         guard let metadata = NSPersistentStoreCoordinator.metadata(at: storeURL) else {
             return false
@@ -27,10 +27,10 @@ class CoreDataMigrator {
     
     func migrateStore(at storeURL: URL) {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-        migrateStore(from: storeURL, to: storeURL, targetVersion: CoreDataMigrationModel.current)
+        migrateStore(from: storeURL, to: storeURL, targetVersion: CPCoreDataMigrationModel.current)
     }
     
-    func migrateStore(from sourceURL: URL, to targetURL: URL, targetVersion: CoreDataMigrationModel) {
+    func migrateStore(from sourceURL: URL, to targetURL: URL, targetVersion: CPCoreDataMigrationModel) {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         guard let sourceMigrationModel = CoreDataMigrationSourceModel(storeURL: sourceURL as URL) else {
             fatalError("unknown store version at URL \(sourceURL)")
@@ -70,7 +70,7 @@ class CoreDataMigrator {
     
     func forceWALCheckpointingForStore(at storeURL: URL) {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-        guard let metadata = NSPersistentStoreCoordinator.metadata(at: storeURL), let migrationModel = CoreDataMigrationModel.migrationModelCompatibleWithStoreMetadata(metadata)  else {
+        guard let metadata = NSPersistentStoreCoordinator.metadata(at: storeURL), let migrationModel = CPCoreDataMigrationModel.migrationModelCompatibleWithStoreMetadata(metadata)  else {
             return
         }
         

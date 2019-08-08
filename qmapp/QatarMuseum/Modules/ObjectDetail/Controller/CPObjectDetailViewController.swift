@@ -19,16 +19,16 @@ class CPObjectDetailViewController: UIViewController, UIGestureRecognizerDelegat
     let imageView = UIImageView()
     var blurView = UIVisualEffectView()
     let backButton = UIButton()
-    var objectImagePopupView : ObjectImageView = ObjectImageView()
+    var objectImagePopupView : CPObjectImageView = CPObjectImageView()
     let fullView: CGFloat = 100
     let closeButton = UIButton()
-    var detailArray : [TourGuideFloorMap]! = []
+    var detailArray : [CPTourGuideFloorMap]! = []
     var playList: String = ""
     var timer: Timer?
     var avPlayer: AVPlayer!
     var isPaused: Bool!
     var firstLoad: Bool = true
-    var selectedCell : ObjectDetailTableViewCell?
+    var selectedCell : CPObjectDetailTableViewCell?
     override func viewDidLoad() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
 
@@ -49,7 +49,7 @@ class CPObjectDetailViewController: UIViewController, UIGestureRecognizerDelegat
        // loadingView.isHidden = false
        // loadingView.showLoading()
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-        if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
+        if ((CPLocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
             closeButton.frame = CGRect(x: 10, y: 40, width: 50, height: 50)
         } else {
             closeButton.frame = CGRect(x: self.view.frame.width-50, y: 40, width: 50, height: 50)
@@ -91,7 +91,7 @@ class CPObjectDetailViewController: UIViewController, UIGestureRecognizerDelegat
         blurView.alpha = 0
         imageView.addSubview(blurView)
         
-        if ((LocalizationLanguage.currentAppleLanguage()) == "en") {
+        if ((CPLocalizationLanguage.currentAppleLanguage()) == "en") {
             backButton.frame = CGRect(x: 10, y: 30, width: 40, height: 40)
             backButton.setImage(UIImage(named: "previousImg"), for: .normal)
         } else {
@@ -116,7 +116,7 @@ class CPObjectDetailViewController: UIViewController, UIGestureRecognizerDelegat
     }
     
     @objc func loadObjectImagePopup(imgName: String?) {
-        objectImagePopupView = ObjectImageView(frame: self.view.frame)
+        objectImagePopupView = CPObjectImageView(frame: self.view.frame)
         //objectImagePopupView.objectImageViewDelegate = self as! ObjectImageViewProtocol
         objectImagePopupView.loadPopup(image : imgName!)
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
@@ -142,7 +142,7 @@ class CPObjectDetailViewController: UIViewController, UIGestureRecognizerDelegat
         self.dismiss(animated: false, completion: nil)
     }
     
-    func setFavouritesAction(cellObj: ObjectDetailTableViewCell) {
+    func setFavouritesAction(cellObj: CPObjectDetailTableViewCell) {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         if (cellObj.favoriteButton.tag == 0) {
             cellObj.favoriteButton.tag = 1
@@ -153,11 +153,11 @@ class CPObjectDetailViewController: UIViewController, UIGestureRecognizerDelegat
         }
     }
     
-    func setShareAction(cellObj: ObjectDetailTableViewCell) {
+    func setShareAction(cellObj: CPObjectDetailTableViewCell) {
         
     }
     
-    func setPlayButtonAction(cellObj: ObjectDetailTableViewCell) {
+    func setPlayButtonAction(cellObj: CPObjectDetailTableViewCell) {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         selectedCell  = cellObj
         

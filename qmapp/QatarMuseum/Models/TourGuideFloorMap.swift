@@ -1,5 +1,5 @@
 //
-//  TourGuideFloorMap.swift
+//  CPTourGuideFloorMap.swift
 //  QatarMuseums
 //
 //  Created by Wakralab Software Labs on 25/09/18.
@@ -7,7 +7,7 @@
 //
 
 import Foundation
-struct TourGuideFloorMap: ResponseObjectSerializable, ResponseCollectionSerializable {
+struct CPTourGuideFloorMap: ResponseObjectSerializable, ResponseCollectionSerializable {
     var title: String? = nil
     var accessionNumber: String? = nil
     var nid: String? = nil
@@ -118,11 +118,11 @@ struct TourGuideFloorMap: ResponseObjectSerializable, ResponseCollectionSerializ
 }
 
 struct TourGuideFloorMaps: ResponseObjectSerializable {
-    var tourGuideFloorMap: [TourGuideFloorMap]? = []
+    var tourGuideFloorMap: [CPTourGuideFloorMap]? = []
     
     public init?(response: HTTPURLResponse, representation: AnyObject) {
         if let data = representation as? [[String: Any]] {
-            self.tourGuideFloorMap = TourGuideFloorMap.collection(response: response, representation: data as AnyObject)
+            self.tourGuideFloorMap = CPTourGuideFloorMap.collection(response: response, representation: data as AnyObject)
         }
     }
 }

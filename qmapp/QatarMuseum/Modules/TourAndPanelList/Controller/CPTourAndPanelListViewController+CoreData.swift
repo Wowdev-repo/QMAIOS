@@ -13,24 +13,24 @@ import UIKit
 extension CPTourAndPanelListViewController {
     
     //MARK: Tour List Coredata Method
-    func saveOrUpdateTourListCoredata(nmoqTourList: [NMoQTour], isTourGuide:Bool) {
+    func saveOrUpdateTourListCoredata(nmoqTourList: [CPNMoQTour], isTourGuide:Bool) {
         if !nmoqTourList.isEmpty {
             let appDelegate =  UIApplication.shared.delegate as? AppDelegate
             if #available(iOS 10.0, *) {
                 let container = appDelegate!.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
-                    DataManager.updateTourList(nmoqTourList: nmoqTourList,
+                    CPDataManager.updateTourList(nmoqTourList: nmoqTourList,
                                                managedContext: managedContext,
                                                isTourGuide: isTourGuide,
-                                               language: Utils.getLanguage())
+                                               language: CPUtils.getLanguage())
                 }
             } else {
                 let managedContext = appDelegate!.managedObjectContext
                 managedContext.perform {
-                    DataManager.updateTourList(nmoqTourList: nmoqTourList,
+                    CPDataManager.updateTourList(nmoqTourList: nmoqTourList,
                                                managedContext : managedContext,
                                                isTourGuide: isTourGuide,
-                                               language: Utils.getLanguage())
+                                               language: CPUtils.getLanguage())
                 }
             }
         }
@@ -41,7 +41,7 @@ extension CPTourAndPanelListViewController {
         let managedContext = getContext()
         do {
             
-            var tourListArray = DataManager.checkAddedToCoredata(entityName: "NMoQTourListEntity",
+            var tourListArray = CPDataManager.checkAddedToCoredata(entityName: "NMoQTourListEntity",
                                                                  idKey: "isTourGuide",
                                                                  idValue: "\(isTourGuide)",
                 managedContext: managedContext) as! [NMoQTourListEntity]
@@ -53,7 +53,7 @@ extension CPTourAndPanelListViewController {
                 }
                 tourListArray.sort(by: {$0.sortId < $1.sortId})
                 for tourListDict in tourListArray {
-                    self.nmoqTourList.append(NMoQTour(entity: tourListDict))
+                    self.nmoqTourList.append(CPNMoQTour(entity: tourListDict))
                 }
                 
                 if(nmoqTourList.count == 0){
@@ -80,22 +80,22 @@ extension CPTourAndPanelListViewController {
     }
     
     //MARK: ActivityList Coredata Method
-    func saveOrUpdateActivityListCoredata(nmoqActivityList: [NMoQActivitiesList]) {
+    func saveOrUpdateActivityListCoredata(nmoqActivityList: [CPNMoQActivitiesList]) {
         if !nmoqActivityList.isEmpty {
             let appDelegate =  UIApplication.shared.delegate as? AppDelegate
             if #available(iOS 10.0, *) {
                 let container = appDelegate!.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
-                    DataManager.updateActivityList(nmoqActivityList: nmoqActivityList,
+                    CPDataManager.updateActivityList(nmoqActivityList: nmoqActivityList,
                                                    managedContext: managedContext,
-                                                   language: Utils.getLanguage())
+                                                   language: CPUtils.getLanguage())
                 }
             } else {
                 let managedContext = appDelegate!.managedObjectContext
                 managedContext.perform {
-                    DataManager.updateActivityList(nmoqActivityList: nmoqActivityList,
+                    CPDataManager.updateActivityList(nmoqActivityList: nmoqActivityList,
                                                    managedContext : managedContext,
-                                                   language: Utils.getLanguage())
+                                                   language: CPUtils.getLanguage())
                 }
             }
         }
@@ -114,7 +114,7 @@ extension CPTourAndPanelListViewController {
                     }
                 }
                 for activityListDict in activityListArray {
-                    self.nmoqActivityList.append(NMoQActivitiesList(entity: activityListDict))
+                    self.nmoqActivityList.append(CPNMoQActivitiesList(entity: activityListDict))
                 }
                 
                 if(nmoqActivityList.count == 0){
@@ -145,23 +145,23 @@ extension CPTourAndPanelListViewController {
     }
 
     //MARK: Facilities List Coredata Method
-    func saveOrUpdateFacilitiesListCoredata(facilitiesList: [Facilities],
+    func saveOrUpdateFacilitiesListCoredata(facilitiesList: [CPFacilities],
                                             language: String) {
         if !facilitiesList.isEmpty {
             let appDelegate =  UIApplication.shared.delegate as? AppDelegate
             if #available(iOS 10.0, *) {
                 let container = appDelegate!.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
-                    DataManager.updateFacilitiesEntity(facilitiesList: facilitiesList,
+                    CPDataManager.updateFacilitiesEntity(facilitiesList: facilitiesList,
                                                        managedContext: managedContext,
-                                                       language: Utils.getLanguageCode(language))
+                                                       language: CPUtils.getLanguageCode(language))
                 }
             } else {
                 let managedContext = appDelegate!.managedObjectContext
                 managedContext.perform {
-                    DataManager.updateFacilitiesEntity(facilitiesList: facilitiesList,
+                    CPDataManager.updateFacilitiesEntity(facilitiesList: facilitiesList,
                                                        managedContext : managedContext,
-                                                       language: Utils.getLanguageCode(language))
+                                                       language: CPUtils.getLanguageCode(language))
                 }
             }
             DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
@@ -174,9 +174,9 @@ extension CPTourAndPanelListViewController {
         let managedContext = getContext()
         do {
             
-            let facilitiesListArray = DataManager.checkAddedToCoredata(entityName: "FacilitiesEntity",
+            let facilitiesListArray = CPDataManager.checkAddedToCoredata(entityName: "FacilitiesEntity",
                                                                        idKey: "language",
-                                                                       idValue: Utils.getLanguage(),
+                                                                       idValue: CPUtils.getLanguage(),
                                                                        managedContext: managedContext) as! [FacilitiesEntity]
             if (facilitiesListArray.count > 0) {
                 if (networkReachability?.isReachable)! {
@@ -193,7 +193,7 @@ extension CPTourAndPanelListViewController {
                         }
                     }
                     
-                    self.facilitiesList.append(Facilities(title: facilitiesListDict.title,
+                    self.facilitiesList.append(CPFacilities(title: facilitiesListDict.title,
                                                           sortId: facilitiesListDict.sortId,
                                                           nid: facilitiesListDict.nid,
                                                           images: imagesArray))
@@ -241,22 +241,22 @@ extension CPTourAndPanelListViewController {
     }
     
     //MARK: Travel List Coredata
-    func saveOrUpdateTravelListCoredata(travelList: [HomeBanner]) {
+    func saveOrUpdateTravelListCoredata(travelList: [CPHomeBanner]) {
         if !travelList.isEmpty {
             let appDelegate =  UIApplication.shared.delegate as? AppDelegate
             if #available(iOS 10.0, *) {
                 let container = appDelegate!.persistentContainer
                 container.performBackgroundTask() {(managedContext) in
-                    DataManager.updateTravelList(travelList: travelList,
+                    CPDataManager.updateTravelList(travelList: travelList,
                                                  managedContext: managedContext,
-                                                 language: Utils.getLanguage())
+                                                 language: CPUtils.getLanguage())
                 }
             } else {
                 let managedContext = appDelegate!.managedObjectContext
                 managedContext.perform {
-                    DataManager.updateTravelList(travelList: travelList,
+                    CPDataManager.updateTravelList(travelList: travelList,
                                                  managedContext : managedContext,
-                                                 language: Utils.getLanguage())
+                                                 language: CPUtils.getLanguage())
                 }
             }
         }
@@ -278,7 +278,7 @@ extension CPTourAndPanelListViewController {
                     }
                 }
                 for entity in travelListArray {
-                    self.travelList.append(HomeBanner(travelEntity: entity))
+                    self.travelList.append(CPHomeBanner(travelEntity: entity))
                 }
                 if(travelList.count == 0){
                     if(self.networkReachability?.isReachable == false) {
@@ -314,7 +314,7 @@ extension CPTourAndPanelListViewController {
 extension CPTourAndPanelListViewController {
     //MARK: TravelList Service Call
     func getTravelList() {
-        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.GetNMoQTravelList(LocalizationLanguage.currentAppleLanguage())).responseObject { [weak self] (response: DataResponse<HomeBannerList>) -> Void in
+        _ = CPSessionManager.sharedInstance.apiManager()?.request(CPQatarMuseumRouter.GetNMoQTravelList(CPLocalizationLanguage.currentAppleLanguage())).responseObject { [weak self] (response: DataResponse<HomeBannerList>) -> Void in
             switch response.result {
             case .success(let data):
                 if(self?.travelList.count == 0) {
@@ -346,7 +346,7 @@ extension CPTourAndPanelListViewController {
     //MARK: Facilities API
     func getFacilitiesListFromServer()
     {
-        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.FacilitiesList(LocalizationLanguage.currentAppleLanguage())).responseObject { [weak self] (response: DataResponse<FacilitiesData>) -> Void in
+        _ = CPSessionManager.sharedInstance.apiManager()?.request(CPQatarMuseumRouter.FacilitiesList(CPLocalizationLanguage.currentAppleLanguage())).responseObject { [weak self] (response: DataResponse<FacilitiesData>) -> Void in
             switch response.result {
             case .success(let data):
                 if(self?.facilitiesList.count == 0) {
@@ -365,7 +365,7 @@ extension CPTourAndPanelListViewController {
                 if let count = self?.facilitiesList.count, count > 0 {
                     if let facilitiesList = data.facilitiesList {
                         self?.saveOrUpdateFacilitiesListCoredata(facilitiesList: facilitiesList,
-                                                                language: LocalizationLanguage.currentAppleLanguage())
+                                                                language: CPLocalizationLanguage.currentAppleLanguage())
                     }
                 }
             case .failure( _):
@@ -382,7 +382,7 @@ extension CPTourAndPanelListViewController {
     }
     //Activities API
     func getNMoQSpecialEventList() {
-        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.GetNMoQSpecialEventList(LocalizationLanguage.currentAppleLanguage()))
+        _ = CPSessionManager.sharedInstance.apiManager()?.request(CPQatarMuseumRouter.GetNMoQSpecialEventList(CPLocalizationLanguage.currentAppleLanguage()))
             .responseObject { [weak self] (response: DataResponse<NMoQActivitiesListData>) -> Void in
             switch response.result {
             case .success(let data):
@@ -418,7 +418,7 @@ extension CPTourAndPanelListViewController {
     func getNMoQTourList() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         
-        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.GetNMoQTourList(LocalizationLanguage.currentAppleLanguage()))
+        _ = CPSessionManager.sharedInstance.apiManager()?.request(CPQatarMuseumRouter.GetNMoQTourList(CPLocalizationLanguage.currentAppleLanguage()))
             .responseObject { [weak self] (response: DataResponse<NMoQTourList>) -> Void in
             switch response.result {
             case .success(let data):

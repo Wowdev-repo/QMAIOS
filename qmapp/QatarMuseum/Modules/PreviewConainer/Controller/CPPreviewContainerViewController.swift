@@ -15,7 +15,7 @@ import UIKit
 
 class CPPreviewContainerViewController: UIViewController,UIGestureRecognizerDelegate {
     @IBOutlet weak var loadingView: LoadingView!
-    @IBOutlet weak var headerView: CommonHeaderView!
+    @IBOutlet weak var headerView: CPCommonHeaderView!
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var pageViewOne: UIView!
     @IBOutlet weak var pageViewTwo: UIView!
@@ -53,7 +53,7 @@ class CPPreviewContainerViewController: UIViewController,UIGestureRecognizerDele
     var currentPreviewItem = Int()
     let pageCount: Int? = 11
     var reloaded: Bool = false
-    var tourGuideArray: [TourGuideFloorMap]! = []
+    var tourGuideArray: [CPTourGuideFloorMap]! = []
     var countValue : Int? = 0
     var fromScienceTour : Bool = false
     var tourGuideId : String? = nil
@@ -81,7 +81,7 @@ class CPPreviewContainerViewController: UIViewController,UIGestureRecognizerDele
             getTourGuideDataFromServerInBackgound()
         }
         
-        if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
+        if ((CPLocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
             headerView.headerBackButton.setImage(UIImage(named: "back_buttonX1"), for: .normal)
         } else {
             headerView.headerBackButton.setImage(UIImage(named: "back_mirrorX1"), for: .normal)
@@ -168,7 +168,7 @@ class CPPreviewContainerViewController: UIViewController,UIGestureRecognizerDele
 }
 
 //MARK:- ReusableViews methods
-extension CPPreviewContainerViewController: HeaderViewProtocol, LoadingViewProtocol {
+extension CPPreviewContainerViewController: CPHeaderViewProtocol, LoadingViewProtocol {
     //MARK: Header Delegate
     func headerCloseButtonPressed() {
         self.closeAudio()

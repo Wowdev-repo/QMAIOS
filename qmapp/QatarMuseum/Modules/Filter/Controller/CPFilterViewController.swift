@@ -25,7 +25,7 @@ class CPFilterViewController: UIViewController {
     @IBOutlet weak var institutionButton: UIButton!
     @IBOutlet weak var ageGroupButton: UIButton!
     @IBOutlet weak var programmeButton: UIButton!
-    @IBOutlet weak var headerView: CommonHeaderView!
+    @IBOutlet weak var headerView: CPCommonHeaderView!
     @IBOutlet var institutionView: UIView!
     @IBOutlet var ageGroupView: UIView!
     @IBOutlet var programmeTypeView: UIView!
@@ -347,7 +347,7 @@ extension CPFilterViewController: UITextFieldDelegate {
     }
 }
 
-extension CPFilterViewController: HeaderViewProtocol {
+extension CPFilterViewController: CPHeaderViewProtocol {
     //MARK: header delegate
     func headerCloseButtonPressed() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")

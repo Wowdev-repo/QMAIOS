@@ -44,7 +44,7 @@ class CPCollectionDetailCell: UITableViewCell {
         favouriteHeight.constant = 0
     }
     
-    func setCollectionCellValues(collectionValues : CollectionDetail,currentRow: Int) {
+    func setCollectionCellValues(collectionValues : CPCollectionDetail,currentRow: Int) {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         firstTitle.font = UIFont.settingsUpdateLabelFont
         firstDescription.font = UIFont.collectionFirstDescriptionFont
@@ -96,7 +96,7 @@ class CPCollectionDetailCell: UITableViewCell {
         }
         
     }
-    func setParkPlayGroundValues(parkPlaygroundDetails: NMoQParkDetail?) {
+    func setParkPlayGroundValues(parkPlaygroundDetails: CPNMoQParkDetail?) {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         firstTitle.font = UIFont.settingsUpdateLabelFont
         firstDescription.font = UIFont.collectionFirstDescriptionFont

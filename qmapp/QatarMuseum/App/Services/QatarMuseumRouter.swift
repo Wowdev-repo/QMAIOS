@@ -10,7 +10,7 @@
 import Foundation
 
 
-enum QatarMuseumRouter: URLRequestConvertible {
+enum CPQatarMuseumRouter: URLRequestConvertible {
     case ExhibitionList(String)
     case MuseumExhibitionList([String: Any])
     case HomeList(String)
@@ -440,7 +440,7 @@ enum QatarMuseumRouter: URLRequestConvertible {
     }
     
     public func lang() -> String {
-        return LocalizationLanguage.currentAppleLanguage()
+        return CPLocalizationLanguage.currentAppleLanguage()
     }
     
     func stopAllRequests(){

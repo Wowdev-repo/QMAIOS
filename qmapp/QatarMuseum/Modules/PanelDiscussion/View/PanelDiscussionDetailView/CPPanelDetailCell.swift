@@ -79,7 +79,7 @@ class CPPanelDetailCell: UITableViewCell,UITextViewDelegate {
         topDescription.delegate = self
         topDescription.isUserInteractionEnabled = true
         topDescription.isEditable = false
-        if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
+        if ((CPLocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
             topDescription.textAlignment = .left
             descriptionLeftConstraint.constant = 30
         } else {
@@ -88,7 +88,7 @@ class CPPanelDetailCell: UITableViewCell,UITextViewDelegate {
 
         }
     }
-    func setPanelDetailCellContent(panelDetailData: NMoQTour?) {
+    func setPanelDetailCellContent(panelDetailData: CPNMoQTour?) {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         topTitle.text = panelDetailData?.subtitle
         topDescription.text = panelDetailData?.dayDescription
@@ -157,7 +157,7 @@ class CPPanelDetailCell: UITableViewCell,UITextViewDelegate {
         
     }
     
-    func setTourSecondDetailCellContent(tourDetailData: NMoQTourDetail?,userEventList : [NMoQUserEventList],fromTour:Bool?) {
+    func setTourSecondDetailCellContent(tourDetailData: CPNMoQTourDetail?,userEventList : [CPNMoQUserEventList],fromTour:Bool?) {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         numbOfRservationsLabel.numberOfLines = 2
         if(fromTour)! {
@@ -269,7 +269,7 @@ class CPPanelDetailCell: UITableViewCell,UITextViewDelegate {
         NSLayoutConstraint.activate([verticalSpace])
         
     }
-    func setFacilitiesDetailData(facilitiesDetailData: FacilitiesDetail?) {
+    func setFacilitiesDetailData(facilitiesDetailData: CPFacilitiesDetail?) {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         numbOfRservationsLabel.isHidden = true
         registerButton.isHidden = true

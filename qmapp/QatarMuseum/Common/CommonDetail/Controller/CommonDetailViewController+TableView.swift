@@ -37,7 +37,7 @@ extension CommonDetailViewController: UITableViewDelegate,UITableViewDataSource 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         loadingView.stopLoading()
         loadingView.isHidden = true
-        let heritageCell = tableView.dequeueReusableCell(withIdentifier: "heritageDetailCellId", for: indexPath) as! CommonDetailCell
+        let heritageCell = tableView.dequeueReusableCell(withIdentifier: "heritageDetailCellId", for: indexPath) as! CPCommonDetailCell
         if ((pageNameString == PageName.heritageDetail) || (pageNameString == PageName.publicArtsDetail)) {
             if (pageNameString == PageName.heritageDetail) {
                 heritageCell.setHeritageDetailData(heritageDetail: heritageDetailtArray[indexPath.row])
@@ -64,7 +64,7 @@ extension CommonDetailViewController: UITableViewDelegate,UITableViewDataSource 
             }
             
         } else if(pageNameString == PageName.exhibitionDetail){
-            let cell = tableView.dequeueReusableCell(withIdentifier: "exhibitionDetailCellId", for: indexPath) as! ExhibitionDetailTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "exhibitionDetailCellId", for: indexPath) as! CPExhibitionDetailTableViewCell
             cell.descriptionLabel.textAlignment = .center
             if (fromHome == true) {
                 cell.setHomeExhibitionDetail(exhibition: exhibition[indexPath.row])
@@ -93,7 +93,7 @@ extension CommonDetailViewController: UITableViewDelegate,UITableViewDataSource 
             
             return cell
         } else if(pageNameString == PageName.SideMenuPark){
-            let parkCell = tableView.dequeueReusableCell(withIdentifier: "parkCellId", for: indexPath) as! ParkTableViewCell
+            let parkCell = tableView.dequeueReusableCell(withIdentifier: "parkCellId", for: indexPath) as! CPParkTableViewCell
             if (indexPath.row != 0) {
                 parkCell.titleLineView.isHidden = true
                 parkCell.imageViewHeight.constant = 200
@@ -165,7 +165,7 @@ extension CommonDetailViewController: UITableViewDelegate,UITableViewDataSource 
             
             return parkCell
         } else if(pageNameString == PageName.NMoQPark){
-            let parkCell = tableView.dequeueReusableCell(withIdentifier: "parkCellId", for: indexPath) as! ParkTableViewCell
+            let parkCell = tableView.dequeueReusableCell(withIdentifier: "parkCellId", for: indexPath) as! CPParkTableViewCell
             parkCell.titleLineView.isHidden = false
             parkCell.imageViewHeight.constant = 0
             parkCell.setNmoqParkDetailValues(parkDetails: nmoqParkDetailArray[indexPath.row])
@@ -213,7 +213,7 @@ extension CommonDetailViewController: UITableViewDelegate,UITableViewDataSource 
             
             return parkCell
         } else if(pageNameString == PageName.DiningDetail){
-            let diningCell = tableView.dequeueReusableCell(withIdentifier: "diningDetailCellId", for: indexPath) as! DiningDetailTableViewCell
+            let diningCell = tableView.dequeueReusableCell(withIdentifier: "diningDetailCellId", for: indexPath) as! CPDiningDetailTableViewCell
             diningCell.titleLineView.isHidden = true
             diningCell.setDiningDetailValues(diningDetail: diningDetailtArray[indexPath.row])
             if (isImgArrayAvailable()) {
@@ -241,7 +241,7 @@ extension CommonDetailViewController: UITableViewDelegate,UITableViewDataSource 
 
 
 extension CommonDetailViewController {
-    func setFavouritesAction(cellObj :CommonDetailCell) {
+    func setFavouritesAction(cellObj :CPCommonDetailCell) {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
         if (cellObj.favoriteButton.tag == 0) {
             cellObj.favoriteButton.tag = 1
@@ -252,16 +252,16 @@ extension CommonDetailViewController {
         }
     }
     
-    func setShareAction(cellObj :CommonDetailCell) {
+    func setShareAction(cellObj :CPCommonDetailCell) {
         
     }
-    func setFavouritesAction(cellObj :ExhibitionDetailTableViewCell) {
+    func setFavouritesAction(cellObj :CPExhibitionDetailTableViewCell) {
     }
     
-    func setShareAction(cellObj :ExhibitionDetailTableViewCell) {
+    func setShareAction(cellObj :CPExhibitionDetailTableViewCell) {
         
     }
-    func setFavouritesAction(cellObj :ParkTableViewCell) {
+    func setFavouritesAction(cellObj :CPParkTableViewCell) {
         if (cellObj.favouriteButton.tag == 0) {
             cellObj.favouriteButton.tag = 1
             cellObj.favouriteButton.setImage(UIImage(named: "heart_fillX1"), for: .normal)

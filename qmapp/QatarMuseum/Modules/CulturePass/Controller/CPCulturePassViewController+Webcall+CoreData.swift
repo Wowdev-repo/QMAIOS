@@ -12,8 +12,8 @@ extension CPCulturePassViewController {
     //MARK: WebServiceCall
     func getCulturePassTokenFromServer(login: Bool? = false) {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.GetToken(["name": loginPopUpView.userNameText.text!,"pass":loginPopUpView.passwordText.text!]))
-            .responseObject { [weak self] (response: DataResponse<TokenData>) -> Void in
+        _ = CPSessionManager.sharedInstance.apiManager()?.request(CPQatarMuseumRouter.GetToken(["name": loginPopUpView.userNameText.text!,"pass":loginPopUpView.passwordText.text!]))
+            .responseObject { [weak self] (response: DataResponse<CPTokenData>) -> Void in
             switch response.result {
             case .success(let data):
                 self?.accessToken = data.accessToken
@@ -37,8 +37,8 @@ extension CPCulturePassViewController {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         let titleString = NSLocalizedString("WEBVIEW_TITLE",comment: "Set the title for Alert")
         if(accessToken != nil) {
-            _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.Login(["name" : loginPopUpView.userNameText.text!,"pass": loginPopUpView.passwordText.text!]))
-                .responseObject { [weak self] (response: DataResponse<LoginData>) -> Void in
+            _ = CPSessionManager.sharedInstance.apiManager()?.request(CPQatarMuseumRouter.Login(["name" : loginPopUpView.userNameText.text!,"pass": loginPopUpView.passwordText.text!]))
+                .responseObject { [weak self] (response: DataResponse<CPLoginData>) -> Void in
                 switch response.result {
                 case .success(let data):
                     self?.loginPopUpView.loadingView.stopLoading()
@@ -80,7 +80,7 @@ extension CPCulturePassViewController {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         let titleString = NSLocalizedString("WEBVIEW_TITLE",comment: "Set the title for Alert")
         if(accessToken != nil) {
-            _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.NewPasswordRequest(["name" : loginPopUpView.userNameText.text!])).responseData { [weak self] (response) -> Void in
+            _ = CPSessionManager.sharedInstance.apiManager()?.request(CPQatarMuseumRouter.NewPasswordRequest(["name" : loginPopUpView.userNameText.text!])).responseData { [weak self] (response) -> Void in
                 switch response.result {
                 case .success( _):
                     self?.loginPopUpView.loadingView.stopLoading()
@@ -106,7 +106,7 @@ extension CPCulturePassViewController {
     //RSVP Service call
     func checkRSVPUserFromServer(userId: String?) {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-        _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.GetUser(userId!))
+        _ = CPSessionManager.sharedInstance.apiManager()?.request(CPQatarMuseumRouter.GetUser(userId!))
             .responseObject { [weak self] (response: DataResponse<UserInfoData>) -> Void in
             switch response.result {
             case .success(let data):
@@ -144,7 +144,7 @@ extension CPCulturePassViewController {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         if((accessToken != nil) && (keychain.get(UserProfileInfo.user_id) != nil)){
             let userId = keychain.get(UserProfileInfo.user_id)!
-            _ = CPSessionManager.sharedInstance.apiManager()?.request(QatarMuseumRouter.NMoQEventListUserRegistration(["user_id" : userId]))
+            _ = CPSessionManager.sharedInstance.apiManager()?.request(CPQatarMuseumRouter.NMoQEventListUserRegistration(["user_id" : userId]))
                 .responseObject { [weak self] (response: DataResponse<NMoQUserEventListValues>) -> Void in
                 switch response.result {
                 case .success(let data):
@@ -178,7 +178,7 @@ extension CPCulturePassViewController {
         }
     }
     func userEventCoreDataInBackgroundThread(managedContext: NSManagedObjectContext) {
-        DataManager.saveRegisteredEventListEntity(managedContext : managedContext,
+        CPDataManager.saveRegisteredEventListEntity(managedContext : managedContext,
                                                   list: self.userEventList)
     }
 }

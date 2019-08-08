@@ -46,7 +46,7 @@ extension CPObjectDetailViewController: UITableViewDelegate, UITableViewDataSour
             objectImageView.isUserInteractionEnabled = true
             return cell
         } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "objectDetailCellId", for: indexPath) as! ObjectDetailTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "objectDetailCellId", for: indexPath) as! CPObjectDetailTableViewCell
             if (indexPath.row == 1) {
                 cell.setObjectDetail(objectDetail: detailArray[0])
             } else if (indexPath.row == 2) {
