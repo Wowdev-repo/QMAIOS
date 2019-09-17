@@ -1026,6 +1026,14 @@
 			path = NMoQHeader;
 			sourceTree = "<group>";
 		};
+		B825C53A230675140037724D /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B8CA08D52146D38400783642 /* BottomSheet */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		B827299321778B2F0017EC71 /* VersaPlayer */ = {
 			isa = PBXGroup;
 			children = (
@@ -1493,6 +1501,7 @@
 		B8D2FC6822C1BE1000A570BD /* FloorMap */ = {
 			isa = PBXGroup;
 			children = (
+				B825C53A230675140037724D /* View */,
 				B8D2FC8C22C1F21C00A570BD /* Controller */,
 			);
 			path = FloorMap;
@@ -1797,7 +1806,6 @@
 				1B51B3D32121B658002B84AA /* ObjectDetailCell */,
 				1B51B3D62125B410002B84AA /* ObjectImageView */,
 				B8B49438212EDDD000203C7F /* Toast */,
-				B8CA08D52146D38400783642 /* BottomSheet */,
 				B8F00C8121787CD300320DF1 /* LoginPopup */,
 				B8DC40A320C9A30A0044134D /* CommonHeader */,
 				B8E2C00C20C7E9B100F3CE41 /* ComingSoonPopup */,

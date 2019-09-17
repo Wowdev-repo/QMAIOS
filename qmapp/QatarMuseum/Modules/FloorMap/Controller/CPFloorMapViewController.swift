@@ -1068,7 +1068,7 @@ class CPFloorMapViewController: UIViewController, UIGestureRecognizerDelegate {
         overlayView.isHidden = false
         self.avPlayer = nil
         self.timer?.invalidate()
-        bottomSheetVC = CPMapDetailView()
+        bottomSheetVC = CPMapDetailView(nibName: "MapDetailView", bundle: nil)
         bottomSheetVC.mapdetailDelegate = self
         bottomSheetVC.popUpArray = floorMapArray
         bottomSheetVC.selectedIndex = index

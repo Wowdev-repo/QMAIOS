@@ -16,10 +16,9 @@ protocol CPMapDetailProtocol
     func dismissOvelay()
 }
 class CPMapDetailView: UIViewController,ObjectImageViewProtocol {
-    
-    
 
     @IBOutlet weak var tableView: UITableView!
+    
     var viewMoveUp : Bool = false
     let fullView: CGFloat = 20
     var partialView: CGFloat {
@@ -40,11 +39,13 @@ class CPMapDetailView: UIViewController,ObjectImageViewProtocol {
     var isPaused: Bool!
     var firstLoad: Bool = true
     var selectedCell : CPObjectDetailTableViewCell?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
-        tableView.delegate = self
-        tableView.dataSource = self
+//        tableView.delegate = self
+//        tableView.dataSource = self
+        
         tableView.register(UINib(nibName: "MapDetailCell", bundle: nil), forCellReuseIdentifier: "objectDetailID")
         tableView.register(UINib(nibName: "ObjectPopupView", bundle: nil), forCellReuseIdentifier: "objectPopupId")
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "imageCell")
