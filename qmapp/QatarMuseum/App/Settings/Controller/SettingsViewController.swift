@@ -38,6 +38,21 @@ class SettingsViewController: UIViewController {
     var eventPopup : EventPopupView = EventPopupView()
     override func viewDidLoad() {
         DDLogInfo(NSStringFromClass(type(of: self)) + " " + "Function: \(#function)")
+        
+        sendLogsButton.isHidden = true
+        notificationTitleLabel.isHidden = true
+        eventUpdateLabel.isHidden = true
+        exhibitionLabel.isHidden = true
+        museumLabel.isHidden = true
+        culturePassLabel.isHidden = true
+        tourGuideLabel.isHidden = true
+        eventSwitch.isHidden = true
+        exhibitionSwitch.isHidden = true
+        museumSwitch.isHidden = true
+        culturePassSwitch.isHidden = true
+        tourGuideSwitch.isHidden = true
+        resetButton.isHidden = true
+        applyButton.isHidden = true
 
         super.viewDidLoad()
 
