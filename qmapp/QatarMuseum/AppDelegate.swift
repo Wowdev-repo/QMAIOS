@@ -261,8 +261,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         }
         
         Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
-            AnalyticsParameterItemID: "id-\("test")",
-            AnalyticsParameterItemName: "Musheer",
+            AnalyticsParameterItemID: "id-\("Initiate")",
+            AnalyticsParameterItemName: "AppDelegate",
             AnalyticsParameterContentType: "cont"
             ])
         
