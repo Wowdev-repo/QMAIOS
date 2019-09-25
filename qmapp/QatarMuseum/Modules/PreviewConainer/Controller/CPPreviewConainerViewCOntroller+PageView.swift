@@ -45,6 +45,8 @@ extension CPPreviewContainerViewController: UIPageViewControllerDelegate,UIPageV
         }
         currentContentViewController = self.viewControllerAtIndex(index: currentPreviewItem)
         self.closeAudio()
+        let pageTitle = currentContentViewController.tourGuideDict.title
+
         if let currentViewController = pageViewController.viewControllers![0] as? CPPreviewContentViewController {
             let currentPageIndex = currentViewController.pageIndex
             reloaded = true
@@ -258,6 +260,23 @@ extension CPPreviewContainerViewController: UIPageViewControllerDelegate,UIPageV
             currentContentViewController = self.viewControllerAtIndex(index: currentPreviewItem)
         }
         
+        if((museumId == "66") || (museumId == "638")) {
+                   
+                   Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
+                    AnalyticsParameterItemID: pageTitle as Any,
+                   AnalyticsParameterItemName: pageTitle as Any,
+                   AnalyticsParameterContentType: "NMoQ Audio Collections"
+                   ])
+                   
+               }else{
+                   
+                   Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
+                   AnalyticsParameterItemID: pageTitle as Any,
+                   AnalyticsParameterItemName: pageTitle as Any,
+                   AnalyticsParameterContentType: "MIA Audio Collections"
+                   ])
+               }
+        
     }
     
     func viewControllerAtIndex(index : Int) -> CPPreviewContentViewController? {
@@ -266,6 +285,7 @@ extension CPPreviewContainerViewController: UIPageViewControllerDelegate,UIPageV
         }
         let pageContentViewController = self.storyboard?.instantiateViewController(withIdentifier: "PageContentViewControllerId") as! CPPreviewContentViewController
         pageContentViewController.pageIndex = index
+        pageContentViewController.museumID = museumId ?? ""
         pageContentViewController.tourGuideDict = tourGuideArray[index]
         return pageContentViewController
     }
@@ -291,6 +311,27 @@ extension CPPreviewContainerViewController {
         
         pageImageViewOne.image = UIImage(named: "selectedControl")
         showOrHidePageControlView(countValue: tourGuideArray.count, scrolling: false)
+        
+        let title = viewControllers[0].tourGuideDict.title
+        
+        if((museumId == "66") || (museumId == "638")) {
+            
+            Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
+            AnalyticsParameterItemID: title as Any,
+            AnalyticsParameterItemName: title as Any,
+            AnalyticsParameterContentType: "NMoQ Audio Collections"
+            ])
+            
+            
+        }else{
+            
+            Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
+            AnalyticsParameterItemID: title as Any,
+            AnalyticsParameterItemName: title as Any,
+            AnalyticsParameterContentType: "MIA Audio Collections"
+            ])
+            
+        }
     }
     
     func showOrHidePageControlView(countValue: Int?,scrolling:Bool?) {

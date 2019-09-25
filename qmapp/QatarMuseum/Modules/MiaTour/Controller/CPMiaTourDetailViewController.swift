@@ -112,18 +112,28 @@ class CPMiaTourDetailViewController: UIViewController {
         shortDetailsView.tourGuideId = tourGuideDetail?.nid
         if ((tourGuideDetail?.nid == "12216") || (tourGuideDetail?.nid == "12226")) {
             shortDetailsView.fromScienceTour = true
+            
+            Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
+            AnalyticsParameterItemID: tourGuideDetail?.title as Any,
+            AnalyticsParameterItemName: "MIA Tour Guide Start",
+            AnalyticsParameterContentType: "Tour Guide Selected"
+            ])
+            
             self.present(shortDetailsView, animated: false, completion: nil)
         } else {
             //if (tourGuideDetail?.nid == "12471") || (tourGuideDetail?.nid == "12916") {
             shortDetailsView.fromScienceTour = false
+            
+            Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
+                AnalyticsParameterItemID: tourGuideDetail?.title as Any,
+            AnalyticsParameterItemName: "NMoQ Audio Guide Start",
+            AnalyticsParameterContentType: "Tour Guide Selected"
+            ])
+            
             self.present(shortDetailsView, animated: false, completion: nil)
         }
         
-        Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
-            AnalyticsParameterItemID: FirebaseAnalyticsEvents.tapped_tourguide_start,
-            AnalyticsParameterItemName: "",
-            AnalyticsParameterContentType: "cont"
-            ])
+        
     }
     
     @IBAction func startTourButtonTouchDown(_ sender: UIButton) {

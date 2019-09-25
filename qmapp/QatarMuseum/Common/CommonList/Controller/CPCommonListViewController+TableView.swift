@@ -224,6 +224,11 @@ extension CPCommonListViewController: UITableViewDelegate,UITableViewDataSource,
         } else if (exhibitionsPageNameString == CPExhbitionPageName.miaTourGuideList) {
             if (indexPath.row != 0) {
                 DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
+                Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
+                    AnalyticsParameterItemID: miaTourDataFullArray[indexPath.row - 1].title ?? "",
+                AnalyticsParameterItemName: miaTourDataFullArray[indexPath.row - 1].title ?? "",
+                AnalyticsParameterContentType: "Tour Guide Selected"
+                ])
                 self.performSegue(withIdentifier: "commonListToMiaTourSegue", sender: self)
             }
         }

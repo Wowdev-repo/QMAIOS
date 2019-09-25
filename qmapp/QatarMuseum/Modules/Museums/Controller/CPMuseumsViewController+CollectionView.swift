@@ -159,11 +159,21 @@ extension CPMuseumsViewController: UICollectionViewDelegate,UICollectionViewData
                     transition.subtype = kCATransitionFromRight
                     view.window!.layer.add(transition, forKey: kCATransition)
                     
-                    Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
-                        AnalyticsParameterItemID: FirebaseAnalyticsEvents.tapped_museum_tourguide,
-                        AnalyticsParameterItemName: tourGuideView.exhibitionsPageNameString ?? "",
-                        AnalyticsParameterContentType: "cont"
-                        ])
+                   
+                    if (museumId == "63") || (museumId == "96") {
+                         Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
+                                               AnalyticsParameterItemID: "MIA Tour Guide",
+                                               AnalyticsParameterItemName: "MIA Tour Guide Selected",
+                                               AnalyticsParameterContentType: "Tour Guide Selected"
+                                               ])
+                    } else {
+                         Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
+                                               AnalyticsParameterItemID: "NMoQ Audio Guide",
+                                               AnalyticsParameterItemName: "NMoQ Audio Guide Selected",
+                                               AnalyticsParameterContentType: "Tour Guide Selected"
+                                               ])
+                    }
+                    
                     
                     self.present(tourGuideView, animated: false, completion: nil)
                 } else {

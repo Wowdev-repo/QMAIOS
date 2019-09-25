@@ -261,9 +261,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         }
         
         Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
-            AnalyticsParameterItemID: "id-\("Initiate")",
-            AnalyticsParameterItemName: "AppDelegate",
-            AnalyticsParameterContentType: "cont"
+            AnalyticsParameterItemID: "Initiate",
+            AnalyticsParameterItemName: "App Initiate",
+            AnalyticsParameterContentType: "User open app"
             ])
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)

@@ -169,21 +169,6 @@ func changeDateFormat(dateString: String?) -> String? {
     return nil
 }
 
-//func firebaseAnalyticsEvents(eventName:String?) -> String? {
-//    if (eventName != nil) {
-//        
-//    Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
-//            AnalyticsParameterItemID: FirebaseAnalyticsEvents.tapped_museum_item,
-//            AnalyticsParameterItemName: eventName,
-//            AnalyticsParameterContentType: "cont"
-//            ])
-//        
-//        return event
-//    }
-//    
-//    return nil
-//}
-
 let appDelegate =  UIApplication.shared.delegate as? AppDelegate
 func getContext() -> NSManagedObjectContext {
     DDLogInfo("File: \(#file)" + "Function: \(#function)")

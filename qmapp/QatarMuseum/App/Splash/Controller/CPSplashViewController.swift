@@ -27,8 +27,8 @@ class CPSplashViewController: UIViewController {
         
         Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
             AnalyticsParameterItemID: FirebaseAnalyticsEvents.view_did_load,
-            AnalyticsParameterItemName: "Splash Screen",
-            AnalyticsParameterContentType: "cont"
+            AnalyticsParameterItemName: "Splash Screen Opened",
+            AnalyticsParameterContentType: "User open app"
             ])
         
        

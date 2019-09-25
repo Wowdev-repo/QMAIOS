@@ -278,7 +278,7 @@ class CPHomeViewController: UIViewController, UIViewControllerTransitioningDeleg
         Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
             AnalyticsParameterItemID: FirebaseAnalyticsEvents.tapped_museum_item,
             AnalyticsParameterItemName: museumsView.museumTitleString ?? "",
-            AnalyticsParameterContentType: "cont"
+            AnalyticsParameterContentType: "home_screen"
             ])
         
         view.window!.layer.add(transition, forKey: kCATransition)
@@ -297,7 +297,7 @@ class CPHomeViewController: UIViewController, UIViewControllerTransitioningDeleg
         Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
             AnalyticsParameterItemID: FirebaseAnalyticsEvents.tapped_exhibition_item,
             AnalyticsParameterItemName: exhibitionView.exhibitionsPageNameString ?? "",
-            AnalyticsParameterContentType: "cont"
+            AnalyticsParameterContentType: "home_screen"
             ])
         self.present(exhibitionView, animated: false, completion: nil)
     }
@@ -441,7 +441,7 @@ class CPHomeViewController: UIViewController, UIViewControllerTransitioningDeleg
          Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
             AnalyticsParameterItemID: FirebaseAnalyticsEvents.tapped_button_item,
             AnalyticsParameterItemName: "didTaprestaurantButton_from_Home_Menu",
-            AnalyticsParameterContentType: "cont"
+            AnalyticsParameterContentType: "home_screen"
             ])
          self.present(diningView, animated: false, completion: nil)
     }
@@ -498,7 +498,7 @@ class CPHomeViewController: UIViewController, UIViewControllerTransitioningDeleg
         Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
             AnalyticsParameterItemID: FirebaseAnalyticsEvents.tapped_button_item,
             AnalyticsParameterItemName: "topbarMenuPressed_from_Home",
-            AnalyticsParameterContentType: "cont"
+            AnalyticsParameterContentType: "home_screen"
             ])
         sideView.sideMenuDelegate = self
         
@@ -521,7 +521,7 @@ class CPHomeViewController: UIViewController, UIViewControllerTransitioningDeleg
         Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
             AnalyticsParameterItemID: FirebaseAnalyticsEvents.tapped_button_item,
             AnalyticsParameterItemName: "topBarProfileButtonPressed_from_Home",
-            AnalyticsParameterContentType: "cont"
+            AnalyticsParameterContentType: "home_screen"
             ])
         self.present(profileView, animated: false, completion: nil)
         
@@ -734,7 +734,7 @@ extension CPHomeViewController: CPTopBarProtocol,CPComingSoonPopUpProtocol,CPSid
         Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
             AnalyticsParameterItemID: FirebaseAnalyticsEvents.tapped_button_item,
             AnalyticsParameterItemName: "eventButtonPressed_from_Home",
-            AnalyticsParameterContentType: "cont"
+            AnalyticsParameterContentType: "home_screen"
             ])
     }
     
@@ -760,7 +760,7 @@ extension CPHomeViewController: CPTopBarProtocol,CPComingSoonPopUpProtocol,CPSid
         Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
             AnalyticsParameterItemID: FirebaseAnalyticsEvents.tapped_button_item,
             AnalyticsParameterItemName: "notificationbuttonPressed_from_Home",
-            AnalyticsParameterContentType: "cont"
+            AnalyticsParameterContentType: "home_screen"
             ])
         self.present(notificationsView, animated: false, completion: nil)
     }
@@ -771,7 +771,7 @@ extension CPHomeViewController: CPTopBarProtocol,CPComingSoonPopUpProtocol,CPSid
         Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
             AnalyticsParameterItemID: FirebaseAnalyticsEvents.tapped_button_item,
             AnalyticsParameterItemName: "profileButtonPressed_from_Home",
-            AnalyticsParameterContentType: "cont"
+            AnalyticsParameterContentType: "home_screen"
             ])
     }
     
@@ -781,7 +781,7 @@ extension CPHomeViewController: CPTopBarProtocol,CPComingSoonPopUpProtocol,CPSid
         Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
             AnalyticsParameterItemID: FirebaseAnalyticsEvents.tapped_button_item,
             AnalyticsParameterItemName: "menuButtonPressed_from_Home",
-            AnalyticsParameterContentType: "cont"
+            AnalyticsParameterContentType: "home_screen"
             ])
     }
     
@@ -791,7 +791,7 @@ extension CPHomeViewController: CPTopBarProtocol,CPComingSoonPopUpProtocol,CPSid
         Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
             AnalyticsParameterItemID: FirebaseAnalyticsEvents.tapped_button_item,
             AnalyticsParameterItemName: "closeButtonPressed_from_Home",
-            AnalyticsParameterContentType: "cont"
+            AnalyticsParameterContentType: "home_screen"
             ])
         self.popupView.removeFromSuperview()
     }
@@ -856,7 +856,7 @@ extension CPHomeViewController: CPTopBarProtocol,CPComingSoonPopUpProtocol,CPSid
         Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
             AnalyticsParameterItemID: FirebaseAnalyticsEvents.tapped_button_item,
             AnalyticsParameterItemName: "exhibitionButtonPressed_from_Home_Menu",
-            AnalyticsParameterContentType: "cont"
+            AnalyticsParameterContentType: "home_screen"
             ])
         self.present(exhibitionView, animated: false, completion: nil)
     }
@@ -874,7 +874,7 @@ extension CPHomeViewController: CPTopBarProtocol,CPComingSoonPopUpProtocol,CPSid
         Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
             AnalyticsParameterItemID: FirebaseAnalyticsEvents.tapped_button_item,
             AnalyticsParameterItemName: "eventbuttonPressed_from_Home_Menu",
-            AnalyticsParameterContentType: "cont"
+            AnalyticsParameterContentType: "home_screen"
             ])
         self.present(eventView, animated: false, completion: nil)
     }
@@ -890,7 +890,7 @@ extension CPHomeViewController: CPTopBarProtocol,CPComingSoonPopUpProtocol,CPSid
         Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
             AnalyticsParameterItemID: FirebaseAnalyticsEvents.tapped_button_item,
             AnalyticsParameterItemName: "educationButtonPressed_from_Home_Menu",
-            AnalyticsParameterContentType: "cont"
+            AnalyticsParameterContentType: "home_screen"
             ])
         self.present(educationView, animated: false, completion: nil)
     }
@@ -907,7 +907,7 @@ extension CPHomeViewController: CPTopBarProtocol,CPComingSoonPopUpProtocol,CPSid
         Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
             AnalyticsParameterItemID: FirebaseAnalyticsEvents.tapped_button_item,
             AnalyticsParameterItemName: "tourGuideButtonPressed_from_Home_Menu",
-            AnalyticsParameterContentType: "cont"
+            AnalyticsParameterContentType: "home_screen"
             ])
         self.present(tourGuideView, animated: false, completion: nil)
     }
@@ -924,7 +924,7 @@ extension CPHomeViewController: CPTopBarProtocol,CPComingSoonPopUpProtocol,CPSid
         Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
             AnalyticsParameterItemID: FirebaseAnalyticsEvents.tapped_button_item,
             AnalyticsParameterItemName: "heritageButtonPressed_from_Home_Menu",
-            AnalyticsParameterContentType: "cont"
+            AnalyticsParameterContentType: "home_screen"
             ])
         self.present(heritageView, animated: false, completion: nil)
     }
@@ -941,7 +941,7 @@ extension CPHomeViewController: CPTopBarProtocol,CPComingSoonPopUpProtocol,CPSid
         Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
             AnalyticsParameterItemID: FirebaseAnalyticsEvents.tapped_button_item,
             AnalyticsParameterItemName: "publicArtsButtonPressed_from_Home_Menu",
-            AnalyticsParameterContentType: "cont"
+            AnalyticsParameterContentType: "home_screen"
             ])
         self.present(publicArtsView, animated: false, completion: nil)
     }
@@ -957,7 +957,7 @@ extension CPHomeViewController: CPTopBarProtocol,CPComingSoonPopUpProtocol,CPSid
         Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
             AnalyticsParameterItemID: FirebaseAnalyticsEvents.tapped_button_item,
             AnalyticsParameterItemName: "parksButtonPressed_from_Home_Menu",
-            AnalyticsParameterContentType: "cont"
+            AnalyticsParameterContentType: "home_screen"
             ])
         self.present(parksView, animated: false, completion: nil)
     }
@@ -975,7 +975,7 @@ extension CPHomeViewController: CPTopBarProtocol,CPComingSoonPopUpProtocol,CPSid
         Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
             AnalyticsParameterItemID: FirebaseAnalyticsEvents.tapped_button_item,
             AnalyticsParameterItemName: "diningButtonPressed_from_Home_Menu",
-            AnalyticsParameterContentType: "cont"
+            AnalyticsParameterContentType: "home_screen"
             ])
         self.present(diningView, animated: false, completion: nil)
     }
@@ -1031,21 +1031,6 @@ extension CPHomeViewController: CPTopBarProtocol,CPComingSoonPopUpProtocol,CPSid
         //        }
     }
     
-    //    func settingsButtonPressed() {
-    //        let settingsView =  self.storyboard?.instantiateViewController(withIdentifier: "settingsId") as! SettingsViewController
-    //        let transition = CATransition()
-    //        transition.duration = 0.3
-    //        transition.type = kCATransitionPush
-    //        transition.subtype = kCATransitionFromRight
-    //        view.window!.layer.add(transition, forKey: kCATransition)
-    //        Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
-    //            AnalyticsParameterItemID: FirebaseAnalyticsEvents.tapped_button_item,
-    //            AnalyticsParameterItemName: "settingsButtonPressed_from_Home_Menu",
-    //            AnalyticsParameterContentType: "cont"
-    //            ])
-    //        self.present(settingsView, animated: false, completion: nil)
-    //    }
-    
     func menuEventPressed() {
         DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function), line: \(#line)")
         topBarEventButtonPressed()
@@ -1062,7 +1047,7 @@ extension CPHomeViewController: CPTopBarProtocol,CPComingSoonPopUpProtocol,CPSid
         Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
             AnalyticsParameterItemID: FirebaseAnalyticsEvents.tapped_button_item,
             AnalyticsParameterItemName: "menuNotificationPressed_from_Home_Menu",
-            AnalyticsParameterContentType: "cont"
+            AnalyticsParameterContentType: "home_screen"
             ])
         self.present(notificationsView, animated: false, completion: nil)
     }
@@ -1085,7 +1070,7 @@ extension CPHomeViewController: CPTopBarProtocol,CPComingSoonPopUpProtocol,CPSid
         Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
             AnalyticsParameterItemID: FirebaseAnalyticsEvents.tapped_button_item,
             AnalyticsParameterItemName: "menuClosePressed_from_Home_Menu",
-            AnalyticsParameterContentType: "cont"
+            AnalyticsParameterContentType: "home_screen"
             ])
         self.topbarView.menuButton.setImage(UIImage(named: "side_menu_iconX1"), for: .normal)
         self.topbarView.menuButton.contentEdgeInsets = UIEdgeInsets(top: 14, left: 18, bottom: 14, right: 18)

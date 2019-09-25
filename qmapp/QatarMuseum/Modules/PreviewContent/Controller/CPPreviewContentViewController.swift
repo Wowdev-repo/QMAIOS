@@ -23,6 +23,7 @@ class CPPreviewContentViewController: UIViewController, UIGestureRecognizerDeleg
     
     var tourGuideDict : CPTourGuideFloorMap!
     var pageIndex = Int()
+    var museumID = String()
     let imageView = UIImageView()
     var blurView = UIVisualEffectView()
     var objectImagePopupView : CPObjectImageView = CPObjectImageView()
@@ -124,6 +125,24 @@ class CPPreviewContentViewController: UIViewController, UIGestureRecognizerDeleg
                 }
                 firstLoad = false
             }
+            
+            if((museumID == "66") || (museumID == "638")) {
+                       
+                   Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
+                    AnalyticsParameterItemID: tourGuideDict.title as Any,
+                    AnalyticsParameterItemName: (tourGuideDict.title ?? "") + "Is Played",
+                   AnalyticsParameterContentType: "NMoQ Audio Played"
+                   ])
+        
+               }else{
+                   
+                   Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
+                   AnalyticsParameterItemID: tourGuideDict.title as Any,
+                   AnalyticsParameterItemName: (tourGuideDict.title ?? "") + "Is Played",
+                   AnalyticsParameterContentType: "MIA Audio Played"
+                   ])
+                   
+               }
         }
     }
     

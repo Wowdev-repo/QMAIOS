@@ -40,7 +40,6 @@ PODS:
     - GoogleUtilities/Reachability (~> 5.3)
     - GoogleUtilities/UserDefaults (~> 5.3)
     - Protobuf (~> 3.1)
-  - FSCalendar (2.8.0)
   - FSPagerView (0.8.2)
   - GoogleAppMeasurement (5.8.1):
     - GoogleUtilities/AppDelegateSwizzler (~> 5.2)
@@ -69,6 +68,7 @@ PODS:
     - GoogleUtilities/Logger
   - GoogleUtilities/UserDefaults (5.8.0):
     - GoogleUtilities/Logger
+  - IQKeyboardManagerSwift (6.3.0)
   - JGProgressHUD (2.0.3)
   - KeychainSwift (11.0.0)
   - Kingfisher (4.9.0)
@@ -94,9 +94,9 @@ DEPENDENCIES:
   - Fabric
   - Firebase/Core
   - Firebase/Messaging
-  - FSCalendar
   - FSPagerView
   - GooglePlaces
+  - IQKeyboardManagerSwift
   - JGProgressHUD
   - KeychainSwift (~> 11.0)
   - Kingfisher (<= 4.9.0)
@@ -121,12 +121,12 @@ SPEC REPOS:
     - FirebaseCore
     - FirebaseInstanceID
     - FirebaseMessaging
-    - FSCalendar
     - FSPagerView
     - GoogleAppMeasurement
     - GoogleMaps
     - GooglePlaces
     - GoogleUtilities
+    - IQKeyboardManagerSwift
     - JGProgressHUD
     - KeychainSwift
     - Kingfisher
@@ -152,12 +152,12 @@ SPEC CHECKSUMS:
   FirebaseCore: f1a9a8be1aee4bf71a2fc0f4096df6788bdfda61
   FirebaseInstanceID: a122b0c258720cf250551bb2bedf48c699f80d90
   FirebaseMessaging: 4235f949ce1c4e827aeb19705ba5c53f9b85aa10
-  FSCalendar: 3a5ed3636e2ba1b83ebebfcf0c2603105a6f5efe
   FSPagerView: 816a18842306973cc7cc6df8a5332272f7815c30
   GoogleAppMeasurement: ffe513e90551844a739e7bcbb1d2aca1c28a4338
   GoogleMaps: f79af95cb24d869457b1f961c93d3ce8b2f3b848
   GooglePlaces: 3d06e6c99654545b4738ce49648745779c25f2ef
   GoogleUtilities: 04fce34bcd5620c1ee76fb79172105c74a4df335
+  IQKeyboardManagerSwift: a8228c257614af98743b4cd8584637025f36358f
   JGProgressHUD: 12b20a8f4ffe05258f8635c1ab92816e451f904d
   KeychainSwift: bea6bd9f98af7b8d7ca4aa79fe105c00fab532db
   Kingfisher: 64539b51826b778206daa6ed815d12653caa69dd
@@ -171,6 +171,6 @@ SPEC CHECKSUMS:
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
   YouTubePlayer: 028451f6772f372d4759866db99824c676ac1473
 
-PODFILE CHECKSUM: 0355e7ca418186f9622693c6fb458379a62ee927
+PODFILE CHECKSUM: bc77d011f62cb5ca261ab2f26753a4f945d2e2e6
 
 COCOAPODS: 1.5.3
