@@ -156,6 +156,24 @@ class CPPreviewContentViewController: UIViewController, UIGestureRecognizerDeleg
             selectedCell?.closeAudio()
             firstLoad = true
         }
+        
+        if((museumID == "66") || (museumID == "638")) {
+                       
+                   Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
+                    AnalyticsParameterItemID: tourGuideDict.title as Any,
+                    AnalyticsParameterItemName: (tourGuideDict.title ?? "") + "Audio Stopped",
+                   AnalyticsParameterContentType: "NMoQ Audio Stopped"
+                   ])
+        
+               }else{
+                   
+                   Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
+                   AnalyticsParameterItemID: tourGuideDict.title as Any,
+                   AnalyticsParameterItemName: (tourGuideDict.title ?? "") + "Audio Stopped",
+                   AnalyticsParameterContentType: "MIA Audio Stopped"
+                   ])
+                   
+               }
     }
     func recordScreenView() {
         let screenClass = String(describing: type(of: self))
