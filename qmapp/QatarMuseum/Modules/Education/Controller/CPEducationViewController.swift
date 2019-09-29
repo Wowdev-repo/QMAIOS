@@ -51,10 +51,10 @@ class CPEducationViewController: UIViewController, TTTAttributedLabelDelegate {
         
         if ((CPLocalizationLanguage.currentAppleLanguage()) == "en") {
             let range : NSRange = str.range(of: "Knowledge in Action")
-            secondDescriptionLabel.addLink(to: NSURL(string: "https://www.qm.org.qa/sites/default/files/education/uploads/kina_2019_summer.pdf")! as URL, with: range)
+            secondDescriptionLabel.addLink(to: NSURL(string: "http://www.qm.org.qa/sites/default/files/education/uploads/kina_brochure_fall_2019_eng_inside_aw_web_upload.pdf")! as URL, with: range)
         }else{
-            let range : NSRange = str.range(of: "تطبيق المعرفة")
-            secondDescriptionLabel.addLink(to: NSURL(string: "https://www.qm.org.qa/sites/default/files/education/uploads/kina_2019_summer_ar.pdf")! as URL, with: range)
+            let range : NSRange = str.range(of: "كتيب تطبيق المعرفة")
+            secondDescriptionLabel.addLink(to: NSURL(string: "http://www.qm.org.qa/sites/default/files/education/uploads/kina_brochure_fall_2019_arb_inside_aw_web_upload.pdf")! as URL, with: range)
         }
         
         //secondDescriptionLabel.text = "All of our education parameters privide interactive opportunities. We hope that they create lasting memories and lead to the development of creative, compassionate and engaged individuals.\n\n For school teachers and educators, we bring custom-made worshops, conferences and trainings to suit their needs. We also focus on working with children to encourage them to explore the world around them, engage with it, and express themselves through creative activities.\n\n All of our activities with Qatar Supreme Educational Council Professional Standards for Teachers and National Curriculum Standars."
