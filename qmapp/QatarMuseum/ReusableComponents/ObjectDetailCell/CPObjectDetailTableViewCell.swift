@@ -207,20 +207,28 @@ class CPObjectDetailTableViewCell: UITableViewCell,UITextViewDelegate,CPMapDetai
                     playButton.setImage(UIImage(named:"play_blackX1"), for: .normal)
                 
                 avPlayer.pause()
+                if let timer = self.timer {
+                    timer.invalidate()
+                }
                 isPaused = true
             } else {
                 playButton.setImage(UIImage(named:"pause_blackX1"), for: .normal)
                 avPlayer.play()
+                setupTimer()
                 isPaused = false
             }
         } else {
             if((avPlayer.rate != 0) && (avPlayer.error == nil)) {
                     playButton.setImage(UIImage(named:"play_blackX1"), for: .normal)
                 avPlayer.pause()
+                if let timer = self.timer {
+                    timer.invalidate()
+                }
                 isPaused = true
             } else {
                 playButton.setImage(UIImage(named:"pause_blackX1"), for: .normal)
                 avPlayer.play()
+                setupTimer()
                 isPaused = false
             }
         }
@@ -264,6 +272,9 @@ class CPObjectDetailTableViewCell: UITableViewCell,UITextViewDelegate,CPMapDetai
     }
     
     @objc func didPlayToEnd() {
+        if let timer = self.timer {
+            timer.invalidate()
+        }
         // self.nextTrack()
     }
     
