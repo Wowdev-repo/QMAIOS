@@ -63,6 +63,9 @@ extension CPMuseumsViewController {
                 self.getMuseumDataFromServer()
             }
         } else {
+            guard self.museumArray.count > 0 else {
+                return;
+            }
             self.setImageArray(imageArray: self.museumArray[0].multimediaFile)
         }
     }
