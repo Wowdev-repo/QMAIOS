@@ -1099,11 +1099,12 @@ extension CPHomeViewController: CPTopBarProtocol,CPComingSoonPopUpProtocol,CPSid
             let appDelegate =  UIApplication.shared.delegate as? AppDelegate
             appDelegate?.getHomeList(lang: CPLocalizationLanguage.currentAppleLanguage())
             if(UserDefaults.standard.value(forKey: "firstTimeLaunch") as? String == nil) {
-                loadLoginPopup()
+//                loadLoginPopup()
                 UserDefaults.standard.set("false", forKey: "firstTimeLaunch")
             }
         }
     }
+    
     //MARK: Login Details
     func loadLoginPopup() {
         loginPopUpView  = CPLoginPopupPage(frame: self.view.frame)
