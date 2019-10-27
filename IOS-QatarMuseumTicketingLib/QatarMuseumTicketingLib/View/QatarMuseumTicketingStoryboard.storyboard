@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="fxe-Y9-CVp">
-    <device id="retina4_0" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="fxe-Y9-CVp">
+    <device id="retina4_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -23,14 +21,14 @@
             <objects>
                 <tableViewController storyboardIdentifier="UserProfileTableViewController" id="6Zo-VS-U9W" customClass="UserProfileTableViewController" customModule="QatarMuseumTicketingLib" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="i45-6Q-3QA">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="524"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.91372549020000005" green="0.93333333330000001" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <sections>
                             <tableViewSection id="dkj-dx-8rJ">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="85" id="zRo-NB-Oue">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="85"/>
+                                        <rect key="frame" x="0.0" y="28" width="320" height="85"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="zRo-NB-Oue" id="MxR-r9-Usj">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="85"/>
@@ -83,7 +81,7 @@
                                         <color key="backgroundColor" red="0.91372549020000005" green="0.93333333330000001" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="60" id="5HZ-xd-zYC">
-                                        <rect key="frame" x="0.0" y="85" width="320" height="60"/>
+                                        <rect key="frame" x="0.0" y="113" width="320" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5HZ-xd-zYC" id="ySd-0I-der">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
@@ -125,7 +123,7 @@
                                         <color key="backgroundColor" red="0.91372549020000005" green="0.93333333330000001" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="60" id="IGk-ej-vCh">
-                                        <rect key="frame" x="0.0" y="145" width="320" height="60"/>
+                                        <rect key="frame" x="0.0" y="173" width="320" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="IGk-ej-vCh" id="38s-BG-dLU">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
@@ -167,7 +165,7 @@
                                         <color key="backgroundColor" red="0.91372549020000005" green="0.93333333330000001" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="60" id="qkd-kz-z5B">
-                                        <rect key="frame" x="0.0" y="205" width="320" height="60"/>
+                                        <rect key="frame" x="0.0" y="233" width="320" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="qkd-kz-z5B" id="qz7-7K-oKk">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
@@ -244,10 +242,10 @@
             <objects>
                 <tableViewController storyboardIdentifier="MyVisitsTableViewController" id="1TS-y5-x0R" customClass="MyVisitsTableViewController" customModule="QatarMuseumTicketingLib" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="9s8-1b-MW5">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="524"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.91372549020000005" green="0.93333333330000001" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <view key="tableHeaderView" contentMode="scaleToFill" misplaced="YES" id="raS-QF-C6T">
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="raS-QF-C6T">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="67"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
@@ -382,15 +380,15 @@
             <objects>
                 <tableViewController storyboardIdentifier="CulturePassTableViewController" id="77w-qa-YFn" customClass="CulturePassTableViewController" customModule="QatarMuseumTicketingLib" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Cyh-uy-5Zo">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="524"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.91372549020000005" green="0.93333333330000001" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <view key="tableHeaderView" contentMode="scaleToFill" misplaced="YES" id="2PT-22-kLD">
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="2PT-22-kLD">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="77"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UPGRADE CULTURE PASS TYPE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VIe-2O-SHO">
-                                    <rect key="frame" x="43" y="-2" width="234.5" height="17"/>
+                                    <rect key="frame" x="43" y="30" width="234.5" height="17"/>
                                     <fontDescription key="fontDescription" name="DINNextLTPro-Bold" family="DIN Next LT Pro" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
@@ -433,11 +431,11 @@
             <objects>
                 <viewController id="1wx-aL-guq" customClass="ReadBenefitsViewController" customModule="QatarMuseumTicketingLib" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="7Wf-Wg-Phj">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="524"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="SHH-eO-f1A">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="455"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="475"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="2lj-XF-4uc">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="280"/>
@@ -642,11 +640,11 @@
             <objects>
                 <viewController storyboardIdentifier="PaymentGatewayViewController" id="SGr-xM-8uv" customClass="PaymentGatewayViewController" customModule="QatarMuseumTicketingLib" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="9zd-Vi-4Jl">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="524"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kWr-gz-oba">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="455"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="475"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <wkWebViewConfiguration key="configuration">
                                     <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
@@ -677,7 +675,7 @@
                 <navigationController id="VZX-HT-ymL" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="vEG-Bv-wpl"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" translucent="NO" id="azO-5k-2jt">
-                        <rect key="frame" x="0.0" y="20" width="320" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </navigationBar>
@@ -694,17 +692,17 @@
             <objects>
                 <viewController storyboardIdentifier="QMTLDateTimeChooserViewController" id="6bH-VN-CbO" customClass="QMTLTicketCounterContainerViewController" customModule="QatarMuseumTicketingLib" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="SNn-F0-t1d">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="524"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Booking not opened for this museum" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HNb-Bs-TF3">
-                                <rect key="frame" x="25.5" y="243.5" width="269" height="17"/>
+                                <rect key="frame" x="25.5" y="253.5" width="269" height="17"/>
                                 <fontDescription key="fontDescription" name="DINNextLTPro-Regular" family="DIN Next LT Pro" pointSize="17"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7DP-cr-my8">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
+                                <rect key="frame" x="0.0" y="20" width="320" height="60"/>
                                 <color key="backgroundColor" red="0.7803921568627451" green="0.81176470588235294" blue="0.85490196078431369" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="ODn-dO-LVZ"/>
@@ -714,7 +712,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PxR-9N-mcE" customClass="FSPagerView" customModule="FSPagerView">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
+                                <rect key="frame" x="0.0" y="20" width="320" height="60"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="leftarrowmuseum.png" translatesAutoresizingMaskIntoConstraints="NO" id="YyW-ir-FyP">
                                         <rect key="frame" x="5" y="15" width="30" height="30"/>
@@ -745,10 +743,10 @@
                                 </connections>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rHJ-bh-D7f">
-                                <rect key="frame" x="0.0" y="60" width="320" height="150"/>
+                                <rect key="frame" x="0.0" y="80" width="320" height="150"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="doT-fO-0uR">
-                                        <rect key="frame" x="0.0" y="10" width="320" height="35"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="35"/>
                                         <subviews>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zIM-7e-Bkj">
                                                 <rect key="frame" x="147.5" y="5" width="25" height="25"/>
@@ -822,7 +820,7 @@
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="When would you like to visit the museum?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IZ3-wx-Kgb">
-                                        <rect key="frame" x="57.5" y="51" width="205" height="34"/>
+                                        <rect key="frame" x="57.5" y="41" width="205" height="34"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="205" id="wxS-hA-bBg"/>
                                         </constraints>
@@ -831,7 +829,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="When would you like to visit the museum?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2to-dJ-k6E">
-                                        <rect key="frame" x="20" y="90" width="280" height="45"/>
+                                        <rect key="frame" x="20" y="80" width="280" height="45"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="45" id="J0V-fn-c7u"/>
                                         </constraints>
@@ -842,7 +840,7 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="doT-fO-0uR" firstAttribute="top" secondItem="rHJ-bh-D7f" secondAttribute="top" constant="10" id="5Ey-Ze-uef"/>
+                                    <constraint firstItem="doT-fO-0uR" firstAttribute="top" secondItem="rHJ-bh-D7f" secondAttribute="top" id="5Ey-Ze-uef"/>
                                     <constraint firstItem="doT-fO-0uR" firstAttribute="leading" secondItem="rHJ-bh-D7f" secondAttribute="leading" id="867-2d-f6T"/>
                                     <constraint firstAttribute="height" constant="150" id="JG3-RC-dfL"/>
                                     <constraint firstItem="2to-dJ-k6E" firstAttribute="top" secondItem="IZ3-wx-Kgb" secondAttribute="bottom" constant="5" id="OOI-3y-141"/>
@@ -854,7 +852,7 @@
                                 </constraints>
                             </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Kh7-gK-c02">
-                                <rect key="frame" x="0.0" y="210" width="320" height="180"/>
+                                <rect key="frame" x="0.0" y="230" width="320" height="180"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="7cS-sm-0x8">
                                     <size key="itemSize" width="319" height="438"/>
@@ -890,7 +888,7 @@
                                 </connections>
                             </collectionView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="fill" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qPS-iP-vEu" customClass="QMARoundedButton" customModule="QatarMuseumTicketingLib" customModuleProvider="target">
-                                <rect key="frame" x="25" y="395" width="270" height="50"/>
+                                <rect key="frame" x="25" y="415" width="270" height="50"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="fjF-5q-N1d"/>
@@ -913,8 +911,11 @@
                         <constraints>
                             <constraint firstItem="rHJ-bh-D7f" firstAttribute="top" secondItem="PxR-9N-mcE" secondAttribute="bottom" id="4T5-oc-KVD"/>
                             <constraint firstItem="qPS-iP-vEu" firstAttribute="bottom" secondItem="adi-51-K3V" secondAttribute="bottom" constant="-10" id="62F-Uw-2yZ"/>
+                            <constraint firstItem="PxR-9N-mcE" firstAttribute="top" secondItem="SNn-F0-t1d" secondAttribute="top" id="9Ci-Vs-GCi"/>
                             <constraint firstItem="HNb-Bs-TF3" firstAttribute="centerX" secondItem="adi-51-K3V" secondAttribute="centerX" id="AmA-pn-sGt"/>
+                            <constraint firstItem="PxR-9N-mcE" firstAttribute="top" secondItem="SNn-F0-t1d" secondAttribute="top" id="BDG-Yw-cLK"/>
                             <constraint firstItem="qPS-iP-vEu" firstAttribute="top" secondItem="Kh7-gK-c02" secondAttribute="bottom" constant="5" id="BTg-Jl-qVm"/>
+                            <constraint firstItem="PxR-9N-mcE" firstAttribute="top" secondItem="adi-51-K3V" secondAttribute="top" id="CIk-Vj-Sw4"/>
                             <constraint firstItem="Kh7-gK-c02" firstAttribute="trailing" secondItem="adi-51-K3V" secondAttribute="trailing" id="Ea5-kp-ZdC"/>
                             <constraint firstItem="Kh7-gK-c02" firstAttribute="top" secondItem="rHJ-bh-D7f" secondAttribute="bottom" id="IRk-rk-fIP"/>
                             <constraint firstItem="PxR-9N-mcE" firstAttribute="top" secondItem="adi-51-K3V" secondAttribute="top" id="J0X-iO-txr"/>
@@ -926,11 +927,18 @@
                             <constraint firstItem="adi-51-K3V" firstAttribute="trailing" secondItem="PxR-9N-mcE" secondAttribute="trailing" id="dZZ-RA-bYr"/>
                             <constraint firstItem="qPS-iP-vEu" firstAttribute="leading" secondItem="adi-51-K3V" secondAttribute="leading" constant="25" id="kdm-l1-6FP"/>
                             <constraint firstItem="rHJ-bh-D7f" firstAttribute="leading" secondItem="adi-51-K3V" secondAttribute="leading" id="oz5-t2-UrW"/>
-                            <constraint firstItem="7DP-cr-my8" firstAttribute="top" secondItem="adi-51-K3V" secondAttribute="top" id="r0p-Nc-70H"/>
+                            <constraint firstItem="7DP-cr-my8" firstAttribute="top" secondItem="adi-51-K3V" secondAttribute="top" id="uUa-VH-PsZ"/>
                             <constraint firstItem="7DP-cr-my8" firstAttribute="leading" secondItem="adi-51-K3V" secondAttribute="leading" id="vMH-dD-bdP"/>
                             <constraint firstItem="adi-51-K3V" firstAttribute="trailing" secondItem="qPS-iP-vEu" secondAttribute="trailing" constant="25" id="x5H-OG-2vr"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="adi-51-K3V"/>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="9Ci-Vs-GCi"/>
+                                <exclude reference="BDG-Yw-cLK"/>
+                                <exclude reference="J0X-iO-txr"/>
+                            </mask>
+                        </variation>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item" id="jfk-WR-CkB"/>
                     <navigationItem key="navigationItem" id="0JF-gW-gBM"/>
@@ -966,11 +974,11 @@
             <objects>
                 <viewController storyboardIdentifier="QMTLTicketSuccessfullViewController" id="KgK-CM-egK" customClass="QMTLTicketSuccessfullViewController" customModule="QatarMuseumTicketingLib" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="IFf-yr-DHd">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="524"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UOg-4P-vgM">
-                                <rect key="frame" x="0.0" y="405" width="320" height="50"/>
+                                <rect key="frame" x="0.0" y="425" width="320" height="50"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7yf-cg-0Xf">
                                         <rect key="frame" x="159.5" y="0.0" width="1" height="50"/>
@@ -1073,7 +1081,7 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="zdD-1L-Zte">
-                                <rect key="frame" x="0.0" y="150" width="320" height="255"/>
+                                <rect key="frame" x="0.0" y="150" width="320" height="275"/>
                                 <color key="backgroundColor" red="0.9137254901960784" green="0.93333333333333335" blue="0.95686274509803915" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="CheckoutBasketTblCell" rowHeight="365" id="IP5-up-5SV">
@@ -1247,7 +1255,7 @@
             <objects>
                 <viewController storyboardIdentifier="PrintTicketViewController" title="Ticket" id="Dgb-O4-3E8" customClass="PrintTicketViewController" customModule="QatarMuseumTicketingLib" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="0ib-VK-fyz">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="524"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="9BH-am-W02"/>
@@ -1262,8 +1270,8 @@
             <objects>
                 <navigationController id="bdl-LL-RZC" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="rGB-1L-mdj"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" translucent="NO" id="OIw-1R-YbA">
-                        <rect key="frame" x="0.0" y="20" width="320" height="44"/>
+                    <navigationBar key="navigationBar" hidden="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" translucent="NO" id="OIw-1R-YbA">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </navigationBar>
@@ -1311,7 +1319,7 @@
                                         </constraints>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="museumListCell" id="srR-mh-T0h">
-                                                <rect key="frame" x="0.0" y="28" width="270" height="44"/>
+                                                <rect key="frame" x="0.0" y="28" width="270" height="43.5"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="srR-mh-T0h" id="C7f-p2-mE7">
                                                     <rect key="frame" x="0.0" y="0.0" width="270" height="43.5"/>
@@ -1401,7 +1409,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="btu-eh-Alf" customClass="FSCalendar">
-                                <rect key="frame" x="10" y="30" width="300" height="528"/>
+                                <rect key="frame" x="10" y="10" width="300" height="548"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="color" keyPath="selectionColor">
@@ -1651,7 +1659,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="o2s-5p-MtB">
-                                <rect key="frame" x="5" y="25" width="310" height="538"/>
+                                <rect key="frame" x="5" y="5" width="310" height="558"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="QxH-hl-CCP">
                                     <size key="itemSize" width="87" height="36"/>
@@ -1711,7 +1719,7 @@
             <objects>
                 <viewController storyboardIdentifier="MembershipPurchasedViewController" id="cOo-J4-Kuw" customClass="MembershipPurchasedViewController" customModule="QatarMuseumTicketingLib" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="BFN-Tf-c1G">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="524"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="456-wJ-29N">
@@ -1882,7 +1890,7 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MXc-wG-SIc">
-                                <rect key="frame" x="25" y="395" width="270" height="50"/>
+                                <rect key="frame" x="25" y="415" width="270" height="50"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="5Jd-PX-AiM"/>
@@ -1938,10 +1946,10 @@
             <objects>
                 <tableViewController storyboardIdentifier="QMTLCartTableTableViewController" id="oPW-sC-WMe" customClass="QMTLCartTableTableViewController" customModule="QatarMuseumTicketingLib" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="mB2-4k-Om4">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="524"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.91372549020000005" green="0.93333333330000001" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <view key="tableHeaderView" contentMode="scaleToFill" misplaced="YES" id="ZXj-63-PKq">
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="ZXj-63-PKq">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="263"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
@@ -2016,7 +2024,7 @@
                                     </constraints>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fe4-ZK-ZFI">
-                                    <rect key="frame" x="10" y="150" width="300" height="49"/>
+                                    <rect key="frame" x="10" y="150" width="300" height="113"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hathim Mohammed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yX4-60-bvg">
                                             <rect key="frame" x="6" y="10" width="289" height="17"/>
@@ -2031,7 +2039,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vue-g7-lfx">
-                                            <rect key="frame" x="0.0" y="48" width="300" height="1"/>
+                                            <rect key="frame" x="0.0" y="112" width="300" height="1"/>
                                             <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="1" id="x1c-D1-x6X"/>
@@ -2066,8 +2074,8 @@
                                 <constraint firstAttribute="trailing" secondItem="ah8-Yf-zzC" secondAttribute="trailing" constant="10" id="wMa-6C-Jz3"/>
                             </constraints>
                         </view>
-                        <view key="tableFooterView" contentMode="scaleToFill" misplaced="YES" id="fYf-Fn-3gp">
-                            <rect key="frame" x="0.0" y="391" width="320" height="33"/>
+                        <view key="tableFooterView" contentMode="scaleToFill" id="fYf-Fn-3gp">
+                            <rect key="frame" x="0.0" y="419" width="320" height="33"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="QAR 0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6bF-o6-zOO">
@@ -2217,11 +2225,11 @@
             <objects>
                 <viewController storyboardIdentifier="QMTLGuestUserViewController" id="Pva-RM-x1w" customClass="QMTLGuestUserViewController" customModule="QatarMuseumTicketingLib" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="jrj-eD-Ljx">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="524"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kb8-6H-FMg">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="395"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="415"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0mn-K2-w1g">
                                         <rect key="frame" x="0.0" y="0.0" width="300" height="505"/>
@@ -2246,7 +2254,6 @@
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="50" id="JQE-eN-4sx"/>
                                                         </constraints>
-                                                        <nil key="textColor"/>
                                                         <fontDescription key="fontDescription" name="DINNextLTPro-Regular" family="DIN Next LT Pro" pointSize="15"/>
                                                         <textInputTraits key="textInputTraits"/>
                                                         <connections>
@@ -2270,7 +2277,6 @@
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="50" id="wAs-8F-6Vi"/>
                                                         </constraints>
-                                                        <nil key="textColor"/>
                                                         <fontDescription key="fontDescription" name="DINNextLTPro-Regular" family="DIN Next LT Pro" pointSize="15"/>
                                                         <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
                                                         <connections>
@@ -2282,7 +2288,6 @@
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="50" id="SIL-fd-o1Y"/>
                                                         </constraints>
-                                                        <nil key="textColor"/>
                                                         <fontDescription key="fontDescription" name="DINNextLTPro-Regular" family="DIN Next LT Pro" pointSize="15"/>
                                                         <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
                                                         <connections>
@@ -2300,7 +2305,6 @@
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="50" id="t4f-pA-ZJF"/>
                                                         </constraints>
-                                                        <nil key="textColor"/>
                                                         <fontDescription key="fontDescription" name="DINNextLTPro-Regular" family="DIN Next LT Pro" pointSize="15"/>
                                                         <textInputTraits key="textInputTraits"/>
                                                         <connections>
@@ -2418,7 +2422,7 @@
                                 </constraints>
                             </scrollView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="fill" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FK5-18-3kK" customClass="QMARoundedButton" customModule="QatarMuseumTicketingLib" customModuleProvider="target">
-                                <rect key="frame" x="25" y="395" width="270" height="50"/>
+                                <rect key="frame" x="25" y="415" width="270" height="50"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="fHz-43-LhG"/>
@@ -2476,24 +2480,23 @@
             <objects>
                 <viewController storyboardIdentifier="QMTLSignInUserViewController" id="sG2-d5-JUd" customClass="QMTLSignInUserViewController" customModule="QatarMuseumTicketingLib" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="UAD-zc-x8k">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="524"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sJS-C0-iJW">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="395"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="415"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8mJ-3V-NSY">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="395"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="415"/>
                                         <subviews>
                                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eXG-Xr-pgz">
-                                                <rect key="frame" x="20" y="147" width="280" height="101"/>
+                                                <rect key="frame" x="20" y="157" width="280" height="101"/>
                                                 <subviews>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email*" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="2yu-hz-prR">
                                                         <rect key="frame" x="10" y="0.0" width="260" height="50"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="50" id="QEg-iM-JfM"/>
                                                         </constraints>
-                                                        <nil key="textColor"/>
                                                         <fontDescription key="fontDescription" name="DINNextLTPro-Regular" family="DIN Next LT Pro" pointSize="15"/>
                                                         <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="next"/>
                                                         <connections>
@@ -2505,7 +2508,6 @@
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="50" id="SDK-IZ-rz3"/>
                                                         </constraints>
-                                                        <nil key="textColor"/>
                                                         <fontDescription key="fontDescription" name="DINNextLTPro-Regular" family="DIN Next LT Pro" pointSize="15"/>
                                                         <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="done" secureTextEntry="YES"/>
                                                         <connections>
@@ -2534,19 +2536,19 @@
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LOG IN" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ic1-6N-iK8">
-                                                <rect key="frame" x="135" y="80" width="50.5" height="17"/>
+                                                <rect key="frame" x="135" y="90" width="50.5" height="17"/>
                                                 <fontDescription key="fontDescription" name="DINNextLTPro-Bold" family="DIN Next LT Pro" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Log in to your Culture Pass account" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xKs-LX-jnV">
-                                                <rect key="frame" x="46" y="102" width="228" height="15"/>
+                                                <rect key="frame" x="46" y="112" width="228" height="15"/>
                                                 <fontDescription key="fontDescription" name="DINNextLTPro-Regular" family="DIN Next LT Pro" pointSize="15"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eHy-Ks-eaB">
-                                                <rect key="frame" x="60" y="258" width="200" height="40"/>
+                                                <rect key="frame" x="60" y="268" width="200" height="40"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="200" id="6hr-N0-weM"/>
@@ -2561,7 +2563,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ihF-Cf-lzr" customClass="QMARoundedButton">
-                                                <rect key="frame" x="60" y="308" width="200" height="40"/>
+                                                <rect key="frame" x="60" y="318" width="200" height="40"/>
                                                 <color key="backgroundColor" red="0.93333333330000001" green="0.94901960780000005" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="B98-ej-M9J"/>
@@ -2608,7 +2610,7 @@
                                 </constraints>
                             </scrollView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H8Q-PA-1HE" customClass="QMARoundedButton" customModule="QatarMuseumTicketingLib" customModuleProvider="target">
-                                <rect key="frame" x="25" y="395" width="270" height="50"/>
+                                <rect key="frame" x="25" y="415" width="270" height="50"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="K8r-iG-ONV"/>
@@ -2661,7 +2663,7 @@
             <objects>
                 <viewController id="xeQ-wt-bP1" customClass="ForgotPasswordViewController" customModule="QatarMuseumTicketingLib" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="186-YT-Rvm">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="524"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Forgot Password ?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bzY-BV-bBE">
@@ -2678,7 +2680,6 @@
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Your email*" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Vjy-7G-GB4">
                                                 <rect key="frame" x="20" y="1" width="250" height="42"/>
-                                                <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                 <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="next"/>
                                                 <connections>
@@ -2773,11 +2774,11 @@
             <objects>
                 <viewController id="ZEm-je-uRK" customClass="TermsAndConditionViewController" customModule="QatarMuseumTicketingLib" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="UEU-A1-WU6">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="524"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2HT-PR-tnf">
-                                <rect key="frame" x="25" y="395" width="270" height="50"/>
+                                <rect key="frame" x="25" y="415" width="270" height="50"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="R5W-Ru-BH2"/>
@@ -2804,10 +2805,10 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CoZ-34-eLC">
-                                <rect key="frame" x="20" y="97" width="280" height="268"/>
+                                <rect key="frame" x="20" y="97" width="280" height="288"/>
                                 <subviews>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Lye-Bv-o1a">
-                                        <rect key="frame" x="10" y="0.0" width="260" height="268"/>
+                                        <rect key="frame" x="10" y="0.0" width="260" height="288"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -2852,15 +2853,15 @@
             <objects>
                 <tableViewController storyboardIdentifier="SignUpTableViewController" id="CNs-bp-1ZL" customClass="SignUpTableViewController" customModule="QatarMuseumTicketingLib" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="6xR-Zv-zLI">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="524"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.91372549020000005" green="0.93333333330000001" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <view key="tableHeaderView" contentMode="scaleToFill" misplaced="YES" id="fwA-h7-xL9">
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="fwA-h7-xL9">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="62"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="REGISTER &amp; BECOME A MEMBER" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fVr-n2-k3o">
-                                    <rect key="frame" x="15" y="-8.5" width="242.5" height="17"/>
+                                    <rect key="frame" x="15" y="22.5" width="242.5" height="17"/>
                                     <fontDescription key="fontDescription" name="DINNextLTPro-Bold" family="DIN Next LT Pro" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
@@ -2872,8 +2873,8 @@
                                 <constraint firstItem="fVr-n2-k3o" firstAttribute="centerY" secondItem="fwA-h7-xL9" secondAttribute="centerY" id="6vt-1a-ZTw"/>
                             </constraints>
                         </view>
-                        <view key="tableFooterView" contentMode="scaleToFill" misplaced="YES" id="ODA-jJ-Sta">
-                            <rect key="frame" x="0.0" y="755" width="320" height="262"/>
+                        <view key="tableFooterView" contentMode="scaleToFill" id="ODA-jJ-Sta">
+                            <rect key="frame" x="0.0" y="773" width="320" height="262"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Subscribe to Newsletter" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9C4-yY-wKE">
@@ -2946,7 +2947,7 @@
                             <tableViewSection id="JaA-yq-WPF">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="65" id="ken-aF-2ZJ">
-                                        <rect key="frame" x="0.0" y="62" width="320" height="65"/>
+                                        <rect key="frame" x="0.0" y="80" width="320" height="65"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ken-aF-2ZJ" id="AOP-I3-ojx">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="65"/>
@@ -3000,7 +3001,7 @@
                             <tableViewSection id="3Tk-6A-SPo">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="65" id="5qV-E0-sNc">
-                                        <rect key="frame" x="0.0" y="163" width="320" height="65"/>
+                                        <rect key="frame" x="0.0" y="181" width="320" height="65"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5qV-E0-sNc" id="qJw-4s-pIm">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="65"/>
@@ -3011,7 +3012,6 @@
                                                     <subviews>
                                                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="OrR-oR-JWH">
                                                             <rect key="frame" x="20" y="3" width="260" height="40"/>
-                                                            <nil key="textColor"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                             <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
                                                             <connections>
@@ -3050,7 +3050,7 @@
                             <tableViewSection id="Qey-t4-AoQ">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="65" id="aaH-RT-h2e">
-                                        <rect key="frame" x="0.0" y="264" width="320" height="65"/>
+                                        <rect key="frame" x="0.0" y="282" width="320" height="65"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="aaH-RT-h2e" id="scD-zd-1jT">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="65"/>
@@ -3061,7 +3061,6 @@
                                                     <subviews>
                                                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="iZ2-FY-Nzc">
                                                             <rect key="frame" x="20" y="0.0" width="260" height="46"/>
-                                                            <nil key="textColor"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                             <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                                             <connections>
@@ -3100,7 +3099,7 @@
                             <tableViewSection id="xfw-Br-Yj4">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="65" id="k4A-Cs-uba">
-                                        <rect key="frame" x="0.0" y="365" width="320" height="65"/>
+                                        <rect key="frame" x="0.0" y="383" width="320" height="65"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="k4A-Cs-uba" id="ef1-RN-IY5">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="65"/>
@@ -3111,7 +3110,6 @@
                                                     <subviews>
                                                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Confirm Password" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="ixR-WK-Unp">
                                                             <rect key="frame" x="20" y="1" width="260" height="44"/>
-                                                            <nil key="textColor"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                             <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                                             <connections>
@@ -3150,7 +3148,7 @@
                             <tableViewSection id="Hh2-Fz-kNM">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="271" id="4AJ-py-g9Z">
-                                        <rect key="frame" x="0.0" y="466" width="320" height="271"/>
+                                        <rect key="frame" x="0.0" y="484" width="320" height="271"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="4AJ-py-g9Z" id="2gC-BN-ssS">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="271"/>
@@ -3164,7 +3162,6 @@
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="40" id="1ys-vH-ARg"/>
                                                             </constraints>
-                                                            <nil key="textColor"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                             <textInputTraits key="textInputTraits" returnKeyType="next"/>
                                                             <connections>
@@ -3183,7 +3180,6 @@
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="40" id="Woc-BX-j2Y"/>
                                                             </constraints>
-                                                            <nil key="textColor"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                             <textInputTraits key="textInputTraits"/>
                                                             <connections>
@@ -3202,7 +3198,6 @@
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="40" id="Qys-QP-h9C"/>
                                                             </constraints>
-                                                            <nil key="textColor"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                             <textInputTraits key="textInputTraits"/>
                                                             <connections>
@@ -3221,7 +3216,6 @@
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="40" id="c93-ph-cLk"/>
                                                             </constraints>
-                                                            <nil key="textColor"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                             <textInputTraits key="textInputTraits" returnKeyType="next"/>
                                                             <connections>
@@ -3240,7 +3234,6 @@
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="40" id="23C-u3-Ewq"/>
                                                             </constraints>
-                                                            <nil key="textColor"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                             <textInputTraits key="textInputTraits" returnKeyType="next"/>
                                                             <connections>
@@ -3259,7 +3252,6 @@
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="40" id="SFv-qO-23N"/>
                                                             </constraints>
-                                                            <nil key="textColor"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                             <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
                                                             <connections>
@@ -3272,7 +3264,6 @@
                                                                 <constraint firstAttribute="width" constant="30" id="Jrh-zi-da4"/>
                                                                 <constraint firstAttribute="height" constant="40" id="ahN-g4-u7v"/>
                                                             </constraints>
-                                                            <nil key="textColor"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                             <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation" returnKeyType="next"/>
                                                             <connections>
@@ -3487,15 +3478,15 @@
             <objects>
                 <tableViewController storyboardIdentifier="UserInfoTableViewController" id="aJc-nL-oH1" customClass="UserInfoTableViewController" customModule="QatarMuseumTicketingLib" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="bpC-xr-zqN">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="524"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.91372549020000005" green="0.93333333330000001" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <view key="tableHeaderView" contentMode="scaleToFill" misplaced="YES" id="zjA-jT-mfs">
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="zjA-jT-mfs">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="62"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="EDIT YOUR PROFILE DETAILS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eAn-bU-zpA">
-                                    <rect key="frame" x="15" y="-8.5" width="216.5" height="17"/>
+                                    <rect key="frame" x="15" y="22.5" width="216.5" height="17"/>
                                     <fontDescription key="fontDescription" name="DINNextLTPro-Bold" family="DIN Next LT Pro" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
@@ -3507,8 +3498,8 @@
                                 <constraint firstItem="eAn-bU-zpA" firstAttribute="leading" secondItem="zjA-jT-mfs" secondAttribute="leading" constant="15" id="Lsq-qN-GKY"/>
                             </constraints>
                         </view>
-                        <view key="tableFooterView" contentMode="scaleToFill" misplaced="YES" id="WLT-oM-4t8">
-                            <rect key="frame" x="0.0" y="644" width="320" height="260"/>
+                        <view key="tableFooterView" contentMode="scaleToFill" id="WLT-oM-4t8">
+                            <rect key="frame" x="0.0" y="662" width="320" height="260"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Subscribe to Newsletter" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TBY-9A-lal">
@@ -3542,7 +3533,7 @@
                             <tableViewSection id="GBT-Qr-Lc8">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="65" id="Z7l-OW-rJr">
-                                        <rect key="frame" x="0.0" y="62" width="320" height="65"/>
+                                        <rect key="frame" x="0.0" y="80" width="320" height="65"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Z7l-OW-rJr" id="dAV-Ca-IdA">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="65"/>
@@ -3612,7 +3603,7 @@
                             <tableViewSection id="JIW-Pa-NQk">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="65" id="Ilk-uG-tiE">
-                                        <rect key="frame" x="0.0" y="163" width="320" height="65"/>
+                                        <rect key="frame" x="0.0" y="181" width="320" height="65"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Ilk-uG-tiE" id="Cz0-3K-mU7">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="65"/>
@@ -3623,7 +3614,6 @@
                                                     <subviews>
                                                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="ZtI-9F-YnH">
                                                             <rect key="frame" x="10" y="3" width="270" height="40"/>
-                                                            <nil key="textColor"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                             <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="next"/>
                                                             <connections>
@@ -3662,7 +3652,7 @@
                             <tableViewSection id="k2f-xb-QkQ">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="55" id="Pot-uc-DSH">
-                                        <rect key="frame" x="0.0" y="264" width="320" height="55"/>
+                                        <rect key="frame" x="0.0" y="282" width="320" height="55"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Pot-uc-DSH" id="Wee-1B-fMS">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="55"/>
@@ -3709,7 +3699,7 @@
                             <tableViewSection id="qJu-5v-Vru">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="271" id="5CL-FY-Yck">
-                                        <rect key="frame" x="0.0" y="355" width="320" height="271"/>
+                                        <rect key="frame" x="0.0" y="373" width="320" height="271"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5CL-FY-Yck" id="Dqu-WY-uY9">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="271"/>
@@ -3723,7 +3713,6 @@
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="40" id="ZZv-9C-DlT"/>
                                                             </constraints>
-                                                            <nil key="textColor"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                             <textInputTraits key="textInputTraits" returnKeyType="next"/>
                                                             <connections>
@@ -3742,7 +3731,6 @@
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="40" id="yzZ-sR-gfN"/>
                                                             </constraints>
-                                                            <nil key="textColor"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                             <textInputTraits key="textInputTraits" returnKeyType="next"/>
                                                             <connections>
@@ -3761,7 +3749,6 @@
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="40" id="F4b-Vf-E4G"/>
                                                             </constraints>
-                                                            <nil key="textColor"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                             <textInputTraits key="textInputTraits" returnKeyType="next"/>
                                                             <connections>
@@ -3780,7 +3767,6 @@
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="40" id="c3D-q8-DJ0"/>
                                                             </constraints>
-                                                            <nil key="textColor"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                             <textInputTraits key="textInputTraits" returnKeyType="next"/>
                                                             <connections>
@@ -3799,7 +3785,6 @@
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="40" id="4G8-TK-gHd"/>
                                                             </constraints>
-                                                            <nil key="textColor"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                             <textInputTraits key="textInputTraits" returnKeyType="next"/>
                                                             <connections>
@@ -3818,7 +3803,6 @@
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="40" id="wsJ-SC-NYi"/>
                                                             </constraints>
-                                                            <nil key="textColor"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                             <textInputTraits key="textInputTraits" keyboardType="phonePad" returnKeyType="done"/>
                                                             <connections>
@@ -3831,7 +3815,6 @@
                                                                 <constraint firstAttribute="height" constant="40" id="IuS-ca-Nmi"/>
                                                                 <constraint firstAttribute="width" constant="30" id="ksh-nC-hm6"/>
                                                             </constraints>
-                                                            <nil key="textColor"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                             <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation" returnKeyType="next"/>
                                                             <connections>
@@ -4036,11 +4019,11 @@
             <objects>
                 <viewController storyboardIdentifier="cardViewId" id="7Q2-op-uZi" customClass="CulturePassCardViewController" customModule="QatarMuseumTicketingLib" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="h9X-GR-pcs">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="culturepass_front.png" translatesAutoresizingMaskIntoConstraints="NO" id="aT2-de-Ud0">
-                                <rect key="frame" x="0.0" y="70" width="414" height="596"/>
+                                <rect key="frame" x="0.0" y="50" width="414" height="616"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Membership Number" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sXL-pE-og1">
                                 <rect key="frame" x="39" y="355" width="201.5" height="26.5"/>
@@ -4088,7 +4071,7 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0F7-lN-ceY">
-                                <rect key="frame" x="0.0" y="20" width="414" height="50"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XpD-cY-YF2">
                                         <rect key="frame" x="5" y="5" width="40" height="40"/>
@@ -4163,7 +4146,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="culturepass_back.jpeg" translatesAutoresizingMaskIntoConstraints="NO" id="uAy-uR-Xm5">
-                                <rect key="frame" x="0.0" y="70" width="320" height="428"/>
+                                <rect key="frame" x="0.0" y="50" width="320" height="448"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o4m-cM-Jnn" customClass="QMARoundedButton" customModule="QatarMuseumTicketingLib" customModuleProvider="target">
                                 <rect key="frame" x="25" y="508" width="270" height="50"/>
@@ -4203,7 +4186,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5zG-rl-ETa">
-                                <rect key="frame" x="0.0" y="20" width="320" height="50"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CnL-Nx-FDB">
                                         <rect key="frame" x="5" y="5" width="40" height="40"/>
@@ -4277,7 +4260,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="Ako-j0-lVQ">
-                                <rect key="frame" x="0.0" y="28" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="28" width="320" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Ako-j0-lVQ" id="AWC-ox-sdk">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
@@ -4293,6 +4276,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GAe-Q9-hEf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="773" y="130"/>
         </scene>
     </scenes>
     <resources>
@@ -4315,11 +4299,11 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="hdo-Wz-xX9"/>
-        <segue reference="Lpv-Zc-Li3"/>
-        <segue reference="ihf-jg-C3m"/>
-        <segue reference="1vx-Lg-GDN"/>
-        <segue reference="dWn-sD-scb"/>
-        <segue reference="BEn-Gk-AaP"/>
+        <segue reference="lDz-eU-DMy"/>
+        <segue reference="jCa-yk-EhS"/>
+        <segue reference="mIH-ey-kcV"/>
+        <segue reference="Nhf-Bu-nAf"/>
+        <segue reference="qBU-hl-NUc"/>
         <segue reference="XIx-Ru-dpJ"/>
     </inferredMetricsTieBreakers>
 </document>

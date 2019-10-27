@@ -108,7 +108,7 @@ class QMTLTabViewController: UITabBarController, TopTabBarViewDelegate {
         
         topTabBarView = TopTabBarView.instanceFromNib() as! TopTabBarView
         topTabBarView.topTabBarViewDelegate = self
-        topTabBarView.frame = CGRect(x: 0, y: UIApplication.shared.statusBarFrame.height, width: self.view.frame.size.width, height: 65)
+        topTabBarView.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 45)
         self.view.addSubview(topTabBarView)
         
         if ((QMTLLocalizationLanguage.currentAppleLanguage()) != "en") {

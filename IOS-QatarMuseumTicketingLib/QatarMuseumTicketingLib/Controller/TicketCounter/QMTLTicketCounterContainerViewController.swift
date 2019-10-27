@@ -923,14 +923,18 @@ class QMTLTicketCounterContainerViewController: UIViewController,UICollectionVie
     }
     
     func internetConnected() -> Bool {
-        let reachability = Reachability()!
-        
-        if (reachability.connection != .none){
-            return true
+        do {
+            let reachability = try Reachability()
+            if reachability.connection != .unavailable {
+                return true
+            }
+            else{
+                return false
+            }
         }
-        else{
-            return false
+        catch _ {
         }
+        return false
     }
     
     func scrollToSelectedPage(){
