@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="DINNextLTPro-Regular.ttf">
+            <string>DINNextLTPro-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="parkListCellId" rowHeight="152" id="goj-tm-v8A" customClass="ParkListTableViewCell" customModule="QatarMuseums" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="458" height="475"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="goj-tm-v8A" id="7gS-cH-UhI">
+                <rect key="frame" x="0.0" y="0.0" width="458" height="474.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="550-51-nVh">
+                        <rect key="frame" x="15" y="15" width="428" height="72"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="249" text="" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="en4-XT-k5W">
+                                <rect key="frame" x="214" y="25" width="0.0" height="0.0"/>
+                                <fontDescription key="fontDescription" name="DINNextLTPro-Regular" family="DIN Next LT Pro" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dSc-Ar-j39">
+                                <rect key="frame" x="199.5" y="37" width="29" height="3"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="29" id="JnK-me-4G7"/>
+                                    <constraint firstAttribute="height" constant="3" id="UT9-Gx-jK1"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ULw-9c-LqX">
+                                <rect key="frame" x="15" y="52" width="398" height="0.0"/>
+                                <fontDescription key="fontDescription" name="DINNextLTPro-Regular" family="DIN Next LT Pro" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="en4-XT-k5W" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="550-51-nVh" secondAttribute="leading" constant="4" id="368-Hg-Pwf"/>
+                            <constraint firstItem="dSc-Ar-j39" firstAttribute="top" secondItem="en4-XT-k5W" secondAttribute="bottom" constant="12" id="7rC-v4-Q5d"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="en4-XT-k5W" secondAttribute="trailing" constant="4" id="AeP-Iv-NKc"/>
+                            <constraint firstItem="en4-XT-k5W" firstAttribute="top" secondItem="550-51-nVh" secondAttribute="top" constant="25" id="SMF-Fe-ana"/>
+                            <constraint firstAttribute="bottom" secondItem="ULw-9c-LqX" secondAttribute="bottom" constant="20" symbolic="YES" id="SfZ-Hw-kSY"/>
+                            <constraint firstItem="ULw-9c-LqX" firstAttribute="leading" secondItem="550-51-nVh" secondAttribute="leading" constant="15" id="TzS-va-PuU"/>
+                            <constraint firstItem="en4-XT-k5W" firstAttribute="centerX" secondItem="550-51-nVh" secondAttribute="centerX" id="bw4-76-EYO"/>
+                            <constraint firstItem="ULw-9c-LqX" firstAttribute="top" secondItem="dSc-Ar-j39" secondAttribute="bottom" constant="12" id="cDs-Yy-MCv"/>
+                            <constraint firstAttribute="trailing" secondItem="ULw-9c-LqX" secondAttribute="trailing" constant="15" id="f18-ep-bXb"/>
+                            <constraint firstItem="dSc-Ar-j39" firstAttribute="centerX" secondItem="550-51-nVh" secondAttribute="centerX" id="mUC-0a-APM"/>
+                            <constraint firstItem="ULw-9c-LqX" firstAttribute="centerX" secondItem="550-51-nVh" secondAttribute="centerX" id="zdk-eW-4mf"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="5"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hV7-A0-d9w">
+                        <rect key="frame" x="15" y="99" width="428" height="72"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="249" text="" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iPL-G0-CDv">
+                                <rect key="frame" x="214" y="25" width="0.0" height="0.0"/>
+                                <fontDescription key="fontDescription" name="DINNextLTPro-Regular" family="DIN Next LT Pro" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bbz-G8-2aN">
+                                <rect key="frame" x="199.5" y="37" width="29" height="3"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="29" id="G7q-wv-N3a"/>
+                                    <constraint firstAttribute="height" constant="3" id="iCq-36-scC"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="94M-yR-f9I">
+                                <rect key="frame" x="15" y="52" width="398" height="0.0"/>
+                                <fontDescription key="fontDescription" name="DINNextLTPro-Regular" family="DIN Next LT Pro" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="iPL-G0-CDv" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="hV7-A0-d9w" secondAttribute="leading" constant="4" id="Jcu-gO-1ti"/>
+                            <constraint firstItem="94M-yR-f9I" firstAttribute="top" secondItem="Bbz-G8-2aN" secondAttribute="bottom" constant="12" id="Mnj-zS-rh0"/>
+                            <constraint firstItem="Bbz-G8-2aN" firstAttribute="centerX" secondItem="hV7-A0-d9w" secondAttribute="centerX" id="P5b-aX-dZ9"/>
+                            <constraint firstItem="iPL-G0-CDv" firstAttribute="top" secondItem="hV7-A0-d9w" secondAttribute="top" constant="25" id="ZsA-RX-W30"/>
+                            <constraint firstAttribute="trailing" secondItem="94M-yR-f9I" secondAttribute="trailing" constant="15" id="aNU-md-U1G"/>
+                            <constraint firstItem="94M-yR-f9I" firstAttribute="leading" secondItem="hV7-A0-d9w" secondAttribute="leading" constant="15" id="cqN-4g-LMz"/>
+                            <constraint firstItem="iPL-G0-CDv" firstAttribute="centerX" secondItem="hV7-A0-d9w" secondAttribute="centerX" id="g51-It-Vxq"/>
+                            <constraint firstItem="94M-yR-f9I" firstAttribute="centerX" secondItem="hV7-A0-d9w" secondAttribute="centerX" id="gaW-Sz-pmG"/>
+                            <constraint firstItem="Bbz-G8-2aN" firstAttribute="top" secondItem="iPL-G0-CDv" secondAttribute="bottom" constant="12" id="gye-vM-TNy"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="iPL-G0-CDv" secondAttribute="trailing" constant="4" id="kr9-He-IP7"/>
+                            <constraint firstAttribute="bottom" secondItem="94M-yR-f9I" secondAttribute="bottom" constant="20" symbolic="YES" id="tKX-O4-wjW"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="5"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3X5-9M-dHX">
+                        <rect key="frame" x="15" y="183" width="428" height="270"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="249" text="" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nYs-td-A8h">
+                                <rect key="frame" x="214" y="25" width="0.0" height="0.0"/>
+                                <fontDescription key="fontDescription" name="DINNextLTPro-Regular" family="DIN Next LT Pro" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jrs-5G-HNy">
+                                <rect key="frame" x="199.5" y="37" width="29" height="3"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="3" id="92r-aS-6di"/>
+                                    <constraint firstAttribute="width" constant="29" id="jIT-qD-b6a"/>
+                                </constraints>
+                            </view>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="8aU-Ad-4LM">
+                                <rect key="frame" x="8" y="52" width="412" height="186"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="186" id="7Sf-eh-yh1"/>
+                                </constraints>
+                            </mapView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qvy-y7-67f">
+                                <rect key="frame" x="8" y="52" width="412" height="186"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="186" id="lGc-Zg-9jj"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Qvy-y7-67f" firstAttribute="top" secondItem="8aU-Ad-4LM" secondAttribute="top" id="3zp-di-gcp"/>
+                            <constraint firstItem="nYs-td-A8h" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="3X5-9M-dHX" secondAttribute="leading" constant="4" id="6va-lr-y5o"/>
+                            <constraint firstItem="nYs-td-A8h" firstAttribute="top" secondItem="3X5-9M-dHX" secondAttribute="top" constant="25" id="7ym-pJ-lJa"/>
+                            <constraint firstItem="jrs-5G-HNy" firstAttribute="top" secondItem="nYs-td-A8h" secondAttribute="bottom" constant="12" id="Bxp-U6-uYP"/>
+                            <constraint firstItem="Qvy-y7-67f" firstAttribute="leading" secondItem="8aU-Ad-4LM" secondAttribute="leading" id="H4w-vc-quF"/>
+                            <constraint firstItem="8aU-Ad-4LM" firstAttribute="top" secondItem="jrs-5G-HNy" secondAttribute="bottom" constant="12" id="ThN-rX-Pje"/>
+                            <constraint firstItem="Qvy-y7-67f" firstAttribute="trailing" secondItem="8aU-Ad-4LM" secondAttribute="trailing" id="am1-h2-b3U"/>
+                            <constraint firstAttribute="height" constant="270" id="b5s-y7-KSc"/>
+                            <constraint firstAttribute="trailing" secondItem="8aU-Ad-4LM" secondAttribute="trailing" constant="8" id="bEe-6g-lW3"/>
+                            <constraint firstItem="jrs-5G-HNy" firstAttribute="centerX" secondItem="3X5-9M-dHX" secondAttribute="centerX" id="dpq-xC-RMZ"/>
+                            <constraint firstItem="Qvy-y7-67f" firstAttribute="bottom" secondItem="8aU-Ad-4LM" secondAttribute="bottom" id="ejE-A1-vcy"/>
+                            <constraint firstItem="8aU-Ad-4LM" firstAttribute="leading" secondItem="3X5-9M-dHX" secondAttribute="leading" constant="8" id="gp9-kJ-PFl"/>
+                            <constraint firstItem="nYs-td-A8h" firstAttribute="centerX" secondItem="3X5-9M-dHX" secondAttribute="centerX" id="hrd-46-cWK"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="nYs-td-A8h" secondAttribute="trailing" constant="4" id="vbO-Ql-tZp"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="5"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" red="0.90580284595489502" green="0.9059332013130188" blue="0.90577441453933716" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                <constraints>
+                    <constraint firstItem="550-51-nVh" firstAttribute="top" secondItem="7gS-cH-UhI" secondAttribute="top" constant="15" id="5tH-b2-DiR"/>
+                    <constraint firstAttribute="bottom" secondItem="3X5-9M-dHX" secondAttribute="bottom" constant="21.5" id="I2n-i4-Dt5"/>
+                    <constraint firstItem="3X5-9M-dHX" firstAttribute="trailing" secondItem="hV7-A0-d9w" secondAttribute="trailing" id="IEN-L2-1m2"/>
+                    <constraint firstItem="3X5-9M-dHX" firstAttribute="leading" secondItem="hV7-A0-d9w" secondAttribute="leading" id="JiL-Hr-TV9"/>
+                    <constraint firstItem="550-51-nVh" firstAttribute="leading" secondItem="7gS-cH-UhI" secondAttribute="leading" constant="15" id="YKP-LZ-5Dr"/>
+                    <constraint firstItem="hV7-A0-d9w" firstAttribute="top" secondItem="550-51-nVh" secondAttribute="bottom" constant="12" id="bmf-IL-lfq"/>
+                    <constraint firstAttribute="trailing" secondItem="550-51-nVh" secondAttribute="trailing" constant="15" id="h1J-cG-Lvk"/>
+                    <constraint firstItem="3X5-9M-dHX" firstAttribute="top" secondItem="hV7-A0-d9w" secondAttribute="bottom" constant="12" id="iFx-fw-qTr"/>
+                    <constraint firstAttribute="trailing" secondItem="hV7-A0-d9w" secondAttribute="trailing" constant="15" id="jal-mQ-rdK"/>
+                    <constraint firstItem="hV7-A0-d9w" firstAttribute="leading" secondItem="7gS-cH-UhI" secondAttribute="leading" constant="15" id="yuI-Ko-ZG5"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="jgr-c3-KU3"/>
+            <connections>
+                <outlet property="descriptionLabel" destination="ULw-9c-LqX" id="ZRf-Uc-0vn"/>
+                <outlet property="hoursTitleLineHeight" destination="iCq-36-scC" id="M7N-Yb-J1J"/>
+                <outlet property="hoursTitleLineView" destination="Bbz-G8-2aN" id="h7c-eU-YZH"/>
+                <outlet property="hoursView" destination="hV7-A0-d9w" id="3eK-9O-1e8"/>
+                <outlet property="locationTitle" destination="nYs-td-A8h" id="qMp-9G-ugZ"/>
+                <outlet property="locationView" destination="3X5-9M-dHX" id="1pB-L5-H3T"/>
+                <outlet property="mapOverlayView" destination="Qvy-y7-67f" id="8v5-Nt-Gs0"/>
+                <outlet property="mapView" destination="8aU-Ad-4LM" id="dPs-4H-kGs"/>
+                <outlet property="timimgTextLabel" destination="94M-yR-f9I" id="rqU-6t-0nu"/>
+                <outlet property="timimgTitle" destination="iPL-G0-CDv" id="iv1-qq-gGH"/>
+                <outlet property="titleLabel" destination="en4-XT-k5W" id="cYw-ov-dAd"/>
+                <outlet property="titleLineHeight" destination="UT9-Gx-jK1" id="FFB-JC-2cV"/>
+                <outlet property="titleLineView" destination="dSc-Ar-j39" id="vDd-zn-Q3w"/>
+                <outlet property="topView" destination="550-51-nVh" id="bqL-9Z-nOi"/>
+            </connections>
+            <point key="canvasLocation" x="49.600000000000001" y="138.0809595202399"/>
+        </tableViewCell>
+    </objects>
+</document>

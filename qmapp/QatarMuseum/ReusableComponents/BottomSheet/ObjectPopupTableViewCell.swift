@@ -43,13 +43,13 @@ class ObjectPopupTableViewCell: UITableViewCell {
             popupImgeView.image = UIImage(named: "default_imageX2")
         }
         title.font = UIFont.tryAgainFont
-        productionTitle.font = UIFont.settingResetButtonFont
-        productionDateTitle.font = UIFont.settingResetButtonFont
-        periodTitle.font = UIFont.settingResetButtonFont
-        productionText.font = UIFont.collectionFirstDescriptionFont
-        productionDateText.font = UIFont.collectionFirstDescriptionFont
-        periodText.font = UIFont.collectionFirstDescriptionFont
-        viewDetailsLabel.font = UIFont.collectionFirstDescriptionFont
+        productionTitle.font = UIFont.eventCellTitleFont
+        productionDateTitle.font = UIFont.eventCellTitleFont
+        periodTitle.font = UIFont.eventCellTitleFont
+        productionText.font = UIFont.downloadLabelFont
+        productionDateText.font = UIFont.downloadLabelFont
+        periodText.font = UIFont.downloadLabelFont
+        viewDetailsLabel.font = UIFont.downloadLabelFont
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

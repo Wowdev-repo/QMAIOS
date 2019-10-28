@@ -14,10 +14,8 @@ class SplashViewController: UIViewController {
     @IBOutlet weak var splashImageView: UIImageView!
     override func viewDidLoad() {
         super.viewDidLoad()
-
-       // self.splashImageView.image = UIImage.gif(name: "QM_logo_animation")
-       self.splashImageView.image = UIImage.gifImageWithName("QMLogo")
-        let timer = Timer.scheduledTimer(timeInterval: 1.5,
+        self.splashImageView.image = UIImage.gifImageWithName("QMLogo")
+        _ = Timer.scheduledTimer(timeInterval: 1.5,
                                                          target: self,
                                                          selector: #selector(SplashViewController.loadHome),
                                                          userInfo: nil,

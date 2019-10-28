@@ -71,6 +71,17 @@ class ObjectDetailTableViewCell: UITableViewCell,UITextViewDelegate,MapDetailPro
     }
     
     func setObjectDetail(objectDetail:TourGuideFloorMap) {
+        if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
+            titleLabel.textAlignment = .left
+            accessNumberLabel.textAlignment = .left
+            descriptionLabel.textAlignment = .left
+            detailSecondLabel.textAlignment = .left
+        } else {
+            titleLabel.textAlignment = .right
+            accessNumberLabel.textAlignment = .right
+            descriptionLabel.textAlignment = .right
+            detailSecondLabel.textAlignment = .right
+        }
         titleLabel.text = objectDetail.title?.replacingOccurrences(of: "<[^>]+>|&nbsp;|&#039;", with: "", options: .regularExpression, range: nil)
         accessNumberLabel.text = objectDetail.accessionNumber?.replacingOccurrences(of: "<[^>]+>|&nbsp;|&#039;", with: "", options: .regularExpression, range: nil)
         descriptionLabel?.text = objectDetail.curatorialDescription?.replacingOccurrences(of: "<[^>]+>|&nbsp;|&#039;", with: "", options: .regularExpression, range: nil)

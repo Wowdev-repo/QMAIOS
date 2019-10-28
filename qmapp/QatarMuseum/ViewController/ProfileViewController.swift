@@ -9,45 +9,30 @@
 import Alamofire
 import CoreData
 import Crashlytics
+import Firebase
 import Kingfisher
 import UIKit
 
-class ProfileViewController: UIViewController,HeaderViewProtocol,comingSoonPopUpProtocol,GreetingsPopUpProtocol, InvitationAcceptedPopupProtocol,DeclinePopupProtocol {
+class ProfileViewController: UIViewController,HeaderViewProtocol,comingSoonPopUpProtocol {
     @IBOutlet weak var headerView: CommonHeaderView!
     @IBOutlet weak var profileImageView: UIImageView!
-    @IBOutlet weak var dummyImg: UIImageView!
     @IBOutlet weak var viewmyCulturePassButton: UIButton!
     @IBOutlet weak var viewMyFavoriteButton: UIButton!
     @IBOutlet weak var editButton: UIButton!
     @IBOutlet weak var membershipNumText: UILabel!
     @IBOutlet weak var emailText: UILabel!
-    
     @IBOutlet weak var dateOfBirthText: UILabel!
     @IBOutlet weak var countryText: UILabel!
     @IBOutlet weak var nationalityText: UILabel!
     @IBOutlet weak var userNameText: UITextView!
-    
     @IBOutlet weak var membershipNumKeyLabel: UILabel!
     @IBOutlet weak var emailKeyLabel: UILabel!
-    
     @IBOutlet weak var dateOfBirthKeyLabel: UILabel!
     @IBOutlet weak var countryKeyLabel: UILabel!
     @IBOutlet weak var nationalityKeyLabel: UILabel!
     //VIP Inviation controls
-    
-    @IBOutlet weak var invitationMessageLabel: UITextView!
-    @IBOutlet weak var acceptLabel: UILabel!
-    @IBOutlet weak var accepetDeclineSwitch: UISwitch!
-    @IBOutlet weak var declineLabel: UILabel!
     var membershipNum = Int()
-    
     var popupView : ComingSoonPopUp = ComingSoonPopUp()
-    //VVIP Invitation Scenes
-    
-    var greetingsPopUpView : GreetingsPopupPage = GreetingsPopupPage()
-    var invitationAcceptedPopUpView : InvitationAcceptedPopup = InvitationAcceptedPopup()
-    var acceptDeclinePopupView : AcceptDeclinePopup = AcceptDeclinePopup()
-    
     var fromHome : Bool = false
     var loginInfo : LoginData?
     var logoutToken : String? = nil
@@ -62,10 +47,8 @@ class ProfileViewController: UIViewController,HeaderViewProtocol,comingSoonPopUp
         } else {
            getCountryListsArabicFromJson()
         }
-        
-        
         setUpProfileUI()
-        
+        self.recordScreenView()
     }
 
     func setUpProfileUI() {
@@ -108,9 +91,6 @@ class ProfileViewController: UIViewController,HeaderViewProtocol,comingSoonPopUp
         viewmyCulturePassButton.titleLabel?.font = UIFont.settingResetButtonFont
         viewMyFavoriteButton.titleLabel?.font = UIFont.settingResetButtonFont
         
-        invitationMessageLabel.font = UIFont.englishTitleFont
-        acceptLabel.font = UIFont.discoverButtonFont
-        declineLabel.font = UIFont.discoverButtonFont
         membershipNumKeyLabel.text =  NSLocalizedString("MEMBERSHIP_NUMBER", comment: "MEMBERSHIP_NUMBER in the Profile page")
         emailKeyLabel.text =  NSLocalizedString("EMAIL", comment: "EMAIL in the Profile page")
         dateOfBirthKeyLabel.text =  NSLocalizedString("DATE_OF_BIRTH", comment: "DATE_OF_BIRTH in the Profile page")
@@ -122,36 +102,6 @@ class ProfileViewController: UIViewController,HeaderViewProtocol,comingSoonPopUp
         
     }
     func setProfileInfo() {
-        /* COMMENTED BCZ RSVP IS NOT NEEDED NOW
-        if((UserDefaults.standard.value(forKey: "acceptOrDecline") as? String != nil) && (UserDefaults.standard.value(forKey: "acceptOrDecline") as? String != "")) {
-            invitationMessageLabel.text = NSLocalizedString("INVITATION_TEXT", comment: "INVITATION_TEXT")
-            declineLabel.text = NSLocalizedString("DECLINE", comment: "DECLINE")
-            acceptLabel.text = NSLocalizedString("ACCEPT", comment: "ACCEPT")
-            let acceptOrDeclineString = (UserDefaults.standard.value(forKey: "acceptOrDecline") as? String)
-            if(fromCulturePass) {
-                 self.loadGreetingsPopup()
-            } else if(acceptOrDeclineString == "1") {
-                invitationMessageLabel.isHidden = false
-                acceptLabel.isHidden = false
-                declineLabel.isHidden = false
-                accepetDeclineSwitch.isHidden = false
-                let offColor = UIColor.settingsSwitchOnTint
-                accepetDeclineSwitch.tintColor = offColor
-                accepetDeclineSwitch.layer.cornerRadius = 16
-                accepetDeclineSwitch.backgroundColor = offColor
-                accepetDeclineSwitch.isOn = false
-                
-            } else if(acceptOrDeclineString == "0") {
-                invitationMessageLabel.isHidden = false
-                acceptLabel.isHidden = false
-                declineLabel.isHidden = false
-                accepetDeclineSwitch.isHidden = false
-                accepetDeclineSwitch.onTintColor = UIColor.red
-                accepetDeclineSwitch.isOn = true
-            }
-        
-        }
-        */
         if((UserDefaults.standard.value(forKey: "displayName") as? String != nil) && (UserDefaults.standard.value(forKey: "displayName") as? String != "")) {
             userNameText.text = (UserDefaults.standard.value(forKey: "displayName") as? String)?.uppercased()
         }
@@ -165,7 +115,6 @@ class ProfileViewController: UIViewController,HeaderViewProtocol,comingSoonPopUp
         }
         
         if((UserDefaults.standard.value(forKey: "uid") as? String != nil) && (UserDefaults.standard.value(forKey: "uid") as? String != "")) {
-            // membershipNumText.text = UserDefaults.standard.value(forKey: "uid") as? String
             membershipNum = Int((UserDefaults.standard.value(forKey: "uid") as? String)!)! + 006000
             membershipNumText.text = "00" + String(membershipNum)
             userId = UserDefaults.standard.value(forKey: "uid") as? String
@@ -177,7 +126,6 @@ class ProfileViewController: UIViewController,HeaderViewProtocol,comingSoonPopUp
             dateOfBirthText.text = UserDefaults.standard.value(forKey: "fieldDateOfBirth") as? String
         }
         if((UserDefaults.standard.value(forKey: "country") as? String != nil) && (UserDefaults.standard.value(forKey: "country") as? String != "")) {
-            //countryText.text = UserDefaults.standard.value(forKey: "country") as? String
             let countryKey = UserDefaults.standard.value(forKey: "country") as? String
             if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
                 if(countryListsArray != nil) {
@@ -195,10 +143,8 @@ class ProfileViewController: UIViewController,HeaderViewProtocol,comingSoonPopUp
                     }
                 }
             }
-           
         }
         if((UserDefaults.standard.value(forKey: "nationality") as? String != nil) && (UserDefaults.standard.value(forKey: "nationality") as? String != "")) {
-            //nationalityText.text = UserDefaults.standard.value(forKey: "nationality") as? String
             let nationalityKey = UserDefaults.standard.value(forKey: "nationality") as? String
             if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
             if(countryListsArray != nil) {
@@ -216,18 +162,15 @@ class ProfileViewController: UIViewController,HeaderViewProtocol,comingSoonPopUp
                     }
                 }
             }
-            
         }
-        //}
     }
     //MARK: Service call
     func getCountryListsFromJson(){
         let url = Bundle.main.url(forResource: "CountryList", withExtension: "json")
         let dataObject = NSData(contentsOf: url!)
         if let jsonObj = try? JSONSerialization.jsonObject(with: dataObject! as Data, options: .allowFragments) as? NSDictionary {
-            
             countryListsArray = jsonObj!.value(forKey: "countryLists")
-                as! NSArray
+                as? NSArray
         }
     }
     func getCountryListsArabicFromJson(){
@@ -235,13 +178,11 @@ class ProfileViewController: UIViewController,HeaderViewProtocol,comingSoonPopUp
         let dataObject = NSData(contentsOf: url!)
         if let jsonObj = try? JSONSerialization.jsonObject(with: dataObject! as Data, options: .allowFragments) as? NSDictionary {
             countryDictArabic = jsonObj
-            
         }
     }
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
-    
     func loadComingSoonPopup() {
         popupView  = ComingSoonPopUp(frame: self.view.frame)
         popupView.comingSoonPopupDelegate = self
@@ -304,7 +245,7 @@ class ProfileViewController: UIViewController,HeaderViewProtocol,comingSoonPopUp
         if(UserDefaults.standard.value(forKey: "accessToken") as? String != nil) {
             _ = Alamofire.request(QatarMuseumRouter.Logout()).responseObject { (response: DataResponse<LogoutData>) -> Void in
                 switch response.result {
-                case .success(let data):
+                case .success( _):
                     if(response.response?.statusCode == 200) {
                         UserDefaults.standard.setValue("", forKey: "uid")
                         UserDefaults.standard.setValue("", forKey: "mail")
@@ -336,8 +277,10 @@ class ProfileViewController: UIViewController,HeaderViewProtocol,comingSoonPopUp
                     } else {
                         showAlertView(title: NSLocalizedString("WEBVIEW_TITLE", comment: "WEBVIEW_TITLE in profile page"), message: NSLocalizedString("LOGOUT_ERROR", comment: "LOGOUT_ERROR in profile page"), viewController: self)
                     }
-                case .failure(let error):
-                    print(error)
+                case .failure( _):
+                    self.view.hideAllToasts()
+                    let logOutFailture =  NSLocalizedString("LOGOUT_ERROR", comment: "LOGOUT_ERROR")
+                    self.view.makeToast(logOutFailture)
                     
                 }
             }
@@ -352,141 +295,14 @@ class ProfileViewController: UIViewController,HeaderViewProtocol,comingSoonPopUp
         do{
             try managedContext.execute(deleteRequest)
             
-        }catch let error as NSError {
-            //handle error here
-            
-        }
-        
-    }
-    //MARK: Methods for Invitation Greetings
-    
-    func greetingsPopupClose() {
-        self.greetingsPopUpView.removeFromSuperview()
-    }
-    
-    func greetingsPopupCloseButtonPressed() {
-        self.greetingsPopUpView.removeFromSuperview()
-    }
-    
-    func acceptNowButtonPressed() {
-        greetingsPopupClose()
-        invitationAcceptedPopUpView  = InvitationAcceptedPopup(frame: self.view.frame)
-        invitationAcceptedPopUpView.inviteAcceptPopupHeight.constant = 300
-        invitationAcceptedPopUpView.showInvitationAcceptMessage()
-        invitationAcceptedPopUpView.invitationAcceptedPopupDelegate = self
-        self.view.addSubview(invitationAcceptedPopUpView)
-    }
-    
-    func acceptLaterButtonPressed() {
-        greetingsPopupClose()
-        invitationMessageLabel.isHidden = false
-        acceptLabel.isHidden = false
-        declineLabel.isHidden = false
-        accepetDeclineSwitch.isHidden = false
-        accepetDeclineSwitch.onTintColor = UIColor.red
-        UserDefaults.standard.set("0", forKey: "acceptOrDecline")
-        self.invitationAcceptedPopUpView.removeFromSuperview()
-        
-    }
-    
-    
-//    func invitationAcceptPopupClose() {
-//        self.invitationAcceptedPopUpView.removeFromSuperview()
-//
-//    }
-//
-    func invitationAcceptClose() {
-        self.invitationAcceptedPopUpView.removeFromSuperview()
-        let offColor = UIColor.settingsSwitchOnTint
-        accepetDeclineSwitch.tintColor = offColor
-        accepetDeclineSwitch.layer.cornerRadius = 16
-        accepetDeclineSwitch.backgroundColor = offColor
-        accepetDeclineSwitch.isOn = false
-        invitationMessageLabel.isHidden = false
-        acceptLabel.isHidden = false
-        declineLabel.isHidden = false
-        accepetDeclineSwitch.isHidden = false
-        self.updateRSVPUser(statusValue: "1")
-        
-    }
-    func declinePopupCloseButtonPressed() {
-        self.acceptDeclinePopupView.removeFromSuperview()
-    }
-    
-    func yesButtonPressed() {
-        accepetDeclineSwitch.onTintColor = UIColor.red
-        accepetDeclineSwitch.isOn = true
-        updateRSVPUser(statusValue: "0")
-        self.acceptDeclinePopupView.removeFromSuperview()
-    }
-    
-    func noButtonPressed() {
-        self.acceptDeclinePopupView.removeFromSuperview()
-        let offColor = UIColor.settingsSwitchOnTint
-        accepetDeclineSwitch.tintColor = offColor
-        accepetDeclineSwitch.layer.cornerRadius = 16
-        accepetDeclineSwitch.backgroundColor = offColor
-        accepetDeclineSwitch.isOn = false
-        
-    }
-    func loadConfirmationPopup() {
-        acceptDeclinePopupView  = AcceptDeclinePopup(frame: self.view.frame)
-        //acceptDeclinePopupView.popupViewHeight.constant = 270
-        acceptDeclinePopupView.showAcceptDeclineMessage()
-        acceptDeclinePopupView.declinePopupDelegate = self
-        self.view.addSubview(acceptDeclinePopupView)
-    }
-    func loadGreetingsPopup() {
-        greetingsPopUpView  = GreetingsPopupPage(frame: self.view.frame)
-        greetingsPopUpView.greetingsPopupHeight.constant = 290
-        greetingsPopUpView.greetingsPopupDelegate = self
-        greetingsPopUpView.showGreetingsMessage()
-        self.view.addSubview(greetingsPopUpView)
-    }
-    @IBAction func accepetDeclineSwitchClicked(sender: AnyObject) {
-        
-        //Change to Arabic
-        if (accepetDeclineSwitch.isOn) {
-            accepetDeclineSwitch.onTintColor = UIColor.red
-            loadConfirmationPopup()
-        }
-        else { // for accept
-            //            accepetDeclineSwitch.tintColor = offColor
-            //            accepetDeclineSwitch.layer.cornerRadius = 16
-            //            accepetDeclineSwitch.backgroundColor = offColor
-            acceptNowButtonPressed()
-        }
-        
-    }
-    //MARK: RSVP Service call
-    func updateRSVPUser(statusValue : String?) {
-        if((userId != nil) && (userId != "")) {
-        let params =
-             [
-                "und":[[
-                "value": statusValue
-            ]]
-        ]
-        _ = Alamofire.request(QatarMuseumRouter.UpdateUser(userId!,["field_rsvp_attendance": params])).responseObject { (response: DataResponse<UserInfoData>) -> Void in
-            switch response.result {
-            case .success(let data):
-                if(response.response?.statusCode == 200) {
-                    UserDefaults.standard.set(statusValue, forKey: "acceptOrDecline")
-                }
-                print("")
-            case .failure( _):
-                print("error")
-                
-            }
+        }catch _ as NSError {
         }
     }
+    func recordScreenView() {
+        let screenClass = String(describing: type(of: self))
+        Analytics.setScreenName(PROFILE_VC, screenClass: screenClass)
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
-    
-
-    
-
 }

@@ -45,7 +45,11 @@ class ParkTableViewCell: UITableViewCell {
     //MARK: Public Arts List Data
     func setParksCellValues(parksList: ParksList,currentRow:Int?) {
         
-        
+        favouriteViewHeight.constant = 0
+        favouriteView.isHidden = true
+        shareView.isHidden = true
+        favouriteButton.isHidden = true
+        shareButton.isHidden = true
         titleLabel.text = parksList.title?.uppercased()
         let parkDesc = parksList.description?.replacingOccurrences(of: "<[^>]+>|&nbsp;|&|#039;", with: "", options: .regularExpression, range: nil)
         titleDescriptionLabel.text = parkDesc?.replacingOccurrences(of: "&amp;", with: "&", options: .regularExpression, range: nil)
@@ -125,7 +129,44 @@ class ParkTableViewCell: UITableViewCell {
         favouriteButton.isHidden = true
         shareButton.isHidden = true
     }
-   
+    func setNmoqParkDetailValues(parkDetails: NMoQParkDetail?) {
+        favouriteViewHeight.constant = 0
+        favouriteView.isHidden = true
+        shareView.isHidden = true
+        favouriteButton.isHidden = true
+        shareButton.isHidden = true
+        
+        subTitleTopConstraint.constant = 0
+        subTitleLabel.frame = CGRect(x: self.subTitleLabel.frame.origin.x, y: self.subTitleLabel.frame.origin.x, width: 0, height: 0)
+        locationsTitleLabel.isHidden = true
+        locationButton.isHidden = true
+        locationLineViewHeight.constant = 0
+        locationButtonBottomConstraint.constant = 0
+        //set font
+        titleLabel.font = UIFont.closeButtonFont
+        subTitleLabel.font = UIFont.collectionFirstDescriptionFont
+        titleDescriptionLabel.font = UIFont.englishTitleFont
+        titleSecondDescriptionLabel.font = UIFont.englishTitleFont
+        timeTitleLabel.font = UIFont.closeButtonFont
+        timeDescriptionLabel.font = UIFont.collectionFirstDescriptionFont
+        locationFirstLabel.font = UIFont.sideMenuLabelFont
+        locationButton.titleLabel?.font = UIFont.sideMenuLabelFont
+        locationsTitleLabel.font = UIFont.closeButtonFont
+        favouriteViewHeight.constant = 0
+        favouriteView.isHidden = true
+        shareView.isHidden = true
+        favouriteButton.isHidden = true
+        shareButton.isHidden = true
+        
+        titleLabel.text = parkDetails?.title?.replacingOccurrences(of: "<[^>]+>|&nbsp;|&|#039;", with: "", options: .regularExpression, range: nil)
+        titleDescriptionLabel.text = parkDetails?.parkDesc?.replacingOccurrences(of: "<[^>]+>|&nbsp;|&|#039;", with: "", options: .regularExpression, range: nil)
+        //        titleLabel.text = parksList.title?.uppercased()
+        //        let parkDesc = parksList.description?.replacingOccurrences(of: "<[^>]+>|&nbsp;|&|#039;", with: "", options: .regularExpression, range: nil)
+        //        titleDescriptionLabel.text = parkDesc?.replacingOccurrences(of: "&amp;", with: "&", options: .regularExpression, range: nil)
+        //
+        //        timeTitleLabel.text = NSLocalizedString("OPENING_TIME_TITLE",
+        //                                                comment: "OPENING_TIME_TITLE in the Heritage detail")
+    }
     @IBAction func didTapFavourite(_ sender: UIButton) {
         UIButton.animate(withDuration: 0.3,
                          animations: {

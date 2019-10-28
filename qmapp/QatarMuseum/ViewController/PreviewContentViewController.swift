@@ -9,11 +9,13 @@
 import AVFoundation
 import AVKit
 import Crashlytics
+import Firebase
 import UIKit
 
 class PreviewContentViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate {
     @IBOutlet weak var accessNumberLabel: UILabel!
     @IBOutlet weak var objectTableView: UITableView!
+    @IBOutlet weak var underLineLabel: UILabel!
     
     var tourGuideDict : TourGuideFloorMap!
     var pageIndex = Int()
@@ -31,6 +33,7 @@ class PreviewContentViewController: UIViewController, UITableViewDelegate, UITab
         super.viewDidLoad()
         objectTableView.register(UITableViewCell.self, forCellReuseIdentifier: "imageCell")
         setPreviewData()
+        self.recordScreenView()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -48,10 +51,17 @@ class PreviewContentViewController: UIViewController, UITableViewDelegate, UITab
         if tourGuideData?.galleyNumber != nil  {
             floorLevel = (tourGuideData?.floorLevel?.replacingOccurrences(of: "<[^>]+>|&nbsp;|&#039;", with: "", options: .regularExpression, range: nil))!
         }
-        accessNumberLabel.text = NSLocalizedString("FLOOR", comment: "FLOOR text in the preview page") + " " + floorLevel + ", " + NSLocalizedString("GALLERY", comment: "GALLERY text in the preview page") + " " + galleryNumber
-        accessNumberLabel.font = UIFont.sideMenuLabelFont
-        if(UIScreen.main.bounds.height <= 568) {
-            accessNumberLabel.font = UIFont.exhibitionDateLabelFont
+//        print("tourGuideId: \(tourGuideData?.tourGuideId)")
+        if tourGuideData?.tourGuideId == "16076" || tourGuideData?.tourGuideId == "16086" { // NMoQ tourGUideIds for english n arabic
+            accessNumberLabel.isHidden = true
+            underLineLabel.isHidden = true
+        }
+        else {
+            accessNumberLabel.text = NSLocalizedString("FLOOR", comment: "FLOOR text in the preview page") + " " + floorLevel + ", " + NSLocalizedString("GALLERY", comment: "GALLERY text in the preview page") + " " + galleryNumber
+            accessNumberLabel.font = UIFont.sideMenuLabelFont
+            if(UIScreen.main.bounds.height <= 568) {
+                accessNumberLabel.font = UIFont.exhibitionDateLabelFont
+            }
         }
     }
     
@@ -183,5 +193,9 @@ class PreviewContentViewController: UIViewController, UITableViewDelegate, UITab
             selectedCell?.closeAudio()
             firstLoad = true
         }
+    }
+    func recordScreenView() {
+        let screenClass = String(describing: type(of: self))
+        Analytics.setScreenName(PREVIEW_CONTENT_VC, screenClass: screenClass)
     }
 }

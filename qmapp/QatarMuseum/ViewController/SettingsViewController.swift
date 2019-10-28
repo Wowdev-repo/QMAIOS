@@ -7,11 +7,10 @@
 //
 
 import Crashlytics
+import Firebase
 import UIKit
 
 class SettingsViewController: UIViewController,HeaderViewProtocol,EventPopUpProtocol {
-   
-    
 
     @IBOutlet weak var headerView: CommonHeaderView!
     @IBOutlet weak var selectLanguageLabel: UILabel!
@@ -39,6 +38,7 @@ class SettingsViewController: UIViewController,HeaderViewProtocol,EventPopUpProt
 
         setupUI()
         disableAllSwitches()
+        self.recordScreenView()
     }
     
     func setupUI() {
@@ -270,6 +270,10 @@ class SettingsViewController: UIViewController,HeaderViewProtocol,EventPopUpProt
                 
             }
         }
+    }
+    func recordScreenView() {
+        let screenClass = String(describing: type(of: self))
+        Analytics.setScreenName(SETTINGS_VC, screenClass: screenClass)
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

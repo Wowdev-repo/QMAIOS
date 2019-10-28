@@ -9,6 +9,7 @@
 import Alamofire
 import CoreData
 import Crashlytics
+import Firebase
 import UIKit
 
 class CulturePassViewController: UIViewController, HeaderViewProtocol, comingSoonPopUpProtocol,LoginPopUpProtocol,UITextFieldDelegate {
@@ -41,6 +42,7 @@ class CulturePassViewController: UIViewController, HeaderViewProtocol, comingSoo
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        self.recordScreenView()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(false)
@@ -65,12 +67,17 @@ class CulturePassViewController: UIViewController, HeaderViewProtocol, comingSoo
         headerView.headerTitle.text = NSLocalizedString("CULTUREPASS_TITLE", comment: "CULTUREPASS_TITLE in the Culture Pass page").uppercased()
         if ((LocalizationLanguage.currentAppleLanguage()) == "en") {
             headerView.headerBackButton.setImage(UIImage(named: "back_buttonX1"), for: .normal)
+            introLabel.textAlignment = .left
+            secondIntroLabel.textAlignment = .left
+            benefitsDiscountLabel.textAlignment = .left
         } else {
             headerView.headerBackButton.setImage(UIImage(named: "back_mirrorX1"), for: .normal)
+            introLabel.textAlignment = .right
+            secondIntroLabel.textAlignment = .right
+            benefitsDiscountLabel.textAlignment = .right
         }
         
-        introLabel.textAlignment = .left
-        secondIntroLabel.textAlignment = .left
+        
         benefitLabel.textAlignment = .center
 
         benefitLabel.font = UIFont.eventPopupTitleFont
@@ -170,6 +177,10 @@ class CulturePassViewController: UIViewController, HeaderViewProtocol, comingSoo
     }
     
     func loginButtonPressed() {
+        Analytics.logEvent("Login", parameters: [
+            "user_name":loginPopUpView.userNameText.text ?? "",
+            "login_id":"1"
+            ])
         loginPopUpView.userNameText.resignFirstResponder()
         loginPopUpView.passwordText.resignFirstResponder()
         self.loginPopUpView.loadingView.isHidden = false
@@ -459,8 +470,10 @@ class CulturePassViewController: UIViewController, HeaderViewProtocol, comingSoo
                 for i in 0 ... userEventList.count-1 {
                     let userEventInfo: RegisteredEventListEntity = NSEntityDescription.insertNewObject(forEntityName: "RegisteredEventListEntity", into: managedContext) as! RegisteredEventListEntity
                     let userEventListDict = userEventList[i]
+                    userEventInfo.title = userEventListDict.title
                     userEventInfo.eventId = userEventListDict.eventID
                     userEventInfo.regId = userEventListDict.regID
+                    userEventInfo.seats = userEventListDict.seats
                     do{
                         try managedContext.save()
                     }
@@ -471,5 +484,8 @@ class CulturePassViewController: UIViewController, HeaderViewProtocol, comingSoo
             }
         }
     }
-
+    func recordScreenView() {
+        let screenClass = String(describing: type(of: self))
+        Analytics.setScreenName(CULTUREPASS_VC, screenClass: screenClass)
+    }
 }

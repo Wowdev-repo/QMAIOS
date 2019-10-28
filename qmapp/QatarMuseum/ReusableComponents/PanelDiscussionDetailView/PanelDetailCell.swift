@@ -14,9 +14,6 @@ class PanelDetailCell: UITableViewCell,UITextViewDelegate {
     
     @IBOutlet weak var topTitle: UILabel!
     @IBOutlet weak var topDescription: UITextView!
-    @IBOutlet weak var interestedLabel: UILabel!
-    @IBOutlet weak var notInterestedLabel: UILabel!
-    @IBOutlet weak var interestSwitch: UISwitch!
     @IBOutlet weak var secondImg: UIImageView!
     @IBOutlet weak var secondTitle: UITextView!
     @IBOutlet weak var secondDescription: UITextView!
@@ -32,13 +29,13 @@ class PanelDetailCell: UITableViewCell,UITextViewDelegate {
     @IBOutlet weak var thirdView: UIView!
     @IBOutlet weak var secondTitleLine: UILabel!
     @IBOutlet weak var mapOverlayView: UIView!
-    
     @IBOutlet weak var descriptionLeftConstraint: NSLayoutConstraint!
     @IBOutlet weak var contactTitleLine: UILabel!
-    
     @IBOutlet weak var switchTopConstraint: NSLayoutConstraint!
-    
     @IBOutlet weak var switchBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var registerButton: UIButton!
+    @IBOutlet weak var numbOfRservationsLabel: UILabel!
+    
     var loadMapView : (()->())?
     var loadEmailComposer : (()->())?
     var callPhone : (()->())?
@@ -50,8 +47,6 @@ class PanelDetailCell: UITableViewCell,UITextViewDelegate {
     func setUI() {
         topTitle.font = UIFont.selfGuidedFont
         topDescription.font = UIFont.collectionFirstDescriptionFont
-        interestedLabel.font = UIFont.collectionFirstDescriptionFont
-        notInterestedLabel.font = UIFont.collectionFirstDescriptionFont
         secondTitle.font = UIFont.selfGuidedFont
         secondDescription.font = UIFont.collectionFirstDescriptionFont
         dateTitle.font = UIFont.tryAgainFont
@@ -60,6 +55,8 @@ class PanelDetailCell: UITableViewCell,UITextViewDelegate {
         contactTitle.font = UIFont.tryAgainFont
         contactNumberLabel.font = UIFont.collectionFirstDescriptionFont
         contactEmailLabel.font = UIFont.collectionFirstDescriptionFont
+        registerButton.titleLabel?.font = UIFont.popupProductionFont
+        numbOfRservationsLabel.font = UIFont.settingsUpdateLabelFont
         topView.layer.cornerRadius = 7.0
         secondView.layer.cornerRadius = 7.0
         thirdView.layer.cornerRadius = 7.0
@@ -82,13 +79,18 @@ class PanelDetailCell: UITableViewCell,UITextViewDelegate {
         topDescription.delegate = self
         topDescription.isUserInteractionEnabled = true
         topDescription.isEditable = false
-        topDescription.textAlignment = .center
+        if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
+            topDescription.textAlignment = .left
+            descriptionLeftConstraint.constant = 30
+        } else {
+            topDescription.textAlignment = .right
+            //descriptionLeftConstraint.constant = 30
+
+        }
     }
     func setPanelDetailCellContent(panelDetailData: NMoQTour?) {
         topTitle.text = panelDetailData?.subtitle
         topDescription.text = panelDetailData?.dayDescription
-        interestedLabel.text = REGISTER
-        notInterestedLabel.text = UNREGISTER
         secondTitle.text = panelDetailData?.moderatorName
         secondDescription.text = panelDetailData?.descriptioForModerator
         dateTitle.text = NSLocalizedString("DATE", comment: "DATE in Paneldetail Page")
@@ -155,24 +157,48 @@ class PanelDetailCell: UITableViewCell,UITextViewDelegate {
     }
     
     func setTourSecondDetailCellContent(tourDetailData: NMoQTourDetail?,userEventList : [NMoQUserEventList],fromTour:Bool?) {
+        numbOfRservationsLabel.numberOfLines = 2
         if(fromTour)! {
-            interestedLabel.text = REGISTER
-            notInterestedLabel.text = UNREGISTER
-            interestedLabel.isHidden = false
-            notInterestedLabel.isHidden = false
-            interestSwitch.isHidden = false
-            switchTopConstraint.constant = 30
+            
+            numbOfRservationsLabel.isHidden = false
+            registerButton.isHidden = false
             switchBottomConstraint.constant = 32
             if let arrayOffset = userEventList.index(where: {$0.eventID == tourDetailData?.nid}) {
-                setRegistrationSwitchOn()
+                numbOfRservationsLabel.isHidden = false
+                if(userEventList[arrayOffset].seats == "1") {
+                    let reservationCount = NSLocalizedString("NUMB_OF_RESERVATIONS", comment: "NUMB_OF_RESERVATIONS in panel detail") + (userEventList[arrayOffset].seats ?? "1") +  NSLocalizedString("SPACE", comment: "SPACE in panel detail")
+                    numbOfRservationsLabel.text = reservationCount
+                } else {
+                    let reservationCount = NSLocalizedString("NUMB_OF_RESERVATIONS", comment: "NUMB_OF_RESERVATIONS in panel detail") + (userEventList[arrayOffset].seats ?? "2") +  NSLocalizedString("SPACES", comment: "SPACES in panel detail")
+                    numbOfRservationsLabel.text = reservationCount
+                }
+                
+                registerButton.tag = 1
+                registerButton.backgroundColor = UIColor.red
+                let cancelBookingString = NSLocalizedString("CANCEL_BOOKING_STRING", comment: "CANCEL_BOOKING_STRING in panel detail")
+                registerButton.setTitle(cancelBookingString, for: .normal)
             } else {
-                setRegistrationSwitchOff()
+                let remainingSeat : Int? = Int(tourDetailData?.seatsRemaining ?? "0")
+                if ((tourDetailData?.seatsRemaining == "0") || (tourDetailData?.seatsRemaining == nil) || (remainingSeat! < 0)){
+                    numbOfRservationsLabel.text = NSLocalizedString("NO_SEAT_AVAILABLE", comment: "NO_SEAT_AVAILABLE in panel detail")
+                    registerButton.backgroundColor = UIColor.lightGray
+                    registerButton.isEnabled = false
+                } else if (tourDetailData?.seatsRemaining == "1") {
+                    numbOfRservationsLabel.text =  (tourDetailData?.seatsRemaining ?? "1") + NSLocalizedString("TOUR_SEAT_AVAILABILITY_STRING3", comment: "TOUR_SEAT_AVAILABILITY_STRING3 in panel detail")
+                    registerButton.isEnabled = true
+                    registerButton.backgroundColor = UIColor(red: 60/255, green: 135/255, blue: 66/255, alpha: 1)
+                } else {
+                    numbOfRservationsLabel.text =  (tourDetailData?.seatsRemaining ?? "3") + NSLocalizedString("TOUR_SEAT_AVAILABILITY_STRING2", comment: "TOUR_SEAT_AVAILABILITY_STRING2 in panel detail")
+                    registerButton.isEnabled = true
+                    registerButton.backgroundColor = UIColor(red: 60/255, green: 135/255, blue: 66/255, alpha: 1)
+                }
+                registerButton.tag = 0
+                
+                registerButton.setTitle(NSLocalizedString("BOOK_TOUR_STRING", comment: "BOOK_TOUR_STRING in panel detail"), for: .normal)
             }
         } else {
-            interestedLabel.isHidden = true
-            notInterestedLabel.isHidden = true
-            interestSwitch.isHidden = true
-            switchTopConstraint.constant = 0
+            numbOfRservationsLabel.isHidden = true
+            registerButton.isHidden = true
             switchBottomConstraint.constant = 0
         }
         topTitle.text = tourDetailData?.title?.replacingOccurrences(of: "<[^>]+>|&nbsp;|&|#039;", with: "", options: .regularExpression, range: nil)
@@ -241,22 +267,74 @@ class PanelDetailCell: UITableViewCell,UITextViewDelegate {
         NSLayoutConstraint.activate([verticalSpace])
         
     }
-    func setRegistrationSwitchOn() {
-        interestSwitch.tintColor = UIColor.settingsSwitchOnTint
-        interestSwitch.layer.cornerRadius = 16
-        interestSwitch.backgroundColor = UIColor.settingsSwitchOnTint
-        interestSwitch.isOn = false
+    func setFacilitiesDetailData(facilitiesDetailData: FacilitiesDetail?) {
+        numbOfRservationsLabel.isHidden = true
+        registerButton.isHidden = true
+        switchBottomConstraint.constant = 0
+        topTitle.text = facilitiesDetailData?.title?.replacingOccurrences(of: "<[^>]+>|&nbsp;|&|#039;", with: "", options: .regularExpression, range: nil)
+        topDescription.text = facilitiesDetailData?.facilitiesDes?.replacingOccurrences(of: "<[^>]+>|&nbsp;|&|#039;", with: "", options: .regularExpression, range: nil)
+        topDescription.textAlignment = .center
+        secondImg.isHidden = true
+        secondTitle.isHidden = true
+        secondDescription.isHidden = true
+        secondView.isHidden = true
+        secondTitleLine.isHidden = true
+        contactTitle.isHidden = true
+        contactTitleLine.isHidden = true
+        dateTitle.text = NSLocalizedString("OPENING_TIME_TITLE", comment: "OPENING_TIME_TITLE in Paneldetail Page").capitalized
+        dateText.text = facilitiesDetailData?.timing?.replacingOccurrences(of: "<[^>]+>|&nbsp;|&|#039;", with: "", options: .regularExpression, range: nil)
+        venueTitle.text = NSLocalizedString("LOCATION_TITLE", comment: "LOCATION_TITLE in Paneldetail Page").capitalized
+
+        
+        if ((facilitiesDetailData?.images?.count)! > 0) {
+            if let imageUrl = facilitiesDetailData?.images![0]{
+                topImg.kf.setImage(with: URL(string: imageUrl))
+            }
+        }
+        if (topImg.image == nil) {
+            topImg.image = UIImage(named: "default_imageX2")
+        }
+        //Details For Map
+        var latitudeString  = String()
+        var longitudeString = String()
+        var latitude : Double?
+        var longitude : Double?
+        
+        if (facilitiesDetailData?.latitude != nil && facilitiesDetailData?.latitude != "" && facilitiesDetailData?.longtitude != nil && facilitiesDetailData?.longtitude != "") {
+            latitudeString = (facilitiesDetailData?.latitude)!
+            longitudeString = (facilitiesDetailData?.longtitude)!
+            if let lat : Double = Double(latitudeString) {
+                latitude = lat
+            }
+            if let long : Double = Double(longitudeString) {
+                longitude = long
+            }
+            
+            let location = CLLocationCoordinate2D(latitude: latitude!,
+                                                  longitude: longitude!)
+            
+            // 2
+            let span = MKCoordinateSpanMake(0.05, 0.05)
+            let region = MKCoordinateRegion(center: location, span: span)
+            mapView.setRegion(region, animated: true)
+            //3
+            let annotation = MKPointAnnotation()
+            annotation.coordinate = location
+            mapView.addAnnotation(annotation)
+        }
+        
+        
+        let verticalSpace = NSLayoutConstraint(item: self.topView, attribute: .bottom, relatedBy: .equal, toItem: self.thirdView, attribute: .top, multiplier: 1, constant: -16)
+        
+        
+        // activate the constraints
+        NSLayoutConstraint.activate([verticalSpace])
+        
     }
-    func setRegistrationSwitchOff() {
-        interestSwitch.onTintColor = UIColor.red
-        interestSwitch.layer.cornerRadius = 16
-        interestSwitch.backgroundColor = UIColor.red
-        interestSwitch.isOn = true
-    }
-    @IBAction func didTapRegisterButton(_ sender: UISwitch) {
+    @IBAction func didTapRegisterButton(_ sender: UIButton) {
+        
         self.registerOrUnRegisterAction?()
     }
-    
     @objc func handleTap(sender: UITapGestureRecognizer? = nil) {
         self.loadMapView?()
     }
@@ -272,27 +350,6 @@ class PanelDetailCell: UITableViewCell,UITextViewDelegate {
         print("phone label tapped ...")
         self.callPhone?()
     }
-    
-//    func underlinedString(stringName:String) -> String {
-//        
-//        let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: stringName)
-//        attributeString.addAttribute(NSAttributedStringKey.underlineStyle, value: 1, range: NSMakeRange(0, attributeString.length))
-//        
-//        return attributeString.string
-//    }
-    
 }
 
-class UnderlinedLabel: UILabel {
-    
-    override var text: String? {
-        didSet {
-            guard let text = text else { return }
-            let textRange = NSMakeRange(0, text.characters.count)
-            let attributedText = NSMutableAttributedString(string: text)
-            attributedText.addAttribute(NSAttributedStringKey.underlineStyle , value: NSUnderlineStyle.styleSingle.rawValue, range: textRange)
-            // Add other attributes if needed
-            self.attributedText = attributedText
-        }
-    }
-}
+

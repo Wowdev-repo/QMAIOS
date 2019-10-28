@@ -134,8 +134,8 @@
 /* Class = "UILabel"; text = "In the heart of the museum, with spectacular views of the Doha skyline, Idam offers an innovative and flavorsome selection of contemporary French Mediterranean cuisine designed with an Arabic twist. Timeless classics of local and regional cuisine, with most ingredients sourced locally in Qatar. \\n Philippe Starck's unique and exquisite decor creates a sophisticated atmosphere. \\n For more information and to make a reservation, visit MIA"; ObjectID = "RXM-RW-E22"; */
 "RXM-RW-E22.text" = "In the heart of the museum, with spectacular views of the Doha skyline, Idam offers an innovative and flavorsome selection of contemporary French Mediterranean cuisine designed with an Arabic twist. Timeless classics of local and regional cuisine, with most ingredients sourced locally in Qatar. \\n Philippe Starck's unique and exquisite decor creates a sophisticated atmosphere. \\n For more information and to make a reservation, visit MIA";
 
-/* Class = "UILabel"; text = "All of our education parameters privide interactive "; ObjectID = "SHx-NL-C4b"; */
-"SHx-NL-C4b.text" = "All of our education parameters privide interactive ";
+/* Class = "UILabel"; text = "All of our education parameters provide interactive "; ObjectID = "SHx-NL-C4b"; */
+"SHx-NL-C4b.text" = "All of our education parameters provide interactive ";
 
 /* Class = "UILabel"; text = "EVENTS"; ObjectID = "TWB-Sh-j4n"; */
 "TWB-Sh-j4n.text" = "EVENTS";

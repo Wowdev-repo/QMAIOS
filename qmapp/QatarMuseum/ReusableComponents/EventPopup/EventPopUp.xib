@@ -23,6 +23,7 @@
                 <outlet property="eventPopUp" destination="fqH-cz-Kvt" id="aWv-UP-aLk"/>
                 <outlet property="eventPopupInnerView" destination="PXc-a9-tee" id="I3X-iQ-GLc"/>
                 <outlet property="eventTitle" destination="m3Z-ao-pbh" id="V5u-9g-TPk"/>
+                <outlet property="titleLine" destination="VdB-I1-K8i" id="gyL-Zc-fg5"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>

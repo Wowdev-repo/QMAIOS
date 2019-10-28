@@ -30,7 +30,8 @@ class MuseumAboutCell: UITableViewCell,iCarouselDelegate,iCarouselDataSource,UIT
     @IBOutlet weak var openingTimeLine: UIView!
     @IBOutlet weak var contactTitleLabel: UILabel!
     @IBOutlet weak var contactLine: UIView!
-    @IBOutlet weak var contactLabel: UILabel!
+    @IBOutlet weak var contactLabel: UnderlinedLabel!
+    @IBOutlet weak var contactPhoneLabel: UILabel!
     @IBOutlet weak var locationFirstLabel: UILabel!
     @IBOutlet weak var subTitleHeight: NSLayoutConstraint!
 //    @IBOutlet weak var locationTotalTopConstraint: NSLayoutConstraint!
@@ -59,6 +60,8 @@ class MuseumAboutCell: UITableViewCell,iCarouselDelegate,iCarouselDataSource,UIT
     @IBOutlet weak var mainView: UIView!
     
     @IBOutlet weak var favouriteView: UIView!
+    @IBOutlet weak var travelView: UIView!
+    
     var imgArray = NSArray()
     var favBtnTapAction : (()->())?
     var shareBtnTapAction : (()->())?
@@ -67,6 +70,8 @@ class MuseumAboutCell: UITableViewCell,iCarouselDelegate,iCarouselDataSource,UIT
     var loadAboutVideo : (()->())?
     var downloadBtnTapAction : (()->())?
     var claimOfferBtnTapAction : (()->())?
+    var loadEmailComposer : (()->())?
+    var callPhone : (()->())?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -79,6 +84,7 @@ class MuseumAboutCell: UITableViewCell,iCarouselDelegate,iCarouselDataSource,UIT
         tap.delegate = self // This is not required
         mapOverlayView.addGestureRecognizer(tap)
         //loadVideo()
+        
     }
     
     func loadVideo(urlString:String?) {
@@ -138,12 +144,29 @@ class MuseumAboutCell: UITableViewCell,iCarouselDelegate,iCarouselDataSource,UIT
         locationButton.titleLabel?.font = UIFont.sideMenuLabelFont
         contactTitleLabel.font = UIFont.closeButtonFont
         contactLabel.font = UIFont.sideMenuLabelFont
+        contactPhoneLabel.font = UIFont.sideMenuLabelFont
         favoriteBtnViewHeight.constant = 0
         offerCodeViewHeight.constant = 0
         downloadLabel.font = UIFont.downloadLabelFont
         claimOfferButton.titleLabel?.font = UIFont.popupProductionFont
         codeLabel.font = UIFont.artifactNumberFont
         offerCodeTitleLabel.font = UIFont.closeButtonFont
+        
+        let emailTap = UITapGestureRecognizer(target: self, action: #selector(emailTapFunction))
+        contactLabel.isUserInteractionEnabled = true
+        contactLabel.addGestureRecognizer(emailTap)
+        
+        let phoneTap = UITapGestureRecognizer(target: self, action: #selector(phoneTapFunction))
+        contactPhoneLabel.isUserInteractionEnabled = true
+        contactPhoneLabel.addGestureRecognizer(phoneTap)
+        
+        titleDescriptionLabel.delegate = self
+        titleDescriptionLabel.isUserInteractionEnabled = true
+        titleDescriptionLabel.isEditable = false
+        
+        midTitleDescriptionLabel.delegate = self
+        midTitleDescriptionLabel.isUserInteractionEnabled = true
+        midTitleDescriptionLabel.isEditable = false
     }
     
     func setHeritageDetailData(heritageDetail: Heritage) {
@@ -337,7 +360,9 @@ class MuseumAboutCell: UITableViewCell,iCarouselDelegate,iCarouselDataSource,UIT
         if ((aboutData.contactEmail != nil) && (aboutData.contactEmail != "") || (aboutData.contactNumber != nil) && (aboutData.contactEmail != "")) {
             contactTitleLabel.text = NSLocalizedString("CONTACT_TITLE",
                                                        comment: "CONTACT_TITLE in the Heritage detail")
-            contactLabel.text = aboutData.contactEmail! + "\n\n" + aboutData.contactNumber!
+            contactLabel.text = aboutData.contactEmail!
+                //+ "\n\n" + aboutData.contactNumber!
+            contactPhoneLabel.text = aboutData.contactNumber!
             contactLine.isHidden = false
         }
         //Description
@@ -429,17 +454,22 @@ class MuseumAboutCell: UITableViewCell,iCarouselDelegate,iCarouselDataSource,UIT
     }
     
     func setNMoQTravelCellData(travelDetailData: HomeBanner) {
+        if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
+            titleDescriptionLabel.textAlignment = .left
+        } else {
+            titleDescriptionLabel.textAlignment = .right
+        }
         middleTitleLabel.isHidden = true
         midTitleDescriptionLabel.isHidden = true
         middleLabelLine.isHidden = true
         fridayTimeLabel.isHidden = true
-        contactTitleLabel.isHidden = true
-        contactLine.isHidden = true
-        contactLabel.isHidden = true
+       // contactTitleLabel.isHidden = true
+        //contactLine.isHidden = true
+        //contactLabel.isHidden = true
         locationLine.isHidden = true
-        openingTimeTitleLabel.isHidden = false
-        openingTimeLine.isHidden = false
-        sundayTimeLabel.isHidden = false
+        openingTimeTitleLabel.isHidden = true
+        openingTimeLine.isHidden = true
+        sundayTimeLabel.isHidden = true
         
         subTitleLabel.isHidden = true
         
@@ -458,18 +488,29 @@ class MuseumAboutCell: UITableViewCell,iCarouselDelegate,iCarouselDataSource,UIT
         
         titleLabel.text = travelDetailData.title
         titleDescriptionLabel.text = travelDetailData.introductionText
-        offerCodeTitleLabel.text = NSLocalizedString("OFFER_CODE", comment: "OFFER_CODE in Travel Page")
+        
+        offerCodeTitleLabel.text = NSLocalizedString("SPECIAL_OFFER", comment: "SPECIAL_OFFER in Travel Page")
         claimOfferButton.setTitle(NSLocalizedString("CLAIM_OFFER", comment: "CLAIM_OFFER in Travel Page"), for: .normal)
         codeLabel.text = travelDetailData.promotionalCode
         if ((travelDetailData.contactNumber != nil) && (travelDetailData.email != nil)) {
-            openingTimeTitleLabel.text =  NSLocalizedString("CONTACT_TITLE",
-                                                            comment: "CONTACT_TITLE in the Heritage detail")
-            sundayTimeLabel.text = travelDetailData.contactNumber! + "\n" + travelDetailData.email!
+//            openingTimeTitleLabel.text =  NSLocalizedString("CONTACT_TITLE",
+//                                                            comment: "CONTACT_TITLE in the Heritage detail")
+//            sundayTimeLabel.text = travelDetailData.contactNumber! + "\n" + travelDetailData.email!
+            
+            
+            
+            contactTitleLabel.text = NSLocalizedString("CONTACT_TITLE",
+                                                       comment: "CONTACT_TITLE in the Heritage detail")
+            contactLabel.text = travelDetailData.email!
+            //+ "\n\n" + aboutData.contactNumber!
+            contactPhoneLabel.text = travelDetailData.contactNumber!
+            contactLine.isHidden = false
         }
-        let verticalSpace = NSLayoutConstraint(item: self.sundayTimeLabel, attribute: .bottom, relatedBy: .equal, toItem: self.favouriteView, attribute: .top, multiplier: 1, constant: -40)
-        
-        // activate the constraints
-        NSLayoutConstraint.activate([verticalSpace])
+//        let verticalSpace = NSLayoutConstraint(item: self.sundayTimeLabel, attribute: .bottom, relatedBy: .equal, toItem: self.favouriteView, attribute: .top, multiplier: 1, constant: -40)
+
+       let verticalSpace = NSLayoutConstraint(item: self.travelView, attribute: .bottom, relatedBy: .equal, toItem: self.contactTitleLabel, attribute: .top, multiplier: 1, constant: -30)
+//        // activate the constraints
+       NSLayoutConstraint.activate([verticalSpace])
         
     }
     func setHyperLinkText(originalString: String?) -> NSMutableAttributedString? {
@@ -572,5 +613,16 @@ class MuseumAboutCell: UITableViewCell,iCarouselDelegate,iCarouselDataSource,UIT
     
     @IBAction func didTapClaimOffer(_ sender: UIButton) {
         self.claimOfferBtnTapAction?()
+    }
+    @objc func emailTapFunction(sender:UITapGestureRecognizer) {
+        
+        print("email label tapped ...")
+        self.loadEmailComposer?()
+    }
+    
+    @objc func phoneTapFunction(sender:UITapGestureRecognizer) {
+        
+        print("phone label tapped ...")
+        self.callPhone?()
     }
 }

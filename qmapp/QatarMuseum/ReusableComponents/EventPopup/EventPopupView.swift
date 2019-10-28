@@ -21,6 +21,7 @@ class EventPopupView: UIView {
     @IBOutlet weak var addToCalendarButton: UIButton!
     @IBOutlet weak var eventTitle: UILabel!
     @IBOutlet weak var eventPopupHeight: NSLayoutConstraint!
+    @IBOutlet weak var titleLine: UIView!
     
     @IBOutlet weak var eventDescription: UILabel!
     var eventPopupDelegate : EventPopUpProtocol?
@@ -51,6 +52,15 @@ class EventPopupView: UIView {
         addToCalendarButton.titleLabel?.font = UIFont.closeButtonFont
         
         
+    }
+    func loadRegistrationPopup() {
+        eventTitle.isHidden = true
+        titleLine.isHidden = true
+        eventDescription.font = UIFont.collectionFirstDescriptionFont
+        eventDescription.text = NSLocalizedString("REGISTER_GREETING_MESSAGE", comment: "REGISTER_GREETING_MESSAGE Label in the Popup")
+        
+        let buttonTitle = NSLocalizedString("POPUP_ADD_BUTTON_TITLE", comment: "POPUP_ADD_BUTTON_TITLE Label in the Popup")
+        addToCalendarButton.setTitle(buttonTitle, for: .normal)
     }
     @IBAction func didTapEventCloseButton(_ sender: UIButton) {
         eventPopupDelegate?.eventCloseButtonPressed()

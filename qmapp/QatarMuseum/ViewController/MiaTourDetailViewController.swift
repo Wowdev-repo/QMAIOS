@@ -7,6 +7,7 @@
 //
 import Alamofire
 import Crashlytics
+import Firebase
 import Kingfisher
 import UIKit
 
@@ -24,7 +25,7 @@ class MiaTourDetailViewController: UIViewController, HeaderViewProtocol, comingS
     var slideshowImages : NSArray!
     var popupView : ComingSoonPopUp = ComingSoonPopUp()
     var i = 0
-    var museumId :String = "63"
+    var museumId :String? = nil
     var tourGuide: [TourGuide] = []
     var tourGuideDetail : TourGuide?
     var totalImgCount = Int()
@@ -39,6 +40,7 @@ class MiaTourDetailViewController: UIViewController, HeaderViewProtocol, comingS
         setDetails()
         setupUI()
         setGradientLayer()
+        self.recordScreenView()
     }
 
     func setupUI() {
@@ -48,6 +50,17 @@ class MiaTourDetailViewController: UIViewController, HeaderViewProtocol, comingS
         startTourButton.setTitle(NSLocalizedString("START_TOUR", comment: "START_TOUR in science tour page"), for: .normal)
         headerView.headerViewDelegate = self
         headerView.headerTitle.text = NSLocalizedString("MIA_TOUR_GUIDES_TITLE", comment: "MIA_TOUR_GUIDES_TITLE in the Mia tour guide page")
+        
+        if ((museumId == "66") || (museumId == "638")) {
+            headerView.headerTitle.text = NSLocalizedString("NMOQ_TOUR_HEADER", comment: "NMoQ in the nmoq tour guide page")
+            scienceTourTitle.font = UIFont.nmoqtourGuideFont
+            
+            if(UIDevice.current.screenType.rawValue == "iPhone 5, iPhone 5s, iPhone 5c or iPhone SE"){
+                self.scienceTourTitle.textContainer.maximumNumberOfLines = 2
+                scienceTourTitle.font = scienceTourTitle.font!.withSize(30)
+            }
+            
+        }
 
        // slideshowView.imagesContentMode = .scaleAspectFill
         self.slideshowView.addImage(UIImage(named: "sliderPlaceholder"))
@@ -139,12 +152,14 @@ class MiaTourDetailViewController: UIViewController, HeaderViewProtocol, comingS
         transition.type = kCATransitionPush
         transition.subtype = kCATransitionFromRight
         view.window!.layer.add(transition, forKey: kCATransition)
+        let shortDetailsView =  self.storyboard?.instantiateViewController(withIdentifier: "previewContainerId") as! PreviewContainerViewController
+        shortDetailsView.museumId = museumId ?? "0"
+        shortDetailsView.tourGuideId = tourGuideDetail?.nid
         if ((tourGuideDetail?.nid == "12216") || (tourGuideDetail?.nid == "12226")) {
-            let shortDetailsView =  self.storyboard?.instantiateViewController(withIdentifier: "previewContainerId") as! PreviewContainerViewController
             shortDetailsView.fromScienceTour = true
             self.present(shortDetailsView, animated: false, completion: nil)
-        } else if (tourGuideDetail?.nid == "12471") || (tourGuideDetail?.nid == "12916") {
-            let shortDetailsView =  self.storyboard?.instantiateViewController(withIdentifier: "previewContainerId") as! PreviewContainerViewController
+        } else {
+            //if (tourGuideDetail?.nid == "12471") || (tourGuideDetail?.nid == "12916") {
             shortDetailsView.fromScienceTour = false
             self.present(shortDetailsView, animated: false, completion: nil)
         }
@@ -237,8 +252,6 @@ class MiaTourDetailViewController: UIViewController, HeaderViewProtocol, comingS
         }
     }
     func setGradientLayer() {
-
-        
         let gradient: CAGradientLayer = CAGradientLayer()
         
         gradient.colors = [UIColor.white.cgColor, UIColor.clear.cgColor]
@@ -246,8 +259,11 @@ class MiaTourDetailViewController: UIViewController, HeaderViewProtocol, comingS
         gradient.startPoint = CGPoint(x: 0.0, y: 1.0)
         gradient.endPoint = CGPoint(x: 0.0, y: 0.0)
         gradient.frame = CGRect(x: 0.0, y: 0.0, width: self.view.frame.size.width, height: self.view.frame.size.height)
-        
         self.overlayView.layer.insertSublayer(gradient, at: 0)
         
+    }
+    func recordScreenView() {
+        let screenClass = String(describing: type(of: self))
+        Analytics.setScreenName(MIA_TOUR_DETAIL, screenClass: screenClass)
     }
 }

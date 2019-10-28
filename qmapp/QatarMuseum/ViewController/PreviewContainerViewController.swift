@@ -9,6 +9,7 @@
 import Alamofire
 import CoreData
 import Crashlytics
+import Firebase
 import UIKit
 
 class PreviewContainerViewController: UIViewController,UIPageViewControllerDelegate,UIPageViewControllerDataSource,HeaderViewProtocol,UIGestureRecognizerDelegate,LoadingViewProtocol {
@@ -58,32 +59,34 @@ class PreviewContainerViewController: UIViewController,UIPageViewControllerDeleg
     let networkReachability = NetworkReachabilityManager()
     var currentContentViewController: PreviewContentViewController!
     let appDelegate =  UIApplication.shared.delegate as? AppDelegate
+    var museumId :String? = nil
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         loadUI()
+        self.recordScreenView()
     }
     
     func loadUI() {
         loadingView.isHidden = false
         loadingView.showLoading()
         loadingView.loadingViewDelegate = self
-        if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
-            if (fromScienceTour) {
-                tourGuideId = "12216"
-            } else {
-                //tourGuideId = "12476"
-                //tourGuideId = "12216"
-                tourGuideId = "12471"
-            }
-        } else {
-            if (fromScienceTour) {
-                tourGuideId = "12226"
-            } else {
-                tourGuideId = "12916"
-            }
-        }
+//        if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
+//            if (fromScienceTour) {
+//                tourGuideId = "12216"
+//            } else {
+//                //tourGuideId = "12476"
+//                //tourGuideId = "12216"
+//                tourGuideId = "12471"
+//            }
+//        } else {
+//            if (fromScienceTour) {
+//                tourGuideId = "12226"
+//            } else {
+//                tourGuideId = "12916"
+//            }
+//        }
         fetchTourGuideFromCoredata()
         if (networkReachability?.isReachable)! {
             getTourGuideDataFromServerInBackgound()
@@ -667,7 +670,11 @@ class PreviewContainerViewController: UIViewController,UIPageViewControllerDeleg
                 self.countValue = self.tourGuideArray.count
                 if(self.tourGuideArray.count != 0) {
                     self.headerView.settingsButton.isHidden = false
-                    self.headerView.settingsButton.setImage(UIImage(named: "locationImg"), for: .normal)
+                    if((self.museumId == "63") || (self.museumId == "96")) {
+                        self.headerView.settingsButton.setImage(UIImage(named: "locationImg"), for: .normal)
+                    } else {
+                        self.headerView.settingsButton.isHidden = true
+                    }
                     self.headerView.settingsButton.contentEdgeInsets = UIEdgeInsets(top: 9, left: 10, bottom:9, right: 10)
                     self.setUpPageControl()
                     self.showOrHidePageControlView(countValue: self.tourGuideArray.count, scrolling: false)
@@ -698,10 +705,16 @@ class PreviewContainerViewController: UIViewController,UIPageViewControllerDeleg
     
     func getTourGuideDataFromServerInBackgound() {
         let queue = DispatchQueue(label: "", qos: .background, attributes: .concurrent)
+        
+        //remove cache before request
+        URLCache.shared = URLCache(memoryCapacity: 0, diskCapacity: 0, diskPath: nil)
+
         _ = Alamofire.request(QatarMuseumRouter.CollectionByTourGuide(LocalizationLanguage.currentAppleLanguage(),["tour_guide_id": tourGuideId!])).responseObject(queue: queue) { (response: DataResponse<TourGuideFloorMaps>) -> Void in
             switch response.result {
             case .success(let data):
                 if(data.tourGuideFloorMap?.count != 0) {
+                    self.tourGuideArray.removeAll()
+                    self.tourGuideArray = data.tourGuideFloorMap
                     self.saveOrUpdateTourGuideCoredata()
                 }
             case .failure(let error):
@@ -1075,8 +1088,11 @@ class PreviewContainerViewController: UIViewController,UIPageViewControllerDeleg
             if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
                 var tourGuideArray = [FloorMapTourGuideEntity]()
                 tourGuideArray = checkAddedToCoredata(entityName: "FloorMapTourGuideEntity", idKey: "tourGuideId", idValue: tourGuideId, managedContext: managedContext) as! [FloorMapTourGuideEntity]
+                var j:Int? = 0
                 if (tourGuideArray.count > 0) {
                     for i in 0 ... tourGuideArray.count-1 {
+                        if let duplicateId = self.tourGuideArray.first(where: {$0.nid == tourGuideArray[i].nid}) {
+                        } else {
                         let tourGuideDict = tourGuideArray[i]
                         var imgsArray : [String] = []
                         let imgInfoArray = (tourGuideDict.imagesRelation?.allObjects) as! [FloorMapImagesEntity]
@@ -1087,15 +1103,21 @@ class PreviewContainerViewController: UIViewController,UIPageViewControllerDeleg
                                 }
                             }
                         }
-                        self.tourGuideArray.insert(TourGuideFloorMap(title: tourGuideDict.title, accessionNumber: tourGuideDict.accessionNumber, nid: tourGuideDict.nid, curatorialDescription: tourGuideDict.curatorialDescription, diam: tourGuideDict.diam, dimensions: tourGuideDict.dimensions, mainTitle: tourGuideDict.mainTitle, objectENGSummary: tourGuideDict.objectEngSummary, objectHistory: tourGuideDict.objectHistory, production: tourGuideDict.production, productionDates: tourGuideDict.productionDates, image: tourGuideDict.image, tourGuideId: tourGuideDict.tourGuideId,artifactNumber: tourGuideDict.artifactNumber, artifactPosition: tourGuideDict.artifactPosition, audioDescriptif: tourGuideDict.audioDescriptif, images: imgsArray, audioFile: tourGuideDict.audioFile, floorLevel: tourGuideDict.floorLevel, galleyNumber: tourGuideDict.galleyNumber, artistOrCreatorOrAuthor: tourGuideDict.artistOrCreatorOrAuthor, periodOrStyle: tourGuideDict.periodOrStyle, techniqueAndMaterials: tourGuideDict.techniqueAndMaterials,thumbImage: tourGuideDict.thumbImage,artifactImg: tourGuideDict.artifactImg), at: i)
+                        self.tourGuideArray.insert(TourGuideFloorMap(title: tourGuideDict.title, accessionNumber: tourGuideDict.accessionNumber, nid: tourGuideDict.nid, curatorialDescription: tourGuideDict.curatorialDescription, diam: tourGuideDict.diam, dimensions: tourGuideDict.dimensions, mainTitle: tourGuideDict.mainTitle, objectENGSummary: tourGuideDict.objectEngSummary, objectHistory: tourGuideDict.objectHistory, production: tourGuideDict.production, productionDates: tourGuideDict.productionDates, image: tourGuideDict.image, tourGuideId: tourGuideDict.tourGuideId,artifactNumber: tourGuideDict.artifactNumber, artifactPosition: tourGuideDict.artifactPosition, audioDescriptif: tourGuideDict.audioDescriptif, images: imgsArray, audioFile: tourGuideDict.audioFile, floorLevel: tourGuideDict.floorLevel, galleyNumber: tourGuideDict.galleyNumber, artistOrCreatorOrAuthor: tourGuideDict.artistOrCreatorOrAuthor, periodOrStyle: tourGuideDict.periodOrStyle, techniqueAndMaterials: tourGuideDict.techniqueAndMaterials,thumbImage: tourGuideDict.thumbImage,artifactImg: tourGuideDict.artifactImg), at: j!)
+                             j = j!+1
+                        }
                         
                     }
                     self.loadingView.stopLoading()
                     self.loadingView.isHidden = true
                     if (self.tourGuideArray.count > 0) {
                         self.headerView.settingsButton.isHidden = false
-                        self.headerView.settingsButton.setImage(UIImage(named: "locationImg"), for: .normal)
-                        self.headerView.settingsButton.contentEdgeInsets = UIEdgeInsets(top: 9, left: 10, bottom:9, right: 10)
+                        if((self.museumId == "63") || (self.museumId == "96")) {
+                            self.headerView.settingsButton.setImage(UIImage(named: "locationImg"), for: .normal)
+                            self.headerView.settingsButton.contentEdgeInsets = UIEdgeInsets(top: 9, left: 10, bottom:9, right: 10)
+                        } else {
+                            self.headerView.settingsButton.isHidden = true
+                        }
                         self.setUpPageControl()
                         self.showOrHidePageControlView(countValue: self.tourGuideArray.count, scrolling: false)
                         self.showPageControlAtFirstTime()
@@ -1115,8 +1137,11 @@ class PreviewContainerViewController: UIViewController,UIPageViewControllerDeleg
             } else {
                 var tourGuideArray = [FloorMapTourGuideEntityAr]()
                 tourGuideArray = checkAddedToCoredata(entityName: "FloorMapTourGuideEntityAr", idKey: "tourGuideId", idValue: tourGuideId, managedContext: managedContext) as! [FloorMapTourGuideEntityAr]
+                 var j:Int? = 0
                 if(tourGuideArray.count > 0) {
                     for i in 0 ... tourGuideArray.count-1 {
+                        if let duplicateId = self.tourGuideArray.first(where: {$0.nid == tourGuideArray[i].nid}) {
+                        } else {
                         let tourGuideDict = tourGuideArray[i]
                         var imgsArray : [String] = []
                         let imgInfoArray = (tourGuideDict.imagesRelation?.allObjects) as! [FloorMapImagesEntityAr]
@@ -1127,14 +1152,20 @@ class PreviewContainerViewController: UIViewController,UIPageViewControllerDeleg
                                 }
                             }
                         }
-                        self.tourGuideArray.insert(TourGuideFloorMap(title: tourGuideDict.title, accessionNumber: tourGuideDict.accessionNumber, nid: tourGuideDict.nid, curatorialDescription: tourGuideDict.curatorialDescription, diam: tourGuideDict.diam, dimensions: tourGuideDict.dimensions, mainTitle: tourGuideDict.mainTitle, objectENGSummary: tourGuideDict.objectEngSummary, objectHistory: tourGuideDict.objectHistory, production: tourGuideDict.production, productionDates: tourGuideDict.productionDates, image: tourGuideDict.image, tourGuideId: tourGuideDict.tourGuideId,artifactNumber: tourGuideDict.artifactNumber, artifactPosition: tourGuideDict.artifactPosition, audioDescriptif: tourGuideDict.audioDescriptif, images: imgsArray, audioFile: tourGuideDict.audioFile, floorLevel: tourGuideDict.floorLevel, galleyNumber: tourGuideDict.galleyNumber, artistOrCreatorOrAuthor: tourGuideDict.artistOrCreatorOrAuthor, periodOrStyle: tourGuideDict.periodOrStyle, techniqueAndMaterials: tourGuideDict.techniqueAndMaterials,thumbImage: tourGuideDict.thumbImage,artifactImg: tourGuideDict.artifactImg), at: i)
+                        self.tourGuideArray.insert(TourGuideFloorMap(title: tourGuideDict.title, accessionNumber: tourGuideDict.accessionNumber, nid: tourGuideDict.nid, curatorialDescription: tourGuideDict.curatorialDescription, diam: tourGuideDict.diam, dimensions: tourGuideDict.dimensions, mainTitle: tourGuideDict.mainTitle, objectENGSummary: tourGuideDict.objectEngSummary, objectHistory: tourGuideDict.objectHistory, production: tourGuideDict.production, productionDates: tourGuideDict.productionDates, image: tourGuideDict.image, tourGuideId: tourGuideDict.tourGuideId,artifactNumber: tourGuideDict.artifactNumber, artifactPosition: tourGuideDict.artifactPosition, audioDescriptif: tourGuideDict.audioDescriptif, images: imgsArray, audioFile: tourGuideDict.audioFile, floorLevel: tourGuideDict.floorLevel, galleyNumber: tourGuideDict.galleyNumber, artistOrCreatorOrAuthor: tourGuideDict.artistOrCreatorOrAuthor, periodOrStyle: tourGuideDict.periodOrStyle, techniqueAndMaterials: tourGuideDict.techniqueAndMaterials,thumbImage: tourGuideDict.thumbImage,artifactImg: tourGuideDict.artifactImg), at: j!)
+                            j = j!+1
+                        }
                     }
                     self.loadingView.stopLoading()
                     self.loadingView.isHidden = true
                     if (self.tourGuideArray.count > 0) {
                         self.headerView.settingsButton.isHidden = false
-                        self.headerView.settingsButton.setImage(UIImage(named: "locationImg"), for: .normal)
-                        self.headerView.settingsButton.contentEdgeInsets = UIEdgeInsets(top: 9, left: 10, bottom:9, right: 10)
+                        if((self.museumId == "63") || (self.museumId == "96")) {
+                            self.headerView.settingsButton.setImage(UIImage(named: "locationImg"), for: .normal)
+                            self.headerView.settingsButton.contentEdgeInsets = UIEdgeInsets(top: 9, left: 10, bottom:9, right: 10)
+                        } else {
+                            self.headerView.settingsButton.isHidden = true
+                        }
                         self.setUpPageControl()
                         self.showOrHidePageControlView(countValue: self.tourGuideArray.count, scrolling: false)
                         self.showPageControlAtFirstTime()
@@ -1195,5 +1226,9 @@ class PreviewContainerViewController: UIViewController,UIPageViewControllerDeleg
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    func recordScreenView() {
+        let screenClass = String(describing: type(of: self))
+        Analytics.setScreenName(PREVIEW_CONTAINER_VC, screenClass: screenClass)
     }
 }

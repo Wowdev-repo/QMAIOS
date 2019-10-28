@@ -6,9 +6,10 @@
 //  Copyright © 2018 Exalture. All rights reserved.
 //
 
-import Crashlytics
-import UIKit
 import CoreData
+import Crashlytics
+import Firebase
+import UIKit
 
 class NotificationsViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,HeaderViewProtocol {
     @IBOutlet weak var notificationsTableView: UITableView!
@@ -22,6 +23,7 @@ class NotificationsViewController: UIViewController,UITableViewDelegate,UITableV
         super.viewDidLoad()
         setUI()
         updateNotificationTableView()
+        self.recordScreenView()
     }
     
     func updateNotificationTableView(){
@@ -286,7 +288,10 @@ class NotificationsViewController: UIViewController,UITableViewDelegate,UITableV
         }
         
     }
-    
+    func recordScreenView() {
+        let screenClass = String(describing: type(of: self))
+        Analytics.setScreenName(NOTIFICATIONS_LIST, screenClass: screenClass)
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
