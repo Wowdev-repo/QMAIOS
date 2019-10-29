@@ -137,8 +137,8 @@ class SignUpTableViewController: UITableViewController, UITextFieldDelegate,QMTL
         tabViewController.qmtlTabViewControllerDelegate = self
         tabViewController.bottomBtn.isHidden = false
         tabViewController.bottomBtn.setTitle(getLocalizedStr(str: "Save") , for: .normal)
-        
-        tabViewController.bottomBtn.frame = CGRect(x: tabViewController.bottomBtn.frame.origin.x, y: tabViewController.bottomBtn.frame.origin.y - (tabViewController.bottomBtn.frame.size.height), width: tabViewController.bottomBtn.frame.size.width, height: tabViewController.bottomBtn.frame.size.height)
+//
+//        tabViewController.bottomBtn.frame = CGRect(x: tabViewController.bottomBtn.frame.origin.x, y: tabViewController.bottomBtn.frame.origin.y - (tabViewController.bottomBtn.frame.size.height), width: tabViewController.bottomBtn.frame.size.width, height: tabViewController.bottomBtn.frame.size.height)
         
         tabViewController.topTabBarView.myProfileBtn.isHidden = true
         
@@ -161,7 +161,7 @@ class SignUpTableViewController: UITableViewController, UITextFieldDelegate,QMTL
     override func viewWillDisappear(_ animated: Bool) {
         tabViewController.bottomBtn.isHidden = true
         tabViewController.bottomBtn.setTitle("", for: .normal)
-        tabViewController.bottomBtn.frame = CGRect(x: tabViewController.bottomBtn.frame.origin.x, y: tabViewController.bottomBtn.frame.origin.y + (tabViewController.bottomBtn.frame.size.height), width: tabViewController.bottomBtn.frame.size.width, height: tabViewController.bottomBtn.frame.size.height)
+//        tabViewController.bottomBtn.frame = CGRect(x: tabViewController.bottomBtn.frame.origin.x, y: tabViewController.bottomBtn.frame.origin.y + (tabViewController.bottomBtn.frame.size.height), width: tabViewController.bottomBtn.frame.size.width, height: tabViewController.bottomBtn.frame.size.height)
     }
     
     //MARK:- API Service Delegate

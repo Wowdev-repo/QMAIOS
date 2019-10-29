@@ -117,7 +117,7 @@ class UserInfoTableViewController: UITableViewController,UITextFieldDelegate,QMT
         tabViewController.bottomBtn.isHidden = false
         //self.view .addSubview(tabViewController.bottomBtn);
         tabViewController.bottomBtn.setTitle(getLocalizedStr(str: "Save"), for: .normal)
-        tabViewController.bottomBtn.frame = CGRect(x: tabViewController.bottomBtn.frame.origin.x, y: tabViewController.bottomBtn.frame.origin.y - (tabViewController.bottomBtn.frame.size.height), width: tabViewController.bottomBtn.frame.size.width, height: tabViewController.bottomBtn.frame.size.height)
+//        tabViewController.bottomBtn.frame = CGRect(x: tabViewController.bottomBtn.frame.origin.x, y: tabViewController.bottomBtn.frame.origin.y - (tabViewController.bottomBtn.frame.size.height), width: tabViewController.bottomBtn.frame.size.width, height: tabViewController.bottomBtn.frame.size.height)
         tabViewController.topTabBarView.backBtn.isHidden = false
         tabViewController.topTabBarView.myProfileBtn.isHidden=true
     }
@@ -128,7 +128,7 @@ class UserInfoTableViewController: UITableViewController,UITextFieldDelegate,QMT
     override func viewWillDisappear(_ animated: Bool) {
         tabViewController.bottomBtn.isHidden = true
         tabViewController.bottomBtn.setTitle("", for: .normal)
-        tabViewController.bottomBtn.frame = CGRect(x: tabViewController.bottomBtn.frame.origin.x, y: tabViewController.bottomBtn.frame.origin.y + (tabViewController.bottomBtn.frame.size.height), width: tabViewController.bottomBtn.frame.size.width, height: tabViewController.bottomBtn.frame.size.height)
+//        tabViewController.bottomBtn.frame = CGRect(x: tabViewController.bottomBtn.frame.origin.x, y: tabViewController.bottomBtn.frame.origin.y + (tabViewController.bottomBtn.frame.size.height), width: tabViewController.bottomBtn.frame.size.width, height: tabViewController.bottomBtn.frame.size.height)
     }
     
     func setupView(){

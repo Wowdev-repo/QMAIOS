@@ -31,7 +31,11 @@ class QMTLTabViewController: UITabBarController, TopTabBarViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        if #available(iOS 13.0, *) {
+            isModalInPresentation = true
+        } else {
+            // Fallback on earlier versions
+        }
         if (UserDefaults.standard.string(forKey: "KEYCHAINSTR") == "" || UserDefaults.standard.string(forKey: "KEYCHAIN") == nil ){
             
             self.clearUserSession();
