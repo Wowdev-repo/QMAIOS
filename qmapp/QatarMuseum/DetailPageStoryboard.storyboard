@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
-    <device id="retina5_5" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina5_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -21,7 +19,7 @@
         <!--Museum About View Controller-->
         <scene sceneID="IGp-G8-QOX">
             <objects>
-                <viewController storyboardIdentifier="heritageDetailViewId2" id="YUp-E4-ISb" customClass="MuseumAboutViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="heritageDetailViewId2" modalPresentationStyle="fullScreen" id="YUp-E4-ISb" customClass="MuseumAboutViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="cjn-3C-XXh"/>
                         <viewControllerLayoutGuide type="bottom" id="AEO-l0-vMp"/>
@@ -31,11 +29,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="1" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="gC4-Ir-SsL">
-                                <rect key="frame" x="0.0" y="20" width="414" height="1335"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="1355"/>
                                 <color key="backgroundColor" red="0.90196078430000004" green="0.90196078430000004" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="heritageDetailCellId2" rowHeight="1334" id="Akh-2R-i7o" customClass="MuseumAboutCell" customModule="QatarMuseums" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="1" width="414" height="1334"/>
+                                        <rect key="frame" x="0.0" y="28" width="414" height="1334"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Akh-2R-i7o" id="fSg-hC-xN3">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="1334"/>
@@ -586,7 +584,7 @@
                                 </connections>
                             </tableView>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="itZ-hc-c8t" customClass="LoadingView" customModule="QatarMuseums" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="20" width="414" height="1335"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="1355"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                         </subviews>
@@ -614,7 +612,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="crY-Cr-OL5" customClass="VersaStatefulButton" customModule="VersaPlayer">
-                            <rect key="frame" x="164.66666666666666" y="97" width="50" height="50"/>
+                            <rect key="frame" x="164.66666666666666" y="139" width="50" height="50"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="50" id="Klg-yG-Piw"/>
                                 <constraint firstAttribute="width" constant="50" id="ldl-YB-3cq"/>
@@ -627,7 +625,7 @@
                             </userDefinedRuntimeAttributes>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D3H-lq-nGO" customClass="VersaStatefulButton" customModule="VersaPlayer">
-                            <rect key="frame" x="334.66666666666669" y="97" width="30" height="50"/>
+                            <rect key="frame" x="268.66666666666669" y="139" width="30" height="50"/>
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="image" keyPath="activeImage" value="fastforward"/>
@@ -635,7 +633,7 @@
                             </userDefinedRuntimeAttributes>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rLS-aC-dKq" customClass="VersaStatefulButton" customModule="QatarMuseums">
-                            <rect key="frame" x="226.66666666666663" y="97" width="96" height="50"/>
+                            <rect key="frame" x="226.66666666666666" y="139" width="29.999999999999972" height="50"/>
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="image" keyPath="activeImage" value="skipForward"/>
@@ -643,7 +641,7 @@
                             </userDefinedRuntimeAttributes>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hZg-R5-df1" customClass="VersaStatefulButton" customModule="QatarMuseums">
-                            <rect key="frame" x="56.666666666666657" y="97" width="96" height="50"/>
+                            <rect key="frame" x="122.66666666666669" y="139" width="30" height="50"/>
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="image" keyPath="activeImage" value="skipBackward"/>
@@ -651,7 +649,7 @@
                             </userDefinedRuntimeAttributes>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ogL-9a-CIs" customClass="VersaTimeLabel" customModule="QatarMuseums">
-                            <rect key="frame" x="20" y="167" width="70" height="72"/>
+                            <rect key="frame" x="20" y="209" width="70" height="30"/>
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="70" id="vhD-j7-oec"/>
@@ -661,14 +659,14 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mAx-xz-nWG" customClass="VersaTimeLabel" customModule="QatarMuseums">
-                            <rect key="frame" x="121" y="167" width="70" height="72"/>
+                            <rect key="frame" x="205" y="209" width="70" height="30"/>
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <slider opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="IH0-vD-X0I" customClass="VersaSeekbarSlider" customModule="QatarMuseums">
-                            <rect key="frame" x="100" y="167" width="11" height="73"/>
+                            <rect key="frame" x="100" y="209" width="95" height="31"/>
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="image" keyPath="thumbImage" value="playhead"/>
@@ -679,7 +677,7 @@
                             <color key="color" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </activityIndicatorView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f10-0c-7Ki" customClass="VersaStatefulButton" customModule="QatarMuseums">
-                            <rect key="frame" x="287" y="167" width="72" height="72"/>
+                            <rect key="frame" x="329" y="209" width="30" height="30"/>
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <state key="normal">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -690,7 +688,7 @@
                             </userDefinedRuntimeAttributes>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IZ9-Oe-XhJ" customClass="VersaStatefulButton" customModule="QatarMuseums">
-                            <rect key="frame" x="203" y="167" width="72" height="72"/>
+                            <rect key="frame" x="287" y="209" width="30" height="30"/>
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <state key="normal">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -701,7 +699,7 @@
                             </userDefinedRuntimeAttributes>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dr0-Vm-Nkt" customClass="VersaStatefulButton" customModule="QatarMuseums">
-                            <rect key="frame" x="-99.666666666666686" y="97" width="144.33333333333334" height="50"/>
+                            <rect key="frame" x="80.666666666666686" y="139" width="30" height="50"/>
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="image" keyPath="activeImage" value="rewind"/>
@@ -765,7 +763,7 @@
         <!--Map View Controller-->
         <scene sceneID="Vdj-98-XRc">
             <objects>
-                <viewController storyboardIdentifier="mapViewId" id="M6f-b4-uti" customClass="MapViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="mapViewId" modalPresentationStyle="fullScreen" id="M6f-b4-uti" customClass="MapViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="KcW-LI-VhG"/>
                         <viewControllerLayoutGuide type="bottom" id="sDt-Mm-84p"/>
@@ -775,13 +773,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="TJw-Tg-BOA">
-                                <rect key="frame" x="0.0" y="84" width="414" height="652"/>
+                                <rect key="frame" x="0.0" y="64" width="414" height="672"/>
                                 <connections>
                                     <outlet property="delegate" destination="M6f-b4-uti" id="uKM-0Q-dtO"/>
                                 </connections>
                             </mapView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g3C-1p-7g2" customClass="CommonHeaderView" customModule="QatarMuseums" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="20" width="414" height="65"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="65"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="65" id="ODm-44-17W"/>
@@ -818,7 +816,7 @@
         <!--Google Map View Controller-->
         <scene sceneID="7sO-0X-fsj">
             <objects>
-                <viewController storyboardIdentifier="googleMapViewId" id="J2I-2w-SHv" customClass="GoogleMapViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="googleMapViewId" modalPresentationStyle="fullScreen" id="J2I-2w-SHv" customClass="GoogleMapViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ZtL-sN-CXy"/>
                         <viewControllerLayoutGuide type="bottom" id="Vvo-gU-PqZ"/>
@@ -828,14 +826,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YxS-gL-Iwh" customClass="CommonHeaderView" customModule="QatarMuseums" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="20" width="414" height="65"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="65"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="65" id="Glb-9M-Q6V"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Ij-hT-YjY" customClass="GMSMapView">
-                                <rect key="frame" x="0.0" y="85" width="414" height="651"/>
+                                <rect key="frame" x="0.0" y="65" width="414" height="671"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="67f-Fe-cVM">
@@ -871,17 +869,17 @@
     <resources>
         <image name="download_icon" width="150" height="139"/>
         <image name="fastforward" width="48" height="48"/>
-        <image name="fullscreen" width="72" height="72"/>
+        <image name="fullscreen" width="24" height="24"/>
         <image name="fullscreen_disable" width="24" height="24"/>
-        <image name="heart_emptyX1" width="303" height="279"/>
-        <image name="pause" width="144" height="144"/>
-        <image name="pip" width="72" height="72"/>
+        <image name="heart_emptyX1" width="101" height="93"/>
+        <image name="pause" width="48" height="48"/>
+        <image name="pip" width="24" height="24"/>
         <image name="placeholder_video" width="299" height="199"/>
-        <image name="play" width="144" height="144"/>
-        <image name="playhead" width="72" height="72"/>
-        <image name="rewind" width="144" height="144"/>
-        <image name="shareX1" width="246" height="279"/>
-        <image name="skipBackward" width="96" height="96"/>
-        <image name="skipForward" width="96" height="96"/>
+        <image name="play" width="48" height="48"/>
+        <image name="playhead" width="24" height="24"/>
+        <image name="rewind" width="48" height="48"/>
+        <image name="shareX1" width="82" height="93"/>
+        <image name="skipBackward" width="32" height="32"/>
+        <image name="skipForward" width="32" height="32"/>
     </resources>
 </document>

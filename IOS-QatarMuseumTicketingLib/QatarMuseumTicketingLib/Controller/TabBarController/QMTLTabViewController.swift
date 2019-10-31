@@ -22,6 +22,7 @@ class QMTLTabViewController: UITabBarController, TopTabBarViewDelegate {
     //MARK:- Decleration
     var qmtlTabViewControllerDelegate : QMTLTabViewControllerDelegate?
     var topTabBarView = TopTabBarView()
+    var dummyTopView : UIView!
     let keychain = KeychainSwift()
     
     var bottomBtn: UIButton!
@@ -32,7 +33,7 @@ class QMTLTabViewController: UITabBarController, TopTabBarViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         if #available(iOS 13.0, *) {
-            isModalInPresentation = true
+            //isModalInPresentation = true
         } else {
             // Fallback on earlier versions
         }
@@ -52,7 +53,7 @@ class QMTLTabViewController: UITabBarController, TopTabBarViewDelegate {
         // Do any additional setup after loading the view.
         self.tabBar.isHidden = true
         if #available(iOS 11.0, *) {
-            self.additionalSafeAreaInsets.top = 20
+            self.additionalSafeAreaInsets.top = 65
         }
         
         QMTLSingleton.sharedInstance.initialViewControllerToCall = UserDefaults.standard.string(forKey: QMTLConstants.viewController.initialViewControllerKey) ?? ""
@@ -110,9 +111,19 @@ class QMTLTabViewController: UITabBarController, TopTabBarViewDelegate {
         
         self.navigationController?.setNavigationBarHidden(true, animated: false)
         
+        var topSafeAreaHeight: CGFloat = 0
+        
+        if #available(iOS 11.0, *) {
+            let window = UIApplication.shared.windows[0]
+            let safeFrame = window.safeAreaLayoutGuide.layoutFrame
+            topSafeAreaHeight = safeFrame.minY //- window.frame.minY
+        }
+        dummyTopView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: topSafeAreaHeight))
+        dummyTopView.backgroundColor = .black
+        self.view.addSubview(dummyTopView)
         topTabBarView = TopTabBarView.instanceFromNib() as! TopTabBarView
         topTabBarView.topTabBarViewDelegate = self
-        topTabBarView.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 45)
+        topTabBarView.frame = CGRect(x: 0, y: topSafeAreaHeight, width: self.view.frame.size.width, height: 65)
         self.view.addSubview(topTabBarView)
         
         if ((QMTLLocalizationLanguage.currentAppleLanguage()) != "en") {
@@ -129,7 +140,7 @@ class QMTLTabViewController: UITabBarController, TopTabBarViewDelegate {
         
         dummyBottomView = UIView(frame: CGRect(x: 0, y: (self.view.frame.size.height - bottomSafeAreaHeight), width: self.view.frame.size.width, height: 100))
         dummyBottomView.backgroundColor = .black
-        self.view.addSubview(dummyBottomView)
+        //self.view.addSubview(dummyBottomView)
         
         bottomBtn = UIButton(frame: CGRect(x: 25, y: (self.view.frame.size.height - bottomSafeAreaHeight) - 60, width: self.view.frame.size.width-50, height: 50))
         bottomBtn.backgroundColor = .black

@@ -21,7 +21,7 @@
         <!--Splash View Controller-->
         <scene sceneID="T35-nM-Vo2">
             <objects>
-                <viewController id="ru4-0J-FCz" customClass="SplashViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="fullScreen" id="ru4-0J-FCz" customClass="SplashViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="rJe-5F-93c"/>
                         <viewControllerLayoutGuide type="bottom" id="KUJ-qu-X20"/>
@@ -350,7 +350,7 @@
         <!--Web View Controller-->
         <scene sceneID="Afi-ZU-hgx">
             <objects>
-                <viewController storyboardIdentifier="webViewId" id="bZN-2R-WHo" customClass="WebViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="webViewId" modalPresentationStyle="fullScreen" id="bZN-2R-WHo" customClass="WebViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="eDE-QY-qCB"/>
                         <viewControllerLayoutGuide type="bottom" id="oiG-wB-0Fy"/>
@@ -428,7 +428,7 @@
         <!--Data Source-->
         <scene sceneID="Vbh-xD-vpz">
             <objects>
-                <viewController storyboardIdentifier="eventPageID" id="Y6A-us-MuQ" customClass="EventViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="eventPageID" modalPresentationStyle="fullScreen" id="Y6A-us-MuQ" customClass="EventViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="g0X-T9-O57"/>
                         <viewControllerLayoutGuide type="bottom" id="CFh-hF-Xaz"/>
@@ -508,7 +508,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="EVENTS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TWB-Sh-j4n">
-                                        <rect key="frame" x="166.33333333333334" y="308.66666666666669" width="81.333333333333343" height="29"/>
+                                        <rect key="frame" x="163.66666666666666" y="308.66666666666669" width="87" height="29"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="29" id="guL-0K-jjs"/>
                                         </constraints>
@@ -602,7 +602,7 @@
         <!--Profile View Controller-->
         <scene sceneID="mvM-0o-npt">
             <objects>
-                <viewController storyboardIdentifier="profileViewId" id="HIE-Vt-zzr" customClass="ProfileViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="profileViewId" modalPresentationStyle="fullScreen" id="HIE-Vt-zzr" customClass="ProfileViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="iHV-Ob-3Go"/>
                         <viewControllerLayoutGuide type="bottom" id="buV-gn-oTI"/>
@@ -1000,7 +1000,7 @@
         <!--Heritage Detail View Controller-->
         <scene sceneID="jqu-L7-ci3">
             <objects>
-                <viewController storyboardIdentifier="heritageDetailViewId" id="Z1K-CA-bjg" customClass="HeritageDetailViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="heritageDetailViewId" modalPresentationStyle="fullScreen" id="Z1K-CA-bjg" customClass="HeritageDetailViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="3Pl-U3-7fX"/>
                         <viewControllerLayoutGuide type="bottom" id="Hic-WS-CN3"/>
@@ -1047,7 +1047,7 @@
         <!--Museums View Controller-->
         <scene sceneID="clW-ye-bpT">
             <objects>
-                <viewController storyboardIdentifier="museumViewId" id="3LW-jw-kpW" customClass="MuseumsViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="museumViewId" modalPresentationStyle="fullScreen" id="3LW-jw-kpW" customClass="MuseumsViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="tvc-bq-9eS"/>
                         <viewControllerLayoutGuide type="bottom" id="iVl-4T-YLN"/>
@@ -1256,7 +1256,7 @@
         <!--Mia Tour Detail View Controller-->
         <scene sceneID="oX5-rD-Oiq">
             <objects>
-                <viewController storyboardIdentifier="miaDetailId" id="g9r-ut-SZZ" customClass="MiaTourDetailViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="miaDetailId" modalPresentationStyle="fullScreen" id="g9r-ut-SZZ" customClass="MiaTourDetailViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="wtP-9I-Gt0"/>
                         <viewControllerLayoutGuide type="bottom" id="Cc5-NE-r8L"/>
@@ -1400,7 +1400,7 @@
         <!--Notifications View Controller-->
         <scene sceneID="cOj-qU-XgT">
             <objects>
-                <viewController storyboardIdentifier="notificationId" id="izA-Uf-h7O" customClass="NotificationsViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="notificationId" modalPresentationStyle="fullScreen" id="izA-Uf-h7O" customClass="NotificationsViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="uDa-oe-nHp"/>
                         <viewControllerLayoutGuide type="bottom" id="GpI-tm-XbS"/>
@@ -1534,7 +1534,7 @@
         <!--Education View Controller-->
         <scene sceneID="8SX-Oe-ZBT">
             <objects>
-                <viewController storyboardIdentifier="educationPageID" id="tBI-Sz-bX0" customClass="EducationViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="educationPageID" modalPresentationStyle="fullScreen" id="tBI-Sz-bX0" customClass="EducationViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Wg3-ef-aMj"/>
                         <viewControllerLayoutGuide type="bottom" id="jUx-9g-H3F"/>
@@ -1561,7 +1561,7 @@
                                 <rect key="frame" x="0.0" y="85" width="414" height="651"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TU4-wX-Kh5">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="472"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="473"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="KNOWLEDGE IN ACTION" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OjR-xm-nbv">
                                                 <rect key="frame" x="105.00000000000001" y="25" width="204.33333333333337" height="20"/>
@@ -1615,13 +1615,13 @@
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="All of our education parameters provide interactive " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SHx-NL-C4b" customClass="TTTAttributedLabel">
-                                                <rect key="frame" x="18.666666666666657" y="355" width="376.66666666666674" height="17"/>
+                                                <rect key="frame" x="20" y="355" width="374" height="18"/>
                                                 <fontDescription key="fontDescription" name="DINNextLTPro-Regular" family="DIN Next LT Pro" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5DT-BC-Fnr">
-                                                <rect key="frame" x="25" y="402" width="364" height="50"/>
+                                                <rect key="frame" x="25" y="403" width="364" height="50"/>
                                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="IQe-k4-Y99"/>
@@ -1720,7 +1720,7 @@
         <!--Filter View Controller-->
         <scene sceneID="I3K-GX-dOS">
             <objects>
-                <viewController storyboardIdentifier="filterVcId" id="cN3-T0-NzE" customClass="FilterViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="filterVcId" definesPresentationContext="YES" modalPresentationStyle="fullScreen" id="cN3-T0-NzE" customClass="FilterViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="4e3-HV-9Ko"/>
                         <viewControllerLayoutGuide type="bottom" id="DdR-Z2-dDd"/>
@@ -2111,7 +2111,7 @@
         <!--Settings View Controller-->
         <scene sceneID="L86-BL-38A">
             <objects>
-                <viewController storyboardIdentifier="settingsId" id="GHA-qU-agt" customClass="SettingsViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="settingsId" definesPresentationContext="YES" modalPresentationStyle="fullScreen" id="GHA-qU-agt" customClass="SettingsViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="hUh-aB-hmC"/>
                         <viewControllerLayoutGuide type="bottom" id="QG6-1a-QnA"/>
@@ -2427,7 +2427,7 @@
         <!--Object Detail View Controller-->
         <scene sceneID="SFw-ra-2bw">
             <objects>
-                <viewController storyboardIdentifier="objectDetailId" id="Ndq-b2-Hyg" customClass="ObjectDetailViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="objectDetailId" definesPresentationContext="YES" modalPresentationStyle="fullScreen" id="Ndq-b2-Hyg" customClass="ObjectDetailViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="uxE-Uf-kmr"/>
                         <viewControllerLayoutGuide type="bottom" id="dLZ-He-45N"/>
@@ -2674,7 +2674,7 @@
         <!--Preview Container View Controller-->
         <scene sceneID="tK5-nv-CIS">
             <objects>
-                <viewController storyboardIdentifier="previewContainerId" id="qiY-PN-2Di" customClass="PreviewContainerViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="previewContainerId" modalPresentationStyle="fullScreen" id="qiY-PN-2Di" customClass="PreviewContainerViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="vdw-Rs-ugI"/>
                         <viewControllerLayoutGuide type="bottom" id="hMA-ei-WK4"/>
@@ -2976,7 +2976,7 @@
         <!--Page View Controller-->
         <scene sceneID="jtS-EM-T13">
             <objects>
-                <pageViewController storyboardIdentifier="PageViewControllerId" autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="6UE-9w-WOB" sceneMemberID="viewController"/>
+                <pageViewController storyboardIdentifier="PageViewControllerId" autoresizesArchivedViewToFullSize="NO" modalPresentationStyle="fullScreen" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="6UE-9w-WOB" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SLe-3K-pop" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="11999" y="90"/>
@@ -2984,7 +2984,7 @@
         <!--Preview Content View Controller-->
         <scene sceneID="SHK-5C-z0b">
             <objects>
-                <viewController storyboardIdentifier="PageContentViewControllerId" id="VIq-BH-r1z" customClass="PreviewContentViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PageContentViewControllerId" definesPresentationContext="YES" modalPresentationStyle="fullScreen" id="VIq-BH-r1z" customClass="PreviewContentViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="x4B-6c-yi5"/>
                         <viewControllerLayoutGuide type="bottom" id="Qhw-hG-CDv"/>
@@ -3263,7 +3263,7 @@
         <!--Delegate-->
         <scene sceneID="L3u-FF-tu4">
             <objects>
-                <viewController storyboardIdentifier="floorMapId" id="avg-al-ab5" customClass="FloorMapViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="floorMapId" modalPresentationStyle="fullScreen" id="avg-al-ab5" customClass="FloorMapViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="V3s-Ss-ezC"/>
                         <viewControllerLayoutGuide type="bottom" id="yeH-gg-PZs"/>
@@ -3539,7 +3539,7 @@
         <!--Artifact Number Pad View Controller-->
         <scene sceneID="tk9-Su-Ofh">
             <objects>
-                <viewController storyboardIdentifier="artifactNumberPadViewId" id="mOw-nu-xq9" customClass="ArtifactNumberPadViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="artifactNumberPadViewId" modalPresentationStyle="fullScreen" id="mOw-nu-xq9" customClass="ArtifactNumberPadViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="NvW-vU-8q6"/>
                         <viewControllerLayoutGuide type="bottom" id="jrJ-Vk-9Vz"/>
@@ -3733,7 +3733,7 @@
         <!--Culture Pass View Controller-->
         <scene sceneID="lRj-Ah-ZMa">
             <objects>
-                <viewController storyboardIdentifier="culturePassViewId" id="csd-tH-WoS" customClass="CulturePassViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="culturePassViewId" modalPresentationStyle="fullScreen" id="csd-tH-WoS" customClass="CulturePassViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ezd-Gt-4cc"/>
                         <viewControllerLayoutGuide type="bottom" id="N6B-gG-Zf7"/>
@@ -3946,7 +3946,7 @@
         <!--Registration View Controller-->
         <scene sceneID="eE7-fn-rgj">
             <objects>
-                <viewController storyboardIdentifier="registerViewId" id="ztI-Iu-V3w" customClass="RegistrationViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="registerViewId" modalPresentationStyle="fullScreen" id="ztI-Iu-V3w" customClass="RegistrationViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="6vh-TV-Jjn"/>
                         <viewControllerLayoutGuide type="bottom" id="UVi-Kh-TNX"/>
@@ -4476,7 +4476,7 @@
         <!--Culture Pass Card View Controller-->
         <scene sceneID="VEa-mH-wLr">
             <objects>
-                <viewController storyboardIdentifier="cardViewId" id="CTn-E3-lTz" customClass="CulturePassCardViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="cardViewId" definesPresentationContext="YES" modalPresentationStyle="fullScreen" id="CTn-E3-lTz" customClass="CulturePassCardViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="pc8-uU-eA9"/>
                         <viewControllerLayoutGuide type="bottom" id="uJr-br-Vbp"/>
@@ -4574,7 +4574,7 @@
         <!--Culture Pass Card Back View Controller-->
         <scene sceneID="RLE-ad-SMg">
             <objects>
-                <viewController storyboardIdentifier="cardBackId" id="9ZH-jq-snm" customClass="CulturePassCardBackViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="cardBackId" modalPresentationStyle="fullScreen" id="9ZH-jq-snm" customClass="CulturePassCardBackViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="63y-Ai-rOs"/>
                         <viewControllerLayoutGuide type="bottom" id="rCQ-G8-UI2"/>
@@ -4657,7 +4657,7 @@
         <!--Tour And Panel List View Controller-->
         <scene sceneID="n61-WR-l12">
             <objects>
-                <viewController storyboardIdentifier="tourAndPanelId" id="Ege-cg-Fjk" customClass="TourAndPanelListViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="tourAndPanelId" modalPresentationStyle="fullScreen" id="Ege-cg-Fjk" customClass="TourAndPanelListViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="nHh-5F-4N4"/>
                         <viewControllerLayoutGuide type="bottom" id="kOT-ak-yQM"/>
@@ -4713,7 +4713,7 @@
         <!--Panel Discussion Detail View Controller-->
         <scene sceneID="7Jw-tg-qca">
             <objects>
-                <viewController storyboardIdentifier="paneldetailViewId" id="3V7-zS-GQO" customClass="PanelDiscussionDetailViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="paneldetailViewId" modalPresentationStyle="fullScreen" id="3V7-zS-GQO" customClass="PanelDiscussionDetailViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="w9J-HA-nKE"/>
                         <viewControllerLayoutGuide type="bottom" id="lwx-bu-qzB"/>
@@ -4775,7 +4775,7 @@
         <!--Common List View Controller-->
         <scene sceneID="7rW-gk-kcf">
             <objects>
-                <viewController storyboardIdentifier="exhibitionViewId" id="QCk-26-GoW" customClass="CommonListViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="exhibitionViewId" modalPresentationStyle="fullScreen" id="QCk-26-GoW" customClass="CommonListViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="OkJ-jS-gUC"/>
                         <viewControllerLayoutGuide type="bottom" id="exE-cq-qnE"/>
