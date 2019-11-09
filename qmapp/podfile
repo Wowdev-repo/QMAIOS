@@ -18,5 +18,7 @@ target 'QatarMuseums' do
  pod 'IQKeyboardManagerSwift'
  pod 'TTTAttributedLabel'
  pod 'ReachabilitySwift'
- 
+ pod 'CocoaLumberjack/Swift'
+ pod 'SSZipArchive'
+ pod 'Firebase/Messaging'
 end

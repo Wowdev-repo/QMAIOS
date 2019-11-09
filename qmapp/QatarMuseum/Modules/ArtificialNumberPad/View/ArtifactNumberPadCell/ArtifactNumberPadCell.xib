@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="DINNextLTPro-Regular.ttf">
+            <string>DINNextLTPro-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="artifactNumberPadCellId" id="gTV-IL-0wX" customClass="CPArtifactNumberPadCell" customModule="QatarMuseums" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="92" height="97"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="92" height="97"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kKI-ka-AJh">
+                        <rect key="frame" x="5" y="5" width="82" height="87"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aAc-sB-aM5">
+                                <rect key="frame" x="41" y="43.5" width="0.0" height="0.0"/>
+                                <fontDescription key="fontDescription" name="DINNextLTPro-Regular" family="DIN Next LT Pro" pointSize="25"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="N7m-0d-xcb">
+                                <rect key="frame" x="26.5" y="28.5" width="29" height="30"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="N7m-0d-xcb" firstAttribute="centerX" secondItem="kKI-ka-AJh" secondAttribute="centerX" id="0a9-XD-dfN"/>
+                            <constraint firstItem="N7m-0d-xcb" firstAttribute="centerY" secondItem="kKI-ka-AJh" secondAttribute="centerY" id="KEn-eA-8I2"/>
+                            <constraint firstItem="aAc-sB-aM5" firstAttribute="centerY" secondItem="kKI-ka-AJh" secondAttribute="centerY" id="Kor-fO-pE9"/>
+                            <constraint firstItem="aAc-sB-aM5" firstAttribute="centerX" secondItem="kKI-ka-AJh" secondAttribute="centerX" id="TQA-6b-EOg"/>
+                            <constraint firstItem="N7m-0d-xcb" firstAttribute="height" secondItem="kKI-ka-AJh" secondAttribute="height" multiplier="0.35" id="Ykf-Kv-HKl"/>
+                            <constraint firstItem="N7m-0d-xcb" firstAttribute="width" secondItem="kKI-ka-AJh" secondAttribute="width" multiplier="0.35" id="yZc-eF-2rP"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="kKI-ka-AJh" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="5" id="XE3-xV-tDe"/>
+                <constraint firstItem="kKI-ka-AJh" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="5" id="ZMH-aT-8So"/>
+                <constraint firstAttribute="bottom" secondItem="kKI-ka-AJh" secondAttribute="bottom" constant="5" id="lcP-XU-H3e"/>
+                <constraint firstAttribute="trailing" secondItem="kKI-ka-AJh" secondAttribute="trailing" constant="5" id="tFS-bf-854"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <size key="customSize" width="92" height="97"/>
+            <connections>
+                <outlet property="imageView" destination="N7m-0d-xcb" id="ZLC-Ra-HV5"/>
+                <outlet property="innerView" destination="kKI-ka-AJh" id="ym8-DF-aA8"/>
+                <outlet property="numLabel" destination="aAc-sB-aM5" id="Sgv-jZ-Wpg"/>
+            </connections>
+            <point key="canvasLocation" x="61" y="175.5"/>
+        </collectionViewCell>
+    </objects>
+</document>

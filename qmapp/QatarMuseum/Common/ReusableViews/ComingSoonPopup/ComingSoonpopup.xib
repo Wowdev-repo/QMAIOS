@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="DINNextLTPro-Bold.otf">
+            <string>DINNextLTPro-Bold</string>
+        </array>
+        <array key="DINNextLTPro-Regular.ttf">
+            <string>DINNextLTPro-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CPComingSoonPopUp" customModule="QatarMuseums" customModuleProvider="target">
+            <connections>
+                <outlet property="closeButton" destination="YSf-E0-3gD" id="HvD-jB-xIk"/>
+                <outlet property="comingSoonPopup" destination="iN0-l3-epB" id="j6e-n7-zCh"/>
+                <outlet property="messageLabel" destination="b9Q-Dq-xUw" id="qDe-eT-Rpp"/>
+                <outlet property="popupInnerView" destination="v1z-Zu-cHZ" id="hXL-7p-dRF"/>
+                <outlet property="stayTunedLabel" destination="z5L-O5-wM8" id="2DX-sX-ddm"/>
+                <outlet property="titleLabel" destination="l52-3C-5Dw" id="XqC-op-OXk"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v1z-Zu-cHZ">
+                    <rect key="frame" x="52.5" y="268.5" width="270" height="130"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b9Q-Dq-xUw">
+                            <rect key="frame" x="5" y="32" width="260" height="0.0"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YSf-E0-3gD">
+                            <rect key="frame" x="20" y="60" width="230" height="40"/>
+                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="40" id="4N4-88-obw"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="DINNextLTPro-Bold" family="DIN Next LT Pro" pointSize="18"/>
+                            <state key="normal">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                    <integer key="value" value="20"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="closeButtonTouchDown:" destination="-1" eventType="touchDown" id="qbt-oh-itw"/>
+                                <action selector="didTapClose:" destination="-1" eventType="touchUpInside" id="arS-po-EiG"/>
+                            </connections>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z5L-O5-wM8">
+                            <rect key="frame" x="135" y="43" width="0.0" height="0.0"/>
+                            <fontDescription key="fontDescription" name="DINNextLTPro-Regular" family="DIN Next LT Pro" pointSize="16"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l52-3C-5Dw">
+                            <rect key="frame" x="5" y="15" width="260" height="0.0"/>
+                            <fontDescription key="fontDescription" name="DINNextLTPro-Bold" family="DIN Next LT Pro" pointSize="23"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="b9Q-Dq-xUw" firstAttribute="top" secondItem="l52-3C-5Dw" secondAttribute="bottom" constant="17" id="1dB-mL-axH"/>
+                        <constraint firstAttribute="bottom" secondItem="YSf-E0-3gD" secondAttribute="bottom" constant="30" id="LmS-Sp-EsV"/>
+                        <constraint firstItem="z5L-O5-wM8" firstAttribute="centerX" secondItem="v1z-Zu-cHZ" secondAttribute="centerX" id="OBv-qN-8Ca"/>
+                        <constraint firstAttribute="trailing" secondItem="YSf-E0-3gD" secondAttribute="trailing" constant="20" id="Pm3-P0-kTl"/>
+                        <constraint firstAttribute="trailing" secondItem="b9Q-Dq-xUw" secondAttribute="trailing" constant="5" id="Pth-X1-uhl"/>
+                        <constraint firstItem="z5L-O5-wM8" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="v1z-Zu-cHZ" secondAttribute="leading" constant="3" id="SFN-7X-d9E"/>
+                        <constraint firstItem="l52-3C-5Dw" firstAttribute="leading" secondItem="v1z-Zu-cHZ" secondAttribute="leading" constant="5" id="Vwa-tv-uF8"/>
+                        <constraint firstItem="z5L-O5-wM8" firstAttribute="top" secondItem="b9Q-Dq-xUw" secondAttribute="bottom" constant="11" id="XZm-bh-u1w"/>
+                        <constraint firstItem="YSf-E0-3gD" firstAttribute="leading" secondItem="v1z-Zu-cHZ" secondAttribute="leading" constant="20" id="XsP-i6-if3"/>
+                        <constraint firstAttribute="trailing" secondItem="l52-3C-5Dw" secondAttribute="trailing" constant="5" id="buM-0E-z0u"/>
+                        <constraint firstItem="l52-3C-5Dw" firstAttribute="top" secondItem="v1z-Zu-cHZ" secondAttribute="top" constant="15" id="e5M-nC-mp2"/>
+                        <constraint firstItem="b9Q-Dq-xUw" firstAttribute="leading" secondItem="v1z-Zu-cHZ" secondAttribute="leading" constant="5" id="e6z-zo-VBP"/>
+                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="z5L-O5-wM8" secondAttribute="trailing" constant="3" id="hJM-FU-ZMV"/>
+                        <constraint firstItem="YSf-E0-3gD" firstAttribute="top" secondItem="z5L-O5-wM8" secondAttribute="bottom" constant="17" id="l9O-zA-bg2"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="v1z-Zu-cHZ" secondAttribute="bottom" constant="50" id="ADH-Tq-0nw"/>
+                <constraint firstItem="v1z-Zu-cHZ" firstAttribute="top" relation="greaterThanOrEqual" secondItem="iN0-l3-epB" secondAttribute="top" constant="50" id="DUK-e1-sGT"/>
+                <constraint firstItem="v1z-Zu-cHZ" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="0.72" id="eyI-Lx-WKX"/>
+                <constraint firstItem="v1z-Zu-cHZ" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="gHU-8J-obO"/>
+                <constraint firstItem="v1z-Zu-cHZ" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="jp3-gb-Nkt"/>
+            </constraints>
+            <point key="canvasLocation" x="71.5" y="58.5"/>
+        </view>
+    </objects>
+</document>

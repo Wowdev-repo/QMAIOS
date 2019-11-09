@@ -2,16 +2,17 @@
 //  ParksList.swift
 //  QatarMuseums
 //
-//  Created by Exalture on 09/08/18.
-//  Copyright © 2018 Exalture. All rights reserved.
+//  Created by Wakralab Software Labs on 09/08/18.
+//  Copyright © 2018 Qatar Museums. All rights reserved.
 //
 
 import Foundation
-struct ParksList: ResponseObjectSerializable, ResponseCollectionSerializable {
+struct CPParksList: ResponseObjectSerializable, ResponseCollectionSerializable {
     var title: String? = nil
     var description: String? = nil
     var sortId: String? = nil
     var image: String? = nil
+    var language: String?
     
     public init?(response: HTTPURLResponse, representation: AnyObject) {
         if let representation = representation as? [String: Any] {
@@ -19,22 +20,25 @@ struct ParksList: ResponseObjectSerializable, ResponseCollectionSerializable {
             self.description = representation["Description"] as? String
             self.sortId = representation["sort_id"] as? String
             self.image = representation["image"] as? String
+            self.language = representation["language"] as? String
         }
     }
-    init(title:String?, description:String?, sortId: String?, image: String?) {
+    
+    init(title:String?, description:String?, sortId: String?, image: String?, language: String?) {
         self.title = title
         self.description = description
         self.sortId = sortId
         self.image = image
+        self.language = language
     }
 }
 
 struct ParksLists: ResponseObjectSerializable {
-    var parkList: [ParksList]? = []
+    var parkList: [CPParksList]? = []
     
     public init?(response: HTTPURLResponse, representation: AnyObject) {
         if let data = representation as? [[String: Any]] {
-            self.parkList = ParksList.collection(response: response, representation: data as AnyObject)
+            self.parkList = CPParksList.collection(response: response, representation: data as AnyObject)
         }
     }
 }
@@ -49,6 +53,7 @@ struct NMoQParksList: ResponseObjectSerializable, ResponseCollectionSerializable
     var longitude: String? = nil
     var latitude: String? = nil
     var locationTitle: String? = nil
+    var language: String?
     //var nmoqParks: [String]? = []
     
     public init?(response: HTTPURLResponse, representation: AnyObject) {
@@ -64,20 +69,23 @@ struct NMoQParksList: ResponseObjectSerializable, ResponseCollectionSerializable
             self.longitude = representation["longtitude_nmoq"] as? String
             self.latitude = representation["latitude_nmoq"] as? String
             self.locationTitle = representation["location_title"] as? String
+            self.language = representation["language"] as? String
             //self.nmoqParks = representation["nmoq_parks"] as? [String]
         }
     }
-    init(title:String?, parkTitle:String?,mainDescription:String?, parkDescription: String?, hoursTitle: String?,hoursDesc:String?, nid:String?, longitude: String?, latitude: String?, locationTitle: String?) {
-        self.title = title
-        self.parkTitle = parkTitle
-        self.mainDescription = mainDescription
-        self.parkDescription = parkDescription
-        self.hoursTitle = hoursTitle
-        self.hoursDesc = hoursDesc
-        self.nid = nid
-        self.longitude = longitude
-        self.latitude = latitude
-        self.locationTitle = locationTitle
+    
+    init(entity: NMoQParkListEntity) {
+        self.title = entity.title
+        self.parkTitle = entity.parkTitle
+        self.mainDescription = entity.mainDescription
+        self.parkDescription = entity.parkDescription
+        self.hoursTitle = entity.hoursTitle
+        self.hoursDesc = entity.hoursDesc
+        self.nid = entity.nid
+        self.longitude = entity.longitude
+        self.latitude = entity.latitude
+        self.locationTitle = entity.locationTitle
+        self.language = entity.language
     }
 }
 struct NmoqParksLists: ResponseObjectSerializable {
@@ -95,6 +103,7 @@ struct NMoQPark: ResponseObjectSerializable, ResponseCollectionSerializable {
     var nid: String? = nil
     var sortId: String? = nil
     var title: String? = nil
+    var language: String?
 
     public init?(response: HTTPURLResponse, representation: AnyObject) {
         if let representation = representation as? [String: Any] {
@@ -102,14 +111,34 @@ struct NMoQPark: ResponseObjectSerializable, ResponseCollectionSerializable {
             self.nid = representation["Nid"] as? String
             self.sortId = representation["sort_id"] as? String
             self.title = representation["title"] as? String
+            self.language = representation["language"] as? String
         }
     }
     
-    init (title:String?, sortId: String?,nid: String?, images: [String]?) {
+    init (title:String?, sortId: String?,nid: String?, images: [String]?, language: String?) {
         self.title = title
         self.images = images
         self.sortId = sortId
         self.nid = nid
+        self.language = language
+    }
+    
+    init(entity: NMoQParksEntity) {
+        
+        var imagesArray : [String] = []
+        if let imagesInfoArray = (entity.parkImgRelation?.allObjects) as? [ImageEntity] {
+            for info in imagesInfoArray {
+                if let image = info.image {
+                    imagesArray.append(image)
+                }
+            }
+        }
+        
+        self.title = entity.title
+        self.images = imagesArray
+        self.sortId = entity.sortId
+        self.nid = entity.nid
+        self.language = entity.language
     }
 }
 

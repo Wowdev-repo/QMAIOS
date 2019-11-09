@@ -1,0 +1,52 @@
+PODS:
+  - ActionSheetPicker-3.0 (2.3.0)
+  - Alamofire (4.9.0)
+  - FSPagerView (0.8.3)
+  - JGProgressHUD (2.1)
+  - KeychainSwift (11.0.0)
+  - Kingfisher (4.9.0)
+  - QRCode (2.0)
+  - ReachabilitySwift (5.0.0)
+  - SwiftyJSON (5.0.0)
+  - Toast-Swift (4.0.1)
+
+DEPENDENCIES:
+  - ActionSheetPicker-3.0 (~> 2.3.0)
+  - Alamofire (~> 4.5)
+  - FSPagerView
+  - JGProgressHUD
+  - KeychainSwift (~> 11.0)
+  - Kingfisher (<= 4.9.0)
+  - QRCode
+  - ReachabilitySwift
+  - SwiftyJSON
+  - Toast-Swift (~> 4.0.0)
+
+SPEC REPOS:
+  trunk:
+    - ActionSheetPicker-3.0
+    - Alamofire
+    - FSPagerView
+    - JGProgressHUD
+    - KeychainSwift
+    - Kingfisher
+    - QRCode
+    - ReachabilitySwift
+    - SwiftyJSON
+    - Toast-Swift
+
+SPEC CHECKSUMS:
+  ActionSheetPicker-3.0: eef157d75e151f255c5333d26656c7fbfe905a51
+  Alamofire: afc3e7c6db61476cb45cdd23fed06bad03bbc321
+  FSPagerView: 670405b2f18e2a87fa37f20b00de783e562c25a8
+  JGProgressHUD: aa403e9a5b45cae98903c4600cccdd98c0c3ec90
+  KeychainSwift: bea6bd9f98af7b8d7ca4aa79fe105c00fab532db
+  Kingfisher: 64539b51826b778206daa6ed815d12653caa69dd
+  QRCode: f98a1886c8f37523704a7512a4c0cd45b34c18a4
+  ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
+  SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
+  Toast-Swift: e42a638589a2f95036b4bb7626cfbdde7daf0393
+
+PODFILE CHECKSUM: a008aff78d1d896ec15efc8d7dde2e13973f2862
+
+COCOAPODS: 1.8.4

@@ -2,13 +2,14 @@
 //  CollectionDetailCell.swift
 //  QatarMuseums
 //
-//  Created by Exalture on 18/07/18.
-//  Copyright © 2018 Exalture. All rights reserved.
+//  Created by Wakralab Software Labs on 18/07/18.
+//  Copyright © 2018 Qatar Museums. All rights reserved.
 //
 
 import UIKit
 
-class CollectionDetailCell: UITableViewCell {
+
+class CPCollectionDetailCell: UITableViewCell {
     @IBOutlet weak var firstTitle: UILabel!
     @IBOutlet weak var firstDescription: UITextView!
     @IBOutlet weak var secondTitle: UITextView!
@@ -44,6 +45,7 @@ class CollectionDetailCell: UITableViewCell {
     }
     
     func setCollectionCellValues(collectionValues : CollectionDetail,currentRow: Int) {
+        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         firstTitle.font = UIFont.settingsUpdateLabelFont
         firstDescription.font = UIFont.collectionFirstDescriptionFont
         secondTitle.font = UIFont.closeButtonFont
@@ -95,6 +97,7 @@ class CollectionDetailCell: UITableViewCell {
         
     }
     func setParkPlayGroundValues(parkPlaygroundDetails: NMoQParkDetail?) {
+        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         firstTitle.font = UIFont.settingsUpdateLabelFont
         firstDescription.font = UIFont.collectionFirstDescriptionFont
         secondTitle.font = UIFont.heritageTitleFont
@@ -142,6 +145,7 @@ class CollectionDetailCell: UITableViewCell {
         // Configure the view for the selected state
     }
     @IBAction func didTapFavourite(_ sender: UIButton) {
+        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         UIButton.animate(withDuration: 0.3,
                          animations: {
                             self.favouriteButton.transform = CGAffineTransform(scaleX: 0.7, y: 0.7)
@@ -157,6 +161,7 @@ class CollectionDetailCell: UITableViewCell {
     }
     
     @IBAction func didTapShare(_ sender: UIButton) {
+        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         UIButton.animate(withDuration: 0.3,
                          animations: {
                             self.shareButton.transform = CGAffineTransform(scaleX: 0.7, y: 0.7)

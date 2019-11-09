@@ -2,15 +2,16 @@
 //  ObjectDetailTableViewCell.swift
 //  QatarMuseums
 //
-//  Created by Developer on 13/08/18.
-//  Copyright © 2018 Exalture. All rights reserved.
+//  Created by Wakralab Software Labs on 13/08/18.
+//  Copyright © 2018 Qatar Museums. All rights reserved.
 //
 
 import AVFoundation
 import AVKit
 import UIKit
 
-class ObjectDetailTableViewCell: UITableViewCell,UITextViewDelegate,MapDetailProtocol {
+
+class CPObjectDetailTableViewCell: UITableViewCell,UITextViewDelegate,MapDetailProtocol {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var detailSecondLabel: UILabel!
@@ -53,6 +54,7 @@ class ObjectDetailTableViewCell: UITableViewCell,UITextViewDelegate,MapDetailPro
     }
     
     func setupCellUI() {
+        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         titleLabel.textAlignment = .left
         descriptionLabel.textAlignment = .left
         detailSecondLabel.textAlignment = .left
@@ -64,14 +66,15 @@ class ObjectDetailTableViewCell: UITableViewCell,UITextViewDelegate,MapDetailPro
         detailSecondLabel.font = UIFont.englishTitleFont
         imageDetailLabel.font = UIFont.sideMenuLabelFont
         isPaused = true
-        if ((LocalizationLanguage.currentAppleLanguage()) != ENG_LANGUAGE) {
+        if ((CPLocalizationLanguage.currentAppleLanguage()) != ENG_LANGUAGE) {
             self.playerSlider.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
         }
 
     }
     
-    func setObjectDetail(objectDetail:TourGuideFloorMap) {
-        if ((LocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
+    func setObjectDetail(objectDetail:CPTourGuideFloorMap) {
+        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
+        if ((CPLocalizationLanguage.currentAppleLanguage()) == ENG_LANGUAGE) {
             titleLabel.textAlignment = .left
             accessNumberLabel.textAlignment = .left
             descriptionLabel.textAlignment = .left
@@ -109,7 +112,8 @@ class ObjectDetailTableViewCell: UITableViewCell,UITextViewDelegate,MapDetailPro
         
     }
     
-    func setObjectHistoryDetail(historyDetail:TourGuideFloorMap) {
+    func setObjectHistoryDetail(historyDetail:CPTourGuideFloorMap) {
+        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         playButton.isHidden = true
         playerSlider.isHidden = true
         if ((historyDetail.objectHistory != nil) && (historyDetail.objectHistory != "")){
@@ -128,6 +132,7 @@ class ObjectDetailTableViewCell: UITableViewCell,UITextViewDelegate,MapDetailPro
     }
     
     @IBAction func didTapFavouriteButton(_ sender: UIButton) {
+        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         UIButton.animate(withDuration: 0.3,
                          animations: {
             self.favoriteButton.transform = CGAffineTransform(scaleX: 0.7, y: 0.7)
@@ -141,6 +146,7 @@ class ObjectDetailTableViewCell: UITableViewCell,UITextViewDelegate,MapDetailPro
     }
     
     @IBAction func didTapShareButton(_ sender: UIButton) {
+        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         UIButton.animate(withDuration: 0.3,
                          animations: {
             self.shareButton.transform = CGAffineTransform(scaleX: 0.7, y: 0.7)
@@ -154,15 +160,31 @@ class ObjectDetailTableViewCell: UITableViewCell,UITextViewDelegate,MapDetailPro
     }
     //MARK: Audio SetUp
     func play(url:URL) {
-        
+        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         self.avPlayer = AVPlayer(playerItem: AVPlayerItem(url: url))
         if #available(iOS 10.0, *) {
             self.avPlayer.automaticallyWaitsToMinimizeStalling = false
         }
         avPlayer!.volume = 1.0
         avPlayer.play()
+        
+        //Setup background audio
+        do {
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+            print("AVAudioSession Category Playback OK")
+            do {
+                try AVAudioSession.sharedInstance().setActive(true)
+                print("AVAudioSession is Active")
+            } catch let error as NSError {
+                print(error.localizedDescription)
+            }
+        } catch let error as NSError {
+            print(error.localizedDescription)
+        }
+        
     }
     @IBAction func playButtonClicked(_ sender: UIButton) {
+        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         self.playBtnTapAction?()
 //        if (firstLoad == true) {
 //            self.playList = "http://www.qm.org.qa/sites/default/files/floors.mp3"
@@ -179,6 +201,7 @@ class ObjectDetailTableViewCell: UITableViewCell,UITextViewDelegate,MapDetailPro
     }
     
     func togglePlayPause() {
+        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         if #available(iOS 10.0, *) {
             if avPlayer.timeControlStatus == .playing  {
                     playButton.setImage(UIImage(named:"play_blackX1"), for: .normal)
@@ -203,6 +226,7 @@ class ObjectDetailTableViewCell: UITableViewCell,UITextViewDelegate,MapDetailPro
         }
     }
     @IBAction func sliderValueChange(_ sender: UISlider) {
+        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
 //        if(firstLoad) {
 //            self.playList = "http://www.qm.org.qa/sites/default/files/floors.mp3"
 //            self.avPlayer = AVPlayer(playerItem: AVPlayerItem(url: URL(string: playList)!))
@@ -235,7 +259,7 @@ class ObjectDetailTableViewCell: UITableViewCell,UITextViewDelegate,MapDetailPro
     //    }
     func setupTimer(){
         NotificationCenter.default.addObserver(self, selector: #selector(self.didPlayToEnd), name: .AVPlayerItemDidPlayToEndTime, object: nil)
-        timer = Timer(timeInterval: 0.001, target: self, selector: #selector(ObjectDetailTableViewCell.tick), userInfo: nil, repeats: true)
+        timer = Timer(timeInterval: 0.001, target: self, selector: #selector(CPObjectDetailTableViewCell.tick), userInfo: nil, repeats: true)
         RunLoop.current.add(timer!, forMode: RunLoopMode.commonModes)
     }
     
@@ -244,6 +268,7 @@ class ObjectDetailTableViewCell: UITableViewCell,UITextViewDelegate,MapDetailPro
     }
     
     @objc func tick(){
+        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         if((avPlayer.currentTime().seconds == 0.0) && (isPaused == false)){
             seekLoadingLabel.alpha = 1
         }else{
@@ -280,6 +305,7 @@ class ObjectDetailTableViewCell: UITableViewCell,UITextViewDelegate,MapDetailPro
         }
     }
     func formatTimeFromSeconds(totalSeconds: Int32) -> String {
+        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         let seconds: Int32 = totalSeconds%60
         let minutes: Int32 = (totalSeconds/60)%60
         let hours: Int32 = totalSeconds/3600
@@ -287,17 +313,17 @@ class ObjectDetailTableViewCell: UITableViewCell,UITextViewDelegate,MapDetailPro
     }
     
     @IBAction func backButtonClicked(_ sender: Any) {
+        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         //self.dismiss(animated: true) {
         closeAudio()
        // }
     }
     
     func closeAudio() {
+        DDLogInfo(NSStringFromClass(type(of: self)) + "Function: \(#function)")
         self.avPlayer = nil
         self.timer?.invalidate()
     }
     func dismissOvelay() {
     }
-
-    
 }

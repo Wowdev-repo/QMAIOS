@@ -53,7 +53,7 @@ class QMTLTabViewController: UITabBarController, TopTabBarViewDelegate {
         // Do any additional setup after loading the view.
         self.tabBar.isHidden = true
         if #available(iOS 11.0, *) {
-            self.additionalSafeAreaInsets.top = 65
+            self.additionalSafeAreaInsets.top = 40//65
         }
         
         QMTLSingleton.sharedInstance.initialViewControllerToCall = UserDefaults.standard.string(forKey: QMTLConstants.viewController.initialViewControllerKey) ?? ""

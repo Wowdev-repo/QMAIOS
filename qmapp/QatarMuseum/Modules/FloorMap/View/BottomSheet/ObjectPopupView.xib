@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="DINNextLTPro-Bold.otf">
+            <string>DINNextLTPro-Bold</string>
+        </array>
+        <array key="DINNextLTPro-Regular.ttf">
+            <string>DINNextLTPro-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="objectPopupId" rowHeight="230" id="gnz-kD-q07" customClass="CPObjectPopupTableViewCell" customModule="QatarMuseums" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="345" height="230"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gnz-kD-q07" id="hAt-YD-fYg">
+                <rect key="frame" x="0.0" y="0.0" width="345" height="229.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Px-ui-lf0">
+                        <rect key="frame" x="0.0" y="0.0" width="345" height="229.5"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Albarello" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yl5-mB-uaq">
+                                <rect key="frame" x="20" y="17" width="310" height="27"/>
+                                <fontDescription key="fontDescription" name="DINNextLTPro-Bold" family="DIN Next LT Pro" pointSize="23"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mMZ-D1-NNh">
+                                <rect key="frame" x="10" y="50" width="70" height="100"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="default_imageX2" translatesAutoresizingMaskIntoConstraints="NO" id="xRI-LK-efb">
+                                        <rect key="frame" x="0.0" y="0.0" width="65" height="100"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="xRI-LK-efb" firstAttribute="top" secondItem="mMZ-D1-NNh" secondAttribute="top" id="5mw-DP-zBG"/>
+                                    <constraint firstAttribute="height" constant="100" id="8yr-bS-XP8"/>
+                                    <constraint firstAttribute="bottom" secondItem="xRI-LK-efb" secondAttribute="bottom" id="DP2-hy-xlT"/>
+                                    <constraint firstItem="xRI-LK-efb" firstAttribute="leading" secondItem="mMZ-D1-NNh" secondAttribute="leading" id="Ex5-lB-qpd"/>
+                                    <constraint firstAttribute="trailing" secondItem="xRI-LK-efb" secondAttribute="trailing" constant="5" id="Tic-CT-bvf"/>
+                                    <constraint firstAttribute="width" constant="70" id="jei-UJ-cIA"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Production:" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h3J-Mc-SvW">
+                                <rect key="frame" x="80" y="53" width="125" height="26"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="125" id="kj2-yt-xk3"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="DINNextLTPro-Bold" family="DIN Next LT Pro" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Syria (Damascus)" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Iuc-Fs-MhJ">
+                                <rect key="frame" x="210" y="56.5" width="125" height="19"/>
+                                <fontDescription key="fontDescription" name="DINNextLTPro-Regular" family="DIN Next LT Pro" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" verticalCompressionResistancePriority="755" text="Production dates:" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rpx-sd-T7S">
+                                <rect key="frame" x="80" y="87" width="125" height="26"/>
+                                <fontDescription key="fontDescription" name="DINNextLTPro-Bold" family="DIN Next LT Pro" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="753" text="1400 - 1425 CE" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rDb-f4-Nvp">
+                                <rect key="frame" x="210" y="90.5" width="125" height="19"/>
+                                <fontDescription key="fontDescription" name="DINNextLTPro-Regular" family="DIN Next LT Pro" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Period/Style:" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8uJ-x8-l0t">
+                                <rect key="frame" x="80" y="121" width="125" height="26"/>
+                                <fontDescription key="fontDescription" name="DINNextLTPro-Bold" family="DIN Next LT Pro" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Mamluk Mamluk Mamluk Mamluk Mamluk Mamluk Mamluk Mamluk Mamluk " lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0mn-mk-5hw">
+                                <rect key="frame" x="210" y="121" width="125" height="37.5"/>
+                                <fontDescription key="fontDescription" name="DINNextLTPro-Regular" family="DIN Next LT Pro" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="View Details" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KqM-qd-xSA">
+                                <rect key="frame" x="248" y="163.5" width="86" height="22"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="22" id="YVN-Xq-BJw"/>
+                                    <constraint firstAttribute="width" constant="86" id="xSX-Ia-Mnb"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="DINNextLTPro-Regular" family="DIN Next LT Pro" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ein-Zh-72o">
+                                <rect key="frame" x="248" y="185.5" width="86" height="1"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="lhn-7Y-fvB"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="KqM-qd-xSA" secondAttribute="trailing" constant="11" id="0pu-gd-Azl"/>
+                            <constraint firstAttribute="bottom" secondItem="KqM-qd-xSA" secondAttribute="bottom" constant="44" id="2Ra-Eq-wna"/>
+                            <constraint firstItem="Iuc-Fs-MhJ" firstAttribute="leading" secondItem="0mn-mk-5hw" secondAttribute="leading" id="4kT-Q0-fee"/>
+                            <constraint firstItem="h3J-Mc-SvW" firstAttribute="centerY" secondItem="Iuc-Fs-MhJ" secondAttribute="centerY" id="644-wn-qiE"/>
+                            <constraint firstItem="Iuc-Fs-MhJ" firstAttribute="trailing" secondItem="0mn-mk-5hw" secondAttribute="trailing" id="Dak-KL-ehi"/>
+                            <constraint firstAttribute="trailing" secondItem="Yl5-mB-uaq" secondAttribute="trailing" constant="15" id="Deb-lN-9Mc"/>
+                            <constraint firstItem="0mn-mk-5hw" firstAttribute="top" secondItem="8uJ-x8-l0t" secondAttribute="top" id="EO2-B9-O2o"/>
+                            <constraint firstItem="h3J-Mc-SvW" firstAttribute="height" secondItem="8uJ-x8-l0t" secondAttribute="height" id="EQp-Jg-ckr"/>
+                            <constraint firstItem="Iuc-Fs-MhJ" firstAttribute="trailing" secondItem="rDb-f4-Nvp" secondAttribute="trailing" id="GQh-OA-sSE"/>
+                            <constraint firstItem="h3J-Mc-SvW" firstAttribute="leading" secondItem="Rpx-sd-T7S" secondAttribute="leading" id="K2Y-Qw-tnH"/>
+                            <constraint firstItem="ein-Zh-72o" firstAttribute="trailing" secondItem="KqM-qd-xSA" secondAttribute="trailing" id="LtW-OZ-Ypp"/>
+                            <constraint firstItem="mMZ-D1-NNh" firstAttribute="bottom" secondItem="8uJ-x8-l0t" secondAttribute="bottom" constant="3" id="Mso-OU-wgv"/>
+                            <constraint firstItem="mMZ-D1-NNh" firstAttribute="top" secondItem="h3J-Mc-SvW" secondAttribute="top" constant="-3" id="NHg-NL-BSo"/>
+                            <constraint firstAttribute="trailing" secondItem="Iuc-Fs-MhJ" secondAttribute="trailing" constant="10" id="Q9g-TS-GIo"/>
+                            <constraint firstItem="mMZ-D1-NNh" firstAttribute="top" secondItem="Yl5-mB-uaq" secondAttribute="bottom" constant="6" id="QPe-Gg-tMo"/>
+                            <constraint firstItem="8uJ-x8-l0t" firstAttribute="top" secondItem="Rpx-sd-T7S" secondAttribute="bottom" constant="8" id="WBx-4K-rZn"/>
+                            <constraint firstItem="h3J-Mc-SvW" firstAttribute="leading" secondItem="mMZ-D1-NNh" secondAttribute="trailing" id="Z8c-3w-gto"/>
+                            <constraint firstItem="KqM-qd-xSA" firstAttribute="top" secondItem="0mn-mk-5hw" secondAttribute="bottom" constant="5" id="a6r-aq-vhe"/>
+                            <constraint firstItem="h3J-Mc-SvW" firstAttribute="width" secondItem="8uJ-x8-l0t" secondAttribute="width" id="bKT-qv-4Cm"/>
+                            <constraint firstItem="h3J-Mc-SvW" firstAttribute="leading" secondItem="8uJ-x8-l0t" secondAttribute="leading" id="dtO-25-OaU"/>
+                            <constraint firstItem="h3J-Mc-SvW" firstAttribute="width" secondItem="Rpx-sd-T7S" secondAttribute="width" id="gOB-7B-dAY"/>
+                            <constraint firstItem="Iuc-Fs-MhJ" firstAttribute="leading" secondItem="h3J-Mc-SvW" secondAttribute="trailing" constant="5" id="htH-yd-qdV"/>
+                            <constraint firstItem="Rpx-sd-T7S" firstAttribute="top" secondItem="h3J-Mc-SvW" secondAttribute="bottom" constant="8" id="iuO-59-ge1"/>
+                            <constraint firstItem="Rpx-sd-T7S" firstAttribute="centerY" secondItem="rDb-f4-Nvp" secondAttribute="centerY" id="jjr-hq-gg2"/>
+                            <constraint firstItem="ein-Zh-72o" firstAttribute="top" secondItem="KqM-qd-xSA" secondAttribute="bottom" id="kms-pF-dIP"/>
+                            <constraint firstItem="Yl5-mB-uaq" firstAttribute="leading" secondItem="9Px-ui-lf0" secondAttribute="leading" constant="20" id="kop-Q2-Gha"/>
+                            <constraint firstItem="ein-Zh-72o" firstAttribute="leading" secondItem="KqM-qd-xSA" secondAttribute="leading" id="tUb-8a-EId"/>
+                            <constraint firstItem="Iuc-Fs-MhJ" firstAttribute="leading" secondItem="rDb-f4-Nvp" secondAttribute="leading" id="tUd-1l-eZk"/>
+                            <constraint firstItem="h3J-Mc-SvW" firstAttribute="height" secondItem="Rpx-sd-T7S" secondAttribute="height" id="yTK-Xr-HNX"/>
+                            <constraint firstItem="mMZ-D1-NNh" firstAttribute="leading" secondItem="9Px-ui-lf0" secondAttribute="leading" constant="10" id="zqn-ay-ve9"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="5"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <constraints>
+                    <constraint firstItem="9Px-ui-lf0" firstAttribute="leading" secondItem="hAt-YD-fYg" secondAttribute="leading" id="4Yr-BW-B7e"/>
+                    <constraint firstItem="9Px-ui-lf0" firstAttribute="top" secondItem="hAt-YD-fYg" secondAttribute="top" id="HuO-nl-Mou"/>
+                    <constraint firstAttribute="trailing" secondItem="9Px-ui-lf0" secondAttribute="trailing" id="IJt-G4-gUj"/>
+                    <constraint firstAttribute="bottom" secondItem="9Px-ui-lf0" secondAttribute="bottom" id="t2A-KL-bUB"/>
+                </constraints>
+            </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <connections>
+                <outlet property="periodText" destination="0mn-mk-5hw" id="ggI-lW-R1M"/>
+                <outlet property="periodTitle" destination="8uJ-x8-l0t" id="nHT-9t-vpT"/>
+                <outlet property="popupImgeView" destination="xRI-LK-efb" id="IfT-fo-Sy5"/>
+                <outlet property="productionDateText" destination="rDb-f4-Nvp" id="YDR-ju-OZE"/>
+                <outlet property="productionDateTitle" destination="Rpx-sd-T7S" id="Ifa-vF-D1D"/>
+                <outlet property="productionText" destination="Iuc-Fs-MhJ" id="ENj-zu-k5O"/>
+                <outlet property="productionTitle" destination="h3J-Mc-SvW" id="sv7-cv-SHF"/>
+                <outlet property="title" destination="Yl5-mB-uaq" id="cl6-bS-IM9"/>
+                <outlet property="viewDetailsLabel" destination="KqM-qd-xSA" id="Y2e-CT-8V0"/>
+            </connections>
+            <point key="canvasLocation" x="33.5" y="92"/>
+        </tableViewCell>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+    </objects>
+    <resources>
+        <image name="default_imageX2" width="470" height="240"/>
+    </resources>
+</document>

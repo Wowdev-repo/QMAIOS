@@ -832,7 +832,12 @@ class UserInfoTableViewController: UITableViewController,UITextFieldDelegate,QMT
     @objc func keyboardWillShow(_ notification:Notification) {
         
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-            tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardSize.height, right: 0)
+            DispatchQueue.main.async {
+                self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardSize.height+40, right: 0)
+                self.tableView.layoutSubviews()
+                self.tableView.setNeedsDisplay()
+            }
+            
         }
     }
     @objc func keyboardWillHide(_ notification:Notification) {

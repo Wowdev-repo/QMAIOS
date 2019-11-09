@@ -2,13 +2,13 @@
 //  Exhibition.swift
 //  QatarMuseums
 //
-//  Created by Developer on 24/07/18.
-//  Copyright © 2018 Exalture. All rights reserved.
+//  Created by Wakralab Software Labs on 24/07/18.
+//  Copyright © 2018 Qatar Museums. All rights reserved.
 //
 
 import Foundation
 
-struct Exhibition: ResponseObjectSerializable, ResponseCollectionSerializable {
+struct CPExhibition: ResponseObjectSerializable, ResponseCollectionSerializable {
     var name: String? = nil
     var id: String? = nil
     var image: String? = nil
@@ -25,6 +25,8 @@ struct Exhibition: ResponseObjectSerializable, ResponseCollectionSerializable {
     var longDescription: String? = nil
     var isFavourite : Bool = false
     var status : String? = nil
+    var mail : String? = nil
+    var phone : String? = nil
 
     public init?(response: HTTPURLResponse, representation: AnyObject) {
         if let representation = representation as? [String: Any] {
@@ -42,32 +44,36 @@ struct Exhibition: ResponseObjectSerializable, ResponseCollectionSerializable {
             self.museumId  = representation["museum_id"] as? String
             self.status  = representation["Status"] as? String
             self.displayDate  = representation["Display_date"] as? String
+            self.phone = representation["contact_number"] as? String
+            self.mail = representation["contact_email"] as? String
         }
     }
-    init(id:String?, name:String?, image:String?,detailImage:String?, startDate:String?, endDate:String?, location:String?, latitude:String?, longitude:String?, shortDescription:String?, longDescription:String?, museumId : String?, status : String?, displayDate : String?) {
-        self.id = id
-        self.name = name
-        self.image = image
-        self.detailImage = detailImage
-        self.startDate = startDate
-        self.endDate = endDate
-        self.location = location
-        self.latitude = latitude
-        self.longitude = longitude
-        self.shortDescription = shortDescription
-        self.longDescription = longDescription
-        self.museumId = museumId
-        self.status = status
-        self.displayDate = displayDate
+    
+    init(entity: ExhibitionsEntity) {
+        self.id = entity.id
+        self.name = entity.name
+        self.image = entity.image
+        self.detailImage = entity.detailImage
+        self.startDate = entity.startDate
+        self.endDate = entity.endDate
+        self.location = entity.location
+        self.museumId = entity.museumId
+        self.status = entity.status
+        self.displayDate = entity.dispalyDate
+        self.latitude = entity.detailLatitude
+        self.longitude = entity.detailLongitude
+        self.displayDate = entity.dispalyDate
+        self.mail = entity.mail
+        self.phone = entity.phone
     }
 }
 
 struct Exhibitions: ResponseObjectSerializable {
-    var exhibitions: [Exhibition]? = []
+    var exhibitions: [CPExhibition]? = []
     
     public init?(response: HTTPURLResponse, representation: AnyObject) {
         if let data = representation as? [[String: Any]] {
-            self.exhibitions = Exhibition.collection(response: response, representation: data as AnyObject)
+            self.exhibitions = CPExhibition.collection(response: response, representation: data as AnyObject)
         }
     }
 }

@@ -2,12 +2,12 @@
 //  HeritageDetail.swift
 //  QatarMuseums
 //
-//  Created by Exalture on 03/08/18.
-//  Copyright © 2018 Exalture. All rights reserved.
+//  Created by Wakralab Software Labs on 03/08/18.
+//  Copyright © 2018 Qatar Museums. All rights reserved.
 //
 
 import Foundation
-struct Heritage: ResponseObjectSerializable, ResponseCollectionSerializable {
+struct CPHeritage: ResponseObjectSerializable, ResponseCollectionSerializable {
     var id: String? = nil
     var name: String? = nil
     var location: String? = nil
@@ -38,27 +38,36 @@ struct Heritage: ResponseObjectSerializable, ResponseCollectionSerializable {
         }
     }
 
-    init(id:String?, name:String?, location:String?, latitude:String?, longitude:String?, image:String?, shortdescription:String?, longdescription:String?, images:[String]?, sortid:String?) {
-        self.id = id
-        self.name = name
-        self.location = location
-        self.latitude = latitude
-        self.longitude = longitude
-        self.image = image
-        self.shortdescription = shortdescription
-        self.longdescription = longdescription
-        self.images = images
-        self.sortid = sortid
+    init(entity: HeritageEntity) {
+        var imagesArray : [String] = []
+        if let heritageImagesArray = (entity.imagesRelation?.allObjects) as? [ImageEntity] {
+            for info in heritageImagesArray {
+                if let image = info.image {
+                    imagesArray.append(image)
+                }
+            }
+        }
+        
+        self.id = entity.listid
+        self.name = entity.listname
+        self.location = entity.detaillocation
+        self.latitude = entity.detaillatitude
+        self.longitude = entity.detaillongitude
+        self.image = entity.listimage
+        self.shortdescription = entity.detailshortdescription
+        self.longdescription = entity.detaillongdescription
+        self.images = imagesArray
+        self.sortid = entity.listsortid
     
     }
 }
 
 struct Heritages: ResponseObjectSerializable {
-    var heritage: [Heritage]? = []
+    var heritage: [CPHeritage]? = []
     
     public init?(response: HTTPURLResponse, representation: AnyObject) {
         if let data = representation as? [[String: Any]] {
-            self.heritage = Heritage.collection(response: response, representation: data as AnyObject)
+            self.heritage = CPHeritage.collection(response: response, representation: data as AnyObject)
         }
     }
 }

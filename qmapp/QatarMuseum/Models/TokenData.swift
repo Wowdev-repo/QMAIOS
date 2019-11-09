@@ -2,12 +2,12 @@
 //  TokenData.swift
 //  QatarMuseums
 //
-//  Created by Exalture on 23/10/18.
-//  Copyright © 2018 Wakralab. All rights reserved.
+//  Created by Wakralab Software Labs on 23/10/18.
+//  Copyright © 2018 Qatar Museums. All rights reserved.
 //
 
 import Foundation
-struct TokenData: ResponseObjectSerializable {
+struct CPTokenData: ResponseObjectSerializable {
     var accessToken: String? = nil
     
     public init?(response: HTTPURLResponse, representation: AnyObject) {
