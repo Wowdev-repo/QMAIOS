@@ -68,10 +68,10 @@
                                 <rect key="frame" x="0.0" y="109" width="414" height="94"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BuyYourTicket" translatesAutoresizingMaskIntoConstraints="NO" id="xWg-V3-83E">
-                                        <rect key="frame" x="0.0" y="0.0" width="414.00000000000023" height="94"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="94"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Buy Tickets" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="538-FH-s1Z">
-                                        <rect key="frame" x="164" y="72" width="86.5" height="17"/>
+                                        <rect key="frame" x="162.5" y="69" width="89" height="20"/>
                                         <fontDescription key="fontDescription" name="DINNextLTPro-Bold" family="DIN Next LT Pro" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -112,7 +112,7 @@
                                         <rect key="frame" x="108.5" y="0.0" width="99.5" height="97"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gift Shop" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GLU-5R-3S2">
-                                                <rect key="frame" x="26" y="63" width="47.5" height="18"/>
+                                                <rect key="frame" x="24.5" y="63" width="51" height="18"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="18" id="ClB-2J-Xqb"/>
                                                 </constraints>
@@ -180,7 +180,7 @@
                                         <rect key="frame" x="307.5" y="0.0" width="99.5" height="97"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="More" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FGd-h4-nh5">
-                                                <rect key="frame" x="36.5" y="63" width="26.5" height="18"/>
+                                                <rect key="frame" x="36" y="63" width="28" height="18"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="18" id="nQy-pE-OHp"/>
                                                 </constraints>
@@ -214,7 +214,7 @@
                                         <rect key="frame" x="9" y="0.0" width="99.5" height="97"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dining" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gJN-vr-oTl">
-                                                <rect key="frame" x="33.5" y="63" width="33" height="18"/>
+                                                <rect key="frame" x="32.5" y="63" width="34.5" height="18"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="18" id="ZjO-cx-8Pz"/>
                                                 </constraints>
