@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ru4-0J-FCz">
-    <device id="retina6_1" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ru4-0J-FCz">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment version="2320" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -23,7 +21,7 @@
         <!--Splash View Controller-->
         <scene sceneID="T35-nM-Vo2">
             <objects>
-                <viewController id="ru4-0J-FCz" customClass="CPSplashViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="fullScreen" id="ru4-0J-FCz" customClass="CPSplashViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="aeN-V1-jK8"/>
                         <viewControllerLayoutGuide type="bottom" id="grr-Uw-dev"/>
@@ -57,7 +55,7 @@
         <!--Home View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="homeId" id="BYZ-38-t0r" customClass="CPHomeViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="homeId" modalPresentationStyle="fullScreen" id="BYZ-38-t0r" customClass="CPHomeViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="OhP-XR-zcm"/>
                         <viewControllerLayoutGuide type="bottom" id="QlX-sU-UNH"/>
@@ -70,10 +68,10 @@
                                 <rect key="frame" x="0.0" y="109" width="414" height="94"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BuyYourTicket" translatesAutoresizingMaskIntoConstraints="NO" id="xWg-V3-83E">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="94"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414.00000000000023" height="94"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Buy Tickets" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="538-FH-s1Z">
-                                        <rect key="frame" x="162.5" y="69" width="89" height="20"/>
+                                        <rect key="frame" x="164" y="72" width="86.5" height="17"/>
                                         <fontDescription key="fontDescription" name="DINNextLTPro-Bold" family="DIN Next LT Pro" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -114,7 +112,7 @@
                                         <rect key="frame" x="108.5" y="0.0" width="99.5" height="97"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gift Shop" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GLU-5R-3S2">
-                                                <rect key="frame" x="24.5" y="63" width="51" height="18"/>
+                                                <rect key="frame" x="26" y="63" width="47.5" height="18"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="18" id="ClB-2J-Xqb"/>
                                                 </constraints>
@@ -182,7 +180,7 @@
                                         <rect key="frame" x="307.5" y="0.0" width="99.5" height="97"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="More" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FGd-h4-nh5">
-                                                <rect key="frame" x="36" y="63" width="28" height="18"/>
+                                                <rect key="frame" x="36.5" y="63" width="26.5" height="18"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="18" id="nQy-pE-OHp"/>
                                                 </constraints>
@@ -216,7 +214,7 @@
                                         <rect key="frame" x="9" y="0.0" width="99.5" height="97"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dining" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gJN-vr-oTl">
-                                                <rect key="frame" x="32.5" y="63" width="34.5" height="18"/>
+                                                <rect key="frame" x="33.5" y="63" width="33" height="18"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="18" id="ZjO-cx-8Pz"/>
                                                 </constraints>
@@ -366,7 +364,7 @@
         <!--Web View Controller-->
         <scene sceneID="Afi-ZU-hgx">
             <objects>
-                <viewController storyboardIdentifier="webViewId" id="bZN-2R-WHo" customClass="CPWebViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="webViewId" modalPresentationStyle="fullScreen" id="bZN-2R-WHo" customClass="CPWebViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="RJ5-89-xw8"/>
                         <viewControllerLayoutGuide type="bottom" id="IVM-7Y-T1Q"/>
@@ -444,7 +442,7 @@
         <!--Data Source-->
         <scene sceneID="Vbh-xD-vpz">
             <objects>
-                <viewController storyboardIdentifier="eventPageID" id="Y6A-us-MuQ" customClass="CPEventViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="eventPageID" modalPresentationStyle="fullScreen" id="Y6A-us-MuQ" customClass="CPEventViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="5xc-PN-WOc"/>
                         <viewControllerLayoutGuide type="bottom" id="cG0-K1-XAc"/>
@@ -609,7 +607,7 @@
         <!--Profile View Controller-->
         <scene sceneID="mvM-0o-npt">
             <objects>
-                <viewController storyboardIdentifier="profileViewId" id="HIE-Vt-zzr" customClass="CPProfileViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="profileViewId" modalPresentationStyle="fullScreen" id="HIE-Vt-zzr" customClass="CPProfileViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="L0X-nf-udf"/>
                         <viewControllerLayoutGuide type="bottom" id="Bj8-7w-H77"/>
@@ -1008,7 +1006,7 @@
         <!--Common Detail View Controller-->
         <scene sceneID="jqu-L7-ci3">
             <objects>
-                <viewController storyboardIdentifier="heritageDetailViewId" id="Z1K-CA-bjg" customClass="CommonDetailViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="heritageDetailViewId" modalPresentationStyle="fullScreen" id="Z1K-CA-bjg" customClass="CommonDetailViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="gov-db-xkD"/>
                         <viewControllerLayoutGuide type="bottom" id="gjk-NE-Tit"/>
@@ -1022,7 +1020,7 @@
                                 <color key="backgroundColor" red="0.90196078430000004" green="0.90196078430000004" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="exhibitionDetailCellId" rowHeight="867" id="MCG-ym-WQ9" customClass="CPExhibitionDetailTableViewCell" customModule="QatarMuseums" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="1" width="414" height="867"/>
+                                        <rect key="frame" x="0.0" y="28" width="414" height="867"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="MCG-ym-WQ9" id="FJz-z9-Qhw">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="867"/>
@@ -1365,7 +1363,7 @@
         <!--Museums View Controller-->
         <scene sceneID="clW-ye-bpT">
             <objects>
-                <viewController storyboardIdentifier="museumViewId" id="3LW-jw-kpW" customClass="CPMuseumsViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="museumViewId" modalPresentationStyle="fullScreen" id="3LW-jw-kpW" customClass="CPMuseumsViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="sia-va-iby"/>
                         <viewControllerLayoutGuide type="bottom" id="X5c-UL-uDP"/>
@@ -1578,7 +1576,7 @@
         <!--Dining Detail View Controller-->
         <scene sceneID="1pO-yn-XJw">
             <objects>
-                <viewController storyboardIdentifier="diningDetailId" id="pfa-wx-9EP" customClass="DiningDetailViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="diningDetailId" modalPresentationStyle="fullScreen" id="pfa-wx-9EP" customClass="DiningDetailViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="FQx-ih-ySp"/>
                         <viewControllerLayoutGuide type="bottom" id="Rdm-m7-4KX"/>
@@ -1843,7 +1841,7 @@
         <!--Tour Guide View Controller-->
         <scene sceneID="430-d4-GoK">
             <objects>
-                <viewController storyboardIdentifier="tourGuidId" id="gvg-jw-f93" customClass="TourGuideViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="tourGuidId" modalPresentationStyle="fullScreen" id="gvg-jw-f93" customClass="TourGuideViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="eNn-hZ-8UW"/>
                         <viewControllerLayoutGuide type="bottom" id="07X-0X-1Yb"/>
@@ -1957,7 +1955,7 @@
         <!--Mia Tour Detail View Controller-->
         <scene sceneID="oX5-rD-Oiq">
             <objects>
-                <viewController storyboardIdentifier="miaDetailId" id="g9r-ut-SZZ" customClass="CPMiaTourDetailViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="miaDetailId" modalPresentationStyle="fullScreen" id="g9r-ut-SZZ" customClass="CPMiaTourDetailViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Yhf-Gl-gG7"/>
                         <viewControllerLayoutGuide type="bottom" id="Vvb-ar-CVO"/>
@@ -2101,7 +2099,7 @@
         <!--Notifications View Controller-->
         <scene sceneID="cOj-qU-XgT">
             <objects>
-                <viewController storyboardIdentifier="notificationId" id="izA-Uf-h7O" customClass="CPNotificationsViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="notificationId" modalPresentationStyle="fullScreen" id="izA-Uf-h7O" customClass="CPNotificationsViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ZQb-nb-0lM"/>
                         <viewControllerLayoutGuide type="bottom" id="Y38-IJ-kQc"/>
@@ -2235,7 +2233,7 @@
         <!--Education View Controller-->
         <scene sceneID="8SX-Oe-ZBT">
             <objects>
-                <viewController storyboardIdentifier="educationPageID" id="tBI-Sz-bX0" customClass="CPEducationViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="educationPageID" modalPresentationStyle="fullScreen" id="tBI-Sz-bX0" customClass="CPEducationViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="rhy-SM-TEO"/>
                         <viewControllerLayoutGuide type="bottom" id="VOa-ny-moH"/>
@@ -2422,7 +2420,7 @@
         <!--Filter View Controller-->
         <scene sceneID="I3K-GX-dOS">
             <objects>
-                <viewController storyboardIdentifier="filterVcId" id="cN3-T0-NzE" customClass="CPFilterViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="filterVcId" modalPresentationStyle="fullScreen" id="cN3-T0-NzE" customClass="CPFilterViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="YnC-wy-KcF"/>
                         <viewControllerLayoutGuide type="bottom" id="OsL-l5-xHL"/>
@@ -2462,7 +2460,6 @@
                                                 <subviews>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EAL-Ig-PyK">
                                                         <rect key="frame" x="15" y="0.0" width="367" height="41"/>
-                                                        <nil key="textColor"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits"/>
                                                     </textField>
@@ -2513,7 +2510,6 @@
                                                 <subviews>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="igI-SS-4ZK">
                                                         <rect key="frame" x="15" y="0.0" width="367" height="41"/>
-                                                        <nil key="textColor"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits"/>
                                                     </textField>
@@ -2558,7 +2554,6 @@
                                                 <subviews>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DhE-Ix-dL1">
                                                         <rect key="frame" x="15" y="0.0" width="367" height="41"/>
-                                                        <nil key="textColor"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits"/>
                                                     </textField>
@@ -2816,7 +2811,7 @@
         <!--Settings View Controller-->
         <scene sceneID="L86-BL-38A">
             <objects>
-                <viewController storyboardIdentifier="settingsId" id="GHA-qU-agt" customClass="CPSettingsViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="settingsId" modalPresentationStyle="fullScreen" id="GHA-qU-agt" customClass="CPSettingsViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="da2-Zw-Dgi"/>
                         <viewControllerLayoutGuide type="bottom" id="lcV-Dk-Vyp"/>
@@ -3160,7 +3155,7 @@
         <!--Object Detail View Controller-->
         <scene sceneID="SFw-ra-2bw">
             <objects>
-                <viewController storyboardIdentifier="objectDetailId" id="Ndq-b2-Hyg" customClass="CPObjectDetailViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="objectDetailId" modalPresentationStyle="fullScreen" id="Ndq-b2-Hyg" customClass="CPObjectDetailViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="wTo-xm-gx2"/>
                         <viewControllerLayoutGuide type="bottom" id="HUh-NE-mTt"/>
@@ -3407,7 +3402,7 @@
         <!--Preview Container View Controller-->
         <scene sceneID="tK5-nv-CIS">
             <objects>
-                <viewController storyboardIdentifier="previewContainerId" id="qiY-PN-2Di" customClass="CPPreviewContainerViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="previewContainerId" modalPresentationStyle="fullScreen" id="qiY-PN-2Di" customClass="CPPreviewContainerViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="eAS-7F-vWE"/>
                         <viewControllerLayoutGuide type="bottom" id="FKw-8J-kn2"/>
@@ -3710,7 +3705,7 @@
         <!--Page View Controller-->
         <scene sceneID="jtS-EM-T13">
             <objects>
-                <pageViewController storyboardIdentifier="PageViewControllerId" autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="6UE-9w-WOB" sceneMemberID="viewController"/>
+                <pageViewController storyboardIdentifier="PageViewControllerId" autoresizesArchivedViewToFullSize="NO" modalPresentationStyle="fullScreen" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="6UE-9w-WOB" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SLe-3K-pop" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4230" y="476"/>
@@ -3718,7 +3713,7 @@
         <!--Preview Content View Controller-->
         <scene sceneID="SHK-5C-z0b">
             <objects>
-                <viewController storyboardIdentifier="PageContentViewControllerId" id="VIq-BH-r1z" customClass="CPPreviewContentViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PageContentViewControllerId" modalPresentationStyle="fullScreen" id="VIq-BH-r1z" customClass="CPPreviewContentViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="vJQ-0n-N14"/>
                         <viewControllerLayoutGuide type="bottom" id="btE-xU-k9Z"/>
@@ -3728,10 +3723,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2KV-FU-ZeK">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="586"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="620"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="74w-BL-5G8">
-                                        <rect key="frame" x="0.0" y="41" width="414" height="545"/>
+                                        <rect key="frame" x="0.0" y="41" width="414" height="579"/>
                                         <color key="backgroundColor" red="0.90196078430000004" green="0.90196078430000004" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="objectDetailCellId" rowHeight="623" id="syP-sE-CpL" customClass="CPObjectDetailTableViewCell" customModule="QatarMuseums" customModuleProvider="target">
@@ -3995,7 +3990,7 @@
         <!--Delegate-->
         <scene sceneID="L3u-FF-tu4">
             <objects>
-                <viewController storyboardIdentifier="floorMapId" id="avg-al-ab5" customClass="CPFloorMapViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="floorMapId" modalPresentationStyle="fullScreen" id="avg-al-ab5" customClass="CPFloorMapViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Lid-XY-FzS"/>
                         <viewControllerLayoutGuide type="bottom" id="2o4-nG-czx"/>
@@ -4273,7 +4268,7 @@
         <!--Artifact Number Pad View Controller-->
         <scene sceneID="tk9-Su-Ofh">
             <objects>
-                <viewController storyboardIdentifier="artifactNumberPadViewId" id="mOw-nu-xq9" customClass="CPArtifactNumberPadViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="artifactNumberPadViewId" modalPresentationStyle="fullScreen" id="mOw-nu-xq9" customClass="CPArtifactNumberPadViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="nmO-Mu-DsS"/>
                         <viewControllerLayoutGuide type="bottom" id="F3r-Bq-c7V"/>
@@ -4331,7 +4326,6 @@
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="70" id="oco-uV-3f0"/>
                                                         </constraints>
-                                                        <nil key="textColor"/>
                                                         <fontDescription key="fontDescription" name="DINNextLTPro-Regular" family="DIN Next LT Pro" pointSize="17"/>
                                                         <textInputTraits key="textInputTraits"/>
                                                     </textField>
@@ -4461,7 +4455,7 @@
         <!--Culture Pass View Controller-->
         <scene sceneID="lRj-Ah-ZMa">
             <objects>
-                <viewController storyboardIdentifier="culturePassViewId" id="csd-tH-WoS" customClass="CPCulturePassViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="culturePassViewId" modalPresentationStyle="fullScreen" id="csd-tH-WoS" customClass="CPCulturePassViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="csF-9g-50B"/>
                         <viewControllerLayoutGuide type="bottom" id="CgO-sl-yYQ"/>
@@ -4675,7 +4669,7 @@
         <!--Registration View Controller-->
         <scene sceneID="eE7-fn-rgj">
             <objects>
-                <viewController storyboardIdentifier="registerViewId" id="ztI-Iu-V3w" customClass="CPRegistrationViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="registerViewId" modalPresentationStyle="fullScreen" id="ztI-Iu-V3w" customClass="CPRegistrationViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="OK6-lo-5Py"/>
                         <viewControllerLayoutGuide type="bottom" id="WDE-Wx-0YO"/>
@@ -4717,7 +4711,6 @@
                                                         <subviews>
                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RBU-UH-bp4">
                                                                 <rect key="frame" x="8" y="0.0" width="368" height="40"/>
-                                                                <nil key="textColor"/>
                                                                 <fontDescription key="fontDescription" name="DINNextLTPro-Regular" family="DIN Next LT Pro" pointSize="18"/>
                                                                 <textInputTraits key="textInputTraits"/>
                                                             </textField>
@@ -4741,7 +4734,6 @@
                                                         <subviews>
                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sY2-9i-A5p">
                                                                 <rect key="frame" x="8" y="0.0" width="368" height="40"/>
-                                                                <nil key="textColor"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                 <textInputTraits key="textInputTraits"/>
                                                             </textField>
@@ -4764,7 +4756,6 @@
                                                         <subviews>
                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zFf-v2-lml">
                                                                 <rect key="frame" x="8" y="0.0" width="368" height="40"/>
-                                                                <nil key="textColor"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                 <textInputTraits key="textInputTraits"/>
                                                             </textField>
@@ -4787,7 +4778,6 @@
                                                         <subviews>
                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="x2Q-Nc-Ycv">
                                                                 <rect key="frame" x="8" y="0.0" width="368" height="40"/>
-                                                                <nil key="textColor"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                 <textInputTraits key="textInputTraits"/>
                                                             </textField>
@@ -4817,7 +4807,6 @@
                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="-  Select A Value -" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jAw-Ip-J9c">
                                                                 <rect key="frame" x="8" y="0.0" width="346" height="40"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                <nil key="textColor"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                 <textInputTraits key="textInputTraits"/>
                                                             </textField>
@@ -4854,7 +4843,6 @@
                                                         <subviews>
                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8xU-Ba-gmr">
                                                                 <rect key="frame" x="8" y="0.0" width="368" height="40"/>
-                                                                <nil key="textColor"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                 <textInputTraits key="textInputTraits"/>
                                                             </textField>
@@ -4877,7 +4865,6 @@
                                                         <subviews>
                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="iju-Bk-Knr">
                                                                 <rect key="frame" x="8" y="0.0" width="368" height="40"/>
-                                                                <nil key="textColor"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                 <textInputTraits key="textInputTraits"/>
                                                             </textField>
@@ -4901,7 +4888,6 @@
                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="-  Select A Value -" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bUO-7G-vOy">
                                                                 <rect key="frame" x="8" y="0.0" width="346" height="40"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                <nil key="textColor"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                 <textInputTraits key="textInputTraits"/>
                                                             </textField>
@@ -4939,7 +4925,6 @@
                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="-  Select A Value -" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zTH-CI-rBc">
                                                                 <rect key="frame" x="8" y="0.0" width="346" height="40"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                <nil key="textColor"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                 <textInputTraits key="textInputTraits"/>
                                                             </textField>
@@ -4976,7 +4961,6 @@
                                                         <subviews>
                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="+974" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vC8-Rp-7gY">
                                                                 <rect key="frame" x="8" y="0.0" width="368" height="40"/>
-                                                                <nil key="textColor"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                 <textInputTraits key="textInputTraits"/>
                                                             </textField>
@@ -5216,7 +5200,7 @@
         <!--Culture Pass Card View Controller-->
         <scene sceneID="VEa-mH-wLr">
             <objects>
-                <viewController storyboardIdentifier="cardViewId" id="CTn-E3-lTz" customClass="CPCulturePassCardViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="cardViewId" modalPresentationStyle="fullScreen" id="CTn-E3-lTz" customClass="CPCulturePassCardViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="yRq-SU-GNX"/>
                         <viewControllerLayoutGuide type="bottom" id="nd5-He-ypG"/>
@@ -5314,7 +5298,7 @@
         <!--Culture Pass Card Back View Controller-->
         <scene sceneID="RLE-ad-SMg">
             <objects>
-                <viewController storyboardIdentifier="cardBackId" id="9ZH-jq-snm" customClass="CPCulturePassCardBackViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="cardBackId" modalPresentationStyle="fullScreen" id="9ZH-jq-snm" customClass="CPCulturePassCardBackViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="zCO-Wr-l2F"/>
                         <viewControllerLayoutGuide type="bottom" id="zQ4-xQ-m4q"/>
@@ -5397,7 +5381,7 @@
         <!--Tour And Panel List View Controller-->
         <scene sceneID="n61-WR-l12">
             <objects>
-                <viewController storyboardIdentifier="tourAndPanelId" id="Ege-cg-Fjk" customClass="CPTourAndPanelListViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="tourAndPanelId" modalPresentationStyle="fullScreen" id="Ege-cg-Fjk" customClass="CPTourAndPanelListViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="uRi-1Q-Cck"/>
                         <viewControllerLayoutGuide type="bottom" id="KSj-FQ-hhu"/>
@@ -5453,7 +5437,7 @@
         <!--Panel Discussion Detail View Controller-->
         <scene sceneID="7Jw-tg-qca">
             <objects>
-                <viewController storyboardIdentifier="paneldetailViewId" id="3V7-zS-GQO" customClass="CPPanelDiscussionDetailViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="paneldetailViewId" modalPresentationStyle="fullScreen" id="3V7-zS-GQO" customClass="CPPanelDiscussionDetailViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="epv-ai-dqT"/>
                         <viewControllerLayoutGuide type="bottom" id="h0r-ju-3do"/>
@@ -5515,7 +5499,7 @@
         <!--Common List View Controller-->
         <scene sceneID="7rW-gk-kcf">
             <objects>
-                <viewController storyboardIdentifier="exhibitionViewId" id="QCk-26-GoW" customClass="CPCommonListViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="exhibitionViewId" modalPresentationStyle="fullScreen" id="QCk-26-GoW" customClass="CPCommonListViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="R57-Bi-f0V"/>
                         <viewControllerLayoutGuide type="bottom" id="9vC-2g-b8R"/>
@@ -5575,7 +5559,7 @@
         <!--Museum About View Controller-->
         <scene sceneID="PvE-BO-QUw">
             <objects>
-                <viewController storyboardIdentifier="heritageDetailViewId2" id="Qso-7S-Uav" customClass="CPMuseumAboutViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="heritageDetailViewId2" modalPresentationStyle="fullScreen" id="Qso-7S-Uav" customClass="CPMuseumAboutViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="yp3-jA-eMa"/>
                         <viewControllerLayoutGuide type="bottom" id="yZv-sR-ml6"/>
@@ -5589,7 +5573,7 @@
                                 <color key="backgroundColor" red="0.90196078430000004" green="0.90196078430000004" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="heritageDetailCellId2" rowHeight="1296" id="Yca-Db-zxx" customClass="CPMuseumAboutCell" customModule="QatarMuseums" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="1" width="414" height="1296"/>
+                                        <rect key="frame" x="0.0" y="28" width="414" height="1296"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Yca-Db-zxx" id="YZU-oH-RLe">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="1296"/>
@@ -5617,7 +5601,7 @@
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QsT-kw-dtP">
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QsT-kw-dtP">
                                                                     <rect key="frame" x="192" y="126" width="0.0" height="0.0"/>
                                                                     <fontDescription key="fontDescription" name="DINNextLTPro-Regular" family="DIN Next LT Pro" pointSize="17"/>
                                                                     <nil key="textColor"/>
@@ -5631,7 +5615,7 @@
                                                                         <constraint firstAttribute="width" constant="29" id="wlR-M4-Haf"/>
                                                                     </constraints>
                                                                 </view>
-                                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalHuggingPriority="252" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SIc-Sk-Ug8">
+                                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalHuggingPriority="252" ambiguous="YES" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SIc-Sk-Ug8">
                                                                     <rect key="frame" x="25" y="89" width="334" height="37"/>
                                                                     <attributedString key="attributedText">
                                                                         <fragment content="desc">
@@ -5643,19 +5627,19 @@
                                                                     </attributedString>
                                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                                 </textView>
-                                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="scC-zd-HcE">
+                                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="scC-zd-HcE">
                                                                     <rect key="frame" x="25" y="131" width="334" height="33"/>
                                                                     <attributedString key="attributedText">
                                                                         <fragment content="mid ds">
                                                                             <attributes>
-                                                                                <font key="NSFont" metaFont="system" size="14"/>
+                                                                                <font key="NSFont" metaFont="menu" size="14"/>
                                                                                 <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                                             </attributes>
                                                                         </fragment>
                                                                     </attributedString>
                                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                                 </textView>
-                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7hn-OI-3h1">
+                                                                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7hn-OI-3h1">
                                                                     <rect key="frame" x="177.5" y="131" width="29" height="0.0"/>
                                                                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <constraints>
@@ -5853,19 +5837,19 @@
                                                                         <constraint firstAttribute="width" constant="29" id="zwQ-w0-LTf"/>
                                                                     </constraints>
                                                                 </view>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AIG-1t-apb">
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AIG-1t-apb">
                                                                     <rect key="frame" x="25" y="451" width="334" height="0.0"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XQm-6i-3YF">
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XQm-6i-3YF">
                                                                     <rect key="frame" x="192" y="464" width="0.0" height="0.0"/>
                                                                     <fontDescription key="fontDescription" name="DINNextLTPro-Regular" family="DIN Next LT Pro" pointSize="15"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2bi-Fz-K0p">
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2bi-Fz-K0p">
                                                                     <rect key="frame" x="192" y="464" width="0.0" height="21"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="21" id="BWK-NG-zVT"/>
@@ -5874,7 +5858,7 @@
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OCr-5g-4dl">
+                                                                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OCr-5g-4dl">
                                                                     <rect key="frame" x="177.5" y="494" width="29" height="3"/>
                                                                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <constraints>
@@ -5882,7 +5866,7 @@
                                                                         <constraint firstAttribute="width" constant="29" id="UL7-I0-l6w"/>
                                                                     </constraints>
                                                                 </view>
-                                                                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PNf-Ed-TsW">
+                                                                <view hidden="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PNf-Ed-TsW">
                                                                     <rect key="frame" x="177.5" y="830.5" width="29" height="3"/>
                                                                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <constraints>
@@ -5890,19 +5874,19 @@
                                                                         <constraint firstAttribute="height" constant="3" id="e2I-wX-zFE"/>
                                                                     </constraints>
                                                                 </view>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9wk-EF-Sb2">
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9wk-EF-Sb2">
                                                                     <rect key="frame" x="20" y="497" width="344" height="0.0"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GUe-9F-F9E">
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GUe-9F-F9E">
                                                                     <rect key="frame" x="192" y="821.5" width="0.0" height="0.0"/>
                                                                     <fontDescription key="fontDescription" name="DINNextLTPro-Bold" family="DIN Next LT Pro" pointSize="18"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <button hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JdQ-Pc-OuW">
+                                                                <button hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JdQ-Pc-OuW">
                                                                     <rect key="frame" x="83" y="776.5" width="218" height="35"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="35" id="9p5-5W-vjz"/>
@@ -5916,7 +5900,7 @@
                                                                         <action selector="locationButtonTouchDown:" destination="Yca-Db-zxx" eventType="touchDown" id="swg-ls-0aa"/>
                                                                     </connections>
                                                                 </button>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DMY-MT-PPV" customClass="UnderlinedLabel" customModule="QatarMuseums" customModuleProvider="target">
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DMY-MT-PPV" customClass="UnderlinedLabel" customModule="QatarMuseums" customModuleProvider="target">
                                                                     <rect key="frame" x="192" y="841.5" width="0.0" height="0.0"/>
                                                                     <fontDescription key="fontDescription" name="DINNextLTPro-Regular" family="DIN Next LT Pro" pointSize="15"/>
                                                                     <nil key="textColor"/>
@@ -5928,7 +5912,7 @@
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hlF-09-8GN">
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hlF-09-8GN">
                                                                     <rect key="frame" x="192" y="505" width="0.0" height="22"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="22" id="Ryz-2L-XDK"/>
@@ -5937,13 +5921,13 @@
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="XLS-n4-uzE">
+                                                                <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="XLS-n4-uzE">
                                                                     <rect key="frame" x="0.0" y="505" width="384" height="264"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="264" id="1rr-Xq-JdX"/>
                                                                     </constraints>
                                                                 </mapView>
-                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5iE-Sd-knu">
+                                                                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5iE-Sd-knu">
                                                                     <rect key="frame" x="0.0" y="505" width="384" height="264"/>
                                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 </view>
@@ -6322,7 +6306,7 @@
         <!--Map View Controller-->
         <scene sceneID="Gsj-Nn-Vxm">
             <objects>
-                <viewController storyboardIdentifier="mapViewId" id="Bhx-9M-Ddr" customClass="CPMapViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="mapViewId" modalPresentationStyle="fullScreen" id="Bhx-9M-Ddr" customClass="CPMapViewController" customModule="QatarMuseums" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jjR-Ug-UQc"/>
                         <viewControllerLayoutGuide type="bottom" id="vhE-dA-7H5"/>
@@ -6412,10 +6396,10 @@
         <image name="up_arrowX2" width="93" height="54"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="sBl-n6-gHM"/>
+        <segue reference="q5d-pS-Wk4"/>
         <segue reference="flV-LF-tzN"/>
-        <segue reference="rjQ-yI-tVc"/>
-        <segue reference="tXC-tz-XiI"/>
-        <segue reference="YLB-FU-qXW"/>
+        <segue reference="ffd-l4-w9g"/>
+        <segue reference="neY-UC-ndh"/>
+        <segue reference="Nmg-Zy-CKp"/>
     </inferredMetricsTieBreakers>
 </document>
