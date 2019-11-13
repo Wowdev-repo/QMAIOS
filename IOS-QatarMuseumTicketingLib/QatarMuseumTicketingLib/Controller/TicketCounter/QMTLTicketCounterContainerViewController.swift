@@ -663,7 +663,7 @@ class QMTLTicketCounterContainerViewController: UIViewController,UICollectionVie
             infoLbl2.text = ""
             
             divisionListPagerViewHeightContraint.constant = 10
-            infoContainerViewHeightConstraint.constant = 40
+            infoContainerViewHeightConstraint.constant = 60
             
             divisionListPagerView.isHidden = true
             headerLblView.isHidden = true
