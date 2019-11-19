@@ -58,7 +58,8 @@ class PaymentGatewayViewController: UIViewController, WKNavigationDelegate, APIS
     
     override func viewWillAppear(_ animated: Bool) {
         tabViewController =  self.navigationController?.tabBarController as! QMTLTabViewController
-        tabViewController.topTabBarView.isHidden = true
+//        tabViewController.topTabBarView.isHidden = true
+        tabViewController.topTabBarView.isHidden = false
         
     }
     
@@ -178,4 +179,10 @@ class PaymentGatewayViewController: UIViewController, WKNavigationDelegate, APIS
         self.present(alert, animated: true, completion: nil)
     }
 
+    //MARK:- TabBar Delegate
+    
+    func backBtnSelected() {
+        print("Guest page backBtnSelected")
+        self.navigationController?.popViewController(animated: true)
+    }
 }

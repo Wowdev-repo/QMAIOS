@@ -68,7 +68,8 @@ class PrintTicketViewController: UIViewController {
         hud.show(in: self.view)
         
         tabViewController =  self.navigationController?.tabBarController as! QMTLTabViewController
-        tabViewController.topTabBarView.isHidden = true
+        tabViewController.topTabBarView.isHidden = false
+//        tabViewController.topTabBarView.isHidden = true
         
     }
     
@@ -182,6 +183,12 @@ class PrintTicketViewController: UIViewController {
         })
     }
     
+    //MARK:- TabBar Delegate
+    
+    func backBtnSelected() {
+        print("Guest page backBtnSelected")
+        self.navigationController?.popViewController(animated: true)
+    }
     //MARK:- Localization
     
     func getLocalizedStr(str : String) -> String{
